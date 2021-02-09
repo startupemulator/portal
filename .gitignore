@@ -63,13 +63,13 @@ typings/
 .cache
 
 # next.js build output
-.next
+# .next
 
 # nuxt.js build output
-.nuxt
+# .nuxt
 
 # Nuxt generate
-dist
+# dist
 
 # vuepress build output
 .vuepress/dist

@@ -1,0 +1,20 @@
+{
+  "AppGetExperience": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appGetExperience.vue"
+  },
+  "LazyAppGetExperience": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appGetExperience.vue"
+  },
+  "AppHeader": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appHeader.vue"
+  },
+  "LazyAppHeader": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appHeader.vue"
+  },
+  "Logo": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/Logo.vue"
+  },
+  "LazyLogo": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/Logo.vue"
+  }
+}
