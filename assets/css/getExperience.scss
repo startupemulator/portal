@@ -97,7 +97,7 @@
         }
     }
     
-    @media (min-width: 1024px) {
+    @media (min-width: 1280px) {
         .get-experience {
             padding-top: 50px;
             .experience-content__second-image,
@@ -108,8 +108,17 @@
             }
             .get-experience-content {
                 position: relative;
-                max-width: 1440px;
                 margin: 0 auto;
+                button {
+                    margin-top: 4px;
+                    width: 234px;
+                    padding: 10px 20px;
+                    font-size: 18px;
+                    line-height: 32px;
+                }
+                .button-startups {
+                    margin-right: 24px;
+                }
             }
             .get-experience-content {
                 position: relative;
@@ -131,6 +140,7 @@
             .descktop-1,
             .descktop-2 {
                 width: 1290px;
+                max-width: 1290px;
                 margin: 0 auto;
                 display: flex;
                 justify-content: space-between;

@@ -15,6 +15,9 @@ export default {
         ]
     },
     target: 'static', // default is 'server'
+    generate: {
+        crawler: false
+    },
     // Global CSS: https://go.nuxtjs.dev/config-css
     css: ['@/assets/css/main.scss'],
 
