@@ -8,11 +8,11 @@
         display: none;
     }
     .get-experience-content .get-experience-content-mobile {
-        max-width: 100%;
-        margin: 0 auto;
+        // max-width: 100%;
         margin-top: 15px;
         display: flex;
         overflow: hidden;
+        justify-content: space-between;
         .experience-content__second-mobile-image {
             position: relative;
             right: 20px;
