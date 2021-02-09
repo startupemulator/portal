@@ -9,10 +9,12 @@
     }
     .get-experience-content .get-experience-content-mobile {
         // max-width: 100%;
+        margin: 0 auto;
         margin-top: 15px;
         display: flex;
         overflow: hidden;
         justify-content: space-between;
+        max-width: 375px;
     }
 }
 
