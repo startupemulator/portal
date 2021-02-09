@@ -1,0 +1,96 @@
+.get-experience {
+    min-height: 477px;
+    background: radial-gradient(51.76% 50.84% at 50.13% 56.01%, #3B465A 0%, rgba(33, 41, 55, 0) 100%);
+    .experience-content__second-image,
+    .experience-content__third-image,
+    .experience-content__first-image,
+    .experience-content__four-image {
+        display: none;
+    }
+    .get-experience-content .get-experience-content-mobile {
+        max-width: 100%;
+        margin: 0 auto;
+        margin-top: 15px;
+        display: flex;
+        overflow: hidden;
+        .experience-content__second-mobile-image {
+            position: relative;
+            right: 20px;
+        }
+    }
+}
+
+.experience-content__title {
+    display: flex;
+    flex-direction: column;
+    h2 {
+        position: relative;
+        width: 343px;
+        color: $main-text-color;
+        font-weight: bold;
+        font-size: 36px;
+        line-height: 40px;
+        text-align: center;
+        margin: 0 auto;
+        margin-top: 23px;
+        z-index: 2;
+        &::before {
+            position: absolute;
+            content: "";
+            width: 197px;
+            height: 4px;
+            right: 10px;
+            top: 36px;
+            background: #3CC28D;
+            box-shadow: 0px -2px 8px rgba(60, 194, 141, 0.3), 0px 2px 8px rgba(60, 194, 141, 0.3);
+            border-radius: 78px;
+            z-index: -1;
+        }
+        &::after {
+            position: absolute;
+            content: "";
+            width: 218px;
+            height: 4px;
+            right: 42px;
+            top: 76px;
+            background: #19ADC7;
+            box-shadow: 0px -2px 8px rgba(25, 173, 199, 0.3), 0px 2px 8px rgba(25, 173, 199, 0.3), inset 0px -2px 4px 1px rgba(22, 135, 155, 0.15), inset 0px 1px 4px rgba(255, 255, 255, 0.15);
+            border-radius: 78px;
+            z-index: -1;
+        }
+    }
+    .get-experience-content {
+        margin: 0 auto;
+        padding: 8px 20px;
+        line-height: 32px;
+        font-weight: bold;
+        font-size: 17px;
+        width: 343px;
+    }
+    .button-startups {
+        margin-top: 43px;
+        background-color: $button-color-blue;
+        &:hover {
+            background-color: $button-color-blue-hover;
+        }
+        &:focus {
+            background-color: $button-color-blue-focus
+        }
+        &:active {
+            background-color: $button-color-blue-active
+        }
+    }
+    .button-challenges {
+        margin-top: 16px;
+        background-color: $button-color-gray;
+        &:hover {
+            background-color: $button-color-gray-hover;
+        }
+        &:focus {
+            background-color: $button-color-gray-focus
+        }
+        &:active {
+            background-color: $button-color-gray-active
+        }
+    }
+}

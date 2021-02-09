@@ -1,0 +1,110 @@
+.main-header {
+    box-shadow: inset 0px -1px 0px #3B465A;
+    .main-header-content {
+        display: flex;
+        min-height: 72px;
+        margin: 0 16px;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .main-headr-logo {
+        display: flex;
+    }
+    .main-headr-logo h2 {
+        display: none;
+    }
+    .main-headr-logo img {
+        height: 40px;
+        width: 40px;
+    }
+    .main-header__nav {
+        display: none;
+    }
+    .main-header-buttons {
+        .header-btn {
+            padding: $medium-button;
+            font-size: 18px;
+        }
+        .button-sign-up {
+            background-color: $button-color-blue;
+            margin-right: 3px;
+            &:hover {
+                background-color: $button-color-blue-hover;
+            }
+            &:focus {
+                background-color: $button-color-blue-focus
+            }
+            &:active {
+                background-color: $button-color-blue-active
+            }
+        }
+        .button-login {
+            background-color: $button-color-gray;
+            &:hover {
+                background-color: $button-color-gray-hover;
+            }
+            &:focus {
+                background-color: $button-color-gray-focus
+            }
+            &:active {
+                background-color: $button-color-gray-active
+            }
+        }
+    }
+}
+
+@media (min-width: 1024px) {
+    .main-header {
+        .main-header-content {
+            min-height: 96px;
+            margin: 0 48px;
+        }
+        .main-headr-logo h2 {
+            display: inline-block;
+            color: #837CF3;
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 32px;
+            margin-left: 16px;
+        }
+        .main-headr-logo img {
+            height: 48px;
+            width: 48px;
+        }
+        .main-headr-logo {
+            display: flex;
+            align-items: center;
+        }
+        .main-header-buttons {
+            .header-btn {
+                padding: $big-button;
+                font-size: 18px;
+            }
+            .button-login {
+                margin-right: 20px;
+            }
+        }
+    }
+    .main-header__nav {
+        display: block;
+        a {
+            color: #8C97AC;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 32px;
+        }
+        img {
+            margin-right: 14px;
+        }
+        .nav-list {
+            display: flex;
+        }
+        .nav-item {
+            padding: 12px 24px 12px 30px;
+        }
+        a {
+            display: flex;
+            align-items: center;
+        }
+    }
+}

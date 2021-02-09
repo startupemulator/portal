@@ -1,0 +1,20 @@
+body {
+    font-family: $font-stack;
+    background-color: $background-color;
+}
+
+button {
+    color: $button-color;
+    cursor: pointer;
+    border: none;
+    border-radius: 12px;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
