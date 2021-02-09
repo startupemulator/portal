@@ -20,6 +20,7 @@ import {
 import { createApp, NuxtError } from './index.js'
 import fetchMixin from './mixins/fetch.client'
 import NuxtLink from './components/nuxt-link.client.js' // should be included after ./index.js
+import './jsonp'
 
 // Fetch mixin
 if (!Vue.__nuxt__fetch__mixin__) {
@@ -387,7 +388,15 @@ async function render (to, from, next) {
 
       // Call asyncData(context)
       if (hasAsyncData) {
-        const promise = promisify(Component.options.asyncData, app.context)
+          let promise
+
+          if (this.isPreview || spaFallback) {
+            promise = promisify(Component.options.asyncData, app.context)
+          } else {
+              promise = this.fetchPayload(to.path)
+                .then(payload => payload.data[i])
+                .catch(_err => promisify(Component.options.asyncData, app.context)) // Fallback
+          }
 
         promise.then((asyncDataResult) => {
           applyAsyncData(Component, asyncDataResult)
@@ -399,8 +408,20 @@ async function render (to, from, next) {
         promises.push(promise)
       }
 
+      if (!this.isPreview && !spaFallback) {
+        // Replay store mutations, catching to avoid error page on SPA fallback
+        promises.push(this.fetchPayload(to.path).then(payload => {
+          payload.mutations.forEach(m => { this.$store.commit(m[0], m[1]) })
+        }).catch(err => null))
+      }
+
       // Check disabled page loading
       this.$loading.manual = Component.options.loading === false
+
+        if (!this.isPreview && !spaFallback) {
+          // Catching the error here for letting the SPA fallback and normal fetch behaviour
+          promises.push(this.fetchPayload(to.path).catch(err => null))
+        }
 
       // Call fetch(context)
       if (hasFetch) {
@@ -556,6 +577,14 @@ async function mountApp (__app) {
   // Create Vue instance
   const _app = new Vue(app)
 
+  // Load page chunk
+  if (!NUXT.data && NUXT.serverRendered) {
+    try {
+      const payload = await _app.fetchPayload(NUXT.routePath || _app.context.route.path)
+      Object.assign(NUXT, payload)
+    } catch (err) {}
+  }
+
   // Load layout
   const layout = NUXT.layout || 'default'
   await _app.loadLayout(layout)
@@ -602,8 +631,7 @@ async function mountApp (__app) {
   // Fix in static: remove trailing slash to force hydration
   // Full static, if server-rendered: hydrate, to allow custom redirect to generated page
 
-  // Fix in static: remove trailing slash to force hydration
-  if (NUXT.serverRendered && isSamePath(NUXT.routePath, _app.context.route.path)) {
+  if (NUXT.serverRendered) {
     return mount()
   }
 

@@ -79,14 +79,39 @@ var component = Object(componentNormalizer["a" /* default */])(
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/appGetExperience.vue?vue&type=template&id=484aa5c0&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"get-experience"},[_vm._ssrNode("<div class=\"get-experience-content\"><div class=\"get-experience-content-mobile\"><div class=\"experience-content__first-mobile-image\"><img"+(_vm._ssrAttr("src",__webpack_require__(35)))+" alt></div> <div class=\"experience-content__second-mobile-image\"><img"+(_vm._ssrAttr("src",__webpack_require__(36)))+" alt></div></div> <div class=\"experience-content__first-image\"><img"+(_vm._ssrAttr("src",__webpack_require__(37)))+" alt></div> <div class=\"experience-content__second-image\"><img"+(_vm._ssrAttr("src",__webpack_require__(38)))+" alt></div> <div class=\"experience-content__third-image\"><img"+(_vm._ssrAttr("src",__webpack_require__(39)))+" alt></div> <div class=\"experience-content__four-image\"><img"+(_vm._ssrAttr("src",__webpack_require__(40)))+" alt></div> <div class=\"experience-content__five-image experience-content__title\"><h2>Get an experience in real projects</h2> <button type=\"button\" class=\"get-experience-content button-startups\">Explore Startups</button> <button type=\"button\" class=\"get-experience-content button-challenges\">Explore Challenges</button></div></div>")])}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/appGetExperience.vue?vue&type=template&id=05e052cc&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"get-experience"},[_vm._ssrNode("<div class=\"get-experience-content\"><div class=\"get-experience-content-mobile\"><div class=\"experience-content__first-mobile-image\"><img"+(_vm._ssrAttr("src",__webpack_require__(35)))+" alt></div> <div class=\"experience-content__second-mobile-image\"><img"+(_vm._ssrAttr("src",__webpack_require__(36)))+" alt></div></div> <div class=\"get-experience-content-descktop\"><div class=\"descktop-1\"><div class=\"experience-content__first-image\"><img"+(_vm._ssrAttr("src",__webpack_require__(37)))+" alt></div> <div class=\"experience-content__second-image\"><img"+(_vm._ssrAttr("src",__webpack_require__(38)))+" alt></div></div> <div class=\"descktop-2\"><div class=\"experience-content__third-image\"><img"+(_vm._ssrAttr("src",__webpack_require__(39)))+" alt></div> <div class=\"experience-content__four-image\"><img"+(_vm._ssrAttr("src",__webpack_require__(40)))+" alt></div></div></div> <div class=\"experience-content__five-image experience-content__title\"><h2>Get an experience in real projects</h2> <div class=\"button-startups--groupe\"><button type=\"button\" class=\"get-experience-content button-startups\">\n          Explore Startups\n        </button> <button type=\"button\" class=\"get-experience-content button-challenges\">\n          Explore Challenges\n        </button></div></div></div>")])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./components/appGetExperience.vue?vue&type=template&id=484aa5c0&
+// CONCATENATED MODULE: ./components/appGetExperience.vue?vue&type=template&id=05e052cc&
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/appGetExperience.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //

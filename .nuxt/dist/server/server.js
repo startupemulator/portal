@@ -672,7 +672,7 @@ var ___CSS_LOADER_URL_REPLACEMENT_0___ = ___CSS_LOADER_GET_URL_IMPORT___(___CSS_
 var ___CSS_LOADER_URL_REPLACEMENT_1___ = ___CSS_LOADER_GET_URL_IMPORT___(___CSS_LOADER_URL_IMPORT_1___);
 var ___CSS_LOADER_URL_REPLACEMENT_2___ = ___CSS_LOADER_GET_URL_IMPORT___(___CSS_LOADER_URL_IMPORT_2___);
 // Module
-exports.push([module.i, "/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}main{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;-webkit-text-decoration:underline dotted;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}[hidden],template{display:none}@font-face{font-family:\"Inter\";font-style:normal;font-weight:500;src:url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ") format(\"woff2\")}@font-face{font-family:\"Inter\";font-style:bold;font-weight:600;src:url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ") format(\"woff2\")}@font-face{font-family:\"Inter\";font-style:bolder;font-weight:700;src:url(" + ___CSS_LOADER_URL_REPLACEMENT_2___ + ") format(\"woff2\")}body{font-family:\"Inter\",sans-serif;background-color:#1c232f}button{color:#fff;cursor:pointer;border:none;border-radius:12px;font-size:17px}a{text-decoration:none}li{list-style:none}.main-header{box-shadow:inset 0 -1px 0 #3b465a}.main-header .main-header-content{display:flex;min-height:72px;margin:0 16px;justify-content:space-between;align-items:center}.main-header .main-headr-logo{display:flex}.main-header .main-headr-logo h2{display:none}.main-header .main-headr-logo img{height:40px;width:40px}.main-header .main-header__nav{display:none}.main-header .main-header-buttons .header-btn{padding:9px 24px;font-size:18px}.main-header .main-header-buttons .button-sign-up{background-color:#4b4ac8;margin-right:3px}.main-header .main-header-buttons .button-sign-up:hover{background-color:#5e56f0}.main-header .main-header-buttons .button-sign-up:active,.main-header .main-header-buttons .button-sign-up:focus{background-color:#4b4ac8}.main-header .main-header-buttons .button-login{background-color:#3b465a}.main-header .main-header-buttons .button-login:hover{background-color:#59667e}.main-header .main-header-buttons .button-login:active,.main-header .main-header-buttons .button-login:focus{background-color:#3b465a}@media(min-width:1024px){.main-header .main-header-content{min-height:96px;margin:0 48px}.main-header .main-headr-logo h2{display:inline-block;color:#837cf3;font-weight:600;font-size:20px;line-height:32px;margin-left:16px}.main-header .main-headr-logo img{height:48px;width:48px}.main-header .main-headr-logo{display:flex;align-items:center}.main-header .main-header-buttons .header-btn{padding:16px 32px;font-size:18px}.main-header .main-header-buttons .button-login{margin-right:20px}.main-header .main-header__nav{display:block}.main-header__nav a{color:#8c97ac;font-weight:500;font-size:18px;line-height:32px}.main-header__nav img{margin-right:14px}.main-header__nav .nav-list{display:flex}.main-header__nav .nav-item{padding:12px 24px 12px 30px}.main-header__nav a{display:flex;align-items:center}}.get-experience{min-height:477px;background:radial-gradient(51.76% 50.84% at 50.13%,at 56.01%,#3b465a 0,rgba(33,41,55,0) 100%);background:radial-gradient(51.76% 50.84% at 50.13% 56.01%,#3b465a 0,rgba(33,41,55,0) 100%)}.get-experience .experience-content__first-image,.get-experience .experience-content__four-image,.get-experience .experience-content__second-image,.get-experience .experience-content__third-image{display:none}.get-experience .get-experience-content .get-experience-content-mobile{margin:15px auto 0;display:flex;overflow:hidden;justify-content:space-between;max-width:375px}.experience-content__title{display:flex;flex-direction:column}.experience-content__title h2{position:relative;width:343px;color:#fff;font-weight:700;font-size:36px;line-height:40px;text-align:center;margin:23px auto 0;z-index:2}.experience-content__title h2:before{position:absolute;content:\"\";width:197px;height:4px;right:10px;top:36px;background:#3cc28d;box-shadow:0 -2px 8px rgba(60,194,141,.3),0 2px 8px rgba(60,194,141,.3);border-radius:78px;z-index:-1}.experience-content__title h2:after{position:absolute;content:\"\";width:218px;height:4px;right:42px;top:76px;background:#19adc7;box-shadow:0 -2px 8px rgba(25,173,199,.3),0 2px 8px rgba(25,173,199,.3),inset 0 -2px 4px 1px rgba(22,135,155,.15),inset 0 1px 4px hsla(0,0%,100%,.15);border-radius:78px;z-index:-1}.experience-content__title .get-experience-content{margin:0 auto;padding:8px 20px;line-height:32px;font-weight:700;font-size:17px;width:343px}.experience-content__title .button-startups{margin-top:43px;background-color:#4b4ac8}.experience-content__title .button-startups:hover{background-color:#5e56f0}.experience-content__title .button-startups:active,.experience-content__title .button-startups:focus{background-color:#4b4ac8}.experience-content__title .button-challenges{margin-top:16px;background-color:#3b465a}.experience-content__title .button-challenges:hover{background-color:#59667e}.experience-content__title .button-challenges:active,.experience-content__title .button-challenges:focus{background-color:#3b465a}", ""]);
+exports.push([module.i, "/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}main{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;-webkit-text-decoration:underline dotted;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}[hidden],template{display:none}@font-face{font-family:\"Inter\";font-style:normal;font-weight:500;src:url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ") format(\"woff2\")}@font-face{font-family:\"Inter\";font-style:bold;font-weight:600;src:url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ") format(\"woff2\")}@font-face{font-family:\"Inter\";font-style:bolder;font-weight:700;src:url(" + ___CSS_LOADER_URL_REPLACEMENT_2___ + ") format(\"woff2\")}body{font-family:\"Inter\",sans-serif;background-color:#1c232f}button{color:#fff;cursor:pointer;border:none;border-radius:12px;font-size:17px}a{text-decoration:none}li{list-style:none}.main-header{box-shadow:inset 0 -1px 0 #3b465a}.main-header .main-header-content{display:flex;min-height:72px;margin:0 16px;justify-content:space-between;align-items:center}.main-header .main-headr-logo{display:flex}.main-header .main-headr-logo h2{display:none}.main-header .main-headr-logo img{height:40px;width:40px}.main-header .main-header__nav{display:none}.main-header .main-header-buttons .header-btn{padding:9px 24px;font-size:18px}.main-header .main-header-buttons .button-sign-up{background-color:#4b4ac8;margin-right:3px}.main-header .main-header-buttons .button-sign-up:hover{background-color:#5e56f0}.main-header .main-header-buttons .button-sign-up:active,.main-header .main-header-buttons .button-sign-up:focus{background-color:#4b4ac8}.main-header .main-header-buttons .button-login{background-color:#3b465a}.main-header .main-header-buttons .button-login:hover{background-color:#59667e}.main-header .main-header-buttons .button-login:active,.main-header .main-header-buttons .button-login:focus{background-color:#3b465a}@media(min-width:1024px){.main-header .main-header-content{min-height:96px;margin:0 48px}.main-header .main-headr-logo h2{display:inline-block;color:#837cf3;font-weight:600;font-size:20px;line-height:32px;margin-left:16px}.main-header .main-headr-logo img{height:48px;width:48px}.main-header .main-headr-logo{display:flex;align-items:center}.main-header .main-header-buttons .header-btn{padding:16px 32px;font-size:18px}.main-header .main-header-buttons .button-login{margin-right:20px}.main-header .main-header__nav{display:block}.main-header__nav a{color:#8c97ac;font-weight:500;font-size:18px;line-height:32px}.main-header__nav img{margin-right:14px}.main-header__nav .nav-list{display:flex}.main-header__nav .nav-item{padding:12px 24px 12px 30px}.main-header__nav a{display:flex;align-items:center}}.get-experience{min-height:477px;background:radial-gradient(51.76% 50.84% at 50.13%,at 56.01%,#3b465a 0,rgba(33,41,55,0) 100%);background:radial-gradient(51.76% 50.84% at 50.13% 56.01%,#3b465a 0,rgba(33,41,55,0) 100%)}.get-experience .experience-content__first-image,.get-experience .experience-content__four-image,.get-experience .experience-content__second-image,.get-experience .experience-content__third-image{display:none}.get-experience .get-experience-content .get-experience-content-mobile{margin:15px auto 0;display:flex;overflow:hidden;justify-content:space-between;max-width:375px}.experience-content__title{display:flex;flex-direction:column}.experience-content__title h2{position:relative;width:343px;color:#fff;font-weight:700;font-size:36px;line-height:40px;text-align:center;margin:23px auto 0;z-index:2}.experience-content__title h2:before{position:absolute;content:\"\";width:197px;height:4px;right:10px;top:36px;background:#3cc28d;box-shadow:0 -2px 8px rgba(60,194,141,.3),0 2px 8px rgba(60,194,141,.3);border-radius:78px;z-index:-1}.experience-content__title h2:after{position:absolute;content:\"\";width:218px;height:4px;right:42px;top:76px;background:#19adc7;box-shadow:0 -2px 8px rgba(25,173,199,.3),0 2px 8px rgba(25,173,199,.3),inset 0 -2px 4px 1px rgba(22,135,155,.15),inset 0 1px 4px hsla(0,0%,100%,.15);border-radius:78px;z-index:-1}.experience-content__title .get-experience-content{margin:0 auto;padding:8px 20px;line-height:32px;font-weight:700;font-size:17px;width:343px}.experience-content__title .button-startups--groupe{margin:0 auto;display:flex;flex-direction:column}.experience-content__title .button-startups{margin-top:43px;background-color:#4b4ac8}.experience-content__title .button-startups:hover{background-color:#5e56f0}.experience-content__title .button-startups:active,.experience-content__title .button-startups:focus{background-color:#4b4ac8}.experience-content__title .button-challenges{margin-top:16px;background-color:#3b465a}.experience-content__title .button-challenges:hover{background-color:#59667e}.experience-content__title .button-challenges:active,.experience-content__title .button-challenges:focus{background-color:#3b465a}@media(min-width:1024px){.get-experience{padding-top:50px}.get-experience .experience-content__first-image,.get-experience .experience-content__four-image,.get-experience .experience-content__second-image,.get-experience .experience-content__third-image{display:block}.get-experience .get-experience-content{max-width:1440px;margin:0 auto;position:relative}.get-experience .experience-content__five-image{position:absolute;top:130px;width:100%;display:flex;justify-content:center}.get-experience .get-experience-content .get-experience-content-mobile{display:none}.get-experience .get-experience-content-descktop{display:flex;flex-direction:column}.get-experience .descktop-1,.get-experience .descktop-2{width:1290px;margin:0 auto;display:flex;justify-content:space-between}.get-experience .descktop-2{margin-top:-10px}.get-experience .descktop-2 .experience-content__four-image{margin-top:20px}.get-experience .button-startups--groupe{margin-top:48px;flex-direction:row}.experience-content__title h2{position:relative;width:640px;color:#fff;font-weight:800;font-size:69px;line-height:80px;text-align:center;margin:23px auto 0;z-index:2}.experience-content__title h2:before{width:384px;top:73px;height:8px}.experience-content__title h2:after{width:428px;top:153px;right:65px;height:8px}}", ""]);
 // Exports
 module.exports = exports;
 
@@ -942,7 +942,7 @@ async function setContext(app, context) {
   // If context not defined, create it
   if (!app.context) {
     app.context = {
-      isStatic: false,
+      isStatic: true,
       isDev: false,
       isHMR: false,
       app,
@@ -953,13 +953,9 @@ async function setContext(app, context) {
       env: {}
     }; // Only set once
 
-    if ( true && context.req) {
-      app.context.req = context.req;
-    }
+    if (false) {}
 
-    if ( true && context.res) {
-      app.context.res = context.res;
-    }
+    if (false) {}
 
     if (context.ssrContext) {
       app.context.ssrContext = context.ssrContext;
@@ -2218,6 +2214,16 @@ const layouts = {
 
   async mounted() {
     this.$loading = this.$refs.loading;
+
+    if (this.isPreview) {
+      if (this.$store && this.$store._actions.nuxtServerInit) {
+        this.$loading.start();
+        await this.$store.dispatch('nuxtServerInit', this.context);
+      }
+
+      await this.refresh();
+      this.$loading.finish();
+    }
   },
 
   watch: {
@@ -2230,6 +2236,10 @@ const layouts = {
 
     isFetching() {
       return this.nbFetching > 0;
+    },
+
+    isPreview() {
+      return Boolean(this.$options.previewData);
     }
 
   },
@@ -2322,6 +2332,57 @@ const layouts = {
       }
 
       return Promise.resolve(layouts['_' + layout]);
+    },
+
+    getRouterBase() {
+      return (this.$router.options.base || '').replace(/\/+$/, '');
+    },
+
+    getRoutePath(route = '/') {
+      const base = this.getRouterBase();
+
+      if (base && route.startsWith(base)) {
+        route = route.substr(base.length);
+      }
+
+      return (route.replace(/\/+$/, '') || '/').split('?')[0].split('#')[0];
+    },
+
+    getStaticAssetsPath(route = '/') {
+      const {
+        staticAssetsBase
+      } = window.__NUXT__;
+      return urlJoin(staticAssetsBase, this.getRoutePath(route));
+    },
+
+    async fetchStaticManifest() {
+      return window.__NUXT_IMPORT__('manifest.js', encodeURI(urlJoin(this.getStaticAssetsPath(), 'manifest.js')));
+    },
+
+    setPagePayload(payload) {
+      this._pagePayload = payload;
+      this._payloadFetchIndex = 0;
+    },
+
+    async fetchPayload(route) {
+      const manifest = await this.fetchStaticManifest();
+      const path = this.getRoutePath(route);
+
+      if (!manifest.routes.includes(path)) {
+        this.setPagePayload(false);
+        throw new Error(`Route ${path} is not pre-rendered`);
+      }
+
+      const src = urlJoin(this.getStaticAssetsPath(route), 'payload.js');
+
+      try {
+        const payload = await window.__NUXT_IMPORT__(decodeURI(route), encodeURI(src));
+        this.setPagePayload(payload);
+        return payload;
+      } catch (err) {
+        this.setPagePayload(false);
+        throw err;
+      }
     }
 
   },
@@ -2966,7 +3027,9 @@ const createNext = ssrContext => opts => {
     routePath: ''
   }; // Remove query from url is static target
 
-  if (false) {} // Public runtime config
+  if ( true && ssrContext.url) {
+    ssrContext.url = ssrContext.url.split('?')[0];
+  } // Public runtime config
 
 
   ssrContext.nuxt.config = ssrContext.runtimeConfig.public; // Create the app definition and the instance (created for each request)
@@ -2997,7 +3060,9 @@ const createNext = ssrContext => opts => {
 
     ssrContext.rendered = () => {
       // Add the state from the vuex store
-      ssrContext.nuxt.state = store.state;
+      ssrContext.nuxt.state = store.state; // Stop recording store mutations
+
+      ssrContext.unsetMutationObserver();
     };
   };
 
@@ -3079,11 +3144,16 @@ const createNext = ssrContext => opts => {
 
   if (ssrContext.nuxt.error) {
     return renderErrorPage();
-  }
+  } // Record store mutations for full-static after nuxtServerInit and Middleware
+
+
+  ssrContext.nuxt.mutations = [];
+  ssrContext.unsetMutationObserver = store.subscribe(m => {
+    ssrContext.nuxt.mutations.push([m.type, m.payload]);
+  });
   /*
   ** Set layout
   */
-
 
   let layout = Components.length ? Components[0].options.layout : nuxt_error.layout;
 
