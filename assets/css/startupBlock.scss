@@ -1,0 +1,346 @@
+        .startup-block.challenges {
+            margin-top: 58px;
+            .tartup-block-buttton {
+                margin-top: 13px;
+            }
+            .startup-card__started-name {
+                padding-top: 32px;
+            }
+            h3 {
+                margin-bottom: 0;
+            }
+            .startup-card {
+                margin-top: 0;
+            }
+            .startup-card__started-text {
+                margin-top: 5px;
+            }
+            .startup-card {
+                width: 327px;
+                min-height: 418px;
+            }
+        }
+        
+        .startup-block {
+            min-height: 654px;
+            margin-top: 40px;
+            .startup-block-content {
+                margin: 0px 16px;
+            }
+            .desctop-buttons__slider {
+                display: none;
+            }
+            h2 {
+                color: $main-text-color;
+                font-weight: bold;
+                font-size: 36px;
+                line-height: 40px;
+                margin: 0;
+            }
+            h3 {
+                color: $main-text-color;
+                font-weight: normal;
+                font-size: 16px;
+                line-height: 22px;
+            }
+            .tartup-block-buttton {
+                display: flex;
+                align-items: center;
+            }
+            button {
+                color: #8C97AC;
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 24px;
+                background-color: transparent;
+                margin-top: 16px;
+                padding: 0;
+                img {
+                    margin-left: 10px;
+                    // margin-top: 5px; 
+                }
+            }
+            .startup-block__startup-cards {
+                display: flex;
+                overflow: hidden;
+            }
+            .startup-card {
+                width: 327px;
+                min-height: 446px;
+                background: #2E384A;
+                box-shadow: 0px 8px 24px rgba(28, 35, 48, 0.2);
+                border-radius: 12px;
+                margin-left: 16px;
+                margin-top: 5px;
+                .startup-card__started {
+                    width: 117px;
+                    height: 44px;
+                    background: #283040;
+                    box-shadow: inset 2px -2px 8px rgba(28, 35, 48, 0.25);
+                    border-radius: 0px 12px 0px 16px;
+                    margin-left: auto;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .startup-card__started-title {
+                    background: #8C97AC;
+                    box-shadow: 0px -2px 8px rgba(140, 151, 172, 0.3), 0px 2px 8px rgba(140, 151, 172, 0.3);
+                    border-radius: 14px;
+                    padding: 2px 12px;
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 24px;
+                    color: $main-text-color;
+                }
+            }
+            .startup-card-content {
+                padding: 0 24px;
+            }
+            .startup-card__started-name {
+                font-weight: bold;
+                font-size: 26px;
+                line-height: 32px;
+                color: $main-text-color;
+                margin-top: 20px;
+                min-height: 70px;
+            }
+            .startup-card__started-text {
+                color: $main-text-color;
+                font-size: 16px;
+                line-height: 22px;
+                width: 250px;
+                margin: 0;
+            }
+            .startup-card__started-technologys {
+                min-height: 84px;
+                margin-top: 14px;
+            }
+            .startup-card__started-technologys-items {
+                display: flex;
+                flex-wrap: wrap;
+                padding: 0;
+                margin: 0;
+                .startup-card__started-technology {
+                    color: $second-text-colcor;
+                    font-size: 14px;
+                    line-height: 32px;
+                    font-weight: normal;
+                    border: 1px solid #59667E;
+                    box-sizing: border-box;
+                    border-radius: 32px;
+                    padding: 0 16px;
+                    margin: 0px 2px 8px 0px;
+                }
+            }
+            .startup-card__started-start-time {
+                display: flex;
+                h3 {
+                    margin: 0;
+                    margin-top: 3px;
+                    color: #8C97AC;
+                    font-weight: normal;
+                    font-size: 14px;
+                    line-height: 20px;
+                }
+                p {
+                    margin: 0;
+                    color: $main-text-color;
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 20px;
+                }
+                .started-start-time__start {
+                    width: 50%;
+                    margin-right: 25px;
+                }
+                .started-start-time__duration {
+                    width: 50%;
+                }
+            }
+            .startup-block__buttons {
+                margin-top: 10px;
+                display: flex;
+                .tartup-block__button-details {
+                    background-color: $button-color-gray;
+                    padding: 8px 24px;
+                    color: $button-color;
+                    font-weight: bold;
+                    font-size: 17px;
+                    line-height: 32px;
+                    margin-right: 8px;
+                    min-width: 135px;
+                    box-shadow: inset 0px -2px 4px 1px rgba(48, 92, 178, 0.15), inset 0px 1px 4px rgba(255, 255, 255, 0.15);
+                    &:hover {
+                        background-color: $button-color-gray-hover;
+                    }
+                    &:focus {
+                        background-color: $button-color-gray-focus
+                    }
+                    &:active {
+                        background-color: $button-color-gray-active
+                    }
+                }
+                .tartup-block__button-apply {
+                    padding: 8px 24px;
+                    color: $button-color;
+                    background-color: $button-color-blue;
+                    font-weight: bold;
+                    font-size: 17px;
+                    min-width: 135px;
+                    line-height: 32px;
+                    box-shadow: inset 0px -2px 4px 1px rgba(48, 92, 178, 0.15), inset 0px 1px 4px rgba(255, 255, 255, 0.15);
+                    &:hover {
+                        background-color: $button-color-blue-hover;
+                    }
+                    &:focus {
+                        background-color: $button-color-blue-focus
+                    }
+                    &:active {
+                        background-color: $button-color-blue-active
+                    }
+                }
+            }
+        }
+        
+        @media (min-width: 426px) {
+            .startup-block {
+                max-width: 1440px;
+                margin: 0 auto;
+            }
+            .startup-block.challenges {
+                min-height: 920px;
+                margin-top: 30px;
+            }
+            .startup-block {
+                min-height: 920px;
+                margin-top: 155px;
+                .startup-block-content {
+                    margin: 0px 48px;
+                }
+                .startup-block-content__desctop-buttons {
+                    display: flex;
+                    justify-content: space-between;
+                }
+                h2 {
+                    font-weight: 800;
+                    font-size: 69px;
+                    line-height: 80px;
+                }
+                h3 {
+                    color: $main-text-color;
+                    font-weight: normal;
+                    font-size: 17px;
+                    line-height: 24px;
+                    width: 459px;
+                    margin-top: 23px;
+                }
+                .tartup-block-buttton {
+                    margin-left: 55px;
+                }
+                .startup-card {
+                    width: 318px;
+                    min-height: 568px;
+                    margin-left: 24px;
+                    .startup-card__started {
+                        width: 125px;
+                        height: 52px;
+                    }
+                    .startup-card__started-title {
+                        background: #8C97AC;
+                        box-shadow: 0px -2px 8px rgba(140, 151, 172, 0.3), 0px 2px 8px rgba(140, 151, 172, 0.3);
+                        border-radius: 14px;
+                        padding: 2px 12px;
+                        font-weight: 500;
+                        font-size: 14px;
+                        line-height: 24px;
+                        color: $main-text-color;
+                    }
+                }
+                .startup-card-content {
+                    padding: 0 32px;
+                }
+                .startup-card__started-name {
+                    font-weight: bold;
+                    font-size: 35px;
+                    line-height: 38px;
+                    width: 254px;
+                    height: 80px;
+                    overflow: hidden;
+                    margin-top: 30px;
+                }
+                .startup-card__started-text {
+                    font-weight: normal;
+                    font-size: 17px;
+                    line-height: 24px;
+                    margin-top: 23px;
+                    width: 260px;
+                }
+                .startup-card__started-technologys {
+                    min-height: 84px;
+                    width: 262px;
+                    margin-top: 32px;
+                }
+                .startup-card__started-start-time {
+                    display: flex;
+                    margin-top: 20px;
+                    .started-start-time__start {
+                        margin-right: 5px;
+                    }
+                }
+                .startup-block__buttons {
+                    margin-top: 20px;
+                    display: flex;
+                    .tartup-block__button-details {
+                        padding: 12px 32px;
+                        font-weight: bold;
+                        font-size: 18px;
+                        line-height: 32px;
+                        margin-right: 12px;
+                        min-width: 121px;
+                    }
+                    .tartup-block__button-apply {
+                        padding: 0;
+                        font-weight: bold;
+                        font-size: 18px;
+                        line-height: 32px;
+                        min-width: 121px;
+                    }
+                }
+            }
+            .startup-block-content__head {
+                display: flex;
+            }
+            .desctop-buttons__slider {
+                display: flex;
+                width: 145px;
+                justify-content: space-between;
+                .slider-buttton {
+                    width: 64px;
+                    height: 64px;
+                    background-color: #3B465A;
+                    border-radius: 50%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    &:first-child img {
+                        transform: rotate(180deg);
+                    }
+                    img {
+                        margin: 0;
+                    }
+                }
+            }
+            .startup-block__startup-cards {
+                margin-top: 50px;
+                margin-left: 24px;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .startup-block {
+                h3 {
+                    width: 659px;
+                }
+            }
+        }

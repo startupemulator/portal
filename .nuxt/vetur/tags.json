@@ -1,4 +1,10 @@
 {
+  "AppChallengesBlock": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appChallengesBlock.vue"
+  },
+  "LazyAppChallengesBlock": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appChallengesBlock.vue"
+  },
   "AppGetExperience": {
     "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appGetExperience.vue"
   },
@@ -10,6 +16,12 @@
   },
   "LazyAppHeader": {
     "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appHeader.vue"
+  },
+  "AppStartupsBlock": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appStartupsBlock.vue"
+  },
+  "LazyAppStartupsBlock": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appStartupsBlock.vue"
   },
   "Logo": {
     "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/Logo.vue"
