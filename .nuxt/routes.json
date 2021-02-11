@@ -2,8 +2,8 @@
   {
     "name": "index",
     "path": "/",
-    "component": "Z:\\\\Progekts\\\\vue\\\\CoelixProdject\\\\nuxt prodject\\\\StartupEmulator\\\\pages\\\\index.vue",
+    "component": "/Users/andrii_kucherenko/Workspace/projects/starupemulator/portal/pages/index.vue",
     "chunkName": "pages/index",
-    "_name": "_4cf979ee"
+    "_name": "_082bdc60"
   }
 ]
