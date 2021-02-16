@@ -1,3 +1,10 @@
+.apply-to-team {
+    max-width: 660px;
+    // margin: 0 auto;
+    // display: flex;
+    // justify-content: center;
+}
+
 .apply-to-team-btn-back {
     background-color: transparent;
     color: #8c97ac;
@@ -7,11 +14,82 @@
     margin-top: 5px;
     display: flex;
     align-items: center;
+    margin-top: 37px;
     img {
         transform: rotate(180deg);
         margin-right: 15px;
     }
     span:hover {
         border-bottom: 1px solid #8c97ac;
+    }
+}
+
+.apply-to-team {
+    color: $main-text-color;
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+.step-1 {
+    h2 {
+        font-weight: bold;
+        font-size: 36px;
+        line-height: 40px;
+        color: #FFFFFF;
+        margin-top: 22px;
+    }
+    p {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+        padding-top: 4px;
+        margin-bottom: 12px;
+    }
+    ul {
+        padding: 0;
+        margin: 0;
+    }
+    .experience__item,
+    .experience-technologies_item {
+        // padding: 4px 16px;
+        // border: 1px solid #59667E;
+        border-radius: 32px;
+        display: inline-block;
+        margin-right: 8px;
+        margin-bottom: 10px;
+        label {
+            font-weight: 400;
+            display: inline-block;
+            font-size: 14px;
+            line-height: 32px;
+            box-sizing: border-box;
+            color: #B5C1D8;
+            border-radius: 32px;
+            padding: 4px 16px;
+            border: 1px solid #59667E;
+            // margin-bottom: 28px;
+        }
+        input:checked~label {
+            background: #59667E;
+            border: 1px solid #59667E;
+        }
+    }
+    .add-technologi {
+        background: #2E384A;
+        border-radius: 12px;
+        border: none;
+        width: 340px;
+        height: 48px;
+        box-sizing: border-box;
+        padding-left: 16px;
+        color: #B5C1D8;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 32px;
+        margin-top: 3px;
+        margin-bottom: 13px;
+        &::placeholder {
+            color: #B5C1D8;
+        }
     }
 }

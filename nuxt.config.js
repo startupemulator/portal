@@ -41,12 +41,12 @@ export default {
     axios: {},
 
 
-    // router: {
-    //     base: './',
-    //     mode: 'hash'
-    // },
+    router: {
+        base: './',
+        mode: 'hash'
+    },
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {
-        // publichPatch: '/nuxt/'
+        publichPatch: '/nuxt/'
     }
 }
