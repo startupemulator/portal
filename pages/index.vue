@@ -1,5 +1,5 @@
 <template>
-<div>
+<ydiv>
     <app-header></app-header>
     <app-get-experience></app-get-experience>
     <app-startups-block></app-startups-block>
@@ -11,7 +11,7 @@
     <app-footer> </app-footer> 
 
     
-</div>
+</ydiv>
 </template>
 
 <script>

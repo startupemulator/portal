@@ -1,32 +1,61 @@
 <template>
   <div class="account">
-    <div class="sign-up-link-popup" v-if="togglePopup">
-      <div class="sign-up-link">
-        <button type="button" class="sign-up-link__close">
-          <img
-            src="@/assets/img/Close.svg"
-            alt="Close"
-            @click="togglePopup = !togglePopup"
-          />
-        </button>
-        <h2>Sign up with the email link</h2>
-        <p>
-          Signing up link will be sent to your email. After signing up you can
-          log in in the same way.
-        </p>
-        <form>
-          <label for="account-email"></label>
-          <input type="email" placeholder="Enter your email" />
-          <button
-            type="button "
-            class="create-account-btn-sign"
-            @click.prevent=""
-          >
-            Log In
+    <transition name="slide-fade">
+      <div class="sign-up-link-popup" v-if="togglePopup">
+        <div class="sended-mail" v-if="sendEmail">
+          <button type="button" class="sign-up-link__close">
+            <img
+              src="@/assets/img/Close.svg"
+              alt="Close"
+              @click="
+                togglePopup = !togglePopup;
+                sendEmail = !sendEmail;
+              "
+            />
           </button>
-        </form>
+          <h2>Signing up link was sent</h2>
+          <h3>
+            Signing up link was sent to your email. Follow the link to create an
+            account.
+          </h3>
+        </div>
+        <div class="sign-up-link" v-if="!sendEmail">
+          <button type="button" class="sign-up-link__close">
+            <img
+              src="@/assets/img/Close.svg"
+              alt="Close"
+              @click="togglePopup = !togglePopup"
+            />
+          </button>
+          <h2>Sign up with the email link</h2>
+          <p>
+            Signing up link will be sent to your email. After signing up you can
+            log in in the same way.
+          </p>
+          <form>
+            <label for="account-email"></label>
+            <input type="email" placeholder="Enter your email" />
+            <button
+              type="button "
+              class="create-account-btn-sign"
+              @click.prevent="sendEmail = !sendEmail"
+            >
+              Log In
+            </button>
+          </form>
+        </div>
       </div>
+    </transition>
+    <transition name="bounce" v-if="sendErr">
+    <div class="danger-message">
+      <div class="danger-message__shining"> </div>
+      <h2>Something went wrong</h2>
+      <p>
+        A short description about the error that happened. Three lines
+        are maximum for such messages. Time is 4 sec.
+      </p>
     </div>
+    </transition>
     <!-- __________________________________ -->
     <div class="create-account">
       <nuxt-link to="/">
@@ -51,9 +80,10 @@
         <button
           type="button "
           class="create-account-btn-sign"
-          @click.prevent=""
+          @click.prevent="sendError"
         >
           Sign Up
+          {{sendErr}}
         </button>
 
         <hr />
@@ -71,16 +101,59 @@
 export default {
   data: () => ({
     togglePopup: false,
+    sendEmail: false,
+    sendErr:false
   }),
+  computed: {
+  sendErr: function (){
+    return this.sendErr = this.sendErr 
+  }
+  },
+  methods: {
+    sendError(){
+      this.sendErr = !this.sendErr
+      setTimeout(() => this.sendErr = !this.sendErr, 4000)
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
+.slide-fade-enter-active {
+  transition: all 0.5s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter, .slide-fade-leave-to
+ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+.bounce-enter-active {
+  animation: bounce-in 1.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 1.5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 @import "@/assets/css/variables.scss";
 .sign-up-link-popup {
   position: absolute;
   top: 0%;
-  width: calc(100% - 1px);
-  height: 81vh;
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
   background: rgba(59, 70, 90, 0.6);
   backdrop-filter: blur(16px);
   z-index: 11;
@@ -178,6 +251,74 @@ export default {
       background-color: $button-color-blue-active;
     }
   }
+}
+.sended-mail {
+  position: relative;
+  width: 343px;
+  height: 196px;
+  background: #232b39;
+  border-radius: 12px;
+  margin: 0 auto;
+  margin-top: 87px;
+  h2 {
+    max-width: 295px;
+    font-weight: bold;
+    font-size: 26px;
+    line-height: 32px;
+    color: #ffffff;
+    margin: 0 auto;
+    margin-top: 40px;
+  }
+  h3 {
+    max-width: 295px;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    color: #ffffff;
+    margin: 0 auto;
+    margin-top: 16px;
+  }
+  .sign-up-link__close {
+    position: absolute;
+    right: 0;
+  }
+}
+.danger-message{
+position: absolute;
+width: 343px;
+height: 148px;
+background: #2E384A;
+box-shadow: 0px 8px 24px rgba(28, 35, 48, 0.2);
+border-radius: 12px;
+z-index: 10;
+right: 16px;
+top: 16px;
+.danger-message__shining{
+  position: absolute;
+  z-index: 10;
+  width: 16px;
+height: 148px;
+background: #E94646;
+box-shadow: -4px 0px 6px 1px rgba(233, 70, 70, 0.25), 4px 0px 6px 1px rgba(233, 70, 70, 0.25);
+border-radius: 12px 0px 0px 12px;
+
+}
+h2{
+  font-weight: bold;
+font-size: 17px;
+line-height: 24px;
+color: #FFFFFF;
+margin-left: 64px;
+}
+p{
+  font-weight: normal;
+font-size: 14px;
+line-height: 20px;
+color: #B5C1D8;
+margin-left: 64px;
+width: 251px;
+
+}
 }
 .create-account {
   width: 343px;
@@ -324,7 +465,6 @@ export default {
   .create-account {
     width: 660px;
     min-height: 300px;
-    
     margin-top: 45px;
 
     h2 {
@@ -374,11 +514,31 @@ export default {
       }
     }
   }
+  .sended-mail {
+    width: 560px;
+    height: 200px;
+
+    margin-top: -60px;
+    h2 {
+      font-weight: bold;
+      font-size: 35px;
+      line-height: 40px;
+      max-width: 468px;
+      margin-top: 50px;
+    }
+    h3 {
+      max-width: 468px;
+      font-weight: normal;
+      font-size: 17px;
+      line-height: 24px;
+    }
+  }
   .sign-up-link-popup {
     padding-top: 70px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: -15px;
     .sign-up-link {
       width: 564px;
       height: 360px;
@@ -410,6 +570,7 @@ export default {
       width: 468px;
       height: 56px;
       margin-top: 5px;
+      padding-left: 64px;
       &::placeholder {
         font-weight: normal;
         font-size: 18px;
@@ -420,9 +581,12 @@ export default {
       margin-left: 48px;
     }
   }
+  .sign-up-link-popup form label:before {
+    left: 72px;
+  }
 }
-@media (min-width: 1919px){
-  .create-account{
+@media (min-width: 1919px) {
+  .create-account {
     margin-top: 40px;
     justify-self: flex-start;
   }

@@ -4,6 +4,7 @@
     
     <create-account></create-account>
     <app-footer></app-footer>
+   
 </div>
 </template>
 
@@ -29,4 +30,5 @@ export default {
     min-height: 100vh;
     
 }
+
 </style>
