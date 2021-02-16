@@ -1,11 +1,11 @@
 <template>
   <div class="create-account">
-    <button type="button" class="create-account-btn-back">
-      <img src="@/assets/img/arrow.svg" alt="arrow" />
-      <nuxt-link to="/"><span>Back</span></nuxt-link>
-      
-    </button>
-    
+    <nuxt-link to="/">
+      <button type="button" class="create-account-btn-back">
+        <img src="@/assets/img/arrow.svg" alt="arrow" />
+        <span>Back</span>
+      </button></nuxt-link
+    >
     <h2>Log in</h2>
     <form>
       <!-- <label for="account-text"></label>
@@ -18,7 +18,7 @@
         </button>
       </label>
       <input type="password" placeholder="Enter your password" />
-      
+
       <button type="button " class="create-account-btn-sign" @click.prevent="">
         Log In
       </button>
@@ -33,10 +33,7 @@
 </template>
 <script>
 export default {
-    data: ()=> ({
-       
-    }),
-   
+  data: () => ({}),
 };
 </script>
 <style lang="scss" scoped>
@@ -44,8 +41,6 @@ export default {
 .create-account {
   width: 343px;
   min-height: 415px;
-  // local height
- 
   margin: 0 auto;
   margin-top: 32px;
   hr {
@@ -91,7 +86,7 @@ export default {
       width: 24px;
       height: 24px;
       left: 16px;
-      top: 0px;
+      bottom: 0px;
       z-index: 2;
       background-image: url("../../assets/img/Email.svg");
       background-repeat: no-repeat;
@@ -102,7 +97,7 @@ export default {
       width: 24px;
       height: 24px;
       left: 16px;
-      top: 0px;
+      bottom: 0px;
       z-index: 2;
       background-image: url("../../assets/img/Password.svg");
       background-repeat: no-repeat;
@@ -113,7 +108,7 @@ export default {
       width: 24px;
       height: 24px;
       left: 16px;
-      top: 0px;
+      bottom: 0px;
       z-index: 2;
       background-image: url("../../assets/img/Password.svg");
       background-repeat: no-repeat;
@@ -187,9 +182,10 @@ export default {
 @media (min-width: 768px) {
   .create-account {
     width: 660px;
-    min-height: 510px;
-    // local height
-    margin-top: -20px;
+    min-height: 300px;
+    
+    margin-top: 45px;
+
     h2 {
       font-weight: bold;
       font-size: 56px;
@@ -215,29 +211,34 @@ export default {
       }
       label:nth-child(n + 1):before {
         left: 24px;
+       
       }
       .create-account-eye {
-      
-      left: 605px;
-      
-    }
-    .create-account-btn-sign {
-      width: 660px;
-      height: 56px;
-    }
+        left: 605px;
+      }
+      .create-account-btn-sign {
+        width: 660px;
+        height: 56px;
+      }
     }
     .create-account-btn-continue {
-    margin-top: 16px;
-    display: flex;
-    justify-content: space-between;
-    button {
+      margin-top: 16px;
+      display: flex;
+      justify-content: space-between;
+      button {
         font-weight: bold;
-font-size: 18px;
-line-height: 32px;
-      width: 318px;
-      height: 56px;
-    }}
-    
+        font-size: 18px;
+        line-height: 32px;
+        width: 318px;
+        height: 56px;
+      }
+    }
+  }
+}
+@media (min-width: 1919px){
+  .create-account{
+    margin-top: -35px;
+    justify-self: flex-start;
   }
 }
 </style>

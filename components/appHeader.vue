@@ -72,8 +72,9 @@ Notifications</a></li>
 <script>
 import { mapState } from "vuex";
 export default {
+  props:['logined'],
   data: () => ({
-    props:['logined']
+    
   }),
 
   computed: {

@@ -18,6 +18,7 @@ export default {
     generate: {
         crawler: false
     },
+
     // Global CSS: https://go.nuxtjs.dev/config-css
     css: ['@/assets/css/main.scss'],
 
@@ -38,12 +39,14 @@ export default {
 
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
     axios: {},
-    router: {
-        base: './',
-        mode: 'hash'
-    },
+
+
+    // router: {
+    //     base: './',
+    //     mode: 'hash'
+    // },
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {
-        publichPatch: '/nuxt/'
+        // publichPatch: '/nuxt/'
     }
 }

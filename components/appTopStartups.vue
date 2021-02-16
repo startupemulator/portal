@@ -12,7 +12,8 @@
       <div class="next-startup">
         <h2>Your startup can be the next</h2>
         <h3>Join a team or create your startup</h3>
-        <button type="button">Sign Up</button>
+        <nuxt-link to="createAccount"><button type="button">Sign Up</button></nuxt-link>
+        
       </div>
     </div> 
   </div>

@@ -29,11 +29,12 @@
     </div>
     <!-- __________________________________ -->
     <div class="create-account">
-      <button type="button" class="create-account-btn-back">
-        <img src="@/assets/img/arrow.svg" alt="arrow" />
-        <nuxt-link to="/">
-        <span>Back</span></nuxt-link>
-      </button>
+      <nuxt-link to="/">
+        <button type="button" class="create-account-btn-back">
+          <img src="@/assets/img/arrow.svg" alt="arrow" />
+          <span>Back</span>
+        </button></nuxt-link
+      >
       <h2>Create an account</h2>
       <form>
         <label for="account-text"></label>
@@ -226,7 +227,7 @@ export default {
       width: 24px;
       height: 24px;
       left: 16px;
-      top: 0px;
+      bottom: 0px;
       z-index: 2;
       background-image: url("../../assets/img/Profile.svg");
       background-repeat: no-repeat;
@@ -237,7 +238,7 @@ export default {
       width: 24px;
       height: 24px;
       left: 16px;
-      top: 0px;
+      bottom: 0px;
       z-index: 2;
       background-image: url("../../assets/img/Email.svg");
       background-repeat: no-repeat;
@@ -248,7 +249,7 @@ export default {
       width: 24px;
       height: 24px;
       left: 16px;
-      top: 0px;
+      bottom: 0px;
       z-index: 2;
       background-image: url("../../assets/img/Password.svg");
       background-repeat: no-repeat;
@@ -322,8 +323,10 @@ export default {
 @media (min-width: 768px) {
   .create-account {
     width: 660px;
-    min-height: 580px;
+    min-height: 300px;
+    
     margin-top: 45px;
+
     h2 {
       font-weight: bold;
       font-size: 56px;
@@ -416,6 +419,12 @@ export default {
     button {
       margin-left: 48px;
     }
+  }
+}
+@media (min-width: 1919px){
+  .create-account{
+    margin-top: 40px;
+    justify-self: flex-start;
   }
 }
 </style>

@@ -1,3 +1,7 @@
+html {
+    margin-right: calc(-1 * (100vw - 100%));
+}
+
 body {
     font-family: $font-stack;
     background-color: $background-color;
