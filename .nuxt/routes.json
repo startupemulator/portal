@@ -1,5 +1,12 @@
 [
   {
+    "name": "applyToTeam",
+    "path": "/applyToTeam",
+    "component": "Z:\\\\Progekts\\\\vue\\\\CoelixProdject\\\\nuxt prodject\\\\StartupEmulator\\\\pages\\\\applyToTeam.vue",
+    "chunkName": "pages/applyToTeam",
+    "_name": "_58a858a2"
+  },
+  {
     "name": "createAccount",
     "path": "/createAccount",
     "component": "Z:\\\\Progekts\\\\vue\\\\CoelixProdject\\\\nuxt prodject\\\\StartupEmulator\\\\pages\\\\createAccount.vue",

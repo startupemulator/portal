@@ -1,0 +1,17 @@
+.apply-to-team-btn-back {
+    background-color: transparent;
+    color: #8c97ac;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 16px;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    img {
+        transform: rotate(180deg);
+        margin-right: 15px;
+    }
+    span:hover {
+        border-bottom: 1px solid #8c97ac;
+    }
+}

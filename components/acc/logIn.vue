@@ -55,16 +55,15 @@
       >
       <h2>Log in</h2>
       <form>
-        <!-- <label for="account-text"></label>
-      <input type="text" placeholder="Enter your full name" /> -->
+     
         <label for="account-email"></label>
-        <input type="email" placeholder="Enter your email" />
+        <input type="email" v-model="email" placeholder="Enter your email" />
         <label for="account-password">
           <button type="button " class="create-account-eye" @click.prevent="">
             <img src="@/assets/img/Eye.svg" alt="eye" />
           </button>
         </label>
-        <input type="password" placeholder="Enter your password" />
+        <input type="password" v-model="password" placeholder="Enter your password" />
 
         <button
           type="button "
@@ -90,7 +89,15 @@ export default {
   data: () => ({
     togglePopup: false,
     sendEmail: false,
+    emaill: 'cee',
+    // password: '',
+    // validaterugular:{
+    //   email:'/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/',
+      
+      
+    // }
   }),
+ 
 };
 </script>
 <style lang="scss" scoped>
@@ -321,7 +328,7 @@ export default {
       position: absolute;
       z-index: 10;
       left: 297px;
-      top: 2px;
+      top: -4px;
     }
 
     .create-account-btn-sign {

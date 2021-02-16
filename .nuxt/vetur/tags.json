@@ -1,57 +1,15 @@
 {
-  "AppChallengesBlock": {
-    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appChallengesBlock.vue"
-  },
-  "LazyAppChallengesBlock": {
-    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appChallengesBlock.vue"
-  },
   "AppFooter": {
     "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appFooter.vue"
   },
   "LazyAppFooter": {
     "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appFooter.vue"
   },
-  "AppGetExperience": {
-    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appGetExperience.vue"
-  },
-  "LazyAppGetExperience": {
-    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appGetExperience.vue"
-  },
   "AppHeader": {
     "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appHeader.vue"
   },
   "LazyAppHeader": {
     "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appHeader.vue"
-  },
-  "AppPracticants": {
-    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appPracticants.vue"
-  },
-  "LazyAppPracticants": {
-    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appPracticants.vue"
-  },
-  "AppStartupsBlock": {
-    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appStartupsBlock.vue"
-  },
-  "LazyAppStartupsBlock": {
-    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appStartupsBlock.vue"
-  },
-  "AppTakePart": {
-    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appTakePart.vue"
-  },
-  "LazyAppTakePart": {
-    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appTakePart.vue"
-  },
-  "AppTeamDevelop": {
-    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appTeamDevelop.vue"
-  },
-  "LazyAppTeamDevelop": {
-    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appTeamDevelop.vue"
-  },
-  "AppTopStartups": {
-    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appTopStartups.vue"
-  },
-  "LazyAppTopStartups": {
-    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/appTopStartups.vue"
   },
   "Logo": {
     "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/Logo.vue"
@@ -70,5 +28,53 @@
   },
   "LazyLogIn": {
     "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/acc/logIn.vue"
+  },
+  "AppChallengesBlock": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/homePage/appChallengesBlock.vue"
+  },
+  "LazyAppChallengesBlock": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/homePage/appChallengesBlock.vue"
+  },
+  "AppGetExperience": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/homePage/appGetExperience.vue"
+  },
+  "LazyAppGetExperience": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/homePage/appGetExperience.vue"
+  },
+  "AppPracticants": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/homePage/appPracticants.vue"
+  },
+  "LazyAppPracticants": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/homePage/appPracticants.vue"
+  },
+  "AppStartupsBlock": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/homePage/appStartupsBlock.vue"
+  },
+  "LazyAppStartupsBlock": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/homePage/appStartupsBlock.vue"
+  },
+  "AppTakePart": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/homePage/appTakePart.vue"
+  },
+  "LazyAppTakePart": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/homePage/appTakePart.vue"
+  },
+  "AppTeamDevelop": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/homePage/appTeamDevelop.vue"
+  },
+  "LazyAppTeamDevelop": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/homePage/appTeamDevelop.vue"
+  },
+  "AppTopStartups": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/homePage/appTopStartups.vue"
+  },
+  "LazyAppTopStartups": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/homePage/appTopStartups.vue"
+  },
+  "ApplyToTeam": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/team/applyToTeam.vue"
+  },
+  "LazyApplyToTeam": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/team/applyToTeam.vue"
   }
 }

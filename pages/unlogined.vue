@@ -16,13 +16,13 @@
 
 <script>
 import AppHeader from '@/components/appHeader.vue'
-import AppGetExperience from '@/components/appGetExperience.vue'
-import AppStartupsBlock from '@/components/appStartupsBlock.vue'
-import AppChallengesBlock from '@/components/appChallengesBlock.vue'
-import AppTeamDevelop from '~/components/appTeamDevelop.vue'
-import AppTakePart from '~/components/appTakePart.vue'
-import AppTopStartups from '~/components/appTopStartups.vue'
-import AppPracticants from '~/components/appPracticants.vue'
+import AppGetExperience from '@/components/homePage/appGetExperience.vue'
+import AppStartupsBlock from '@/components/homePage/appStartupsBlock.vue'
+import AppChallengesBlock from '@/components/homePage/appChallengesBlock.vue'
+import AppTeamDevelop from '~/components/homePage/appTeamDevelop.vue'
+import AppTakePart from '~/components/homePage/appTakePart.vue'
+import AppTopStartups from '~/components/homePage/appTopStartups.vue'
+import AppPracticants from '~/components/homePage/appPracticants.vue'
 import AppFooter from '~/components/appFooter.vue'
 
 export default {

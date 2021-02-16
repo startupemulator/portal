@@ -4,6 +4,7 @@ import { normalizeURL, decode } from '@nuxt/ufo'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
+const _58a858a2 = () => interopDefault(import('..\\pages\\applyToTeam.vue' /* webpackChunkName: "pages/applyToTeam" */))
 const _b24679a6 = () => interopDefault(import('..\\pages\\createAccount.vue' /* webpackChunkName: "pages/createAccount" */))
 const _3ff3edb6 = () => interopDefault(import('..\\pages\\logIn.vue' /* webpackChunkName: "pages/logIn" */))
 const _4f8adae4 = () => interopDefault(import('..\\pages\\logined.vue' /* webpackChunkName: "pages/logined" */))
@@ -27,6 +28,10 @@ export const routerOptions = {
   scrollBehavior,
 
   routes: [{
+    path: "/applyToTeam",
+    component: _58a858a2,
+    name: "applyToTeam"
+  }, {
     path: "/createAccount",
     component: _b24679a6,
     name: "createAccount"
