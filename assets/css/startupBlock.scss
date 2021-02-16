@@ -30,6 +30,10 @@
             .desctop-buttons__slider {
                 display: none;
             }
+            .startup-card__started-text {
+                margin-top: 5px;
+                min-height: 72px;
+            }
             h2 {
                 color: $main-text-color;
                 font-weight: bold;
@@ -46,6 +50,12 @@
             .tartup-block-buttton {
                 display: flex;
                 align-items: center;
+                span {
+                    border-bottom: 1px solid transparent;
+                }
+                &:hover span {
+                    border-bottom: 1px solid #8C97AC;
+                }
             }
             button {
                 color: #8C97AC;
@@ -56,8 +66,7 @@
                 margin-top: 16px;
                 padding: 0;
                 img {
-                    margin-left: 10px;
-                    // margin-top: 5px; 
+                    margin-left: 15px;
                 }
             }
             .startup-block__startup-cards {
@@ -71,7 +80,7 @@
                 box-shadow: 0px 8px 24px rgba(28, 35, 48, 0.2);
                 border-radius: 12px;
                 margin-left: 16px;
-                margin-top: 5px;
+                margin-top: 10px;
                 .startup-card__started {
                     width: 117px;
                     height: 44px;
@@ -204,12 +213,34 @@
         }
         
         @media (min-width: 426px) {
+            .startup-block.challenges {
+                .startup-card {
+                    margin-top: -5px;
+                }
+                .startup-card__started-text {
+                    margin-top: 15px;
+                }
+                .startup-card {
+                    width: 318px;
+                    min-height: 448px;
+                }
+                .startup-card__started-name {
+                    padding-top: 50px;
+                }
+                .startup-card__started-start-time {
+                    display: none;
+                }
+                .startup-block__buttons {
+                    margin-top: 0;
+                }
+            }
+            // work
             .startup-block {
                 max-width: 1440px;
                 margin: 0 auto;
             }
             .startup-block.challenges {
-                min-height: 920px;
+                min-height: 820px;
                 margin-top: 30px;
             }
             .startup-block {
@@ -307,29 +338,29 @@
                         min-width: 121px;
                     }
                 }
+                .desctop-buttons__slider {
+                    display: flex;
+                    width: 145px;
+                    justify-content: space-between;
+                    .slider-buttton {
+                        width: 64px;
+                        height: 64px;
+                        background-color: #3B465A;
+                        border-radius: 50%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        &:first-child img {
+                            transform: rotate(180deg);
+                        }
+                        img {
+                            margin: 0;
+                        }
+                    }
+                }
             }
             .startup-block-content__head {
                 display: flex;
-            }
-            .desctop-buttons__slider {
-                display: flex;
-                width: 145px;
-                justify-content: space-between;
-                .slider-buttton {
-                    width: 64px;
-                    height: 64px;
-                    background-color: #3B465A;
-                    border-radius: 50%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    &:first-child img {
-                        transform: rotate(180deg);
-                    }
-                    img {
-                        margin: 0;
-                    }
-                }
             }
             .startup-block__startup-cards {
                 margin-top: 50px;

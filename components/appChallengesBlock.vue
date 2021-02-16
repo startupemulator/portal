@@ -4,7 +4,8 @@
       <div class="startup-block-content__head">
         <h2>Challenges</h2>
         <button type="button" class="tartup-block-buttton">
-          See All Challenges <img src="@/assets/img/arrow.svg" alt="" />
+          <span>See All Challenges</span>
+           <img src="@/assets/img/arrow.svg" alt="" />
         </button>
       </div>
       <div class="startup-block-content__desctop-buttons">
@@ -30,8 +31,7 @@
               Possible name in two lines and a long na...
             </h2>
             <h3 class="startup-card__started-text">
-              There is a description of this projects, where a product owner
-              should describe his ide...
+              There is a description ...
             </h3>
             <div class="startup-card__started-technologys">
               <ul class="startup-card__started-technologys-items">

@@ -1,0 +1,134 @@
+.team-develop {
+    width: 343px;
+    min-height: 500px;
+    background-color: #199EB6;
+    margin: 0 auto;
+    border-radius: 12px;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    img {
+        margin-top: 5px;
+    }
+    .team-develop__descktop {
+        display: none;
+    }
+    h2 {
+        margin: 0;
+        width: 295px;
+        margin: 0 auto;
+        margin-top: 20px;
+        color: $main-text-color;
+        font-weight: bold;
+        font-size: 26px;
+        line-height: 32px;
+    }
+    h3 {
+        width: 295px;
+        color: $main-text-color;
+        margin: 0 auto;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 22px;
+        margin-top: 10px;
+        height: 110px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    button {
+        box-shadow: inset 0px -2px 4px 1px rgba(48, 92, 178, 0.15), inset 0px 1px 4px rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        // margin-left: 24px;
+        background: $button-color-gray;
+        padding: 8px 115px;
+        font-weight: bold;
+        font-size: 17px;
+        line-height: 32px;
+        margin-top: 25px;
+        &:hover {
+            background-color: $button-color-gray-hover;
+        }
+        &:focus {
+            background-color: $button-color-gray-focus
+        }
+        &:active {
+            background-color: $button-color-gray-active
+        }
+    }
+}
+
+@media (min-width: 767px) {
+    .team-develop {
+        width: auto;
+        margin-left: 48px;
+        margin-right: 48px;
+        margin-top: 50px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .team-develop {
+        width: auto;
+        margin-left: 48px;
+        margin-right: 48px;
+        flex-direction: row;
+        align-items: flex-start;
+        margin-top: 13px;
+        padding-top: 60px;
+        justify-content: center;
+        min-height: 452px;
+        img {
+            order: 2;
+            margin-left: 20px;
+            max-width: 50%;
+        }
+        .team-develop__mobile {
+            display: none;
+        }
+        .team-develop__descktop {
+            display: block;
+            border-radius: 12px;
+            background-size: cover;
+        }
+        button {
+            margin-top: 50px;
+            padding: 12px 48px;
+        }
+    }
+}
+
+@media (min-width: 1440px) {
+    .team-develop {
+        max-width: 1344px;
+        margin: 0 auto;
+        margin-top: 12px;
+        h2 {
+            font-weight: 800;
+            font-size: 56px;
+            line-height: 64px;
+            width: auto;
+            max-width: 596px;
+            padding-top: 10px;
+        }
+        h3 {
+            font-weight: normal;
+            font-size: 17px;
+            line-height: 24px;
+            width: auto;
+            max-width: 596px;
+            padding-top: 15px;
+            font-weight: normal;
+            font-size: 17px;
+            line-height: 24px;
+            max-width: 536px;
+            margin-left: 0;
+        }
+        img {
+            max-width: 100%;
+        }
+        button {
+            margin-top: 10px;
+        }
+    }
+}

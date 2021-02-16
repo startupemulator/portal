@@ -95,14 +95,29 @@
             font-size: 18px;
             line-height: 32px;
         }
-        img {
+        svg {
             margin-right: 14px;
         }
         .nav-list {
             display: flex;
         }
+        .nav-list div {
+            display: flex;
+        }
         .nav-item {
             padding: 12px 24px 12px 30px;
+        }
+        .nav-item__active svg path,
+        .nav-item__active svg circle {
+            stroke: #6295FC;
+        }
+        .nav-item__active {
+            background-color: #2E384A;
+            box-shadow: inset 0px 0px 10px 2px #262F3F;
+            border-radius: 12px;
+            a {
+                color: $main-text-color;
+            }
         }
         a {
             display: flex;

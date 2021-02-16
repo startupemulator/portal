@@ -1,0 +1,141 @@
+        .practicants {
+            color: $main-text-color;
+            margin-top: 55px;
+            .practicants-title {
+                font-weight: bold;
+                font-size: 36px;
+                line-height: 40px;
+                margin-left: 16px;
+                margin-bottom: 25px;
+            }
+            .practicants-content {
+                display: flex;
+                overflow: hidden;
+                height: 326px;
+                .practicant-block {
+                    position: relative;
+                    width: 327px;
+                    min-width: 327px;
+                    height: 294px;
+                    margin-left: 16px;
+                    background: #2E384A;
+                    box-shadow: 0px 8px 24px rgba(28, 35, 48, 0.2);
+                    border-radius: 12px;
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        width: 96px;
+                        height: 48px;
+                        bottom: 0px;
+                        left: calc(50% - 49px);
+                        background-image: url('../img/Corner.svg');
+                        z-index: 2;
+                    }
+                }
+                h3 {
+                    font-weight: normal;
+                    font-size: 16px;
+                    line-height: 22px;
+                    margin: 32px 24px 16px 24px;
+                    height: 130px;
+                }
+                p {
+                    padding-top: 3px;
+                    text-align: center;
+                    margin-bottom: 0;
+                    margin-top: 0;
+                }
+                .practicant-block__position {
+                    color: #8C97AC;
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 20px;
+                }
+                .practicant-block__img {
+                    position: absolute;
+                    bottom: -55px;
+                    left: calc(35%);
+                    z-index: 3;
+                    width: 30%;
+                    height: 30%x;
+                }
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .practicants {
+                margin-top: 150px;
+                .practicants-title {
+                    font-style: normal;
+                    font-weight: 800;
+                    font-size: 69px;
+                    line-height: 80px;
+                    margin-left: 48px;
+                }
+                .practicants-content {
+                    margin-left: 36px;
+                }
+            }
+        }
+        
+        @media (min-width: 1440px) {
+            .practicants {
+                width: 1344px;
+                margin: 0 auto;
+                .practicants-title {
+                    font-style: normal;
+                    font-weight: 800;
+                    font-size: 69px;
+                    line-height: 80px;
+                    margin-left: 0;
+                    margin-top: 150px;
+                    letter-spacing: 0.5px;
+                }
+                .practicants-content {
+                    display: flex;
+                    overflow: hidden;
+                    height: 386px;
+                    margin-top: 65px;
+                    margin-left: 0;
+                    .practicant-block {
+                        width: 432px;
+                        min-width: 432px;
+                        height: 328px;
+                        margin-left: 24px;
+                        &:first-child {
+                            margin-left: 0;
+                        }
+                        &::before {
+                            width: 120px;
+                            height: 60px;
+                            bottom: 0px;
+                            left: calc(50% - 60px);
+                            background-image: url('../img/Corner-big.svg');
+                        }
+                        h3 {
+                            font-weight: normal;
+                            font-size: 17px;
+                            line-height: 24px;
+                            margin: 48px 48px 14px 48px;
+                            min-height: 130px;
+                        }
+                        p {
+                            padding-top: 3px;
+                            text-align: center;
+                            margin-bottom: 0;
+                            margin-top: 0;
+                        }
+                        .practicant-block__img {
+                            position: absolute;
+                            width: 100%;
+                            height: 100%;
+                            bottom: -170px;
+                            left: calc(35%);
+                            z-index: 3;
+                            width: 30%;
+                            height: 30%x;
+                        }
+                    }
+                }
+            }
+        }

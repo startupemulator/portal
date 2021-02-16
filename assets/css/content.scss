@@ -15,6 +15,10 @@ a {
     text-decoration: none;
 }
 
+a:-webkit-any-link {
+    color: #8c97ac!important;
+}
+
 li {
     list-style: none;
 }
