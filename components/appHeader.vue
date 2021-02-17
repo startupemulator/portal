@@ -70,7 +70,7 @@ Notifications</a></li>
   </header>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 export default {
   props:['logined'],
   data: () => ({
@@ -78,11 +78,22 @@ export default {
   }),
 
   computed: {
-    ...mapState(["isMobile"]),
-    // logined: logined
+    ...mapState(["device"]),
+ 
    
   },
+  methods: {
+    ...mapActions(["isMobile"]),
+    
+identifyDevice(device){
+  this.isMobile(device)
 
+}
+  },
+  mounted(){
+    const device = /Mobile|webOS|BlackBerry|IEMobile|MeeGo|mini|Fennec|Windows Phone|Android|iP(ad|od|hone)/i.test(navigator.userAgent);
+    this.identifyDevice(device)
+  }
 };
 </script>
 

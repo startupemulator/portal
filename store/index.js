@@ -1,5 +1,5 @@
 export const state = () => ({
-    isMobile: true,
+    device: '',
     experienceYears: [
         { id: 1, title: "Less than 6 months" },
         { id: 2, title: "6 months – 1 year" },
@@ -46,7 +46,8 @@ export const mutations = {
     changeStepOnApplyToTeam(state) { state.applyToTeam.stepOne = !state.applyToTeam.stepOne },
     applyStartUp(state) { state.applyToTeam.applied = !state.applyToTeam.applied },
     addTechnology(state, name) { state.technology.push({ id: state.technology.length + 1, name: name }) },
-    removeTechnology(state, id) { console.log(id), state.technology.splice(id, 1) }
+    removeTechnology(state, id) { console.log(id), state.technology.splice(id, 1) },
+    identifyDevice(state, device) { state.device = device }
 
 
 
@@ -69,6 +70,9 @@ export const actions = {
     removeTechnology({ commit }, id) {
         console.log(id)
         commit('removeTechnology', id)
+    },
+    isMobile({ commit }, device) {
+        commit('identifyDevice', device)
     }
 
 }
