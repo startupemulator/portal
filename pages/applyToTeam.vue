@@ -2,15 +2,15 @@
   <div class="experience">
     <app-header></app-header>
     <experience></experience>
-    <div v-if="!device">
+    <!-- <div v-if="!device">
       <button-next v-if="step"></button-next>
       <button-apply v-else></button-apply>
-    </div>
+    </div> -->
     <app-footer></app-footer>
-<div v-if="device">
+<!-- <div v-if="device"> -->
     <button-next v-if="step"></button-next>
     <button-apply v-else></button-apply>
-</div>
+<!-- </div> -->
   </div>
 </template>
 <script>
