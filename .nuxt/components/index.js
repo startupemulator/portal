@@ -11,6 +11,8 @@ export { default as AppTakePart } from '../..\\components\\homePage\\appTakePart
 export { default as AppTeamDevelop } from '../..\\components\\homePage\\appTeamDevelop.vue'
 export { default as AppTopStartups } from '../..\\components\\homePage\\appTopStartups.vue'
 export { default as ApplyToTeam } from '../..\\components\\team\\applyToTeam.vue'
+export { default as ButtonApply } from '../..\\components\\team\\buttonApply.vue'
+export { default as ButtonNext } from '../..\\components\\team\\buttonNext.vue'
 
 export const LazyAppFooter = import('../..\\components\\appFooter.vue' /* webpackChunkName: "components/app-footer" */).then(c => c.default || c)
 export const LazyAppHeader = import('../..\\components\\appHeader.vue' /* webpackChunkName: "components/app-header" */).then(c => c.default || c)
@@ -25,3 +27,5 @@ export const LazyAppTakePart = import('../..\\components\\homePage\\appTakePart.
 export const LazyAppTeamDevelop = import('../..\\components\\homePage\\appTeamDevelop.vue' /* webpackChunkName: "components/app-team-develop" */).then(c => c.default || c)
 export const LazyAppTopStartups = import('../..\\components\\homePage\\appTopStartups.vue' /* webpackChunkName: "components/app-top-startups" */).then(c => c.default || c)
 export const LazyApplyToTeam = import('../..\\components\\team\\applyToTeam.vue' /* webpackChunkName: "components/apply-to-team" */).then(c => c.default || c)
+export const LazyButtonApply = import('../..\\components\\team\\buttonApply.vue' /* webpackChunkName: "components/button-apply" */).then(c => c.default || c)
+export const LazyButtonNext = import('../..\\components\\team\\buttonNext.vue' /* webpackChunkName: "components/button-next" */).then(c => c.default || c)

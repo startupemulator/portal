@@ -8,6 +8,10 @@
         .main-footer__list {
             margin-left: 18px;
             padding: 0;
+            padding-bottom: 25px;
+            // изменено для button next - следим
+            margin-bottom: 0;
+            color: #8C97AC;
         }
         .main-footer__item a {
             display: flex;

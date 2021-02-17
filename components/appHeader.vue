@@ -74,13 +74,15 @@ import { mapState } from "vuex";
 export default {
   props:['logined'],
   data: () => ({
-    
+
   }),
 
   computed: {
     ...mapState(["isMobile"]),
     // logined: logined
+   
   },
+
 };
 </script>
 

@@ -32,16 +32,43 @@ export const state = () => ({
         { id: 19, title: "HTML5" },
         { id: 20, title: "CSS3" }
     ],
+    applyToTeam: { stepOne: true, applied: false },
+    speciality: [
+        { id: '01', title: 'front-end' },
+        { id: '02', title: 'back-end' }, { id: '03', title: 'devOps' }, { id: '04', title: 'full-stack' }, { id: '05', title: 'seo' }
+    ],
+    technology: []
+
+
 })
 
-
 export const mutations = {
-    // toggle(state, todo) {
-    //     todo.done = !todo.done
-    // }
+    changeStepOnApplyToTeam(state) { state.applyToTeam.stepOne = !state.applyToTeam.stepOne },
+    applyStartUp(state) { state.applyToTeam.applied = !state.applyToTeam.applied },
+    addTechnology(state, name) { state.technology.push({ id: state.technology.length + 1, name: name }) },
+    removeTechnology(state, id) { console.log(id), state.technology.splice(id, 1) }
+
+
+
 }
 export const actions = {
-    // toggle(state, todo) {
-    //     todo.done = !todo.done
-    // }
+    changeStepOnApplyToTeam({ commit }) {
+        commit('changeStepOnApplyToTeam')
+    },
+    applyStartUp({ commit }) {
+        commit('applyStartUp')
+    },
+    addTechnology({ commit }, e) {
+        const srt = e.target.value.trim()
+        if ((srt.length > 1) & (e.keyCode === 13 || e.keyCode === 32)) {
+            commit('addTechnology', e.target.value)
+
+        }
+
+    },
+    removeTechnology({ commit }, id) {
+        console.log(id)
+        commit('removeTechnology', id)
+    }
+
 }

@@ -1,95 +1,320 @@
-.apply-to-team {
-    max-width: 660px;
-    // margin: 0 auto;
-    // display: flex;
-    // justify-content: center;
-}
-
-.apply-to-team-btn-back {
-    background-color: transparent;
-    color: #8c97ac;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 16px;
-    margin-top: 5px;
-    display: flex;
-    align-items: center;
-    margin-top: 37px;
-    img {
-        transform: rotate(180deg);
-        margin-right: 15px;
-    }
-    span:hover {
-        border-bottom: 1px solid #8c97ac;
-    }
-}
-
-.apply-to-team {
-    color: $main-text-color;
-    margin-left: 16px;
-    margin-right: 16px;
-}
-
-.step-1 {
-    h2 {
-        font-weight: bold;
-        font-size: 36px;
-        line-height: 40px;
-        color: #FFFFFF;
-        margin-top: 22px;
-    }
-    p {
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 24px;
-        padding-top: 4px;
-        margin-bottom: 12px;
-    }
-    ul {
-        padding: 0;
-        margin: 0;
-    }
-    .experience__item,
-    .experience-technologies_item {
-        // padding: 4px 16px;
-        // border: 1px solid #59667E;
-        border-radius: 32px;
-        display: inline-block;
-        margin-right: 8px;
-        margin-bottom: 10px;
-        label {
-            font-weight: 400;
-            display: inline-block;
-            font-size: 14px;
+        .apply-to-team-btn-back {
+            background-color: transparent;
+            color: #8c97ac;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 16px;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            margin-top: 37px;
+            img {
+                transform: rotate(180deg);
+                margin-right: 15px;
+            }
+            span:hover {
+                border-bottom: 1px solid #8c97ac;
+            }
+        }
+        
+        .apply-to-team {
+            color: $main-text-color;
+            margin-left: 16px;
+            margin-right: 16px;
+        }
+        
+        .step-1 {
+            width: 340px;
+            margin: 0 auto;
+            h2 {
+                font-weight: bold;
+                font-size: 36px;
+                line-height: 40px;
+                color: #FFFFFF;
+                margin-top: 22px;
+            }
+            p {
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 24px;
+                padding-top: 4px;
+                margin-bottom: 12px;
+            }
+            ul {
+                padding: 0;
+                margin: 0;
+            }
+            .experience__item,
+            .experience-technologies_item {
+                // padding: 4px 16px;
+                // border: 1px solid #59667E;
+                border-radius: 32px;
+                display: inline-block;
+                margin-right: 8px;
+                margin-bottom: 10px;
+                label {
+                    font-weight: 400;
+                    display: inline-block;
+                    font-size: 14px;
+                    line-height: 32px;
+                    box-sizing: border-box;
+                    color: #B5C1D8;
+                    border-radius: 32px;
+                    padding: 4px 16px;
+                    border: 1px solid #59667E;
+                    // margin-bottom: 28px;
+                    cursor: pointer;
+                }
+                input:checked~label {
+                    background: #59667E;
+                    border: 1px solid #59667E;
+                }
+            }
+            .add-technologi {
+                background: #2E384A;
+                border-radius: 12px;
+                border: none;
+                width: 340px;
+                min-height: 48px;
+                box-sizing: border-box;
+                padding: 8px 16px 8px 8px;
+                color: #B5C1D8;
+                font-weight: normal;
+                font-size: 16px;
+                line-height: 32px;
+                margin-top: 3px;
+                margin-bottom: 13px;
+                &::placeholder {
+                    color: #B5C1D8;
+                }
+                ul {
+                    display: flex;
+                    flex-wrap: wrap;
+                    input {
+                        background: transparent;
+                        border: none;
+                        margin-left: 10px;
+                        font-weight: normal;
+                        font-size: 16px;
+                        line-height: 32px;
+                        color: #B5C1D8;
+                        outline: none;
+                        &::placeholder {
+                            color: #B5C1D8;
+                        }
+                    }
+                    li {
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 32px;
+                        box-sizing: border-box;
+                        color: #B5C1D8;
+                        border-radius: 32px;
+                        padding: 4px 6px 4px 16px;
+                        border: 1px solid #59667E;
+                        // display: flex;
+                        margin-left: 8px;
+                        margin-bottom: 8px;
+                        .remove-technolodgy {
+                            background: transparent;
+                            outline: none;
+                            img {
+                                width: 10px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        .step-2,
+        .apply-to-team {
+            width: 343px;
+            margin: 0 auto;
+        }
+        
+        .step-2 h2 {
+            font-weight: bold;
+            font-size: 36px;
+            line-height: 40px;
+            margin-top: 25px;
+        }
+        
+        .step-2__select {
+            display: flex;
+            flex-direction: column;
+            textarea {
+                width: 343px;
+                height: 112px;
+                box-sizing: border-box;
+                background: #2E384A;
+                border-radius: 12px;
+                margin-top: 16px;
+                padding: 8px 16px;
+                color: #B5C1D8;
+                font-weight: normal;
+                font-size: 16px;
+                line-height: 24px;
+                border: none;
+            }
+        }
+        
+        .step-2 select {
+            background: #2E384A;
+            border-radius: 12px;
+            width: 343px;
+            height: 48px;
+            font-size: 16px;
             line-height: 32px;
-            box-sizing: border-box;
             color: #B5C1D8;
-            border-radius: 32px;
-            padding: 4px 16px;
-            border: 1px solid #59667E;
-            // margin-bottom: 28px;
+            padding-left: 16px;
+            border: none;
+            option {
+                border: transparent;
+                outline: none;
+                border-radius: 12px;
+            }
         }
-        input:checked~label {
-            background: #59667E;
-            border: 1px solid #59667E;
+        
+        .modal-applied {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: rgba(59, 70, 90, 0.6);
+            backdrop-filter: blur(16px);
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            .applied__close {
+                position: absolute;
+                right: 10px;
+                top: 16px;
+                background: transparent;
+            }
+            .applied-block {
+                position: relative;
+                width: 343px;
+                height: 312px;
+                background: #232B39;
+                border-radius: 12px;
+                h2 {
+                    font-weight: bold;
+                    font-size: 26px;
+                    line-height: 32px;
+                    width: 250px;
+                    margin-left: 24px;
+                    display: inline-block;
+                    margin-top: 40px;
+                    margin-bottom: 15px;
+                }
+                h3 {
+                    font-weight: normal;
+                    font-size: 16px;
+                    line-height: 22px;
+                    width: 298px;
+                    display: inline-block;
+                    margin-left: 24px;
+                    margin-top: 0;
+                }
+                .discover-startups {
+                    margin-top: 16px;
+                    width: 295px;
+                    height: 48px;
+                    margin-left: 24px;
+                    margin-top: 10px;
+                    background-color: $button-color-blue;
+                    &:hover {
+                        background-color: $button-color-blue-hover;
+                    }
+                    &:focus {
+                        background-color: $button-color-blue-focus;
+                    }
+                    &:active {
+                        background-color: $button-color-blue-active;
+                    }
+                }
+            }
         }
-    }
-    .add-technologi {
-        background: #2E384A;
-        border-radius: 12px;
-        border: none;
-        width: 340px;
-        height: 48px;
-        box-sizing: border-box;
-        padding-left: 16px;
-        color: #B5C1D8;
-        font-weight: normal;
-        font-size: 16px;
-        line-height: 32px;
-        margin-top: 3px;
-        margin-bottom: 13px;
-        &::placeholder {
-            color: #B5C1D8;
+        
+        @media (min-width: 768px) {
+            .step-1,
+            .apply-to-team {
+                width: 660px;
+            }
+            .apply-to-team-btn-back {
+                margin-top: 47px;
+            }
+            .step-1 {
+                h2 {
+                    font-weight: bold;
+                    font-size: 56px;
+                    line-height: 64px;
+                    margin-top: 55px;
+                    margin-bottom: 35px;
+                }
+                p {
+                    font-weight: 500;
+                    font-size: 17px;
+                    line-height: 32px
+                }
+                .add-technologi {
+                    width: 660px;
+                    min-height: 56px;
+                    margin-top: 16px;
+                }
+            }
+            .modal-applied {
+                position: absolute;
+                background: rgba(59, 70, 90, 0.6);
+                backdrop-filter: blur(16px);
+                height: 100vh;
+                width: 100vw;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                .applied__close {
+                    position: absolute;
+                    right: 18px;
+                    top: 24px;
+                    background: transparent;
+                }
+                .applied-block {
+                    margin: 0;
+                    top: 55px;
+                    width: 564px;
+                    height: 303px;
+                    h2 {
+                        font-weight: bold;
+                        font-size: 35px;
+                        line-height: 40px;
+                        width: 468px;
+                        margin-left: 48px;
+                        margin-top: 48px;
+                        margin-bottom: 15px;
+                    }
+                    h3 {
+                        font-weight: normal;
+                        font-size: 17px;
+                        line-height: 24px;
+                        width: 468px;
+                        display: inline-block;
+                        margin-left: 48px;
+                        margin-top: 0;
+                    }
+                    .discover-startups {
+                        margin-top: 16px;
+                        width: 452px;
+                        height: 56px;
+                        margin-left: 57px;
+                        margin-top: 10px;
+                        font-weight: bold;
+                        font-size: 18px;
+                        line-height: 32px;
+                    }
+                }
+            }
         }
-    }
-}
