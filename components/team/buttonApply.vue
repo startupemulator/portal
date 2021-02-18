@@ -37,4 +37,23 @@ export default {
     }
   }
 }
+@media (min-width: 768px){
+  .button-next{
+    width: 660px;
+   border: none;
+   height: 89px;
+   border-radius: 0;
+   background-color: transparent;
+   box-shadow: none;
+   border-top: 1px solid #3B465A;
+   margin: 0 auto;
+   margin-top: 30px;
+    button{
+      
+       width: 660px;
+    height: 56px;
+    margin-top: 35px;
+    }
+  }
+}
 </style>

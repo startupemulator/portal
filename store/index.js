@@ -37,7 +37,14 @@ export const state = () => ({
         { id: '01', title: 'front-end' },
         { id: '02', title: 'back-end' }, { id: '03', title: 'devOps' }, { id: '04', title: 'full-stack' }, { id: '05', title: 'seo' }
     ],
-    technology: []
+    technology: [],
+    startupCard: [
+        { id: 0, title: "Startup #1", started: false, text: "There is a description of this projects...", skills: ["Javascript", "Java", "HTML5", "Javascript"], start: '27 Sep 2020', duration: '3 months' },
+        { id: 1, title: "Possible name in two lines", started: true, text: "There is a description of this projects, where a product owner should describe his ide...", skills: ["Javascript", "Java", "HTML5"], start: '27 Sep 2020', duration: '3 months' },
+        { id: 2, title: "Possible name in two lines a", started: false, text: "There is a description of this projects, where a product owner should describe his ide...", skills: ["Javascript", "Java", "HTML5"], start: '27 Sep 2020', duration: '3 months' },
+        { id: 3, title: "Possible name in two lines a", started: false, text: "There is a description of this projects, where a product owner should describe his ide...", skills: ["Javascript", "Java", "HTML5", "Javascript", "CSS3", "+3"], start: '27 Sep 2020', duration: '3 months' },
+        { id: 4, title: "Possible name in two lines a", started: false, text: "There is a description of this projects, where a product owner should describe his ide...", skills: ["Javascript", "Java", "HTML5", "Javascript", "CSS3", "+3"], start: '27 Sep 2020', duration: '3 months' }
+    ]
 
 
 })
@@ -47,7 +54,9 @@ export const mutations = {
     applyStartUp(state) { state.applyToTeam.applied = !state.applyToTeam.applied },
     addTechnology(state, name) { state.technology.push({ id: state.technology.length + 1, name: name }) },
     removeTechnology(state, id) { console.log(id), state.technology.splice(id, 1) },
-    identifyDevice(state, device) { state.device = device }
+    identifyDevice(state, device) { state.device = device },
+    slideLeft(state) { state.startupCard.push(state.startupCard.shift()) },
+    slideRigth(state) { state.startupCard.unshift(state.startupCard.pop()) }
 
 
 
@@ -73,6 +82,12 @@ export const actions = {
     },
     isMobile({ commit }, device) {
         commit('identifyDevice', device)
-    }
+    },
+    slideRigth({ commit }) {
+        commit('slideRigth')
+    },
+    slideLeft({ commit }) {
+        commit('slideLeft')
+    },
 
 }

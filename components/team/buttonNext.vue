@@ -15,9 +15,8 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/css/variables.scss";
 .button-next{
-    // width: 375px;
-    display: flex;
-    justify-content: center ;
+display: flex;
+justify-content: center ;
 height: 92px;
 background: #232B39;
 border: 1px solid #3B465A;
@@ -38,5 +37,21 @@ background-color: $button-color-blue;
         background-color: $button-color-blue-active;
       }
 }
+}
+@media (min-width: 768px){
+  .button-next{
+    width: 660px;
+   border: none;
+   border-radius: 0;
+   background-color: transparent;
+   box-shadow: none;
+   border-top: 1px solid #3B465A;
+   margin: 0 auto;
+   margin-top: 24px;
+    button{
+       width: 660px;
+    height: 56px;
+    }
+  }
 }
 </style>

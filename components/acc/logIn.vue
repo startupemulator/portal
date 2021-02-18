@@ -58,12 +58,14 @@
      
         <label for="account-email"></label>
         <input type="email" v-model="email" placeholder="Enter your email" />
+       
         <label for="account-password">
-          <button type="button " class="create-account-eye" @click.prevent="">
+          <button type="button " class="create-account-eye" @click.prevent="password = !password">
             <img src="@/assets/img/Eye.svg" alt="eye" />
           </button>
         </label>
-        <input type="password" v-model="password" placeholder="Enter your password" />
+        <input :type="password ? 'password' : 'text'" placeholder="Enter your password" />
+        
 
         <button
           type="button "
@@ -89,14 +91,15 @@ export default {
   data: () => ({
     togglePopup: false,
     sendEmail: false,
-    emaill: 'cee',
-    // password: '',
-    // validaterugular:{
-    //   email:'/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/',
+    email: '',
+     password: false,
+    validaterugular:{
+      email:'/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/',
       
       
-    // }
+    }
   }),
+ 
  
 };
 </script>

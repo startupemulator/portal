@@ -70,8 +70,10 @@
                 }
             }
             .startup-block__startup-cards {
-                display: flex;
-                overflow: hidden;
+                .transition__startup-card {
+                    display: flex;
+                    overflow: hidden;
+                }
             }
             .startup-card {
                 width: 327px;
@@ -101,6 +103,9 @@
                     font-size: 14px;
                     line-height: 24px;
                     color: $main-text-color;
+                }
+                .startup-card__started-title.started {
+                    background: #3CC28D;
                 }
             }
             .startup-card-content {
