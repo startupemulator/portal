@@ -11,11 +11,20 @@
         display: flex;
     }
     .main-headr-logo h2 {
-        display: none;
+        color: #837CF3;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 32px;
+        margin-left: 12px;
     }
     .main-headr-logo img {
         height: 40px;
         width: 40px;
+    }
+    .main-headr-logo {
+        display: flex;
+        align-items: center;
     }
     .main-header__nav {
         display: none;
@@ -70,10 +79,6 @@
         .main-headr-logo img {
             height: 48px;
             width: 48px;
-        }
-        .main-headr-logo {
-            display: flex;
-            align-items: center;
         }
         .main-header-buttons {
             .header-btn {

@@ -6,6 +6,7 @@ import scrollBehavior from './router.scrollBehavior.js'
 
 const _58a858a2 = () => interopDefault(import('..\\pages\\applyToTeam.vue' /* webpackChunkName: "pages/applyToTeam" */))
 const _b24679a6 = () => interopDefault(import('..\\pages\\createAccount.vue' /* webpackChunkName: "pages/createAccount" */))
+const _5b4bbd54 = () => interopDefault(import('..\\pages\\createProdgect.vue' /* webpackChunkName: "pages/createProdgect" */))
 const _3ff3edb6 = () => interopDefault(import('..\\pages\\logIn.vue' /* webpackChunkName: "pages/logIn" */))
 const _4f8adae4 = () => interopDefault(import('..\\pages\\logined.vue' /* webpackChunkName: "pages/logined" */))
 const _d68b5caa = () => interopDefault(import('..\\pages\\unlogined.vue' /* webpackChunkName: "pages/unlogined" */))
@@ -35,6 +36,10 @@ export const routerOptions = {
     path: "/createAccount",
     component: _b24679a6,
     name: "createAccount"
+  }, {
+    path: "/createProdgect",
+    component: _5b4bbd54,
+    name: "createProdgect"
   }, {
     path: "/logIn",
     component: _3ff3edb6,

@@ -5,7 +5,8 @@
         <nuxt-link to="/">
     <div class="main-headr-logo">
       <img src="@/assets/img/logo.svg" alt="" class="logo" />
-      <h2 v-if="isMobile">Startup Emulator</h2>
+      <h2 v-if="device">Startup Emulator</h2>
+    
     </div></nuxt-link>
     
     <nav class="main-header__nav" >

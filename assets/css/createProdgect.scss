@@ -1,0 +1,134 @@
+.createProgect {
+    width: 343px;
+    margin: 0 auto;
+    color: $main-text-color;
+    min-height: 650px;
+    h2 {
+        font-weight: bold;
+        font-size: 36px;
+        line-height: 40px;
+        margin-top: 24px;
+    }
+    .createProgect-step1__progress-bar {
+        width: 343px;
+        height: 12px;
+        background: #232B39;
+        border: 1px solid #4E5A71;
+        box-sizing: border-box;
+        box-shadow: inset 2px -1px 8px rgba(78, 100, 141, 0.5);
+        border-radius: 16px;
+        .createProgect__progress-bar {
+            background: #6295FC;
+            box-shadow: -2px 0px 8px rgba(98, 149, 252, 0.8), 2px 0px 8px rgba(98, 149, 252, 0.8);
+            border-radius: 14px;
+            width: 85.75px;
+            height: 12px;
+        }
+    }
+    h4 {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+        margin-top: 34px;
+        margin-bottom: 8px;
+    }
+    input,
+    .start-date__row,
+    .finish-date__row {
+        background-color: #2E384A;
+        border-radius: 12px;
+        border: none;
+        color: #B5C1D8;
+        width: 340px;
+        height: 48px;
+        padding-left: 16px;
+        box-sizing: border-box;
+        margin-top: 0px;
+        &::placeholder {
+            color: #B5C1D8;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 24px;
+        }
+    }
+    .startup__description h4 {
+        margin-top: 24px;
+    }
+    textarea {
+        background: #2E384A;
+        border-radius: 12px;
+        width: 343px;
+        height: 136px;
+        padding: 8px 16px;
+        box-sizing: border-box;
+        border: none;
+        color: #B5C1D8;
+        &::placeholder {
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 24px;
+            color: #B5C1D8;
+        }
+    }
+    .startup__start-date,
+    .startup__finish-date {
+        h4 {
+            margin-top: 20px;
+            margin-bottom: 0;
+        }
+        .start-date__row,
+        .finish-date__row {
+            display: flex;
+            align-items: center;
+            box-sizing: border-box;
+            width: 340px;
+            margin-top: 10px;
+            img {
+                // margin-top: 10px;
+                width: 24px;
+                height: 24px;
+            }
+            div {
+                margin-right: 16px;
+                margin-left: 0px;
+            }
+            .start-date__col1,
+            .finish-date__col1 {
+                width: 43px;
+                input {
+                    padding-left: 6px;
+                    padding-right: 6px;
+                    width: 43px;
+                    margin-left: 10px;
+                    border-right: 1px solid #4E5A71;
+                    height: 24px;
+                    border-radius: 0;
+                }
+            }
+            .start-date__col2,
+            .finish-date__col2 {
+                width: 46px;
+                margin-right: 8px;
+                input {
+                    padding-left: 6px;
+                    padding-right: 6px;
+                    width: 46px;
+                    border-right: 1px solid #4E5A71;
+                    height: 24px;
+                    border-radius: 0;
+                }
+            }
+            .start-date__col3,
+            .finish-date__col3 {
+                width: 56px;
+                input {
+                    padding-left: 6px;
+                    padding-right: 6px;
+                    width: 56px;
+                    height: 24px;
+                    border-radius: 0;
+                }
+            }
+        }
+    }
+}

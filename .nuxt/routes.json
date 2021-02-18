@@ -14,6 +14,13 @@
     "_name": "_b24679a6"
   },
   {
+    "name": "createProdgect",
+    "path": "/createProdgect",
+    "component": "Z:\\\\Progekts\\\\vue\\\\CoelixProdject\\\\nuxt prodject\\\\StartupEmulator\\\\pages\\\\createProdgect.vue",
+    "chunkName": "pages/createProdgect",
+    "_name": "_5b4bbd54"
+  },
+  {
     "name": "logIn",
     "path": "/logIn",
     "component": "Z:\\\\Progekts\\\\vue\\\\CoelixProdject\\\\nuxt prodject\\\\StartupEmulator\\\\pages\\\\logIn.vue",
