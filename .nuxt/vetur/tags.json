@@ -29,6 +29,24 @@
   "LazyLogIn": {
     "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/acc/logIn.vue"
   },
+  "ApplyToTeam": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/team/applyToTeam.vue"
+  },
+  "LazyApplyToTeam": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/team/applyToTeam.vue"
+  },
+  "ButtonApply": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/team/buttonApply.vue"
+  },
+  "LazyButtonApply": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/team/buttonApply.vue"
+  },
+  "ButtonNext": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/team/buttonNext.vue"
+  },
+  "LazyButtonNext": {
+    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/team/buttonNext.vue"
+  },
   "AppChallengesBlock": {
     "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/homePage/appChallengesBlock.vue"
   },
@@ -70,23 +88,5 @@
   },
   "LazyAppTopStartups": {
     "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/homePage/appTopStartups.vue"
-  },
-  "ApplyToTeam": {
-    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/team/applyToTeam.vue"
-  },
-  "LazyApplyToTeam": {
-    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/team/applyToTeam.vue"
-  },
-  "ButtonApply": {
-    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/team/buttonApply.vue"
-  },
-  "LazyButtonApply": {
-    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/team/buttonApply.vue"
-  },
-  "ButtonNext": {
-    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/team/buttonNext.vue"
-  },
-  "LazyButtonNext": {
-    "description": "Auto imported from Z:/Progekts/vue/CoelixProdject/nuxt prodject/StartupEmulator/components/team/buttonNext.vue"
   }
 }

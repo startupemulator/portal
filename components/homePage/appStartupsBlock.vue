@@ -15,10 +15,10 @@
           feedback from our experts.
         </h3>
         <div class="desctop-buttons__slider">
-          <button type="button" class="slider-buttton" @click="slideRigth">
+          <button type="button" class="slider-buttton" @click="slideRigth('startupCard')">
             <img src="@/assets/img/arrow.svg" alt="arrow" />
           </button>
-          <button type="button" class="slider-buttton" @click="slideLeft">
+          <button type="button" class="slider-buttton" @click="slideLeft('startupCard')">
             <img src="@/assets/img/arrow.svg" alt="arrow" />
           </button>
         </div>
@@ -26,9 +26,8 @@
     </div>
     <div class="startup-block__startup-cards">
       <transition-group name="flip-list" tag="div" class="transition__startup-card">
-      <div class="startup-block__startup-card" v-for="card in startupCard" :key="card.id">
-
-        <div class="startup-card" >
+      <div class="startup-block__startup-card" v-for="(card, i) in startupCard" :key="card.id">
+        <div class="startup-card" :class="i > 3 ? 'startup-card_animation'  : ''">
           <div class="startup-card__started">
             <div class="startup-card__started-title" 
             :class="card.started ? 'started': '' "> {{card.started ? "In progress" : "Not started"}} </div>
@@ -91,23 +90,30 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-// .flip-list-item {
-//   transition: all 1s;
-//   display: inline-block;
-//   margin-right: 10px;
-// }
-// .flip-list-enter, .flip-list-leave-to
-// /* .list-complete-leave-active до версии 2.1.8 */ {
-//   opacity: 0;
-//   transform: translateY(30px);
-// }
-// .flip-list-leave-active {
-//   position: absolute;
-// }
-.flip-list-move {
- 
-  transition: transform 1s;
 
+.flip-list-move {
+  transition: transform 1s;
 }
+// .startup-card{
+//  transition: 2s ;
+// }
+// .startup-card.startup-card_animation{
+//   //  animation-duration: 0.3s;
+//   // animation-name: slidein;
+//    opacity: .1;
+//    transition: 2s 
+// }
+
+
+// @keyframes slidein {
+//   from {
+//     opacity: 0.4;
+//   }
+
+//   to {
+//    opacity: 0;
+//   }
+// }
+
 
 </style>

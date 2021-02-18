@@ -10,6 +10,8 @@
                 margin-bottom: 0;
             }
             .startup-card {
+                transition: 1s;
+                opacity: 1;
                 margin-top: 0;
             }
             .startup-card__started-text {
@@ -18,6 +20,12 @@
             .startup-card {
                 width: 327px;
                 min-height: 418px;
+            }
+        }
+        
+        .practicants {
+            .desctop-buttons__slider {
+                display: none;
             }
         }
         
@@ -370,6 +378,41 @@
             .startup-block__startup-cards {
                 margin-top: 50px;
                 margin-left: 24px;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .practicants {
+                .desctop-buttons__slider {
+                    display: block;
+                }
+            }
+            .practicants {
+                .startup-block-content__desctop-buttons {
+                    align-items: baseline;
+                    display: flex;
+                    justify-content: space-between;
+                }
+                .desctop-buttons__slider {
+                    display: flex;
+                    width: 145px;
+                    justify-content: space-between;
+                    .slider-buttton {
+                        width: 64px;
+                        height: 64px;
+                        background-color: #3B465A;
+                        border-radius: 50%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        &:first-child img {
+                            transform: rotate(180deg);
+                        }
+                        img {
+                            margin: 0;
+                        }
+                    }
+                }
             }
         }
         
