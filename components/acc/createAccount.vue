@@ -83,7 +83,6 @@
           @click.prevent="sendError"
         >
           Sign Up
-          {{sendErr}}
         </button>
 
         <hr />
