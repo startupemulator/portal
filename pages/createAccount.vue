@@ -1,5 +1,5 @@
 <template>
-<div class="createaccount-fullscreen">
+<div class="createaccount-fullscreen" >
 <app-header :logined="false"></app-header>
     
     <create-account></create-account>

@@ -1,23 +1,31 @@
 <template>
- <div>
-      <app-header :logined="true"></app-header>
-       <div class="createProgect">
+  <div>
+    <app-header :login="true"></app-header>
+    <div class="createProgect">
       <create-prodgect></create-prodgect>
-      </div>
-    <app-footer></app-footer>  
-     </div>
+      <buttons-next-draft  ></buttons-next-draft>
+    </div>
+    <app-footer></app-footer>
     
+    <!-- <buttons-next-draft  v-if="device"></buttons-next-draft> -->
+  </div>
 </template>
 <script>
-import AppFooter from '~/components/appFooter.vue'
-import appHeader from '~/components/appHeader.vue'
-import CreateProdgect from '~/components/createProgect/createProdgect.vue'
-
+import AppFooter from "~/components/appFooter.vue";
+import appHeader from "~/components/appHeader.vue";
+import ButtonsNextDraft from "~/components/createProgect/buttonsNextDraft.vue";
+import CreateProdgect from "~/components/createProgect/createProdgect.vue";
+import { mapState } from "vuex";
 export default {
-  components: { 
-      appHeader,
-      AppFooter,
-    CreateProdgect },
-    
-}
+  components: {
+    appHeader,
+    AppFooter,
+    CreateProdgect,
+    ButtonsNextDraft,
+  },
+   computed: {
+    ...mapState(["applyToTeam", "device"]),
+    step: (state) => state.applyToTeam.stepOne,
+  }
+};
 </script>

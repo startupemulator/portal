@@ -3,49 +3,42 @@
     "name": "applyToTeam",
     "path": "/applyToTeam",
     "component": "Z:\\\\Progekts\\\\vue\\\\CoelixProdject\\\\nuxt prodject\\\\StartupEmulator\\\\pages\\\\applyToTeam.vue",
-    "chunkName": "pages/applyToTeam",
-    "_name": "_58a858a2"
+    "chunkName": "pages/applyToTeam"
   },
   {
     "name": "createAccount",
     "path": "/createAccount",
     "component": "Z:\\\\Progekts\\\\vue\\\\CoelixProdject\\\\nuxt prodject\\\\StartupEmulator\\\\pages\\\\createAccount.vue",
-    "chunkName": "pages/createAccount",
-    "_name": "_b24679a6"
+    "chunkName": "pages/createAccount"
   },
   {
     "name": "createProdgect",
     "path": "/createProdgect",
     "component": "Z:\\\\Progekts\\\\vue\\\\CoelixProdject\\\\nuxt prodject\\\\StartupEmulator\\\\pages\\\\createProdgect.vue",
-    "chunkName": "pages/createProdgect",
-    "_name": "_5b4bbd54"
+    "chunkName": "pages/createProdgect"
   },
   {
     "name": "logIn",
     "path": "/logIn",
     "component": "Z:\\\\Progekts\\\\vue\\\\CoelixProdject\\\\nuxt prodject\\\\StartupEmulator\\\\pages\\\\logIn.vue",
-    "chunkName": "pages/logIn",
-    "_name": "_3ff3edb6"
+    "chunkName": "pages/logIn"
   },
   {
     "name": "logined",
     "path": "/logined",
     "component": "Z:\\\\Progekts\\\\vue\\\\CoelixProdject\\\\nuxt prodject\\\\StartupEmulator\\\\pages\\\\logined.vue",
-    "chunkName": "pages/logined",
-    "_name": "_4f8adae4"
+    "chunkName": "pages/logined"
   },
   {
     "name": "unlogined",
     "path": "/unlogined",
     "component": "Z:\\\\Progekts\\\\vue\\\\CoelixProdject\\\\nuxt prodject\\\\StartupEmulator\\\\pages\\\\unlogined.vue",
-    "chunkName": "pages/unlogined",
-    "_name": "_d68b5caa"
+    "chunkName": "pages/unlogined"
   },
   {
     "name": "index",
     "path": "/",
     "component": "Z:\\\\Progekts\\\\vue\\\\CoelixProdject\\\\nuxt prodject\\\\StartupEmulator\\\\pages\\\\index.vue",
-    "chunkName": "pages/index",
-    "_name": "_4cf979ee"
+    "chunkName": "pages/index"
   }
 ]

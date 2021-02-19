@@ -1,5 +1,8 @@
+
+
 export const state = () => ({
     device: '',
+    login: false,
     experienceYears: [
         { id: 1, title: "Less than 6 months" },
         { id: 2, title: "6 months – 1 year" },
@@ -33,6 +36,7 @@ export const state = () => ({
         { id: 20, title: "CSS3" }
     ],
     applyToTeam: { stepOne: true, applied: false },
+    createprodjectSteps: { stepOne: true, stepTwo: false, stepThree: false, stepFour: false, technologi: false },
     speciality: [
         { id: '01', title: 'front-end' },
         { id: '02', title: 'back-end' }, { id: '03', title: 'devOps' }, { id: '04', title: 'full-stack' }, { id: '05', title: 'seo' }
@@ -57,7 +61,8 @@ export const state = () => ({
         { id: 1, fullName: "Full Name", text: "Some comment and feedback from an expert that belongs to some exact action in this list. ", position: "Front-end Developer", img: require('~/assets/img/practicant2.svg') },
         { id: 2, fullName: "Full Name", text: "Some comment and feedback from an expert that belongs to some exact action in this list. Some comment and feedback from an expert that belongs to some exact action in this list.", position: "Front-end Developer", img: require('~/assets/img/practicant2.svg') },
         { id: 3, fullName: "Full Name", text: "Some comment and feedback from an expert that belongs to some exact action in this list. ", position: "Front-end Developer", img: require('~/assets/img/practicant3.svg') },
-    ]
+    ],
+    pickedTechnology: []
 
 
 })
@@ -85,6 +90,15 @@ export const mutations = {
         } else if (card == 'practicant') {
             state.practicant.unshift(state.practicant.pop())
         }
+    },
+    nextStepOnCreateProdject(state) {
+        if (state.createprodjectSteps.stepOne) {
+            state.createprodjectSteps.stepOne = false
+            state.createprodjectSteps.stepTwo = true
+        } else {
+            state.createprodjectSteps.technologi = true
+        }
+
     }
 
 
@@ -120,5 +134,11 @@ export const actions = {
 
         commit('slideLeft', card)
     },
+    nextStepOnCreateProdject({ commit }) {
+        commit('nextStepOnCreateProdject')
+    },
+    saveDraftOnCreateProdject() {
+        console.log('saveDraft')
+    }
 
 }

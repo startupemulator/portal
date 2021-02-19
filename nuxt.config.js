@@ -42,11 +42,11 @@ export default {
 
 
     router: {
-        // base: './',
-        // mode: 'hash'
+        base: './',
+        mode: 'hash'
     },
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {
-        // publichPatch: '/nuxt/'
+        publichPatch: '/nuxt/'
     }
 }

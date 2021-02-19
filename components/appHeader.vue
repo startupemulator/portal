@@ -5,7 +5,7 @@
         <nuxt-link to="/">
     <div class="main-headr-logo">
       <img src="@/assets/img/logo.svg" alt="" class="logo" />
-      <h2 v-if="device">Startup Emulator</h2>
+      <h2 v-if="login">Startup Emulator</h2>
     
     </div></nuxt-link>
     
@@ -25,7 +25,7 @@
 
 Challenges</a></li>
 <!-- logined -->
-<div v-if="logined" >
+<div v-if="login" >
 <li class="nav-item "><a href="#">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M1 20V4C1 3.44772 1.44772 3 2 3H8L10 8H22C22.5523 8 23 8.44772 23 9V20C23 20.5523 22.5523 21 22 21H2C1.44772 21 1 20.5523 1 20Z" stroke="#8C97AC" stroke-width="2"/>
@@ -62,7 +62,7 @@ Notifications</a></li>
 
       </ul>
     </nav>
-    <div class="main-header-buttons" v-if="!logined">
+    <div class="main-header-buttons" v-if="!login">
       <nuxt-link to='login'><button class="button-login header-btn" >Log In</button></nuxt-link>
       
      <nuxt-link to='createAccount'> <button class="button-sign-up header-btn">Sign Up</button></nuxt-link>
@@ -73,7 +73,7 @@ Notifications</a></li>
 <script>
 import { mapState, mapActions } from "vuex";
 export default {
-  props:['logined'],
+  props:['login'],
   data: () => ({
 
   }),
