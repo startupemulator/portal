@@ -1,5 +1,12 @@
 [
   {
+    "name": "pages",
+    "path": "/pages",
+    "component": "/Users/andrii_kucherenko/Workspace/projects/starupemulator/portal/pages/pages.vue",
+    "chunkName": "pages/pages",
+    "_name": "_61c60fc2"
+  },
+  {
     "name": "index",
     "path": "/",
     "component": "/Users/andrii_kucherenko/Workspace/projects/starupemulator/portal/pages/index.vue",

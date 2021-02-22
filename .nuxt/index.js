@@ -14,6 +14,9 @@ import { createStore } from './store.js'
 /* Plugins */
 
 import nuxt_plugin_plugin_23c80e90 from 'nuxt_plugin_plugin_23c80e90' // Source: ./components/plugin.js (mode: 'all')
+import nuxt_plugin_cookieuniversalnuxt_007fbb76 from 'nuxt_plugin_cookieuniversalnuxt_007fbb76' // Source: ./cookie-universal-nuxt.js (mode: 'all')
+import nuxt_plugin_http_e0752e7c from 'nuxt_plugin_http_e0752e7c' // Source: ./http.js (mode: 'all')
+import nuxt_plugin_strapi_d98afabe from 'nuxt_plugin_strapi_d98afabe' // Source: ./strapi.js (mode: 'all')
 import nuxt_plugin_axios_52a377ce from 'nuxt_plugin_axios_52a377ce' // Source: ./axios.js (mode: 'all')
 
 // Component: <ClientOnly>
@@ -205,6 +208,18 @@ async function createApp(ssrContext, config = {}) {
 
   if (typeof nuxt_plugin_plugin_23c80e90 === 'function') {
     await nuxt_plugin_plugin_23c80e90(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_cookieuniversalnuxt_007fbb76 === 'function') {
+    await nuxt_plugin_cookieuniversalnuxt_007fbb76(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_http_e0752e7c === 'function') {
+    await nuxt_plugin_http_e0752e7c(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_strapi_d98afabe === 'function') {
+    await nuxt_plugin_strapi_d98afabe(app.context, inject)
   }
 
   if (typeof nuxt_plugin_axios_52a377ce === 'function') {
