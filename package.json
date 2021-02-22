@@ -20,6 +20,7 @@
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
+    "@nuxtjs/svg": "^0.1.12",
     "commitizen": "^4.2.3",
     "cz-conventional-changelog": "^3.3.0",
     "fibers": "^5.0.0",
