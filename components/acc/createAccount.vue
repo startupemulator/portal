@@ -197,7 +197,6 @@ export default {
       font-weight: normal;
       font-size: 16px;
       line-height: 32px;
-      color: #b5c1d8;
     }
   }
   form {
