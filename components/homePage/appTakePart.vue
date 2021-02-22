@@ -2,20 +2,21 @@
   <div class="take-part">
     <h2 class="take-part__title">Take part to</h2>
     <div
-      class="take-part__technologies"
       v-for="(item, i) in takePart"
       :key="i"
+      class="take-part__technologies"
       :class="{ 'technologies-active': item.status === true }"
     >
       <div class="take-part__technologies-title" @click="switchingtakePart(i)">
-        <h2>{{item.title}}</h2>
+        <h2>{{ item.title }}</h2>
         <img src="@/assets/img/arrow.svg" alt="arrow" />
       </div>
       <h3>
-        {{item.text}}
+        {{ item.text }}
       </h3>
 
-      <img v-if="!item.status"
+      <img
+        v-if="!item.status"
         class="take-part__technologies-img"
         :alt="item.img"
         :src="item.img"
@@ -32,7 +33,7 @@ export default {
   methods: {
     switchingtakePart(i) {
       this.takePart.forEach((item) => {
-        item.status = item.id == i ? false : true;
+        item.status = item.id !== i;
       });
     },
   },
@@ -45,7 +46,7 @@ function takePart() {
       title: "Use new technologies",
       text:
         "Description probably in two lines. Description probably in two or three lines. Description probably in two or three lines.",
-      img: require('@/assets/img/benefits.svg'),
+      img: require("@/assets/img/benefits.svg"),
     },
     {
       id: "1",
@@ -53,7 +54,7 @@ function takePart() {
       title: "Collaborate with others",
       text:
         "Description probably in two lines. Description probably in two or three lines. Description probably in two or three lines.",
-      img: require('~/assets/img/benefits2.svg'),
+      img: require("~/assets/img/benefits2.svg"),
     },
     {
       id: "2",
@@ -61,7 +62,7 @@ function takePart() {
       title: "Receive feedback from our experts",
       text:
         "Description probably in two lines. Description probably in two or three lines. Description probably in two or three lines.",
-      img: require('~/assets/img/benefits3.svg'),
+      img: require("~/assets/img/benefits3.svg"),
     },
   ];
 }

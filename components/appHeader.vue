@@ -154,26 +154,35 @@
           </div>
         </ul>
       </nav>
-      <div class="main-header-buttons" v-if="!login">
-        <nuxt-link to="login"
-          ><button class="button-login header-btn">Log In</button></nuxt-link
-        >
+      <div v-if="!login" class="main-header-buttons">
+        <nuxt-link to="login">
+          <button class="button-login header-btn">Log In</button>
+        </nuxt-link>
 
         <nuxt-link to="createAccount">
-          <button class="button-sign-up header-btn">Sign Up</button></nuxt-link
-        >
+          <button class="button-sign-up header-btn">Sign Up</button>
+        </nuxt-link>
       </div>
     </div>
   </header>
 </template>
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
+
 export default {
-  props: ["login"],
+  props: {
+    login: Boolean,
+  },
   data: () => ({}),
 
   computed: {
     ...mapState(["device"]),
+  },
+  mounted() {
+    const device = /Mobile|webOS|BlackBerry|IEMobile|MeeGo|mini|Fennec|Windows Phone|Android|iP(ad|od|hone)/i.test(
+      navigator.userAgent
+    );
+    this.identifyDevice(device);
   },
   methods: {
     ...mapActions(["isMobile"]),
@@ -182,12 +191,5 @@ export default {
       this.isMobile(device);
     },
   },
-  mounted() {
-    const device = /Mobile|webOS|BlackBerry|IEMobile|MeeGo|mini|Fennec|Windows Phone|Android|iP(ad|od|hone)/i.test(
-      navigator.userAgent
-    );
-    this.identifyDevice(device);
-  },
 };
 </script>
-

@@ -1,35 +1,33 @@
 <template>
-<div class="createaccount-fullscreen">
-<app-header :logined="false"></app-header>
-    
-    <log-in ></log-in>
-    
+  <div class="createaccount-fullscreen">
+    <app-header :logined="false"></app-header>
+
+    <log-in></log-in>
+
     <app-footer></app-footer>
-</div>
+  </div>
 </template>
 
 <script>
-import AppHeader from '@/components/appHeader.vue'
-import LogIn from '@/components/acc/logIn.vue'
-import AppFooter from '~/components/appFooter.vue'
+import AppHeader from "@/components/appHeader.vue";
+import LogIn from "@/components/acc/logIn.vue";
+import AppFooter from "~/components/appFooter.vue";
 
 export default {
-  
-    components:{
-        AppHeader,
-        AppFooter,
-        LogIn
-    }
-}
+  components: {
+    AppHeader,
+    AppFooter,
+    LogIn,
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-.createaccount-fullscreen{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 100vh;
-   
+.createaccount-fullscreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
 }
 .slide-fade-enter-active {
   transition: all 0.3s ease;

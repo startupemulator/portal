@@ -1,8 +1,8 @@
 <template>
   <div class="account">
     <transition name="slide-fade">
-      <div class="sign-up-link-popup" v-if="togglePopup">
-        <div class="sended-mail" v-if="sendEmail">
+      <div v-if="togglePopup" class="sign-up-link-popup">
+        <div v-if="sendEmail" class="sended-mail">
           <button type="button" class="sign-up-link__close">
             <img
               src="@/assets/img/close.svg"
@@ -15,11 +15,11 @@
           </button>
           <h2>Signing up link was sent</h2>
           <h3>
-            Signing up link was sent to your email. Follow the link to create an
+            Signing up link was sent to your email. Follow the link to create an
             account.
           </h3>
         </div>
-        <div class="sign-up-link" v-if="!sendEmail">
+        <div v-if="!sendEmail" class="sign-up-link">
           <button type="button" class="sign-up-link__close">
             <img
               src="@/assets/img/close.svg"
@@ -30,7 +30,7 @@
           <h2>Sign up with the email link</h2>
           <p>
             Signing up link will be sent to your email. After signing up you can
-            log in in the same way.
+            log in in the same way.
           </p>
           <form>
             <label for="account-email"></label>
@@ -46,15 +46,15 @@
         </div>
       </div>
     </transition>
-    <transition name="bounce" v-if="sendErr">
-    <div class="danger-message">
-      <div class="danger-message__shining"> </div>
-      <h2>Something went wrong</h2>
-      <p>
-        A short description about the error that happened. Three lines
-        are maximum for such messages. Time is 4 sec.
-      </p>
-    </div>
+    <transition v-if="sendErr" name="bounce">
+      <div class="danger-message">
+        <div class="danger-message__shining"></div>
+        <h2>Something went wrong</h2>
+        <p>
+          A short description about the error that happened. Three lines are
+          maximum for such messages. Time is 4 sec.
+        </p>
+      </div>
     </transition>
     <!-- __________________________________ -->
     <div class="create-account">
@@ -101,18 +101,17 @@ export default {
   data: () => ({
     togglePopup: false,
     sendEmail: false,
-    sendErr:false
+    sendErr: false,
   }),
   methods: {
-    sendError(){
-      this.sendErr = !this.sendErr
-      setTimeout(() => this.sendErr = !this.sendErr, 4000)
-    }
-  }
+    sendError() {
+      this.sendErr = !this.sendErr;
+      setTimeout(() => (this.sendErr = !this.sendErr), 4000);
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
-
 .bounce-enter-active {
   animation: bounce-in 1.5s;
 }
@@ -265,42 +264,41 @@ export default {
     right: 0;
   }
 }
-.danger-message{
-position: absolute;
-width: 343px;
-height: 148px;
-background: #2E384A;
-box-shadow: 0 8px 24px rgba(28, 35, 48, 0.2);
-border-radius: 12px;
-z-index: 10;
-right: 16px;
-top: 16px;
-.danger-message__shining{
+.danger-message {
   position: absolute;
+  width: 343px;
+  height: 148px;
+  background: #2e384a;
+  box-shadow: 0 8px 24px rgba(28, 35, 48, 0.2);
+  border-radius: 12px;
   z-index: 10;
-  width: 16px;
-height: 148px;
-background: #E94646;
-box-shadow: -4px 0 6px 1px rgba(233, 70, 70, 0.25), 4px 0 6px 1px rgba(233, 70, 70, 0.25);
-border-radius: 12px 0 0 12px;
-
-}
-h2{
-  font-weight: bold;
-font-size: 17px;
-line-height: 24px;
-color: #FFF;
-margin-left: 64px;
-}
-p{
-  font-weight: normal;
-font-size: 14px;
-line-height: 20px;
-color: #B5C1D8;
-margin-left: 64px;
-width: 251px;
-
-}
+  right: 16px;
+  top: 16px;
+  .danger-message__shining {
+    position: absolute;
+    z-index: 10;
+    width: 16px;
+    height: 148px;
+    background: #e94646;
+    box-shadow: -4px 0 6px 1px rgba(233, 70, 70, 0.25),
+      4px 0 6px 1px rgba(233, 70, 70, 0.25);
+    border-radius: 12px 0 0 12px;
+  }
+  h2 {
+    font-weight: bold;
+    font-size: 17px;
+    line-height: 24px;
+    color: #fff;
+    margin-left: 64px;
+  }
+  p {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    color: #b5c1d8;
+    margin-left: 64px;
+    width: 251px;
+  }
 }
 .create-account {
   width: 343px;

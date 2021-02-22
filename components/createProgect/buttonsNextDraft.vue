@@ -1,6 +1,10 @@
 <template>
   <div class="buttons-next-draft">
-    <button type="button" class="buttons-next" @click="nextStepOnCreateProdject">
+    <button
+      type="button"
+      class="buttons-next"
+      @click="nextStepOnCreateProdject"
+    >
       Next
     </button>
     <button
@@ -13,12 +17,11 @@
   </div>
 </template>
 <script>
-import { mapActions } from "vuex"
+import { mapActions } from "vuex";
 export default {
-   methods:{
-    ...mapActions(['nextStepOnCreateProdject', 'saveDraftOnCreateProdject'])
+  methods: {
+    ...mapActions(["nextStepOnCreateProdject", "saveDraftOnCreateProdject"]),
   },
-
 };
 </script>
 <style lang="scss" scoped>
@@ -36,12 +39,12 @@ export default {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  button{
-      width: 163.5px;
-height: 48px;
+  button {
+    width: 163.5px;
+    height: 48px;
   }
-  .buttons-next{
-      background-color: $button-color-blue;
+  .buttons-next {
+    background-color: $button-color-blue;
     &:hover {
       background-color: $button-color-blue-hover;
     }
@@ -51,37 +54,36 @@ height: 48px;
     &:active {
       background-color: $button-color-blue-active;
     }
-    
   }
-  .buttons-draft{
-        background-color: $button-color-gray;
-        &:hover {
-            background-color: $button-color-gray-hover;
-        }
-        &:focus {
-            background-color: $button-color-gray-focus
-        }
-        &:active {
-            background-color: $button-color-gray-active
-        }
+  .buttons-draft {
+    background-color: $button-color-gray;
+    &:hover {
+      background-color: $button-color-gray-hover;
     }
+    &:focus {
+      background-color: $button-color-gray-focus;
+    }
+    &:active {
+      background-color: $button-color-gray-active;
+    }
+  }
 }
-@media (min-width: 768px){
-    .buttons-next-draft{
-       position: relative;
+@media (min-width: 768px) {
+  .buttons-next-draft {
+    position: relative;
     width: 660px;
-   border: none;
-   border-radius: 0;
-   background-color: transparent;
-   box-shadow: none;
-   border-top: 1px solid #3B465A;
-   margin: 0 auto;
-   margin-top: 34px;
-     justify-content: space-between;
-    button{
-       width: 318px;
-    height: 56px;
-    margin-top: 24px;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: none;
+    border-top: 1px solid #3b465a;
+    margin: 0 auto;
+    margin-top: 34px;
+    justify-content: space-between;
+    button {
+      width: 318px;
+      height: 56px;
+      margin-top: 24px;
     }
   }
 }

@@ -1,8 +1,8 @@
 <template>
   <div class="account">
     <transition name="slide-fade">
-      <div class="sign-up-link-popup" v-if="togglePopup">
-        <div class="sended-mail" v-if="sendEmail">
+      <div v-if="togglePopup" class="sign-up-link-popup">
+        <div v-if="sendEmail" class="sended-mail">
           <button type="button" class="sign-up-link__close">
             <img
               src="@/assets/img/close.svg"
@@ -15,12 +15,12 @@
           </button>
           <h2>Signing up link was sent</h2>
           <h3>
-            Signing up link was sent to your email. Follow the link to create an
+            Signing up link was sent to your email. Follow the link to create an
             account.
           </h3>
         </div>
 
-        <div class="sign-up-link" v-if="!sendEmail">
+        <div v-if="!sendEmail" class="sign-up-link">
           <button type="button" class="sign-up-link__close">
             <img
               src="@/assets/img/close.svg"
@@ -31,7 +31,7 @@
           <h2>Sign up with the email link</h2>
           <p>
             Signing up link will be sent to your email. After signing up you can
-            log in in the same way.
+            log in in the same way.
           </p>
           <form>
             <label for="account-email"></label>
@@ -60,13 +60,15 @@
       <h2>Log in</h2>
       <form>
         <label for="account-email">
-        <input
-          type="email"
-          v-model="email"
-          placeholder="Enter your email"
-          :class="emailInvalid ? 'account-email__invalid ' : ''"
+          <input
+            v-model="email"
+            type="email"
+            placeholder="Enter your email"
+            :class="emailInvalid ? 'account-email__invalid ' : ''"
         /></label>
-<span v-if="emailInvalid" class="account-email-empty">Please enter an email address</span>
+        <span v-if="emailInvalid" class="account-email-empty"
+          >Please enter an email address</span
+        >
         <label for="account-password">
           <button
             type="button "
@@ -76,13 +78,13 @@
             <img src="@/assets/img/eye.svg" alt="eye" />
           </button>
 
-        <input
-          :type="password ? 'password' : 'text'"
-          placeholder="Enter your password"
+          <input
+            :type="password ? 'password' : 'text'"
+            placeholder="Enter your password"
         /></label>
         <span v-if="emailInvalid" class="account-email-empty">
-password must be at least 6 characters</span>
-
+          password must be at least 6 characters</span
+        >
 
         <button
           type="button "
@@ -112,13 +114,12 @@ export default {
     password: true,
     emailInvalid: false,
     validaterugular: {
-      email: /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
-
+      email: /^([\w-.]+@([\w-]+\.)+[\w-]{2,4})?$/,
     },
   }),
   methods: {
     checkEmail() {
-      this.emailInvalid = true
+      this.emailInvalid = true;
       this.validaterugular.email.test(this.email)
         ? (this.emailInvalid = false)
         : (this.emailInvalid = true);
@@ -127,7 +128,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-
 @import "@/assets/css/variables.scss";
 .sign-up-link-popup {
   position: fixed;
@@ -236,28 +236,27 @@ export default {
   input.account-email__invalid {
     border: 1px solid #e94646;
   }
-  .account-email-empty{
+  .account-email-empty {
     position: relative;
-  margin-top: -14px;
+    margin-top: -14px;
     z-index: 2;
     font-weight: normal;
     display: block;
-font-size: 14px;
-line-height: 20px;
-padding-left: 24px;
-color: #F87B7B;
+    font-size: 14px;
+    line-height: 20px;
+    padding-left: 24px;
+    color: #f87b7b;
 
-  &::before{
-    position: absolute;
-    content: "";
-    width: 16px;
-    height: 16px;
-    left: 0;
-    top: 2px;
-    background-image: url('Warning.svg');
+    &::before {
+      position: absolute;
+      content: "";
+      width: 16px;
+      height: 16px;
+      left: 0;
+      top: 2px;
+      background-image: url("Warning.svg");
+    }
   }
-  }
-
 }
 .sended-mail {
   position: relative;
@@ -343,7 +342,7 @@ color: #F87B7B;
       background-image: url("../../assets/img/email.svg");
       background-repeat: no-repeat;
     }
-    label:nth-child(3)::before  {
+    label:nth-child(3)::before {
       content: "";
       position: absolute;
       width: 24px;
@@ -353,7 +352,6 @@ color: #F87B7B;
       z-index: 2;
       background-image: url("../../assets/img/password.svg");
       background-repeat: no-repeat;
-
     }
     label:nth-child(2)::before {
       content: "";
@@ -365,7 +363,6 @@ color: #F87B7B;
       z-index: 2;
       background-image: url("../../assets/img/password.svg");
       background-repeat: no-repeat;
-
     }
     label:nth-child(5)::before {
       content: "";
@@ -423,9 +420,7 @@ color: #F87B7B;
       font-size: 16px;
       line-height: 32px;
       padding-top: 18px;
-    color: #b5c1d8;
-
-
+      color: #b5c1d8;
     }
   }
   .create-account-btn-continue {
