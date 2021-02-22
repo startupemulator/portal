@@ -14,7 +14,7 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-  target: 'static', // default is 'server'
+  target: 'server', // default is 'server'
   generate: {
     crawler: false
   },
