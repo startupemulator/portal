@@ -8,7 +8,10 @@
     "commit": "cz",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
+    "lint:style": "stylelint \"**/*.{vue,css,scss}\" --ignore-path .gitignore",
+    "lint": "yarn lint:js && yarn lint:style"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.12.5",
@@ -20,13 +23,18 @@
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
+    "@nuxtjs/stylelint-module": "^4.0.0",
     "@nuxtjs/svg": "^0.1.12",
     "commitizen": "^4.2.3",
     "cz-conventional-changelog": "^3.3.0",
     "fibers": "^5.0.0",
     "husky": "^5.1.0",
+    "prettier": "^2.2.1",
     "sass": "^1.32.6",
-    "sass-loader": "^9.0.2"
+    "sass-loader": "^9.0.2",
+    "stylelint": "^13.11.0",
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-config-standard": "^20.0.0"
   },
   "config": {
     "commitizen": {

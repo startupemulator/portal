@@ -162,7 +162,7 @@ export default {
     font-weight: bold;
     font-size: 26px;
     line-height: 32px;
-    color: #ffffff;
+    color: #fff;
     width: 295px;
     margin: 0;
     margin-left: 24px;
@@ -172,7 +172,7 @@ export default {
     font-weight: normal;
     font-size: 16px;
     line-height: 22px;
-    color: #ffffff;
+    color: #fff;
     margin-left: 24px;
     margin-top: 16px;
     width: 295px;
@@ -206,7 +206,7 @@ export default {
       width: 100%;
       position: relative;
     }
-    label:before {
+    label::before {
       content: "";
       position: absolute;
       width: 24px;
@@ -248,7 +248,7 @@ export default {
     font-weight: bold;
     font-size: 26px;
     line-height: 32px;
-    color: #ffffff;
+    color: #fff;
     margin: 0 auto;
     margin-top: 40px;
   }
@@ -257,7 +257,7 @@ export default {
     font-weight: normal;
     font-size: 16px;
     line-height: 22px;
-    color: #ffffff;
+    color: #fff;
     margin: 0 auto;
     margin-top: 16px;
   }
@@ -271,7 +271,7 @@ position: absolute;
 width: 343px;
 height: 148px;
 background: #2E384A;
-box-shadow: 0px 8px 24px rgba(28, 35, 48, 0.2);
+box-shadow: 0 8px 24px rgba(28, 35, 48, 0.2);
 border-radius: 12px;
 z-index: 10;
 right: 16px;
@@ -282,15 +282,15 @@ top: 16px;
   width: 16px;
 height: 148px;
 background: #E94646;
-box-shadow: -4px 0px 6px 1px rgba(233, 70, 70, 0.25), 4px 0px 6px 1px rgba(233, 70, 70, 0.25);
-border-radius: 12px 0px 0px 12px;
+box-shadow: -4px 0 6px 1px rgba(233, 70, 70, 0.25), 4px 0 6px 1px rgba(233, 70, 70, 0.25);
+border-radius: 12px 0 0 12px;
 
 }
 h2{
   font-weight: bold;
 font-size: 17px;
 line-height: 24px;
-color: #FFFFFF;
+color: #FFF;
 margin-left: 64px;
 }
 p{
@@ -345,35 +345,35 @@ width: 251px;
       width: 100%;
       position: relative;
     }
-    label:nth-child(1):before {
+    label:nth-child(1)::before {
       content: "";
       position: absolute;
       width: 24px;
       height: 24px;
       left: 16px;
-      bottom: 0px;
+      bottom: 0;
       z-index: 2;
       background-image: url("../../assets/img/profile.svg");
       background-repeat: no-repeat;
     }
-    label:nth-child(3):before {
+    label:nth-child(3)::before {
       content: "";
       position: absolute;
       width: 24px;
       height: 24px;
       left: 16px;
-      bottom: 0px;
+      bottom: 0;
       z-index: 2;
       background-image: url("../../assets/img/email.svg");
       background-repeat: no-repeat;
     }
-    label:nth-child(5):before {
+    label:nth-child(5)::before {
       content: "";
       position: absolute;
       width: 24px;
       height: 24px;
       left: 16px;
-      bottom: 0px;
+      bottom: 0;
       z-index: 2;
       background-image: url("../../assets/img/password.svg");
       background-repeat: no-repeat;
@@ -473,7 +473,7 @@ width: 251px;
         width: 100%;
         position: relative;
       }
-      label:nth-child(n + 1):before {
+      label:nth-child(n + 1)::before {
         left: 24px;
       }
       .create-account-eye {
@@ -500,7 +500,6 @@ width: 251px;
   .sended-mail {
     width: 560px;
     height: 200px;
-
     margin-top: -60px;
     h2 {
       font-weight: bold;
@@ -564,7 +563,7 @@ width: 251px;
       margin-left: 48px;
     }
   }
-  .sign-up-link-popup form label:before {
+  .sign-up-link-popup form label::before {
     left: 72px;
   }
 }

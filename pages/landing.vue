@@ -4,13 +4,13 @@
     <app-get-experience></app-get-experience>
     <app-startups-block></app-startups-block>
     <app-challenges-block></app-challenges-block>
-    <app-team-develop></app-team-develop> 
+    <app-team-develop></app-team-develop>
     <app-take-part></app-take-part>
-    <app-top-startups></app-top-startups> 
+    <app-top-startups></app-top-startups>
     <app-practicants></app-practicants>
-    <app-footer> </app-footer> 
+    <app-footer> </app-footer>
 
-    
+
 </div>
 </template>
 
@@ -39,8 +39,3 @@ export default {
     }
 }
 </script>
-
-<style >
-
-
-</style> 

@@ -21,12 +21,12 @@ justify-content: center ;
 height: 92px;
 background: #232B39;
 border: 1px solid #3B465A;
-box-shadow: inset 0px 0px 10px 2px #262F3F;
-border-radius: 16px 16px 0px 0px;
+box-shadow: inset 0 0 10px 2px #262F3F;
+border-radius: 16px 16px 0 0;
 position: fixed;
 z-index: 2;
 width: 100%;
-bottom: 0px;
+bottom: 0;
 button{
 margin-top: 16px;
     width: 343px;

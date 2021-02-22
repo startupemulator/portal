@@ -18,9 +18,6 @@ export default {
     host: '0.0.0.0',
   },
   target: 'server', // default is 'server'
-  generate: {
-    crawler: false
-  },
   router: {
     base: '/'
   },
@@ -35,9 +32,12 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    "@nuxtjs/svg"
+    "@nuxtjs/svg",
+    // '@nuxtjs/stylelint-module'
   ],
-
+  stylelint: {
+    fix: true
+  },
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios

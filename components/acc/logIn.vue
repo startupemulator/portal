@@ -160,7 +160,7 @@ export default {
     font-weight: bold;
     font-size: 26px;
     line-height: 32px;
-    color: #ffffff;
+    color: #fff;
     width: 295px;
     margin: 0;
     margin-left: 24px;
@@ -170,7 +170,7 @@ export default {
     font-weight: normal;
     font-size: 16px;
     line-height: 22px;
-    color: #ffffff;
+    color: #fff;
     margin-left: 24px;
     margin-top: 16px;
     width: 295px;
@@ -191,7 +191,6 @@ export default {
     padding-left: 56px;
     box-sizing: border-box;
     &::placeholder {
-
       font-weight: normal;
       font-size: 16px;
       line-height: 32px;
@@ -204,7 +203,7 @@ export default {
       width: 100%;
       position: relative;
     }
-    label:before {
+    label::before {
       content: "";
       position: absolute;
       width: 24px;
@@ -248,7 +247,7 @@ line-height: 20px;
 padding-left: 24px;
 color: #F87B7B;
 
-  &:before{
+  &::before{
     position: absolute;
     content: "";
     width: 16px;
@@ -273,7 +272,7 @@ color: #F87B7B;
     font-weight: bold;
     font-size: 26px;
     line-height: 32px;
-    color: #ffffff;
+    color: #fff;
     margin: 0 auto;
     margin-top: 40px;
   }
@@ -282,7 +281,7 @@ color: #F87B7B;
     font-weight: normal;
     font-size: 16px;
     line-height: 22px;
-    color: #ffffff;
+    color: #fff;
     margin: 0 auto;
     margin-top: 16px;
   }
@@ -333,48 +332,48 @@ color: #F87B7B;
       width: 100%;
       position: relative;
     }
-    label:nth-child(1):before {
+    label:nth-child(1)::before {
       content: "";
       position: absolute;
       width: 24px;
       height: 24px;
       left: 16px;
-      bottom: 0px;
+      bottom: 0;
       z-index: 2;
       background-image: url("../../assets/img/email.svg");
       background-repeat: no-repeat;
     }
-    label:nth-child(3):before  {
+    label:nth-child(3)::before  {
       content: "";
       position: absolute;
       width: 24px;
       height: 24px;
       left: 16px;
-      bottom: 0px;
+      bottom: 0;
       z-index: 2;
       background-image: url("../../assets/img/password.svg");
       background-repeat: no-repeat;
 
     }
-    label:nth-child(2):before {
+    label:nth-child(2)::before {
       content: "";
       position: absolute;
       width: 24px;
       height: 24px;
       left: 16px;
-      bottom: 0px;
+      bottom: 0;
       z-index: 2;
       background-image: url("../../assets/img/password.svg");
       background-repeat: no-repeat;
 
     }
-    label:nth-child(5):before {
+    label:nth-child(5)::before {
       content: "";
       position: absolute;
       width: 24px;
       height: 24px;
       left: 16px;
-      bottom: 0px;
+      bottom: 0;
       z-index: 2;
       background-image: url("../../assets/img/password.svg");
       background-repeat: no-repeat;
@@ -452,7 +451,6 @@ color: #F87B7B;
   .sended-mail {
     width: 560px;
     height: 200px;
-
     margin-top: -60px;
     h2 {
       font-weight: bold;
@@ -471,7 +469,6 @@ color: #F87B7B;
   .create-account {
     width: 660px;
     min-height: 300px;
-
     margin-top: 45px;
 
     h2 {
@@ -498,7 +495,7 @@ color: #F87B7B;
         width: 100%;
         position: relative;
       }
-      label:nth-child(n + 1):before {
+      label:nth-child(n + 1)::before {
         left: 24px;
       }
       .create-account-eye {
@@ -570,7 +567,7 @@ color: #F87B7B;
       margin-left: 48px;
     }
   }
-  .sign-up-link-popup form label:before {
+  .sign-up-link-popup form label::before {
     left: 72px;
   }
 }
