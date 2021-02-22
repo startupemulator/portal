@@ -14,6 +14,10 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/css/variables.scss";
 .button-next {
+  position: absolute;
+  z-index: 2;
+  bottom: 0;
+  width: 100%;
   display: flex;
   justify-content: center;
   height: 92px;
@@ -39,6 +43,7 @@ export default {
 }
 @media (min-width: 768px){
   .button-next{
+    position: relative;
     width: 660px;
    border: none;
    height: 89px;

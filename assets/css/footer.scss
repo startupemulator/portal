@@ -2,7 +2,6 @@
         background: linear-gradient(90deg, #1C232F 0%, #232B3A 100%);
         box-shadow: inset 0px 1px 0px #3B465A;
         margin-top: 52px;
-        padding-bottom: 100px;
         .main-footer__content {
             padding-top: 1px;
         }
@@ -35,6 +34,14 @@
         }
     }
     
+    .main-footer.mobile_button_bottom {
+        padding-bottom: 100px;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+        z-index: 1;
+    }
+    
     @media (min-width: 768px) {
         .main-footer {
             margin-top: 133px;
@@ -61,5 +68,8 @@
                     line-height: 32px;
                 }
             }
+        }
+        .main-footer.mobile_button_bottom {
+            padding-bottom: 0px;
         }
     }

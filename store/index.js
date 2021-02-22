@@ -1,5 +1,3 @@
-
-
 export const state = () => ({
     device: '',
     login: false,

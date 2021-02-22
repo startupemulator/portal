@@ -68,7 +68,7 @@ height: 48px;
 }
 @media (min-width: 768px){
     .buttons-next-draft{
-       
+       position: relative;
     width: 660px;
    border: none;
    border-radius: 0;

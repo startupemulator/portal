@@ -92,7 +92,7 @@ export default {
     togglePopup: false,
     sendEmail: false,
     email: '',
-     password: false,
+     password: true,
     validaterugular:{
       email:'/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/',
       
@@ -117,7 +117,7 @@ export default {
 }
 @import "@/assets/css/variables.scss";
 .sign-up-link-popup {
-  position: absolute;
+  position: fixed;
   top: 0%;
   width: 100vw;
   height: 100vh;

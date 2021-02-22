@@ -288,13 +288,14 @@
     }
     
     .technologi-popup__pick-technology {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         background: rgba(59, 70, 90, 0.6);
         backdrop-filter: blur(16px);
         min-height: 100vh;
         width: 100vw;
+        z-index: 11;
         .pick-technology__content {
             max-width: 375px;
             box-sizing: border-box;

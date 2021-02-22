@@ -70,9 +70,9 @@
         <div class="step-2__select">
          
           <div class="step-2__custom-select">
-            <div class="custom-select" @click="openSelect" :class="toggleSelect ? 'opend-select' : ''">
+            <div class="custom-select" @click="openSelect">
               <span>{{ selectedSpeciality }}</span>
-              <img src="@/assets/img/arrow.svg" alt="arrow" />
+              <img src="@/assets/img/arrow.svg" alt="arrow" :style="toggleSelect ? 'transform: rotate(-90deg); transition: 1s' : ''" />
             </div>
             <transition name="slide-up">
             <ul class="custom-select__list" v-show="toggleSelect"  >

@@ -1,5 +1,5 @@
 <template>
-  <footer class="main-footer">
+  <footer class="main-footer " :class="mobileBottomButton ? 'mobile_button_bottom' : ''">
       <div class="main-footer__content">
     <ul class="main-footer__list">
         <li class="main-footer__item">
@@ -19,5 +19,7 @@
   </footer>
 </template>
 <script>
-export default {};
+export default {
+    props:['mobileBottomButton']
+};
 </script>

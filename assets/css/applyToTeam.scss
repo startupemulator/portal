@@ -127,6 +127,7 @@
                 .apply-to-team {
                     width: 343px;
                     margin: 0 auto;
+                    min-height: 320px;
                 }
                 
                 .step-2 h2 {
@@ -176,19 +177,19 @@
                     img {
                         margin-right: 24px;
                         transform: rotate(90deg);
+                        transition: 1s
                     }
                 }
                 
                 .custom-select.opend-select {
                     transition: 1s;
-                    border-radius: 12px 12px 0 0;
                 }
                 
                 .step-2__custom-select {
                     background: #2E384A;
                     border-radius: 12px;
                     .custom-select__list {
-                        border-radius: 0 0 12px 12px;
+                        border-radius: 12px;
                         position: absolute;
                         z-index: 11;
                         background: #2E384A;
@@ -197,23 +198,46 @@
                         box-sizing: border-box;
                         line-height: 32px;
                         color: #B5C1D8;
-                        padding-left: 16px;
                         border: none;
-                        margin-top: 0;
+                        margin-top: 4px;
+                        padding-left: 0;
                     }
                     .custom-select__item {
                         cursor: pointer;
                         padding-bottom: 4px;
+                        padding-left: 16px;
+                        &:first-child {
+                            border-radius: 12px 12px 0 0;
+                        }
+                        &:last-child {
+                            border-radius: 0 0 12px 12px;
+                        }
+                        &:hover {
+                            background: #4E5A71;
+                        }
+                        &:active {
+                            background: #4B4AC8;
+                        }
                         span {
+                            &:first-child {
+                                border-radius: 12px 12px 0 0;
+                            }
+                            &:last-child {
+                                border-radius: 0 0 12px 12px;
+                            }
                             &:hover {
-                                border-bottom: 1px solid #8C97AC;
+                                background: #4E5A71;
+                            }
+                            &:active {
+                                background: #4B4AC8;
                             }
                         }
                     }
                 }
                 
                 .modal-applied {
-                    position: absolute;
+                    position: fixed;
+                    z-index: 11;
                     top: 0;
                     left: 0;
                     background: rgba(59, 70, 90, 0.6);

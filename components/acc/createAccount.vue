@@ -103,11 +103,6 @@ export default {
     sendEmail: false,
     sendErr:false
   }),
-  computed: {
-  sendErr: function (){
-    return this.sendErr = this.sendErr 
-  }
-  },
   methods: {
     sendError(){
       this.sendErr = !this.sendErr

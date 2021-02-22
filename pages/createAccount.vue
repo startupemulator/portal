@@ -3,7 +3,7 @@
 <app-header :logined="false"></app-header>
     
     <create-account></create-account>
-    <app-footer></app-footer>
+    <app-footer :mobileBottomButton="false"></app-footer>
    
 </div>
 </template>

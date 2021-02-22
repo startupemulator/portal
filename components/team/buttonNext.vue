@@ -7,6 +7,7 @@
 <script>
 import { mapActions} from "vuex";
 export default {
+  
       methods: {
       ...mapActions(["changeStepOnApplyToTeam"]),
     },
@@ -22,6 +23,10 @@ background: #232B39;
 border: 1px solid #3B465A;
 box-shadow: inset 0px 0px 10px 2px #262F3F;
 border-radius: 16px 16px 0px 0px;
+position: fixed;
+z-index: 2;
+width: 100%;
+bottom: 0px;
 button{
 margin-top: 16px;
     width: 343px;
@@ -48,6 +53,7 @@ background-color: $button-color-blue;
    border-top: 1px solid #3B465A;
    margin: 0 auto;
    margin-top: 24px;
+   position: relative;
     button{
        width: 660px;
     height: 56px;
