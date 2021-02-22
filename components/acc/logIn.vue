@@ -5,7 +5,7 @@
         <div class="sended-mail" v-if="sendEmail">
           <button type="button" class="sign-up-link__close">
             <img
-              src="@/assets/img/Close.svg"
+              src="@/assets/img/close.svg"
               alt="Close"
               @click="
                 togglePopup = !togglePopup;
@@ -23,7 +23,7 @@
         <div class="sign-up-link" v-if="!sendEmail">
           <button type="button" class="sign-up-link__close">
             <img
-              src="@/assets/img/Close.svg"
+              src="@/assets/img/close.svg"
               alt="Close"
               @click="togglePopup = !togglePopup"
             />
@@ -36,7 +36,7 @@
           <form>
             <label for="account-email"></label>
             <input type="email" placeholder="Enter your email" />
-            
+
             <button
               type="button "
               class="create-account-btn-sign"
@@ -73,16 +73,16 @@
             class="create-account-eye"
             @click.prevent="password = !password"
           >
-            <img src="@/assets/img/Eye.svg" alt="eye" />
+            <img src="@/assets/img/eye.svg" alt="eye" />
           </button>
-        
+
         <input
           :type="password ? 'password' : 'text'"
           placeholder="Enter your password"
         /></label>
         <span v-if="emailInvalid" class="account-email-empty">
 password must be at least 6 characters</span>
-        
+
 
         <button
           type="button "
@@ -113,7 +113,7 @@ export default {
     emailInvalid: false,
     validaterugular: {
       email: /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
-  
+
     },
   }),
   methods: {
@@ -191,7 +191,7 @@ export default {
     padding-left: 56px;
     box-sizing: border-box;
     &::placeholder {
-    
+
       font-weight: normal;
       font-size: 16px;
       line-height: 32px;
@@ -212,7 +212,7 @@ export default {
       left: 40px;
       top: -2px;
       z-index: 2;
-      background-image: url("../../assets/img/Email.svg");
+      background-image: url("../../assets/img/email.svg");
       background-repeat: no-repeat;
     }
   }
@@ -341,7 +341,7 @@ color: #F87B7B;
       left: 16px;
       bottom: 0px;
       z-index: 2;
-      background-image: url("../../assets/img/Email.svg");
+      background-image: url("../../assets/img/email.svg");
       background-repeat: no-repeat;
     }
     label:nth-child(3):before  {
@@ -352,9 +352,9 @@ color: #F87B7B;
       left: 16px;
       bottom: 0px;
       z-index: 2;
-      background-image: url("../../assets/img/Password.svg");
+      background-image: url("../../assets/img/password.svg");
       background-repeat: no-repeat;
-    
+
     }
     label:nth-child(2):before {
       content: "";
@@ -364,9 +364,9 @@ color: #F87B7B;
       left: 16px;
       bottom: 0px;
       z-index: 2;
-      background-image: url("../../assets/img/Password.svg");
+      background-image: url("../../assets/img/password.svg");
       background-repeat: no-repeat;
-    
+
     }
     label:nth-child(5):before {
       content: "";
@@ -376,7 +376,7 @@ color: #F87B7B;
       left: 16px;
       bottom: 0px;
       z-index: 2;
-      background-image: url("../../assets/img/Password.svg");
+      background-image: url("../../assets/img/password.svg");
       background-repeat: no-repeat;
     }
     .create-account-eye {
@@ -425,8 +425,8 @@ color: #F87B7B;
       line-height: 32px;
       padding-top: 18px;
     color: #b5c1d8;
-    
-  
+
+
     }
   }
   .create-account-btn-continue {

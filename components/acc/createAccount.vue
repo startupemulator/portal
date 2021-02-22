@@ -5,7 +5,7 @@
         <div class="sended-mail" v-if="sendEmail">
           <button type="button" class="sign-up-link__close">
             <img
-              src="@/assets/img/Close.svg"
+              src="@/assets/img/close.svg"
               alt="Close"
               @click="
                 togglePopup = !togglePopup;
@@ -22,7 +22,7 @@
         <div class="sign-up-link" v-if="!sendEmail">
           <button type="button" class="sign-up-link__close">
             <img
-              src="@/assets/img/Close.svg"
+              src="@/assets/img/close.svg"
               alt="Close"
               @click="togglePopup = !togglePopup"
             />
@@ -72,7 +72,7 @@
         <input type="email" placeholder="Enter your email" />
         <label for="account-password">
           <button type="button " class="create-account-eye" @click.prevent="">
-            <img src="@/assets/img/Eye.svg" alt="eye" />
+            <img src="@/assets/img/eye.svg" alt="eye" />
           </button>
         </label>
         <input type="password" placeholder="Set a password" />
@@ -214,7 +214,7 @@ export default {
       left: 40px;
       top: -2px;
       z-index: 2;
-      background-image: url("../../assets/img/Email.svg");
+      background-image: url("../../assets/img/email.svg");
       background-repeat: no-repeat;
     }
   }
@@ -353,7 +353,7 @@ width: 251px;
       left: 16px;
       bottom: 0px;
       z-index: 2;
-      background-image: url("../../assets/img/Profile.svg");
+      background-image: url("../../assets/img/profile.svg");
       background-repeat: no-repeat;
     }
     label:nth-child(3):before {
@@ -364,7 +364,7 @@ width: 251px;
       left: 16px;
       bottom: 0px;
       z-index: 2;
-      background-image: url("../../assets/img/Email.svg");
+      background-image: url("../../assets/img/email.svg");
       background-repeat: no-repeat;
     }
     label:nth-child(5):before {
@@ -375,7 +375,7 @@ width: 251px;
       left: 16px;
       bottom: 0px;
       z-index: 2;
-      background-image: url("../../assets/img/Password.svg");
+      background-image: url("../../assets/img/password.svg");
       background-repeat: no-repeat;
     }
     .create-account-eye {

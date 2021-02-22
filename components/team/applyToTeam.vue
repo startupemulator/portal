@@ -49,7 +49,7 @@
             <li class="technolodgy" v-for="(item, i) in technology" :key="i">
               <span>{{ item.name }}</span>
               <button class="remove-technolodgy" @click="removeTechnology(i)">
-                <img src="@/assets/img/Close.svg" alt="close" />
+                <img src="@/assets/img/close.svg" alt="close" />
               </button>
             </li>
 
@@ -68,7 +68,7 @@
       <div class="step-2" v-if="!step">
         <h2>Apply to Startup #1</h2>
         <div class="step-2__select">
-         
+
           <div class="step-2__custom-select">
             <div class="custom-select" @click="openSelect">
               <span>{{ selectedSpeciality }}</span>
@@ -76,9 +76,9 @@
             </div>
             <transition name="slide-up">
             <ul class="custom-select__list" v-show="toggleSelect"  >
-              <li class="custom-select__item" 
-              @click="selectSpeciality($event.target.textContent)" 
-              v-for="item in speciality" 
+              <li class="custom-select__item"
+              @click="selectSpeciality($event.target.textContent)"
+              v-for="item in speciality"
               :key="item.id"><span>{{ item.title }}</span> </li>
             </ul>
             </transition>
@@ -91,7 +91,7 @@
             <div class="applied-block">
               <button type="button" class="applied__close">
                 <img
-                  src="@/assets/img/Close.svg"
+                  src="@/assets/img/close.svg"
                   alt="Close"
                   @click="applyStartUp"
                 />
@@ -149,7 +149,7 @@ export default {
         this.toggleSelect = !this.toggleSelect
       },
       selectSpeciality(e){
-        this.selectedSpeciality = e 
+        this.selectedSpeciality = e
         this.toggleSelect = !this.toggleSelect
              }
   },

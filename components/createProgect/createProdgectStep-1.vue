@@ -16,7 +16,7 @@
         <!-- {{ "startDay" + startDay }} -->
         <!-- {{ "startMonth" + startMonth }} -->
         <div class="start-date__row">
-          <img src="@/assets/img/Calendar.svg" alt="Calendar" />
+          <img src="@/assets/img/calendar.svg" alt="Calendar" />
           <div class="start-date__col1">
             <input
               type="number"
@@ -51,7 +51,7 @@
       <div class="startup__finish-date">
         <h4> <span v-if="!device">Estimated</span> Finish date</h4>
         <div class="finish-date__row">
-          <img src="@/assets/img/Calendar.svg" alt="Calendar" />
+          <img src="@/assets/img/calendar.svg" alt="Calendar" />
           <div class="finish-date__col1">
             <input
               type="text"
@@ -97,7 +97,7 @@ export default {
     finishDay: "",
     finishMonth: "",
     finishYear: "",
-    message: "",   
+    message: "",
   }),
   computed:{
     ...mapState(['device', 'createprodjectSteps'])

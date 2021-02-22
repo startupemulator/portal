@@ -14,7 +14,7 @@
       <h3>
         {{item.text}}
       </h3>
-  
+
       <img v-if="!item.status"
         class="take-part__technologies-img"
         :alt="item.img"
@@ -53,7 +53,7 @@ function takePart() {
       title: "Collaborate with others",
       text:
         "Description probably in two lines. Description probably in two or three lines. Description probably in two or three lines.",
-      img: require('@/assets/img/benefits2.svg'),
+      img: require('~/assets/img/benefits2.svg'),
     },
     {
       id: "2",
@@ -61,7 +61,7 @@ function takePart() {
       title: "Receive feedback from our experts",
       text:
         "Description probably in two lines. Description probably in two or three lines. Description probably in two or three lines.",
-      img: require('@/assets/img/benefits3.svg'),
+      img: require('~/assets/img/benefits3.svg'),
     },
   ];
 }

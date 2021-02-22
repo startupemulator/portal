@@ -28,7 +28,7 @@
                         height: 48px;
                         bottom: 0px;
                         left: calc(50% - 49px);
-                        background-image: url('../img/Corner.svg');
+                        background-image: url('../img/corner.svg');
                         z-index: 2;
                     }
                 }
@@ -61,7 +61,7 @@
                 }
             }
         }
-        
+
         @media (min-width: 768px) {
             .practicants {
                 margin-top: 150px;
@@ -77,7 +77,7 @@
                 }
             }
         }
-        
+
         @media (min-width: 1440px) {
             .practicants {
                 width: 1344px;
@@ -110,7 +110,7 @@
                             height: 60px;
                             bottom: 0px;
                             left: calc(50% - 60px);
-                            background-image: url('../img/Corner-big.svg');
+                            background-image: url('../img/corner-big.svg');
                         }
                         h3 {
                             font-weight: normal;
