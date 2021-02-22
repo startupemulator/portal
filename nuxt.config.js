@@ -20,7 +20,7 @@ export default {
     },
 
     // Global CSS: https://go.nuxtjs.dev/config-css
-    css: ['@/assets/css/main.scss'],
+    css: ['assets/css/main.scss'],
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: [],
@@ -35,8 +35,11 @@ export default {
     modules: [
         // https://go.nuxtjs.dev/axios
         '@nuxtjs/axios',
+        '@nuxtjs/strapi'
     ],
-
+    strapi: {
+      url: process.env.STRAPI_URL || 'http://localhost:1337'
+    },
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
     axios: {},
 

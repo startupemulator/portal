@@ -6,6 +6,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.nuxt
 
 # Runtime data
 pids
@@ -19,7 +20,7 @@ lib-cov
 # Coverage directory used by tools like istanbul
 coverage
 
-# nyc test coverageF
+# nyc test coverage
 .nyc_output
 
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
@@ -67,10 +68,9 @@ typings/
 
 # nuxt.js build output
 # .nuxt
-nuxt.config.js
 
 # Nuxt generate
-# dist
+dist
 
 # vuepress build output
 .vuepress/dist
@@ -89,5 +89,3 @@ sw.*
 
 # Vim swap files
 *.swp
-nuxt.config.js
-nuxt.config.js

@@ -1,22 +1,35 @@
 {
-  "name": "StartupEmulator",
+  "name": "startupemulator-portal",
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "predev": "husky install",
     "dev": "nuxt",
+    "commit": "cz",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.12.5",
+    "@nuxtjs/strapi": "^0.3.0",
     "autoprefixer": "^10.2.4",
     "core-js": "^3.8.3",
     "nuxt": "^2.14.12"
   },
   "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "commitizen": "^4.2.3",
+    "cz-conventional-changelog": "^3.3.0",
     "fibers": "^5.0.0",
+    "husky": "^5.1.0",
     "sass": "^1.32.6",
     "sass-loader": "^9.0.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
