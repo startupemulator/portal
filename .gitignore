@@ -19,7 +19,7 @@ lib-cov
 # Coverage directory used by tools like istanbul
 coverage
 
-# nyc test coverage
+# nyc test coverageF
 .nyc_output
 
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
@@ -67,6 +67,7 @@ typings/
 
 # nuxt.js build output
 # .nuxt
+nuxt.config.js
 
 # Nuxt generate
 # dist
@@ -88,3 +89,5 @@ sw.*
 
 # Vim swap files
 *.swp
+nuxt.config.js
+nuxt.config.js
