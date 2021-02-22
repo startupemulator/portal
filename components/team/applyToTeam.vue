@@ -156,28 +156,5 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.slide-fade-enter-active {
-  
-  transition: all 2s ease;
-}
-.slide-fade-leave-active {
-  transition: all 0s cubic-bezier(1, 0.5, 0.8, 1);
-  
-}
-.slide-fade-enter,
-.slide-fade-leave-to {
-  transform: translateX(100vh);
-  opacity: 0;
-}
-// ________________
-.slide-up-enter-active {
-  transition: all 0.5s ease;
-}
-.slide-up-leave-active {
-  transition: all 0.5s cubic-bezier(1, 0.5, 0.8, 1);
-}
-.slide-up-enter,
-.slide-up-leave-to {
-  opacity: 0;
-}
+
 </style>

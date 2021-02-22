@@ -300,6 +300,12 @@
                 }
                 
                 @media (min-width: 768px) {
+                    .experience {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        min-height: 100vh;
+                    }
                     .step-1,
                     .apply-to-team {
                         width: 660px;
@@ -419,8 +425,9 @@
                             font-size: 18px;
                             line-height: 32px;
                             width: 660px;
-                            padding-left: 24px;
-                            ;
+                        }
+                        .custom-select__item {
+                            padding: 8px 24px;
                         }
                     }
                 }

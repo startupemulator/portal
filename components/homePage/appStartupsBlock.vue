@@ -94,26 +94,4 @@ export default {
 .flip-list-move {
   transition: transform 1s;
 }
-// .startup-card{
-//  transition: 2s ;
-// }
-// .startup-card.startup-card_animation{
-//   //  animation-duration: 0.3s;
-//   // animation-name: slidein;
-//    opacity: .1;
-//    transition: 2s 
-// }
-
-
-// @keyframes slidein {
-//   from {
-//     opacity: 0.4;
-//   }
-
-//   to {
-//    opacity: 0;
-//   }
-// }
-
-
 </style>

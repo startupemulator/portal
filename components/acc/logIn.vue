@@ -7,7 +7,10 @@
             <img
               src="@/assets/img/Close.svg"
               alt="Close"
-              @click="togglePopup = !togglePopup; sendEmail = !sendEmail"
+              @click="
+                togglePopup = !togglePopup;
+                sendEmail = !sendEmail;
+              "
             />
           </button>
           <h2>Signing up link was sent</h2>
@@ -16,13 +19,13 @@
             account.
           </h3>
         </div>
-       
+
         <div class="sign-up-link" v-if="!sendEmail">
-          <button type="button" class="sign-up-link__close" >
+          <button type="button" class="sign-up-link__close">
             <img
               src="@/assets/img/Close.svg"
               alt="Close"
-               @click="togglePopup = !togglePopup"
+              @click="togglePopup = !togglePopup"
             />
           </button>
           <h2>Sign up with the email link</h2>
@@ -33,6 +36,7 @@
           <form>
             <label for="account-email"></label>
             <input type="email" placeholder="Enter your email" />
+            
             <button
               type="button "
               class="create-account-btn-sign"
@@ -55,22 +59,35 @@
       >
       <h2>Log in</h2>
       <form>
-     
-        <label for="account-email"></label>
-        <input type="email" v-model="email" placeholder="Enter your email" />
-       
+        <label for="account-email">
+        <input
+          type="email"
+          v-model="email"
+          placeholder="Enter your email"
+          :class="emailInvalid ? 'account-email__invalid ' : ''"
+        /></label>
+<span v-if="emailInvalid" class="account-email-empty">Please enter an email address</span>
         <label for="account-password">
-          <button type="button " class="create-account-eye" @click.prevent="password = !password">
+          <button
+            type="button "
+            class="create-account-eye"
+            @click.prevent="password = !password"
+          >
             <img src="@/assets/img/Eye.svg" alt="eye" />
           </button>
-        </label>
-        <input :type="password ? 'password' : 'text'" placeholder="Enter your password" />
+        
+        <input
+          :type="password ? 'password' : 'text'"
+          placeholder="Enter your password"
+        /></label>
+        <span v-if="emailInvalid" class="account-email-empty">
+password must be at least 6 characters</span>
         
 
         <button
           type="button "
           class="create-account-btn-sign"
-          @click.prevent=""
+          @click.prevent="checkEmail"
         >
           Log In
         </button>
@@ -91,30 +108,26 @@ export default {
   data: () => ({
     togglePopup: false,
     sendEmail: false,
-    email: '',
-     password: true,
-    validaterugular:{
-      email:'/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/',
-      
-      
-    }
+    email: " ",
+    password: true,
+    emailInvalid: false,
+    validaterugular: {
+      email: /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
+  
+    },
   }),
- 
- 
+  methods: {
+    checkEmail() {
+      this.emailInvalid = true
+      this.validaterugular.email.test(this.email)
+        ? (this.emailInvalid = false)
+        : (this.emailInvalid = true);
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
-.slide-fade-enter-active {
-  transition: all 0.5s ease;
-}
-.slide-fade-leave-active {
-  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
-}
-.slide-fade-enter,
-.slide-fade-leave-to {
-  transform: translateX(10px);
-  opacity: 0;
-}
+
 @import "@/assets/css/variables.scss";
 .sign-up-link-popup {
   position: fixed;
@@ -178,7 +191,7 @@ export default {
     padding-left: 56px;
     box-sizing: border-box;
     &::placeholder {
-      color: #b5c1d8;
+    
       font-weight: normal;
       font-size: 16px;
       line-height: 32px;
@@ -219,6 +232,33 @@ export default {
       background-color: $button-color-blue-active;
     }
   }
+}
+.create-account {
+  input.account-email__invalid {
+    border: 1px solid #e94646;
+  }
+  .account-email-empty{
+    position: relative;
+  margin-top: -14px;
+    z-index: 2;
+    font-weight: normal;
+    display: block;
+font-size: 14px;
+line-height: 20px;
+padding-left: 24px;
+color: #F87B7B;
+
+  &:before{
+    position: absolute;
+    content: "";
+    width: 16px;
+    height: 16px;
+    left: 0;
+    top: 2px;
+    background-image: url('Warning.svg');
+  }
+  }
+
 }
 .sended-mail {
   position: relative;
@@ -304,7 +344,7 @@ export default {
       background-image: url("../../assets/img/Email.svg");
       background-repeat: no-repeat;
     }
-    label:nth-child(3):before {
+    label:nth-child(3):before  {
       content: "";
       position: absolute;
       width: 24px;
@@ -314,6 +354,19 @@ export default {
       z-index: 2;
       background-image: url("../../assets/img/Password.svg");
       background-repeat: no-repeat;
+    
+    }
+    label:nth-child(2):before {
+      content: "";
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      left: 16px;
+      bottom: 0px;
+      z-index: 2;
+      background-image: url("../../assets/img/Password.svg");
+      background-repeat: no-repeat;
+    
     }
     label:nth-child(5):before {
       content: "";
@@ -370,7 +423,10 @@ export default {
       font-weight: normal;
       font-size: 16px;
       line-height: 32px;
-      color: #b5c1d8;
+      padding-top: 18px;
+    color: #b5c1d8;
+    
+  
     }
   }
   .create-account-btn-continue {
@@ -394,24 +450,23 @@ export default {
 }
 @media (min-width: 768px) {
   .sended-mail {
- 
-  width: 560px;
-  height: 200px;
- 
-  margin-top: -60px;
-  h2{
-    font-weight: bold;
-font-size: 35px;
-line-height: 40px;
-max-width: 468px;
-margin-top: 50px;
-  }
-  h3{
-    max-width: 468px;
-    font-weight: normal;
-font-size: 17px;
-line-height: 24px;
-  }
+    width: 560px;
+    height: 200px;
+
+    margin-top: -60px;
+    h2 {
+      font-weight: bold;
+      font-size: 35px;
+      line-height: 40px;
+      max-width: 468px;
+      margin-top: 50px;
+    }
+    h3 {
+      max-width: 468px;
+      font-weight: normal;
+      font-size: 17px;
+      line-height: 24px;
+    }
   }
   .create-account {
     width: 660px;
