@@ -2,6 +2,17 @@
 
 ## Commit changes to repository
 
+> Warning: please use following command for commit data to the repo
+ 
+```bash
+$ npm run commit
+```
+or
+```bash
+$ git cz
+```
+
+In case of wrong commit message `commitlint` tool will throw error
 
 ## Build Setup
 

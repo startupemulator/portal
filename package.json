@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "predev": "husky install",
     "dev": "nuxt",
     "commit": "cz",
     "build": "nuxt build",
