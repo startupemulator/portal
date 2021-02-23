@@ -4,5 +4,6 @@ module.exports = {
   // https://stylelint.io/user-guide/configuration
   rules: {
     "no-descending-specificity": null,
+    "at-rule-no-unknown": null,
   },
 };

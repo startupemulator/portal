@@ -69,9 +69,9 @@
       <form>
         <label for="account-text"></label>
         <input
+          v-model="fullName"
           type="text"
           placeholder="Enter your full name"
-          v-model="fullName"
           :class="!validFullName ? 'account-email__invalid' : ''"
         />
         <span v-if="!validFullName" class="account-email-empty">
@@ -79,9 +79,9 @@
         >
         <label for="account-email"></label>
         <input
+          v-model="email"
           type="email"
           placeholder="Enter your email"
-          v-model="email"
           :class="!validEmail ? 'account-email__invalid' : ''"
         />
         <span v-if="!validEmail" class="account-email-empty">
@@ -93,9 +93,9 @@
           </button>
         </label>
         <input
+          v-model="password"
           type="password"
           placeholder="Set a password"
-          v-model="password"
           :class="!validPassword ? 'account-email__invalid' : ''"
         />
 
@@ -124,8 +124,8 @@
 <script>
 import buttonBack from "@/components/theme/buttonBack.vue";
 export default {
-  components:{
-  buttonBack
+  components: {
+    buttonBack,
   },
   data: () => ({
     togglePopup: false,
@@ -164,15 +164,15 @@ export default {
   position: relative;
   margin-top: -14px;
   z-index: 2;
+  margin-left: 0;
   font-weight: normal;
   display: block;
   font-size: 14px;
   line-height: 20px;
   padding-left: 24px;
   color: #f87b7b;
-  margin-left: 0px;
 
-  &:before {
+  &::before {
     position: absolute;
     content: "";
     width: 16px;
@@ -475,7 +475,6 @@ export default {
       font-weight: normal;
       font-size: 16px;
       line-height: 32px;
-      color: #b5c1d8;
     }
   }
   .create-account-btn-continue {

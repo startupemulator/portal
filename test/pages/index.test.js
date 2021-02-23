@@ -2,7 +2,6 @@
 
 describe("index", () => {
   // setupTest({ server: true })
-
   it("renders the index page", () => {
     // const { body } = await get('/')
     // expect(body).toContain('<h1>Pages List</h1>')

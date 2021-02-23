@@ -11,7 +11,7 @@
 <script>
 export default {};
 </script>
-<style lang="scss" >
+<style lang="scss">
 .button-back {
   .btn-back {
     background-color: transparent;

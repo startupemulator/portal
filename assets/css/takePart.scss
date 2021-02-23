@@ -1,186 +1,186 @@
-    .take-part {
-        width: 343px;
-        height: 540px;
-        margin: 0 auto;
-        margin-top: 55px;
-        color: $main-text-color;
-        padding-bottom: 50px;
-        .take-part__title {
-            color: $main-text-color;
-            font-weight: bold;
-            font-size: 36px;
-            line-height: 40px;
-            margin-bottom: 0;
-        }
-        .take-part__technologies {
-            height: 348px;
-            background: radial-gradient(55.96% 55.96% at 50.15% 70.78%, rgba(32, 40, 54, 0.5) 0%, rgba(46, 56, 74, 0) 100%), #2E384A;
-            border-radius: 12px;
-            margin-top: 25px;
-            transition: 1s;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        .take-part__technologies.technologies-active {
-            &:nth-child(3) {
-                margin-top: 0;
-            }
-            &:nth-child(4) {
-                margin-top: 0;
-                height: 70px;
-            }
-        }
-        .take-part__technologies {
-            &:nth-child(3) {
-                margin-top: 10px;
-            }
-            &:nth-child(4) {
-                margin-top: 10px;
-            }
-        }
-        .take-part__technologies-title {
-            display: flex;
-            margin: 0 auto;
-            padding-top: 5px;
-            width: 295px;
-            justify-content: space-between;
-        }
-        .take-part__technologies-title h2 {
-            font-style: normal;
-            font-weight: 600;
-            width: 230px;
-            font-size: 20px;
-            line-height: 24px;
-        }
-        .take-part__technologies-title img {
-            transform: rotate(-90deg);
-            margin-right: 5px;
-            transition: 1s;
-        }
-        .take-part__technologies h3 {
-            width: 295px;
-            min-height: 88px;
-            margin: 0 auto;
-            font-weight: normal;
-            font-size: 16px;
-            line-height: 22px;
-            color: #B5C1D8;
-        }
-        .take-part__technologies-img {
-            display: block;
-            width: 290px;
-            height: 152px;
-            margin: 0 auto;
-            margin-top: 20px;
-            transition: 1s;
-        }
+.take-part {
+  width: 343px;
+  height: 540px;
+  margin: 0 auto;
+  margin-top: 55px;
+  color: $main-text-color;
+  padding-bottom: 50px;
+  .take-part__title {
+    color: $main-text-color;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 40px;
+    margin-bottom: 0;
+  }
+  .take-part__technologies {
+    height: 348px;
+    background: radial-gradient(
+        55.96% 55.96% at 50.15% 70.78%,
+        rgba(32, 40, 54, 0.5) 0%,
+        rgba(46, 56, 74, 0) 100%
+      ),
+      #2e384a;
+    border-radius: 12px;
+    margin-top: 25px;
+    transition: 1s;
+    overflow: hidden;
+    cursor: pointer;
+    &:nth-child(3) {
+      margin-top: 10px;
     }
-    
-    @media (min-width: 768px) {
-        .take-part {
-            width: 100%;
-            height: 375px;
-            margin: 0 auto;
-            position: relative;
-            margin-top: 150px;
-            .take-part__title {
-                color: $main-text-color;
-                margin-left: 48px;
-                font-weight: 800;
-                font-size: 69px;
-                line-height: 80px;
-            }
-            .take-part__technologies {
-                margin-left: 48px;
-                width: 364px;
-                height: 180px;
-            }
-            .take-part__technologies-title {
-                width: 564;
-                margin-left: 22px;
-            }
-            .take-part__technologies h3 {
-                width: 564;
-                margin-left: 22px;
-            }
-            .take-part__technologies-img {
-                position: absolute;
-                right: 48px;
-                top: 33%;
-            }
-        }
+  }
+  .take-part__technologies.technologies-active {
+    &:nth-child(3) {
+      margin-top: 0;
     }
-    
-    @media (min-width: 1024px) {
-        .take-part {
-            .take-part__technologies-img {
-                top: 15%;
-                right: 0%;
-                width: 60%;
-                height: auto;
-            }
-        }
+    &:nth-child(4) {
+      margin-top: 10px;
+      height: 70px;
     }
-    
-    @media (min-width: 1366px) {
-        .take-part {
-            .take-part__technologies-img {
-                top: 10%;
-                right: 0%;
-                width: 50%;
-                height: auto;
-            }
-        }
+  }
+
+  .take-part__technologies-title {
+    display: flex;
+    margin: 0 auto;
+    padding-top: 5px;
+    width: 295px;
+    justify-content: space-between;
+  }
+  .take-part__technologies-title h2 {
+    font-style: normal;
+    font-weight: 600;
+    width: 230px;
+    font-size: 20px;
+    line-height: 24px;
+  }
+  .take-part__technologies-title img {
+    transform: rotate(-90deg);
+    margin-right: 5px;
+    transition: 1s;
+  }
+  .take-part__technologies h3 {
+    width: 295px;
+    min-height: 88px;
+    margin: 0 auto;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    color: #b5c1d8;
+  }
+  .take-part__technologies-img {
+    display: block;
+    width: 290px;
+    height: 152px;
+    margin: 0 auto;
+    margin-top: 20px;
+    transition: 1s;
+  }
+}
+
+@media (min-width: 768px) {
+  .take-part {
+    width: 100%;
+    height: 375px;
+    margin: 0 auto;
+    position: relative;
+    margin-top: 150px;
+    .take-part__title {
+      color: $main-text-color;
+      margin-left: 48px;
+      font-weight: 800;
+      font-size: 69px;
+      line-height: 80px;
     }
-    
-    @media (min-width: 1440px) {
-        .take-part {
-            max-width: 1344px;
-            padding-bottom: 150px;
-            .take-part__technologies.technologies-active {
-                &:nth-child(4) {
-                    margin-top: 40px;
-                }
-            }
-            .take-part__technologies-title {
-                width: auto;
-                justify-content: flex-start;
-            }
-            .take-part__technologies-img {
-                top: 130px;
-                right: 0%;
-                width: 660px;
-                height: 346px;
-            }
-            .take-part__title {
-                font-weight: 800;
-                font-size: 69px;
-                line-height: 80px;
-                margin-top: 160px;
-                margin-left: 0;
-            }
-            .take-part__technologies {
-                width: 564px;
-                height: 160px;
-                margin-left: 0;
-                margin-top: 70px;
-            }
-            .take-part__technologies-title {
-                margin-left: 32px;
-            }
-            .take-part__technologies-title h2 {
-                width: auto;
-                font-weight: bold;
-                font-size: 24px;
-                line-height: 32px;
-                margin-right: 22px;
-            }
-            .take-part__technologies h3 {
-                width: auto;
-                margin-left: 32px;
-                font-weight: normal;
-                font-size: 17px;
-                line-height: 24px;
-            }
-        }
+    .take-part__technologies {
+      margin-left: 48px;
+      width: 364px;
+      height: 180px;
     }
+    .take-part__technologies-title {
+      width: 564;
+      margin-left: 22px;
+    }
+    .take-part__technologies h3 {
+      width: 564;
+      margin-left: 22px;
+    }
+    .take-part__technologies-img {
+      position: absolute;
+      right: 48px;
+      top: 33%;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .take-part {
+    .take-part__technologies-img {
+      top: 15%;
+      right: 0%;
+      width: 60%;
+      height: auto;
+    }
+  }
+}
+
+@media (min-width: 1366px) {
+  .take-part {
+    .take-part__technologies-img {
+      top: 10%;
+      right: 0%;
+      width: 50%;
+      height: auto;
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  .take-part {
+    max-width: 1344px;
+    padding-bottom: 150px;
+    .take-part__technologies.technologies-active {
+      &:nth-child(4) {
+        margin-top: 40px;
+      }
+    }
+    .take-part__technologies-title {
+      width: auto;
+      justify-content: flex-start;
+      margin-left: 32px;
+    }
+    .take-part__technologies-img {
+      top: 130px;
+      right: 0%;
+      width: 660px;
+      height: 346px;
+    }
+    .take-part__title {
+      font-weight: 800;
+      font-size: 69px;
+      line-height: 80px;
+      margin-top: 160px;
+      margin-left: 0;
+    }
+    .take-part__technologies {
+      width: 564px;
+      height: 160px;
+      margin-left: 0;
+      margin-top: 70px;
+    }
+
+    .take-part__technologies-title h2 {
+      width: auto;
+      font-weight: bold;
+      font-size: 24px;
+      line-height: 32px;
+      margin-right: 22px;
+    }
+    .take-part__technologies h3 {
+      width: auto;
+      margin-left: 32px;
+      font-weight: normal;
+      font-size: 17px;
+      line-height: 24px;
+    }
+  }
+}

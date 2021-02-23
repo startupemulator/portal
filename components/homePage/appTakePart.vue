@@ -25,7 +25,8 @@
   </div>
 </template>
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState } from "vuex";
+// import { mapState, mapActions } from "vuex";
 export default {
   data: () => ({}),
   computed: {
@@ -39,34 +40,6 @@ export default {
     },
   },
 };
-function takePart() {
-  return [
-    {
-      id: "0",
-      status: false,
-      title: "Use new technologies",
-      text:
-        "Description probably in two lines. Description probably in two or three lines. Description probably in two or three lines.",
-      img: require("@/assets/img/benefits.svg"),
-    },
-    {
-      id: "1",
-      status: true,
-      title: "Collaborate with others",
-      text:
-        "Description probably in two lines. Description probably in two or three lines. Description probably in two or three lines.",
-      img: require("~/assets/img/benefits2.svg"),
-    },
-    {
-      id: "2",
-      status: true,
-      title: "Receive feedback from our experts",
-      text:
-        "Description probably in two lines. Description probably in two or three lines. Description probably in two or three lines.",
-      img: require("~/assets/img/benefits3.svg"),
-    },
-  ];
-}
 </script>
 <style lang="scss">
 .take-part {

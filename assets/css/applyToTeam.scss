@@ -1,433 +1,430 @@
-                .apply-to-team-btn-back {
-                    background-color: transparent;
-                    color: #8c97ac;
-                    font-weight: 600;
-                    font-size: 16px;
-                    line-height: 16px;
-                    margin-top: 5px;
-                    display: flex;
-                    align-items: center;
-                    margin-top: 37px;
-                    img {
-                        transform: rotate(180deg);
-                        margin-right: 15px;
-                    }
-                    span:hover {
-                        border-bottom: 1px solid #8c97ac;
-                    }
-                }
-                
-                .apply-to-team {
-                    color: $main-text-color;
-                    margin-left: 16px;
-                    margin-right: 16px;
-                }
-                
-                .step-1 {
-                    width: 340px;
-                    margin: 0 auto;
-                    h2 {
-                        font-weight: bold;
-                        font-size: 36px;
-                        line-height: 40px;
-                        color: #FFF;
-                        margin-top: 22px;
-                    }
-                    p {
-                        font-weight: 500;
-                        font-size: 16px;
-                        line-height: 24px;
-                        padding-top: 4px;
-                        margin-bottom: 12px;
-                    }
-                    ul {
-                        padding: 0;
-                        margin: 0;
-                    }
-                    .experience__item,
-                    .experience-technologies_item {
-                        border-radius: 32px;
-                        display: inline-block;
-                        margin-right: 8px;
-                        margin-bottom: 10px;
-                        label {
-                            font-weight: 400;
-                            display: inline-block;
-                            font-size: 14px;
-                            line-height: 32px;
-                            box-sizing: border-box;
-                            color: #B5C1D8;
-                            border-radius: 32px;
-                            padding: 4px 16px;
-                            border: 1px solid #59667E;
-                            cursor: pointer;
-                        }
-                        input:checked~label {
-                            background: #59667E;
-                            border: 1px solid #59667E;
-                        }
-                    }
-                    .add-technologi {
-                        background: #2E384A;
-                        border-radius: 12px;
-                        border: none;
-                        width: 340px;
-                        min-height: 48px;
-                        box-sizing: border-box;
-                        padding: 8px 16px 8px 8px;
-                        color: #B5C1D8;
-                        font-weight: normal;
-                        font-size: 16px;
-                        line-height: 32px;
-                        margin-top: 3px;
-                        margin-bottom: 13px;
-                        &::placeholder {
-                            color: #B5C1D8;
-                        }
-                        ul {
-                            display: flex;
-                            flex-wrap: wrap;
-                            input {
-                                background: transparent;
-                                border: none;
-                                margin-left: 10px;
-                                font-weight: normal;
-                                font-size: 16px;
-                                line-height: 32px;
-                                color: #B5C1D8;
-                                outline: none;
-                                &::placeholder {
-                                    color: #B5C1D8;
-                                }
-                            }
-                            li {
-                                font-weight: 400;
-                                font-size: 14px;
-                                line-height: 32px;
-                                box-sizing: border-box;
-                                color: #B5C1D8;
-                                border-radius: 32px;
-                                padding: 4px 6px 4px 16px;
-                                border: 1px solid #59667E;
-                                margin-left: 8px;
-                                margin-bottom: 8px;
-                                .remove-technolodgy {
-                                    background: transparent;
-                                    outline: none;
-                                    img {
-                                        width: 10px;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                
-                .step-2,
-                .apply-to-team {
-                    width: 343px;
-                    margin: 0 auto;
-                    min-height: 320px;
-                }
-                
-                .step-2 h2 {
-                    font-weight: bold;
-                    font-size: 36px;
-                    line-height: 40px;
-                    margin-top: 25px;
-                }
-                
-                .step-2__select {
-                    display: flex;
-                    flex-direction: column;
-                    textarea {
-                        width: 343px;
-                        height: 112px;
-                        box-sizing: border-box;
-                        background: #2E384A;
-                        border-radius: 12px;
-                        margin-top: 16px;
-                        padding: 8px 16px;
-                        color: #B5C1D8;
-                        font-weight: normal;
-                        font-size: 16px;
-                        line-height: 24px;
-                        border: none;
-                        &::placeholder {
-                            color: #B5C1D8;
-                        }
-                    }
-                }
-                
-                .custom-select {
-                    background: #2E384A;
-                    border-radius: 12px;
-                    width: 343px;
-                    height: 48px;
-                    font-size: 16px;
-                    box-sizing: border-box;
-                    line-height: 32px;
-                    color: #B5C1D8;
-                    padding-left: 16px;
-                    border: none;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    cursor: pointer;
-                    img {
-                        margin-right: 24px;
-                        transform: rotate(90deg);
-                        transition: 1s
-                    }
-                }
-                
-                .custom-select.opend-select {
-                    transition: 1s;
-                }
-                
-                .step-2__custom-select {
-                    background: #2E384A;
-                    border-radius: 12px;
-                    .custom-select__list {
-                        border-radius: 12px;
-                        position: absolute;
-                        z-index: 11;
-                        background: #2E384A;
-                        width: 343px;
-                        font-size: 16px;
-                        box-sizing: border-box;
-                        line-height: 32px;
-                        color: #B5C1D8;
-                        border: none;
-                        margin-top: 4px;
-                        padding-left: 0;
-                    }
-                    .custom-select__item {
-                        cursor: pointer;
-                        padding-bottom: 4px;
-                        padding-left: 16px;
-                        &:first-child {
-                            border-radius: 12px 12px 0 0;
-                        }
-                        &:last-child {
-                            border-radius: 0 0 12px 12px;
-                        }
-                        &:hover {
-                            background: #4E5A71;
-                        }
-                        &:active {
-                            background: #4B4AC8;
-                        }
-                        span {
-                            &:first-child {
-                                border-radius: 12px 12px 0 0;
-                            }
-                            &:last-child {
-                                border-radius: 0 0 12px 12px;
-                            }
-                            &:hover {
-                                background: #4E5A71;
-                            }
-                            &:active {
-                                background: #4B4AC8;
-                            }
-                        }
-                    }
-                }
-                
-                .modal-applied {
-                    position: fixed;
-                    z-index: 11;
-                    top: 0;
-                    left: 0;
-                    background: rgba(59, 70, 90, 0.6);
-                    backdrop-filter: blur(16px);
-                    height: 100vh;
-                    width: 100vw;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    flex-direction: column;
-                    .applied__close {
-                        position: absolute;
-                        right: 10px;
-                        top: 16px;
-                        background: transparent;
-                    }
-                    .applied-block {
-                        position: relative;
-                        width: 343px;
-                        height: 312px;
-                        background: #232B39;
-                        border-radius: 12px;
-                        h2 {
-                            font-weight: bold;
-                            font-size: 26px;
-                            line-height: 32px;
-                            width: 250px;
-                            margin-left: 24px;
-                            display: inline-block;
-                            margin-top: 40px;
-                            margin-bottom: 15px;
-                        }
-                        h3 {
-                            font-weight: normal;
-                            font-size: 16px;
-                            line-height: 22px;
-                            width: 298px;
-                            display: inline-block;
-                            margin-left: 24px;
-                            margin-top: 0;
-                        }
-                        .discover-startups {
-                            margin-top: 16px;
-                            width: 295px;
-                            height: 48px;
-                            margin-left: 24px;
-                            margin-top: 10px;
-                            background-color: $button-color-blue;
-                            &:hover {
-                                background-color: $button-color-blue-hover;
-                            }
-                            &:focus {
-                                background-color: $button-color-blue-focus;
-                            }
-                            &:active {
-                                background-color: $button-color-blue-active;
-                            }
-                        }
-                    }
-                }
-                
-                @media (min-width: 768px) {
-                    .experience {
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: space-between;
-                        min-height: 100vh;
-                    }
-                    .step-1,
-                    .apply-to-team {
-                        width: 660px;
-                    }
-                    .apply-to-team-btn-back {
-                        margin-top: 47px;
-                    }
-                    .step-1 {
-                        h2 {
-                            font-weight: bold;
-                            font-size: 56px;
-                            line-height: 64px;
-                            margin-top: 55px;
-                            margin-bottom: 35px;
-                        }
-                        p {
-                            font-weight: 500;
-                            font-size: 17px;
-                            line-height: 32px
-                        }
-                        .add-technologi {
-                            width: 660px;
-                            min-height: 56px;
-                            margin-top: 16px;
-                        }
-                    }
-                    .modal-applied {
-                        position: absolute;
-                        background: rgba(59, 70, 90, 0.6);
-                        backdrop-filter: blur(16px);
-                        height: 100vh;
-                        width: 100vw;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        flex-direction: column;
-                        .applied__close {
-                            position: absolute;
-                            right: 18px;
-                            top: 24px;
-                            background: transparent;
-                        }
-                        .applied-block {
-                            margin: 0;
-                            top: 5px;
-                            width: 564px;
-                            height: 303px;
-                            h2 {
-                                font-weight: bold;
-                                font-size: 35px;
-                                line-height: 40px;
-                                width: 468px;
-                                margin-left: 48px;
-                                margin-top: 48px;
-                                margin-bottom: 15px;
-                            }
-                            h3 {
-                                font-weight: normal;
-                                font-size: 17px;
-                                line-height: 24px;
-                                width: 468px;
-                                display: inline-block;
-                                margin-left: 48px;
-                                margin-top: 0;
-                            }
-                            .discover-startups {
-                                margin-top: 16px;
-                                width: 452px;
-                                height: 56px;
-                                margin-left: 57px;
-                                margin-top: 10px;
-                                font-weight: bold;
-                                font-size: 18px;
-                                line-height: 32px;
-                            }
-                        }
-                    }
-                    .step-2,
-                    .apply-to-team {
-                        width: 660px;
-                    }
-                    .step-2 h2 {
-                        font-style: normal;
-                        font-weight: bold;
-                        font-size: 56px;
-                        line-height: 64px;
-                        margin-top: 54px;
-                        margin-bottom: 40px;
-                    }
-                    .step-2__select {
-                        textarea {
-                            width: 660px;
-                            height: 136px;
-                            font-weight: normal;
-                            font-size: 18px;
-                            line-height: 28px;
-                        }
-                    }
-                    .custom-select {
-                        font-weight: normal;
-                        font-size: 18px;
-                        line-height: 32px;
-                        width: 660px;
-                        height: 56px;
-                        padding-left: 24px;
-                        img {
-                            margin-right: 30px;
-                        }
-                    }
-                    .custom-select.opend-select {
-                        transition: 1s;
-                        border-radius: 12px 12px 0 0;
-                    }
-                    .step-2__custom-select {
-                        .custom-select__list {
-                            font-weight: normal;
-                            font-size: 18px;
-                            line-height: 32px;
-                            width: 660px;
-                        }
-                        .custom-select__item {
-                            padding: 8px 24px;
-                        }
-                    }
-                }
+.apply-to-team-btn-back {
+  background-color: transparent;
+  color: #8c97ac;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  margin-top: 37px;
+  img {
+    transform: rotate(180deg);
+    margin-right: 15px;
+  }
+  span:hover {
+    border-bottom: 1px solid #8c97ac;
+  }
+}
+
+.apply-to-team {
+  color: $main-text-color;
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+.step-1 {
+  width: 340px;
+  margin: 0 auto;
+  h2 {
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 40px;
+    color: #fff;
+    margin-top: 22px;
+  }
+  p {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    padding-top: 4px;
+    margin-bottom: 12px;
+  }
+  ul {
+    padding: 0;
+    margin: 0;
+  }
+  .experience__item,
+  .experience-technologies_item {
+    border-radius: 32px;
+    display: inline-block;
+    margin-right: 8px;
+    margin-bottom: 10px;
+    label {
+      font-weight: 400;
+      display: inline-block;
+      font-size: 14px;
+      line-height: 32px;
+      box-sizing: border-box;
+      color: #b5c1d8;
+      border-radius: 32px;
+      padding: 4px 16px;
+      border: 1px solid #59667e;
+      cursor: pointer;
+    }
+    input:checked ~ label {
+      background: #59667e;
+      border: 1px solid #59667e;
+    }
+  }
+  .add-technologi {
+    background: #2e384a;
+    border-radius: 12px;
+    border: none;
+    width: 340px;
+    min-height: 48px;
+    box-sizing: border-box;
+    padding: 8px 16px 8px 8px;
+    color: #b5c1d8;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 32px;
+    margin-top: 3px;
+    margin-bottom: 13px;
+    &::placeholder {
+      color: #b5c1d8;
+    }
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      input {
+        background: transparent;
+        border: none;
+        margin-left: 10px;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 32px;
+        color: #b5c1d8;
+        outline: none;
+        &::placeholder {
+          color: #b5c1d8;
+        }
+      }
+      li {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 32px;
+        box-sizing: border-box;
+        color: #b5c1d8;
+        border-radius: 32px;
+        padding: 4px 6px 4px 16px;
+        border: 1px solid #59667e;
+        margin-left: 8px;
+        margin-bottom: 8px;
+        .remove-technolodgy {
+          background: transparent;
+          outline: none;
+          img {
+            width: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.step-2,
+.apply-to-team {
+  width: 343px;
+  margin: 0 auto;
+  min-height: 320px;
+}
+
+.step-2 h2 {
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 40px;
+  margin-top: 25px;
+}
+
+.step-2__select {
+  display: flex;
+  flex-direction: column;
+  textarea {
+    width: 343px;
+    height: 112px;
+    box-sizing: border-box;
+    background: #2e384a;
+    border-radius: 12px;
+    margin-top: 16px;
+    padding: 8px 16px;
+    color: #b5c1d8;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    border: none;
+    &::placeholder {
+      color: #b5c1d8;
+    }
+  }
+}
+
+.custom-select {
+  background: #2e384a;
+  border-radius: 12px;
+  width: 343px;
+  height: 48px;
+  font-size: 16px;
+  box-sizing: border-box;
+  line-height: 32px;
+  color: #b5c1d8;
+  padding-left: 16px;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  img {
+    margin-right: 24px;
+    transform: rotate(90deg);
+    transition: 1s;
+  }
+}
+
+.custom-select.opend-select {
+  transition: 1s;
+}
+
+.step-2__custom-select {
+  background: #2e384a;
+  border-radius: 12px;
+  .custom-select__list {
+    border-radius: 12px;
+    position: absolute;
+    z-index: 11;
+    background: #2e384a;
+    width: 343px;
+    font-size: 16px;
+    box-sizing: border-box;
+    line-height: 32px;
+    color: #b5c1d8;
+    border: none;
+    margin-top: 4px;
+    padding-left: 0;
+  }
+  .custom-select__item {
+    cursor: pointer;
+    padding-bottom: 4px;
+    padding-left: 16px;
+    &:first-child {
+      border-radius: 12px 12px 0 0;
+    }
+    &:last-child {
+      border-radius: 0 0 12px 12px;
+    }
+    &:hover {
+      background: #4e5a71;
+    }
+    &:active {
+      background: #4b4ac8;
+    }
+    span {
+      &:first-child {
+        border-radius: 12px 12px 0 0;
+      }
+      &:last-child {
+        border-radius: 0 0 12px 12px;
+      }
+      &:hover {
+        background: #4e5a71;
+      }
+      &:active {
+        background: #4b4ac8;
+      }
+    }
+  }
+}
+
+.modal-applied {
+  position: fixed;
+  z-index: 11;
+  top: 0;
+  left: 0;
+  background: rgba(59, 70, 90, 0.6);
+  backdrop-filter: blur(16px);
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  .applied__close {
+    position: absolute;
+    right: 10px;
+    top: 16px;
+    background: transparent;
+  }
+  .applied-block {
+    position: relative;
+    width: 343px;
+    height: 312px;
+    background: #232b39;
+    border-radius: 12px;
+    h2 {
+      font-weight: bold;
+      font-size: 26px;
+      line-height: 32px;
+      width: 250px;
+      margin-left: 24px;
+      display: inline-block;
+      margin-top: 40px;
+      margin-bottom: 15px;
+    }
+    h3 {
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 22px;
+      width: 298px;
+      display: inline-block;
+      margin-left: 24px;
+      margin-top: 0;
+    }
+    .discover-startups {
+      width: 295px;
+      height: 48px;
+      margin-left: 24px;
+      margin-top: 10px;
+      background-color: $button-color-blue;
+      &:hover {
+        background-color: $button-color-blue-hover;
+      }
+      &:focus {
+        background-color: $button-color-blue-focus;
+      }
+      &:active {
+        background-color: $button-color-blue-active;
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .experience {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+  }
+  .step-1,
+  .apply-to-team {
+    width: 660px;
+  }
+  .apply-to-team-btn-back {
+    margin-top: 47px;
+  }
+  .step-1 {
+    h2 {
+      font-weight: bold;
+      font-size: 56px;
+      line-height: 64px;
+      margin-top: 55px;
+      margin-bottom: 35px;
+    }
+    p {
+      font-weight: 500;
+      font-size: 17px;
+      line-height: 32px;
+    }
+    .add-technologi {
+      width: 660px;
+      min-height: 56px;
+      margin-top: 16px;
+    }
+  }
+  .modal-applied {
+    position: absolute;
+    background: rgba(59, 70, 90, 0.6);
+    backdrop-filter: blur(16px);
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .applied__close {
+      position: absolute;
+      right: 18px;
+      top: 24px;
+      background: transparent;
+    }
+    .applied-block {
+      margin: 0;
+      top: 5px;
+      width: 564px;
+      height: 303px;
+      h2 {
+        font-weight: bold;
+        font-size: 35px;
+        line-height: 40px;
+        width: 468px;
+        margin-left: 48px;
+        margin-top: 48px;
+        margin-bottom: 15px;
+      }
+      h3 {
+        font-weight: normal;
+        font-size: 17px;
+        line-height: 24px;
+        width: 468px;
+        display: inline-block;
+        margin-left: 48px;
+        margin-top: 0;
+      }
+      .discover-startups {
+        width: 452px;
+        height: 56px;
+        margin-left: 57px;
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 32px;
+      }
+    }
+  }
+  .step-2,
+  .apply-to-team {
+    width: 660px;
+  }
+  .step-2 h2 {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 56px;
+    line-height: 64px;
+    margin-top: 54px;
+    margin-bottom: 40px;
+  }
+  .step-2__select {
+    textarea {
+      width: 660px;
+      height: 136px;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 28px;
+    }
+  }
+  .custom-select {
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 32px;
+    width: 660px;
+    height: 56px;
+    padding-left: 24px;
+    img {
+      margin-right: 30px;
+    }
+  }
+  .custom-select.opend-select {
+    transition: 1s;
+    border-radius: 12px 12px 0 0;
+  }
+  .step-2__custom-select {
+    .custom-select__list {
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 32px;
+      width: 660px;
+    }
+    .custom-select__item {
+      padding: 8px 24px;
+    }
+  }
+}

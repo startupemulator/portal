@@ -18,7 +18,6 @@
             Signing up link was sent to your email. Follow the link to create an
             account.
           </h3>
-          
         </div>
 
         <div v-if="!sendEmail" class="sign-up-link">
@@ -43,7 +42,6 @@
               class="create-account-btn-sign"
               @click.prevent="checkPopupForm"
             >
-              
               Log In
             </button>
           </form>
@@ -109,7 +107,8 @@
   </div>
 </template>
 <script>
-import { mapActions, mapState } from 'vuex'
+// import { mapActions, mapState } from "vuex";
+import { mapState } from "vuex";
 export default {
   data: () => ({
     togglePopup: false,
@@ -121,8 +120,20 @@ export default {
       email: /^([\w-.]+@([\w-]+\.)+[\w-]{2,4})?$/,
     },
   }),
-  computed:{
-    ...mapState('login',['togglePopup', 'sendEmail', 'email', 'popupEmail', 'popupEmailInvalid', 'enterErrEmail', 'inputedPassword', 'password', 'showPassword', 'emailInvalid', 'validaterugular'])
+  computed: {
+    ...mapState("login", [
+      "togglePopup",
+      "sendEmail",
+      "email",
+      "popupEmail",
+      "popupEmailInvalid",
+      "enterErrEmail",
+      "inputedPassword",
+      "password",
+      "showPassword",
+      "emailInvalid",
+      "validaterugular",
+    ]),
     // login(){
     //   return this.$store.state.login.name
     // }
@@ -135,9 +146,7 @@ export default {
         : (this.emailInvalid = true);
     },
   },
-
 };
-
 </script>
 <style lang="scss" scoped>
 @import "@/assets/css/variables.scss";
@@ -169,7 +178,7 @@ export default {
     color: #f87b7b;
     margin-left: 24px;
 
-    &:before {
+    &::before {
       position: absolute;
       content: "";
       width: 16px;
@@ -270,6 +279,10 @@ export default {
   }
 }
 .create-account {
+  width: 343px;
+  min-height: 415px;
+  margin: 0 auto;
+  margin-top: 32px;
   input.account-email__invalid {
     border: 1px solid #e94646;
   }
@@ -306,11 +319,12 @@ export default {
   h2 {
     max-width: 295px;
     font-weight: bold;
-    font-size: 26px;
-    line-height: 32px;
-    color: #fff;
     margin: 0 auto;
-    margin-top: 40px;
+    font-size: 36px;
+    line-height: 40px;
+    color: $main-text-color;
+    margin-top: 22px;
+    margin-bottom: 33px;
   }
   h3 {
     max-width: 295px;
@@ -325,12 +339,6 @@ export default {
     position: absolute;
     right: 0;
   }
-}
-.create-account {
-  width: 343px;
-  min-height: 415px;
-  margin: 0 auto;
-  margin-top: 32px;
   hr {
     background: #4e5a71;
     height: 1px;
@@ -354,14 +362,7 @@ export default {
       border-bottom: 1px solid #8c97ac;
     }
   }
-  h2 {
-    font-weight: bold;
-    font-size: 36px;
-    line-height: 40px;
-    color: $main-text-color;
-    margin-top: 22px;
-    margin-bottom: 33px;
-  }
+
   form {
     position: relative;
     label {
@@ -457,7 +458,6 @@ export default {
       font-size: 16px;
       line-height: 32px;
       padding-top: 18px;
-      color: #b5c1d8;
     }
   }
   .create-account-btn-continue {

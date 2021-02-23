@@ -1,132 +1,128 @@
 .main-header {
-    box-shadow: inset 0 -1px 0 #3B465A;
-    .main-header-content {
-        display: flex;
-        min-height: 72px;
-        margin: 0 16px;
-        justify-content: space-between;
-        align-items: center;
+  box-shadow: inset 0 -1px 0 #3b465a;
+  .main-header-content {
+    display: flex;
+    min-height: 72px;
+    margin: 0 16px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .main-headr-logo h2 {
+    color: #837cf3;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 32px;
+    margin-left: 12px;
+  }
+  .main-headr-logo img {
+    height: 40px;
+    width: 40px;
+  }
+  .main-headr-logo {
+    display: flex;
+    align-items: center;
+  }
+  .main-header__nav {
+    display: none;
+  }
+  .main-header-buttons {
+    .header-btn {
+      padding: $medium-button;
+      font-size: 18px;
     }
-    .main-headr-logo {
-        display: flex;
+    .button-sign-up {
+      background-color: $button-color-blue;
+      margin-right: 3px;
+      &:hover {
+        background-color: $button-color-blue-hover;
+      }
+      &:focus {
+        background-color: $button-color-blue-focus;
+      }
+      &:active {
+        background-color: $button-color-blue-active;
+      }
     }
-    .main-headr-logo h2 {
-        color: #837CF3;
-        font-style: normal;
-        font-weight: 600;
-        font-size: 18px;
-        line-height: 32px;
-        margin-left: 12px;
+    .button-login {
+      background-color: $button-color-gray;
+      &:hover {
+        background-color: $button-color-gray-hover;
+      }
+      &:focus {
+        background-color: $button-color-gray-focus;
+      }
+      &:active {
+        background-color: $button-color-gray-active;
+      }
     }
-    .main-headr-logo img {
-        height: 40px;
-        width: 40px;
-    }
-    .main-headr-logo {
-        display: flex;
-        align-items: center;
-    }
-    .main-header__nav {
-        display: none;
-    }
-    .main-header-buttons {
-        .header-btn {
-            padding: $medium-button;
-            font-size: 18px;
-        }
-        .button-sign-up {
-            background-color: $button-color-blue;
-            margin-right: 3px;
-            &:hover {
-                background-color: $button-color-blue-hover;
-            }
-            &:focus {
-                background-color: $button-color-blue-focus
-            }
-            &:active {
-                background-color: $button-color-blue-active
-            }
-        }
-        .button-login {
-            background-color: $button-color-gray;
-            &:hover {
-                background-color: $button-color-gray-hover;
-            }
-            &:focus {
-                background-color: $button-color-gray-focus
-            }
-            &:active {
-                background-color: $button-color-gray-active
-            }
-        }
-    }
+  }
 }
 
 @media (min-width: 1280px) {
-    .main-header {
-        .main-header-content {
-            min-height: 96px;
-            margin: 0 48px;
-        }
-        .main-headr-logo h2 {
-            display: inline-block;
-            color: #837CF3;
-            font-weight: 600;
-            font-size: 20px;
-            line-height: 32px;
-            margin-left: 16px;
-        }
-        .main-headr-logo img {
-            height: 48px;
-            width: 48px;
-        }
-        .main-header-buttons {
-            .header-btn {
-                padding: $big-button;
-                font-size: 18px;
-            }
-            .button-login {
-                margin-right: 20px;
-            }
-        }
-        .main-header__nav {
-            display: block;
-        }
+  .main-header {
+    .main-header-content {
+      min-height: 96px;
+      margin: 0 48px;
+    }
+    .main-headr-logo h2 {
+      display: inline-block;
+      color: #837cf3;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 32px;
+      margin-left: 16px;
+    }
+    .main-headr-logo img {
+      height: 48px;
+      width: 48px;
+    }
+    .main-header-buttons {
+      .header-btn {
+        padding: $big-button;
+        font-size: 18px;
+      }
+      .button-login {
+        margin-right: 20px;
+      }
     }
     .main-header__nav {
-        a {
-            color: #8C97AC;
-            font-weight: 500;
-            font-size: 18px;
-            line-height: 32px;
-        }
-        svg {
-            margin-right: 14px;
-        }
-        .nav-list {
-            display: flex;
-        }
-        .nav-list div {
-            display: flex;
-        }
-        .nav-item {
-            padding: 12px 24px 12px 30px;
-        }
-        .nav-item__active svg path,
-        .nav-item__active svg circle {
-            stroke: #6295FC;
-        }
-        .nav-item__active {
-            background-color: #2E384A;
-            box-shadow: inset 0 0 10px 2px #262F3F;
-            border-radius: 12px;
-            a {
-                color: $main-text-color;
-            }
-        }
-        a {
-            display: flex;
-            align-items: center;
-        }
+      display: block;
     }
+  }
+  .main-header__nav {
+    a {
+      display: flex;
+      align-items: center;
+      color: $main-text-color;
+      color: #8c97ac;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 32px;
+    }
+    svg {
+      margin-right: 14px;
+    }
+    .nav-list {
+      display: flex;
+    }
+    .nav-list div {
+      display: flex;
+    }
+    .nav-item {
+      padding: 12px 24px 12px 30px;
+    }
+    .nav-item__active svg path,
+    .nav-item__active svg circle {
+      stroke: #6295fc;
+    }
+    .nav-item__active {
+      background-color: #2e384a;
+      box-shadow: inset 0 0 10px 2px #262f3f;
+      border-radius: 12px;
+      // a {
+      //     color: $main-text-color;
+      // }
+    }
+  }
 }
