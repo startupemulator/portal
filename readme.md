@@ -3,11 +3,13 @@
 ## Commit changes to repository
 
 > Warning: please use following command for commit data to the repo
- 
+
 ```bash
 $ npm run commit
 ```
+
 or
+
 ```bash
 $ git cz
 ```

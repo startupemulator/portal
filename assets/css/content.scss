@@ -1,29 +1,29 @@
 html {
-    margin-right: calc(-1 * (100vw - 100%));
-    overflow-x: hidden;
+  margin-right: calc(-1 * (100vw - 100%));
+  overflow-x: hidden;
 }
 
 body {
-    font-family: $font-stack;
-    background-color: $background-color;
+  font-family: $font-stack;
+  background-color: $background-color;
 }
 
 button {
-    color: $button-color;
-    cursor: pointer;
-    border: none;
-    border-radius: 12px;
-    font-size: 17px;
+  color: $button-color;
+  cursor: pointer;
+  border: none;
+  border-radius: 12px;
+  font-size: 17px;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 a:-webkit-any-link {
-    color: #8c97ac !important;
+  color: #8c97ac !important;
 }
 
 li {
-    list-style: none;
+  list-style: none;
 }
