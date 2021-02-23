@@ -1,11 +1,11 @@
 <template>
   <div class="account">
     <transition name="slide-fade">
-      <div class="sign-up-link-popup" v-if="togglePopup">
-        <div class="sended-mail" v-if="sendEmail">
+      <div v-if="togglePopup" class="sign-up-link-popup">
+        <div v-if="sendEmail" class="sended-mail">
           <button type="button" class="sign-up-link__close">
             <img
-              src="@/assets/img/Close.svg"
+              src="@/assets/img/close.svg"
               alt="Close"
               @click="
                 togglePopup = !togglePopup;
@@ -15,16 +15,16 @@
           </button>
           <h2>Signing up link was sent</h2>
           <h3>
-            Signing up link was sent to your email. Follow the link to create an
+            Signing up link was sent to your email. Follow the link to create an
             account.
           </h3>
           
         </div>
 
-        <div class="sign-up-link" v-if="!sendEmail">
+        <div v-if="!sendEmail" class="sign-up-link">
           <button type="button" class="sign-up-link__close">
             <img
-              src="@/assets/img/Close.svg"
+              src="@/assets/img/close.svg"
               alt="Close"
               @click="togglePopup = !togglePopup"
             />
@@ -32,19 +32,11 @@
           <h2>Sign up with the email link</h2>
           <p>
             Signing up link will be sent to your email. After signing up you can
-            log in in the same way.
+            log in in the same way.
           </p>
           <form>
             <label for="account-email"></label>
-            <input
-              type="email"
-              placeholder="Enter your email"
-              v-model="popupEmail"
-              :class="popupEmailInvalid ? 'account-email__invalid ' : ''"
-            />
-            <span v-if="popupEmailInvalid" class="account-email-empty">
-              {{ enterErrEmail }}
-            </span>
+            <input type="email" placeholder="Enter your email" />
 
             <button
               type="button "
@@ -72,32 +64,29 @@
       <form>
         <label for="account-email">
           <input
-            type="email"
             v-model="email"
+            type="email"
             placeholder="Enter your email"
             :class="emailInvalid ? 'account-email__invalid ' : ''"
         /></label>
-        <span v-if="emailInvalid" class="account-email-empty">{{
-          enterErrEmail
-        }}</span>
+        <span v-if="emailInvalid" class="account-email-empty"
+          >Please enter an email address</span
+        >
         <label for="account-password">
           <button
             type="button "
             class="create-account-eye"
             @click.prevent="showPassword = !showPassword"
           >
-            <img src="@/assets/img/Eye.svg" alt="eye" />
+            <img src="@/assets/img/eye.svg" alt="eye" />
           </button>
 
           <input
-            v-model="inputedPassword"
-            :type="showPassword ? 'password' : 'text'"
+            :type="password ? 'password' : 'text'"
             placeholder="Enter your password"
-            :class="password ? 'account-email__invalid ' : ''"
-          />
-        </label>
-        <span v-if="password" class="account-email-empty">
-          Please enter an password</span
+        /></label>
+        <span v-if="emailInvalid" class="account-email-empty">
+          password must be at least 6 characters</span
         >
 
         <button
@@ -123,19 +112,14 @@
 import { mapActions, mapState } from 'vuex'
 export default {
   data: () => ({
-    // togglePopup: false,
-    // sendEmail: false,
-    // email: " ",
-    // popupEmail: " ",
-    // popupEmailInvalid: false,
-    // enterErrEmail: "Please enter an email address",
-    // inputedPassword: "",
-    // password: false,
-    // showPassword: true,
-    // emailInvalid: false,
-    // validaterugular: {
-    //   email: /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
-    // },
+    togglePopup: false,
+    sendEmail: false,
+    email: " ",
+    password: true,
+    emailInvalid: false,
+    validaterugular: {
+      email: /^([\w-.]+@([\w-]+\.)+[\w-]{2,4})?$/,
+    },
   }),
   computed:{
     ...mapState('login',['togglePopup', 'sendEmail', 'email', 'popupEmail', 'popupEmailInvalid', 'enterErrEmail', 'inputedPassword', 'password', 'showPassword', 'emailInvalid', 'validaterugular'])
@@ -144,33 +128,18 @@ export default {
     // }
   },
   methods: {
-    ...mapActions('login', ['checkForm', 'checkPopupForm'])
-    // checkForm() {
-    //   this.emailInvalid = true;
-    //   this.email.length > 7
-    //     ? (this.enterErrEmail = "Please enter a valid email address")
-    //     : (this.enterErrEmail = "Please enter an email address");
-    //   this.validaterugular.email.test(this.email)
-    //     ? (this.emailInvalid = false)
-    //     : (this.emailInvalid = true);
-    //   this.inputedPassword.length > 5
-    //     ? (this.password = false)
-    //     : (this.password = true);
-    // },
-    // checkPopupForm() {
-    //    this.popupEmailInvalid = true;
-    //  this.validaterugular.email.test(this.popupEmail)
-    //     ? (this.popupEmailInvalid = false)
-    //     : (this.popupEmailInvalid = true);
-    //     this.popupEmailInvalid ? this.sendEmail = this.sendEmail : this.sendEmail = !this.sendEmail 
-    // },
+    checkEmail() {
+      this.emailInvalid = true;
+      this.validaterugular.email.test(this.email)
+        ? (this.emailInvalid = false)
+        : (this.emailInvalid = true);
+    },
   },
 
 };
 
 </script>
 <style lang="scss" scoped>
-//  sendEmail = !sendEmail 
 @import "@/assets/css/variables.scss";
 .sign-up-link-popup {
   position: fixed;
@@ -228,7 +197,7 @@ export default {
     font-weight: bold;
     font-size: 26px;
     line-height: 32px;
-    color: #ffffff;
+    color: #fff;
     width: 295px;
     margin: 0;
     margin-left: 24px;
@@ -238,7 +207,7 @@ export default {
     font-weight: normal;
     font-size: 16px;
     line-height: 22px;
-    color: #ffffff;
+    color: #fff;
     margin-left: 24px;
     margin-top: 16px;
     width: 295px;
@@ -271,7 +240,7 @@ export default {
       width: 100%;
       position: relative;
     }
-    label:before {
+    label::before {
       content: "";
       position: absolute;
       width: 24px;
@@ -279,7 +248,7 @@ export default {
       left: 40px;
       top: -2px;
       z-index: 2;
-      background-image: url("../../assets/img/Email.svg");
+      background-image: url("../../assets/img/email.svg");
       background-repeat: no-repeat;
     }
   }
@@ -315,7 +284,7 @@ export default {
     padding-left: 24px;
     color: #f87b7b;
 
-    &:before {
+    &::before {
       position: absolute;
       content: "";
       width: 16px;
@@ -339,7 +308,7 @@ export default {
     font-weight: bold;
     font-size: 26px;
     line-height: 32px;
-    color: #ffffff;
+    color: #fff;
     margin: 0 auto;
     margin-top: 40px;
   }
@@ -348,7 +317,7 @@ export default {
     font-weight: normal;
     font-size: 16px;
     line-height: 22px;
-    color: #ffffff;
+    color: #fff;
     margin: 0 auto;
     margin-top: 16px;
   }
@@ -399,48 +368,48 @@ export default {
       width: 100%;
       position: relative;
     }
-    label:nth-child(1):before {
+    label:nth-child(1)::before {
       content: "";
       position: absolute;
       width: 24px;
       height: 24px;
       left: 16px;
-      bottom: 0px;
+      bottom: 0;
       z-index: 2;
-      background-image: url("../../assets/img/Email.svg");
+      background-image: url("../../assets/img/email.svg");
       background-repeat: no-repeat;
     }
-    label:nth-child(3):before {
+    label:nth-child(3)::before {
       content: "";
       position: absolute;
       width: 24px;
       height: 24px;
       left: 16px;
-      bottom: 0px;
+      bottom: 0;
       z-index: 2;
-      background-image: url("../../assets/img/Password.svg");
+      background-image: url("../../assets/img/password.svg");
       background-repeat: no-repeat;
     }
-    label:nth-child(2):before {
+    label:nth-child(2)::before {
       content: "";
       position: absolute;
       width: 24px;
       height: 24px;
       left: 16px;
-      bottom: 0px;
+      bottom: 0;
       z-index: 2;
-      background-image: url("../../assets/img/Password.svg");
+      background-image: url("../../assets/img/password.svg");
       background-repeat: no-repeat;
     }
-    label:nth-child(5):before {
+    label:nth-child(5)::before {
       content: "";
       position: absolute;
       width: 24px;
       height: 24px;
       left: 16px;
-      bottom: 0px;
+      bottom: 0;
       z-index: 2;
-      background-image: url("../../assets/img/Password.svg");
+      background-image: url("../../assets/img/password.svg");
       background-repeat: no-repeat;
     }
     .create-account-eye {
@@ -514,7 +483,6 @@ export default {
   .sended-mail {
     width: 560px;
     height: 200px;
-
     margin-top: -60px;
     h2 {
       font-weight: bold;
@@ -533,7 +501,6 @@ export default {
   .create-account {
     width: 660px;
     min-height: 300px;
-
     margin-top: 45px;
 
     h2 {
@@ -560,7 +527,7 @@ export default {
         width: 100%;
         position: relative;
       }
-      label:nth-child(n + 1):before {
+      label:nth-child(n + 1)::before {
         left: 24px;
       }
       .create-account-eye {
@@ -635,7 +602,7 @@ export default {
       margin-left: 48px;
     }
   }
-  .sign-up-link-popup form label:before {
+  .sign-up-link-popup form label::before {
     left: 72px;
   }
 }

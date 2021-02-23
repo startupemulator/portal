@@ -1,11 +1,11 @@
 <template>
   <div class="account">
     <transition name="slide-fade">
-      <div class="sign-up-link-popup" v-if="togglePopup">
-        <div class="sended-mail" v-if="sendEmail">
+      <div v-if="togglePopup" class="sign-up-link-popup">
+        <div v-if="sendEmail" class="sended-mail">
           <button type="button" class="sign-up-link__close">
             <img
-              src="@/assets/img/Close.svg"
+              src="@/assets/img/close.svg"
               alt="Close"
               @click="
                 togglePopup = !togglePopup;
@@ -15,14 +15,14 @@
           </button>
           <h2>Signing up link was sent</h2>
           <h3>
-            Signing up link was sent to your email. Follow the link to create an
+            Signing up link was sent to your email. Follow the link to create an
             account.
           </h3>
         </div>
-        <div class="sign-up-link" v-if="!sendEmail">
+        <div v-if="!sendEmail" class="sign-up-link">
           <button type="button" class="sign-up-link__close">
             <img
-              src="@/assets/img/Close.svg"
+              src="@/assets/img/close.svg"
               alt="Close"
               @click="togglePopup = !togglePopup"
             />
@@ -30,7 +30,7 @@
           <h2>Sign up with the email link</h2>
           <p>
             Signing up link will be sent to your email. After signing up you can
-            log in in the same way.
+            log in in the same way.
           </p>
           <form>
             <label for="account-email"></label>
@@ -46,13 +46,13 @@
         </div>
       </div>
     </transition>
-    <transition name="bounce" v-if="sendErr">
+    <transition v-if="sendErr" name="bounce">
       <div class="danger-message">
         <div class="danger-message__shining"></div>
         <h2>Something went wrong</h2>
         <p>
-          A short description about the error that happened. Three lines
-          are maximum for such messages. Time is 4 sec.
+          A short description about the error that happened. Three lines are
+          maximum for such messages. Time is 4 sec.
         </p>
       </div>
     </transition>
@@ -89,7 +89,7 @@
         >
         <label for="account-password">
           <button type="button " class="create-account-eye" @click.prevent="">
-            <img src="@/assets/img/Eye.svg" alt="eye" />
+            <img src="@/assets/img/eye.svg" alt="eye" />
           </button>
         </label>
         <input
@@ -131,15 +131,6 @@ export default {
     togglePopup: false,
     sendEmail: false,
     sendErr: false,
-    fullName: "",
-    email: " ",
-    password: "",
-    validFullName: true,
-    validEmail: true,
-    validPassword: true,
-    validaterugular: {
-      email: /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
-    },
   }),
 
   methods: {
@@ -147,22 +138,6 @@ export default {
       this.sendErr = !this.sendErr;
       setTimeout(() => (this.sendErr = !this.sendErr), 4000);
     },
-    checkForm() {
-      this.fullName.length < 3
-        ? (this.validFullName = false)
-        : (this.validFullName = true);
-      this.validaterugular.email.test(this.email)
-        ? (this.validEmail = true)
-        : (this.validEmail = false);
-      this.password.length > 5
-        ? (this.validPassword = true)
-        : (this.validPassword = false);
-        if(this.validFullName & this.validEmail & this.validPassword){
-        
-        this.sendError()
-    }
-    },
-    
   },
 };
 </script>
@@ -241,7 +216,7 @@ export default {
     font-weight: bold;
     font-size: 26px;
     line-height: 32px;
-    color: #ffffff;
+    color: #fff;
     width: 295px;
     margin: 0;
     margin-left: 24px;
@@ -251,7 +226,7 @@ export default {
     font-weight: normal;
     font-size: 16px;
     line-height: 22px;
-    color: #ffffff;
+    color: #fff;
     margin-left: 24px;
     margin-top: 16px;
     width: 295px;
@@ -276,7 +251,6 @@ export default {
       font-weight: normal;
       font-size: 16px;
       line-height: 32px;
-      color: #b5c1d8;
     }
   }
   form {
@@ -286,7 +260,7 @@ export default {
       width: 100%;
       position: relative;
     }
-    label:before {
+    label::before {
       content: "";
       position: absolute;
       width: 24px;
@@ -294,7 +268,7 @@ export default {
       left: 40px;
       top: -2px;
       z-index: 2;
-      background-image: url("../../assets/img/Email.svg");
+      background-image: url("../../assets/img/email.svg");
       background-repeat: no-repeat;
     }
   }
@@ -328,7 +302,7 @@ export default {
     font-weight: bold;
     font-size: 26px;
     line-height: 32px;
-    color: #ffffff;
+    color: #fff;
     margin: 0 auto;
     margin-top: 40px;
   }
@@ -337,7 +311,7 @@ export default {
     font-weight: normal;
     font-size: 16px;
     line-height: 22px;
-    color: #ffffff;
+    color: #fff;
     margin: 0 auto;
     margin-top: 16px;
   }
@@ -351,7 +325,7 @@ export default {
   width: 343px;
   height: 148px;
   background: #2e384a;
-  box-shadow: 0px 8px 24px rgba(28, 35, 48, 0.2);
+  box-shadow: 0 8px 24px rgba(28, 35, 48, 0.2);
   border-radius: 12px;
   z-index: 10;
   right: 16px;
@@ -362,15 +336,15 @@ export default {
     width: 16px;
     height: 148px;
     background: #e94646;
-    box-shadow: -4px 0px 6px 1px rgba(233, 70, 70, 0.25),
-      4px 0px 6px 1px rgba(233, 70, 70, 0.25);
-    border-radius: 12px 0px 0px 12px;
+    box-shadow: -4px 0 6px 1px rgba(233, 70, 70, 0.25),
+      4px 0 6px 1px rgba(233, 70, 70, 0.25);
+    border-radius: 12px 0 0 12px;
   }
   h2 {
     font-weight: bold;
     font-size: 17px;
     line-height: 24px;
-    color: #ffffff;
+    color: #fff;
     margin-left: 64px;
   }
   p {
@@ -424,39 +398,37 @@ export default {
       width: 100%;
       position: relative;
     }
-    label:nth-child(1):before {
+    label:nth-child(1)::before {
       content: "";
       position: absolute;
       width: 24px;
       height: 24px;
       left: 16px;
-      bottom: 0px;
+      bottom: 0;
       z-index: 2;
-      background-image: url("../../assets/img/Profile.svg");
+      background-image: url("../../assets/img/profile.svg");
       background-repeat: no-repeat;
     }
-    label:nth-child(3):before,
-    label:nth-child(4):before {
+    label:nth-child(3)::before {
       content: "";
       position: absolute;
       width: 24px;
       height: 24px;
       left: 16px;
-      bottom: 0px;
+      bottom: 0;
       z-index: 2;
-      background-image: url("../../assets/img/Email.svg");
+      background-image: url("../../assets/img/email.svg");
       background-repeat: no-repeat;
     }
-    label:nth-child(5):before,
-    label:nth-child(7):before {
+    label:nth-child(5)::before {
       content: "";
       position: absolute;
       width: 24px;
       height: 24px;
       left: 16px;
-      bottom: 0px;
+      bottom: 0;
       z-index: 2;
-      background-image: url("../../assets/img/Password.svg");
+      background-image: url("../../assets/img/password.svg");
       background-repeat: no-repeat;
     }
     .create-account-eye {
@@ -554,7 +526,7 @@ export default {
         width: 100%;
         position: relative;
       }
-      label:nth-child(n + 1):before {
+      label:nth-child(n + 1)::before {
         left: 24px;
       }
       .create-account-eye {
@@ -581,7 +553,6 @@ export default {
   .sended-mail {
     width: 560px;
     height: 200px;
-
     margin-top: -60px;
     h2 {
       font-weight: bold;
@@ -645,7 +616,7 @@ export default {
       margin-left: 48px;
     }
   }
-  .sign-up-link-popup form label:before {
+  .sign-up-link-popup form label::before {
     left: 72px;
   }
 }

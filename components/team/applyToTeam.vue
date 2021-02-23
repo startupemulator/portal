@@ -1,29 +1,29 @@
 <template>
   <div class="apply-to-team">
-    <nuxt-link to="/" v-if="step"
+    <nuxt-link v-if="step" to="/"
       ><button type="button" class="apply-to-team-btn-back">
         <img src="@/assets/img/arrow.svg" alt="arrow" /> Back
       </button></nuxt-link
     >
     <button
-      @click="changeStepOnApplyToTeam"
       v-else
       type="button"
       class="apply-to-team-btn-back"
+      @click="changeStepOnApplyToTeam"
     >
       <img src="@/assets/img/arrow.svg" alt="arrow" /> Back
     </button>
     <transition name="slide-fade">
-      <div class="step-1" v-if="step">
+      <div v-if="step" class="step-1">
         <h2>Your experience</h2>
         <p>Total years of your experience</p>
         <ul class="step-1__experience">
           <li
-            class="experience__item"
             v-for="item in experienceYears"
             :key="item.id"
+            class="experience__item"
           >
-            <input :id="item.id" type="radio" name="years" v-show="false" />
+            <input v-show="false" :id="item.id" type="radio" name="years" />
             <label :for="item.id">{{ item.title }}</label>
           </li>
         </ul>
@@ -31,14 +31,14 @@
 
         <ul class="step-1__experience">
           <li
-            class="experience-technologies_item"
             v-for="item in technologies"
             :key="item.id"
+            class="experience-technologies_item"
           >
             <input
+              v-show="false"
               :id="item.id + '-technologies'"
               type="checkbox"
-              v-show="false"
             />
             <label :for="item.id + '-technologies'">{{ item.title }}</label>
           </li>
@@ -46,10 +46,10 @@
 
         <div class="add-technologi">
           <ul class="step-1__add-technolodgy">
-            <li class="technolodgy" v-for="(item, i) in technology" :key="i">
+            <li v-for="(item, i) in technology" :key="i" class="technolodgy">
               <span>{{ item.name }}</span>
               <button class="remove-technolodgy" @click="removeTechnology(i)">
-                <img src="@/assets/img/Close.svg" alt="close" />
+                <img src="@/assets/img/close.svg" alt="close" />
               </button>
             </li>
 
@@ -65,33 +65,44 @@
       </div>
     </transition>
     <transition name="slide-fade">
-      <div class="step-2" v-if="!step">
+      <div v-if="!step" class="step-2">
         <h2>Apply to Startup #1</h2>
         <div class="step-2__select">
-         
           <div class="step-2__custom-select">
             <div class="custom-select" @click="openSelect">
               <span>{{ selectedSpeciality }}</span>
-              <img src="@/assets/img/arrow.svg" alt="arrow" :style="toggleSelect ? 'transform: rotate(-90deg); transition: 1s' : ''" />
+              <img
+                src="@/assets/img/arrow.svg"
+                alt="arrow"
+                :style="
+                  toggleSelect
+                    ? 'transform: rotate(-90deg); transition: 1s'
+                    : ''
+                "
+              />
             </div>
             <transition name="slide-up">
-            <ul class="custom-select__list" v-show="toggleSelect"  >
-              <li class="custom-select__item" 
-              @click="selectSpeciality($event.target.textContent)" 
-              v-for="item in speciality" 
-              :key="item.id"><span>{{ item.title }}</span> </li>
-            </ul>
+              <ul v-show="toggleSelect" class="custom-select__list">
+                <li
+                  v-for="item in speciality"
+                  :key="item.id"
+                  class="custom-select__item"
+                  @click="selectSpeciality($event.target.textContent)"
+                >
+                  <span>{{ item.title }}</span>
+                </li>
+              </ul>
             </transition>
           </div>
           <textarea placeholder="Comment"></textarea>
         </div>
 
         <transition name="slide-fade">
-          <div class="modal-applied" v-if="modalApplied">
+          <div v-if="modalApplied" class="modal-applied">
             <div class="applied-block">
               <button type="button" class="applied__close">
                 <img
-                  src="@/assets/img/Close.svg"
+                  src="@/assets/img/close.svg"
                   alt="Close"
                   @click="applyStartUp"
                 />
@@ -117,6 +128,12 @@
 import { mapState, mapActions } from "vuex";
 
 export default {
+  data: () => ({
+    itemSize: null,
+    technoName: "",
+    toggleSelect: false,
+    selectedSpeciality: "Select a speciality",
+  }),
   computed: {
     ...mapState([
       "experienceYears",
@@ -128,12 +145,6 @@ export default {
     step: (state) => state.applyToTeam.stepOne,
     modalApplied: (state) => state.applyToTeam.applied,
   },
-  data: () => ({
-    itemSize: null,
-    technoName: "",
-    toggleSelect: false,
-    selectedSpeciality: 'Select a speciality'
-  }),
   methods: {
     ...mapActions([
       "changeStepOnApplyToTeam",
@@ -145,16 +156,13 @@ export default {
       this.addTechnology(e);
       this.technoName = "";
     },
-    openSelect(){
-        this.toggleSelect = !this.toggleSelect
-      },
-      selectSpeciality(e){
-        this.selectedSpeciality = e 
-        this.toggleSelect = !this.toggleSelect
-             }
+    openSelect() {
+      this.toggleSelect = !this.toggleSelect;
+    },
+    selectSpeciality(e) {
+      this.selectedSpeciality = e;
+      this.toggleSelect = !this.toggleSelect;
+    },
   },
 };
 </script>
-<style lang="scss" scoped>
-
-</style>

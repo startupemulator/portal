@@ -1,46 +1,40 @@
 <template>
-<div>
-    <app-header></app-header>
-    <app-get-experience></app-get-experience>
-    <app-startups-block></app-startups-block>
-    <app-challenges-block></app-challenges-block>
-    <app-team-develop></app-team-develop> 
-    <app-take-part></app-take-part>
-    <app-top-startups></app-top-startups> 
-    <app-practicants></app-practicants>
-    <app-footer> </app-footer> 
-
-    
-</div>
+  <div id="content">
+    <h1>Pages List</h1>
+    <ul>
+      <li><a href="/landing">Landing</a></li>
+      <li><a href="/logIn">Log In</a></li>
+      <li><a href="/applyToTeam">Apply to Team</a></li>
+      <li><a href="/createAccount">Create Account</a></li>
+      <li><a href="/createProject">Create Project</a></li>
+      <li><a href="/logined">Logined</a></li>
+      <li><a href="/unlogined">Unlogined</a></li>
+    </ul>
+  </div>
 </template>
 
 <script>
-import AppHeader from '@/components/appHeader.vue'
-import AppGetExperience from '@/components/homePage/appGetExperience.vue'
-import AppStartupsBlock from '@/components/homePage/appStartupsBlock.vue'
-import AppChallengesBlock from '@/components/homePage/appChallengesBlock.vue'
-import AppTeamDevelop from '~/components/homePage/appTeamDevelop.vue'
-import AppTakePart from '~/components/homePage/appTakePart.vue'
-import AppTopStartups from '~/components/homePage/appTopStartups.vue'
-import AppPracticants from '~/components/homePage/appPracticants.vue'
-import AppFooter from '~/components/appFooter.vue'
-
-export default {
-    components:{
-        AppHeader,
-        AppGetExperience,
-        AppStartupsBlock,
-        AppChallengesBlock,
-        AppTeamDevelop,
-        AppTakePart,
-        AppTopStartups,
-        AppPracticants,
-        AppFooter
-    }
-}
+export default {};
 </script>
 
-<style >
+<style lang="scss">
+h1 {
+  color: white;
+}
 
+#content {
+  width: 400px;
+  margin: 40px auto;
 
-</style> 
+  a {
+    color: #3cc28d;
+  }
+
+  a.button {
+    color: #3cc28d;
+    border: 1px solid #3cc28d;
+    border-radius: 5px;
+    padding: 10px;
+  }
+}
+</style>

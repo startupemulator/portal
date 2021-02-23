@@ -1,26 +1,26 @@
 export default {
     // Global page headers: https://go.nuxtjs.dev/config-head
     head: {
-        title: 'StartupEmulator',
+        title: "StartupEmulator",
         htmlAttrs: {
-            lang: 'en'
+            lang: "en",
         },
         meta: [
-            { charset: 'utf-8' },
-            { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-            { hid: 'description', name: 'description', content: '' }
+            { charset: "utf-8" },
+            { name: "viewport", content: "width=device-width, initial-scale=1" },
+            { hid: "description", name: "description", content: "" },
         ],
-        link: [
-            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-        ]
+        link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
     },
-    target: 'static', // default is 'server'
-    generate: {
-        crawler: false
+    server: {
+        host: "0.0.0.0",
     },
-
+    target: "server", // default is 'server'
+    router: {
+        base: "/",
+    },
     // Global CSS: https://go.nuxtjs.dev/config-css
-    css: ['assets/css/main.scss'],
+    css: ["@assets/css/main.scss"],
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: [],
@@ -29,27 +29,25 @@ export default {
     components: true,
 
     // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-    buildModules: [],
-
+    buildModules: [
+        "@nuxtjs/svg",
+        // '@nuxtjs/stylelint-module'
+    ],
+    stylelint: {
+        fix: true,
+    },
     // Modules: https://go.nuxtjs.dev/config-modules
     modules: [
         // https://go.nuxtjs.dev/axios
-        '@nuxtjs/axios',
-        '@nuxtjs/strapi'
+        "@nuxtjs/axios",
+        "@nuxtjs/strapi",
     ],
     strapi: {
-        url: process.env.STRAPI_URL || 'http://localhost:1337'
+        url: process.env.STRAPI_URL || "http://localhost:1337",
     },
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
     axios: {},
 
-
-    router: {
-        // base: './',
-        // mode: 'hash'
-    },
     // Build Configuration: https://go.nuxtjs.dev/config-build
-    build: {
-        // publichPatch: '/nuxt/'
-    }
-}
+    build: {},
+};

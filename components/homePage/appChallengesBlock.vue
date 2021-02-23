@@ -14,19 +14,34 @@
           startup. Complete tasks and get a feedback from our experts.
         </h3>
         <div class="desctop-buttons__slider">
-          <button type="button" class="slider-buttton" @click="slideRigth('challenges')">
+          <button
+            type="button"
+            class="slider-buttton"
+            @click="slideRigth('challenges')"
+          >
             <img src="@/assets/img/arrow.svg" alt="arrow" />
           </button>
-          <button type="button" class="slider-buttton" @click="slideLeft('challenges')">
+          <button
+            type="button"
+            class="slider-buttton"
+            @click="slideLeft('challenges')"
+          >
             <img src="@/assets/img/arrow.svg" alt="arrow" />
           </button>
         </div>
       </div>
     </div>
     <div class="startup-block__startup-cards">
-      <transition-group name="flip-list" tag="div" class="transition__startup-card">
-
-        <div class="startup-block__startup-card" v-for="card in challenges" :key="card.id">
+      <transition-group
+        name="flip-list"
+        tag="div"
+        class="transition__startup-card"
+      >
+        <div
+          v-for="card in challenges"
+          :key="card.id"
+          class="startup-block__startup-card"
+        >
           <div class="startup-card">
             <div class="startup-card-content">
               <h2 class="startup-card__started-name">
@@ -64,7 +79,6 @@
             </div>
           </div>
         </div>
-
       </transition-group>
     </div>
   </div>

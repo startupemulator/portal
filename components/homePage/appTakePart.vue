@@ -2,9 +2,9 @@
   <div class="take-part">
     <h2 class="take-part__title">Take part to</h2>
     <div
-      class="take-part__technologies"
       v-for="(item, i) in takePart"
       :key="i"
+      class="take-part__technologies"
       :class="{ 'technologies-active': item.status === true }"
     >
       <div class="take-part__technologies-title" @click="switchingtakePart(i)">
@@ -32,9 +32,41 @@ export default {
     ...mapState("takePartTo", ["takePart"]),
   },
   methods: {
-    ...mapActions("takePartTo", ["switchingtakePart"]),
+    switchingtakePart(i) {
+      this.takePart.forEach((item) => {
+        item.status = item.id !== i;
+      });
+    },
   },
 };
+function takePart() {
+  return [
+    {
+      id: "0",
+      status: false,
+      title: "Use new technologies",
+      text:
+        "Description probably in two lines. Description probably in two or three lines. Description probably in two or three lines.",
+      img: require("@/assets/img/benefits.svg"),
+    },
+    {
+      id: "1",
+      status: true,
+      title: "Collaborate with others",
+      text:
+        "Description probably in two lines. Description probably in two or three lines. Description probably in two or three lines.",
+      img: require("~/assets/img/benefits2.svg"),
+    },
+    {
+      id: "2",
+      status: true,
+      title: "Receive feedback from our experts",
+      text:
+        "Description probably in two lines. Description probably in two or three lines. Description probably in two or three lines.",
+      img: require("~/assets/img/benefits3.svg"),
+    },
+  ];
+}
 </script>
 <style lang="scss">
 .take-part {

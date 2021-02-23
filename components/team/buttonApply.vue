@@ -23,8 +23,8 @@ export default {
   height: 92px;
   background: #232b39;
   border: 1px solid #3b465a;
-  box-shadow: inset 0px 0px 10px 2px #262f3f;
-  border-radius: 16px 16px 0px 0px;
+  box-shadow: inset 0 0 10px 2px #262f3f;
+  border-radius: 16px 16px 0 0;
   button {
     margin-top: 16px;
     width: 343px;
@@ -41,23 +41,22 @@ export default {
     }
   }
 }
-@media (min-width: 768px){
-  .button-next{
+@media (min-width: 768px) {
+  .button-next {
     position: relative;
     width: 660px;
-   border: none;
-   height: 89px;
-   border-radius: 0;
-   background-color: transparent;
-   box-shadow: none;
-   border-top: 1px solid #3B465A;
-   margin: 0 auto;
-   margin-top: 30px;
-    button{
-      
-       width: 660px;
-    height: 56px;
-    margin-top: 35px;
+    border: none;
+    height: 89px;
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: none;
+    border-top: 1px solid #3b465a;
+    margin: 0 auto;
+    margin-top: 30px;
+    button {
+      width: 660px;
+      height: 56px;
+      margin-top: 35px;
     }
   }
 }

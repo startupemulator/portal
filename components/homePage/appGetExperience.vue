@@ -12,18 +12,18 @@
       <div class="get-experience-content-descktop">
         <div class="descktop-1">
           <div class="experience-content__first-image">
-            <img src="~/assets/img/Lefttop.png" alt="" />
+            <img src="~/assets/img/lefttop.png" alt="" />
           </div>
           <div class="experience-content__second-image">
-            <img src="~/assets/img/Righttop.png" alt="" />
+            <img src="~/assets/img/righttop.png" alt="" />
           </div>
         </div>
         <div class="descktop-2">
           <div class="experience-content__third-image">
-            <img src="~/assets/img/Leftbottom.png" alt="" />
+            <img src="~/assets/img/leftbottom.png" alt="" />
           </div>
           <div class="experience-content__four-image">
-            <img src="~/assets/img/Rightbottom.png" alt="" />
+            <img src="~/assets/img/rightbottom.png" alt="" />
           </div>
         </div>
       </div>

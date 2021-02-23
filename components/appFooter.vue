@@ -1,25 +1,42 @@
 <template>
-  <footer class="main-footer " :class="mobileBottomButton ? 'mobile_button_bottom' : ''">
-      <div class="main-footer__content">
-    <ul class="main-footer__list">
+  <footer
+    class="main-footer"
+    :class="mobileBottomButton ? 'mobile_button_bottom' : ''"
+  >
+    <div class="main-footer__content">
+      <ul class="main-footer__list">
         <li class="main-footer__item">
-            <a href="#"><img src="@/assets/img/Telegram.svg" alt="Telegram"><span>Telegram</span></a>
+          <a href="#"
+            ><img src="@/assets/img/telegram.svg" alt="Telegram" /><span
+              >Telegram</span
+            ></a
+          >
         </li>
         <li class="main-footer__item">
-            <a href="#"><img src="@/assets/img/Facebook.svg" alt="Facebook"><span>Facebook</span></a>
+          <a href="#"
+            ><img src="@/assets/img/facebook.svg" alt="Facebook" /><span
+              >Facebook</span
+            ></a
+          >
         </li>
         <li class="main-footer__item">
-            <a href="#"><img src="@/assets/img/Twitter.svg" alt="Twitter"><span>Twitter</span></a>
+          <a href="#"
+            ><img src="@/assets/img/twitter.svg" alt="Twitter" /><span
+              >Twitter</span
+            ></a
+          >
         </li>
         <li class="main-footer__item main-footer__item-c">
-            (c) 2020 Startup Emulator
+          (c) 2020 Startup Emulator
         </li>
-    </ul>
-    </div> 
+      </ul>
+    </div>
   </footer>
 </template>
 <script>
 export default {
-    props:['mobileBottomButton']
+  props: {
+    mobileBottomButton: Boolean,
+  },
 };
 </script>

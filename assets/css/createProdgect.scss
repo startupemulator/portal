@@ -19,7 +19,7 @@
             border-radius: 16px;
             .createProgect__progress-bar {
                 background: #6295FC;
-                box-shadow: -2px 0px 8px rgba(98, 149, 252, 0.8), 2px 0px 8px rgba(98, 149, 252, 0.8);
+                box-shadow: -2px 0 8px rgba(98, 149, 252, 0.8), 2px 0 8px rgba(98, 149, 252, 0.8);
                 border-radius: 14px;
                 width: 85.75px;
                 height: 12px;
@@ -48,7 +48,7 @@
             height: 48px;
             padding-left: 16px;
             box-sizing: border-box;
-            margin-top: 0px;
+            margin-top: 0;
             &::placeholder {
                 color: #B5C1D8;
                 font-weight: normal;
@@ -95,7 +95,7 @@
                 }
                 div {
                     margin-right: 16px;
-                    margin-left: 0px;
+                    margin-left: 0;
                 }
                 .start-date__col1,
                 .finish-date__col1 {
@@ -232,10 +232,10 @@
         .specialityOne__button {
             width: 340px;
             height: 40px;
-            box-shadow: inset 0px -2px 4px 1px rgba(48, 92, 178, 0.15), inset 0px 1px 4px rgba(255, 255, 255, 0.15);
+            box-shadow: inset 0 -2px 4px 1px rgba(48, 92, 178, 0.15), inset 0 1px 4px rgba(255, 255, 255, 0.15);
             border-radius: 12px;
             background: #4B4AC8;
-            margin: 24px 0px;
+            margin: 24px 0;
             margin-bottom: 30px;
             &:hover {
                 background-color: $button-color-blue-hover;
@@ -251,14 +251,14 @@
             font-weight: normal;
             font-size: 16px;
             line-height: 22px;
-            color: #FFFFFF;
+            color: #FFF;
         }
         .invite-collegues {
             padding-top: 33px;
             border-top: 1px solid #4E5A71;
         }
         .invite-collegues h5 {
-            margin-top: 0px;
+            margin-top: 0;
             font-weight: 300;
             font-size: 16px;
             line-height: 22px;
@@ -273,7 +273,7 @@
             width: 343px;
             height: 40px;
             background: #3B465A;
-            box-shadow: inset 0px -2px 4px 1px rgba(48, 92, 178, 0.15), inset 0px 1px 4px rgba(255, 255, 255, 0.15);
+            box-shadow: inset 0 -2px 4px 1px rgba(48, 92, 178, 0.15), inset 0 1px 4px rgba(255, 255, 255, 0.15);
             border-radius: 12px;
             &:hover {
                 background-color: $button-color-gray-hover;
@@ -326,7 +326,7 @@
         }
     }
     
-    @media(min-width: 768px) {
+    @media (min-width: 768px) {
         .createProgect {
             width: 660px;
             // min-height: 1061px;
