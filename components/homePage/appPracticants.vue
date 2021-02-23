@@ -33,10 +33,10 @@
 import { mapState, mapActions} from 'vuex'
 export default {
     computed:{
-        ...mapState(["practicant"])
+        ...mapState("participantsSlider", ["practicant"])
     },
     methods:{
-        ...mapActions(["slideRigth", "slideLeft"])
+        ...mapActions("participantsSlider", ["slideRigth", "slideLeft"])
     }
 }
 </script>

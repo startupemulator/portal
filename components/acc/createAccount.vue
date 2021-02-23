@@ -47,14 +47,14 @@
       </div>
     </transition>
     <transition name="bounce" v-if="sendErr">
-    <div class="danger-message">
-      <div class="danger-message__shining"> </div>
-      <h2>Something went wrong</h2>
-      <p>
-        A short description about the error that happened. Three lines
-        are maximum for such messages. Time is 4 sec.
-      </p>
-    </div>
+      <div class="danger-message">
+        <div class="danger-message__shining"></div>
+        <h2>Something went wrong</h2>
+        <p>
+          A short description about the error that happened. Three lines
+          are maximum for such messages. Time is 4 sec.
+        </p>
+      </div>
     </transition>
     <!-- __________________________________ -->
     <div class="create-account">
@@ -64,23 +64,48 @@
           <span>Back</span>
         </button></nuxt-link
       >
+      <button-back></button-back>
       <h2>Create an account</h2>
       <form>
         <label for="account-text"></label>
-        <input type="text" placeholder="Enter your full name" />
+        <input
+          type="text"
+          placeholder="Enter your full name"
+          v-model="fullName"
+          :class="!validFullName ? 'account-email__invalid' : ''"
+        />
+        <span v-if="!validFullName" class="account-email-empty">
+          Please enter an full name</span
+        >
         <label for="account-email"></label>
-        <input type="email" placeholder="Enter your email" />
+        <input
+          type="email"
+          placeholder="Enter your email"
+          v-model="email"
+          :class="!validEmail ? 'account-email__invalid' : ''"
+        />
+        <span v-if="!validEmail" class="account-email-empty">
+          Please enter an email</span
+        >
         <label for="account-password">
           <button type="button " class="create-account-eye" @click.prevent="">
             <img src="@/assets/img/Eye.svg" alt="eye" />
           </button>
         </label>
-        <input type="password" placeholder="Set a password" />
+        <input
+          type="password"
+          placeholder="Set a password"
+          v-model="password"
+          :class="!validPassword ? 'account-email__invalid' : ''"
+        />
 
+        <span v-if="!validPassword" class="account-email-empty">
+          Please enter an password</span
+        >
         <button
           type="button "
           class="create-account-btn-sign"
-          @click.prevent="sendError"
+          @click.prevent="checkForm"
         >
           Sign Up
         </button>
@@ -97,22 +122,51 @@
   </div>
 </template>
 <script>
+import buttonBack from "@/components/theme/buttonBack.vue";
 export default {
+  components:{
+  buttonBack
+  },
   data: () => ({
     togglePopup: false,
     sendEmail: false,
-    sendErr:false
+    sendErr: false,
+    fullName: "",
+    email: " ",
+    password: "",
+    validFullName: true,
+    validEmail: true,
+    validPassword: true,
+    validaterugular: {
+      email: /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
+    },
   }),
+
   methods: {
-    sendError(){
-      this.sendErr = !this.sendErr
-      setTimeout(() => this.sendErr = !this.sendErr, 4000)
+    sendError() {
+      this.sendErr = !this.sendErr;
+      setTimeout(() => (this.sendErr = !this.sendErr), 4000);
+    },
+    checkForm() {
+      this.fullName.length < 3
+        ? (this.validFullName = false)
+        : (this.validFullName = true);
+      this.validaterugular.email.test(this.email)
+        ? (this.validEmail = true)
+        : (this.validEmail = false);
+      this.password.length > 5
+        ? (this.validPassword = true)
+        : (this.validPassword = false);
+        if(this.validFullName & this.validEmail & this.validPassword){
+        
+        this.sendError()
     }
-  }
+    },
+    
+  },
 };
 </script>
 <style lang="scss" scoped>
-
 .bounce-enter-active {
   animation: bounce-in 1.5s;
 }
@@ -131,6 +185,31 @@ export default {
   }
 }
 @import "@/assets/css/variables.scss";
+.account-email-empty {
+  position: relative;
+  margin-top: -14px;
+  z-index: 2;
+  font-weight: normal;
+  display: block;
+  font-size: 14px;
+  line-height: 20px;
+  padding-left: 24px;
+  color: #f87b7b;
+  margin-left: 0px;
+
+  &:before {
+    position: absolute;
+    content: "";
+    width: 16px;
+    height: 16px;
+    left: 0;
+    top: 2px;
+    background-image: url("Warning.svg");
+  }
+}
+.create-account input.account-email__invalid {
+  border: 1px solid #e94646;
+}
 .sign-up-link-popup {
   position: absolute;
   top: 0%;
@@ -202,6 +281,7 @@ export default {
   }
   form {
     position: relative;
+
     label {
       width: 100%;
       position: relative;
@@ -266,42 +346,41 @@ export default {
     right: 0;
   }
 }
-.danger-message{
-position: absolute;
-width: 343px;
-height: 148px;
-background: #2E384A;
-box-shadow: 0px 8px 24px rgba(28, 35, 48, 0.2);
-border-radius: 12px;
-z-index: 10;
-right: 16px;
-top: 16px;
-.danger-message__shining{
+.danger-message {
   position: absolute;
+  width: 343px;
+  height: 148px;
+  background: #2e384a;
+  box-shadow: 0px 8px 24px rgba(28, 35, 48, 0.2);
+  border-radius: 12px;
   z-index: 10;
-  width: 16px;
-height: 148px;
-background: #E94646;
-box-shadow: -4px 0px 6px 1px rgba(233, 70, 70, 0.25), 4px 0px 6px 1px rgba(233, 70, 70, 0.25);
-border-radius: 12px 0px 0px 12px;
-
-}
-h2{
-  font-weight: bold;
-font-size: 17px;
-line-height: 24px;
-color: #FFFFFF;
-margin-left: 64px;
-}
-p{
-  font-weight: normal;
-font-size: 14px;
-line-height: 20px;
-color: #B5C1D8;
-margin-left: 64px;
-width: 251px;
-
-}
+  right: 16px;
+  top: 16px;
+  .danger-message__shining {
+    position: absolute;
+    z-index: 10;
+    width: 16px;
+    height: 148px;
+    background: #e94646;
+    box-shadow: -4px 0px 6px 1px rgba(233, 70, 70, 0.25),
+      4px 0px 6px 1px rgba(233, 70, 70, 0.25);
+    border-radius: 12px 0px 0px 12px;
+  }
+  h2 {
+    font-weight: bold;
+    font-size: 17px;
+    line-height: 24px;
+    color: #ffffff;
+    margin-left: 64px;
+  }
+  p {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    color: #b5c1d8;
+    margin-left: 64px;
+    width: 251px;
+  }
 }
 .create-account {
   width: 343px;
@@ -356,7 +435,8 @@ width: 251px;
       background-image: url("../../assets/img/Profile.svg");
       background-repeat: no-repeat;
     }
-    label:nth-child(3):before {
+    label:nth-child(3):before,
+    label:nth-child(4):before {
       content: "";
       position: absolute;
       width: 24px;
@@ -367,7 +447,8 @@ width: 251px;
       background-image: url("../../assets/img/Email.svg");
       background-repeat: no-repeat;
     }
-    label:nth-child(5):before {
+    label:nth-child(5):before,
+    label:nth-child(7):before {
       content: "";
       position: absolute;
       width: 24px;

@@ -75,10 +75,10 @@ import { mapState, mapActions } from "vuex";
 
 export default {
   computed: {
-    ...mapState(["challenges"]),
+    ...mapState( "challengesSlider", ["challenges"]),
   },
   methods: {
-    ...mapActions(["slideRigth", "slideLeft"]),
+    ...mapActions("challengesSlider", ["slideRigth","slideLeft"]),
   },
 };
 </script>

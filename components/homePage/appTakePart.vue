@@ -8,14 +8,15 @@
       :class="{ 'technologies-active': item.status === true }"
     >
       <div class="take-part__technologies-title" @click="switchingtakePart(i)">
-        <h2>{{item.title}}</h2>
+        <h2>{{ item.title }}</h2>
         <img src="@/assets/img/arrow.svg" alt="arrow" />
       </div>
       <h3>
-        {{item.text}}
+        {{ item.text }}
       </h3>
-  
-      <img v-if="!item.status"
+
+      <img
+        v-if="!item.status"
         class="take-part__technologies-img"
         :alt="item.img"
         :src="item.img"
@@ -24,47 +25,16 @@
   </div>
 </template>
 <script>
+import { mapState, mapActions } from "vuex";
 export default {
-  data: () => ({
-    takePart: takePart(),
-  }),
-
+  data: () => ({}),
+  computed: {
+    ...mapState("takePartTo", ["takePart"]),
+  },
   methods: {
-    switchingtakePart(i) {
-      this.takePart.forEach((item) => {
-        item.status = item.id == i ? false : true;
-      });
-    },
+    ...mapActions("takePartTo", ["switchingtakePart"]),
   },
 };
-function takePart() {
-  return [
-    {
-      id: "0",
-      status: false,
-      title: "Use new technologies",
-      text:
-        "Description probably in two lines. Description probably in two or three lines. Description probably in two or three lines.",
-      img: require('@/assets/img/benefits.svg'),
-    },
-    {
-      id: "1",
-      status: true,
-      title: "Collaborate with others",
-      text:
-        "Description probably in two lines. Description probably in two or three lines. Description probably in two or three lines.",
-      img: require('@/assets/img/benefits2.svg'),
-    },
-    {
-      id: "2",
-      status: true,
-      title: "Receive feedback from our experts",
-      text:
-        "Description probably in two lines. Description probably in two or three lines. Description probably in two or three lines.",
-      img: require('@/assets/img/benefits3.svg'),
-    },
-  ];
-}
 </script>
 <style lang="scss">
 .take-part {

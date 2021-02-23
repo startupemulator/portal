@@ -38,19 +38,18 @@ export default {
         '@nuxtjs/strapi'
     ],
     strapi: {
-      url: process.env.STRAPI_URL || 'http://localhost:1337'
+        url: process.env.STRAPI_URL || 'http://localhost:1337'
     },
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
     axios: {},
 
 
     router: {
-        base: './',
-        mode: 'hash'
+        // base: './',
+        // mode: 'hash'
     },
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {
-        publichPatch: '/nuxt/'
-
+        // publichPatch: '/nuxt/'
     }
 }

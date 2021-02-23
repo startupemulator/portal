@@ -40,26 +40,8 @@ export const state = () => ({
         { id: '02', title: 'back-end' }, { id: '03', title: 'devOps' }, { id: '04', title: 'full-stack' }, { id: '05', title: 'seo' }
     ],
     technology: [],
-    startupCard: [
-        { id: 0, title: "Startup #1", started: false, text: "There is a description of this projects...", skills: ["Javascript", "Java", "HTML5", "Javascript"], start: '27 Sep 2020', duration: '3 months' },
-        { id: 1, title: "Possible name in two lines", started: true, text: "There is a description of this projects, where a product owner should describe his ide...", skills: ["Javascript", "Java", "HTML5"], start: '27 Sep 2020', duration: '3 months' },
-        { id: 2, title: "Possible name in two lines a", started: false, text: "There is a description of this projects, where a product owner should describe his ide...", skills: ["Javascript", "Java", "HTML5"], start: '27 Sep 2020', duration: '3 months' },
-        { id: 3, title: "Possible name in two lines a", started: false, text: "There is a description of this projects, where a product owner should describe his ide...", skills: ["Javascript", "Java", "HTML5", "Javascript", "CSS3", "+3"], start: '27 Sep 2020', duration: '3 months' },
-        { id: 4, title: "Possible name in two lines a", started: false, text: "There is a description of this projects, where a product owner should describe his ide...", skills: ["Javascript", "Java", "HTML5", "Javascript", "CSS3", "+3"], start: '27 Sep 2020', duration: '3 months' }
-    ],
-    challenges: [
-        { id: 0, title: "Task name in two lines...", text: "The part of description that appears only in three lines maximum. Other part is hidde...", skills: ["Full Stack Developer", "Back-end Developer", "+1"] },
-        { id: 1, title: "Task name", text: "The part of description that appears only in three lines maximum. Other part is hidde...", skills: ["Full Stack Developer"] },
-        { id: 2, title: "Task name in two lines...", text: "The part of description that appears only in three lines maximum. Other part is hidde...", skills: ["UI/UX Designer", "Back-end Developer", "+1"] },
-        { id: 3, title: "Task name in two lines...", text: "The part of description that appears only in three lines maximum. Other part is hidde...", skills: ["Full Stack Developer", "Back-end Developer"] },
-        { id: 4, title: "Task name in two lines...", text: "The part of description that appears only in three lines maximum. Other part is hidde...", skills: ["Full Stack Developer", "Back-end Developer", "+1"] },
-    ],
-    practicant: [
-        { id: 0, fullName: "Full Name", text: "Some comment and feedback from an expert that belongs to some exact action in this list. Some comment and feedback from an expert that belongs to some exact action in this list.", position: "Front-end Developer", img: require('~/assets/img/practicant1.svg') },
-        { id: 1, fullName: "Full Name", text: "Some comment and feedback from an expert that belongs to some exact action in this list. ", position: "Front-end Developer", img: require('~/assets/img/practicant2.svg') },
-        { id: 2, fullName: "Full Name", text: "Some comment and feedback from an expert that belongs to some exact action in this list. Some comment and feedback from an expert that belongs to some exact action in this list.", position: "Front-end Developer", img: require('~/assets/img/practicant2.svg') },
-        { id: 3, fullName: "Full Name", text: "Some comment and feedback from an expert that belongs to some exact action in this list. ", position: "Front-end Developer", img: require('~/assets/img/practicant3.svg') },
-    ],
+
+
     pickedTechnology: []
 
 
@@ -71,24 +53,6 @@ export const mutations = {
     addTechnology(state, name) { state.technology.push({ id: state.technology.length + 1, name: name }) },
     removeTechnology(state, id) { console.log(id), state.technology.splice(id, 1) },
     identifyDevice(state, device) { state.device = device },
-    slideLeft(state, card) {
-        if (card == 'startupCard') {
-            state.startupCard.push(state.startupCard.shift())
-        } else if (card == 'challenges') {
-            state.challenges.push(state.challenges.shift())
-        } else if (card == 'practicant') {
-            state.practicant.push(state.practicant.shift())
-        }
-    },
-    slideRigth(state, card) {
-        if (card == 'startupCard') {
-            state.startupCard.unshift(state.startupCard.pop())
-        } else if (card == 'challenges') {
-            state.challenges.unshift(state.challenges.pop())
-        } else if (card == 'practicant') {
-            state.practicant.unshift(state.practicant.pop())
-        }
-    },
     nextStepOnCreateProdject(state) {
         if (state.createprodjectSteps.stepOne) {
             state.createprodjectSteps.stepOne = false
@@ -96,11 +60,7 @@ export const mutations = {
         } else {
             state.createprodjectSteps.technologi = true
         }
-
     }
-
-
-
 }
 export const actions = {
     changeStepOnApplyToTeam({ commit }) {
@@ -113,9 +73,7 @@ export const actions = {
         const srt = e.target.value.trim()
         if ((srt.length > 1) & (e.keyCode === 13 || e.keyCode === 32)) {
             commit('addTechnology', e.target.value)
-
         }
-
     },
     removeTechnology({ commit }, id) {
         console.log(id)
@@ -124,14 +82,7 @@ export const actions = {
     isMobile({ commit }, device) {
         commit('identifyDevice', device)
     },
-    slideRigth({ commit }, card) {
 
-        commit('slideRigth', card)
-    },
-    slideLeft({ commit }, card) {
-
-        commit('slideLeft', card)
-    },
     nextStepOnCreateProdject({ commit }) {
         commit('nextStepOnCreateProdject')
     },

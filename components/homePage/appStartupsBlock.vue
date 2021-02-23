@@ -76,15 +76,10 @@ import { mapState, mapActions } from "vuex";
 
 export default {
   computed:{
-    ...mapState([
-      "startupCard"
-    ])
+    ...mapState("startupSlider", ["startupCard"])
   },
   methods:{
-    ...mapActions([
-      "slideRigth",
-      "slideLeft"
-    ]),
+    ...mapActions("startupSlider", ["slideRigth","slideLeft"]),
 
   }
 };
