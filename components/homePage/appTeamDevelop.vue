@@ -11,7 +11,10 @@
       alt="teamdev-m"
     />
     <div class="team-develop__text-block">
-      <h2>Looking for a team to develop your idea?</h2>
+      <h2>
+        Looking for a team
+        <div class="">to develop your idea?</div>
+      </h2>
       <h3>
         There is a description of this projects, where a product owner should
         describe his idea, main there is a description of this projects, where a

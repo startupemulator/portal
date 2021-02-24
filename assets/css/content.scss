@@ -7,6 +7,9 @@ body {
   font-family: $font-stack;
   background-color: $background-color;
 }
+input {
+  outline: none;
+}
 
 button {
   color: $button-color;
@@ -14,6 +17,7 @@ button {
   border: none;
   border-radius: 12px;
   font-size: 17px;
+  outline: none;
 }
 
 a {

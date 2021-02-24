@@ -25,8 +25,9 @@
     transition: 1s;
     overflow: hidden;
     cursor: pointer;
-    &:nth-child(3) {
-      margin-top: 10px;
+
+    &:last-child {
+      height: 368px;
     }
   }
   .take-part__technologies.technologies-active {
@@ -36,6 +37,9 @@
     &:nth-child(4) {
       margin-top: 10px;
       height: 70px;
+    }
+    &:last-child {
+      margin-top: 0;
     }
   }
 
@@ -52,6 +56,9 @@
     width: 230px;
     font-size: 20px;
     line-height: 24px;
+    margin-left: 0;
+    margin-top: 16px;
+    margin-bottom: 18px;
   }
   .take-part__technologies-title img {
     transform: rotate(-90deg);
@@ -95,6 +102,9 @@
       margin-left: 48px;
       width: 364px;
       height: 180px;
+      &:last-child {
+        height: 200px;
+      }
     }
     .take-part__technologies-title {
       width: 564;
@@ -166,6 +176,9 @@
       height: 160px;
       margin-left: 0;
       margin-top: 70px;
+      &:last-child {
+        height: 160px;
+      }
     }
 
     .take-part__technologies-title h2 {

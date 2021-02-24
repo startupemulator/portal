@@ -122,7 +122,7 @@
   </div>
 </template>
 <script>
-import buttonBack from "@/components/theme/buttonBack.vue";
+import buttonBack from "@/components/theme/UBack.vue";
 export default {
   components: {
     buttonBack,

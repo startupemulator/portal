@@ -4,8 +4,8 @@
     <div
       v-for="(item, i) in takePart"
       :key="i"
-      class="take-part__technologies"
       :class="{ 'technologies-active': item.status === true }"
+      class="take-part__technologies"
     >
       <div class="take-part__technologies-title" @click="switchingtakePart(i)">
         <h2>{{ item.title }}</h2>
@@ -14,7 +14,6 @@
       <h3>
         {{ item.text }}
       </h3>
-
       <img
         v-if="!item.status"
         class="take-part__technologies-img"
@@ -25,21 +24,52 @@
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
-// import { mapState, mapActions } from "vuex";
 export default {
-  data: () => ({}),
-  computed: {
-    ...mapState("takePartTo", ["takePart"]),
-  },
+  data: () => ({
+    takePart: takePart(),
+  }),
+
   methods: {
     switchingtakePart(i) {
       this.takePart.forEach((item) => {
-        item.status = item.id !== i;
+        if (item.id.toString() === i.toString()) {
+          item.status = false;
+        } else {
+          item.status = true;
+        }
+        // item.status = item.id === i ? false : true;
       });
     },
   },
 };
+function takePart() {
+  return [
+    {
+      id: "0",
+      status: false,
+      title: "Use new technologies",
+      text:
+        "Description probably in two lines. Description probably in two or three lines. Description probably in two or three lines.",
+      img: require("@/assets/img/benefits.svg"),
+    },
+    {
+      id: "1",
+      status: true,
+      title: "Collaborate with others",
+      text:
+        "Description probably in two lines. Description probably in two or three lines. Description probably in two or three lines.",
+      img: require("@/assets/img/benefits2.svg"),
+    },
+    {
+      id: "2",
+      status: true,
+      title: "Receive feedback from our experts",
+      text:
+        "Description probably in two lines. Description probably in two or three lines. Description probably in two or three lines.",
+      img: require("@/assets/img/benefits3.svg"),
+    },
+  ];
+}
 </script>
 <style lang="scss">
 .take-part {

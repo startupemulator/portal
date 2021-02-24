@@ -23,12 +23,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.createaccount-fullscreen {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 100vh;
-}
+// .createaccount-fullscreen {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
+//   min-height: 100vh;
+// }
 .slide-fade-enter-active {
   transition: all 0.3s ease;
 }
@@ -39,5 +39,13 @@ export default {
 .slide-fade-leave-to {
   transform: translateX(10px);
   opacity: 0;
+}
+@media (min-width: 1660px) {
+  .createaccount-fullscreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+  }
 }
 </style>
