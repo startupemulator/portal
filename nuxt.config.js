@@ -31,7 +31,8 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     "@nuxtjs/svg",
-    // '@nuxtjs/stylelint-module'
+    "@nuxtjs/stylelint-module",
+    "@nuxtjs/eslint-module",
   ],
   stylelint: {
     fix: true,
