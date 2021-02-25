@@ -2,6 +2,7 @@
   <div class="account">
     <form>
       <div class="create-account">
+        <SystemAlert v-if="error !== ''"></SystemAlert>
         <U-Back link="/"></U-Back>
         <U-Title :text="'Create an account'"> </U-Title>
         <U-input
@@ -48,12 +49,11 @@
         <p v-show="validInput.password" class="errorInput">
           Please enter a password of at least 6 characters
         </p>
-        <div @click="showAlert">
-          <!--  temporarily, at work
--->
+        <div>
           <U-button
             :button-name="'Sign Up'"
             :button-class="'u-button-blue create-account__log-in'"
+            @clickOnButton="register"
           ></U-button>
         </div>
         <hr />
@@ -90,6 +90,7 @@ import UButton from "../theme/UButton.vue";
 import PopupEmailLink from "../theme/PopupEmailLink.vue";
 import SigningUpLinkSent from "../theme/SigningUpLinkSent.vue";
 import SystemAlert from "../theme/SystemAlert.vue";
+
 export default {
   components: {
     UBack,
@@ -104,6 +105,7 @@ export default {
     name: "",
     password: "",
     email: "",
+    error: "",
     popupEmailLink: false,
     popupSiginigUpLink: false,
     alert: false,

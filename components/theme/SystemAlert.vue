@@ -6,11 +6,7 @@
       <p>
         A short description about the error that happened. Three linesare
         maximum for such messages.
-        <span
-          >Time is
-          <div>4</div>
-          sec.</span
-        >
+        <span>Time is <span>4</span> sec.</span>
       </p>
     </div>
   </div>
