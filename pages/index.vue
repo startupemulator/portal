@@ -9,6 +9,8 @@
       <li><a href="/createProject">Create Project</a></li>
       <li><a href="/logined">Logined</a></li>
       <li><a href="/unlogined">Unlogined</a></li>
+      <hr />
+      <li><a href="/BecomeAnExpert">BecomeAnExpert</a></li>
     </ul>
   </div>
 </template>

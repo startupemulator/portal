@@ -12,7 +12,7 @@
               ? 'create-account__password error'
               : 'create-account__password'
           "
-          :img="require('~/assets/img/password.svg')"
+          :img="require('~/assets/img/profile.svg')"
           :btn-show-password="false"
           @textInput="checkName"
         ></U-input>
@@ -48,11 +48,14 @@
         <p v-show="validInput.password" class="errorInput">
           Please enter a password of at least 6 characters
         </p>
-
-        <U-button
-          :button-name="'Sign Up'"
-          :button-class="'u-button-blue create-account__log-in'"
-        ></U-button>
+        <div @click="showAlert">
+          <!--  temporarily, at work
+-->
+          <U-button
+            :button-name="'Sign Up'"
+            :button-class="'u-button-blue create-account__log-in'"
+          ></U-button>
+        </div>
         <hr />
         <div class="create-account__buttons-continue">
           <U-button
@@ -77,6 +80,7 @@
       v-if="popupSiginigUpLink"
       @closePopupLinkSent="showPopupLinkSent"
     ></signing-up-link-sent>
+    <system-alert v-if="alert"></system-alert>
   </div>
 </template>
 <script>
@@ -85,7 +89,8 @@ import UTitle from "../theme/UTitle.vue";
 import UInput from "../theme/UInput.vue";
 import UButton from "../theme/UButton.vue";
 import PopupEmailLink from "../theme/PopupEmailLink.vue";
-import SigningUpLinkSent from "../theme/signingUpLinkSent.vue";
+import SigningUpLinkSent from "../theme/SigningUpLinkSent.vue";
+import SystemAlert from "../theme/SystemAlert.vue";
 export default {
   components: {
     UBack,
@@ -94,10 +99,12 @@ export default {
     UButton,
     PopupEmailLink,
     SigningUpLinkSent,
+    SystemAlert,
   },
   data: () => ({
     popupEmailLink: false,
     popupSiginigUpLink: false,
+    alert: false,
     validInput: {
       email: false,
       password: false,
@@ -138,6 +145,10 @@ export default {
       } else {
         this.validInput.fullName = false;
       }
+    },
+    showAlert() {
+      this.alert = !this.alert;
+      setTimeout(() => (this.alert = !this.alert), 4000);
     },
   },
 };

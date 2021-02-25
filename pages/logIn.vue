@@ -23,12 +23,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// .createaccount-fullscreen {
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-between;
-//   min-height: 100vh;
-// }
 .slide-fade-enter-active {
   transition: all 0.3s ease;
 }

@@ -70,7 +70,7 @@ import UTitle from "../theme/UTitle.vue";
 import UInput from "../theme/UInput.vue";
 import UButton from "../theme/UButton.vue";
 import PopupEmailLink from "../theme/PopupEmailLink.vue";
-import SigningUpLinkSent from "../theme/signingUpLinkSent.vue";
+import SigningUpLinkSent from "../theme/SigningUpLinkSent.vue";
 export default {
   components: {
     UBack,
