@@ -30,15 +30,18 @@
       <div class="experience-content__five-image experience-content__title">
         <h2>Get an experience in real projects</h2>
         <div class="button-startups--groupe">
-          <button type="button" class="get-experience-content button-startups">
-            Explore Startups
-          </button>
-          <button
-            type="button"
-            class="get-experience-content button-challenges"
-          >
-            Explore Challenges
-          </button>
+          <nuxt-link to="/">
+            <U-button
+              :button-name="'Explore Startups'"
+              :button-class="'u-button-blue'"
+            ></U-button>
+          </nuxt-link>
+          <nuxt-link to="/">
+            <U-button
+              :button-name="'Explore Challenges'"
+              :button-class="'u-button-gray '"
+            ></U-button>
+          </nuxt-link>
         </div>
       </div>
     </div>
@@ -46,5 +49,9 @@
 </template>
 
 <script>
-export default {};
+import UButton from "../theme/UButton.vue";
+
+export default {
+  components: { UButton },
+};
 </script>

@@ -36,25 +36,9 @@
     text-overflow: ellipsis;
   }
   button {
-    box-shadow: inset 0 -2px 4px 1px rgba(48, 92, 178, 0.15),
-      inset 0 1px 4px rgba(255, 255, 255, 0.15);
     border-radius: 12px;
-    // margin-left: 24px;
-    background: $button-color-gray;
     padding: 8px 115px;
-    font-weight: bold;
-    font-size: 17px;
-    line-height: 32px;
     margin-top: 25px;
-    &:hover {
-      background-color: $button-color-gray-hover;
-    }
-    &:focus {
-      background-color: $button-color-gray-focus;
-    }
-    &:active {
-      background-color: $button-color-gray-active;
-    }
   }
 }
 
@@ -103,6 +87,10 @@
     max-width: 1344px;
     margin: 0 auto;
     margin-top: 12px;
+    a {
+      display: block;
+      max-width: 164px;
+    }
     h2 {
       font-weight: 800;
       font-size: 56px;
@@ -123,7 +111,9 @@
     img {
       max-width: 100%;
     }
+
     button {
+      padding: 0;
       margin-top: 10px;
     }
   }

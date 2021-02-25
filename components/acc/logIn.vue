@@ -1,134 +1,120 @@
 <template>
   <div class="account">
-    <!-- <transition name="slide-fade">
-      <div v-if="togglePopup" class="sign-up-link-popup">
-        <div v-if="sendEmail" class="sended-mail">
-          <button type="button" class="sign-up-link__close">
-            <img
-              src="@/assets/img/close.svg"
-              alt="Close"
-              @click="
-                togglePopup = !togglePopup;
-                sendEmail = !sendEmail;
-              "
-            />
-          </button>
-          <h2>Signing up link was sent</h2>
-          <h3>
-            Signing up link was sent to your email. Follow the link to create an
-            account.
-          </h3>
-        </div>
+    <form>
+      <div class="create-account">
+        <U-Back link="/"></U-Back>
+        <U-Title :text="'Log in'"> </U-Title>
+        <U-input
+          :placeholder="'Enter your email'"
+          :type="'email'"
+          :account-class="
+            validInput.email
+              ? 'create-account__email error'
+              : 'create-account__email'
+          "
+          :img="require('~/assets/img/email.svg')"
+          @textInput="checkEmail"
+        ></U-input>
+        <p v-show="validInput.email" class="errorInput">
+          Please enter an email address
+        </p>
+        <U-input
+          :placeholder="'Enter your password'"
+          :type="'password'"
+          :account-class="
+            validInput.password
+              ? 'create-account__password error'
+              : 'create-account__password'
+          "
+          :img="require('~/assets/img/password.svg')"
+          :btn-show-password="true"
+          @textInput="checkPassword"
+        ></U-input>
+        <p v-show="validInput.password" class="errorInput">
+          Please enter a password of at least 6 characters
+        </p>
 
-        <div v-if="!sendEmail" class="sign-up-link">
-          <button type="button" class="sign-up-link__close">
-            <img
-              src="@/assets/img/close.svg"
-              alt="Close"
-              @click="togglePopup = !togglePopup"
-            />
-          </button>
-          <h2>Sign up with the email link</h2>
-          <p>
-            Signing up link will be sent to your email. After signing up you can
-            log in in the same way.
-          </p>
-          <form>
-            <label for="account-email"></label>
-            <input type="email" placeholder="Enter your email" />
+        <U-button
+          :button-name="'Log in'"
+          :button-class="'u-button-blue create-account__log-in'"
+        ></U-button>
+        <hr />
+        <div class="create-account__buttons-continue">
+          <U-button
+            :button-name="'Continue with GitHub'"
+            :button-class="'u-button-gray'"
+          ></U-button>
 
-            <button
-              type="button "
-              class="create-account-btn-sign"
-              @click.prevent="checkPopupForm"
-            >
-              Log In
-            </button>
-          </form>
+          <U-button
+            :button-name="'Continue with the email link'"
+            :button-class="'u-button-gray'"
+            @clickOnButton="showPopupEmailLink"
+          ></U-button>
         </div>
       </div>
-    </transition> -->
-    <!-- __________________________________ -->
-    <!-- _______________________________________ -->
-    <div class="create-account">
-      <U-Back link="/"></U-Back>
-      <U-Title :text="'Log in'"> </U-Title>
-      <U-input
-        :placeholder="'Enter your email'"
-        :type="'email'"
-        :account-class="'create-account__email'"
-      ></U-input>
-      <U-input
-        :placeholder="'Enter your password'"
-        :type="'password'"
-        :account-class="'create-account__password'"
-      ></U-input>
-      <U-button
-        :button-name="'Log in'"
-        :button-class="['u-button-blue', 'create-account__log-in']"
-      ></U-button>
-      <hr />
-      <div class="create-account__buttons-continue">
-        <U-button
-          :button-name="'Continue with GitHub'"
-          :button-class="'u-button-gray'"
-        ></U-button>
-        <U-button
-          :button-name="'Continue with the email link'"
-          :button-class="'u-button-gray'"
-        ></U-button>
-      </div>
-    </div>
+    </form>
+    <popup-email-link
+      v-if="popupEmailLink"
+      @closePopupLinkEmail="showPopupEmailLink"
+      @openPopupLinkSent="showPopupLinkSent"
+    ></popup-email-link>
+    <signing-up-link-sent
+      v-if="popupSiginigUpLink"
+      @closePopupLinkSent="showPopupLinkSent"
+    ></signing-up-link-sent>
   </div>
 </template>
 <script>
-// import { mapActions, mapState } from "vuex";
-import { mapState } from "vuex";
 import UBack from "@/components/theme/UBack.vue";
 import UTitle from "../theme/UTitle.vue";
 import UInput from "../theme/UInput.vue";
 import UButton from "../theme/UButton.vue";
+import PopupEmailLink from "../theme/PopupEmailLink.vue";
+import SigningUpLinkSent from "../theme/signingUpLinkSent.vue";
 export default {
   components: {
     UBack,
     UTitle,
     UInput,
     UButton,
+    PopupEmailLink,
+    SigningUpLinkSent,
   },
   data: () => ({
-    togglePopup: false,
-    sendEmail: false,
-    email: " ",
-    password: true,
-    emailInvalid: false,
-    validaterugular: {
-      email: /^([\w-.]+@([\w-]+\.)+[\w-]{2,4})?$/,
+    popupEmailLink: false,
+    popupSiginigUpLink: false,
+    validInput: {
+      email: false,
+      password: false,
     },
+    emailPattern: /^([\w-]+@([\w-]+\.)+[\w-]{2,4})?$/,
   }),
-  computed: {
-    ...mapState("login", [
-      "togglePopup",
-      "sendEmail",
-      "email",
-      "popupEmail",
-      "popupEmailInvalid",
-      "enterErrEmail",
-      "inputedPassword",
-      "password",
-      "showPassword",
-      "emailInvalid",
-      "validaterugular",
-    ]),
-    // login(){
-    //   return this.$store.state.login.name
-    // }
-  },
+  computed: {},
   methods: {
-    checkEmail() {
-      this.emailInvalid = true;
-      this.validaterugular.email.test(this.email)
-        ? (this.emailInvalid = false)
-        : (this.emailInvalid = true);
+    showPopupEmailLink() {
+      this.popupEmailLink = !this.popupEmailLink;
+    },
+    showPopupLinkSent() {
+      if (this.popupSiginigUpLink) {
+        this.popupSiginigUpLink = !this.popupSiginigUpLink;
+      } else {
+        this.popupSiginigUpLink = !this.popupSiginigUpLink;
+        this.popupEmailLink = !this.popupEmailLink;
+      }
+    },
+    checkEmail(textValue) {
+      if (!this.emailPattern.test(textValue)) {
+        this.validInput.email = true;
+      } else {
+        this.validInput.email = false;
+      }
+    },
+    checkPassword(textValue) {
+      if (textValue.length < 6) {
+        this.validInput.password = true;
+      } else {
+        this.validInput.password = false;
+      }
     },
   },
 };
@@ -156,11 +142,35 @@ export default {
     margin-top: 32px;
   }
   .create-account__buttons-continue {
-    margin-top: 16px;
+    margin-top: 32px;
+    button {
+      &:last-child {
+        margin-top: 16px;
+      }
+    }
+  }
+}
+.errorInput {
+  position: relative;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  color: #f87b7b;
+  margin: 0;
+  padding-left: 24px;
+  &::before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    left: 0;
+    top: 2px;
+    background-image: url(../../assets/img/warning.svg);
   }
 }
 @media (min-width: 768px) {
   .account {
+    min-width: 660px;
     .create-account {
       margin: 0;
       .button-back {
@@ -170,10 +180,13 @@ export default {
     .create-account__buttons-continue {
       display: flex;
       justify-content: space-between;
+      button {
+        &:last-child {
+          margin-top: 0;
+        }
+      }
       .u-button {
         width: 318px;
-        font-size: 18px;
-        line-height: 32px;
       }
     }
   }

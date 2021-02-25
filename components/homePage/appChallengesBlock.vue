@@ -69,12 +69,14 @@
                 </div>
               </div>
               <div class="startup-block__buttons">
-                <button type="button" class="tartup-block__button-details">
-                  Details
-                </button>
-                <button type="button" class="tartup-block__button-apply">
-                  Take Part
-                </button>
+                <U-button
+                  :button-name="'Details'"
+                  :button-class="'u-button-gray'"
+                ></U-button>
+                <U-button
+                  :button-name="'Take Part'"
+                  :button-class="'u-button-blue'"
+                ></U-button>
               </div>
             </div>
           </div>
@@ -86,8 +88,11 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-
+import UButton from "../theme/UButton";
 export default {
+  components: {
+    UButton,
+  },
   computed: {
     ...mapState("challengesSlider", ["challenges"]),
   },

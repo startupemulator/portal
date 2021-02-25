@@ -1,13 +1,7 @@
 <template>
   <header class="main-header">
     <div class="main-header-content">
-      <nuxt-link to="/">
-        <div class="main-headr-logo">
-          <img src="@/assets/img/logo.svg" alt="" class="logo" />
-          <!-- <h2 v-if="!device">Startup Emulator</h2> -->
-          <h2 v-if="!device">Startup Emulator</h2>
-        </div></nuxt-link
-      >
+      <U-logo></U-logo>
 
       <nav class="main-header__nav">
         <ul class="nav-list">
@@ -50,7 +44,7 @@
             >
           </li>
           <!-- logined -->
-          <div v-if="login">
+          <div v-if="logined">
             <li class="nav-item">
               <a href="#">
                 <svg
@@ -155,42 +149,59 @@
           </div>
         </ul>
       </nav>
-      <div v-if="!login" class="main-header-buttons">
+
+      <div v-if="!logined" class="main-header-buttons">
         <nuxt-link to="login">
-          <button class="button-login header-btn">Log In</button>
+          <U-button
+            :button-name="'Log in'"
+            :button-class="['u-button-blue', 'create-account__log-in']"
+          ></U-button>
         </nuxt-link>
 
         <nuxt-link to="createAccount">
-          <button class="button-sign-up header-btn">Sign Up</button>
+          <U-button
+            :button-name="'Sign Up'"
+            :button-class="'u-button-gray'"
+          ></U-button>
         </nuxt-link>
       </div>
     </div>
   </header>
 </template>
 <script>
-import { mapActions, mapState } from "vuex";
-
+import UButton from "./theme/UButton.vue";
+import ULogo from "./theme/Ulogo.vue";
 export default {
+  components: { UButton, ULogo },
   props: {
-    login: Boolean,
-  },
-  data: () => ({}),
-
-  computed: {
-    ...mapState(["device"]),
-  },
-  mounted() {
-    const device = /Mobile|webOS|BlackBerry|IEMobile|MeeGo|mini|Fennec|Windows Phone|Android|iP(ad|od|hone)/i.test(
-      navigator.userAgent
-    );
-    this.identifyDevice(device);
-  },
-  methods: {
-    ...mapActions(["isMobile"]),
-
-    identifyDevice(device) {
-      this.isMobile(device);
+    logined: {
+      type: Boolean,
     },
   },
 };
 </script>
+<style lang="scss">
+.main-header-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 220px;
+  align-items: center;
+  a:first-child {
+    width: 99px;
+  }
+  a:last-child {
+    width: 113px;
+  }
+}
+@media (min-width: 768px) {
+  .main-header-buttons {
+    width: 274px;
+    a:first-child {
+      width: 118px;
+    }
+    a:last-child {
+      width: 132px;
+    }
+  }
+}
+</style>

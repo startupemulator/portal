@@ -5,20 +5,34 @@
       <div class="top-startup">
         <img src="@/assets/img/startups.png" alt="startups" />
         <div class="top-startup__buttons">
-          <button type="button">See Details</button>
-          <button type="button">Go to the Website</button>
+          <U-button
+            :button-name="'See Details'"
+            :button-class="'u-button-blue'"
+          ></U-button>
+          <U-button
+            :button-name="'Go to the Website'"
+            :button-class="'u-button-gray'"
+          ></U-button>
         </div>
       </div>
       <div class="next-startup">
         <h2>Your startup can be the next</h2>
         <h3>Join a team or create your startup</h3>
         <nuxt-link to="createAccount"
-          ><button type="button">Sign Up</button></nuxt-link
-        >
+          ><U-button
+            :button-name="'Sign Up'"
+            :button-class="'u-button-blue'"
+          ></U-button
+        ></nuxt-link>
       </div>
     </div>
   </div>
 </template>
 <script>
-export default {};
+import UButton from "../theme/UButton";
+export default {
+  components: {
+    UButton,
+  },
+};
 </script>

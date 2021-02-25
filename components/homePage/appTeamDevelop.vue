@@ -21,11 +21,19 @@
         product owner should describe his idea.
       </h3>
       <nuxt-link to="createAccount">
-        <button type="button">Sign Up</button>
+        <U-button
+          :button-name="'Sign Up'"
+          :button-class="'u-button-gray'"
+        ></U-button>
       </nuxt-link>
     </div>
   </div>
 </template>
 <script>
-export default {};
+import UButton from "../theme/UButton";
+export default {
+  components: {
+    UButton,
+  },
+};
 </script>

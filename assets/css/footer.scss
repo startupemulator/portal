@@ -9,7 +9,6 @@
     margin-left: 18px;
     padding: 0;
     padding-bottom: 25px;
-    // изменено для button next - следим
     margin-bottom: 0;
     color: #8c97ac;
   }
@@ -44,7 +43,7 @@
 
 @media (min-width: 768px) {
   .main-footer {
-    margin-top: 133px;
+    margin-top: 130px;
     min-height: 80px;
     .main-footer__list {
       display: flex;

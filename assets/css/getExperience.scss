@@ -64,18 +64,17 @@
       z-index: -1;
     }
   }
-  .get-experience-content {
-    margin: 0 auto;
-    padding: 8px 20px;
-    line-height: 32px;
-    font-weight: bold;
-    font-size: 17px;
-    width: 343px;
-  }
+
   .button-startups--groupe {
     margin: 0 auto;
+    margin-top: 42px;
+    width: 343px;
     display: flex;
     flex-direction: column;
+
+    a:last-child {
+      margin-top: 16px;
+    }
   }
   .button-startups {
     margin-top: 43px;
@@ -163,8 +162,13 @@
       margin-top: 20px;
     }
     .button-startups--groupe {
-      margin-top: 48px;
+      margin-top: 44px;
       flex-direction: row;
+      justify-content: space-between;
+      width: 492px;
+      a:last-child {
+        margin-top: 0;
+      }
     }
   }
   .experience-content__title {

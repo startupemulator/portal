@@ -19,48 +19,20 @@
     height: 142px;
   }
   .top-startup__buttons {
-    min-height: 132px;
+    min-height: 112px;
     background: #2e384a;
     box-shadow: inset 2px -2px 8px rgba(28, 35, 48, 0.25);
     display: flex;
     flex-direction: column;
     align-items: center;
     border-radius: 0 0 12px 12px;
-  }
-  button {
-    box-shadow: inset 0 -2px 4px 1px rgba(48, 92, 178, 0.15),
-      inset 0 1px 4px rgba(255, 255, 255, 0.15);
-    border-radius: 12px;
-    font-weight: bold;
-    font-size: 17px;
-    line-height: 32px;
-    width: 295px;
-    height: 40px;
-    &:first-child {
-      background-color: $button-color-blue;
-      margin-top: 20px;
-      &:hover {
-        background-color: $button-color-blue-hover;
-      }
-      &:focus {
-        background-color: $button-color-blue-focus;
-      }
-      &:active {
-        background-color: $button-color-blue-active;
-      }
+    padding-top: 20px;
+    button {
+      height: 40px;
+      width: 295px;
     }
-    &:last-child {
-      background-color: $button-color-gray;
+    .u-button-gray {
       margin-top: 12px;
-      &:hover {
-        background-color: $button-color-gray-hover;
-      }
-      &:focus {
-        background-color: $button-color-gray-focus;
-      }
-      &:active {
-        background-color: $button-color-gray-active;
-      }
     }
   }
 }
@@ -74,11 +46,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  button {
+    height: 40px !important;
+  }
   h2 {
     font-weight: bold;
     font-size: 20px;
     line-height: 24px;
     margin-top: 55px;
+    margin-bottom: 13px;
   }
   h3 {
     font-weight: normal;
@@ -86,26 +62,13 @@
     line-height: 22px;
     margin-top: 0;
   }
-  button {
-    box-shadow: inset 0 -2px 4px 1px rgba(48, 92, 178, 0.15),
-      inset 0 1px 4px rgba(255, 255, 255, 0.15);
-    border-radius: 12px;
-    font-weight: bold;
-    font-size: 17px;
-    line-height: 32px;
+  a {
+    margin-top: 20px;
+    display: block;
     width: 295px;
-    height: 40px;
-    background-color: $button-color-blue;
-    margin-top: 15px;
-    &:hover {
-      background-color: $button-color-blue-hover;
-    }
-    &:focus {
-      background-color: $button-color-blue-focus;
-    }
-    &:active {
-      background-color: $button-color-blue-active;
-    }
+  }
+  .u-button {
+    // height: 40px !important;
   }
 }
 
@@ -173,7 +136,6 @@
       margin-right: 0;
     }
     .top-startup__buttons {
-      // min-height: 132px;
       flex-direction: row;
       align-items: center;
       justify-content: center;
@@ -190,8 +152,23 @@
   .top-startup,
   .next-startup {
     margin-top: 60px;
+    .top-startup__buttons {
+      padding-top: 0;
+      height: 56px !important;
+      .u-button-gray {
+        margin-top: 0;
+      }
+    }
   }
   .next-startup {
+    button {
+      height: 56px !important;
+    }
+    a {
+      margin-top: 44px;
+      display: block;
+      width: 180px;
+    }
     h2 {
       font-weight: bold;
       font-size: 35px;
@@ -204,11 +181,6 @@
       font-size: 17px;
       line-height: 24px;
       margin-top: 0;
-    }
-    button {
-      margin-top: 45px;
-      width: 180px;
-      height: 56px;
     }
   }
 }

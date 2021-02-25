@@ -29,6 +29,8 @@ export default {
     margin-top: 5px;
     display: flex;
     align-items: center;
+    border-bottom: 1px solid transparent;
+    transition: 0.3s;
     img {
       transform: rotate(180deg);
       margin-right: 15px;
