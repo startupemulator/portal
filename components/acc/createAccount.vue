@@ -52,6 +52,7 @@
         <U-button
           :button-name="'Sign Up'"
           :button-class="'u-button-blue create-account__log-in'"
+          @clickOnButton="register"
         ></U-button>
         <hr />
         <div class="create-account__buttons-continue">
@@ -85,7 +86,8 @@ import UTitle from "../theme/UTitle.vue";
 import UInput from "../theme/UInput.vue";
 import UButton from "../theme/UButton.vue";
 import PopupEmailLink from "../theme/PopupEmailLink.vue";
-import SigningUpLinkSent from "../theme/signingUpLinkSent.vue";
+import SigningUpLinkSent from "../theme/SigningUpLinkSent.vue";
+
 export default {
   components: {
     UBack,
@@ -96,6 +98,9 @@ export default {
     SigningUpLinkSent,
   },
   data: () => ({
+    name: "",
+    password: "",
+    email: "",
     popupEmailLink: false,
     popupSiginigUpLink: false,
     validInput: {
@@ -107,6 +112,22 @@ export default {
   }),
   computed: {},
   methods: {
+    async register() {
+      try {
+        const newUser = await this.$strapi.register({
+          email: this.email,
+          username: this.name,
+          password: this.password,
+        });
+        console.log(newUser);
+        if (newUser !== null) {
+          this.error = "";
+          this.$nuxt.$router.push("/");
+        }
+      } catch (error) {
+        this.error = error.message;
+      }
+    },
     showPopupEmailLink() {
       this.popupEmailLink = !this.popupEmailLink;
     },
@@ -119,25 +140,16 @@ export default {
       }
     },
     checkEmail(textValue) {
-      if (!this.emailPattern.test(textValue) || textValue !== " ") {
-        this.validInput.email = true;
-      } else {
-        this.validInput.email = false;
-      }
+      this.validInput.email = !this.emailPattern.test(textValue);
+      this.email = textValue;
     },
     checkPassword(textValue) {
-      if (textValue.length < 6) {
-        this.validInput.password = true;
-      } else {
-        this.validInput.password = false;
-      }
+      this.validInput.password = textValue.length < 6;
+      this.password = textValue;
     },
     checkName(textValue) {
-      if (textValue.length < 6) {
-        this.validInput.fullName = true;
-      } else {
-        this.validInput.fullName = false;
-      }
+      this.validInput.fullName = textValue.length < 2;
+      this.name = textValue;
     },
   },
 };

@@ -1,5 +1,5 @@
 <template>
-  <label for="account-email" class="standart-label">
+  <label class="standart-label">
     <img v-if="img" :src="img" alt="icon" />
     <input
       :class="accountClass"
@@ -7,7 +7,7 @@
       :placeholder="placeholder"
       :img="img"
       class="standart-input"
-      @input="$emit('textInput', $event.target.value)"
+      @blur="$emit('textInput', $event.target.value)"
     />
     <button
       v-if="btnShowPassword"

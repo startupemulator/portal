@@ -18,6 +18,7 @@ export default {
     AppFooter,
     CreateAccount,
   },
+  middleware: "deny-authenticated",
 };
 </script>
 

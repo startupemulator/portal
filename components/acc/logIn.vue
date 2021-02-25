@@ -7,6 +7,7 @@
         <U-input
           :placeholder="'Enter your email'"
           :type="'email'"
+          :text="email"
           :account-class="
             validInput.email
               ? 'create-account__email error'
@@ -37,6 +38,7 @@
         <U-button
           :button-name="'Log in'"
           :button-class="'u-button-blue create-account__log-in'"
+          @clickOnButton="login"
         ></U-button>
         <hr />
         <div class="create-account__buttons-continue">
@@ -70,7 +72,8 @@ import UTitle from "../theme/UTitle.vue";
 import UInput from "../theme/UInput.vue";
 import UButton from "../theme/UButton.vue";
 import PopupEmailLink from "../theme/PopupEmailLink.vue";
-import SigningUpLinkSent from "../theme/signingUpLinkSent.vue";
+import SigningUpLinkSent from "../theme/SigningUpLinkSent.vue";
+
 export default {
   components: {
     UBack,
@@ -81,6 +84,8 @@ export default {
     SigningUpLinkSent,
   },
   data: () => ({
+    email: "",
+    password: "",
     popupEmailLink: false,
     popupSiginigUpLink: false,
     validInput: {
@@ -91,6 +96,20 @@ export default {
   }),
   computed: {},
   methods: {
+    async login() {
+      try {
+        const user = await this.$strapi.login({
+          identifier: this.email,
+          password: this.password,
+        });
+        console.log(user);
+        if (user) {
+          this.$nuxt.$router.push("/");
+        }
+      } catch (e) {
+        console.warn(e);
+      }
+    },
     showPopupEmailLink() {
       this.popupEmailLink = !this.popupEmailLink;
     },
@@ -103,18 +122,12 @@ export default {
       }
     },
     checkEmail(textValue) {
-      if (!this.emailPattern.test(textValue)) {
-        this.validInput.email = true;
-      } else {
-        this.validInput.email = false;
-      }
+      this.validInput.email = !this.emailPattern.test(textValue);
+      this.email = textValue;
     },
     checkPassword(textValue) {
-      if (textValue.length < 6) {
-        this.validInput.password = true;
-      } else {
-        this.validInput.password = false;
-      }
+      this.validInput.password = textValue.length < 6;
+      this.password = textValue;
     },
   },
 };

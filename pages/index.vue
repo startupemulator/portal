@@ -1,6 +1,7 @@
 <template>
   <div id="content">
     <h1>Pages List</h1>
+    {{ $strapi.user }}
     <ul>
       <li><a href="/landing">Landing</a></li>
       <li><a href="/logIn">Log In</a></li>

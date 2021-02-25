@@ -19,6 +19,7 @@ export default {
     AppFooter,
     LogIn,
   },
+  middleware: "deny-authenticated",
 };
 </script>
 

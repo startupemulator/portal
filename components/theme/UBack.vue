@@ -4,8 +4,8 @@
       <button type="button" class="btn-back">
         <img src="@/assets/img/arrow.svg" alt="arrow" />
         <span>Back</span>
-      </button></nuxt-link
-    >
+      </button>
+    </nuxt-link>
   </div>
 </template>
 <script>
