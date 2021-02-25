@@ -7,7 +7,6 @@
         <U-input
           :placeholder="'Enter your email'"
           :type="'email'"
-          :text="email"
           :account-class="
             validInput.email
               ? 'create-account__email error'
@@ -73,7 +72,6 @@ import UInput from "../theme/UInput.vue";
 import UButton from "../theme/UButton.vue";
 import PopupEmailLink from "../theme/PopupEmailLink.vue";
 import SigningUpLinkSent from "../theme/SigningUpLinkSent.vue";
-
 export default {
   components: {
     UBack,
