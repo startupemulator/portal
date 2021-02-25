@@ -22,10 +22,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.createaccount-fullscreen {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 100vh;
+@media (min-width: 1480px) {
+  .createaccount-fullscreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+  }
 }
 </style>

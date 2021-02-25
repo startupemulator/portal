@@ -40,7 +40,7 @@ export default {
   transform: translateX(10px);
   opacity: 0;
 }
-@media (min-width: 1660px) {
+@media (min-width: 1480px) {
   .createaccount-fullscreen {
     display: flex;
     flex-direction: column;
