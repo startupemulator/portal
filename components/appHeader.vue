@@ -44,7 +44,7 @@
             >
           </li>
           <!-- logined -->
-          <div v-if="login">
+          <div v-if="logined">
             <li class="nav-item">
               <a href="#">
                 <svg
@@ -150,7 +150,7 @@
         </ul>
       </nav>
 
-      <div v-if="!login" class="main-header-buttons">
+      <div v-if="!logined" class="main-header-buttons">
         <nuxt-link to="login">
           <U-button
             :button-name="'Log in'"
@@ -174,7 +174,7 @@ import ULogo from "./theme/Ulogo.vue";
 export default {
   components: { UButton, ULogo },
   props: {
-    login: {
+    logined: {
       type: Boolean,
     },
   },

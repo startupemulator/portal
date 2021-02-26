@@ -1,6 +1,6 @@
 <template>
   <div class="fullscreen">
-    <app-header :login="!!$strapi.user"></app-header>
+    <app-header :logined="true"></app-header>
     <become-an-expert></become-an-expert>
     <app-footer></app-footer>
   </div>

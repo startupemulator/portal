@@ -1,6 +1,6 @@
 <template>
   <div class="experience">
-    <app-header :login="!!$strapi.user"></app-header>
+    <app-header></app-header>
     <experience></experience>
 
     <button-next v-if="step"></button-next>
@@ -25,7 +25,6 @@ export default {
     ButtonNext,
     ButtonApply,
   },
-  middleware: "deny-unauthenticated",
   computed: {
     ...mapState(["applyToTeam", "device"]),
     step: (state) => state.applyToTeam.stepOne,
