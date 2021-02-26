@@ -7,7 +7,7 @@
 </template>
 <script>
 import AppHeader from "~/components/appHeader.vue";
-import PracticipaerTask from "~/components/practicipaerTask/practicipaerTask.vue";
+import PracticipaerTask from "~/components/practicipaerTask/practicipaerTask";
 import AppFooter from "~/components/appFooter.vue";
 
 export default {
