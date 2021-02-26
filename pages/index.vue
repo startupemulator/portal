@@ -1,6 +1,8 @@
 <template>
   <div id="content">
-    <h1>Pages List</h1>
+    <h2>Pages List</h2>
+    <h1 v-if="$strapi.user">Current user: {{ $strapi.user.username }}</h1>
+    <hr />
     <ul>
       <li><a href="/landing">Landing</a></li>
       <li><a href="/logIn">Log In</a></li>
@@ -13,6 +15,12 @@
       <li><a href="/BecomeAnExpert">BecomeAnExpert</a></li>
       <li><a href="/PracticipaerTask">PracticipaerTask</a></li>
     </ul>
+    <UButton
+      v-if="$strapi.user"
+      button-class="u-button-gray"
+      button-name="Log Out"
+      @clickOnButton="$strapi.logout()"
+    ></UButton>
   </div>
 </template>
 

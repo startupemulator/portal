@@ -37,6 +37,7 @@
         <U-button
           :button-name="'Log in'"
           :button-class="'u-button-blue create-account__log-in'"
+          @clickOnButton="login"
         ></U-button>
         <hr />
         <div class="create-account__buttons-continue">
@@ -81,6 +82,8 @@ export default {
     SigningUpLinkSent,
   },
   data: () => ({
+    email: "",
+    password: "",
     popupEmailLink: false,
     popupSiginigUpLink: false,
     validInput: {
@@ -91,6 +94,20 @@ export default {
   }),
   computed: {},
   methods: {
+    async login() {
+      try {
+        const user = await this.$strapi.login({
+          identifier: this.email,
+          password: this.password,
+        });
+        console.log(user);
+        if (user) {
+          this.$nuxt.$router.push("/");
+        }
+      } catch (e) {
+        console.warn(e);
+      }
+    },
     showPopupEmailLink() {
       this.popupEmailLink = !this.popupEmailLink;
     },
@@ -103,6 +120,7 @@ export default {
       }
     },
     checkEmail(textValue) {
+<<<<<<< HEAD
       textValue = textValue.trim();
       if (!this.emailPattern.test(textValue)) {
         this.validInput.email = true;
@@ -117,6 +135,14 @@ export default {
       } else {
         this.validInput.password = false;
       }
+=======
+      this.validInput.email = !this.emailPattern.test(textValue);
+      this.email = textValue;
+    },
+    checkPassword(textValue) {
+      this.validInput.password = textValue.length < 6;
+      this.password = textValue;
+>>>>>>> da0b5676bb42b1bb0285762128a0a32b2fa9e4c0
     },
   },
 };
