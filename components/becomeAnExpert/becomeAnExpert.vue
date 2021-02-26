@@ -8,7 +8,16 @@
         :type="'text'"
         :img="require('~/assets/img/profile.svg')"
         :btn-show-password="false"
+        :account-class="
+          validInput.fullName
+            ? 'create-account__password error'
+            : 'create-account__password'
+        "
+        @textInput="checkName"
       ></U-input>
+      <p v-show="validInput.fullName" class="errorInput">
+        Please enter a password of at least 6 characters
+      </p>
       <technologi-piker
         :title="'Pick technologies you are expert in'"
       ></technologi-piker>
@@ -29,6 +38,26 @@ import UButton from "../theme/UButton.vue";
 import TechnologiPiker from "../theme/technologiPiker.vue";
 export default {
   components: { UTitle, UInput, UButton, TechnologiPiker },
+  data: () => ({
+    validInput: {
+      fullName: false,
+    },
+  }),
+  methods: {
+    checkName(textValue) {
+      textValue = textValue.trim();
+
+      if (textValue.length < 6) {
+        this.validInput.fullName = true;
+      } else {
+        this.validInput.fullName = false;
+      }
+    },
+    showAlert() {
+      this.alert = !this.alert;
+      setTimeout(() => (this.alert = !this.alert), 4000);
+    },
+  },
 };
 </script>
 <style lang="scss">
@@ -48,6 +77,17 @@ export default {
     font-size: 16px;
     line-height: 24px;
   }
+  .errorInput {
+    margin: 0;
+    margin-top: 16px;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    color: #f87b7b;
+  }
+  // .errorInput::before {
+  //   top: 7px;
+  // }
   .technologi-picker h2 {
     font-weight: 500;
     font-size: 16px;

@@ -90,7 +90,7 @@ export default {
       email: false,
       password: false,
     },
-    emailPattern: /^([\w-]+@([\w-]+\.)+[\w-]{2,4})?$/,
+    emailPattern: /^([\w-.]+@([\w-]+\.)+[\w-]{2,4})?$/,
   }),
   computed: {},
   methods: {

@@ -114,7 +114,9 @@ export default {
       password: false,
       fullName: false,
     },
-    emailPattern: /^([\w-]+@([\w-]+\.)+[\w-]{2,4})?$/,
+    validaterugular: {
+      email: /^([\w-.]+@([\w-]+\.)+[\w-]{2,4})?$/,
+    },
   }),
   computed: {},
   methods: {

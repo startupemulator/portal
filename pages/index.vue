@@ -12,7 +12,8 @@
       <li><a href="/logined">Logined</a></li>
       <li><a href="/unlogined">Unlogined</a></li>
       <hr />
-      <li><a href="/BecomeAnExpert">BecomeAnExpert</a></li>
+      <li><a href="/becomeAnExpert">BecomeAnExpert</a></li>
+      <li><a href="/participate">Participate</a></li>
     </ul>
     <UButton
       v-if="$strapi.user"
