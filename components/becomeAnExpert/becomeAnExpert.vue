@@ -85,9 +85,6 @@ export default {
     line-height: 20px;
     color: #f87b7b;
   }
-  // .errorInput::before {
-  //   top: 7px;
-  // }
   .technologi-picker h2 {
     font-weight: 500;
     font-size: 16px;
@@ -100,18 +97,18 @@ export default {
       min-height: 340px;
     }
   }
-  .become-expert__buttons {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: #232b39;
-    border: 1px solid #3b465a;
-    box-shadow: inset 0 0 10px 2px #262f3f;
-    border-radius: 16px 16px 0 0;
-    padding: 16px 16px 28px 16px;
-    box-sizing: border-box;
-  }
+}
+.become-expert__buttons {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #232b39;
+  border: 1px solid #3b465a;
+  box-shadow: inset 0 0 10px 2px #262f3f;
+  border-radius: 16px 16px 0 0;
+  padding: 16px 16px 28px 16px;
+  box-sizing: border-box;
 }
 .become-expert ~ .main-footer {
   padding-bottom: 75px;
@@ -140,21 +137,21 @@ export default {
         width: 603px;
       }
     }
-    .become-expert__buttons {
-      position: relative;
+  }
+  .become-expert__buttons {
+    position: relative;
+    width: 660px;
+    background: transparent;
+    border: 0;
+    border-top: 1px solid #3b465a;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0;
+    box-sizing: border-box;
+    button {
+      margin-top: 32px;
+      margin-left: 0;
       width: 660px;
-      background: transparent;
-      border: 0;
-      border-top: 1px solid #3b465a;
-      box-shadow: none;
-      border-radius: 0;
-      padding: 0;
-      box-sizing: border-box;
-      button {
-        margin-top: 32px;
-        margin-left: 0;
-        width: 660px;
-      }
     }
   }
   .become-expert ~ .main-footer {

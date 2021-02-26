@@ -3,7 +3,8 @@
     {{ technologiName }}
     <input
       :id="technologiId"
-      type="checkbox"
+      :type="type"
+      :name="name"
       @click.prevent="$emit('pickTechnologi', $event.target)"
     />
   </label>
@@ -20,6 +21,14 @@ export default {
       default: Number,
     },
     checkedClass: {
+      type: String,
+      default: "",
+    },
+    type: {
+      type: String,
+      default: "checkbox",
+    },
+    name: {
       type: String,
       default: "",
     },

@@ -225,16 +225,7 @@ export const actions = {
   applyStartUp({ commit }) {
     commit("applyStartUp");
   },
-  addTechnology({ commit }, e) {
-    const srt = e.target.value.trim();
-    if ((srt.length > 1) & (e.keyCode === 13 || e.keyCode === 32)) {
-      commit("addTechnology", e.target.value);
-    }
-  },
-  removeTechnology({ commit }, id) {
-    // console.log(id);
-    commit("removeTechnology", id);
-  },
+
   isMobile({ commit }, device) {
     commit("identifyDevice", device);
   },
