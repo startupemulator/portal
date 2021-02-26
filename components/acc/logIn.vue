@@ -120,29 +120,12 @@ export default {
       }
     },
     checkEmail(textValue) {
-<<<<<<< HEAD
-      textValue = textValue.trim();
-      if (!this.emailPattern.test(textValue)) {
-        this.validInput.email = true;
-      } else {
-        this.validInput.email = false;
-      }
-    },
-    checkPassword(textValue) {
-      textValue = textValue.trim();
-      if (textValue.length < 6) {
-        this.validInput.password = true;
-      } else {
-        this.validInput.password = false;
-      }
-=======
       this.validInput.email = !this.emailPattern.test(textValue);
       this.email = textValue;
     },
     checkPassword(textValue) {
       this.validInput.password = textValue.length < 6;
       this.password = textValue;
->>>>>>> da0b5676bb42b1bb0285762128a0a32b2fa9e4c0
     },
   },
 };
