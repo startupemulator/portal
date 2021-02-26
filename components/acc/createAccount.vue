@@ -110,7 +110,9 @@ export default {
       password: false,
       fullName: false,
     },
-    emailPattern: /^([\w-]+@([\w-]+\.)+[\w-]{2,4})?$/,
+    validaterugular: {
+      email: /^([\w-.]+@([\w-]+\.)+[\w-]{2,4})?$/,
+    },
   }),
   computed: {},
   methods: {
@@ -140,6 +142,7 @@ export default {
       }
     },
     checkName(textValue) {
+      textValue = textValue.trim();
       if (textValue.length < 6) {
         this.validInput.fullName = true;
       } else {

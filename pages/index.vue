@@ -11,6 +11,7 @@
       <li><a href="/unlogined">Unlogined</a></li>
       <hr />
       <li><a href="/BecomeAnExpert">BecomeAnExpert</a></li>
+      <li><a href="/PracticipaerTask">PracticipaerTask</a></li>
     </ul>
   </div>
 </template>

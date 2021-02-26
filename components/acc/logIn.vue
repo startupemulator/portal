@@ -87,7 +87,7 @@ export default {
       email: false,
       password: false,
     },
-    emailPattern: /^([\w-]+@([\w-]+\.)+[\w-]{2,4})?$/,
+    emailPattern: /^([\w-.]+@([\w-]+\.)+[\w-]{2,4})?$/,
   }),
   computed: {},
   methods: {
@@ -103,6 +103,7 @@ export default {
       }
     },
     checkEmail(textValue) {
+      textValue = textValue.trim();
       if (!this.emailPattern.test(textValue)) {
         this.validInput.email = true;
       } else {
@@ -110,6 +111,7 @@ export default {
       }
     },
     checkPassword(textValue) {
+      textValue = textValue.trim();
       if (textValue.length < 6) {
         this.validInput.password = true;
       } else {
