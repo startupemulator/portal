@@ -1,6 +1,6 @@
 <template>
   <div>
-    <app-header :login="true"></app-header>
+    <app-header :login="!!$strapi.user"></app-header>
     <div class="createProgect">
       <create-prodgect></create-prodgect>
       <buttons-next-draft></buttons-next-draft>
@@ -23,6 +23,7 @@ export default {
     CreateProdgect,
     ButtonsNextDraft,
   },
+  middleware: "deny-unauthenticated",
   computed: {
     ...mapState(["applyToTeam", "device"]),
     step: (state) => state.applyToTeam.stepOne,

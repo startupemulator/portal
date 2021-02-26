@@ -1,6 +1,6 @@
 <template>
   <div class="createaccount-fullscreen">
-    <app-header :logined="false"></app-header>
+    <app-header :login="!!$strapi.user"></app-header>
 
     <log-in></log-in>
 
