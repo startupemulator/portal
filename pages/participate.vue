@@ -16,6 +16,7 @@ export default {
     ParticipateChallenge,
     AppFooter,
   },
+  middleware: ["deny-unauthenticated"],
 };
 </script>
 <style lang="scss" scoped>
