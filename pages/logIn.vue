@@ -1,9 +1,7 @@
 <template>
   <div class="createaccount-fullscreen">
-    <app-header :logined="false"></app-header>
-
+    <app-header></app-header>
     <log-in></log-in>
-
     <app-footer></app-footer>
   </div>
 </template>

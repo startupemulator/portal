@@ -1,6 +1,6 @@
 <template>
   <div class="fullscreen">
-    <app-header :logined="true"></app-header>
+    <app-header></app-header>
     <participate-challenge></participate-challenge>
     <app-footer></app-footer>
   </div>

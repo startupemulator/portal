@@ -1,6 +1,6 @@
 <template>
   <div>
-    <app-header :login="true"></app-header>
+    <app-header></app-header>
     <div class="createProgect">
       <create-prodgect></create-prodgect>
       <buttons-next-draft></buttons-next-draft>
