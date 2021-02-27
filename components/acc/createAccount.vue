@@ -18,7 +18,7 @@
           @textInput="checkName"
         ></U-input>
         <p v-show="validInput.fullName" class="errorInput">
-          Please enter a password of at least 6 characters
+          Please enter a full name
         </p>
         <U-input
           :placeholder="'Enter your email'"
@@ -114,9 +114,7 @@ export default {
       password: false,
       fullName: false,
     },
-    validaterugular: {
-      email: /^([\w-.]+@([\w-]+\.)+[\w-]{2,4})?$/,
-    },
+    emailPattern: /^([\w-.]+@([\w-]+\.)+[\w-]{2,4})?$/,
   }),
   computed: {},
   methods: {

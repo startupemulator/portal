@@ -1,0 +1,97 @@
+.participate-challenge {
+  width: 343px;
+  min-height: 382px;
+  margin: 0 auto;
+}
+.participate-challenge__content {
+  margin-top: 36px;
+  .standart-label input {
+    padding-left: 16px;
+    font-weight: normal;
+    &::placeholder {
+      font-size: 16px;
+      line-height: 32px;
+      font-weight: 300;
+    }
+  }
+  .standart-label::before {
+    position: absolute;
+    content: "days";
+    right: 18px;
+    top: -3px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    color: #dbe4f3;
+  }
+}
+.bottom-fixed-button {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #232b39;
+  border: 1px solid #3b465a;
+  box-shadow: inset 0 0 10px 2px #262f3f;
+  border-radius: 16px 16px 0 0;
+  padding: 16px 16px 28px 16px;
+  box-sizing: border-box;
+}
+.bottom-fixed-button ~ .main-footer {
+  padding-bottom: 75px;
+}
+@media (min-width: 768px) {
+  .participate-challenge {
+    width: 660px;
+    .bottom-fixed-button {
+      margin-top: 36px;
+    }
+  }
+  .bottom-fixed-button {
+    position: relative;
+    width: 660px;
+    background: transparent;
+    border: 0;
+    border-top: 1px solid #3b465a;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0;
+    box-sizing: border-box;
+    button {
+      margin-top: 32px;
+      margin-left: 0;
+      width: 660px;
+    }
+  }
+  .bottom-fixed-button ~ .main-footer {
+    padding-bottom: 0;
+  }
+  .participate-challenge__content {
+    .button-back {
+      margin-top: 44px;
+    }
+    .technologi-picker {
+      min-height: 98px;
+      h2 {
+        margin-top: 34px;
+        margin-bottom: 10px;
+        font-weight: 500;
+        font-size: 17px;
+        line-height: 32px;
+      }
+    }
+    .standart-label input {
+      padding-left: 24px;
+      font-weight: 300;
+      &::placeholder {
+        font-size: 18px;
+      }
+    }
+    .standart-label::before {
+      position: absolute;
+      content: "days";
+      font-weight: 500;
+      right: 24px;
+    }
+  }
+}

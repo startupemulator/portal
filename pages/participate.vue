@@ -18,3 +18,13 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+@media (min-width: 1480px) {
+  .fullscreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+  }
+}
+</style>
