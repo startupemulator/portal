@@ -11,23 +11,23 @@
       ></div>
     </div>
 
-    <create-prodgect-step-1
+    <create-project-step-1
       v-if="createprodjectSteps.stepOne"
       @goToStepTwo="goToStepTwo"
-    ></create-prodgect-step-1>
-    <create-prodgect-step-2
+    ></create-project-step-1>
+    <create-project-step-2
       v-if="createprodjectSteps.stepTwo"
-    ></create-prodgect-step-2>
+    ></create-project-step-2>
   </div>
 </template>
 <script>
 // import { mapState } from "vuex";
 import UBack from "../theme/UBack";
 import UTitle from "../theme/UTitle";
-import createProdgectStep1 from "./createProdgectStep-1.vue";
-import CreateProdgectStep2 from "./createProdgectStep-2.vue";
+import createProjectStep1 from "./createProjectStep-1.vue";
+import createProjectStep2 from "./createProjectStep-2.vue";
 export default {
-  components: { createProdgectStep1, CreateProdgectStep2, UBack, UTitle },
+  components: { createProjectStep1, createProjectStep2, UBack, UTitle },
   data() {
     return {
       createprodjectSteps: {

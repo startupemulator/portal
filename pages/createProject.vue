@@ -12,8 +12,8 @@
 import { mapState } from "vuex";
 import AppFooter from "~/components/appFooter.vue";
 import appHeader from "~/components/appHeader.vue";
-// import ButtonsNextDraft from "~/components/createProgect/buttonsNextDraft.vue";
-import CreateProdgect from "~/components/createProgect/createProdgect.vue";
+// import ButtonsNextDraft from "~/components/createProject/buttonsNextDraft.vue";
+import CreateProdgect from "~/components/createProject/createProject.vue";
 export default {
   components: {
     appHeader,
@@ -21,7 +21,7 @@ export default {
     CreateProdgect,
     // ButtonsNextDraft,
   },
-  // middleware: ["deny-unauthenticated"],
+  middleware: ["deny-unauthenticated"],
   computed: {
     ...mapState(["applyToTeam", "device"]),
     step: (state) => state.applyToTeam.stepOne,
