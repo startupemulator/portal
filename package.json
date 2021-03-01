@@ -29,7 +29,8 @@
     "@nuxtjs/strapi": "^0.3.0",
     "autoprefixer": "^10.2.4",
     "core-js": "^3.8.3",
-    "nuxt": "^2.14.12"
+    "nuxt": "^2.14.12",
+    "vuelidate": "^0.7.6"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.12.13",

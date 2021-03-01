@@ -1,19 +1,20 @@
 <template>
-  <div id="content">
+  <div>
+    <app-header></app-header>
     <h2>Pages List</h2>
     <h1 v-if="$strapi.user">Current user: {{ $strapi.user.username }}</h1>
     <hr />
     <ul>
-      <li><a href="/landing">Landing</a></li>
-      <li><a href="/logIn">Log In</a></li>
-      <li><a href="/applyToTeam">Apply to Team</a></li>
-      <li><a href="/createAccount">Create Account</a></li>
-      <li><a href="/createProject">Create Project</a></li>
-      <li><a href="/logined">Logined</a></li>
-      <li><a href="/unlogined">Unlogined</a></li>
+      <li><nuxt-link to="/landing">Landing</nuxt-link></li>
+      <li><nuxt-link to="/logIn">Log In</nuxt-link></li>
+      <li><nuxt-link to="/applyToTeam">Apply to Team</nuxt-link></li>
+      <li><nuxt-link to="/createAccount">Create Account</nuxt-link></li>
+      <li><nuxt-link to="/createProject">Create Project</nuxt-link></li>
+      <li><nuxt-link to="/logined">Logined</nuxt-link></li>
+      <li><nuxt-link to="/unlogined">Unlogined</nuxt-link></li>
       <hr />
-      <li><a href="/becomeAnExpert">BecomeAnExpert</a></li>
-      <li><a href="/participate">Participate</a></li>
+      <li><nuxt-link to="/becomeAnExpert">BecomeAnExpert</nuxt-link></li>
+      <li><nuxt-link to="/participate">Participate</nuxt-link></li>
     </ul>
     <UButton
       v-if="$strapi.user"

@@ -1,7 +1,7 @@
 s
 <template>
   <div>
-    <app-header :logined="false"></app-header>
+    <app-header></app-header>
     <app-get-experience></app-get-experience>
     <app-startups-block></app-startups-block>
     <app-challenges-block></app-challenges-block>

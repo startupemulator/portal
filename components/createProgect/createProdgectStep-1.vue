@@ -47,46 +47,23 @@
         </div>
       </div>
       <div class="startup__finish-date">
-        <h4><span v-if="!device">Estimated</span> Finish date</h4>
-        <div class="finish-date__row">
-          <img src="@/assets/img/calendar.svg" alt="Calendar" />
-          <div class="finish-date__col1">
-            <input
-              v-model="finishDay"
-              type="text"
-              placeholder="DD"
-              required
-              @input="checkinput('finishDay')"
-            />
-          </div>
-          <div class="finish-date__col2">
-            <input
-              v-model="finishMonth"
-              type="text"
-              placeholder="MM"
-              required
-              @input="checkinput('finishMonth')"
-            />
-          </div>
-          <div class="finish-date__col3">
-            <input
-              v-model="finishYear"
-              type="text"
-              placeholder="YYYY"
-              required
-              @input="checkinput('finishYear')"
-            />
-          </div>
-        </div>
+        <Duration-picker :title="'Estimated duration'"></Duration-picker>
+        <Add-input :placeholder="'Or enter the number of days'"></Add-input>
       </div>
     </div>
   </div>
 </template>
 <script>
 import { mapState } from "vuex";
+import DurationPicker from "~/components/theme/DurationPicker";
+import AddInput from "~/components/theme/AddInput";
 // import createProdgectStep1 from "./createProdgectStep-1.vue";
 // import CreateProdgectStep2 from "./createProdgectStep-2.vue";
 export default {
+  components: {
+    DurationPicker,
+    AddInput,
+  },
   // components: { createProdgectStep1, CreateProdgectStep2 },
   data: () => ({
     startDay: "",

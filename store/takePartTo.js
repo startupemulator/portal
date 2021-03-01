@@ -6,7 +6,7 @@ export const state = () => ({
       title: "Use new technologies",
       text:
         "Description probably in two lines. Description probably in two or three lines. Description probably in two or three lines.",
-      img: require("@/assets/img/benefits.svg"),
+      img: require("~/assets/img/benefits.svg"),
     },
     {
       id: "1",
@@ -14,7 +14,7 @@ export const state = () => ({
       title: "Collaborate with others",
       text:
         "Description probably in two lines. Description probably in two or three lines. Description probably in two or three lines.",
-      img: require("@/assets/img/benefits2.svg"),
+      img: require("~/assets/img/benefits2.svg"),
     },
     {
       id: "2",
@@ -22,7 +22,7 @@ export const state = () => ({
       title: "Receive feedback from our experts",
       text:
         "Description probably in two lines. Description probably in two or three lines. Description probably in two or three lines.",
-      img: require("@/assets/img/benefits3.svg"),
+      img: require("~/assets/img/benefits3.svg"),
     },
   ],
 });

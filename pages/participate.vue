@@ -1,6 +1,6 @@
 <template>
   <div class="fullscreen">
-    <app-header :logined="true"></app-header>
+    <app-header></app-header>
     <participate-challenge></participate-challenge>
     <app-footer></app-footer>
   </div>
@@ -16,6 +16,7 @@ export default {
     ParticipateChallenge,
     AppFooter,
   },
+  middleware: ["deny-unauthenticated"],
 };
 </script>
 <style lang="scss" scoped>
