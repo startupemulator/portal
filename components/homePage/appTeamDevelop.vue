@@ -2,12 +2,7 @@
   <div class="team-develop">
     <img
       class="team-develop__mobile"
-      src="@/assets/img/teamdev-m.png"
-      alt="teamdev-m"
-    />
-    <img
-      class="team-develop__descktop"
-      src="@/assets/img/teamdev-b.jpg"
+      src="@/assets/img/teamdev.jpg"
       alt="teamdev-m"
     />
     <div class="team-develop__text-block">

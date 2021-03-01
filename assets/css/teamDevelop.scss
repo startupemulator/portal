@@ -9,10 +9,10 @@
   flex-direction: column;
   align-items: center;
   img {
-    margin-top: 5px;
-  }
-  .team-develop__descktop {
-    display: none;
+    width: 295px;
+    height: 170px;
+    border-radius: 12px;
+    margin-top: 24px;
   }
   h2 {
     width: 295px;
@@ -65,11 +65,11 @@
     img {
       order: 2;
       margin-left: 20px;
-      max-width: 50%;
+      margin-top: 0;
+      width: 596px;
+      height: 384px;
     }
-    .team-develop__mobile {
-      display: none;
-    }
+
     .team-develop__descktop {
       display: block;
       border-radius: 12px;

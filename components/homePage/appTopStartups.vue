@@ -3,7 +3,7 @@
     <h2 class="top-startups__title">Top startups developed with us</h2>
     <div class="top-startups-content">
       <div class="top-startup">
-        <img src="@/assets/img/startups.png" alt="startups" />
+        <img src="@/assets/img/startups.jpg" alt="startups" />
         <div class="top-startup__buttons">
           <U-button
             :button-name="'See Details'"

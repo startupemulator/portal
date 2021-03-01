@@ -10,13 +10,39 @@
     margin-top: 20px;
   }
 }
-
 .top-startup {
+  position: relative;
   margin-top: 24px;
   display: flex;
   flex-direction: column;
+  &::before {
+    content: "pakipaki.io";
+    position: absolute;
+    top: 76px;
+    left: 118px;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 24px;
+    color: #fff;
+    width: 107px;
+    height: 24px;
+    z-index: 1;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    top: 24px;
+    left: 152px;
+    z-index: 1;
+    width: 40px;
+    height: 40px;
+    background-image: url("../img/logo_sturtups.svg");
+    background-size: cover;
+  }
   img {
     height: 142px;
+    border-radius: 12px 12px 0 0;
+    opacity: 0.5;
   }
   .top-startup__buttons {
     min-height: 112px;
@@ -67,15 +93,13 @@
     display: block;
     width: 295px;
   }
-  .u-button {
-    // height: 40px !important;
-  }
 }
 
 @media (min-width: 768px) {
   .top-startups {
     width: 100%;
     margin-top: 150px;
+
     .top-startups__title {
       margin-left: 48px;
       font-weight: 800;
@@ -113,6 +137,14 @@
   }
   .top-startup {
     margin-right: 24px;
+    &::before {
+      left: 40%;
+      right: 40%;
+    }
+    &::after {
+      left: 47%;
+      right: 45%;
+    }
     img {
       width: 100%;
       height: auto;
@@ -158,6 +190,23 @@
       .u-button-gray {
         margin-top: 0;
       }
+    }
+  }
+  .top-startup {
+    &::before {
+      top: 164px;
+      left: 35%;
+      right: 35%;
+      font-weight: bold;
+      font-size: 35px;
+      line-height: 40px;
+    }
+    &::after {
+      top: 76px;
+      left: 45%;
+      right: 45%;
+      width: 64px;
+      height: 64px;
     }
   }
   .next-startup {

@@ -18,6 +18,17 @@
     overflow: hidden;
     justify-content: space-between;
     max-width: 375px;
+    .experience-content__first-mobile-image img {
+      position: relative;
+      left: -35px;
+      width: 228px;
+    }
+    .experience-content__second-mobile-image img {
+      position: relative;
+      top: -20px;
+      left: -65px;
+      width: 228px;
+    }
   }
 }
 
@@ -33,7 +44,8 @@
     line-height: 40px;
     text-align: center;
     margin: 0 auto;
-    margin-top: 23px;
+    // margin-top: 23px;
+    top: -20px;
     z-index: 2;
     &::before {
       position: absolute;
@@ -67,7 +79,7 @@
 
   .button-startups--groupe {
     margin: 0 auto;
-    margin-top: 42px;
+    margin-top: 22px;
     width: 343px;
     display: flex;
     flex-direction: column;
@@ -119,6 +131,18 @@
     .experience-content__four-image {
       display: block;
     }
+    .experience-content__first-image img {
+      width: 320px;
+    }
+    .experience-content__third-image img {
+      width: 400px;
+    }
+    .experience-content__second-image img {
+      width: 394px;
+    }
+    .experience-content__four-image img {
+      width: 400px;
+    }
     .get-experience-content {
       position: relative;
       margin: 0 auto;
@@ -162,7 +186,7 @@
       margin-top: 20px;
     }
     .button-startups--groupe {
-      margin-top: 44px;
+      margin-top: 24px;
       flex-direction: row;
       justify-content: space-between;
       width: 492px;
@@ -181,7 +205,7 @@
       line-height: 80px;
       text-align: center;
       margin: 0 auto;
-      margin-top: 23px;
+      margin-top: 43px;
       z-index: 2;
       &::before {
         width: 384px;
