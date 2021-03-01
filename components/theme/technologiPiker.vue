@@ -8,7 +8,9 @@
         :technologi-id="technologi.id"
         :technologi-name="technologi.title"
         :checked-class="technologi.checked ? 'checked' : ''"
-        @pickTechnologi="pickTechnologi($event, technologi.id)"
+        @pickTechnologi="
+          pickTechnologi($event, technologi.id, technologi.title)
+        "
       >
         {{ technologi.title }}
       </Technologi-item>
@@ -30,7 +32,7 @@ export default {
   data() {
     return {
       technologies: [
-        { id: 1, checked: true, title: "Javascript" },
+        { id: 1, checked: false, title: "Javascript" },
         { id: 2, checked: false, title: "Java" },
         { id: 3, checked: false, title: "Python" },
         { id: 4, checked: false, title: "HTML5" },
@@ -51,15 +53,19 @@ export default {
         { id: 19, checked: false, title: "HTML5" },
         { id: 20, checked: false, title: "CSS3" },
       ],
+      chosenTechnologi: [],
     };
   },
   methods: {
-    pickTechnologi(item, i) {
+    pickTechnologi(item, i, title) {
       this.technologies.forEach((el) => {
         if (i === el.id) {
           el.checked = !el.checked;
         }
       });
+
+      this.chosenTechnologi = this.technologies.filter((item) => item.checked);
+      this.$emit("chosenTechnologi", this.chosenTechnologi);
     },
   },
 };

@@ -3,11 +3,17 @@
   margin: 0 auto;
   color: $main-text-color;
   min-height: 650px;
-  h2 {
-    font-weight: bold;
-    font-size: 36px;
-    line-height: 40px;
-    margin-top: 24px;
+  .specialityOne__list {
+    position: relative;
+    .button-remove-speciality {
+      position: absolute;
+      top: 15px;
+      right: 0;
+      background-color: transparent;
+    }
+  }
+  .button-back {
+    margin-top: 38px;
   }
   .createProgect-step1__progress-bar {
     width: 343px;
@@ -25,6 +31,9 @@
       width: 85.75px;
       height: 12px;
       transition: 1s;
+      position: relative;
+      top: -1px;
+      left: -1px;
     }
     .progress-bar__stepTwo {
       width: 171.5px;
@@ -37,6 +46,21 @@
     line-height: 24px;
     margin-top: 34px;
     margin-bottom: 8px;
+  }
+  .button_pick_technologies {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid transparent;
+    color: #8c97ac;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    border-radius: 0;
+    display: block;
+    margin-top: 16px;
+    &:hover {
+      text-decoration: underline;
+    }
   }
   input,
   .start-date__row,
@@ -90,7 +114,6 @@
       width: 340px;
       margin-top: 10px;
       img {
-        // margin-top: 10px;
         width: 24px;
         height: 24px;
       }
@@ -146,6 +169,27 @@
       }
     }
   }
+  .createProgect-step1__buttons {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 92px;
+    display: flex;
+    padding: 16px 16px 28px 16px;
+    background: #232b39;
+    box-sizing: border-box;
+    border: 1px solid #3b465a;
+    box-shadow: inset 0 0 10px 2px #262f3f;
+    border-radius: 16px 16px 0 0;
+    justify-content: space-between;
+    .u-button {
+      width: 163px;
+    }
+  }
+}
+.createProgect ~ .main-footer {
+  padding-bottom: 75px;
 }
 
 .createProgect-step2 {
@@ -175,6 +219,7 @@
   ul {
     margin-top: 4px;
   }
+
   .specialityOne__item {
     width: 340px;
     height: 48px;
@@ -191,11 +236,15 @@
     font-size: 16px;
     line-height: 32px;
     position: relative;
+    transition: 0.4s;
     img {
       transform: rotate(90deg);
       margin-right: 5px;
       transition: 1s;
     }
+  }
+  .specialityOne__item.item-choosen {
+    width: 304px;
   }
   .specialityOne__item-list {
     width: 340px;
@@ -300,7 +349,7 @@
   .pick-technology__content {
     max-width: 375px;
     box-sizing: border-box;
-    height: 604px;
+    height: 100vh;
     margin: 0 auto;
     background: #232b39;
     border-radius: 12px;
@@ -325,12 +374,85 @@
       width: 316px;
     }
   }
+  .createProgect-step2__buttons-popup {
+    margin-top: 20px;
+    position: fixed;
+    bottom: 0;
+    box-sizing: border-box;
+    padding: 16px 16px 28px 16px;
+    display: flex;
+    background: #232b39;
+    border: 1px solid #3b465a;
+    box-shadow: inset 0 0 10px 2px #262f3f;
+    border-radius: 16px 16px 0 0;
+    width: 375px;
+    height: 92px;
+    margin-bottom: 28px;
+    .u-button-blue {
+      min-width: 245px;
+    }
+  }
 }
 
 @media (min-width: 768px) {
+  .technologi-popup__pick-technology {
+    .pick-technology__content {
+      max-width: 660px;
+      height: 516px;
+      // margin-top: 320px;
+      margin-top: 120px;
+      padding-top: 1px;
+      h2 {
+        font-weight: bold;
+        font-size: 35px;
+        width: 500px;
+        line-height: 40px;
+        margin: 48px 56px 0 56px;
+      }
+      .technologi-picker {
+        margin: 24px 34px;
+        h2 {
+          display: none;
+        }
+      }
+      .step-1__experience {
+        margin-left: 24px;
+        margin-right: 12px;
+      }
+      input {
+        margin-top: 5px;
+        margin-left: 24px;
+        width: 316px;
+        display: none;
+      }
+    }
+  }
+  .technologi-popup__pick-technology .createProgect-step2__buttons-popup {
+    position: relative;
+    width: 100%;
+    border: none;
+    box-shadow: none;
+    flex-direction: row-reverse;
+    .u-button-blue {
+      min-width: 466px;
+    }
+  }
   .createProgect {
     width: 660px;
-    // min-height: 1061px;
+    .createProgect-step1__buttons {
+      position: relative;
+      background-color: transparent;
+      border-radius: 0;
+      box-shadow: none;
+      border: none;
+      border-top: 1px solid #4e5a71;
+      margin-top: 32px;
+      padding: 32px 0 0 0;
+      .u-button {
+        width: 318px;
+      }
+    }
+
     .apply-to-team-btn-back {
       padding-left: 0;
     }
@@ -338,7 +460,7 @@
       font-weight: bold;
       font-size: 56px;
       line-height: 64px;
-      margin-top: 55px;
+      margin-top: 65px;
       margin-bottom: 38px;
     }
     .createProgect-step1__progress-bar {
@@ -459,6 +581,9 @@
       font-size: 18px;
       line-height: 32px;
     }
+    .specialityOne__item.item-choosen {
+      width: 620px;
+    }
     .specialityOne__item-list {
       width: 660px;
     }
@@ -480,5 +605,8 @@
       width: 182px;
       height: 48px;
     }
+  }
+  .createProgect ~ .main-footer {
+    padding-bottom: 0;
   }
 }

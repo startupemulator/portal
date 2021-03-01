@@ -1,22 +1,8 @@
 <template>
   <div class="createProgect-content">
-    <nuxt-link v-if="createprodjectSteps.stepOne" to="/"
-      ><button type="button" class="apply-to-team-btn-back">
-        <img src="@/assets/img/arrow.svg" alt="arrow" /> Back
-      </button></nuxt-link
-    >
-    <button
-      v-else
-      type="button"
-      class="apply-to-team-btn-back"
-      @click="
-        (createprodjectSteps.stepOne = !createprodjectSteps.stepOne),
-          (createprodjectSteps.stepTwo = !createprodjectSteps.stepTwo)
-      "
-    >
-      <img src="@/assets/img/arrow.svg" alt="arrow" /> Back
-    </button>
-    <h2>Create a startup</h2>
+    <U-back :link="'/'"></U-back>
+
+    <U-title :text="'Create a startup'"></U-title>
 
     <div class="createProgect-step1__progress-bar">
       <div
@@ -27,6 +13,7 @@
 
     <create-prodgect-step-1
       v-if="createprodjectSteps.stepOne"
+      @goToStepTwo="goToStepTwo"
     ></create-prodgect-step-1>
     <create-prodgect-step-2
       v-if="createprodjectSteps.stepTwo"
@@ -34,13 +21,29 @@
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
+// import { mapState } from "vuex";
+import UBack from "../theme/UBack";
+import UTitle from "../theme/UTitle";
 import createProdgectStep1 from "./createProdgectStep-1.vue";
 import CreateProdgectStep2 from "./createProdgectStep-2.vue";
 export default {
-  components: { createProdgectStep1, CreateProdgectStep2 },
-  computed: {
-    ...mapState(["device", "createprodjectSteps"]),
+  components: { createProdgectStep1, CreateProdgectStep2, UBack, UTitle },
+  data() {
+    return {
+      createprodjectSteps: {
+        stepOne: true,
+        stepTwo: false,
+      },
+    };
   },
+  methods: {
+    goToStepTwo() {
+      this.createprodjectSteps.stepOne = false;
+      this.createprodjectSteps.stepTwo = true;
+    },
+  },
+  // computed: {
+  //   ...mapState(["device", "createprodjectSteps"]),
+  // },
 };
 </script>

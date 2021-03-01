@@ -44,12 +44,13 @@
 @media (min-width: 768px) {
   .main-footer {
     margin-top: 130px;
-    min-height: 80px;
+    height: 80px;
     .main-footer__list {
       display: flex;
       margin-left: 48px;
       margin-right: 48px;
-      margin-top: 25px;
+      margin-top: 20px;
+      padding-bottom: 0;
       .main-footer__item:not(:last-child) {
         order: 10;
         margin-left: 32px;

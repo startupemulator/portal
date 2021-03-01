@@ -11,8 +11,7 @@
       ></textarea>
       <div class="startup__start-date">
         <h4>Start date</h4>
-        <!-- {{ "startDay" + startDay }} -->
-        <!-- {{ "startMonth" + startMonth }} -->
+
         <div class="start-date__row">
           <img src="@/assets/img/calendar.svg" alt="Calendar" />
           <div class="start-date__col1">
@@ -47,24 +46,58 @@
         </div>
       </div>
       <div class="startup__finish-date">
-        <Duration-picker :title="'Estimated duration'"></Duration-picker>
-        <Add-input :placeholder="'Or enter the number of days'"></Add-input>
+        <h4><span v-if="!device">Estimated</span> Finish date</h4>
+        <div class="finish-date__row">
+          <img src="@/assets/img/calendar.svg" alt="Calendar" />
+          <div class="finish-date__col1">
+            <input
+              v-model="finishDay"
+              type="text"
+              placeholder="DD"
+              required
+              @input="checkinput('finishDay')"
+            />
+          </div>
+          <div class="finish-date__col2">
+            <input
+              v-model="finishMonth"
+              type="text"
+              placeholder="MM"
+              required
+              @input="checkinput('finishMonth')"
+            />
+          </div>
+          <div class="finish-date__col3">
+            <input
+              v-model="finishYear"
+              type="text"
+              placeholder="YYYY"
+              required
+              @input="checkinput('finishYear')"
+            />
+          </div>
+        </div>
       </div>
+    </div>
+    <div class="createProgect-step1__buttons">
+      <U-button
+        :button-name="'Next'"
+        :button-class="'u-button-blue'"
+        @clickOnButton="$emit('goToStepTwo')"
+      ></U-button>
+      <U-button
+        :button-name="'Save Draft'"
+        :button-class="'u-button-gray'"
+      ></U-button>
     </div>
   </div>
 </template>
 <script>
 import { mapState } from "vuex";
-import DurationPicker from "~/components/theme/DurationPicker";
-import AddInput from "~/components/theme/AddInput";
-// import createProdgectStep1 from "./createProdgectStep-1.vue";
-// import CreateProdgectStep2 from "./createProdgectStep-2.vue";
+import UButton from "~/components/theme/UButton.vue";
 export default {
-  components: {
-    DurationPicker,
-    AddInput,
-  },
-  // components: { createProdgectStep1, CreateProdgectStep2 },
+  components: { UButton },
+
   data: () => ({
     startDay: "",
     startMonth: "",
@@ -79,48 +112,7 @@ export default {
   },
 
   methods: {
-    checkinput(key) {
-      // function startCheck (name){
-      //   if(key = 'startDay'){
-      // if(name[0] > 3 || isNaN(name)){
-      //   name = ''
-      //   return
-      // }else if(name.length > 2){
-      //   name = name.toString().substr(0, 2)
-      // }}
-      // }
-      // switch (key) {
-      //   case "startDay":
-      //     startCheck (this.startDay)
-      //     break;
-      //   case "startMonth":
-      //     console.log(this.startMonth);
-      //     break;
-      //   case "startYear":
-      //     console.log(this.startYear);
-      //     break;
-      //   case "finishDay":
-      //     console.log(this.finishDay);
-      //     break;
-      //   case "finishMonth":
-      //     console.log(this.finishMonth);
-      //     break;
-      //   case "startMonth":
-      //     console.log(this.startMonth);
-      //     break;
-      //   case "finishYear":
-      //     console.log(this.finishYear);
-      //     break;
-      // }
-      // return null;
-      // if(type = 'startDay'){
-      // if(this.startDay[0] > 3 || isNaN(this.startDay)){
-      //   this.startDay = ''
-      //   return
-      // }else if(this.startDay.length > 2){
-      //   this.startDay = this.startDay.toString().substr(0, 2)
-      // }}
-    },
+    checkinput(key) {},
   },
 };
 </script>

@@ -9,7 +9,7 @@
   </button>
 </template>
 <script>
-// universal-button-blue or universal-button-gray
+// u-button-blue or u-button-gray
 export default {
   props: {
     buttonName: {
@@ -39,6 +39,19 @@ export default {
   line-height: 32px;
   color: $main-text-color;
   transition: 0.3s;
+}
+.u-button-transpend {
+  background: transparent;
+  border: none;
+  color: #8c97ac;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 32px;
+  box-shadow: none;
+  box-sizing: border-box;
+  :hover {
+    text-decoration: underline;
+  }
 }
 .u-button-blue {
   border-color: #2f2dad;
