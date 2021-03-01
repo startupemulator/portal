@@ -28,3 +28,21 @@ export default {
   },
 };
 </script>
+<style scoped>
+.signing-up-link-sent .signing-up-link-sent__content {
+  min-height: 312px;
+  margin-top: 175px;
+}
+.signing-up-link-sent p {
+  margin-bottom: 24px;
+}
+@media (min-width: 768px) {
+  .signing-up-link-sent .signing-up-link-sent__content {
+    min-height: 304px;
+    margin-top: 325px;
+  }
+  .signing-up-link-sent p {
+    width: 468px;
+  }
+}
+</style>

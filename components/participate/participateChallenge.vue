@@ -12,10 +12,14 @@
         <U-button
           :button-name="'Start'"
           :button-class="'u-button-blue'"
+          @clickOnButton="togglePopupChallengeStarted"
         ></U-button>
       </div>
     </div>
-    <popup-challenge-started v-if="false"></popup-challenge-started>
+    <popup-challenge-started
+      v-if="popupChallengeStarted"
+      @closePopupLinkSent="togglePopupChallengeStarted"
+    ></popup-challenge-started>
   </div>
 </template>
 <script>
@@ -38,8 +42,13 @@ export default {
   data() {
     return {
       numberDays: "",
+      popupChallengeStarted: false,
     };
   },
-  methods: {},
+  methods: {
+    togglePopupChallengeStarted() {
+      this.popupChallengeStarted = !this.popupChallengeStarted;
+    },
+  },
 };
 </script>
