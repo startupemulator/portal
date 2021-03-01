@@ -25,6 +25,7 @@ export default {
     ButtonNext,
     ButtonApply,
   },
+  middleware: ["deny-unauthenticated"],
   computed: {
     ...mapState(["applyToTeam", "device"]),
     step: (state) => state.applyToTeam.stepOne,

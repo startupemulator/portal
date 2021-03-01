@@ -33,6 +33,7 @@ export default {
     "@nuxtjs/svg",
     "@nuxtjs/stylelint-module",
     "@nuxtjs/eslint-module",
+    "@nuxt/typescript-build",
   ],
   stylelint: {
     fix: true,
@@ -45,9 +46,18 @@ export default {
     // https://go.nuxtjs.dev/axios
     "@nuxtjs/axios",
     "@nuxtjs/strapi",
+    "@nuxtjs/proxy",
   ],
+  proxy: {
+    "/api/v1": {
+      target: process.env.STRAPI_URL || "http://localhost:1337",
+      pathRewrite: {
+        "^/api/v1": "/",
+      },
+    },
+  },
   strapi: {
-    url: process.env.STRAPI_URL || "http://localhost:1337",
+    url: "/api/v1",
   },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
