@@ -9,6 +9,7 @@
     />
   </label>
 </template>
+
 <script>
 export default {
   props: {
@@ -35,7 +36,8 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+
+<style lang="scss">
 .technologi-item {
   position: relative;
   display: inline-block;

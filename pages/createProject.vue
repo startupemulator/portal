@@ -21,7 +21,7 @@ export default {
     CreateProdgect,
     // ButtonsNextDraft,
   },
-  middleware: ["deny-unauthenticated"],
+  // middleware: ["deny-unauthenticated"],
   computed: {
     ...mapState(["applyToTeam", "device"]),
     step: (state) => state.applyToTeam.stepOne,

@@ -12,6 +12,10 @@
       background-color: transparent;
     }
   }
+  .input-add__input {
+    min-height: 10px;
+    height: auto;
+  }
   .button-back {
     margin-top: 38px;
   }
@@ -253,6 +257,7 @@
     box-sizing: border-box;
     position: absolute;
     padding: 0;
+    z-index: 2;
     .specialityOne__item-item {
       width: 100%;
       height: 48px;
@@ -286,6 +291,7 @@
     background: #4b4ac8;
     margin: 24px 0;
     margin-bottom: 30px;
+
     &:hover {
       background-color: $button-color-blue-hover;
     }
@@ -393,13 +399,40 @@
     }
   }
 }
+.invited-collegues {
+  padding: 0;
+  li {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  p {
+    padding-left: 5px;
+  }
+  .invited-collegues__speciality {
+    background: #2e384a;
+    border-radius: 12px;
+    width: 100%;
+    padding: 8px 16px;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 32px;
+    box-sizing: border-box;
+  }
+  .invited-collegues__speciality-block {
+    display: flex;
+    .sign-up-link__close {
+      margin-left: 20px;
+      background: transparent;
+    }
+  }
+}
 
 @media (min-width: 768px) {
   .technologi-popup__pick-technology {
     .pick-technology__content {
       max-width: 660px;
-      height: 516px;
-      // margin-top: 320px;
+      height: 630px;
       margin-top: 120px;
       padding-top: 1px;
       h2 {
@@ -421,9 +454,9 @@
       }
       input {
         margin-top: 5px;
-        margin-left: 24px;
-        width: 316px;
-        display: none;
+        margin-left: 56px;
+        width: 550px;
+        box-sizing: border-box;
       }
     }
   }
@@ -433,6 +466,8 @@
     border: none;
     box-shadow: none;
     flex-direction: row-reverse;
+    border-radius: 0 0 12px 12px;
+
     .u-button-blue {
       min-width: 466px;
     }
@@ -590,11 +625,15 @@
     .specialityOne__button {
       width: 169px;
       height: 48px;
+      font-weight: bold;
+      font-size: 17px;
+      line-height: 32px;
     }
     .invite-collegues h5 {
       font-weight: normal;
       font-size: 17px;
       line-height: 24px;
+      width: 600px;
       p {
         font-size: 17px;
         line-height: 24px;
@@ -604,6 +643,9 @@
     .invite-collegues__button {
       width: 182px;
       height: 48px;
+      font-weight: bold;
+      font-size: 17px;
+      line-height: 32px;
     }
   }
   .createProgect ~ .main-footer {

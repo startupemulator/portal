@@ -57,7 +57,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .sign-up-link {
   position: fixed;
   width: 100vw;
