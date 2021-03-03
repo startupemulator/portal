@@ -3,7 +3,9 @@
     <app-header></app-header>
     <app-get-experience></app-get-experience>
     <app-startups-block :cards="state.Startups.cards"></app-startups-block>
-    <app-challenges-block></app-challenges-block>
+    <app-challenges-block
+      :cards="state.Challenges.cards"
+    ></app-challenges-block>
     <app-team-develop></app-team-develop>
     <app-take-part></app-take-part>
     <app-top-startups></app-top-startups>
@@ -15,6 +17,7 @@
 <script lang="ts">
 import { Context } from "@nuxt/types";
 import { Component, Vue } from "nuxt-property-decorator";
+import Challenges from "../store/modules/Challenges";
 import AppHeader from "~/components/appHeader.vue";
 import AppGetExperience from "~/components/homePage/appGetExperience.vue";
 import AppStartupsBlock from "~/components/homePage/appStartupsBlock.vue";
@@ -46,6 +49,9 @@ export default class LandingPage extends Vue {
   async asyncData(context: Context) {
     const startups = await context.$strapi.find("startups");
     Startups.setStartups(startups);
+
+    const challenges = await context.$strapi.find("challenges");
+    Challenges.setChallenges(challenges);
   }
 
   get state() {

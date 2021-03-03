@@ -38,68 +38,25 @@
         class="transition__startup-card"
       >
         <div
-          v-for="card in challenges"
+          v-for="card in cards"
           :key="card.id"
           class="startup-block__startup-card"
         >
-          <div class="startup-card">
-            <div class="startup-card-content">
-              <h2 class="startup-card__started-name">
-                Possible name in two lines and a long na...
-              </h2>
-              <h3 class="startup-card__started-text">
-                There is a description ...
-              </h3>
-              <div class="startup-card__started-technologys">
-                <ul class="startup-card__started-technologys-items">
-                  <li class="startup-card__started-technology">Javascript</li>
-                  <li class="startup-card__started-technology">Java</li>
-                  <li class="startup-card__started-technology">HTML5</li>
-                  <li class="startup-card__started-technology">Javascript</li>
-                </ul>
-              </div>
-              <div class="startup-card__started-start-time">
-                <div class="started-start-time__start">
-                  <h3>Start</h3>
-                  <p>27 Sep 2020</p>
-                </div>
-                <div class="started-start-time__duration">
-                  <h3>Duration</h3>
-                  <p>3 months</p>
-                </div>
-              </div>
-              <div class="startup-block__buttons">
-                <U-button
-                  :button-name="'Details'"
-                  :button-class="'u-button-gray'"
-                ></U-button>
-                <U-button
-                  :button-name="'Take Part'"
-                  :button-class="'u-button-blue'"
-                ></U-button>
-              </div>
-            </div>
-          </div>
+          <challenge-card :card="card"></challenge-card>
         </div>
       </transition-group>
     </div>
   </div>
 </template>
 
-<script>
-import { mapState, mapActions } from "vuex";
-import UButton from "../theme/UButton";
-export default {
-  components: {
-    UButton,
-  },
-  computed: {
-    ...mapState("challengesSlider", ["challenges"]),
-  },
-  methods: {
-    ...mapActions("challengesSlider", ["slideRigth", "slideLeft"]),
-  },
-};
+<script lang="ts">
+import { Component, Prop, Vue } from "nuxt-property-decorator";
+import { Challenges } from "~/models/Challenges";
+
+@Component({})
+export default class AppChallengesBlock extends Vue {
+  @Prop() cards: Array<Challenges>;
+}
 </script>
 <style lang="scss" scoped>
 .flip-list-move {
