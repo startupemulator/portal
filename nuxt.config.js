@@ -23,7 +23,10 @@ export default {
   css: ["@assets/css/main.scss"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [{ src: "~/plugins/Vuelidate.js", ssr: true }],
+  plugins: [
+    { src: "~/plugins/Vuelidate.js", ssr: true },
+    { src: "~/plugins/filters.ts" },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -35,6 +38,13 @@ export default {
     "@nuxtjs/eslint-module",
     "@nuxt/typescript-build",
   ],
+  typescript: {
+    typeCheck: {
+      eslint: {
+        files: "./**/*.{ts,js,vue}",
+      },
+    },
+  },
   stylelint: {
     fix: true,
   },
@@ -50,7 +60,7 @@ export default {
   ],
   proxy: {
     "/api/v1": {
-      target: process.env.STRAPI_URL || "http://localhost:1337",
+      target: process.env.STRAPI_URL || "https://pear.startupemulator.com",
       pathRewrite: {
         "^/api/v1": "/",
       },

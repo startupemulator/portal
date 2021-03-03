@@ -39,79 +39,25 @@
         class="transition__startup-card"
       >
         <div
-          v-for="(card, i) in startupCard"
+          v-for="(card, i) in cards"
           :key="card.id"
           class="startup-block__startup-card"
         >
-          <div
-            class="startup-card"
-            :class="i > 3 ? 'startup-card_animation' : ''"
-          >
-            <div class="startup-card__started">
-              <div
-                class="startup-card__started-title"
-                :class="card.started ? 'started' : ''"
-              >
-                {{ card.started ? "In progress" : "Not started" }}
-              </div>
-            </div>
-            <div class="startup-card-content">
-              <h2 class="startup-card__started-name">{{ card.title }}</h2>
-              <h3 class="startup-card__started-text">
-                {{ card.text }}
-              </h3>
-              <div class="startup-card__started-technologys">
-                <ul class="startup-card__started-technologys-items">
-                  <li
-                    v-for="skill in card.skills"
-                    :key="skill.i"
-                    class="startup-card__started-technology"
-                  >
-                    {{ skill }}
-                  </li>
-                </ul>
-              </div>
-              <div class="startup-card__started-start-time">
-                <div class="started-start-time__start">
-                  <h3>Start</h3>
-                  <p>{{ card.start }}</p>
-                </div>
-                <div class="started-start-time__duration">
-                  <h3>Duration</h3>
-                  <p>{{ card.duration }}</p>
-                </div>
-              </div>
-              <div class="startup-block__buttons">
-                <U-button
-                  :button-name="'Details'"
-                  :button-class="'u-button-gray'"
-                ></U-button>
-                <U-button
-                  :button-name="'Apply'"
-                  :button-class="'u-button-blue'"
-                ></U-button>
-              </div>
-            </div>
-          </div></div
-      ></transition-group>
+          <startup-card :key="i" :card="card"></startup-card>
+        </div>
+      </transition-group>
     </div>
   </div>
 </template>
 
-<script>
-import { mapState, mapActions } from "vuex";
-import UButton from "../theme/UButton";
-export default {
-  components: {
-    UButton,
-  },
-  computed: {
-    ...mapState(["startupCard"]),
-  },
-  methods: {
-    ...mapActions(["slideRigth", "slideLeft"]),
-  },
-};
+<script lang="ts">
+import { Component, Prop, Vue } from "nuxt-property-decorator";
+import { Startup } from "~/models/Startup";
+
+@Component({})
+export default class AppStartupsBlock extends Vue {
+  @Prop() cards: Array<Startup>;
+}
 </script>
 <style lang="scss" scoped>
 .flip-list-move {
