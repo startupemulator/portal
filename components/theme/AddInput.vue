@@ -129,7 +129,7 @@ export default {
 @media (min-width: 768px) {
   .input-add {
     .input-add__content {
-      padding: 12px 24px;
+      padding: 9px 24px;
     }
     .input-add__item-title {
       margin-left: auto;

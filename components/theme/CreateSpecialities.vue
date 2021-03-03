@@ -37,7 +37,12 @@
             {{ item.specialityPosition }}
           </li>
         </ul>
-        <ul class="chosen-technology">
+        <ul
+          class="chosen-technology"
+          :class="
+            pickedTechnology.length === 0 ? 'chosen-technology--empty' : ''
+          "
+        >
           <li v-for="(item, i) in pickedTechnology" :key="i">
             {{ item.title }}
           </li>
@@ -58,6 +63,11 @@
           "
           type="button"
           class="button_pick_technologies"
+          :class="
+            pickedTechnology.length === 0
+              ? 'button_pick_technologies--empty'
+              : ''
+          "
           @click="popupPickTechnology = !popupPickTechnology"
         >
           Pick technologies for this speciality
@@ -206,14 +216,32 @@ export default {
   flex-wrap: wrap;
   padding: 0;
   margin-top: 16px;
+
   li {
-    padding: 10px 16px;
+    padding: 8px 14px;
     border: 1px solid #59667e;
     box-sizing: border-box;
     border-radius: 32px;
     margin-right: 4px;
     margin-bottom: 8px;
     color: #b5c1d8;
+    font-size: 14px;
   }
+}
+.createProgect-step2 .speciality-content:not(:first-of-type) {
+  p {
+    margin-top: 14px;
+  }
+  .chosen-technology {
+    margin-top: 16px;
+  }
+}
+.createProgect-step2
+  .speciality-content
+  .chosen-technology.chosen-technology--empty {
+  display: none;
+}
+.button_pick_technologies.button_pick_technologies--empty {
+  margin-top: 10px;
 }
 </style>

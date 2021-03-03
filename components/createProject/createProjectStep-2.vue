@@ -10,7 +10,7 @@
       :is="item.type"
       v-for="(item, i) in specialityComponent"
       :key="item.id"
-      :class="'id' + i"
+      :class="'speciality-content'"
       :name="'Speciality ' + (i + 1)"
       @removeSpeciality="removeSpeciality(item.id, i)"
     ></div>
@@ -51,7 +51,7 @@
       <U-button
         :button-name="'Next'"
         :button-class="'u-button-blue'"
-        @clickOnButton="$emit('goToStepTwo')"
+        @clickOnButton="$emit('goToStepThree')"
       ></U-button>
       <U-button
         :button-name="'Save Draft'"
@@ -78,7 +78,7 @@ export default {
   },
   data: () => ({
     specialityComponent: [{ id: 1, type: "create-specialities" }],
-    invitedCollegues: [{ email: "wef@wef.caf", speciality: "wefweg" }],
+    invitedCollegues: [],
     inviteCollegues: false,
   }),
 
