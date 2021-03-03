@@ -1,5 +1,5 @@
 <template>
-  <div class="input-add">
+  <div class="input-add" :class="focused ? 'focused' : ''">
     <ul class="input-add__content">
       <li v-for="(item, i) in addData" :key="item.id" class="input-add__item">
         <span> {{ item.name }} </span>
@@ -9,10 +9,12 @@
       </li>
       <input
         v-model="inputedtext"
-        class="input-add__input"
+        class="input-add__input focused"
         type="text"
         :placeholder="placeholder"
         @keydown="addInputedtext($event)"
+        @focus="onfocus"
+        @blur="onfocus"
       />
       <span class="input-add__item-title">days</span>
     </ul>
@@ -30,6 +32,7 @@ export default {
     return {
       addData: [],
       inputedtext: "",
+      focused: false,
     };
   },
   methods: {
@@ -39,6 +42,10 @@ export default {
         this.addData.push({ id: this.addData.length, name: srt });
         this.inputedtext = "";
       }
+    },
+    onfocus() {
+      console.log("focus");
+      this.focused = !this.focused;
     },
     removeItem(id) {
       this.addData.forEach((el, i) => {
@@ -51,12 +58,19 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.input-add.focused {
+  border: 2px solid #b5c1d8;
+}
 .input-add {
   position: relative;
   width: 100%;
   min-height: 32px;
   background: #2e384a;
   border-radius: 12px;
+  border: 2px solid transparent;
+  &:focus {
+    border: 2px solid #b5c1d8;
+  }
 
   .input-add__content {
     display: flex;
@@ -115,7 +129,7 @@ export default {
 @media (min-width: 768px) {
   .input-add {
     .input-add__content {
-      padding: 12px 24px;
+      padding: 9px 24px;
     }
     .input-add__item-title {
       margin-left: auto;

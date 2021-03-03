@@ -94,3 +94,11 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+.startup__name input {
+  border: 2px solid transparent;
+  &:focus {
+    border: 2px solid #b5c1d8;
+  }
+}
+</style>

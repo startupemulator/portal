@@ -6,8 +6,7 @@
     src: url($f-url) format("woff2");
   }
 }
-
-@include font-stack("Inter", normal, 500, "~assets/fonts/Inter-Medium.woff2");
+@include font-stack("Inter", normal, normal, "~assets/fonts/Inter-Light.woff2");
+@include font-stack("Inter", medium, 500, "~assets/fonts/Inter-Medium.woff2");
 @include font-stack("Inter", bold, 600, "~assets/fonts/Inter-SemiBold.woff2");
 @include font-stack("Inter", bolder, 700, "~assets/fonts/Inter-Bold.woff2");
-@include font-stack("Inter", bolder, 300, "~assets/fonts/Inter-Light.woff2");

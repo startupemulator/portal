@@ -6,141 +6,106 @@
       candidates you will be able to accept as much candidates as you need for
       each speciality.
     </h3>
-    <div class="specialityOne">
-      <p>Speciality 1</p>
-      <div class="specialityOne__list">
-        <div
-          class="specialityOne__item"
-          :class="
-            choosenSpeciality !== 'Select a speciality' ? 'item-choosen' : ''
-          "
-          @click="openSpeciality = !openSpeciality"
-        >
-          <span>{{ choosenSpeciality }}</span>
-          <img
-            src="@/assets/img/arrow.svg"
-            alt="arrow"
-            :style="
-              openSpeciality ? 'transform: rotate(-90deg); transition: 1s' : ''
-            "
-          />
-        </div>
-        <button
-          v-show="choosenSpeciality !== 'Select a speciality'"
-          class="button-remove-speciality"
-          type="button"
-          @click="clearSpeciality"
-        >
-          <img src="@/assets/img/close.svg" alt="" />
-        </button>
-        <ul v-show="openSpeciality" class="specialityOne__item-list">
-          <li
-            v-for="item in speciality"
-            :key="item.id"
-            class="specialityOne__item-item"
-            @click="chosespeciality($event.target)"
-          >
-            {{ item.specialityPosition }}
-          </li>
-        </ul>
-        <ul>
-          <li v-for="(item, i) in pickedTechnology" :key="i">
-            {{ item.title }}
-          </li>
-        </ul>
-        <button
-          v-show="choosenSpeciality !== 'Select a speciality'"
-          type="button"
-          class="button_pick_technologies"
-          @click="popupPickTechnology = !popupPickTechnology"
-        >
-          Pick technologies for this speciality
-        </button>
+    <div
+      :is="item.type"
+      v-for="(item, i) in specialityComponent"
+      :key="item.id"
+      :class="'speciality-content'"
+      :name="'Speciality ' + (i + 1)"
+      @removeSpeciality="removeSpeciality(item.id, i)"
+    ></div>
 
-        <button class="specialityOne__button">Add Speciality</button>
-      </div>
-    </div>
+    <button class="specialityOne__button" @click="addSpeciality">
+      Add Speciality
+    </button>
     <div class="invite-collegues">
       <h5>
         You can also invite your collegues
         <p>to the team as developers or as product owners.</p>
       </h5>
-      <button class="invite-collegues__button">Invite Collegues</button>
-    </div>
-    <div v-show="popupPickTechnology" class="technologi-popup">
-      <div class="technologi-popup__pick-technology step-1">
-        <div class="pick-technology__content">
-          <h2>
-            Pick technologies you need to use within
-            <span>{{ choosenSpeciality }}</span> developer speciality
-          </h2>
-          <div class="step-1__experience">
-            <Technologi-Piker @chosenTechnologi="mychosenTechnologi">
-            </Technologi-Piker>
+      <ul class="invited-collegues">
+        <li v-for="item in invitedCollegues" :key="item.email">
+          <p>{{ item.email }}</p>
+          <div class="invited-collegues__speciality-block">
+            <div class="invited-collegues__speciality">
+              {{ item.speciality }}
+            </div>
+            <button
+              type="button"
+              class="sign-up-link__close"
+              @click="removeInvitedCollegues(item.email, item.speciality)"
+            >
+              <img src="@/assets/img/close.svg" alt="Close" />
+            </button>
           </div>
-          <input type="text" placeholder="Type a technology to add" />
-          <div class="createProgect-step2__buttons-popup">
-            <U-button
-              :button-name="'Save'"
-              :button-class="'u-button-blue'"
-              @clickOnButton="$emit('goToStepTwo')"
-            ></U-button>
-            <U-button
-              :button-name="'Skip'"
-              :button-class="'u-button-transpend'"
-              @clickOnButton="popupPickTechnology = !popupPickTechnology"
-            ></U-button>
-          </div>
-        </div>
-      </div>
+        </li>
+      </ul>
+      <button
+        class="invite-collegues__button"
+        @click="inviteCollegues = !inviteCollegues"
+      >
+        Invite Collegues
+      </button>
     </div>
     <div class="createProgect-step1__buttons">
       <U-button
         :button-name="'Next'"
         :button-class="'u-button-blue'"
-        @clickOnButton="$emit('goToStepTwo')"
+        @clickOnButton="$emit('goToStepThree')"
       ></U-button>
       <U-button
         :button-name="'Save Draft'"
         :button-class="'u-button-gray'"
       ></U-button>
     </div>
+    <invite-collegues
+      v-if="inviteCollegues"
+      @closePopupLinkEmail="inviteCollegues = !inviteCollegues"
+      @inviteCollegue="inviteCollegue"
+    ></invite-collegues>
   </div>
 </template>
 <script>
-// import { mapState, mapActions } from "vuex";
 import UButton from "~/components/theme/UButton";
-import TechnologiPiker from "~/components/theme/technologiPiker";
+import CreateSpecialities from "~/components/theme/CreateSpecialities";
+import inviteCollegues from "~/components/theme/inviteCollegues";
+
 export default {
   components: {
     UButton,
-    TechnologiPiker,
+    CreateSpecialities,
+    inviteCollegues,
   },
   data: () => ({
-    openSpeciality: false,
-    choosenSpeciality: "Select a speciality",
-    popupPickTechnology: false,
-    speciality: [
-      { id: 0, specialityPosition: "Front-end" },
-      { id: 1, specialityPosition: "Back-end" },
-      { id: 2, specialityPosition: "DevOps" },
-      { id: 3, specialityPosition: "Seo" },
-    ],
-    pickedTechnology: [],
+    specialityComponent: [{ id: 1, type: "create-specialities" }],
+    invitedCollegues: [],
+    inviteCollegues: false,
   }),
-  computed: {
-    // ...mapState(["createprodjectSteps", "technologies"]),
-  },
+
   methods: {
-    chosespeciality(e) {
-      this.choosenSpeciality = e.textContent;
-      this.openSpeciality = !this.openSpeciality;
+    inviteCollegue(data) {
+      this.inviteCollegues = !this.inviteCollegues;
+      this.invitedCollegues.push({
+        email: data.email,
+        speciality: data.speciality,
+      });
     },
-    clearSpeciality() {
-      this.choosenSpeciality = "Select a speciality";
+    removeSpeciality(id, i) {
+      this.specialityComponent = this.specialityComponent.filter(
+        (item) => item.id !== this.specialityComponent[i].id
+      );
     },
-    mychosenTechnologi(pickedTechnology) {
-      this.pickedTechnology = pickedTechnology;
+    addSpeciality() {
+      this.specialityComponent.push({
+        id: Math.random(),
+        type: "create-specialities",
+      });
+    },
+    removeInvitedCollegues(email, speciality) {
+      this.invitedCollegues = this.invitedCollegues.filter(
+        (item) => (item.email !== email) & (item.speciality !== speciality)
+      );
+      console.log(email, speciality);
     },
   },
 };
