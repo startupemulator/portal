@@ -150,7 +150,8 @@ export default class CreateAccount extends Vue {
       try {
         const newUser = await this.$strapi.register({
           email: this.email,
-          username: this.name,
+          username: this.email,
+          name: this.name,
           password: this.password,
         });
         if (newUser !== null) {
@@ -159,13 +160,17 @@ export default class CreateAccount extends Vue {
         }
       } catch (error) {
         this.error = error.message;
+        this.$toast.error(error.message, {
+          icon: "highlight_off",
+          position: "top-right",
+          // duration: 3000,
+        });
       }
     } else {
       this.$toast.error("Fill the form correctly.", {
         icon: "highlight_off",
-        // theme: "outline",
         position: "top-right",
-        duration: 3000,
+        // duration: 3000,
       });
     }
   }

@@ -105,6 +105,7 @@ export default {
           this.$nuxt.$router.push("/");
         }
       } catch (e) {
+        this.$toast.error(e.message);
         console.warn(e);
       }
     },
