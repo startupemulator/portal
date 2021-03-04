@@ -32,13 +32,13 @@ export default {
   data() {
     return {
       technologies: [
-        { id: 1, checked: false, title: "Less than 6 months" },
-        { id: 2, checked: false, title: "6 months – 1 year" },
-        { id: 3, checked: false, title: "1–2 years" },
-        { id: 4, checked: true, title: "2–3 years" },
-        { id: 5, checked: false, title: "3–4 years" },
-        { id: 6, checked: false, title: "4–5 years" },
-        { id: 7, checked: false, title: "More than 5 years" },
+        { id: "01", checked: true, title: "Less than 6 months" },
+        { id: "02", checked: false, title: "6 months – 1 year" },
+        { id: "03", checked: false, title: "1–2 years" },
+        { id: "04", checked: false, title: "2–3 years" },
+        { id: "05", checked: false, title: "3–4 years" },
+        { id: "06", checked: false, title: "4–5 years" },
+        { id: "07", checked: false, title: "More than 5 years" },
       ],
     };
   },

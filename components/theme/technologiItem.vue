@@ -18,7 +18,7 @@ export default {
       default: "Java",
     },
     technologiId: {
-      type: Number,
+      type: [Number, String],
       default: Number,
     },
     checkedClass: {
