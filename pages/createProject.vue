@@ -18,6 +18,6 @@ export default {
     AppFooter,
     CreateProdgect,
   },
-  middleware: ["deny-unauthenticated"],
+  // middleware: ["deny-unauthenticated"],
 };
 </script>

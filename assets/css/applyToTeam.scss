@@ -21,6 +21,31 @@
     justify-content: space-between;
   }
 }
+.apply-to-team__comment {
+  color: #fff;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  width: 343px;
+  height: 112px;
+  background: #2e384a;
+  border-radius: 12px;
+  padding: 8px 16px;
+  outline: none;
+  box-sizing: border-box;
+  border: 2px solid transparent;
+  margin-top: 16px;
+  &::placeholder {
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: #b5c1d8;
+  }
+  &:hover,
+  &:active {
+    border: 2px solid #b5c1d8;
+  }
+}
 @media (min-width: 768px) {
   .apply-to-team {
     width: 660px;
@@ -49,5 +74,14 @@
       margin-top: 32px;
       padding: 32px 0 0 0;
     }
+  }
+  .apply-to-team__comment {
+    width: 660px;
+    height: 136px;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 28px;
+    padding: 12px 24px;
+    margin-top: 24px;
   }
 }
