@@ -662,7 +662,7 @@
 </template>
 <script>
 import UTitle from "../theme/UTitle";
-import TechnologiItem from "../theme/TechnologiItem";
+import TechnologiItem from "../theme/technologiItem";
 import AppTeamDevelop from "../homePage/appTeamDevelop.vue";
 import UTabs from "~/components/theme/UTabs";
 
