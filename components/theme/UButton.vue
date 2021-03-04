@@ -3,7 +3,7 @@
     type="button"
     class="u-button"
     :class="buttonClass"
-    @click="$emit('clickOnButton')"
+    @click.prevent="$emit('clickOnButton')"
   >
     {{ buttonName }}
   </button>
