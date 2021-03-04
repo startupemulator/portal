@@ -54,7 +54,11 @@ export default {
     "@nuxtjs/axios",
     "@nuxtjs/strapi",
     "@nuxtjs/proxy",
+    "@nuxtjs/toast",
   ],
+  toast: {
+    position: "top-right",
+  },
   proxy: {
     "/api/v1": {
       target: process.env.STRAPI_URL || "https://pear.startupemulator.com",

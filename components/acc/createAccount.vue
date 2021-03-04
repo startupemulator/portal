@@ -49,6 +49,21 @@
         <p v-show="$v.password.$error" class="errorInput">
           Please enter a password of at least 6 characters
         </p>
+        <U-input
+          :placeholder="'Repeat a password'"
+          :type="'password'"
+          :account-class="
+            $v.repeatPassword.$error
+              ? 'create-account__password error'
+              : 'create-account__password'
+          "
+          :img="require('~/assets/img/password.svg')"
+          :btn-show-password="true"
+          @textInput="checkRepeatPassword"
+        ></U-input>
+        <p v-show="$v.repeatPassword.$error" class="errorInput">
+          Both passwords should be the same
+        </p>
         <div>
           <U-button
             :button-name="'Sign Up'"
@@ -84,7 +99,7 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import { email, required } from "vuelidate/lib/validators";
+import { email, minLength, required, sameAs } from "vuelidate/lib/validators";
 import UBack from "@/components/theme/UBack.vue";
 import UTitle from "../theme/UTitle.vue";
 import UInput from "../theme/UInput.vue";
@@ -104,6 +119,10 @@ import SystemAlert from "../theme/SystemAlert.vue";
     },
     password: {
       required,
+      minLength: minLength(8),
+    },
+    repeatPassword: {
+      sameAsPassword: sameAs("password"),
     },
   },
   components: {
@@ -120,24 +139,34 @@ export default class CreateAccount extends Vue {
   name = "";
   email = "";
   password = "";
+  repeatPassword = "";
   error = "";
   popupEmailLink = false;
   popupSignUpLink = false;
 
   async register() {
-    try {
-      const newUser = await this.$strapi.register({
-        email: this.email,
-        username: this.name,
-        password: this.password,
-      });
-      console.log(newUser);
-      if (newUser !== null) {
-        this.error = "";
-        this.$nuxt.$router.push("/");
+    this.$v.$touch();
+    if (!this.$v.$error) {
+      try {
+        const newUser = await this.$strapi.register({
+          email: this.email,
+          username: this.name,
+          password: this.password,
+        });
+        if (newUser !== null) {
+          this.error = "";
+          this.$nuxt.$router.push("/");
+        }
+      } catch (error) {
+        this.error = error.message;
       }
-    } catch (error) {
-      this.error = error.message;
+    } else {
+      this.$toast.error("Fill the form correctly.", {
+        icon: "highlight_off",
+        // theme: "outline",
+        position: "top-right",
+        duration: 3000,
+      });
     }
   }
 
@@ -162,6 +191,11 @@ export default class CreateAccount extends Vue {
   checkPassword(textValue: string) {
     this.password = textValue;
     this.$v.password.$touch();
+  }
+
+  checkRepeatPassword(textValue: string) {
+    this.repeatPassword = textValue;
+    this.$v.repeatPassword.$touch();
   }
 
   checkName(textValue: string) {
