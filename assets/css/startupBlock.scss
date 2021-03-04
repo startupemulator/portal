@@ -22,7 +22,7 @@
 }
 
 .practicants {
-  .desctop-buttons__slider {
+  .desktop-buttons__slider {
     display: none;
   }
 }
@@ -33,7 +33,7 @@
   .startup-block-content {
     margin: 0 16px;
   }
-  .desctop-buttons__slider {
+  .desktop-buttons__slider {
     display: none;
   }
 
@@ -88,14 +88,16 @@
     margin-left: 16px;
     margin-top: 10px;
     .startup-card__started {
-      width: 117px;
-      height: 44px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .startup-card__started-state {
+      padding: 8px;
       background: #283040;
       box-shadow: inset 2px -2px 8px rgba(28, 35, 48, 0.25);
       border-radius: 0 12px 0 16px;
-      margin-left: auto;
+      // margin-left: auto;
       display: flex;
-      justify-content: center;
       align-items: center;
     }
     .startup-card__started-title {
@@ -191,7 +193,23 @@
     }
   }
 }
-
+.startup-card__started--messege {
+  min-width: 24px;
+  min-height: 24px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  color: #4e5a71;
+  background: #eaf42c;
+  box-shadow: 0 -2px 8px rgba(234, 244, 44, 0.3),
+    0 2px 8px rgba(234, 244, 44, 0.3),
+    inset 0 -2px 4px 1px rgba(117, 122, 14, 0.15),
+    inset 0 1px 4px rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  text-align: center;
+  margin-left: 8px;
+}
 @media (min-width: 426px) {
   .startup-block.challenges {
     min-height: 820px;
@@ -223,7 +241,7 @@
     .startup-block-content {
       margin: 0 48px;
     }
-    .startup-block-content__desctop-buttons {
+    .startup-block-content__desktop-buttons {
       display: flex;
       justify-content: space-between;
     }
@@ -247,9 +265,8 @@
       width: 318px;
       min-height: 568px;
       margin-left: 24px;
-      .startup-card__started {
-        width: 125px;
-        height: 52px;
+      .startup-card__started-state {
+        padding: 12px;
       }
       .startup-card__started-title {
         background: #8c97ac;
@@ -318,7 +335,7 @@
         min-width: 121px;
       }
     }
-    .desctop-buttons__slider {
+    .desktop-buttons__slider {
       display: flex;
       width: 145px;
       justify-content: space-between;
@@ -350,12 +367,12 @@
 
 @media (min-width: 768px) {
   .practicants {
-    .startup-block-content__desctop-buttons {
+    .startup-block-content__desktop-buttons {
       align-items: baseline;
       display: flex;
       justify-content: space-between;
     }
-    .desctop-buttons__slider {
+    .desktop-buttons__slider {
       display: flex;
       width: 145px;
       justify-content: space-between;

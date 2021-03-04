@@ -1,11 +1,13 @@
 <template>
   <div class="startup-card" :class="i > 3 ? 'startup-card_animation' : ''">
     <div class="startup-card__started">
-      <div
-        class="startup-card__started-title"
-        :class="card.state === 'in_progress' ? 'started' : ''"
-      >
-        {{ card.state | capitalize }}
+      <div class="startup-card__started-state">
+        <div
+          class="startup-card__started-title"
+          :class="card.state === 'in_progress' ? 'started' : ''"
+        >
+          {{ card.state | capitalize }}
+        </div>
       </div>
     </div>
     <div class="startup-card-content">

@@ -1,8 +1,8 @@
 <template>
   <div class="practicants">
-    <div class="startup-block-content__desctop-buttons">
+    <div class="startup-block-content__desktop-buttons">
       <h2 class="practicants-title">What our participants say</h2>
-      <div class="desctop-buttons__slider">
+      <div class="desktop-buttons__slider">
         <button
           type="button"
           class="slider-buttton"

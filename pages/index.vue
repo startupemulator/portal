@@ -15,6 +15,8 @@
       <hr />
       <li><nuxt-link to="/becomeAnExpert">BecomeAnExpert</nuxt-link></li>
       <li><nuxt-link to="/participate">Participate</nuxt-link></li>
+      <hr />
+      <li><nuxt-link to="/startups">Startups</nuxt-link></li>
     </ul>
     <UButton
       v-if="$strapi.user"

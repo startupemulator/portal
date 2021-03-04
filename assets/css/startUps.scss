@@ -1,0 +1,125 @@
+.start-ups {
+  width: 343px;
+  margin: 0 auto;
+}
+.start-ups__content {
+  margin-top: 48px;
+  p {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #fff;
+    margin-bottom: 12px;
+  }
+  ul {
+    padding: 0;
+    margin: 0;
+  }
+  .start-ups__all-technologies {
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    text-decoration-line: underline;
+    color: #8c97ac;
+    background: transparent;
+    padding: 0;
+    margin-top: 4px;
+  }
+  .start-ups__header-filter_list {
+    width: 343px;
+    height: 103px;
+    overflow: hidden;
+  }
+  .start-ups__header-filter_list.filter_list--opend {
+    height: auto;
+  }
+  .startup-block {
+    margin-left: 0;
+  }
+}
+.start-ups_cards-content {
+  margin-top: 20px;
+  .startup-card {
+    margin-left: 0;
+    width: 343px;
+  }
+}
+
+@media (min-width: 768px) {
+  .start-ups {
+    width: auto;
+    max-width: 1344px;
+    margin: 0 auto;
+  }
+  .start-ups__content {
+    .team-develop {
+      margin-top: 100px;
+      min-height: auto;
+      background-color: transparent;
+      padding-top: 0;
+      justify-content: space-between;
+      .u-button.u-button-gray {
+        border-color: #2f2dad;
+        background-color: $button-color-blue;
+        &:hover {
+          background-color: $button-color-blue-hover;
+        }
+        &:focus {
+          background-color: $button-color-blue-focus;
+          border-width: 2px;
+          border-color: #b5c1d8;
+        }
+        &:active {
+          background-color: $button-color-blue-active;
+        }
+      }
+      img {
+        width: 660px;
+        height: 384px;
+      }
+    }
+    .start-ups__header {
+      display: flex;
+      flex-wrap: wrap;
+      h2 {
+        margin-left: 0;
+        font-weight: bold;
+        font-size: 69px;
+        line-height: 80px;
+        margin-top: 24px;
+        margin-bottom: 25px;
+      }
+      p {
+        font-weight: 500;
+        font-size: 17px;
+        line-height: 32px;
+      }
+    }
+    .start-ups__header-filter {
+      order: 1;
+    }
+    .start-ups__header-filter_list {
+      width: auto;
+      height: auto;
+    }
+    .start-ups__all-technologies {
+      display: none;
+    }
+  }
+  .start-ups_cards-content {
+    .startup-card {
+      width: 318px;
+      margin-bottom: 24px;
+      margin-top: 0;
+    }
+    .transition__startup-card {
+      display: flex;
+      flex-wrap: wrap;
+      .startup-block__startup-card {
+        &:not(:nth-child(4n + 1)) {
+          margin-left: 24px;
+        }
+      }
+    }
+  }
+}

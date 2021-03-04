@@ -8,13 +8,13 @@
           <img src="@/assets/img/arrow.svg" alt="" />
         </button>
       </div>
-      <div class="startup-block-content__desctop-buttons">
+      <div class="startup-block-content__desktop-buttons">
         <h3>
           Find a startup that is going to work with technologies you need to get
           experience with. Then join a team and improve your skills with a
           feedback from our experts.
         </h3>
-        <div class="desctop-buttons__slider">
+        <div class="desktop-buttons__slider">
           <button
             type="button"
             class="slider-buttton"
