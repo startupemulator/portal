@@ -8,12 +8,12 @@
           <img src="@/assets/img/arrow.svg" alt="" />
         </button>
       </div>
-      <div class="startup-block-content__desctop-buttons">
+      <div class="startup-block-content__desktop-buttons">
         <h3>
           Practise on single challenges while you are waiting for an appropriate
           startup. Complete tasks and get a feedback from our experts.
         </h3>
-        <div class="desctop-buttons__slider">
+        <div class="desktop-buttons__slider">
           <button
             type="button"
             class="slider-buttton"
