@@ -52,8 +52,13 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import { Challenges } from "~/models/Challenges";
+import ChallengeCard from "~/components/moleculas/ChallengeCard";
 
-@Component({})
+@Component({
+  components: {
+    ChallengeCard,
+  },
+})
 export default class AppChallengesBlock extends Vue {
   @Prop() cards: Array<Challenges>;
 }

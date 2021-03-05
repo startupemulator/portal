@@ -15,8 +15,8 @@
       <h3 class="startup-card__started-text">
         {{ card.description | truncate(70, "...") }}
       </h3>
-      <div class="startup-card__started-technologys">
-        <ul class="startup-card__started-technologys-items">
+      <div class="startup-card__started-technologies">
+        <ul class="startup-card__started-technologies-items">
           <li
             v-for="skill in card.technologies"
             :key="skill.id"

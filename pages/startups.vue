@@ -1,6 +1,6 @@
 <template>
   <div class="startups-page">
-    <app-header></app-header>
+    <app-header active="startups"></app-header>
     <start-ups></start-ups>
     <app-footer></app-footer>
   </div>

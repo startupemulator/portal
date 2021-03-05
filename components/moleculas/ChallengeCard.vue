@@ -7,8 +7,8 @@
       <h3 class="startup-card__started-text">
         {{ card.description | truncate(70, "...") }}
       </h3>
-      <div class="startup-card__started-technologys">
-        <ul class="startup-card__started-technologys-items">
+      <div class="startup-card__started-technologies">
+        <ul class="startup-card__started-technologies-items">
           <li class="startup-card__started-technology">Javascript</li>
           <li class="startup-card__started-technology">Java</li>
           <li class="startup-card__started-technology">HTML5</li>
@@ -31,8 +31,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
-import UButton from "../theme/UButton";
-import { Startup } from "~/models/Startup";
+import UButton from "../theme/UButton.vue";
+import { Startup } from "../../models/Startup";
 
 @Component({
   components: { UButton },

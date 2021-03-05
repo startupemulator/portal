@@ -3,7 +3,7 @@
     <div class="startup-block-content">
       <div class="startup-block-content__head">
         <h2>Startups</h2>
-        <button type="button" class="tartup-block-buttton">
+        <button type="button" class="startup-block-button">
           <span>See All Startups</span>
           <img src="@/assets/img/arrow.svg" alt="" />
         </button>
@@ -53,8 +53,13 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import { Startup } from "~/models/Startup";
+import StartupCard from "~/components/moleculas/StartupCard";
 
-@Component({})
+@Component({
+  components: {
+    StartupCard,
+  },
+})
 export default class AppStartupsBlock extends Vue {
   @Prop() cards: Array<Startup>;
 }

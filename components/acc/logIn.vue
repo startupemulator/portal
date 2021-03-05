@@ -44,6 +44,7 @@
           <U-button
             :button-name="'Continue with GitHub'"
             :button-class="'u-button-gray'"
+            @clickOnButton="loginWithGithub"
           ></U-button>
 
           <U-button
@@ -94,6 +95,9 @@ export default {
   }),
   computed: {},
   methods: {
+    loginWithGithub() {
+      this.$nuxt.$router.push("/api/v1/connect/github");
+    },
     async login() {
       try {
         const user = await this.$strapi.login({

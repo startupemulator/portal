@@ -2,7 +2,10 @@
   <div>
     <app-header></app-header>
     <h2>Pages List</h2>
-    <h1 v-if="$strapi.user">Current user: {{ $strapi.user.name }}</h1>
+    <h1 v-if="$strapi.user">
+      Current user:
+      {{ $strapi.user.name ? $strapi.user.name : $strapi.user.username }}
+    </h1>
     <hr />
     <ul>
       <li><nuxt-link to="/landing">Landing</nuxt-link></li>

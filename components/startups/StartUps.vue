@@ -52,11 +52,11 @@
                 </h3>
                 <div
                   data-v-1ba1c684=""
-                  class="startup-card__started-technologys"
+                  class="startup-card__started-technologies"
                 >
                   <ul
                     data-v-1ba1c684=""
-                    class="startup-card__started-technologys-items"
+                    class="startup-card__started-technologies-items"
                   >
                     <li
                       data-v-1ba1c684=""
@@ -161,11 +161,11 @@
                 </h3>
                 <div
                   data-v-1ba1c684=""
-                  class="startup-card__started-technologys"
+                  class="startup-card__started-technologies"
                 >
                   <ul
                     data-v-1ba1c684=""
-                    class="startup-card__started-technologys-items"
+                    class="startup-card__started-technologies-items"
                   >
                     <li
                       data-v-1ba1c684=""
@@ -261,11 +261,11 @@
                 </h3>
                 <div
                   data-v-1ba1c684=""
-                  class="startup-card__started-technologys"
+                  class="startup-card__started-technologies"
                 >
                   <ul
                     data-v-1ba1c684=""
-                    class="startup-card__started-technologys-items"
+                    class="startup-card__started-technologies-items"
                   >
                     <li
                       data-v-1ba1c684=""
@@ -361,11 +361,11 @@
                 </h3>
                 <div
                   data-v-1ba1c684=""
-                  class="startup-card__started-technologys"
+                  class="startup-card__started-technologies"
                 >
                   <ul
                     data-v-1ba1c684=""
-                    class="startup-card__started-technologys-items"
+                    class="startup-card__started-technologies-items"
                   >
                     <li
                       data-v-1ba1c684=""
@@ -461,11 +461,11 @@
                 </h3>
                 <div
                   data-v-1ba1c684=""
-                  class="startup-card__started-technologys"
+                  class="startup-card__started-technologies"
                 >
                   <ul
                     data-v-1ba1c684=""
-                    class="startup-card__started-technologys-items"
+                    class="startup-card__started-technologies-items"
                   >
                     <li
                       data-v-1ba1c684=""
@@ -561,11 +561,11 @@
                 </h3>
                 <div
                   data-v-1ba1c684=""
-                  class="startup-card__started-technologys"
+                  class="startup-card__started-technologies"
                 >
                   <ul
                     data-v-1ba1c684=""
-                    class="startup-card__started-technologys-items"
+                    class="startup-card__started-technologies-items"
                   >
                     <li
                       data-v-1ba1c684=""
