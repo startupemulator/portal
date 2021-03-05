@@ -10,8 +10,6 @@
       <li><nuxt-link to="/applyToTeam">Apply to Team</nuxt-link></li>
       <li><nuxt-link to="/createAccount">Create Account</nuxt-link></li>
       <li><nuxt-link to="/createProject">Create Project</nuxt-link></li>
-      <li><nuxt-link to="/logined">Logined</nuxt-link></li>
-      <li><nuxt-link to="/unlogined">Unlogined</nuxt-link></li>
       <hr />
       <li><nuxt-link to="/becomeAnExpert">BecomeAnExpert</nuxt-link></li>
       <li><nuxt-link to="/participate">Participate</nuxt-link></li>
@@ -27,8 +25,16 @@
   </div>
 </template>
 
-<script>
-export default {};
+<script lang="ts">
+import { Component, Vue } from "nuxt-property-decorator";
+import UButton from "~/components/theme/UButton";
+
+@Component({
+  components: {
+    UButton,
+  },
+})
+export default class Index extends Vue {}
 </script>
 
 <style lang="scss">
