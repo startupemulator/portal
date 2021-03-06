@@ -9,21 +9,28 @@
       </h3>
       <div class="startup-card__started-technologies">
         <ul class="startup-card__started-technologies-items">
-          <li class="startup-card__started-technology">Javascript</li>
-          <li class="startup-card__started-technology">Java</li>
-          <li class="startup-card__started-technology">HTML5</li>
-          <li class="startup-card__started-technology">Javascript</li>
+          <li
+            v-for="item in card.specialisations"
+            :key="item.id"
+            class="startup-card__started-technology"
+          >
+            {{ item.title }}
+          </li>
         </ul>
       </div>
       <div class="startup-block__buttons">
-        <U-button
-          :button-name="'Details'"
-          :button-class="'u-button-gray'"
-        ></U-button>
-        <U-button
-          :button-name="'Take Part'"
-          :button-class="'u-button-blue'"
-        ></U-button>
+        <nuxt-link :to="'/challenge/' + card.slug">
+          <U-button
+            :button-name="'Details'"
+            :button-class="'u-button-gray'"
+          ></U-button>
+        </nuxt-link>
+        <nuxt-link :to="'/challenge/accept/' + card.slug">
+          <U-button
+            :button-name="'Accept'"
+            :button-class="'u-button-blue'"
+          ></U-button>
+        </nuxt-link>
       </div>
     </div>
   </div>
@@ -32,14 +39,14 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UButton from "../theme/UButton.vue";
-import { Startup } from "../../models/Startup";
+import { Challenge } from "../../models/Challenge";
 
 @Component({
   components: { UButton },
 })
-export default class StartupCard extends Vue {
+export default class extends Vue {
   @Prop() i: number;
-  @Prop() card: Startup;
+  @Prop() card: Challenge;
 }
 </script>
 <style lang="scss" scoped>

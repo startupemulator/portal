@@ -1,6 +1,6 @@
 <template>
-  <label :for="technologiId" class="technologi-item" :class="checkedClass">
-    {{ technologiName }}
+  <label :for="technologiId" class="technology-item" :class="checkedClass">
+    {{ title }}
     <input
       :id="technologiId"
       :type="type"
@@ -13,9 +13,9 @@
 <script>
 export default {
   props: {
-    technologiName: {
+    title: {
       type: String,
-      default: "Java",
+      default: "",
     },
     technologiId: {
       type: [Number, String],
@@ -38,7 +38,7 @@ export default {
 </script>
 
 <style lang="scss">
-.technologi-item {
+.technology-item {
   position: relative;
   display: inline-block;
   cursor: pointer;

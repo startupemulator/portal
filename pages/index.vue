@@ -12,12 +12,16 @@
       <li><nuxt-link to="/logIn">Log In</nuxt-link></li>
       <li><nuxt-link to="/applyToTeam">Apply to Team</nuxt-link></li>
       <li><nuxt-link to="/createAccount">Create Account</nuxt-link></li>
-      <li><nuxt-link to="/createProject">Create Project</nuxt-link></li>
+      <li><nuxt-link to="/createStartup">Create Startup</nuxt-link></li>
       <hr />
       <li><nuxt-link to="/becomeAnExpert">BecomeAnExpert</nuxt-link></li>
       <li><nuxt-link to="/participate">Participate</nuxt-link></li>
       <hr />
-      <li><nuxt-link to="/startups">Startups</nuxt-link></li>
+      <li>
+        <nuxt-link to="/startups">Startups</nuxt-link>
+        (TODO: startups with cards
+        <nuxt-link to="/startups-list">List</nuxt-link>)
+      </li>
     </ul>
     <UButton
       v-if="$strapi.user"
@@ -44,7 +48,9 @@ export default class Index extends Vue {}
 h1 {
   color: white;
 }
-
+li {
+  color: white;
+}
 #content {
   width: 400px;
   margin: 40px auto;

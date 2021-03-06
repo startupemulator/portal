@@ -1,14 +1,8 @@
 <template>
   <div class="apply-to-team apply-to-team-step2">
-    <U-title :text="'Apply to Startup #1'"></U-title>
+    <U-title :text="'Apply to Startup ' + startup.title"></U-title>
     <U-select></U-select>
-    <textarea
-      class="apply-to-team__comment"
-      placeholder="Comment
-
-
-"
-    ></textarea>
+    <textarea class="apply-to-team__comment" placeholder="Comment"></textarea>
     <div class="apply-to-team__button">
       <U-button
         :button-class="'u-button-blue'"
@@ -18,16 +12,21 @@
     </div>
   </div>
 </template>
-<script>
-import UTitle from "../theme/UTitle.vue";
+<script lang="ts">
+import { Component, Prop, Vue } from "nuxt-property-decorator";
 import USelect from "../theme/USelect";
-import UButton from "~/components/theme/UButton";
+import UButton from "../theme/UButton";
+import UTitle from "../theme/UTitle";
+import { Startup } from "../../models/Startup";
 
-export default {
+@Component({
   components: {
     UTitle,
     UButton,
     USelect,
   },
-};
+})
+export default class extends Vue {
+  @Prop() startup: Startup;
+}
 </script>

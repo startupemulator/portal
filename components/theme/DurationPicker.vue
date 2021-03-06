@@ -18,7 +18,7 @@
   </div>
 </template>
 <script>
-import TechnologiItem from "./technologiItem.vue";
+import TechnologiItem from "./technologyItem.vue";
 export default {
   components: {
     TechnologiItem,

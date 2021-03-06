@@ -10,11 +10,11 @@
             :class="filterList ? 'filter_list--opend' : ''"
           >
             <li>
-              <technologi-item
+              <technology-item
                 v-for="item in technologies"
                 :key="Math.random() + item.id"
-                :technologi-name="item.name"
-              ></technologi-item>
+                :title="item.name"
+              ></technology-item>
             </li>
           </ul>
           <button
@@ -662,7 +662,7 @@
 </template>
 <script>
 import UTitle from "../theme/UTitle";
-import TechnologiItem from "../theme/technologiItem";
+import TechnologyItem from "../theme/technologyItem";
 import AppTeamDevelop from "../homePage/appTeamDevelop.vue";
 import UTabs from "~/components/theme/UTabs";
 
@@ -670,7 +670,7 @@ export default {
   components: {
     UTitle,
     UTabs,
-    TechnologiItem,
+    TechnologyItem,
     AppTeamDevelop,
   },
   data() {

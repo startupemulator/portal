@@ -15,9 +15,15 @@
         describe his idea, main there is a description of this projects, where a
         product owner should describe his idea.
       </h3>
-      <nuxt-link to="createAccount">
+      <nuxt-link v-if="!$strapi.user" to="createAccount">
         <U-button
           :button-name="'Sign Up'"
+          :button-class="'u-button-gray'"
+        ></U-button>
+      </nuxt-link>
+      <nuxt-link v-if="$strapi.user" to="/startup/create">
+        <U-button
+          :button-name="'Create Startup'"
           :button-class="'u-button-gray'"
         ></U-button>
       </nuxt-link>

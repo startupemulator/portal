@@ -18,9 +18,9 @@
       <p v-show="validInput.fullName" class="errorInput">
         Please enter a password of at least 6 characters
       </p>
-      <technologi-piker
+      <technology-picker
         :title="'Pick technologies you are expert in'"
-      ></technologi-piker>
+      ></technology-picker>
       <div class="become-expert__buttons">
         <U-button
           :button-name="'Finish Signing Up'"
@@ -35,9 +35,9 @@
 import UTitle from "../theme/UTitle.vue";
 import UInput from "../theme/UInput.vue";
 import UButton from "../theme/UButton.vue";
-import TechnologiPiker from "../theme/technologiPiker.vue";
+import TechnologyPicker from "../theme/technologyPicker.vue";
 export default {
-  components: { UTitle, UInput, UButton, TechnologiPiker },
+  components: { UTitle, UInput, UButton, TechnologyPicker },
   data: () => ({
     validInput: {
       fullName: false,
@@ -46,12 +46,7 @@ export default {
   methods: {
     checkName(textValue) {
       textValue = textValue.trim();
-
-      if (textValue.length < 6) {
-        this.validInput.fullName = true;
-      } else {
-        this.validInput.fullName = false;
-      }
+      this.validInput.fullName = textValue.length < 6;
     },
     showAlert() {
       this.alert = !this.alert;

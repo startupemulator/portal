@@ -17,6 +17,7 @@
     ></apply-to-team-step-1>
     <apply-to-team-step-2
       v-if="applyToTeamStep2"
+      :startup="startup"
       @popupApplied="togglePopupApplied"
     ></apply-to-team-step-2>
     <popup-applied
@@ -25,34 +26,37 @@
     ></popup-applied>
   </div>
 </template>
-<script>
-import applyToTeamStep2 from "../team/applyToTeamStep2";
-import applyToTeamStep1 from "../team/applyToTeamStep1";
-import PopupApplied from "../theme/PopupApplied";
-import UBack from "~/components/theme/UBack";
 
-export default {
+<script lang="ts">
+import { Component, Prop, Vue } from "nuxt-property-decorator";
+import UBack from "../theme/UBack";
+import PopupApplied from "../theme/PopupApplied.vue";
+import { Startup } from "../../models/Startup";
+import applyToTeamStep1 from "./applyToTeamStep1.vue";
+import applyToTeamStep2 from "./applyToTeamStep2.vue";
+
+@Component({
   components: {
     UBack,
     applyToTeamStep2,
     applyToTeamStep1,
     PopupApplied,
   },
-  data() {
-    return {
-      popupApplied: false,
-      applyToTeamStep1: true,
-      applyToTeamStep2: false,
-    };
-  },
-  methods: {
-    applyToTeamGoStep2() {
-      this.applyToTeamStep1 = !this.applyToTeamStep1;
-      this.applyToTeamStep2 = !this.applyToTeamStep2;
-    },
-    togglePopupApplied() {
-      this.popupApplied = !this.popupApplied;
-    },
-  },
-};
+})
+export default class extends Vue {
+  @Prop() startup: Startup;
+
+  private applyToTeamStep1: boolean = true;
+  private applyToTeamStep2: boolean = false;
+  private popupApplied: boolean = false;
+
+  applyToTeamGoStep2() {
+    this.applyToTeamStep1 = !this.applyToTeamStep1;
+    this.applyToTeamStep2 = !this.applyToTeamStep2;
+  }
+
+  togglePopupApplied() {
+    this.popupApplied = !this.popupApplied;
+  }
+}
 </script>

@@ -22,9 +22,11 @@
 </template>
 <script>
 import UButton from "./UButton";
+import UTitle from "./UTitle";
 export default {
   components: {
     UButton,
+    UTitle,
   },
 };
 </script>

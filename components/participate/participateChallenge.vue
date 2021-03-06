@@ -2,7 +2,7 @@
   <div class="participate-challenge">
     <div class="participate-challenge__content">
       <U-Back link="/"></U-Back>
-      <U-title :text="'Participate in Task Name'"></U-title>
+      <U-title :text="'Participate in ' + challenge.title"></U-title>
       <Duration-picker
         :title="'Select your expected estimation for this challenge'"
       ></Duration-picker>
@@ -22,15 +22,18 @@
     ></popup-challenge-started>
   </div>
 </template>
-<script>
-import UBack from "../theme/UBack.vue";
-import UTitle from "../theme/UTitle.vue";
-import AddInput from "../theme/AddInput";
-import UButton from "../theme/UButton.vue";
-import DurationPicker from "../theme/DurationPicker.vue";
-import PopupChallengeStarted from "../theme/PopupChallengeStarted.vue";
 
-export default {
+<script lang="ts">
+import { Component, Prop, Vue } from "nuxt-property-decorator";
+import { Challenge } from "../../models/Challenge";
+import UBack from "~/components/theme/UBack";
+import UTitle from "~/components/theme/UTitle";
+import UButton from "~/components/theme/UButton";
+import DurationPicker from "~/components/theme/DurationPicker";
+import AddInput from "~/components/theme/AddInput";
+import PopupChallengeStarted from "~/components/theme/PopupChallengeStarted";
+
+@Component({
   components: {
     UBack,
     UTitle,
@@ -39,16 +42,14 @@ export default {
     AddInput,
     PopupChallengeStarted,
   },
-  data() {
-    return {
-      numberDays: "",
-      popupChallengeStarted: false,
-    };
-  },
-  methods: {
-    togglePopupChallengeStarted() {
-      this.popupChallengeStarted = !this.popupChallengeStarted;
-    },
-  },
-};
+})
+export default class ParticipateChallenge extends Vue {
+  @Prop() challenge: Challenge;
+  popupChallengeStarted = false;
+  numberDays = 3;
+
+  togglePopupChallengeStarted() {
+    this.popupChallengeStarted = !this.popupChallengeStarted;
+  }
+}
 </script>
