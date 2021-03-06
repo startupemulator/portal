@@ -41,12 +41,12 @@
         ></U-button>
         <hr />
         <div class="create-account__buttons-continue">
-          <U-button
-            :button-name="'Continue with GitHub'"
-            :button-class="'u-button-gray'"
-            @clickOnButton="loginWithGithub"
-          ></U-button>
-
+          <nuxt-link to="/api/v1/connect/github">
+            <U-button
+              :button-name="'Continue with GitHub'"
+              :button-class="'u-button-gray'"
+            ></U-button>
+          </nuxt-link>
           <U-button
             :button-name="'Continue with the email link'"
             :button-class="'u-button-gray'"
@@ -73,6 +73,7 @@ import UInput from "../theme/UInput.vue";
 import UButton from "../theme/UButton.vue";
 import PopupEmailLink from "../theme/PopupEmailLink.vue";
 import SigningUpLinkSent from "../theme/SigningUpLinkSent.vue";
+
 export default {
   components: {
     UBack,
@@ -95,9 +96,6 @@ export default {
   }),
   computed: {},
   methods: {
-    loginWithGithub() {
-      this.$nuxt.$router.push("/api/v1/connect/github");
-    },
     async login() {
       try {
         const user = await this.$strapi.login({

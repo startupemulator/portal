@@ -9,7 +9,7 @@
     <app-team-develop></app-team-develop>
     <app-take-part></app-take-part>
     <app-top-startups></app-top-startups>
-    <app-practicants></app-practicants>
+    <app-practicants :cards="state.Testimonials.cards"></app-practicants>
     <app-footer> </app-footer>
   </div>
 </template>
@@ -18,6 +18,7 @@
 import { Context } from "@nuxt/types";
 import { Component, Vue } from "nuxt-property-decorator";
 import Challenges from "../store/modules/Challenges";
+import Testimonials from "../store/modules/Testimonials";
 import AppHeader from "~/components/appHeader.vue";
 import AppGetExperience from "~/components/homePage/appGetExperience.vue";
 import AppStartupsBlock from "~/components/homePage/appStartupsBlock.vue";
@@ -52,6 +53,9 @@ export default class LandingPage extends Vue {
 
     const challenges = await context.$strapi.find("challenges");
     Challenges.setChallenges(challenges);
+
+    const testimonials = await context.$strapi.find("testimonials");
+    Testimonials.setTestimonials(testimonials);
   }
 
   get state() {

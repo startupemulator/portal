@@ -25,26 +25,28 @@
       tag="div"
       name="flip-list"
     >
-      <div v-for="item in practicant" :key="item.id" class="practicant-block">
-        <h3>{{ item.text }}</h3>
-        <p class="practicant-block__full-name">{{ item.fullName }}</p>
-        <p class="practicant-block__position">{{ item.position }}</p>
-        <img class="practicant-block__img" :src="item.img" alt="practicant" />
+      <div v-for="card in cards" :key="card.id" class="practicant-block">
+        <h3>{{ card.comment | truncate(230) }}</h3>
+        <p class="practicant-block__full-name">{{ card.author }}</p>
+        <p class="practicant-block__position">{{ card.title }}</p>
+        <img
+          v-if="card.photo[0]"
+          class="practicant-block__img"
+          :src="'/api/v1' + card.photo[0].url"
+          alt="practicant"
+        />
       </div>
     </transition-group>
   </div>
 </template>
+<script lang="ts">
+import { Component, Prop, Vue } from "nuxt-property-decorator";
+import { Testimonial } from "../../models/Testimonial";
 
-<script>
-import { mapState, mapActions } from "vuex";
-export default {
-  computed: {
-    ...mapState(["practicant"]),
-  },
-  methods: {
-    ...mapActions(["slideRigth", "slideLeft"]),
-  },
-};
+@Component({})
+export default class AppPracticants extends Vue {
+  @Prop() cards: Array<Testimonial>;
+}
 </script>
 <style lang="scss" scoped>
 .flip-list-move {
