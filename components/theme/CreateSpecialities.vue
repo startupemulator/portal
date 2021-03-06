@@ -82,7 +82,7 @@
             <span>{{ choosenSpeciality }}</span> developer speciality
           </h2>
           <div class="step-1__experience">
-            <div class="technologi-picker">
+            <div class="technology-picker">
               <h2>{{ title }}</h2>
               <form>
                 <label

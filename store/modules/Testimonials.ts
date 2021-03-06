@@ -18,11 +18,11 @@ class Testimonials extends VuexModule implements TestimonialsState {
   public cards: Array<Testimonial> = [];
 
   @VuexMutation
-  public setTestimonials(challenges: Array<Testimonial>) {
-    this.cards = challenges;
+  public apply(cards: Array<Testimonial>) {
+    this.cards = cards;
   }
 
-  @VuexAction({ commit: "setTestimonials", rawError: true })
+  @VuexAction({ commit: "apply", rawError: true })
   public async fetch(context: Context) {
     return await context.$strapi.find("testimonials");
   }

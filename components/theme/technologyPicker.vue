@@ -2,18 +2,16 @@
   <div class="technology-picker">
     <h2 class="technology-picker__title">{{ title }}</h2>
     <form>
-      <technology-item
-        v-for="technology in technologyes"
-        :key="technology.id"
-        :technology-id="technology.id"
-        :technology-name="technology.title"
-        :checked-class="technology.checked ? 'checked' : ''"
-        @pickTechnologi="
-          pickTechnology($event, technology.id, technology.title)
-        "
+      <u-tags
+        v-for="item in technologyes"
+        :id="item.id"
+        :key="item.id"
+        :title="item.title"
+        :checked-class="item.checked ? 'checked' : ''"
+        @pick="pickTechnology($event, item.id, item.title)"
       >
-        {{ technology.title }}
-      </technology-item>
+        {{ item.title }}
+      </u-tags>
     </form>
     <input
       class="input-technology"
@@ -24,10 +22,10 @@
   </div>
 </template>
 <script>
-import TechnologyItem from "./technologyItem.vue";
+import UTags from "./UTags";
 export default {
   components: {
-    TechnologyItem,
+    UTags,
   },
   props: {
     title: {

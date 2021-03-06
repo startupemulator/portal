@@ -18,11 +18,11 @@ class Startups extends VuexModule implements StartupsState {
   public cards: Array<Startup> = [];
 
   @VuexMutation
-  public setStartups(startups: Array<Startup>) {
-    this.cards = startups;
+  public apply(cards: Array<Startup>) {
+    this.cards = cards;
   }
 
-  @VuexAction({ commit: "setStartups", rawError: true })
+  @VuexAction({ commit: "apply", rawError: true })
   public async fetch(context: Context) {
     return await context.$strapi.find("startups");
   }

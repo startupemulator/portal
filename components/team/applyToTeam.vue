@@ -17,7 +17,7 @@
     ></apply-to-team-step-1>
     <apply-to-team-step-2
       v-if="applyToTeamStep2"
-      :startup="startup"
+      :startup="startup || {}"
       @popupApplied="togglePopupApplied"
     ></apply-to-team-step-2>
     <popup-applied
@@ -31,9 +31,9 @@
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UBack from "../theme/UBack";
 import PopupApplied from "../theme/PopupApplied.vue";
-import { Startup } from "../../models/Startup";
 import applyToTeamStep1 from "./applyToTeamStep1.vue";
 import applyToTeamStep2 from "./applyToTeamStep2.vue";
+import { Startup } from "~/models/Startup";
 
 @Component({
   components: {

@@ -27,6 +27,6 @@ import { Startup } from "../../models/Startup";
   },
 })
 export default class extends Vue {
-  @Prop() startup: Startup;
+  @Prop() startup: Startup = {};
 }
 </script>

@@ -1,16 +1,17 @@
 <template>
   <div class="experience">
     <app-header></app-header>
-    <experience></experience>
+    <experience :startup="startup"></experience>
     <app-footer></app-footer>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import AppHeader from "../../../components/appHeader.vue";
-import Experience from "../../../components/team/applyToTeam.vue";
-import AppFooter from "../../../components/appFooter.vue";
+import AppHeader from "~/components/appHeader.vue";
+import Experience from "~/components/team/applyToTeam.vue";
+import AppFooter from "~/components/appFooter.vue";
+import { Startup } from "~/models/Startup";
 
 @Component({
   components: {
@@ -20,6 +21,7 @@ import AppFooter from "../../../components/appFooter.vue";
   },
 })
 export default class extends Vue {
+  startup: Startup;
   async asyncData({ $strapi, route }) {
     const [startup] = await $strapi.find("startups", {
       slug: route.params.slug,

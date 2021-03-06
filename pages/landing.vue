@@ -23,6 +23,7 @@ import AppTakePart from "~/components/homePage/appTakePart.vue";
 import AppTopStartups from "~/components/homePage/appTopStartups.vue";
 import AppPracticants from "~/components/homePage/appPracticants.vue";
 import AppFooter from "~/components/appFooter.vue";
+import Technologies from "~/store/modules/Technologies";
 
 @Component({
   components: {
@@ -45,6 +46,7 @@ export default class LandingPage extends Vue {
     const startups = await $strapi.find("startups");
     const challenges = await $strapi.find("challenges");
     const testimonials = await $strapi.find("testimonials");
+    Technologies.fetch({ $strapi });
     return {
       startups,
       challenges,

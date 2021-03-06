@@ -5,7 +5,8 @@
     <app-footer></app-footer>
   </div>
 </template>
-<script>
+
+<script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 import AppHeader from "~/components/appHeader.vue";
 import ParticipateChallenge from "~/components/participate/participateChallenge.vue";
@@ -28,6 +29,7 @@ export default class TakeChallenge extends Vue {
   }
 }
 </script>
+
 <style lang="scss" scoped>
 @media (min-width: 1480px) {
   .fullscreen {

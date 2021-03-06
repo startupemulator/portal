@@ -80,14 +80,14 @@ export default {
     line-height: 20px;
     color: #f87b7b;
   }
-  .technologi-picker h2 {
+  .technology-picker h2 {
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
     margin-top: 32px;
     margin-bottom: 12px;
   }
-  .technologi-picker {
+  .technology-picker {
     form {
       min-height: 340px;
     }
@@ -122,11 +122,11 @@ export default {
       font-size: 17px;
       line-height: 32px;
     }
-    .technologi-picker h2 {
+    .technology-picker h2 {
       font-size: 17px;
       line-height: 32px;
     }
-    .technologi-picker {
+    .technology-picker {
       form {
         min-height: 230px;
         width: 603px;
