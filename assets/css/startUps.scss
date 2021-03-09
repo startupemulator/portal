@@ -26,9 +26,20 @@
     margin-top: 4px;
   }
   .start-ups__header-filter_list {
-    width: 343px;
-    height: 103px;
     overflow: hidden;
+    width: 343px;
+    display: flex;
+    height: 103px;
+    flex-wrap: wrap;
+    .technologi-item {
+      padding: 4px 14px;
+      font-size: 14px;
+      line-height: 32px;
+    }
+  }
+  .start-ups__header-filter_list.challenges-filter_list {
+    overflow: visible;
+    height: auto;
   }
   .start-ups__header-filter_list.filter_list--opend {
     height: auto;
@@ -81,6 +92,9 @@
     .start-ups__header {
       display: flex;
       flex-wrap: wrap;
+      &.challenges__header {
+        flex-direction: column;
+      }
       h2 {
         margin-left: 0;
         font-weight: bold;

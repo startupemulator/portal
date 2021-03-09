@@ -1,12 +1,12 @@
 <template>
-  <div class="start-ups">
+  <div class="start-ups challenges">
     <div class="start-ups__content">
-      <div class="start-ups__header">
-        <U-title :text="'Startups'"></U-title>
+      <div class="start-ups__header challenges__header">
+        <U-title :text="'Challenges'"></U-title>
         <div class="start-ups__header-filter">
-          <p>Filter by Technologies</p>
+          <p>Filter by Specialty</p>
           <ul
-            class="start-ups__header-filter_list"
+            class="start-ups__header-filter_list challenges-filter_list"
             :class="filterList ? 'filter_list--opend' : ''"
           >
             <li
@@ -24,17 +24,6 @@
               ></Technologi-item>
             </li>
           </ul>
-          <button
-            type="button"
-            class="start-ups__all-technologies"
-            @click="toggleFilserList"
-          >
-            <span v-show="!filterList">Show All Technologies</span>
-            <span v-show="filterList">Show short list Technologies</span>
-          </button>
-        </div>
-        <div class="start-ups__header-state-button">
-          <U-Tabs></U-Tabs>
         </div>
       </div>
       <div class="start-ups_cards-content startup-block">
@@ -667,7 +656,6 @@
               </div>
             </div>
           </div>
-
           <!-- ------------Вставить карточки цыклом  END   -->
         </div>
       </div>
@@ -680,12 +668,11 @@
 import UTitle from "../theme/UTitle";
 import TechnologiItem from "../theme/technologiItem";
 import AppTeamDevelop from "../homePage/appTeamDevelop.vue";
-import UTabs from "~/components/theme/UTabs";
 
 export default {
   components: {
     UTitle,
-    UTabs,
+
     TechnologiItem,
     AppTeamDevelop,
   },
@@ -693,23 +680,14 @@ export default {
     return {
       filterList: false,
       technologies: [
-        { id: 1, checked: false, name: "Javascript" },
-        { id: 2, checked: false, name: "Java" },
-        { id: 3, checked: false, name: "Python" },
-        { id: 4, checked: false, name: "HTML5" },
-        { id: 5, checked: false, name: "CSS3" },
-        { id: 6, checked: false, name: "Javascript" },
-        { id: 7, checked: false, name: "Java" },
-        { id: 8, checked: false, name: "Javascript" },
-        { id: 9, checked: false, name: "Javascript" },
-        { id: 10, checked: false, name: "Javascript" },
+        { id: 1, checked: false, name: "Full Stack Developer" },
+        { id: 2, checked: false, name: "Back-end Developer" },
+        { id: 3, checked: false, name: "Front-end Developer" },
+        { id: 4, checked: false, name: "UI/UX Designer" },
       ],
     };
   },
   methods: {
-    toggleFilserList() {
-      this.filterList = !this.filterList;
-    },
     pickTechnologi(item, i) {
       this.technologies.forEach((el) => {
         if (i === el.id) {

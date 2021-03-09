@@ -111,8 +111,14 @@
       line-height: 24px;
       color: $main-text-color;
     }
+    .startup-card__started-title.feedback {
+      background: #19adc7;
+    }
     .startup-card__started-title.started {
       background: #3cc28d;
+    }
+    .startup-card__started-title.finished {
+      background: #f0663b;
     }
   }
   .startup-card-content {
