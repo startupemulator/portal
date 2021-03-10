@@ -17,6 +17,8 @@
       <li><nuxt-link to="/participate">Participate</nuxt-link></li>
       <hr />
       <li><nuxt-link to="/startups">Startups</nuxt-link></li>
+      <li><nuxt-link to="/challenges">Challenges</nuxt-link></li>
+      <li><nuxt-link to="/myProjects">My Projects</nuxt-link></li>
     </ul>
     <UButton
       v-if="$strapi.user"

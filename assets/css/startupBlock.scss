@@ -87,6 +87,11 @@
     border-radius: 12px;
     margin-left: 16px;
     margin-top: 10px;
+    &.startup-card--draft {
+      background-color: transparent;
+      border: 2px dashed #8c97ac;
+    }
+
     .startup-card__started {
       display: flex;
       justify-content: flex-end;
@@ -99,6 +104,11 @@
       // margin-left: auto;
       display: flex;
       align-items: center;
+    }
+    .draft {
+      padding: 8px;
+      background-color: transparent;
+      box-shadow: none;
     }
     .startup-card__started-title {
       background: #8c97ac;
@@ -216,6 +226,7 @@
   text-align: center;
   margin-left: 8px;
 }
+
 @media (min-width: 426px) {
   .startup-block.challenges {
     min-height: 820px;
@@ -368,6 +379,9 @@
   .startup-block__startup-cards {
     margin-top: 50px;
     margin-left: 24px;
+  }
+  .draft {
+    padding: 12px;
   }
 }
 

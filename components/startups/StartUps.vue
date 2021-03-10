@@ -37,6 +37,7 @@
           <U-Tabs></U-Tabs>
         </div>
       </div>
+
       <div class="start-ups_cards-content startup-block">
         <div data-v-4c0228a8="" class="transition__startup-card">
           <!-- ------------Вставить карточки цыклом -->
@@ -688,6 +689,14 @@ export default {
     UTabs,
     TechnologiItem,
     AppTeamDevelop,
+  },
+  props: {
+    cards: {
+      type: [String, Array],
+      default() {
+        return ["cards"];
+      },
+    },
   },
   data() {
     return {
