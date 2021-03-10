@@ -66,8 +66,8 @@
   </div>
 </template>
 <script>
-import UButton from "~/components/theme/UButton";
-import CreateSpecialities from "~/components/theme/CreateSpecialities";
+import UButton from "~/components/theme/uButton";
+import CreateSpecialities from "~/components/theme/createSpecialities";
 import inviteCollegues from "~/components/theme/inviteCollegues";
 
 export default {

@@ -52,7 +52,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import { Challenges } from "~/models/Challenges";
-import ChallengeCard from "~/components/moleculas/ChallengeCard";
+import ChallengeCard from "~/components/moleculas/challengeCard.vue";
 
 @Component({
   components: {

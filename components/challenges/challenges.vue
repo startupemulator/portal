@@ -14,14 +14,14 @@
               :key="Math.random() + technologi.id"
               class="start-ups__header-filter_item"
             >
-              <Technologi-item
+              <U-tags
                 :technologi-id="technologi.id"
                 :technologi-name="technologi.name"
                 :checked-class="technologi.checked ? 'checked' : ''"
                 @pickTechnologi="
                   pickTechnologi($event, technologi.id, technologi.name)
                 "
-              ></Technologi-item>
+              ></U-tags>
             </li>
           </ul>
         </div>
@@ -665,18 +665,19 @@
   </div>
 </template>
 <script>
-import UTitle from "../theme/UTitle";
-import TechnologiItem from "../theme/technologiItem";
+import UTitle from "../theme/uTitle";
 import AppTeamDevelop from "../homePage/appTeamDevelop.vue";
+import UTags from "../theme/uTags";
 
 export default {
   components: {
     UTitle,
 
-    TechnologiItem,
+    UTags,
     AppTeamDevelop,
   },
-  data() {
+
+  UTagsdata() {
     return {
       filterList: false,
       technologies: [

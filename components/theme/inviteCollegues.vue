@@ -60,8 +60,8 @@
   </div>
 </template>
 <script>
-import UInput from "./UInput.vue";
-import UButton from "./UButton.vue";
+import UInput from "./uInput.vue";
+import UButton from "./uButton.vue";
 export default {
   components: { UInput, UButton },
   data() {

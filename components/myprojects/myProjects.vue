@@ -670,8 +670,8 @@
   </div>
 </template>
 <script>
-import UTitle from "../theme/UTitle";
-import UTabsLong from "~/components/theme/UtabsLong";
+import UTitle from "../theme/uTitle";
+import UTabsLong from "~/components/theme/utabsLong";
 export default {
   components: {
     UTitle,

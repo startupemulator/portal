@@ -17,10 +17,10 @@
   </div>
 </template>
 <script>
-import UTitle from "../theme/UTitle.vue";
+import UTitle from "../theme/uTitle.vue";
 import TechnologyPicker from "../theme/technologyPicker.vue";
-import UButton from "~/components/theme/UButton";
-import DurationExperiencePicker from "~/components/theme/DurationExperiensePicker";
+import UButton from "~/components/theme/uButton";
+import DurationExperiencePicker from "~/components/theme/durationExperiensePicker";
 export default {
   components: {
     DurationExperiencePicker,

@@ -124,7 +124,7 @@
   </div>
 </template>
 <script>
-import UButton from "~/components/theme/UButton";
+import UButton from "~/components/theme/uButton";
 
 export default {
   components: {

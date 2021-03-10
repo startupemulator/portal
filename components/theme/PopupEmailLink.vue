@@ -35,9 +35,9 @@
   </div>
 </template>
 <script>
-import UButton from "./UButton.vue";
-import UTitle from "./UTitle.vue";
-import UInput from "./UInput.vue";
+import UButton from "./uButton.vue";
+import UTitle from "./uTitle.vue";
+import UInput from "./uInput.vue";
 export default {
   components: { UTitle, UButton, UInput },
   data() {

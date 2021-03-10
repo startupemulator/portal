@@ -22,7 +22,7 @@
   </div>
 </template>
 <script>
-import UTags from "./UTags";
+import UTags from "./uTags";
 export default {
   components: {
     UTags,
@@ -80,6 +80,7 @@ export default {
           checked: false,
           title: value,
         });
+        e.target.value = "";
       }
     },
   },

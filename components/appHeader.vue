@@ -171,8 +171,8 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
-import UButton from "./theme/UButton.vue";
-import ULogo from "./theme/ULogo.vue";
+import UButton from "~/components/theme/uButton.vue";
+import ULogo from "~/components/theme/uLogo.vue";
 
 @Component({
   components: { UButton, ULogo },

@@ -17,17 +17,16 @@
       <li><nuxt-link to="/becomeAnExpert">BecomeAnExpert</nuxt-link></li>
       <li><nuxt-link to="/participate">Participate</nuxt-link></li>
       <hr />
-<<<<<<< HEAD
+
       <li><nuxt-link to="/startups">Startups</nuxt-link></li>
       <li><nuxt-link to="/challenges">Challenges</nuxt-link></li>
       <li><nuxt-link to="/myProjects">My Projects</nuxt-link></li>
-=======
+
       <li>
         <nuxt-link to="/startups">Startups</nuxt-link>
         (TODO: startups with cards
         <nuxt-link to="/startups-list">List</nuxt-link>)
       </li>
->>>>>>> 7ba0d287e2ff953c483d1927a4279a35860cf624
     </ul>
     <UButton
       v-if="$strapi.user"
@@ -40,7 +39,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import UButton from "~/components/theme/UButton";
+import UButton from "~/components/theme/uButton.vue";
 
 @Component({
   components: {

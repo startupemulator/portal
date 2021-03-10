@@ -33,8 +33,8 @@
   </div>
 </template>
 <script>
-import UButton from "~/components/theme/UButton";
-import AddExistingSourse from "~/components/theme/AddExistingSourse";
+import UButton from "~/components/theme/uButton";
+import AddExistingSourse from "~/components/theme/addExistingSourse";
 export default {
   components: { UButton, AddExistingSourse },
   data() {

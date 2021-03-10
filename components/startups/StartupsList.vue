@@ -45,13 +45,13 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
-import UTitle from "../theme/UTitle";
+import UTitle from "../theme/uTitle.vue";
 import TechnologyItem from "../theme/technologyItem.vue";
 import AppTeamDevelop from "../homePage/appTeamDevelop.vue";
 import { Startup } from "../../models/Startup";
 import { Technology } from "../../models/Technology";
-import StartupCard from "~/components/moleculas/StartupCard";
-import UTabs from "~/components/theme/UTabs";
+import StartupCard from "~/components/moleculas/startupCard.vue";
+import UTabs from "~/components/theme/uTabs.vue";
 
 @Component({
   components: {

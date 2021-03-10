@@ -21,8 +21,8 @@
   </div>
 </template>
 <script>
-import UTitle from "~/components/theme/UTitle";
-import UButton from "~/components/theme/UButton";
+import UTitle from "~/components/theme/uTitle";
+import UButton from "~/components/theme/uButton";
 export default {
   components: {
     UButton,

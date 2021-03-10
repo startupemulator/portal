@@ -53,7 +53,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import { Startup } from "~/models/Startup";
-import StartupCard from "~/components/moleculas/StartupCard";
+import StartupCard from "~/components/moleculas/startupCard.vue";
 
 @Component({
   components: {

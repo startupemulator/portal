@@ -9,28 +9,12 @@
             class="start-ups__header-filter_list"
             :class="filterList ? 'filter_list--opend' : ''"
           >
-<<<<<<< HEAD
-            <li
-              v-for="technologi in technologies"
-              :key="Math.random() + technologi.id"
-              class="start-ups__header-filter_item"
-            >
-              <Technologi-item
-                :technologi-id="technologi.id"
-                :technologi-name="technologi.name"
-                :checked-class="technologi.checked ? 'checked' : ''"
-                @pickTechnologi="
-                  pickTechnologi($event, technologi.id, technologi.name)
-                "
-              ></Technologi-item>
-=======
             <li>
               <technology-item
                 v-for="item in technologies"
                 :key="Math.random() + item.id"
                 :title="item.name"
               ></technology-item>
->>>>>>> 7ba0d287e2ff953c483d1927a4279a35860cf624
             </li>
           </ul>
           <button
@@ -687,10 +671,10 @@
   </div>
 </template>
 <script>
-import UTitle from "../theme/UTitle";
+import UTitle from "../theme/uTitle";
 import TechnologyItem from "../theme/technologyItem";
 import AppTeamDevelop from "../homePage/appTeamDevelop.vue";
-import UTabs from "~/components/theme/UTabs";
+import UTabs from "~/components/theme/uTabs";
 
 export default {
   components: {

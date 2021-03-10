@@ -20,7 +20,7 @@
   </div>
 </template>
 <script>
-import UInput from "./UInput.vue";
+import UInput from "./uInput.vue";
 
 export default {
   components: { UInput },

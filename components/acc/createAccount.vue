@@ -100,13 +100,13 @@
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 import { email, minLength, required, sameAs } from "vuelidate/lib/validators";
-import UBack from "@/components/theme/UBack.vue";
-import UTitle from "../theme/UTitle.vue";
-import UInput from "../theme/UInput.vue";
-import UButton from "../theme/UButton.vue";
-import PopupEmailLink from "../theme/PopupEmailLink.vue";
-import SigningUpLinkSent from "../theme/SigningUpLinkSent.vue";
-import SystemAlert from "../theme/SystemAlert.vue";
+import UBack from "@/components/theme/uBack.vue";
+import UTitle from "../theme/uTitle.vue";
+import UInput from "../theme/uInput.vue";
+import UButton from "../theme/uButton.vue";
+import PopupEmailLink from "../theme/popupEmailLink.vue";
+import SigningUpLinkSent from "../theme/signingUpLinkSent.vue";
+import SystemAlert from "../theme/systemAlert.vue";
 
 @Component({
   validations: {

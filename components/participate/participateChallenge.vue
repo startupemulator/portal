@@ -26,12 +26,12 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import { Challenge } from "../../models/Challenge";
-import UBack from "~/components/theme/UBack";
-import UTitle from "~/components/theme/UTitle";
-import UButton from "~/components/theme/UButton";
-import DurationPicker from "~/components/theme/DurationPicker";
-import AddInput from "~/components/theme/AddInput";
-import PopupChallengeStarted from "~/components/theme/PopupChallengeStarted";
+import UBack from "~/components/theme/uBack.vue";
+import UTitle from "~/components/theme/uTitle.vue";
+import UButton from "~/components/theme/uButton.vue";
+import DurationPicker from "~/components/theme/durationPicker.vue";
+import AddInput from "~/components/theme/addInput.vue";
+import PopupChallengeStarted from "~/components/theme/popupChallengeStarted.vue";
 
 @Component({
   components: {

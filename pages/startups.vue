@@ -6,9 +6,9 @@
   </div>
 </template>
 <script>
-import AppHeader from "@/components/appHeader.vue";
-import StartUps from "@/components/startups/StartUps.vue";
-import AppFooter from "~/components/appFooter.vue";
+import AppHeader from "@/components/appHeader";
+import StartUps from "@/components/startups/startUps";
+import AppFooter from "~/components/appFooter";
 
 export default {
   components: {

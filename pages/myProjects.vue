@@ -8,7 +8,7 @@
 //
 <script>
 import AppHeader from "@/components/appHeader.vue";
-import myProjects from "@/components/myprodjects/myProdjects";
+import myProjects from "@/components/myprodjects/myProdjects.vue";
 import AppFooter from "~/components/appFooter.vue";
 
 export default {

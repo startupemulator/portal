@@ -56,7 +56,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
-import UButton from "../theme/UButton.vue";
+import UButton from "../theme/uButton.vue";
 import { Startup } from "~/models/Startup";
 
 @Component({

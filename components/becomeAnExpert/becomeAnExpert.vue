@@ -32,9 +32,9 @@
 </template>
 
 <script>
-import UTitle from "../theme/UTitle.vue";
-import UInput from "../theme/UInput.vue";
-import UButton from "../theme/UButton.vue";
+import UTitle from "../theme/uTitle.vue";
+import UInput from "../theme/uInput.vue";
+import UButton from "../theme/uButton.vue";
 import TechnologyPicker from "../theme/technologyPicker.vue";
 export default {
   components: { UTitle, UInput, UButton, TechnologyPicker },

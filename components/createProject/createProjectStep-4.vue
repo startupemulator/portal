@@ -37,9 +37,9 @@
   </div>
 </template>
 <script>
-import UButton from "~/components/theme/UButton";
-import CreateGuide from "~/components/theme/CreateGuide";
-import PopupCreatedStartUp from "~/components/theme/PopupCreatedStartUp";
+import UButton from "~/components/theme/uButton";
+import CreateGuide from "~/components/theme/createGuide";
+import PopupCreatedStartUp from "~/components/theme/popupCreatedStartUp";
 export default {
   components: { UButton, CreateGuide, PopupCreatedStartUp },
   data() {

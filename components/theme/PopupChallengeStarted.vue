@@ -21,7 +21,7 @@
   </div>
 </template>
 <script>
-import UButton from "./UButton";
+import UButton from "./uButton";
 export default {
   components: {
     UButton,

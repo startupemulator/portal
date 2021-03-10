@@ -67,12 +67,12 @@
   </div>
 </template>
 <script>
-import UBack from "@/components/theme/UBack.vue";
-import UTitle from "../theme/UTitle.vue";
-import UInput from "../theme/UInput.vue";
-import UButton from "../theme/UButton.vue";
-import PopupEmailLink from "../theme/PopupEmailLink.vue";
-import SigningUpLinkSent from "../theme/SigningUpLinkSent.vue";
+import UBack from "@/components/theme/uBack";
+import UTitle from "../theme/uTitle";
+import UInput from "../theme/uInput";
+import UButton from "../theme/uButton";
+import PopupEmailLink from "../theme/popupEmailLink";
+import SigningUpLinkSent from "../theme/signingUpLinkSent";
 
 export default {
   components: {
