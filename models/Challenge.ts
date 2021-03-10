@@ -1,3 +1,5 @@
+import { Specialisation } from "./Specialisation";
+
 export interface Challenge {
   id: string;
   title: string;
@@ -6,5 +8,6 @@ export interface Challenge {
   status: string;
   sort: number;
   author: any;
+  specialisations: Array<Specialisation>;
   published_at: Date;
 }

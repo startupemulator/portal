@@ -5,6 +5,7 @@
     <app-footer></app-footer>
   </div>
 </template>
+
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 import AppHeader from "~/components/appHeader.vue";
@@ -21,11 +22,14 @@ import AppFooter from "~/components/appFooter.vue";
 })
 export default class TakeChallenge extends Vue {
   async asyncData({ $strapi, route }) {
-    const [challenge] = await $strapi.find("challenges");
+    const [challenge] = await $strapi.find("challenges", {
+      slug: route.params.slug,
+    });
     return { challenge };
   }
 }
 </script>
+
 <style lang="scss" scoped>
 @media (min-width: 1480px) {
   .fullscreen {

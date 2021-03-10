@@ -18,11 +18,11 @@ class Challenges extends VuexModule implements ChallengesState {
   public cards: Array<Challenge> = [];
 
   @VuexMutation
-  public setChallenges(challenges: Array<Challenge>) {
-    this.cards = challenges;
+  public apply(cards: Array<Challenge>) {
+    this.cards = cards;
   }
 
-  @VuexAction({ commit: "setChallenges", rawError: true })
+  @VuexAction({ commit: "apply", rawError: true })
   public async fetch(context: Context) {
     return await context.$strapi.find("challenges");
   }

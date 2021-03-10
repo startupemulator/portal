@@ -28,7 +28,9 @@
       "./types",
       "@types/node",
       "@nuxt/types",
-      "@nuxtjs/strapi"
+      "@nuxtjs/strapi",
+      "@nuxtjs/toast",
+      "@types/vuelidate"
     ]
   },
   "exclude": [

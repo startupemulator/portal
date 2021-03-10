@@ -9,7 +9,7 @@
           :placeholder="'Enter your full name'"
           :type="'text'"
           :account-class="
-            validInput.fullName
+            $v.name.$error
               ? 'create-account__password error'
               : 'create-account__password'
           "
@@ -17,28 +17,28 @@
           :btn-show-password="false"
           @textInput="checkName"
         ></U-input>
-        <p v-show="validInput.fullName" class="errorInput">
+        <p v-show="$v.name.$error" class="errorInput">
           Please enter a full name
         </p>
         <U-input
           :placeholder="'Enter your email'"
           :type="'email'"
           :account-class="
-            validInput.email
+            $v.email.$error
               ? 'create-account__email error'
               : 'create-account__email'
           "
           :img="require('~/assets/img/email.svg')"
           @textInput="checkEmail"
         ></U-input>
-        <p v-show="validInput.email" class="errorInput">
+        <p v-show="$v.email.$error" class="errorInput">
           Please enter an email address
         </p>
         <U-input
           :placeholder="'Set a password'"
           :type="'password'"
           :account-class="
-            validInput.password
+            $v.password.$error
               ? 'create-account__password error'
               : 'create-account__password'
           "
@@ -46,8 +46,23 @@
           :btn-show-password="true"
           @textInput="checkPassword"
         ></U-input>
-        <p v-show="validInput.password" class="errorInput">
+        <p v-show="$v.password.$error" class="errorInput">
           Please enter a password of at least 6 characters
+        </p>
+        <U-input
+          :placeholder="'Repeat a password'"
+          :type="'password'"
+          :account-class="
+            $v.repeatPassword.$error
+              ? 'create-account__password error'
+              : 'create-account__password'
+          "
+          :img="require('~/assets/img/password.svg')"
+          :btn-show-password="true"
+          @textInput="checkRepeatPassword"
+        ></U-input>
+        <p v-show="$v.repeatPassword.$error" class="errorInput">
+          Both passwords should be the same
         </p>
         <div>
           <U-button
@@ -77,12 +92,14 @@
       @openPopupLinkSent="showPopupLinkSent"
     ></popup-email-link>
     <signing-up-link-sent
-      v-if="popupSiginigUpLink"
+      v-if="popupSignUpLink"
       @closePopupLinkSent="showPopupLinkSent"
     ></signing-up-link-sent>
   </div>
 </template>
-<script>
+<script lang="ts">
+import { Component, Vue } from "nuxt-property-decorator";
+import { email, minLength, required, sameAs } from "vuelidate/lib/validators";
 import UBack from "@/components/theme/UBack.vue";
 import UTitle from "../theme/UTitle.vue";
 import UInput from "../theme/UInput.vue";
@@ -91,7 +108,23 @@ import PopupEmailLink from "../theme/PopupEmailLink.vue";
 import SigningUpLinkSent from "../theme/SigningUpLinkSent.vue";
 import SystemAlert from "../theme/SystemAlert.vue";
 
-export default {
+@Component({
+  validations: {
+    name: {
+      required,
+    },
+    email: {
+      required,
+      email,
+    },
+    password: {
+      required,
+      minLength: minLength(8),
+    },
+    repeatPassword: {
+      sameAsPassword: sameAs("password"),
+    },
+  },
   components: {
     UBack,
     UTitle,
@@ -101,62 +134,78 @@ export default {
     SigningUpLinkSent,
     SystemAlert,
   },
-  data: () => ({
-    name: "",
-    password: "",
-    email: "",
-    error: "",
-    popupEmailLink: false,
-    popupSiginigUpLink: false,
-    alert: false,
-    validInput: {
-      email: false,
-      password: false,
-      fullName: false,
-    },
-    emailPattern: /^([\w-.]+@([\w-]+\.)+[\w-]{2,4})?$/,
-  }),
-  computed: {},
-  methods: {
-    async register() {
+})
+export default class CreateAccount extends Vue {
+  name = "";
+  email = "";
+  password = "";
+  repeatPassword = "";
+  error = "";
+  popupEmailLink = false;
+  popupSignUpLink = false;
+
+  async register() {
+    this.$v.$touch();
+    if (!this.$v.$error) {
       try {
         const newUser = await this.$strapi.register({
           email: this.email,
-          username: this.name,
+          username: this.email,
+          name: this.name,
           password: this.password,
         });
-        console.log(newUser);
         if (newUser !== null) {
           this.error = "";
           this.$nuxt.$router.push("/");
         }
       } catch (error) {
         this.error = error.message;
+        this.$toast.error(error.message, {
+          icon: "highlight_off",
+          position: "top-right",
+          // duration: 3000,
+        });
       }
-    },
-    showPopupEmailLink() {
+    } else {
+      this.$toast.error("Fill the form correctly.", {
+        icon: "highlight_off",
+        position: "top-right",
+        // duration: 3000,
+      });
+    }
+  }
+
+  showPopupEmailLink() {
+    this.popupEmailLink = !this.popupEmailLink;
+  }
+
+  showPopupLinkSent() {
+    if (this.popupSignUpLink) {
+      this.popupSignUpLink = !this.popupSignUpLink;
+    } else {
+      this.popupSignUpLink = !this.popupSignUpLink;
       this.popupEmailLink = !this.popupEmailLink;
-    },
-    showPopupLinkSent() {
-      if (this.popupSiginigUpLink) {
-        this.popupSiginigUpLink = !this.popupSiginigUpLink;
-      } else {
-        this.popupSiginigUpLink = !this.popupSiginigUpLink;
-        this.popupEmailLink = !this.popupEmailLink;
-      }
-    },
-    checkEmail(textValue) {
-      this.validInput.email = !this.emailPattern.test(textValue);
-      this.email = textValue;
-    },
-    checkPassword(textValue) {
-      this.validInput.password = textValue.length < 6;
-      this.password = textValue;
-    },
-    checkName(textValue) {
-      this.validInput.fullName = textValue.length < 2;
-      this.name = textValue;
-    },
-  },
-};
+    }
+  }
+
+  checkEmail(textValue: string) {
+    this.email = textValue;
+    this.$v.email.$touch();
+  }
+
+  checkPassword(textValue: string) {
+    this.password = textValue;
+    this.$v.password.$touch();
+  }
+
+  checkRepeatPassword(textValue: string) {
+    this.repeatPassword = textValue;
+    this.$v.repeatPassword.$touch();
+  }
+
+  checkName(textValue: string) {
+    this.name = textValue;
+    this.$v.name.$touch();
+  }
+}
 </script>

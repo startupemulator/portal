@@ -1,7 +1,7 @@
 <template>
   <div>
     <app-header></app-header>
-    <div class="createProgect">
+    <div class="createProject">
       <create-prodgect></create-prodgect>
     </div>
     <app-footer></app-footer>

@@ -1,19 +1,17 @@
 <template>
-  <div class="technologi-picker">
-    <h2 class="technologi-picker__title">{{ title }}</h2>
+  <div class="technology-picker">
+    <h2 class="technology-picker__title">{{ title }}</h2>
     <form>
-      <Technologi-item
-        v-for="technologi in technologies"
-        :key="technologi.id"
-        :technologi-id="technologi.id"
-        :technologi-name="technologi.title"
-        :checked-class="technologi.checked ? 'checked' : ''"
-        @pickTechnologi="
-          pickTechnologi($event, technologi.id, technologi.title)
-        "
+      <u-tags
+        v-for="item in technologyes"
+        :id="item.id"
+        :key="item.id"
+        :title="item.title"
+        :checked-class="item.checked ? 'checked' : ''"
+        @pick="pickTechnology($event, item.id, item.title)"
       >
-        {{ technologi.title }}
-      </Technologi-item>
+        {{ item.title }}
+      </u-tags>
     </form>
     <input
       class="input-technology"
@@ -24,10 +22,10 @@
   </div>
 </template>
 <script>
-import TechnologiItem from "./technologiItem.vue";
+import UTags from "./UTags";
 export default {
   components: {
-    TechnologiItem,
+    UTags,
   },
   props: {
     title: {
@@ -37,7 +35,7 @@ export default {
   },
   data() {
     return {
-      technologies: [
+      technologyes: [
         { id: 1, checked: false, title: "Javascript" },
         { id: 2, checked: false, title: "Java" },
         { id: 3, checked: false, title: "Python" },
@@ -59,26 +57,26 @@ export default {
         { id: 19, checked: false, title: "HTML5" },
         { id: 20, checked: false, title: "CSS3" },
       ],
-      chosenTechnologi: [],
+      chosenTechnology: [],
     };
   },
   methods: {
-    pickTechnologi(item, i, title) {
-      this.technologies.forEach((el) => {
+    pickTechnology(item, i, title) {
+      this.technologyes.forEach((el) => {
         if (i === el.id) {
           el.checked = !el.checked;
         }
       });
 
-      this.chosenTechnologi = this.technologies.filter((item) => item.checked);
-      this.$emit("chosenTechnologi", this.chosenTechnologi);
+      this.chosenTechnology = this.technologyes.filter((item) => item.checked);
+      this.$emit("chosenTechnologi", this.chosenTechnology);
     },
     inputTechnology(e) {
       const value = e.target.value.trim();
 
       if ((e.keyCode === 13) & (value.length > 2)) {
-        this.technologies.push({
-          id: this.technologies.length + 1,
+        this.technologyes.push({
+          id: this.technologyes.length + 1,
           checked: false,
           title: value,
         });

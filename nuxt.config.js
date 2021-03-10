@@ -23,10 +23,7 @@ export default {
   css: ["@assets/css/main.scss"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-    { src: "~/plugins/Vuelidate.js", ssr: true },
-    { src: "~/plugins/filters.ts" },
-  ],
+  plugins: [{ src: "~/plugins/Vuelidate.ts" }, { src: "~/plugins/filters.ts" }],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -57,7 +54,12 @@ export default {
     "@nuxtjs/axios",
     "@nuxtjs/strapi",
     "@nuxtjs/proxy",
+    "@nuxtjs/toast",
   ],
+  toast: {
+    position: "top-right",
+    duration: 3000,
+  },
   proxy: {
     "/api/v1": {
       target: process.env.STRAPI_URL || "https://pear.startupemulator.com",

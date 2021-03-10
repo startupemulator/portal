@@ -1,27 +1,27 @@
 <template>
-  <div class="technologi-picker">
+  <div class="technology-picker">
     <h2>{{ title }}</h2>
     <form>
-      <Technologi-item
-        v-for="technologi in technologies"
-        :key="technologi.id"
-        :technologi-id="technologi.id"
-        :technologi-name="technologi.title"
-        :checked-class="technologi.checked ? 'checked' : ''"
+      <technology-item
+        v-for="technology in technologies"
+        :key="technology.id"
+        :technologi-id="technology.id"
+        :title="technology.title"
+        :checked-class="technology.checked ? 'checked' : ''"
         :type="'radio'"
         :name="'duration'"
-        @pickTechnologi="pickTechnologi($event, technologi.id)"
+        @pickTechnologi="pickTechnologi($event, technology.id)"
       >
-        {{ technologi.title }}
-      </Technologi-item>
+        {{ technology.title }}
+      </technology-item>
     </form>
   </div>
 </template>
 <script>
-import TechnologiItem from "./technologiItem.vue";
+import TechnologyItem from "./technologyItem.vue";
 export default {
   components: {
-    TechnologiItem,
+    TechnologyItem,
   },
   props: {
     title: {
@@ -54,7 +54,7 @@ export default {
 };
 </script>
 <style lang="scss">
-.technologi-picker h2 {
+.technology-picker h2 {
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;

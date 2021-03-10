@@ -9,6 +9,7 @@
             class="start-ups__header-filter_list"
             :class="filterList ? 'filter_list--opend' : ''"
           >
+<<<<<<< HEAD
             <li
               v-for="technologi in technologies"
               :key="Math.random() + technologi.id"
@@ -22,6 +23,14 @@
                   pickTechnologi($event, technologi.id, technologi.name)
                 "
               ></Technologi-item>
+=======
+            <li>
+              <technology-item
+                v-for="item in technologies"
+                :key="Math.random() + item.id"
+                :title="item.name"
+              ></technology-item>
+>>>>>>> 7ba0d287e2ff953c483d1927a4279a35860cf624
             </li>
           </ul>
           <button
@@ -63,11 +72,11 @@
                 </h3>
                 <div
                   data-v-1ba1c684=""
-                  class="startup-card__started-technologys"
+                  class="startup-card__started-technologies"
                 >
                   <ul
                     data-v-1ba1c684=""
-                    class="startup-card__started-technologys-items"
+                    class="startup-card__started-technologies-items"
                   >
                     <li
                       data-v-1ba1c684=""
@@ -172,11 +181,11 @@
                 </h3>
                 <div
                   data-v-1ba1c684=""
-                  class="startup-card__started-technologys"
+                  class="startup-card__started-technologies"
                 >
                   <ul
                     data-v-1ba1c684=""
-                    class="startup-card__started-technologys-items"
+                    class="startup-card__started-technologies-items"
                   >
                     <li
                       data-v-1ba1c684=""
@@ -272,11 +281,11 @@
                 </h3>
                 <div
                   data-v-1ba1c684=""
-                  class="startup-card__started-technologys"
+                  class="startup-card__started-technologies"
                 >
                   <ul
                     data-v-1ba1c684=""
-                    class="startup-card__started-technologys-items"
+                    class="startup-card__started-technologies-items"
                   >
                     <li
                       data-v-1ba1c684=""
@@ -375,11 +384,11 @@
                 </h3>
                 <div
                   data-v-1ba1c684=""
-                  class="startup-card__started-technologys"
+                  class="startup-card__started-technologies"
                 >
                   <ul
                     data-v-1ba1c684=""
-                    class="startup-card__started-technologys-items"
+                    class="startup-card__started-technologies-items"
                   >
                     <li
                       data-v-1ba1c684=""
@@ -475,11 +484,11 @@
                 </h3>
                 <div
                   data-v-1ba1c684=""
-                  class="startup-card__started-technologys"
+                  class="startup-card__started-technologies"
                 >
                   <ul
                     data-v-1ba1c684=""
-                    class="startup-card__started-technologys-items"
+                    class="startup-card__started-technologies-items"
                   >
                     <li
                       data-v-1ba1c684=""
@@ -578,11 +587,11 @@
                 </h3>
                 <div
                   data-v-1ba1c684=""
-                  class="startup-card__started-technologys"
+                  class="startup-card__started-technologies"
                 >
                   <ul
                     data-v-1ba1c684=""
-                    class="startup-card__started-technologys-items"
+                    class="startup-card__started-technologies-items"
                   >
                     <li
                       data-v-1ba1c684=""
@@ -679,7 +688,7 @@
 </template>
 <script>
 import UTitle from "../theme/UTitle";
-import TechnologiItem from "../theme/technologiItem";
+import TechnologyItem from "../theme/technologyItem";
 import AppTeamDevelop from "../homePage/appTeamDevelop.vue";
 import UTabs from "~/components/theme/UTabs";
 
@@ -687,7 +696,7 @@ export default {
   components: {
     UTitle,
     UTabs,
-    TechnologiItem,
+    TechnologyItem,
     AppTeamDevelop,
   },
   props: {

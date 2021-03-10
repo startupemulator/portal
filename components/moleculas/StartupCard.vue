@@ -6,7 +6,7 @@
           class="startup-card__started-title"
           :class="card.state === 'in_progress' ? 'started' : ''"
         >
-          {{ card.state | capitalize }}
+          {{ card.state.split("_").join(" ") | capitalize }}
         </div>
       </div>
     </div>
@@ -15,8 +15,8 @@
       <h3 class="startup-card__started-text">
         {{ card.description | truncate(70, "...") }}
       </h3>
-      <div class="startup-card__started-technologys">
-        <ul class="startup-card__started-technologys-items">
+      <div class="startup-card__started-technologies">
+        <ul class="startup-card__started-technologies-items">
           <li
             v-for="skill in card.technologies"
             :key="skill.id"
@@ -37,14 +37,18 @@
         </div>
       </div>
       <div class="startup-block__buttons">
-        <U-button
-          :button-name="'Details'"
-          :button-class="'u-button-gray'"
-        ></U-button>
-        <U-button
-          :button-name="'Apply'"
-          :button-class="'u-button-blue'"
-        ></U-button>
+        <nuxt-link :to="'/startup/' + card.slug">
+          <U-button
+            :button-name="'Details'"
+            :button-class="'u-button-gray'"
+          ></U-button>
+        </nuxt-link>
+        <nuxt-link :to="'/startup/apply/' + card.slug">
+          <U-button
+            :button-name="'Apply'"
+            :button-class="'u-button-blue'"
+          ></U-button>
+        </nuxt-link>
       </div>
     </div>
   </div>

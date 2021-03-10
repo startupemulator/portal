@@ -7,7 +7,7 @@
     justify-content: space-between;
     align-items: center;
   }
-  .main-headr-logo h2 {
+  .main-header-logo h2 {
     color: #837cf3;
     font-style: normal;
     font-weight: 600;
@@ -16,11 +16,11 @@
     margin: 0;
     margin-left: 12px;
   }
-  .main-headr-logo img {
+  .main-header-logo img {
     height: 40px;
     width: 40px;
   }
-  .main-headr-logo {
+  .main-header-logo {
     display: flex;
     align-items: center;
   }
@@ -66,7 +66,7 @@
       min-height: 96px;
       margin: 0 48px;
     }
-    .main-headr-logo h2 {
+    .main-header-logo h2 {
       display: inline-block;
       color: #837cf3;
       font-weight: 600;
@@ -74,7 +74,7 @@
       line-height: 32px;
       margin-left: 16px;
     }
-    .main-headr-logo img {
+    .main-header-logo img {
       height: 48px;
       width: 48px;
     }

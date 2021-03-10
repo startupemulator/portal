@@ -1,12 +1,12 @@
 <template>
   <div class="apply-to-team-step1">
     <U-title :text="'Your experience'"></U-title>
-    <Duration-experiense-picker
+    <duration-experience-picker
       :title="'Total years of your experience'"
-    ></Duration-experiense-picker>
-    <technologi-piker
+    ></duration-experience-picker>
+    <technology-picker
       :title="'Pick technologies you have an experience with'"
-    ></technologi-piker>
+    ></technology-picker>
     <div class="apply-to-team__button">
       <U-button
         :button-class="'u-button-blue'"
@@ -18,15 +18,15 @@
 </template>
 <script>
 import UTitle from "../theme/UTitle.vue";
-import TechnologiPiker from "../theme/technologiPiker.vue";
+import TechnologyPicker from "../theme/technologyPicker.vue";
 import UButton from "~/components/theme/UButton";
-import DurationExperiensePicker from "~/components/theme/DurationExperiensePicker";
+import DurationExperiencePicker from "~/components/theme/DurationExperiensePicker";
 export default {
   components: {
-    DurationExperiensePicker,
+    DurationExperiencePicker,
     UTitle,
-    TechnologiPiker,
     UButton,
+    TechnologyPicker,
   },
 };
 </script>

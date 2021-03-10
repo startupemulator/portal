@@ -21,10 +21,12 @@
   </div>
 </template>
 <script>
-import UButton from "./UButton";
+import UTitle from "~/components/theme/UTitle";
+import UButton from "~/components/theme/UButton";
 export default {
   components: {
     UButton,
+    UTitle,
   },
 };
 </script>
