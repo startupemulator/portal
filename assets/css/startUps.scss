@@ -129,7 +129,8 @@
     .transition__startup-card {
       display: flex;
       flex-wrap: wrap;
-      .startup-block__startup-card {
+      .startup-block__startup-card,
+      .startup-card {
         &:not(:nth-child(4n + 1)) {
           margin-left: 24px;
         }

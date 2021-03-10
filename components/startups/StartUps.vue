@@ -33,7 +33,7 @@
 
       <div class="start-ups_cards-content startup-block">
         <div data-v-4c0228a8="" class="transition__startup-card">
-          <!-- ------------Вставить карточки цыклом -->
+          <!-- ------------Вставить карточки циклом -->
           <div data-v-4c0228a8="" class="startup-block__startup-card">
             <div data-v-1ba1c684="" data-v-4c0228a8="" class="startup-card">
               <div data-v-1ba1c684="" class="startup-card__started">
@@ -126,22 +126,19 @@
                   </div>
                 </div>
                 <div data-v-1ba1c684="" class="startup-block__buttons">
-                  <button
-                    data-v-74dcdff6=""
-                    data-v-1ba1c684=""
+                  <Ubutton
+                    button-name="Details"
                     type="button"
                     class="u-button u-button-gray"
                   >
                     Details
-                  </button>
-                  <button
-                    data-v-74dcdff6=""
-                    data-v-1ba1c684=""
+                  </Ubutton>
+                  <Ubutton
+                    button-name="Apply"
                     type="button"
                     class="u-button u-button-blue"
                   >
-                    Apply
-                  </button>
+                  </Ubutton>
                 </div>
               </div>
             </div>
@@ -641,22 +638,19 @@
                   </div>
                 </div>
                 <div data-v-1ba1c684="" class="startup-block__buttons">
-                  <button
-                    data-v-74dcdff6=""
-                    data-v-1ba1c684=""
+                  <Ubutton
+                    button-name="Details"
                     type="button"
                     class="u-button u-button-gray"
                   >
                     Details
-                  </button>
-                  <button
-                    data-v-74dcdff6=""
-                    data-v-1ba1c684=""
+                  </Ubutton>
+                  <Ubutton
+                    button-name="Apply"
                     type="button"
                     class="u-button u-button-blue"
                   >
-                    Apply
-                  </button>
+                  </Ubutton>
                 </div>
               </div>
             </div>
@@ -675,6 +669,7 @@ import UTitle from "../theme/uTitle";
 import TechnologyItem from "../theme/technologyItem";
 import AppTeamDevelop from "../homePage/appTeamDevelop.vue";
 import UTabs from "~/components/theme/uTabs";
+import Ubutton from "~/components/theme/uButton";
 
 export default {
   components: {
@@ -682,6 +677,7 @@ export default {
     UTabs,
     TechnologyItem,
     AppTeamDevelop,
+    Ubutton,
   },
   props: {
     cards: {
