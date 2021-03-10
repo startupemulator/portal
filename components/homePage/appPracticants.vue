@@ -26,7 +26,7 @@
       name="flip-list"
     >
       <div v-for="card in cards" :key="card.id" class="practicant-block">
-        <h3>{{ card.comment | truncate(230) }}</h3>
+        <h3>{{ card.comment | truncate(200) }}</h3>
         <p class="practicant-block__full-name">{{ card.author }}</p>
         <p class="practicant-block__position">{{ card.title }}</p>
         <img
