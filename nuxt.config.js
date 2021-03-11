@@ -35,7 +35,7 @@ export default {
     "@nuxtjs/eslint-module",
     "@nuxt/typescript-build",
     // "@nuxtjs/device",
-    "nuxt-purgecss",
+    // "nuxt-purgecss",
   ],
   typescript: {
     typeCheck: {
