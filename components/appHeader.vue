@@ -28,7 +28,7 @@
             class="nav-item"
             :class="{ 'nav-item__active': active === 'challenges' }"
           >
-            <nuxt-link to="#">
+            <nuxt-link to="challenges">
               <svg
                 width="19"
                 height="24"
@@ -46,8 +46,11 @@
           </li>
           <!-- logined -->
           <div v-if="!!$strapi.user">
-            <li class="nav-item">
-              <nuxt-link to="#">
+            <li
+              class="nav-item"
+              :class="{ 'nav-item__active': active === 'my-projects' }"
+            >
+              <nuxt-link to="myProjects">
                 <svg
                   width="24"
                   height="24"
@@ -70,8 +73,11 @@
                 My Projects</nuxt-link
               >
             </li>
-            <li class="nav-item">
-              <nuxt-link to="#">
+            <li
+              class="nav-item"
+              :class="{ 'nav-item__active': active === 'profile' }"
+            >
+              <nuxt-link to="profile">
                 <svg
                   width="24"
                   height="24"
