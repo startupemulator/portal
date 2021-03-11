@@ -11,7 +11,7 @@
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 import AppHeader from "../components/appHeader.vue";
-import StartupsList from "../components/startups/startUps.vue";
+import StartupsList from "../components/startups/startupsList.vue";
 import AppFooter from "../components/appFooter.vue";
 
 @Component({
