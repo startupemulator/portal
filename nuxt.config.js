@@ -34,11 +34,14 @@ export default {
     "@nuxtjs/stylelint-module",
     "@nuxtjs/eslint-module",
     "@nuxt/typescript-build",
+    "@nuxtjs/device",
+    "nuxt-purgecss",
   ],
   typescript: {
     typeCheck: {
       eslint: {
         files: "./**/*.{ts,js,vue}",
+        fix: true,
       },
     },
   },
@@ -55,6 +58,7 @@ export default {
     "@nuxtjs/strapi",
     "@nuxtjs/proxy",
     "@nuxtjs/toast",
+    // "nuxt-helmet",
   ],
   toast: {
     position: "top-right",
@@ -67,6 +71,9 @@ export default {
         "^/api/v1": "/",
       },
     },
+  },
+  env: {
+    baseURL: process.env.BASE_URL,
   },
   strapi: {
     url: "/api/v1",

@@ -4,7 +4,9 @@ interface RootState {}
 
 export const store = new Vuex.Store<RootState>({
   actions: {
-    nuxtServerInit: () => {},
+    nuxtServerInit: async () => {
+      // await Technologies.fetch();
+    },
   },
 });
 const createStore = (): Store<RootState> => {

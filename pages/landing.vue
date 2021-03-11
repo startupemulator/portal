@@ -14,6 +14,10 @@
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
+import { Startup } from "../models/Startup";
+import { Challenge } from "../models/Challenge";
+import { Testimonial } from "../models/Testimonial";
+import Specialisations from "../store/modules/Specialisations";
 import AppHeader from "~/components/appHeader.vue";
 import AppGetExperience from "~/components/homePage/appGetExperience.vue";
 import AppStartupsBlock from "~/components/homePage/appStartupsBlock.vue";
@@ -39,14 +43,19 @@ import Technologies from "~/store/modules/Technologies";
   },
 })
 export default class LandingPage extends Vue {
-  name: string = "";
+  startups: Array<Startup> = [];
+  challenges: Array<Challenge> = [];
+  testimonials: Array<Testimonial> = [];
 
   // data loaded here will be added during server rendering
   async asyncData({ $strapi }) {
     const startups = await $strapi.find("startups");
     const challenges = await $strapi.find("challenges");
     const testimonials = await $strapi.find("testimonials");
-    Technologies.fetch({ $strapi });
+    // TODO change it
+    await Technologies.fetch();
+    await Specialisations.fetch();
+
     return {
       startups,
       challenges,
