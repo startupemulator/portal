@@ -9,15 +9,17 @@
             class="start-ups__header-filter_list"
             :class="filterList ? 'filter_list--opend' : ''"
           >
-            <li>
-              <technology-item
-                v-for="item in technologies"
-                :key="item.id"
-                :technologi-id="item.id"
+            <li v-for="item in technologies" :key="item.id">
+              <U-tags
+                :id="item.id"
                 :title="item.title"
-              ></technology-item>
+                :name="item.title"
+                :type="'checkbox'"
+                @pick="pickTechnologi($event)"
+              ></U-tags>
             </li>
           </ul>
+
           <button
             type="button"
             class="start-ups__all-technologies"
@@ -47,10 +49,11 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UTitle from "../theme/uTitle.vue";
-import TechnologyItem from "../theme/technologyItem.vue";
+// import TechnologyItem from "../theme/technologyItem.vue";
 import AppTeamDevelop from "../homePage/appTeamDevelop.vue";
 import { Startup } from "../../models/Startup";
 import { Technology } from "../../models/Technology";
+import UTags from "../theme/uTags.vue";
 import StartupCard from "~/components/moleculas/startupCard.vue";
 import UTabs from "~/components/theme/uTabs.vue";
 
@@ -58,9 +61,10 @@ import UTabs from "~/components/theme/uTabs.vue";
   components: {
     UTitle,
     UTabs,
-    TechnologyItem,
+    // TechnologyItem,
     AppTeamDevelop,
     StartupCard,
+    UTags,
   },
 })
 export default class extends Vue {
@@ -71,6 +75,15 @@ export default class extends Vue {
 
   toggleFilserList() {
     this.filterList = !this.filterList;
+  }
+
+  pickTechnologi(event) {
+    const el = event.target;
+    if (el.checked & !el.parentElement.classList.contains("checked")) {
+      el.parentElement.classList.add("checked");
+    } else {
+      el.parentElement.classList.remove("checked");
+    }
   }
 }
 </script>

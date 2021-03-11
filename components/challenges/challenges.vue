@@ -10,7 +10,7 @@
             :class="filterList ? 'filter_list--opend' : ''"
           >
             <li
-              v-for="(specialisation, i) in specialisations"
+              v-for="specialisation in specialisations"
               :key="specialisation.id"
               class="start-ups__header-filter_item"
             >
@@ -19,8 +19,7 @@
                 :title="specialisation.title"
                 :name="specialisation.title"
                 :type="'checkbox'"
-                :checked-class="specialisation.checked ? 'checked' : ''"
-                @pick="pickTechnologi(i)"
+                @pick="pickTechnologi($event)"
               ></U-tags>
             </li>
           </ul>
@@ -675,7 +674,7 @@ import UTitle from "../theme/uTitle.vue";
 import AppTeamDevelop from "../homePage/appTeamDevelop.vue";
 import UTags from "../theme/uTags.vue";
 import { Challenge } from "../../models/Challenge";
-import { Technology } from "../../models/Technology";
+import { Specialisation } from "../../models/Specialisation";
 import ChallengeCard from "../moleculas/challengeCard.vue";
 
 @Component({
@@ -690,31 +689,22 @@ export default class extends Vue {
   @Prop()
   challenges: Array<Challenge>;
 
-  @Prop({
-    default() {
-      return [
-        { id: 1, checked: false, title: "Full Stack Developer" },
-        { id: 2, checked: false, title: "Back-end Developer" },
-        { id: 3, checked: false, title: "Front-end Developer" },
-        { id: 4, checked: false, title: "UI/UX Designer" },
-      ];
-    },
-  })
-  specialisations: Array<Technology>;
+  @Prop()
+  specialisations: Array<Specialisation>;
 
   private filterList: boolean = false;
   toggleFilserList() {
     this.filterList = !this.filterList;
   }
 
-  pickTechnologi(i) {
-    this.specialisations.forEach((el) => {
-      if (i + 1 === el.id) {
-        el.checked = !el.checked;
+  pickTechnologi(event) {
+    const el = event.target;
 
-        console.log(this.challenges[i].specialisations);
-      }
-    });
+    if (el.checked & !el.parentElement.classList.contains("checked")) {
+      el.parentElement.classList.add("checked");
+    } else {
+      el.parentElement.classList.remove("checked");
+    }
   }
 }
 </script>

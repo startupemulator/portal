@@ -2,7 +2,10 @@
   <div class="challenges-page">
     <app-header></app-header>
 
-    <challenges :challenges="challenges"></challenges>
+    <challenges
+      :challenges="challenges"
+      :specialisations="specialisations"
+    ></challenges>
     <app-footer></app-footer>
   </div>
 </template>
@@ -23,10 +26,10 @@ export default class extends Vue {
   // data loaded here will be added during server rendering
   async asyncData({ $strapi }) {
     const challenges = await $strapi.find("challenges");
-    // const specialisations = await $strapi.find("specialisations");
+    const specialisations = await $strapi.find("specialisations");
     return {
       challenges,
-      // specialisations,
+      specialisations,
     };
   }
 }

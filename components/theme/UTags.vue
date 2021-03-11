@@ -1,7 +1,12 @@
 <template>
   <label :for="id" class="tags-item" :class="checkedClass">
     {{ title }}
-    <input :id="id" :type="type" :name="name" @click="$emit('pick', $event)" />
+    <input
+      :id="id"
+      :type="type"
+      :name="name"
+      @click.prevent="$emit('pick', $event)"
+    />
   </label>
 </template>
 
@@ -36,7 +41,7 @@ export default class extends Vue {
   transition: 0.2s;
   input {
     position: absolute;
-    top: 5px;
+    top: 0;
     left: 22px;
     height: 0;
     width: 0;
