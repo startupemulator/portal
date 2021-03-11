@@ -228,6 +228,9 @@
 }
 
 @media (min-width: 426px) {
+  .challenges-page .start-ups__content .startup-card__started-name {
+    margin-top: 0;
+  }
   .startup-block.challenges {
     min-height: 820px;
     margin-top: 30px;

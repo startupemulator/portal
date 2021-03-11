@@ -1,12 +1,7 @@
 <template>
   <label :for="id" class="tags-item" :class="checkedClass">
     {{ title }}
-    <input
-      :id="id"
-      :type="type"
-      :name="name"
-      @click.prevent="$emit('pick', $event.target)"
-    />
+    <input :id="id" :type="type" :name="name" @click="$emit('pick', $event)" />
   </label>
 </template>
 
@@ -15,11 +10,11 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 
 @Component({})
 export default class extends Vue {
-  @Prop() title: string;
-  @Prop() name: string;
-  @Prop() id: string;
-  @Prop() checkedClass: string;
-  @Prop() type: "checkbox" | "radio";
+  @Prop({ default: "title" }) title: string;
+  @Prop({ default: "name" }) name: string;
+  @Prop({ default: "1" }) id: string;
+  @Prop({ default: "false" }) checkedClass: string;
+  @Prop({ default: "checkbox" }) type: "checkbox" | "radio";
 }
 </script>
 
