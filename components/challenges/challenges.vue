@@ -711,6 +711,8 @@ export default class extends Vue {
     this.specialisations.forEach((el) => {
       if (i + 1 === el.id) {
         el.checked = !el.checked;
+
+        console.log(this.challenges[i].specialisations);
       }
     });
   }
