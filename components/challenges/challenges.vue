@@ -664,6 +664,10 @@
           <!-- ------------Вставить карточки циклом  END   -->
         </div>
       </div>
+      <u-button
+        :class="'u-button-gray u-button-gray__show-more'"
+        :button-name="'Show More'"
+      ></u-button>
       <app-team-develop></app-team-develop>
     </div>
   </div>
@@ -676,6 +680,7 @@ import UTags from "../theme/uTags.vue";
 import { Challenge } from "../../models/Challenge";
 import { Specialisation } from "../../models/Specialisation";
 import ChallengeCard from "../moleculas/challengeCard.vue";
+import Ubutton from "../theme/uButton.vue";
 
 @Component({
   components: {
@@ -683,6 +688,7 @@ import ChallengeCard from "../moleculas/challengeCard.vue";
     UTags,
     AppTeamDevelop,
     ChallengeCard,
+    Ubutton,
   },
 })
 export default class extends Vue {

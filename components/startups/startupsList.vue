@@ -35,13 +35,17 @@
       </div>
       <div class="start-ups_cards-content startup-block">
         <div data-v-4c0228a8="" class="transition__startup-card">
-          <startup-card
+          <Startup-card
             v-for="card in startups"
             :key="card.id"
             :card="card"
-          ></startup-card>
+          ></Startup-card>
         </div>
       </div>
+      <u-button
+        :class="'u-button-gray u-button-gray__show-more'"
+        :button-name="'Show More'"
+      ></u-button>
       <app-team-develop></app-team-develop>
     </div>
   </div>
@@ -49,7 +53,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UTitle from "../theme/uTitle.vue";
-// import TechnologyItem from "../theme/technologyItem.vue";
+import Ubutton from "../theme/uButton.vue";
 import AppTeamDevelop from "../homePage/appTeamDevelop.vue";
 import { Startup } from "../../models/Startup";
 import { Technology } from "../../models/Technology";
@@ -61,7 +65,7 @@ import UTabs from "~/components/theme/uTabs.vue";
   components: {
     UTitle,
     UTabs,
-    // TechnologyItem,
+    Ubutton,
     AppTeamDevelop,
     StartupCard,
     UTags,

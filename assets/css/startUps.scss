@@ -55,11 +55,18 @@
     width: 343px;
   }
 }
-
+.startups-page .startup-block .startup-card,
+.challenges-page .startup-block .startup-card {
+  margin-top: 16px;
+}
+.startups-page .u-button-gray__show-more,
+.challenges-page .u-button-gray__show-more {
+  margin: 24px 0 32px 0;
+}
 @media (min-width: 768px) {
   .start-ups {
     width: auto;
-    max-width: 1344px;
+    max-width: 670px;
     margin: 0 auto;
   }
   .start-ups__content {
@@ -68,7 +75,7 @@
       min-height: auto;
       background-color: transparent;
       padding-top: 0;
-      justify-content: space-between;
+      // justify-content: space-between;
       .u-button.u-button-gray {
         border-color: #2f2dad;
         background-color: $button-color-blue;
@@ -123,7 +130,7 @@
   .start-ups_cards-content {
     .startup-card {
       width: 318px;
-      margin-bottom: 24px;
+      margin-bottom: 8px;
       margin-top: 0;
     }
     .transition__startup-card {
@@ -131,10 +138,34 @@
       flex-wrap: wrap;
       .startup-block__startup-card,
       .startup-card {
+        &:not(:nth-child(2n + 1)) {
+          margin-left: 24px;
+        }
+      }
+    }
+  }
+  .startups-page .u-button-gray__show-more,
+  .challenges-page .u-button-gray__show-more {
+    display: none;
+  }
+}
+@media (min-width: 1439px) {
+  .start-ups {
+    max-width: 1344px;
+  }
+  .start-ups_cards-content {
+    .transition__startup-card {
+      .startup-block__startup-card,
+      .startup-card {
         &:not(:nth-child(4n + 1)) {
           margin-left: 24px;
         }
       }
+    }
+  }
+  .start-ups__content {
+    .team-develop {
+      justify-content: space-between;
     }
   }
 }

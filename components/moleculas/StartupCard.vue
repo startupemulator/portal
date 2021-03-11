@@ -1,10 +1,18 @@
 <template>
   <div class="startup-card" :class="i > 3 ? 'startup-card_animation' : ''">
-    <div class="startup-card__started">
+    <div v-show="!!card.state" class="startup-card__started">
       <div class="startup-card__started-state">
         <div
           class="startup-card__started-title"
-          :class="card.state === 'in_progress' ? 'started' : ''"
+          :class="
+            card.state === 'in_progress'
+              ? 'started'
+              : card.state === 'finished'
+              ? 'finished'
+              : card.state === 'feedback'
+              ? 'feedback'
+              : ''
+          "
         >
           {{ card.state.split("_").join(" ") | capitalize }}
         </div>
