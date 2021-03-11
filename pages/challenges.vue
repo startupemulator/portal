@@ -1,20 +1,33 @@
 <template>
-  <div class="startups-page">
+  <div class="challenges-page">
     <app-header></app-header>
-    <Challenges></Challenges>
+
+    <challenges :challenges="challenges"></challenges>
     <app-footer></app-footer>
   </div>
 </template>
-<script>
+<script lang="ts">
+import { Component, Vue } from "nuxt-property-decorator";
 import AppHeader from "@/components/appHeader.vue";
 import Challenges from "@/components/challenges/challenges.vue";
 import AppFooter from "~/components/appFooter.vue";
 
-export default {
+@Component({
   components: {
     AppHeader,
     Challenges,
     AppFooter,
   },
-};
+})
+export default class extends Vue {
+  // data loaded here will be added during server rendering
+  async asyncData({ $strapi }) {
+    const challenges = await $strapi.find("challenges");
+    // const specialisations = await $strapi.find("specialisations");
+    return {
+      challenges,
+      // specialisations,
+    };
+  }
+}
 </script>
