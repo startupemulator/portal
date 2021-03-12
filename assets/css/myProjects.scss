@@ -48,11 +48,13 @@
 }
 @media (min-width: 768px) {
   .my-projects {
-    width: 1368px;
+    width: auto;
+    max-width: 1368px;
     .my-projects__header {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
-      width: 1344px;
+      width: auto;
       .my-projects__header-add-project {
         display: flex;
         align-items: center;
@@ -65,9 +67,9 @@
         line-height: 80px;
         margin-right: 0;
       }
-      .u-tab {
-        margin-left: auto;
-      }
+      // .u-tab {
+      //   margin-left: auto;
+      // }
     }
   }
   .my-projects_btn {
