@@ -41,7 +41,7 @@
         ></U-button>
         <hr />
         <div class="create-account__buttons-continue">
-          <nuxt-link to="/api/v1/connect/github">
+          <nuxt-link to="/auth/github/connect">
             <U-button
               :button-name="'Continue with GitHub'"
               :button-class="'u-button-gray'"

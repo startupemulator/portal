@@ -73,11 +73,12 @@
         </div>
         <hr />
         <div class="create-account__buttons-continue">
-          <U-button
-            :button-name="'Continue with GitHub'"
-            :button-class="'u-button-gray'"
-          ></U-button>
-
+          <nuxt-link to="/auth/github/connect">
+            <U-button
+              :button-name="'Continue with GitHub'"
+              :button-class="'u-button-gray'"
+            ></U-button>
+          </nuxt-link>
           <U-button
             :button-name="'Continue with the email link'"
             :button-class="'u-button-gray'"
