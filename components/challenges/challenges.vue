@@ -32,7 +32,8 @@
             v-for="card in challenges"
             :key="card.id"
             :card="card"
-          ></challenge-card>
+          >
+          </challenge-card>
           <!-- ------------Вставить карточки циклом -->
           <!-- <div data-v-4c0228a8="" class="startup-block__startup-card">
             <div data-v-1ba1c684="" data-v-4c0228a8="" class="startup-card">

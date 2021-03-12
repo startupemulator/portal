@@ -1,17 +1,15 @@
 <template>
-  <div class="my-prodjects">
-    <div class="my-prodjects__header">
-      <div class="my-prodjects__header-add-project">
+  <div class="my-projects">
+    <div class="my-projects__header">
+      <div class="my-projects__header-add-project">
         <U-title :text="'My projects'"></U-title>
-        <button type="button" class="my-prodjects_btn">
+        <button type="button" class="my-projects_btn">
           <img src="@/assets/img/+.svg" alt="" /> <span>Create Startup</span>
         </button>
       </div>
-      <div>
-        <U-Tabs-Long :owned="false"></U-Tabs-Long>
-      </div>
+      <U-Tabs-Long :owned="true"></U-Tabs-Long>
     </div>
-    <div class="start-ups_cards-content startup-block">
+    <!-- <div class="start-ups_cards-content startup-block">
       <div data-v-4c0228a8="" class="transition__startup-card">
         <div data-v-4c0228a8="" class="startup-block__startup-card">
           <div data-v-1ba1c684="" data-v-4c0228a8="" class="startup-card">
@@ -666,21 +664,56 @@
           </div>
         </div>
       </div>
+    </div> -->
+
+    <div class="start-ups_cards-content startup-block">
+      <div class="transition__startup-card">
+        <Draft-card
+          v-for="card in draft"
+          :key="card.id"
+          :card="card"
+        ></Draft-card>
+        <Startup-card
+          v-for="card in startups"
+          :key="card.id"
+          :card="card"
+        ></Startup-card>
+      </div>
     </div>
   </div>
 </template>
-<script>
-import UTitle from "../theme/uTitle";
-import UTabsLong from "~/components/theme/utabsLong";
-export default {
+<script lang="ts">
+import { Component, Prop, Vue } from "nuxt-property-decorator";
+import UTitle from "../theme/uTitle.vue";
+import { Startup } from "../../models/Startup";
+import DraftCard from "~/components/moleculas/draftCard.vue";
+import UTabsLong from "~/components/theme/utabsLong.vue";
+import StartupCard from "~/components/moleculas/startupCard.vue";
+@Component({
   components: {
     UTitle,
     UTabsLong,
+    DraftCard,
+    StartupCard,
   },
-};
+})
+export default class extends Vue {
+  @Prop() startups: Array<Startup>;
+  @Prop({
+    default: () => [
+      {
+        id: "0",
+        title: "Startup #1",
+        description:
+          "Continue creating your own startup to gather a team you need to develop your idea. Continue creating your own startup to gather a team you need to develop your idea.",
+      },
+    ],
+  })
+  draft: Array<"Draft">;
+}
 </script>
 <style lang="scss">
-.my-prodjects {
+.my-projects {
   .startup-block {
     min-height: 100px;
   }
@@ -696,7 +729,10 @@ export default {
 }
 
 @media (min-width: 768px) {
-  .my-prodjects {
+  .my-projects {
+    .startup-block {
+      max-width: 1450px;
+    }
     .startup-block__buttons.myproject-details {
       button {
         width: 254px;

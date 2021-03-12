@@ -34,7 +34,7 @@
         </div>
       </div>
       <div class="start-ups_cards-content startup-block">
-        <div data-v-4c0228a8="" class="transition__startup-card">
+        <div class="transition__startup-card">
           <Startup-card
             v-for="card in startups"
             :key="card.id"
@@ -42,6 +42,7 @@
           ></Startup-card>
         </div>
       </div>
+
       <u-button
         :class="'u-button-gray u-button-gray__show-more'"
         :button-name="'Show More'"

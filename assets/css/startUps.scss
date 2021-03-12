@@ -56,7 +56,8 @@
   }
 }
 .startups-page .startup-block .startup-card,
-.challenges-page .startup-block .startup-card {
+.challenges-page .startup-block .startup-card,
+.my-projects .startup-block .startup-card {
   margin-top: 16px;
 }
 .startups-page .u-button-gray__show-more,
@@ -66,9 +67,10 @@
 @media (min-width: 768px) {
   .start-ups {
     width: auto;
-    max-width: 670px;
+    max-width: 1368px;
     margin: 0 auto;
   }
+
   .start-ups__content {
     .team-develop {
       margin-top: 100px;
@@ -99,6 +101,7 @@
     .start-ups__header {
       display: flex;
       flex-wrap: wrap;
+      margin-left: 12px;
       &.challenges__header {
         flex-direction: column;
       }
@@ -138,9 +141,8 @@
       flex-wrap: wrap;
       .startup-block__startup-card,
       .startup-card {
-        &:not(:nth-child(2n + 1)) {
-          margin-left: 24px;
-        }
+        margin-right: 12px;
+        margin-left: 12px;
       }
     }
   }
@@ -150,19 +152,6 @@
   }
 }
 @media (min-width: 1439px) {
-  .start-ups {
-    max-width: 1344px;
-  }
-  .start-ups_cards-content {
-    .transition__startup-card {
-      .startup-block__startup-card,
-      .startup-card {
-        &:not(:nth-child(4n + 1)) {
-          margin-left: 24px;
-        }
-      }
-    }
-  }
   .start-ups__content {
     .team-develop {
       justify-content: space-between;

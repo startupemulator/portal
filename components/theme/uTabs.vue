@@ -10,7 +10,6 @@
         >
           {{ button.title }}
           <div
-            v-show="button.active"
             :class="
               button.message
                 ? 'startup-card__started--messege'

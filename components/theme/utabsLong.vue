@@ -1,6 +1,9 @@
 <template>
   <div class="u-tab">
-    <ul class="u-tab-list">
+    <ul
+      class="u-tab-list"
+      :class="[owned ? 'mobile-owned' : '', move ? 'move' : '']"
+    >
       <li v-for="button in tabs" :key="button.id" class="u-tabs">
         <button
           type="button"
@@ -28,11 +31,12 @@ export default {
   props: {
     owned: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
   data() {
     return {
+      move: false,
       tabs: [
         {
           id: 2,
@@ -69,13 +73,17 @@ export default {
     if (!this.owned) {
       this.tabs.shift();
     }
-    console.log(this.owned);
   },
   methods: {
     activateButton(id) {
       this.tabs.forEach((tab) => {
         tab.id !== id ? (tab.active = false) : (tab.active = true);
       });
+      if (id > 3) {
+        this.move = true;
+      } else {
+        this.move = false;
+      }
     },
   },
 };
@@ -90,14 +98,27 @@ export default {
   border: 1px solid #2c3b56;
   box-sizing: border-box;
   display: inline-block;
+  max-width: 343px;
+  overflow: hidden;
+  min-height: 58px;
+  .mobile-owned {
+    left: 0;
+    width: 443px;
+    transition: 0.2s;
+    &.move {
+      left: -35px;
+    }
+  }
 }
 .u-tab-list {
+  position: relative;
   display: flex;
   margin: 0;
   padding: 8px;
   border-radius: 12px;
   box-sizing: border-box;
 }
+
 .u-tabs {
   button {
     font-weight: 500;
@@ -128,6 +149,15 @@ export default {
 @media (min-width: 768px) {
   .u-tab {
     margin-top: 48px;
+    max-width: 498px;
+    .mobile-owned {
+      left: 0;
+      width: 498px;
+      transition: 0.2s;
+      &.move {
+        left: 0;
+      }
+    }
     .u-tab-list {
       padding: 12px;
     }
