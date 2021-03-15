@@ -2,6 +2,7 @@
   <header class="main-header">
     <div class="main-header-content">
       <U-logo></U-logo>
+
       <nav class="main-header__nav">
         <ul class="nav-list">
           <li
