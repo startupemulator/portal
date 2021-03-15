@@ -28,7 +28,11 @@
             class="nav-item"
             :class="{ 'nav-item__active': active === 'challenges' }"
           >
+<<<<<<< HEAD
             <nuxt-link to="/challenges">
+=======
+            <nuxt-link to="challenges">
+>>>>>>> 048ffafcf141e501853b9214a571411fa9108e6a
               <svg
                 width="19"
                 height="24"
@@ -48,9 +52,15 @@
           <div v-if="!!$strapi.user">
             <li
               class="nav-item"
+<<<<<<< HEAD
               :class="{ 'nav-item__active': active === 'myProjects' }"
             >
               <nuxt-link to="/myProjects">
+=======
+              :class="{ 'nav-item__active': active === 'my-projects' }"
+            >
+              <nuxt-link to="myProjects">
+>>>>>>> 048ffafcf141e501853b9214a571411fa9108e6a
                 <svg
                   width="24"
                   height="24"
@@ -77,7 +87,11 @@
               class="nav-item"
               :class="{ 'nav-item__active': active === 'profile' }"
             >
+<<<<<<< HEAD
               <nuxt-link to="/profile">
+=======
+              <nuxt-link to="profile">
+>>>>>>> 048ffafcf141e501853b9214a571411fa9108e6a
                 <svg
                   width="24"
                   height="24"

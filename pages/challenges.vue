@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div class="challenges-page">
     <app-header active="challenges"></app-header>
 
@@ -6,6 +7,11 @@
       :challenges="challenges"
       :specialisations="specialisations"
     ></challenges>
+=======
+  <div class="startups-page">
+    <app-header active="challenges"></app-header>
+    <Challenges></Challenges>
+>>>>>>> 048ffafcf141e501853b9214a571411fa9108e6a
     <app-footer></app-footer>
   </div>
 </template>
