@@ -677,6 +677,8 @@
           v-for="card in startups"
           :key="card.id"
           :card="card"
+          :button_apply="false"
+          :button_details="true"
         ></Startup-card>
       </div>
     </div>

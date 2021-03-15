@@ -18,7 +18,7 @@
     <div class="profile-projects">
       <div class="profile-projects__header">
         <h3>Projects</h3>
-        <div class="profile-projects__header-roject-quantity">
+        <div class="profile-projects__header-project-quantity">
           <span>{{ startups.length }}</span>
         </div>
       </div>
@@ -29,6 +29,8 @@
           v-for="card in startups"
           :key="card.id"
           :card="card"
+          :button_apply="false"
+          :button_details="true"
         ></Startup-card>
       </div>
     </div>

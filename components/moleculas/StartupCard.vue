@@ -45,13 +45,18 @@
         </div>
       </div>
       <div class="startup-block__buttons">
-        <nuxt-link :to="'/startup/' + card.slug">
+        <nuxt-link
+          v-if="button_details"
+          :to="'/startup/' + card.slug"
+          :style="!button_apply ? 'width:100%' : ''"
+        >
           <U-button
             :button-name="'Details'"
             :button-class="'u-button-gray'"
+            :style="!button_apply ? 'width:100%' : ''"
           ></U-button>
         </nuxt-link>
-        <nuxt-link :to="'/startup/apply/' + card.slug">
+        <nuxt-link v-if="button_apply" :to="'/startup/apply/' + card.slug">
           <U-button
             :button-name="'Apply'"
             :button-class="'u-button-blue'"
@@ -72,6 +77,8 @@ import { Startup } from "~/models/Startup";
 })
 export default class StartupCard extends Vue {
   @Prop() i: number;
+  @Prop({ default: true }) button_apply: Boolean;
+  @Prop({ default: true }) button_details: Boolean;
   @Prop() card: Startup;
 }
 </script>
