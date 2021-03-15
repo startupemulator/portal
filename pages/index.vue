@@ -46,7 +46,13 @@ import UButton from "~/components/theme/uButton.vue";
     UButton,
   },
 })
-export default class Index extends Vue {}
+export default class extends Vue {
+  head() {
+    return {
+      title: "Home page",
+    };
+  }
+}
 </script>
 
 <style lang="scss">
