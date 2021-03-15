@@ -1,7 +1,11 @@
 <template>
   <div class="profile">
     <app-header active="profile"></app-header>
-    <Profile :startups="startups" :technologies="technologies"></Profile>
+    <my-profile
+      :startups="startups"
+      :technologies="technologies"
+      @copyBaseUri="copyBaseUri"
+    ></my-profile>
 
     <app-footer></app-footer>
   </div>
@@ -10,13 +14,13 @@
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 import AppHeader from "~/components/appHeader.vue";
-import profile from "~/components/profile/profile.vue";
+import myProfile from "~/components/profile/myProfile.vue";
 import AppFooter from "~/components/appFooter.vue";
 
 @Component({
   components: {
     AppHeader,
-    profile,
+    myProfile,
     AppFooter,
   },
 })
@@ -29,6 +33,13 @@ export default class extends Vue {
       startups,
       technologies,
     };
+  }
+
+  // transfer to "store" for correct work?
+  copyBaseUri() {
+    const baseUri = window.location.href;
+    // navigator.clipboard.writeText(baseUri);
+    console.log(baseUri);
   }
 }
 </script>

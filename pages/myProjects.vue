@@ -1,6 +1,6 @@
 <template>
   <div class="projects">
-    <app-header></app-header>
+    <app-header active="myProjects"></app-header>
     <my-projects :startups="startups"></my-projects>
     <app-footer></app-footer>
   </div>

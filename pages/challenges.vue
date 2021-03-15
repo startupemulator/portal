@@ -1,6 +1,6 @@
 <template>
   <div class="challenges-page">
-    <app-header></app-header>
+    <app-header active="challenges"></app-header>
 
     <challenges
       :challenges="challenges"

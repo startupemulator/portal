@@ -2,7 +2,12 @@
   width: 343px;
   margin: 0 auto;
   margin-top: 36px;
-
+  &.my-profile {
+    margin-top: 48px;
+    img {
+      cursor: pointer;
+    }
+  }
   h3 {
     font-weight: bold;
     font-size: 26px;
@@ -79,6 +84,64 @@
     margin-bottom: 8px;
   }
 }
+.profile-header {
+  .profile-header__menu {
+    width: 343px;
+    height: 208px;
+    background: #2e384a;
+    box-shadow: 0 8px 24px rgba(28, 35, 48, 0.2);
+    border-radius: 12px;
+    ul {
+      margin: 0;
+      padding: 8px 24px;
+      li {
+        height: 48px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        button {
+          padding: 0;
+        }
+        img {
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+    button {
+      background: transparent;
+      font-weight: 500;
+      font-size: 17px;
+      line-height: 32px;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  .profile-header__account-data {
+    margin-top: 32px;
+
+    span {
+      color: #8c97ac;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 24px;
+    }
+    .account-data__email {
+      display: inline-block;
+      margin-top: 24px;
+    }
+    p {
+      margin: 0;
+      font-weight: 500;
+      font-size: 17px;
+      line-height: 24px;
+      color: $main-text-color;
+    }
+  }
+}
+
 @media (min-width: 768px) {
   .profile-content {
     width: 690px;
@@ -123,6 +186,51 @@
         font-weight: normal;
         font-size: 14px;
         line-height: 24px;
+      }
+    }
+  }
+  .profile-content.my-profile {
+    width: 1344px;
+    padding: 0;
+    .profile__personal-achivements {
+      h3 {
+        margin-top: -28px;
+      }
+    }
+    .profile-projects__experience {
+      margin-top: 0;
+      h3 {
+        margin-top: 24px;
+      }
+    }
+    .profile-header__account-data {
+      display: flex;
+      width: 800px;
+      align-items: baseline;
+      margin-top: -160px;
+      div {
+        margin-right: 24px;
+      }
+    }
+  }
+  .my-profile {
+    .profile-header {
+      display: flex;
+      flex-wrap: wrap;
+      .profile-header__menu {
+        width: 318px;
+        height: 240px;
+        margin-top: 24px;
+        ul {
+          li {
+            height: 56px;
+          }
+        }
+      }
+      h2 {
+        width: 900px;
+        margin-top: 24px;
+        margin-left: 0;
       }
     }
   }

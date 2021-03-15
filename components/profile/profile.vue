@@ -1,7 +1,9 @@
 <template>
   <div class="profile-content">
-    <u-back :link="'/'"></u-back>
-    <U-title :text="'Name Surname'"> </U-title>
+    <div class="profile-header">
+      <u-back :link="'/'"></u-back>
+      <U-title :text="'Name Surname'"> </U-title>
+    </div>
     <div class="profile__personal-achivements">
       <h3>Personal achivements</h3>
       <div class="arhivements-image">

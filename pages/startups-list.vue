@@ -1,6 +1,6 @@
 <template>
   <div class="startups-page">
-    <app-header active="startups"></app-header>
+    <app-header active="startups-list"></app-header>
     <startups-list
       :startups="startups"
       :technologies="technologies"
