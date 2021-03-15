@@ -60,7 +60,7 @@
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import { Startup } from "../../models/Startup";
 import Uback from "../theme/uBack.vue";
-import UButton from "../theme/uButton";
+import UButton from "../theme/uButton.vue";
 import UTitle from "../theme/uTitle.vue";
 import { Technology } from "../../models/Technology";
 import UTags from "../theme/uTags.vue";
