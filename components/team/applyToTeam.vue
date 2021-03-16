@@ -1,16 +1,11 @@
 <template>
   <div class="apply-to-team">
     <U-back v-if="applyToTeamStep1" :link="'/'"></U-back>
-    <div
+    <U-back
       v-if="!applyToTeamStep1"
-      class="button-back"
-      @click="applyToTeamGoStep2"
-    >
-      <button type="button" class="btn-back">
-        <img src="@/assets/img/arrow.svg" alt="arrow" />
-        <span>Back</span>
-      </button>
-    </div>
+      :is-button="true"
+      @clikOnButton="applyToTeamGoStep2"
+    ></U-back>
     <apply-to-team-step-1
       v-if="applyToTeamStep1"
       @applyToTeamGoStep2="applyToTeamGoStep2"

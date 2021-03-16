@@ -23,6 +23,7 @@ import AppFooter from "~/components/appFooter.vue";
     myProfile,
     AppFooter,
   },
+  middleware: ["deny-unauthenticated"],
 })
 export default class extends Vue {
   // data loaded here will be added during server rendering
