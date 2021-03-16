@@ -24,10 +24,10 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import uBack from "../theme/uBack.vue";
-import UTitle from "../theme/uTitle.vue";
-import UInput from "../theme/uInput.vue";
-import uButton from "../theme/uButton.vue";
+import uBack from "../atoms/uBack.vue";
+import UTitle from "../atoms/uTitle.vue";
+import UInput from "../atoms/uInput.vue";
+import uButton from "../atoms/uButton.vue";
 @Component({
   components: {
     uBack,

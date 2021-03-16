@@ -8,7 +8,7 @@
       >
         <span>{{ choosenSpeciality }}</span>
         <img
-          src="@/assets/img/arrow.svg"
+          src="~/assets/img/arrow.svg"
           alt="arrow"
           :style="
             openSpeciality ? 'transform: rotate(-90deg); transition: 1s' : ''

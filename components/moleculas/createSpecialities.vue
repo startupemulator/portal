@@ -12,7 +12,7 @@
         >
           <span>{{ choosenSpeciality }}</span>
           <img
-            src="@/assets/img/arrow.svg"
+            src="~/assets/img/arrow.svg"
             alt="arrow"
             :style="
               openSpeciality ? 'transform: rotate(-90deg); transition: 1s' : ''
@@ -25,7 +25,7 @@
           type="button"
           @click="$emit('removeSpeciality')"
         >
-          <img src="@/assets/img/close.svg" alt="" />
+          <img src="~/assets/img/close.svg" alt="" />
         </button>
         <ul v-show="openSpeciality" class="specialityOne__item-list">
           <li
@@ -124,7 +124,7 @@
   </div>
 </template>
 <script>
-import UButton from "~/components/theme/uButton";
+import UButton from "~/components/atoms/uButton";
 
 export default {
   components: {

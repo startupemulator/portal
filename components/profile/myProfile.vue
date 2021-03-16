@@ -99,14 +99,14 @@
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import { Startup } from "../../models/Startup";
 
-import UButton from "../theme/uButton.vue";
-import UTitle from "../theme/uTitle.vue";
+import UButton from "../atoms/uButton.vue";
+import UTitle from "../atoms/uTitle.vue";
 import { Technology } from "../../models/Technology";
-import UTags from "../theme/uTags.vue";
+import UTags from "../atoms/uTags.vue";
+import badgePopup from "../moleculas/badgePopup.vue";
 import EditProfile from "./editProfile.vue";
 import ChangePassword from "./changePassword.vue";
 import StartupCard from "~/components/moleculas/startupCard.vue";
-import badgePopup from "~/components/theme/badgePopup.vue";
 
 @Component({
   components: {

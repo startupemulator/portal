@@ -6,27 +6,25 @@
         class="sign-up-link__close"
         @click="$emit('closePopupLinkSent')"
       >
-        <img src="@/assets/img/close.svg" alt="Close" />
+        <img src="~/assets/img/close.svg" alt="Close" />
       </button>
-      <u-title :text="'You successfully applied'"></u-title>
+      <u-title :text="'The challenge has started'"></u-title>
       <p>
-        You will receive an email notification when Product owner selects
-        developer for a team. Also, you are able to apply to other startups.
+        Come back when you complete this challenge and get feedback from our
+        experts. Also, feel free to request feedback when you are in progress.
       </p>
       <U-button
-        :button-name="'Discover More Startups'"
+        :button-name="'Got It'"
         :button-class="'u-button-blue'"
       ></U-button>
     </div>
   </div>
 </template>
 <script>
-import UButton from "./uButton";
-import UTitle from "./uTitle";
+import UButton from "../atoms/uButton";
 export default {
   components: {
     UButton,
-    UTitle,
   },
 };
 </script>

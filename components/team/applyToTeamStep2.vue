@@ -14,9 +14,9 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
-import USelect from "../theme/uSelect.vue";
-import UButton from "../theme/uButton.vue";
-import UTitle from "../theme/uTitle.vue";
+import USelect from "../atoms/uSelect.vue";
+import UButton from "../atoms/uButton.vue";
+import UTitle from "../atoms/uTitle.vue";
 import { Startup } from "../../models/Startup";
 
 @Component({

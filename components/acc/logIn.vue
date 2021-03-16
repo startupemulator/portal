@@ -68,14 +68,14 @@
 </template>
 
 <script lang="ts">
-import UBack from "@/components/theme/uBack";
 import { email, minLength, required } from "vuelidate/lib/validators";
 import { Component, Vue } from "nuxt-property-decorator";
-import UTitle from "../theme/uTitle";
-import UInput from "../theme/uInput";
-import UButton from "../theme/uButton";
-import PopupEmailLink from "../theme/popupEmailLink";
-import SigningUpLinkSent from "../theme/signingUpLinkSent";
+import UBack from "../atoms/uBack.vue";
+import UTitle from "../atoms/uTitle.vue";
+import UInput from "../atoms/uInput.vue";
+import UButton from "../atoms/uButton.vue";
+import PopupEmailLink from "../moleculas/popupEmailLink.vue";
+import SigningUpLinkSent from "../moleculas/signingUpLinkSent.vue";
 
 @Component({
   validations: {

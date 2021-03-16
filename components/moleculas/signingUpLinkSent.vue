@@ -6,7 +6,7 @@
         class="sign-up-link__close"
         @click="$emit('closePopupLinkSent')"
       >
-        <img src="@/assets/img/close.svg" alt="Close" />
+        <img src="~/assets/img/close.svg" alt="Close" />
       </button>
       <u-title :text="'Signing up link was sent'"></u-title>
       <p>

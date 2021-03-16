@@ -665,11 +665,11 @@
   </div>
 </template>
 <script>
-import UTitle from "../theme/uTitle";
-import TechnologyItem from "../theme/technologyItem";
+import UTitle from "../atoms/uTitle";
+import TechnologyItem from "../moleculas/technologyItem";
 import AppTeamDevelop from "../homePage/appTeamDevelop.vue";
-import UTabs from "~/components/theme/uTabs";
-import Ubutton from "~/components/theme/uButton";
+import UTabs from "~/components/atoms/uTabs";
+import Ubutton from "~/components/atoms/uButton";
 
 export default {
   components: {

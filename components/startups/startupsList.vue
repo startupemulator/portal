@@ -53,14 +53,14 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
-import UTitle from "../theme/uTitle.vue";
-import Ubutton from "../theme/uButton.vue";
+import UTitle from "../atoms/uTitle.vue";
+import Ubutton from "../atoms/uButton.vue";
 import AppTeamDevelop from "../homePage/appTeamDevelop.vue";
 import { Startup } from "../../models/Startup";
 import { Technology } from "../../models/Technology";
-import UTags from "../theme/uTags.vue";
+import UTags from "../atoms/uTags.vue";
+import UTabs from "../atoms/uTabs.vue";
 import StartupCard from "~/components/moleculas/startupCard.vue";
-import UTabs from "~/components/theme/uTabs.vue";
 
 @Component({
   components: {

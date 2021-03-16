@@ -32,8 +32,8 @@
 </template>
 <script>
 // import { mapState } from "vuex";
-import UBack from "../theme/uBack";
-import UTitle from "../theme/uTitle";
+import UBack from "../atoms/uBack";
+import UTitle from "../atoms/uTitle";
 import createProjectStep1 from "./createProjectStep-1.vue";
 import createProjectStep2 from "./createProjectStep-2.vue";
 import createProjectStep3 from "./createProjectStep-3.vue";

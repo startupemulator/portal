@@ -65,9 +65,9 @@
 </template>
 <script>
 import { mapState } from "vuex";
-import UButton from "~/components/theme/uButton.vue";
-import DurationPicker from "~/components/theme/durationPicker";
-import AddInput from "~/components/theme/addInput";
+import UButton from "~/components/atoms/uButton.vue";
+import DurationPicker from "~/components/moleculas/durationPicker";
+import AddInput from "~/components/atoms/addInput";
 
 export default {
   components: {

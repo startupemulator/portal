@@ -24,8 +24,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
-import UBack from "../theme/uBack.vue";
-import PopupApplied from "../theme/popupApplied.vue";
+import UBack from "../atoms/uBack.vue";
+import PopupApplied from "../moleculas/popupApplied.vue";
 import applyToTeamStep1 from "./applyToTeamStep1.vue";
 import applyToTeamStep2 from "./applyToTeamStep2.vue";
 import { Startup } from "~/models/Startup";

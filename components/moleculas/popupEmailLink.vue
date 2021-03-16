@@ -6,7 +6,7 @@
         class="sign-up-link__close"
         @click="$emit('closePopupLinkEmail')"
       >
-        <img src="@/assets/img/close.svg" alt="Close" />
+        <img src="~/assets/img/close.svg" alt="Close" />
       </button>
       <u-title :text="'Sign up with the email link'"></u-title>
       <p>
@@ -35,9 +35,9 @@
   </div>
 </template>
 <script>
-import UButton from "./uButton.vue";
-import UTitle from "./uTitle.vue";
-import UInput from "./uInput.vue";
+import UButton from "../atoms/uButton.vue";
+import UTitle from "../atoms/uTitle.vue";
+import UInput from "../atoms/uInput.vue";
 export default {
   components: { UTitle, UButton, UInput },
   data() {

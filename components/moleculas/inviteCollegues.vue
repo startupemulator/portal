@@ -6,7 +6,7 @@
         class="sign-up-link__close"
         @click="$emit('closePopupLinkEmail')"
       >
-        <img src="@/assets/img/close.svg" alt="Close" />
+        <img src="~/assets/img/close.svg" alt="Close" />
       </button>
       <h2>Invite collegues</h2>
       <p>Invite someone you want to join your team as a developer.</p>
@@ -20,7 +20,7 @@
           >
             <span>{{ choosenSpeciality }}</span>
             <img
-              src="@/assets/img/arrow.svg"
+              src="~/assets/img/arrow.svg"
               alt="arrow"
               :style="
                 openSpeciality
@@ -60,8 +60,8 @@
   </div>
 </template>
 <script>
-import UInput from "./uInput.vue";
-import UButton from "./uButton.vue";
+import UInput from "../atoms/uInput.vue";
+import UButton from "../atoms/uButton.vue";
 export default {
   components: { UInput, UButton },
   data() {

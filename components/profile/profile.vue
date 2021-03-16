@@ -59,11 +59,11 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import { Startup } from "../../models/Startup";
-import Uback from "../theme/uBack.vue";
-import UButton from "../theme/uButton.vue";
-import UTitle from "../theme/uTitle.vue";
+import Uback from "../atoms/uBack.vue";
+import UButton from "../atoms/uButton.vue";
+import UTitle from "../atoms/uTitle.vue";
 import { Technology } from "../../models/Technology";
-import UTags from "../theme/uTags.vue";
+import UTags from "../atoms/uTags.vue";
 import StartupCard from "~/components/moleculas/startupCard.vue";
 @Component({
   components: {

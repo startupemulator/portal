@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import UButton from "../theme/uButton.vue";
+import UButton from "../atoms/uButton.vue";
 
 export default {
   components: { UButton },

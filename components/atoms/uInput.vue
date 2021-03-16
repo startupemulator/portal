@@ -16,7 +16,7 @@
       type="button"
       @click="typeToggle"
     >
-      <img src="@/assets/img/eye.svg" alt="show password" />
+      <img src="~/assets/img/eye.svg" alt="show password" />
     </button>
     <span v-if="false" class="account-email-empty"
       >Please enter an email address</span

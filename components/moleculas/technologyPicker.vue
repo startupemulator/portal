@@ -22,7 +22,7 @@
   </div>
 </template>
 <script>
-import UTags from "./uTags";
+import UTags from "../atoms/uTags";
 export default {
   components: {
     UTags,

@@ -676,13 +676,13 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
-import UTitle from "../theme/uTitle.vue";
+import UTitle from "../atoms/uTitle.vue";
 import AppTeamDevelop from "../homePage/appTeamDevelop.vue";
-import UTags from "../theme/uTags.vue";
+import UTags from "../atoms/uTags.vue";
 import { Challenge } from "../../models/Challenge";
 import { Specialisation } from "../../models/Specialisation";
 import ChallengeCard from "../moleculas/challengeCard.vue";
-import Ubutton from "../theme/uButton.vue";
+import Ubutton from "../atoms/uButton.vue";
 
 @Component({
   components: {

@@ -6,7 +6,7 @@
         class="sign-up-link__close"
         @click="$emit('closePopupLinkSent')"
       >
-        <img src="@/assets/img/close.svg" alt="Close" />
+        <img src="~/assets/img/close.svg" alt="Close" />
       </button>
       <u-title :text="'You successfully applied'"></u-title>
       <p>
@@ -21,8 +21,8 @@
   </div>
 </template>
 <script>
-import UButton from "./uButton";
-import UTitle from "./uTitle";
+import UButton from "../atoms/uButton";
+import UTitle from "../atoms/uTitle";
 export default {
   components: {
     UButton,

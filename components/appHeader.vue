@@ -178,8 +178,8 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
-import UButton from "~/components/theme/uButton.vue";
-import ULogo from "~/components/theme/uLogo.vue";
+import UButton from "./atoms/uButton.vue";
+import ULogo from "./atoms/uLogo.vue";
 
 @Component({
   components: { UButton, ULogo },

@@ -686,10 +686,10 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
-import UTitle from "../theme/uTitle.vue";
+import UTitle from "../atoms/uTitle.vue";
 import { Startup } from "../../models/Startup";
+import UTabsLong from "../atoms/utabsLong.vue";
 import DraftCard from "~/components/moleculas/draftCard.vue";
-import UTabsLong from "~/components/theme/utabsLong.vue";
 import StartupCard from "~/components/moleculas/startupCard.vue";
 @Component({
   components: {

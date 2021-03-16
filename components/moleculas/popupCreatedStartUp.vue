@@ -6,7 +6,7 @@
         class="sign-up-link__close"
         @click="$emit('closePopup')"
       >
-        <img src="@/assets/img/close.svg" alt="Close" />
+        <img src="~/assets/img/close.svg" alt="Close" />
       </button>
       <u-title :text="'You successfully created your startup'"></u-title>
       <p>
@@ -21,8 +21,8 @@
   </div>
 </template>
 <script>
-import UTitle from "~/components/theme/uTitle";
-import UButton from "~/components/theme/uButton";
+import UTitle from "~/components/atoms/uTitle";
+import UButton from "~/components/atoms/uButton";
 export default {
   components: {
     UButton,

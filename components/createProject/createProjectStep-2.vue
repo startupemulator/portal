@@ -66,9 +66,9 @@
   </div>
 </template>
 <script>
-import UButton from "~/components/theme/uButton";
-import CreateSpecialities from "~/components/theme/createSpecialities";
-import inviteCollegues from "~/components/theme/inviteCollegues";
+import UButton from "~/components/atoms/uButton";
+import CreateSpecialities from "~/components/moleculas/createSpecialities";
+import inviteCollegues from "~/components/moleculas/inviteCollegues";
 
 export default {
   components: {

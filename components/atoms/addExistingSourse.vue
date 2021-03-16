@@ -11,7 +11,7 @@
         type="button"
         @click="$emit('removeExistingSources')"
       >
-        <img src="@/assets/img/close.svg" alt="" />
+        <img src="~/assets/img/close.svg" alt="" />
       </button>
     </div>
   </div>

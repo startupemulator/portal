@@ -4,7 +4,7 @@
       <li v-for="(item, i) in addData" :key="item.id" class="input-add__item">
         <span> {{ item.name }} </span>
         <button class="input-add__remove" @click="removeItem(i)">
-          <img src="@/assets/img/close.svg" alt="close" />
+          <img src="~/assets/img/close.svg" alt="close" />
         </button>
       </li>
       <input

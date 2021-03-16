@@ -3,21 +3,24 @@
     <p>{{ name }}</p>
     <div class="existing-sources__link-name">
       <div class="link-name__inputs">
-        <U-input :type="'text'" :placeholder="'Enter a link name'"></U-input>
-        <U-input :type="'text'" :placeholder="'https://...'"></U-input>
+        <U-input :type="'text'" :placeholder="'Enter an item name'"></U-input>
+        <textarea
+          class="guide-comments"
+          placeholder="Enter your comment"
+        ></textarea>
       </div>
       <button
         class="button-remove-link"
         type="button"
-        @click="$emit('removeExistingSources')"
+        @click="$emit('removeGuideSources')"
       >
-        <img src="@/assets/img/close.svg" alt="" />
+        <img src="~/assets/img/close.svg" alt="" />
       </button>
     </div>
   </div>
 </template>
 <script>
-import UInput from "./uInput.vue";
+import UInput from "../atoms/uInput.vue";
 
 export default {
   components: { UInput },
