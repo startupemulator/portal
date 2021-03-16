@@ -34,7 +34,7 @@ export default {
     "@nuxtjs/stylelint-module",
     "@nuxtjs/eslint-module",
     "@nuxt/typescript-build",
-    // "@nuxtjs/device",
+    "@nuxtjs/device",
     // "nuxt-purgecss",
   ],
   typescript: {
