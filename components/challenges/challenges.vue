@@ -1,5 +1,5 @@
 <template>
-  <div class="start-ups challenges">
+  <div class="start-ups startup-block challenges">
     <div class="start-ups__content">
       <div class="start-ups__header challenges__header">
         <U-title :text="'Challenges'"></U-title>
@@ -10,26 +10,32 @@
             :class="filterList ? 'filter_list--opend' : ''"
           >
             <li
-              v-for="technologi in technologies"
-              :key="Math.random() + technologi.id"
+              v-for="(specialisation, i) in specialisations"
+              :key="specialisation.id"
               class="start-ups__header-filter_item"
             >
               <U-tags
-                :technologi-id="technologi.id"
-                :technologi-name="technologi.name"
-                :checked-class="technologi.checked ? 'checked' : ''"
-                @pickTechnologi="
-                  pickTechnologi($event, technologi.id, technologi.name)
-                "
+                :id="specialisation.id"
+                :title="specialisation.title"
+                :name="specialisation.title"
+                :type="'checkbox'"
+                :checked-class="specialisation.checked ? 'checked' : ''"
+                @pick="specialty(i)"
               ></U-tags>
             </li>
           </ul>
         </div>
       </div>
+
       <div class="start-ups_cards-content startup-block">
         <div data-v-4c0228a8="" class="transition__startup-card">
-          <!-- ------------Вставить карточки цыклом -->
-          <div data-v-4c0228a8="" class="startup-block__startup-card">
+          <challenge-card
+            v-for="card in challenges"
+            :key="card.id"
+            :card="card"
+          ></challenge-card>
+          <!-- ------------Вставить карточки циклом -->
+          <!-- <div data-v-4c0228a8="" class="startup-block__startup-card">
             <div data-v-1ba1c684="" data-v-4c0228a8="" class="startup-card">
               <div data-v-1ba1c684="" class="startup-card__started">
                 <div class="startup-card__started-state">
@@ -655,47 +661,58 @@
                 </div>
               </div>
             </div>
-          </div>
-          <!-- ------------Вставить карточки цыклом  END   -->
+          </div> -->
+          <!-- ------------Вставить карточки циклом  END   -->
         </div>
       </div>
-
       <app-team-develop></app-team-develop>
     </div>
   </div>
 </template>
-<script>
-import UTitle from "../theme/uTitle";
+<script lang="ts">
+import { Component, Prop, Vue } from "nuxt-property-decorator";
+import UTitle from "../theme/uTitle.vue";
 import AppTeamDevelop from "../homePage/appTeamDevelop.vue";
-import UTags from "../theme/uTags";
+import UTags from "../theme/uTags.vue";
+import { Challenge } from "../../models/Challenge";
+import { Technology } from "../../models/Technology";
+import ChallengeCard from "../moleculas/challengeCard.vue";
 
-export default {
+@Component({
   components: {
     UTitle,
-
     UTags,
     AppTeamDevelop,
+    ChallengeCard,
   },
+})
+export default class extends Vue {
+  @Prop()
+  challenges: Array<Challenge>;
 
-  UTagsdata() {
-    return {
-      filterList: false,
-      technologies: [
-        { id: 1, checked: false, name: "Full Stack Developer" },
-        { id: 2, checked: false, name: "Back-end Developer" },
-        { id: 3, checked: false, name: "Front-end Developer" },
-        { id: 4, checked: false, name: "UI/UX Designer" },
-      ],
-    };
-  },
-  methods: {
-    pickTechnologi(item, i) {
-      this.technologies.forEach((el) => {
-        if (i === el.id) {
-          el.checked = !el.checked;
-        }
-      });
+  @Prop({
+    default() {
+      return [
+        { id: 1, checked: false, title: "Full Stack Developer" },
+        { id: 2, checked: false, title: "Back-end Developer" },
+        { id: 3, checked: false, title: "Front-end Developer" },
+        { id: 4, checked: false, title: "UI/UX Designer" },
+      ];
     },
-  },
-};
+  })
+  specialisations: Array<Technology>;
+
+  private filterList: boolean = false;
+  toggleFilserList() {
+    this.filterList = !this.filterList;
+  }
+
+  specialty(i) {
+    this.specialisations.forEach((el) => {
+      if (i + 1 === el.id) {
+        el.checked = !el.checked;
+      }
+    });
+  }
+}
 </script>

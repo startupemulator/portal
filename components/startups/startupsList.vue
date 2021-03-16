@@ -13,6 +13,7 @@
               <technology-item
                 v-for="item in technologies"
                 :key="item.id"
+                :technologi-id="item.id"
                 :title="item.title"
               ></technology-item>
             </li>
