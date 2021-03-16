@@ -14,20 +14,21 @@
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import { Startup } from "../models/Startup";
-import { Challenge } from "../models/Challenge";
-import { Testimonial } from "../models/Testimonial";
-import Specialisations from "../store/modules/Specialisations";
-import AppTestimonials from "../components/homePage/appTestimonials.vue";
-import AppHeader from "~/components/appHeader.vue";
-import AppGetExperience from "~/components/homePage/appGetExperience.vue";
-import AppStartupsBlock from "~/components/homePage/appStartupsBlock.vue";
-import AppChallengesBlock from "~/components/homePage/appChallengesBlock.vue";
-import AppTeamDevelop from "~/components/homePage/appTeamDevelop.vue";
-import AppTakePart from "~/components/homePage/appTakePart.vue";
-import AppTopStartups from "~/components/homePage/appTopStartups.vue";
-import AppFooter from "~/components/appFooter.vue";
+import { Startup } from "~/models/Startup";
+import { Challenge } from "~/models/Challenge";
+import { Testimonial } from "~/models/Testimonial";
+import Specialisations from "~/store/modules/Specialisations";
+
 import Technologies from "~/store/modules/Technologies";
+import AppHeader from "~/components/molecules/appHeader";
+import AppFooter from "~/components/molecules/appFooter";
+import AppChallengesBlock from "~/components/organisms/landing/appChallengesBlock";
+import AppGetExperience from "~/components/organisms/landing/appGetExperience";
+import AppStartupsBlock from "~/components/organisms/landing/appStartupsBlock";
+import AppTeamDevelop from "~/components/organisms/landing/appTeamDevelop";
+import AppTakePart from "~/components/organisms/landing/appTakePart";
+import AppTopStartups from "~/components/organisms/landing/appTopStartups";
+import AppTestimonials from "~/components/organisms/landing/appTestimonials";
 
 @Component({
   components: {

@@ -6,9 +6,9 @@
   </div>
 </template>
 <script>
-import AppHeader from "@/components/appHeader";
-import StartUps from "@/components/startups/startUps";
-import AppFooter from "~/components/appFooter";
+import AppHeader from "~/components/molecules/appHeader";
+import StartUps from "~/components/organisms/startups/startUps";
+import AppFooter from "~/components/molecules/appFooter";
 
 export default {
   components: {

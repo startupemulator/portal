@@ -9,10 +9,10 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import AppFooter from "~/components/appFooter.vue";
-import appHeader from "~/components/appHeader.vue";
+import AppFooter from "~/components/molecules/appFooter.vue";
+import appHeader from "~/components/molecules/appHeader.vue";
 
-import CreateProject from "~/components/createProject/createProject.vue";
+import CreateProject from "~/components/organisms/startups/createProject.vue";
 
 @Component({
   components: {

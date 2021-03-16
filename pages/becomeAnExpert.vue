@@ -6,9 +6,9 @@
   </div>
 </template>
 <script>
-import AppHeader from "~/components/appHeader.vue";
-import BecomeAnExpert from "~/components/becomeAnExpert/becomeAnExpert";
-import AppFooter from "~/components/appFooter.vue";
+import AppHeader from "~/components/molecules/appHeader.vue";
+import BecomeAnExpert from "~/components/organisms/becomeAnExpert/becomeAnExpert";
+import AppFooter from "~/components/molecules/appFooter.vue";
 
 export default {
   components: {

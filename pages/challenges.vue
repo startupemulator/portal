@@ -12,9 +12,9 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import AppHeader from "@/components/appHeader.vue";
-import Challenges from "@/components/challenges/challenges.vue";
-import AppFooter from "~/components/appFooter.vue";
+import AppHeader from "~/components/molecules/appHeader.vue";
+import Challenges from "~/components/organisms/challenges/challenges.vue";
+import AppFooter from "~/components/molecules/appFooter.vue";
 
 @Component({
   components: {

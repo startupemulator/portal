@@ -8,9 +8,9 @@
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 
-import AppHeader from "~/components/appHeader.vue";
-import myProjects from "~/components/myprojects/myProjects.vue";
-import AppFooter from "~/components/appFooter.vue";
+import AppHeader from "~/components/molecules/appHeader.vue";
+import myProjects from "~/components/organisms/myprojects/myProjects.vue";
+import AppFooter from "~/components/molecules/appFooter.vue";
 
 @Component({
   components: {

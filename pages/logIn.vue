@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import AppHeader from "@/components/appHeader.vue";
-import LogIn from "@/components/acc/logIn.vue";
-import AppFooter from "~/components/appFooter.vue";
+import AppHeader from "~/components/molecules/appHeader.vue";
+import LogIn from "~/components/organisms/user/logIn.vue";
+import AppFooter from "~/components/molecules/appFooter.vue";
 
 export default {
   components: {

@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import AppHeader from "@/components/appHeader.vue";
-import CreateAccount from "@/components/acc/createAccount.vue";
-import AppFooter from "~/components/appFooter.vue";
+import AppHeader from "~/components/molecules/appHeader.vue";
+import CreateAccount from "~/components/organisms/user/createAccount.vue";
+import AppFooter from "~/components/molecules/appFooter.vue";
 
 export default {
   components: {

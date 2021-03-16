@@ -8,10 +8,10 @@
   </div>
 </template>
 <script>
-import AppFooter from "~/components/appFooter.vue";
-import appHeader from "~/components/appHeader.vue";
+import AppFooter from "~/components/molecules/appFooter.vue";
+import appHeader from "~/components/molecules/appHeader.vue";
 
-import CreateProdgect from "~/components/createProject/createProject.vue";
+import CreateProdgect from "~/components/organisms/startups/createProject.vue";
 export default {
   components: {
     appHeader,
