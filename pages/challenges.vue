@@ -1,10 +1,12 @@
 <template>
   <div class="startups-page">
     <app-header active="challenges"></app-header>
+
     <Challenges
       :challenges="challenges"
       :specialisations="specialisations"
     ></Challenges>
+
     <app-footer></app-footer>
   </div>
 </template>

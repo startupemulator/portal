@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "StartupEmulator",
+    title: "StartupEmulator - training platform for developers",
     htmlAttrs: {
       lang: "en",
     },
@@ -82,5 +82,7 @@ export default {
   axios: {},
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    // analyze: true,
+  },
 };

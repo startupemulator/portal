@@ -19,7 +19,8 @@
                 :title="specialisation.title"
                 :name="specialisation.title"
                 :type="'checkbox'"
-                @pick="pickTechnologi($event)"
+                :checked-class="specialisation.checked ? 'checked' : ''"
+                @pick="specialty(i)"
               ></U-tags>
             </li>
           </ul>
@@ -704,14 +705,12 @@ export default class extends Vue {
     this.filterList = !this.filterList;
   }
 
-  pickTechnologi(event) {
-    const el = event.target;
-
-    if (el.checked & !el.parentElement.classList.contains("checked")) {
-      el.parentElement.classList.add("checked");
-    } else {
-      el.parentElement.classList.remove("checked");
-    }
+  specialty(i) {
+    this.specialisations.forEach((el) => {
+      if (i + 1 === el.id) {
+        el.checked = !el.checked;
+      }
+    });
   }
 }
 </script>

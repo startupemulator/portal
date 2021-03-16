@@ -14,7 +14,8 @@
     opacity: 1;
     margin-top: 0;
     // width: 327px;
-    min-height: 418px;
+    min-height: 362px;
+    padding-bottom: 32px;
   }
   .startup-card__started-text {
     margin-top: 5px;
@@ -241,6 +242,7 @@
   margin-left: 8px;
 }
 
+
 @media (min-width: 426px) {
   .challenges-page .start-ups__content .startup-card__started-name {
     margin-top: 0;
@@ -254,7 +256,7 @@
     .startup-card {
       margin-top: -5px;
       width: 318px;
-      min-height: 448px;
+
     }
     .startup-card__started-name {
       padding-top: 50px;
@@ -403,6 +405,9 @@
 }
 
 @media (min-width: 768px) {
+  .startup-block.challenges .startup-card__started-name {
+    padding-top: 0;
+}
   .practicants {
     .startup-block-content__desktop-buttons {
       align-items: baseline;
@@ -443,6 +448,9 @@
       min-height: 197px;
     }
   }
+  // .startup-block.challenges .startup-card__started-name{
+  //   padding-top: 32px;
+  // }
 }
 
 @media (min-width: 1024px) {

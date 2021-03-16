@@ -44,7 +44,7 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 import { Testimonial } from "../../models/Testimonial";
 
 @Component({})
-export default class AppPracticants extends Vue {
+export default class extends Vue {
   @Prop() cards: Array<Testimonial>;
 }
 </script>
