@@ -17,7 +17,7 @@
   </div>
 </template>
 <script>
-import UInput from "./uInput.vue";
+import UInput from "../atoms/uInput.vue";
 
 export default {
   components: { UInput },

@@ -686,9 +686,9 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
+import UTabsLong from "../../atoms/uTabsLong.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import { Startup } from "~/models/Startup";
-import UTabsLong from "~/components/atoms/utabsLong.vue";
 import DraftCard from "~/components/molecules/draftCard.vue";
 import StartupCard from "~/components/molecules/startupCard.vue";
 @Component({

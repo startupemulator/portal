@@ -34,7 +34,7 @@
 </template>
 <script>
 import UButton from "~/components/atoms/uButton";
-import AddExistingSourse from "~/components/atoms/addExistingSourse";
+import AddExistingSourse from "~/components/molecules/addExistingSourse";
 export default {
   components: { UButton, AddExistingSourse },
   data() {
