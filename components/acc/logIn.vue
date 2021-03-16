@@ -3,26 +3,26 @@
     <form>
       <div class="create-account">
         <U-Back link="/"></U-Back>
-        <U-Title :text="'Log in'"> </U-Title>
+        <U-Title :text="'Log in'"></U-Title>
         <U-input
           :placeholder="'Enter your email'"
           :type="'email'"
           :account-class="
-            validInput.email
+            $v.email.$error
               ? 'create-account__email error'
               : 'create-account__email'
           "
           :img="require('~/assets/img/email.svg')"
           @textInput="checkEmail"
         ></U-input>
-        <p v-show="validInput.email" class="errorInput">
+        <p v-show="$v.email.$error" class="errorInput">
           Please enter an email address
         </p>
         <U-input
           :placeholder="'Enter your password'"
           :type="'password'"
           :account-class="
-            validInput.password
+            $v.password.$error
               ? 'create-account__password error'
               : 'create-account__password'
           "
@@ -30,8 +30,8 @@
           :btn-show-password="true"
           @textInput="checkPassword"
         ></U-input>
-        <p v-show="validInput.password" class="errorInput">
-          Please enter a password of at least 6 characters
+        <p v-show="$v.password.$error" class="errorInput">
+          Please enter a password of at least 8 characters
         </p>
 
         <U-button
@@ -61,20 +61,33 @@
       @openPopupLinkSent="showPopupLinkSent"
     ></popup-email-link>
     <signing-up-link-sent
-      v-if="popupSiginigUpLink"
+      v-if="popupSignUpLink"
       @closePopupLinkSent="showPopupLinkSent"
     ></signing-up-link-sent>
   </div>
 </template>
-<script>
+
+<script lang="ts">
 import UBack from "@/components/theme/uBack";
+import { email, minLength, required } from "vuelidate/lib/validators";
+import { Component, Vue } from "nuxt-property-decorator";
 import UTitle from "../theme/uTitle";
 import UInput from "../theme/uInput";
 import UButton from "../theme/uButton";
 import PopupEmailLink from "../theme/popupEmailLink";
 import SigningUpLinkSent from "../theme/signingUpLinkSent";
 
-export default {
+@Component({
+  validations: {
+    email: {
+      required,
+      email,
+    },
+    password: {
+      required,
+      minLength: minLength(8),
+    },
+  },
   components: {
     UBack,
     UTitle,
@@ -83,53 +96,57 @@ export default {
     PopupEmailLink,
     SigningUpLinkSent,
   },
-  data: () => ({
-    email: "",
-    password: "",
-    popupEmailLink: false,
-    popupSiginigUpLink: false,
-    validInput: {
-      email: false,
-      password: false,
-    },
-    emailPattern: /^([\w-.]+@([\w-]+\.)+[\w-]{2,4})?$/,
-  }),
-  computed: {},
-  methods: {
-    async login() {
+})
+export default class extends Vue {
+  email: string;
+  password: string;
+  popupEmailLink: boolean = false;
+  popupSignUpLink: boolean = false;
+
+  async login() {
+    this.$v.$touch();
+    if (!this.$v.$error) {
       try {
         const user = await this.$strapi.login({
           identifier: this.email,
           password: this.password,
         });
-        console.log(user);
         if (user) {
           this.$nuxt.$router.push("/");
         }
       } catch (e) {
         this.$toast.error(e.message);
-        console.warn(e);
       }
-    },
-    showPopupEmailLink() {
+    } else {
+      this.$toast.error("Fill the form correctly.", {
+        icon: "highlight_off",
+        position: "top-right",
+        duration: 3000,
+      });
+    }
+  }
+
+  showPopupEmailLink() {
+    this.popupEmailLink = !this.popupEmailLink;
+  }
+
+  showPopupLinkSent() {
+    if (this.popupSignUpLink) {
+      this.popupSignUpLink = !this.popupSignUpLink;
+    } else {
+      this.popupSignUpLink = !this.popupSignUpLink;
       this.popupEmailLink = !this.popupEmailLink;
-    },
-    showPopupLinkSent() {
-      if (this.popupSiginigUpLink) {
-        this.popupSiginigUpLink = !this.popupSiginigUpLink;
-      } else {
-        this.popupSiginigUpLink = !this.popupSiginigUpLink;
-        this.popupEmailLink = !this.popupEmailLink;
-      }
-    },
-    checkEmail(textValue) {
-      this.validInput.email = !this.emailPattern.test(textValue);
-      this.email = textValue;
-    },
-    checkPassword(textValue) {
-      this.validInput.password = textValue.length < 6;
-      this.password = textValue;
-    },
-  },
-};
+    }
+  }
+
+  checkEmail(textValue: string) {
+    this.email = textValue;
+    this.$v.email.$touch();
+  }
+
+  checkPassword(textValue: string) {
+    this.password = textValue;
+    this.$v.password.$touch();
+  }
+}
 </script>
