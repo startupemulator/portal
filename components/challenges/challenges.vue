@@ -20,7 +20,7 @@
                 :name="specialisation.title"
                 :type="'checkbox'"
                 :checked-class="specialisation.checked ? 'checked' : ''"
-                @pick="pickTechnologi(i)"
+                @pick="specialty(i)"
               ></U-tags>
             </li>
           </ul>
@@ -707,12 +707,10 @@ export default class extends Vue {
     this.filterList = !this.filterList;
   }
 
-  pickTechnologi(i) {
+  specialty(i) {
     this.specialisations.forEach((el) => {
       if (i + 1 === el.id) {
         el.checked = !el.checked;
-
-        console.log(this.challenges[i].specialisations);
       }
     });
   }
