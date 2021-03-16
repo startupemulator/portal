@@ -94,8 +94,9 @@
     ul {
       margin: 0;
       padding: 8px 24px;
-      li {
+      button {
         height: 48px;
+        width: 100%;
         cursor: pointer;
         display: flex;
         justify-content: space-between;
@@ -214,7 +215,7 @@
     }
   }
   .my-profile {
-    .profile-header {
+    .profile-header { 
       display: flex;
       flex-wrap: wrap;
       .profile-header__menu {

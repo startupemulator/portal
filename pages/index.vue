@@ -36,6 +36,7 @@
       button-name="Log Out"
       @clickOnButton="$strapi.logout()"
     ></UButton>
+    <!-- test@test.com T3stT3st -->
   </div>
 </template>
 

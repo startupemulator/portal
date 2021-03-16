@@ -8,24 +8,25 @@
             <li>
               <button type="button" @click="$emit('copyBaseUri')">
                 Copy Link On My Profile
+                <img src="@/assets/img/copy.svg" alt="copy" />
               </button>
-              <img src="@/assets/img/copy.svg" alt="copy" />
             </li>
             <li>
               <button type="button" @click="toggleEditProfile">
                 Edit Profile
+                <img src="@/assets/img/arrow.svg" alt="arrow" />
               </button>
-              <img src="@/assets/img/arrow.svg" alt="arrow" />
             </li>
             <li>
               <button type="button" @click="toggleChangePassword">
                 Change Password
+                <img src="@/assets/img/arrow.svg" alt="arrow" />
               </button>
-              <img src="@/assets/img/arrow.svg" alt="arrow" />
             </li>
             <li>
-              <button type="button">Log Out</button>
-              <img src="@/assets/img/logout.svg" alt="logout" />
+              <button type="button">
+                Log Out <img src="@/assets/img/logout.svg" alt="logout" />
+              </button>
             </li>
           </ul>
         </div>
@@ -88,9 +89,10 @@
       v-if="editProfile"
       @clikOnButton="toggleEditProfile"
     ></edit-profile>
-    <change-password v-if="changePassword"></change-password>
-    {{ editProfile }}
-    {{ changePassword }}
+    <change-password
+      v-if="changePassword"
+      @clikOnButton="toggleChangePassword"
+    ></change-password>
   </div>
 </template>
 <script lang="ts">

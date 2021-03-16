@@ -6,6 +6,7 @@
       :type="showPassword ? type : 'text'"
       :placeholder="placeholder"
       :img="img"
+      :value="value"
       class="standart-input"
       @blur="$emit('textInput', $event.target.value)"
     />
@@ -44,6 +45,10 @@ export default {
     btnShowPassword: {
       type: Boolean,
       default: false,
+    },
+    value: {
+      type: String,
+      default: "",
     },
   },
   data() {
