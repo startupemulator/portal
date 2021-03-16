@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "StartupEmulator",
+    title: "StartupEmulator - training platform for developers",
     htmlAttrs: {
       lang: "en",
     },
@@ -34,11 +34,14 @@ export default {
     "@nuxtjs/stylelint-module",
     "@nuxtjs/eslint-module",
     "@nuxt/typescript-build",
+    // "@nuxtjs/device",
+    // "nuxt-purgecss",
   ],
   typescript: {
     typeCheck: {
       eslint: {
         files: "./**/*.{ts,js,vue}",
+        fix: true,
       },
     },
   },
@@ -55,6 +58,7 @@ export default {
     "@nuxtjs/strapi",
     "@nuxtjs/proxy",
     "@nuxtjs/toast",
+    // "nuxt-helmet",
   ],
   toast: {
     position: "top-right",
@@ -68,6 +72,9 @@ export default {
       },
     },
   },
+  env: {
+    baseURL: process.env.BASE_URL,
+  },
   strapi: {
     url: "/api/v1",
   },
@@ -75,5 +82,7 @@ export default {
   axios: {},
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    // analyze: true,
+  },
 };

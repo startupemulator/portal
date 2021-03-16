@@ -1,8 +1,7 @@
 <template>
-  <div class="challenges-page">
-    <app-header></app-header>
-
-    <challenges :challenges="challenges"></challenges>
+  <div class="startups-page">
+    <app-header active="challenges"></app-header>
+    <Challenges :challenges="challenges"></Challenges>
     <app-footer></app-footer>
   </div>
 </template>
