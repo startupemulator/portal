@@ -3,7 +3,10 @@
     <div class="main-header-content">
       <U-logo></U-logo>
 
-      <nav class="main-header__nav">
+      <nav
+        class="main-header__nav"
+        :class="!!$strapi.user ? 'logged-in__nav' : ''"
+      >
         <ul class="nav-list">
           <li
             class="nav-item"

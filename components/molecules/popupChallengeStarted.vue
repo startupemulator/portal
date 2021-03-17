@@ -8,10 +8,9 @@
       >
         <img src="~/assets/img/close.svg" alt="Close" />
       </button>
-      <u-title :text="'The challenge has started'"></u-title>
+      <u-title :text="title"></u-title>
       <p>
-        Come back when you complete this challenge and get feedback from our
-        experts. Also, feel free to request feedback when you are in progress.
+        {{ textContent }}
       </p>
       <U-button
         :button-name="'Got It'"
@@ -25,6 +24,16 @@ import UButton from "../atoms/uButton";
 export default {
   components: {
     UButton,
+  },
+  props: {
+    title: {
+      type: String,
+      default: "",
+    },
+    textContent: {
+      type: String,
+      default: "",
+    },
   },
 };
 </script>

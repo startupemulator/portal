@@ -24,7 +24,7 @@
               </button>
             </li>
             <li>
-              <button type="button">
+              <button type="button" @click="logOut">
                 Log Out <img src="~/assets/img/logout.svg" alt="logout" />
               </button>
             </li>
@@ -87,11 +87,11 @@
     </div>
     <edit-profile
       v-if="editProfile"
-      @clikOnButton="toggleEditProfile"
+      @clickOnButton="toggleEditProfile"
     ></edit-profile>
     <change-password
       v-if="changePassword"
-      @clikOnButton="toggleChangePassword"
+      @clickOnButton="toggleChangePassword"
     ></change-password>
   </div>
 </template>
@@ -125,12 +125,18 @@ export default class extends Vue {
   private opendPopup: boolean = false;
   private editProfile: boolean = false;
   private changePassword: boolean = false;
+
   data() {
     return {
       opendPopup: false,
       editProfile: false,
       changePassword: false,
     };
+  }
+
+  logOut() {
+    this.$strapi.logout();
+    this.$nuxt.$router.push("/");
   }
 
   togglePopup() {
