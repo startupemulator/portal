@@ -7,6 +7,7 @@
         <U-input
           :placeholder="'Enter your email'"
           :type="'email'"
+          :value="email"
           :account-class="
             $v.email.$error
               ? 'create-account__email error'
@@ -21,6 +22,7 @@
         <U-input
           :placeholder="'Enter your password'"
           :type="'password'"
+          :value="password"
           :account-class="
             $v.password.$error
               ? 'create-account__password error'
@@ -98,8 +100,8 @@ import UButton from "~/components/atoms/uButton.vue";
   },
 })
 export default class extends Vue {
-  email: string;
-  password: string;
+  email: string = "";
+  password: string = "";
   popupEmailLink: boolean = false;
   popupSignUpLink: boolean = false;
 
