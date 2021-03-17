@@ -1,7 +1,7 @@
 <template>
   <div class="edit-profile">
     <div class="edit-profile__header">
-      <u-back :is-button="true" @clikOnButton="$emit('clikOnButton')"></u-back>
+      <u-back :is-button="true" @clikOnButton="$emit('clickOnButton')"></u-back>
       <u-title :text="'Edit profile'"></u-title>
     </div>
     <div class="edit-profile__content">
@@ -10,7 +10,9 @@
       <duration-experiense-picker
         :title="'Total years of your experience'"
       ></duration-experiense-picker>
-      <technology-picker></technology-picker>
+      <technology-picker
+        :title="'Pick technologies you have an experience with'"
+      ></technology-picker>
       <div class="edit-profile__buttons">
         <u-button
           :button-name="'Save'"
@@ -19,6 +21,7 @@
         <u-button
           :button-name="'Cancel'"
           :button-class="'u-button-gray'"
+          @clickOnButton="$emit('clickOnButton')"
         ></u-button>
       </div>
     </div>

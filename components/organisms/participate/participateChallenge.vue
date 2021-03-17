@@ -18,6 +18,9 @@
     </div>
     <popup-challenge-started
       v-if="popupChallengeStarted"
+      :title="'The challenge has started'"
+      :text-content="`Come back when you complete this challenge and get feedback from our
+        experts. Also, feel free to request feedback when you are in progress.`"
       @closePopupLinkSent="togglePopupChallengeStarted"
     ></popup-challenge-started>
   </div>

@@ -68,7 +68,11 @@
   }
 }
 @media (max-width: 1279px) {
-  .main-header__nav {
+  .main-header__nav{
+    display: none;
+  }
+  .main-header__nav.logged-in__nav {
+    display: block;
     position: fixed;
     bottom: 0;
     left: 0;

@@ -36,11 +36,12 @@ export default class extends Vue {
     };
   }
 
-  // transfer to "store" for correct work?
-  copyBaseUri() {
-    const baseUri = window.location.href;
-    // navigator.clipboard.writeText(baseUri);
-    console.log(baseUri);
+  async copyBaseUri() {
+    try {
+      await navigator.clipboard.writeText(location.href);
+    } catch (err) {
+      console.error("Failed to copy: ", err);
+    }
   }
 }
 </script>
