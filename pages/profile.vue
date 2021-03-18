@@ -5,7 +5,7 @@
     <Profile
       :startups="startups"
       :technologies="technologies"
-      :testimonial="testimonial"
+      :testimonials="testimonials"
     ></Profile>
 
     <app-footer></app-footer>
@@ -30,11 +30,11 @@ export default class extends Vue {
   async asyncData({ $strapi }) {
     const startups = await $strapi.find("startups");
     const technologies = await $strapi.find("technologies");
-    const testimonial = await $strapi.find("testimonials");
+    const testimonials = await $strapi.find("testimonials");
     return {
       startups,
       technologies,
-      testimonial,
+      testimonials,
     };
   }
 }

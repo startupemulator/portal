@@ -3,12 +3,17 @@
     <div class="profile-projects">
       <div class="profile-projects__header">
         <h3>Feedbacks</h3>
-        <!-- {{ testimonial }} -->
         <div class="profile-projects__header-project-quantity">
-          <span>{{ testimonial.length }}</span>
-          <feed-back-card></feed-back-card>
+          <span>{{ testimonials.length }}</span>
         </div>
       </div>
+      <feed-back-card
+        v-for="testimonial in testimonials"
+        :key="testimonial.id"
+        :comment="testimonial.comment"
+        :author="testimonial.author"
+        :published="testimonial.published_at"
+      ></feed-back-card>
     </div>
   </div>
 </template>
@@ -21,6 +26,6 @@ import FeedBackCard from "~/components/molecules/feedBackCard.vue";
   components: { FeedBackCard },
 })
 export default class extends Vue {
-  @Prop() testimonial: Array<Testimonial>;
+  @Prop() testimonials: Array<Testimonial>;
 }
 </script>

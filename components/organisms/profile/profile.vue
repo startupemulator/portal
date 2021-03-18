@@ -6,8 +6,7 @@
     </div>
 
     <Regular-user v-if="false" :startups="startups"></Regular-user>
-    <Expert-user v-if="true" :testimonial="testimonial"> </Expert-user>
-
+    <Expert-user v-if="true" :testimonials="testimonials"> </Expert-user>
     <div class="profile-projects__experience">
       <h3>Experience</h3>
       <div class="experience-work">1-2 years</div>
@@ -49,6 +48,6 @@ import { Testimonial } from "~/models/Testimonial";
 export default class extends Vue {
   @Prop() startups: Array<Startup>;
   @Prop() technologies: Array<Technology>;
-  @Prop() testimonial: Array<Testimonial>;
+  @Prop() testimonials: Array<Testimonial>;
 }
 </script>

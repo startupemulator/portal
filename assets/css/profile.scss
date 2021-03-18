@@ -2,12 +2,30 @@
   width: 343px;
   margin: 0 auto;
   margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  .profile-header {
+    h2 {
+      margin-bottom: 0;
+    }
+  }
   &.my-profile {
-    margin-top: 48px;
+    // width: 343px;
+    margin: 0 auto;
+    margin-top: 24px;
+
+    .my-profile__content {
+      display: flex;
+      flex-direction: column;
+    }
+    h2 {
+      margin-bottom: 36px;
+    }
     img {
       cursor: pointer;
     }
   }
+
   h3 {
     font-weight: bold;
     font-size: 26px;
@@ -33,6 +51,7 @@
     h3 {
       margin-bottom: 0;
     }
+
     .profile-projects__header-project-quantity {
       background: #59667e;
       border-radius: 14px;
@@ -87,7 +106,7 @@
 .profile-header {
   .profile-header__menu {
     width: 343px;
-    height: 208px;
+    // height: 208px;
     background: #2e384a;
     box-shadow: 0 8px 24px rgba(28, 35, 48, 0.2);
     border-radius: 12px;
@@ -143,30 +162,31 @@
   }
 }
 
-.edit-profile, .change-password{
+.edit-profile,
+.change-password {
   margin-top: -8px;
-  .edit-profile__content, .change-password__content{
-    p{
+  .edit-profile__content,
+  .change-password__content {
+    p {
       color: $main-text-color;
       margin-bottom: 12px;
     }
-    .standart-input{
+    .standart-input {
       padding: 8px 16px;
       margin-bottom: 4px;
     }
-    .technology-picker{
+    .technology-picker {
       margin-top: 24px;
-      .tags-item{
+      .tags-item {
         padding: 10px 16px;
       }
-      .input-technology{
+      .input-technology {
         margin-top: 8px;
       }
     }
-    
-    
   }
-  .edit-profile__buttons, .change-password__buttons {
+  .edit-profile__buttons,
+  .change-password__buttons {
     position: fixed;
     left: 0;
     bottom: 0;
@@ -185,10 +205,28 @@
     }
   }
 }
-.change-password .change-password__content .standart-input{
+.change-password .change-password__content .standart-input {
   margin-bottom: 18px;
 }
+.profile-content .expert-user {
+  order: 2;
 
+  .feed-back-card {
+    margin: 0 auto;
+    margin-top: 16px;
+  }
+  .profile-projects__header {
+    width: 127px;
+    h3 {
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 32px;
+    }
+    .profile-projects__header-project-quantity {
+      margin-top: 18px;
+    }
+  }
+}
 @media (min-width: 768px) {
   .profile-content {
     width: 690px;
@@ -196,35 +234,38 @@
   .u-button-gray__show-more {
     display: none;
   }
-  .edit-profile, .change-password{
+  .edit-profile,
+  .change-password {
     width: 660px;
     margin: 0 auto;
-    .technology-picker{
-      h2{
+    .technology-picker {
+      h2 {
         margin-top: 30px;
       }
     }
-    .edit-profile__content .standart-input{
+    .edit-profile__content .standart-input {
       margin-bottom: 12px;
       padding: 12px 24px;
     }
-  .edit-profile__buttons, .change-password__buttons  {
-    position: relative;
-    background-color: transparent;
-    border-radius: 0;
-    box-shadow: none;
-    border: none;
-    border-top: 1px solid #4e5a71;
-    margin-top: 32px;
-    padding: 32px 0 0 0;
-    .u-button {
-      width: 318px;
-    }}
+    .edit-profile__buttons,
+    .change-password__buttons {
+      position: relative;
+      background-color: transparent;
+      border-radius: 0;
+      box-shadow: none;
+      border: none;
+      border-top: 1px solid #4e5a71;
+      margin-top: 32px;
+      padding: 32px 0 0 0;
+      .u-button {
+        width: 318px;
+      }
+    }
   }
-  .change-password .change-password__content .standart-input{
+  .change-password .change-password__content .standart-input {
     margin-bottom: 28px;
   }
-  .change-password .change-password__content .change-password__buttons{
+  .change-password .change-password__content .change-password__buttons {
     margin-top: 5px;
   }
 }
@@ -258,7 +299,7 @@
       margin-left: -15px;
     }
     .profile-projects__experience {
-      margin-top: 46px;
+      margin-top: 12px;
       .experience-work {
         margin-top: 32px;
         font-weight: normal;
@@ -285,19 +326,19 @@
       display: flex;
       width: 800px;
       align-items: baseline;
-      margin-top: -160px;
+      margin-top: -100px;
       div {
         margin-right: 24px;
       }
     }
   }
   .my-profile {
-    .profile-header { 
+    .profile-header {
       display: flex;
       flex-wrap: wrap;
+      margin-top: 24px;
       .profile-header__menu {
         width: 318px;
-        height: 240px;
         margin-top: 24px;
         ul {
           li {
@@ -309,6 +350,28 @@
         width: 900px;
         margin-top: 24px;
         margin-left: 0;
+      }
+    }
+  }
+  .profile-content.my-profile .expert-user {
+    order: 2;
+  }
+  .profile-content .expert-user {
+    order: 0;
+
+    .feed-back-card {
+      margin: 0;
+      margin-top: 16px;
+    }
+    .profile-projects__header {
+      width: 221px;
+      h3 {
+        font-weight: 600;
+        font-size: 35px;
+        line-height: 40px;
+      }
+      .profile-projects__header-project-quantity {
+        margin-top: 32px;
       }
     }
   }
