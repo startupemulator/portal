@@ -135,8 +135,9 @@ export default class extends Vue {
   }
 
   logOut() {
-    this.$strapi.logout();
-    this.$nuxt.$router.push("/");
+    console.log(this.$nuxt.$router.resolve);
+    // this.$strapi.logout();
+    // this.$nuxt.$router.push("/");
   }
 
   togglePopup() {
