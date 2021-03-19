@@ -67,8 +67,18 @@
     }
   }
 }
+.notification {
+  position: relative;
+  .notification-message {
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    display: flex;
+    justify-content: center;
+  }
+}
 @media (max-width: 1279px) {
-  .main-header__nav{
+  .main-header__nav {
     display: none;
   }
   .main-header__nav.logged-in__nav {
@@ -81,7 +91,7 @@
     box-shadow: inset 0 0 10px 2px #262f3f;
     border-radius: 16px 16px 0 0;
     width: 100%;
-    z-index: 2;
+    z-index: 4;
     box-sizing: border-box;
     ul,
     div {
@@ -109,6 +119,13 @@
       font-weight: 500;
       font-size: 11px;
       line-height: 16px;
+    }
+  }
+  .notification {
+    position: relative;
+    .notification-message {
+      top: 5px;
+      right: 5px;
     }
   }
 }

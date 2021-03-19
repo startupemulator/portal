@@ -53,6 +53,7 @@ export default class extends Vue {
     const startups = await $strapi.find("startups");
     const challenges = await $strapi.find("challenges");
     const testimonials = await $strapi.find("testimonials");
+    // const notifications = await $strapi.find("notifications");
     // TODO change it
     await Technologies.fetch();
     await Specialisations.fetch();
@@ -61,6 +62,7 @@ export default class extends Vue {
       startups,
       challenges,
       testimonials,
+      // notifications,
     };
   }
 

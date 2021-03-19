@@ -114,7 +114,7 @@
                 Profile</nuxt-link
               >
             </li>
-            <li class="nav-item">
+            <li class="nav-item notification">
               <nuxt-link to="#">
                 <svg
                   width="24"
@@ -153,7 +153,16 @@
                     fill="#8C97AC"
                   />
                 </svg>
-
+                <div
+                  class="notification-message"
+                  :class="
+                    true
+                      ? 'startup-card__started--messege'
+                      : 'tartup-card__started--disable'
+                  "
+                >
+                  <span>99</span>
+                </div>
                 Notifications</nuxt-link
               >
             </li>
@@ -177,15 +186,17 @@
         </nuxt-link>
       </div>
     </div>
+    <Notifications-popup></Notifications-popup>
   </header>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UButton from "../atoms/uButton.vue";
 import ULogo from "../atoms/uLogo.vue";
+import NotificationsPopup from "../molecules/notificationsPopup.vue";
 
 @Component({
-  components: { UButton, ULogo },
+  components: { UButton, ULogo, NotificationsPopup },
 })
 export default class AppHeader extends Vue {
   @Prop() active: string;
