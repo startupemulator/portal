@@ -5,7 +5,7 @@
         <U-title :text="'Profile'"> </U-title>
         <div class="profile-header__menu">
           <ul>
-            <li>
+            <li v-if="false">
               <button type="button" @click="$emit('copyBaseUri')">
                 Copy Link On My Profile
                 <img src="~/assets/img/copy.svg" alt="copy" />
@@ -43,7 +43,7 @@
           </div>
         </div>
       </div>
-      <div class="profile__personal-achivements">
+      <!-- <div class="profile__personal-achivements">
         <h3>Personal achivements</h3>
         <div class="arhivements-image">
           <img
@@ -52,8 +52,8 @@
             @click="togglePopup"
           />
         </div>
-      </div>
-      <div class="profile__team-achivements">
+      </div> -->
+      <!-- <div class="profile__team-achivements">
         <h3>Team achivements</h3>
         <div class="arhivements-image">
           <img
@@ -67,8 +67,9 @@
             @click="togglePopup"
           />
         </div>
-      </div>
-
+      </div> -->
+      <My-profile-regular-user v-if="false"></My-profile-regular-user>
+      <Expert-user v-if="true" :testimonials="testimonials"> </Expert-user>
       <div class="profile-projects__experience">
         <h3>Experience</h3>
         <div class="experience-work">1-2 years</div>
@@ -97,16 +98,18 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
+import MyProfileRegularUser from "./myProfileRegularUser.vue";
+import ExpertUser from "./expertUser.vue";
 import badgePopup from "~/components/molecules/badgePopup.vue";
 import EditProfile from "~/components/organisms/profile/editProfile.vue";
 import ChangePassword from "~/components/organisms/profile/changePassword.vue";
 import { Startup } from "~/models/Startup";
-
 import UButton from "~/components/atoms/uButton.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import { Technology } from "~/models/Technology";
 import UTags from "~/components/atoms/uTags.vue";
 import StartupCard from "~/components/molecules/startupCard.vue";
+import { Testimonial } from "~/models/Testimonial";
 
 @Component({
   components: {
@@ -117,6 +120,8 @@ import StartupCard from "~/components/molecules/startupCard.vue";
     badgePopup,
     EditProfile,
     ChangePassword,
+    MyProfileRegularUser,
+    ExpertUser,
   },
 })
 export default class extends Vue {
@@ -125,6 +130,7 @@ export default class extends Vue {
   private opendPopup: boolean = false;
   private editProfile: boolean = false;
   private changePassword: boolean = false;
+  @Prop() testimonials: Array<Testimonial>;
 
   data() {
     return {
@@ -144,7 +150,6 @@ export default class extends Vue {
   }
 
   toggleEditProfile() {
-    console.log("back");
     this.editProfile = !this.editProfile;
   }
 
