@@ -114,7 +114,7 @@
                 Profile</nuxt-link
               >
             </li>
-            <li class="nav-item notification">
+            <li class="nav-item notification" @click="toggleNotification">
               <nuxt-link to="#">
                 <svg
                   width="24"
@@ -186,7 +186,7 @@
         </nuxt-link>
       </div>
     </div>
-    <Notifications-popup></Notifications-popup>
+    <Notifications-popup v-show="notification"></Notifications-popup>
   </header>
 </template>
 <script lang="ts">
@@ -200,6 +200,10 @@ import NotificationsPopup from "../molecules/notificationsPopup.vue";
 })
 export default class AppHeader extends Vue {
   @Prop() active: string;
+  notification: Boolean = false;
+  toggleNotification() {
+    this.notification = !this.notification;
+  }
 }
 </script>
 <style lang="scss">
