@@ -72,6 +72,7 @@
 <script lang="ts">
 import { email, minLength, required } from "vuelidate/lib/validators";
 import { Component, Vue } from "nuxt-property-decorator";
+import Toast from "../../../store/modules/Toast";
 import PopupEmailLink from "~/components/molecules/popupEmailLink.vue";
 import SigningUpLinkSent from "~/components/molecules/signingUpLinkSent.vue";
 import UBack from "~/components/atoms/uBack.vue";
@@ -117,12 +118,14 @@ export default class extends Vue {
           this.$nuxt.$router.push("/");
         }
       } catch (e) {
-        this.$toast.error(e.message);
+        Toast.show({
+          data: e.message,
+          duration: 3000,
+        });
       }
     } else {
-      this.$toast.error("Fill the form correctly.", {
-        icon: "highlight_off",
-        position: "top-right",
+      Toast.show({
+        data: "Fill the form correctly.",
         duration: 3000,
       });
     }

@@ -4,16 +4,25 @@
     <div class="system-alert__message">
       <h3>Something went wrong</h3>
       <p>
-        A short description about the error that happened. Three linesare
-        maximum for such messages.
-        <span>Time is <span>4</span> sec.</span>
+        {{ msg }}
+        <span v-if="timer"
+          >Time is <span>{{ timer }}</span> sec.</span
+        >
       </p>
     </div>
   </div>
 </template>
-<script>
-export default {};
+
+<script lang="ts">
+import { Component, Prop, Vue } from "nuxt-property-decorator";
+
+@Component({})
+export default class extends Vue {
+  @Prop() private msg;
+  @Prop() private timer;
+}
 </script>
+
 <style lang="scss" scoped>
 .system-alert {
   position: absolute;

@@ -1,6 +1,7 @@
 <template>
   <div>
     <app-header></app-header>
+    <toast />
     <h2>Pages List</h2>
     <h1 v-if="$strapi.user">
       Current user:
@@ -42,11 +43,16 @@
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import UButton from "~/components/atoms/uButton.vue";
+
+import UButton from "~/components/atoms/uButton";
+import toast from "~/components/molecules/toast";
+import AppHeader from "~/components/molecules/appHeader";
 
 @Component({
   components: {
     UButton,
+    toast,
+    AppHeader,
   },
 })
 export default class extends Vue {
