@@ -2,7 +2,7 @@
   <div class="profile-content">
     <div class="profile-header">
       <u-back :link="'/'"></u-back>
-      <U-title :text="$strapi.user.username"> </U-title>
+      <U-title :text="$strapi.user.name || $strapi.user.username"> </U-title>
     </div>
 
     <Regular-user v-if="false" :startups="startups"></Regular-user>
@@ -28,7 +28,7 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 import RegularUser from "./regularUser.vue";
 import ExpertUser from "./expertUser.vue";
 import { Startup } from "~/models/Startup";
-import Uback from "~/components/atoms/uBack.vue";
+import UBack from "~/components/atoms/uBack.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import { Technology } from "~/models/Technology";
@@ -37,7 +37,7 @@ import { Testimonial } from "~/models/Testimonial";
 
 @Component({
   components: {
-    Uback,
+    UBack,
     UTitle,
     UTags,
     UButton,
