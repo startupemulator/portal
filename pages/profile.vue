@@ -15,13 +15,13 @@
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 import AppHeader from "~/components/molecules/appHeader.vue";
-import profile from "~/components/organisms/profile/profile.vue";
+import Profile from "~/components/organisms/profile/profile.vue";
 import AppFooter from "~/components/molecules/appFooter.vue";
 
 @Component({
   components: {
+    Profile,
     AppHeader,
-    profile,
     AppFooter,
   },
 })
