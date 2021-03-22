@@ -64,7 +64,7 @@
           </button>
         </li>
         <li class="owneer-menu__item">
-          <button type="button">
+          <button type="button" @click="togglePopupDeleteStartUp">
             <span>Delete Startup</span>
             <img src="~/assets/img/arrow.svg" alt="arrow" />
           </button>
@@ -124,6 +124,11 @@
         </div>
       </div>
     </div>
+    <popup-delete-start-up
+      v-show="popupDeleteStartUp"
+      @clickOnButton="togglePopupDeleteStartUp"
+      @closePopupLinkEmail="togglePopupDeleteStartUp"
+    ></popup-delete-start-up>
   </div>
 </template>
 <script lang="ts">
@@ -133,16 +138,22 @@ import UTitle from "~/components/atoms/uTitle.vue";
 import OpenPositionCard from "~/components/molecules/openPositionCard.vue";
 import { Startup } from "~/models/Startup";
 import UButton from "~/components/atoms/uButton.vue";
+import PopupDeleteStartUp from "~/components/molecules/popupDeleteStartUp.vue";
 @Component({
-  components: { UBack, UButton, UTitle, OpenPositionCard },
+  components: { UBack, UButton, UTitle, OpenPositionCard, PopupDeleteStartUp },
 })
 export default class AppHeader extends Vue {
   @Prop() startups: Array<Startup>;
   popupCancelAplication = Boolean(false);
   isDeveloper = Boolean(false);
   isOwner = Boolean(true);
+  popupDeleteStartUp = Boolean(false);
   togglePopupCancelAplication() {
     this.popupCancelAplication = !this.popupCancelAplication;
+  }
+
+  togglePopupDeleteStartUp() {
+    this.popupDeleteStartUp = !this.popupDeleteStartUp;
   }
 }
 </script>
