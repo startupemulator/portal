@@ -93,7 +93,7 @@ import UButton from "../atoms/uButton.vue";
 @Component({
   components: { UButton },
 })
-export default class AppHeader extends Vue {}
+export default class extends Vue {}
 </script>
 <style lang="scss" scoped>
 .notification-popup {

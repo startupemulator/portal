@@ -194,7 +194,8 @@
       }
     }
   }
-  .createProgect-step1__buttons, .edit-profile__buttons {
+  .createProgect-step1__buttons,
+  .edit-profile__buttons {
     position: fixed;
     left: 0;
     bottom: 0;
@@ -208,6 +209,7 @@
     box-shadow: inset 0 0 10px 2px #262f3f;
     border-radius: 16px 16px 0 0;
     justify-content: space-between;
+    z-index: 5;
     .u-button {
       width: 163px;
     }

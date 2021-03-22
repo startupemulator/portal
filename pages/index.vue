@@ -29,6 +29,7 @@
       </li>
       <li><nuxt-link to="/profile">Profile</nuxt-link></li>
       <li><nuxt-link to="/myProfile">myProfile</nuxt-link></li>
+      <nuxt-link to="/startup">Startup</nuxt-link>
     </ul>
     <UButton
       v-if="$strapi.user"

@@ -1,6 +1,6 @@
 <template>
   <div class="apply-to-team apply-to-team-step2">
-    <U-title :text="'Apply to Startup ' + startup.title"></U-title>
+    <U-title :text="'Apply to Startup ' + (startup.title | 1)"></U-title>
     <U-select></U-select>
     <textarea class="apply-to-team__comment" placeholder="Comment"></textarea>
     <div class="apply-to-team__button">

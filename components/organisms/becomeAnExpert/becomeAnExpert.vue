@@ -104,6 +104,7 @@ export default {
   border-radius: 16px 16px 0 0;
   padding: 16px 16px 28px 16px;
   box-sizing: border-box;
+  z-index: 5;
 }
 .become-expert ~ .main-footer {
   padding-bottom: 75px;
