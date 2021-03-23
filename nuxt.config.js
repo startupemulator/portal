@@ -76,7 +76,7 @@ export default {
     baseURL: process.env.BASE_URL,
   },
   strapi: {
-    url: "/api/v1",
+    url: process.env.STRAPI_URL || "/api/v1",
   },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
