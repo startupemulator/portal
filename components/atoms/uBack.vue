@@ -3,7 +3,7 @@
     <nuxt-link v-if="!isButton" :to="link">
       <button type="button" class="btn-back">
         <img src="~/assets/img/arrow.svg" alt="arrow" />
-        <span>Back</span>
+        <span>{{ title }}</span>
       </button>
     </nuxt-link>
     <button
@@ -13,7 +13,7 @@
       @click="$emit('clikOnButton')"
     >
       <img src="~/assets/img/arrow.svg" alt="arrow" />
-      <span>Back</span>
+      <span>{{ title }}</span>
     </button>
   </div>
 </template>
@@ -27,6 +27,10 @@ export default {
     isButton: {
       type: Boolean,
       default: false,
+    },
+    title: {
+      type: String,
+      default: "Back",
     },
   },
 };

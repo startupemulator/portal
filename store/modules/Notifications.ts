@@ -1,30 +1,41 @@
 import {
+  getModule,
   Module,
   VuexAction,
   VuexModule,
   VuexMutation,
 } from "nuxt-property-decorator";
-import { getModule } from "vuex-module-decorators";
-import { Context } from "@nuxt/types";
+import { getNotifications } from "../api";
 import { Notification } from "../../models/Notification";
 import { store } from "~/store";
 
 interface NotificationsState {
-  notification: Array<Notification>;
+  items: Array<Notification>;
 }
 
-@Module({ dynamic: true, store, name: "Notifications", namespaced: true })
+@Module({
+  dynamic: true,
+  store,
+  name: "Notification",
+  namespaced: true,
+  stateFactory: true,
+})
 class Notifications extends VuexModule implements NotificationsState {
-  public notifications: Array<Notification> = [];
+  public items: Array<Notification> = [];
 
   @VuexMutation
-  public apply(notifications: Array<Notification>) {
-    this.notifications = notifications;
+  public apply(items: Array<Notification> = []) {
+    this.items = items.map((notification) => {
+      return {
+        id: notification.id,
+        user: notification.user,
+      };
+    });
   }
 
   @VuexAction({ commit: "apply", rawError: true })
-  public async fetch(context: Context) {
-    return await context.$strapi.find("notifications");
+  public async fetch() {
+    return await getNotifications();
   }
 }
 

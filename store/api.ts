@@ -14,3 +14,8 @@ export async function getSpecialisations(): Promise<Technology[]> {
   const { data } = await client.get("/api/v1/specialisations");
   return data;
 }
+
+export async function getNotifications(): Promise<Notification[]> {
+  const { data } = await client.get("/api/v1/notifications");
+  return data;
+}

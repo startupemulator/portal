@@ -104,6 +104,9 @@ export default {
     }
   }
 }
+.delete-startup__input .standart-input {
+  padding-left: 16px;
+}
 .standart-label .standart-input.error {
   border: 1px solid #e94646;
 }
@@ -127,6 +130,9 @@ export default {
         line-height: 32px;
       }
     }
+  }
+  .delete-startup__input .standart-input {
+    padding-left: 24px;
   }
 }
 </style>
