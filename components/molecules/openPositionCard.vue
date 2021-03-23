@@ -6,13 +6,12 @@
     <div class="position-card__developer">
       <div class="position-card__developer_technologies">
         <h4>Back-end Developer</h4>
-        <Technology-item
+        <U-tags
           v-for="technologi in startup.technologies"
           :key="technologi.id"
           :technologi-id="technologi.id"
           :title="technologi.title"
-        >
-        </Technology-item>
+        ></U-tags>
       </div>
       <div class="position-card__developer__button">
         <U-button
@@ -25,12 +24,13 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
+import UTags from "../atoms/uTags.vue";
 import UButton from "~/components/atoms/uButton.vue";
-import TechnologyItem from "~/components/molecules/technologyItem.vue";
+
 import { Startup } from "~/models/Startup";
 
 @Component({
-  components: { UButton, TechnologyItem },
+  components: { UButton, UTags },
 })
 export default class AppHeader extends Vue {
   @Prop() startup: Array<Startup>;
@@ -70,13 +70,14 @@ export default class AppHeader extends Vue {
       margin: 0;
       margin-bottom: 16px;
     }
-    .technology-item {
+    .tags-item {
       padding: 0 16px;
       font-weight: normal;
       font-size: 14px;
       line-height: 32px;
       margin-bottom: 4px;
       margin-right: 4px;
+      color: #b5c1d8;
     }
     .position-card__developer__button {
       display: none;
