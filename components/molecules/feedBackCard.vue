@@ -81,11 +81,11 @@
       </div>
       <div v-if="is_expert" class="feed-back-card__expert-buttons">
         <U-button
-          :button-name="'Add Feedback'"
+          :button-name="u_button_blue"
           :button-class="'u-button-blue'"
         ></U-button>
         <U-button
-          :button-name="'Add Badge'"
+          :button-name="u_button_gray"
           :button-class="'u-button-gray'"
         ></U-button>
       </div>
@@ -112,6 +112,8 @@ export default class extends Vue {
   @Prop({ default: false }) activity_state: Boolean;
   @Prop({ default: true }) show_feedback: Boolean;
   @Prop({ default: false }) is_expert: Boolean;
+  @Prop({ default: "Add Feedback" }) u_button_blue: string;
+  @Prop({ default: "Add Badge" }) u_button_gray: string;
   toggleFeedBack() {
     this.show_feedback = !this.show_feedback;
   }
@@ -124,6 +126,7 @@ export default class extends Vue {
   background: #2e384a;
   border-radius: 12px;
   box-sizing: border-box;
+  color: #fff;
   ul {
     margin: 0;
     padding: 0;
