@@ -1,6 +1,9 @@
 <template>
   <div>
-    <RequestToTeam v-show="requestToTeam"></RequestToTeam>
+    <RequestToTeam
+      v-show="requestToTeam"
+      @clikOnButton="toggleRequestToTeam"
+    ></RequestToTeam>
     <div
       v-show="!requestToTeam"
       class="startup"
@@ -94,7 +97,7 @@
         <div v-if="isOwner" class="owner-menu">
           <ul v-if="!finished" class="owner-menu__list">
             <li class="owner-menu__item">
-              <button type="button">
+              <button type="button" @click="toggleRequestToTeam">
                 <span v-if="!isStarted"
                   >Requests to Team
                   <div class="owner-menu__item--message">
@@ -327,7 +330,11 @@ export default class extends Vue {
   popupDeleteStartup = false;
   popupGuide = false;
   finished = false;
-  requestToTeam = true;
+  requestToTeam = false;
+
+  toggleRequestToTeam() {
+    this.requestToTeam = !this.requestToTeam;
+  }
 
   togglepopupCancelApplication() {
     this.popupCancelApplication = !this.popupCancelApplication;

@@ -1,6 +1,6 @@
 <template>
   <div class="request-to-team">
-    <UBack :is-button="true"></UBack>
+    <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
     <div class="request-to-team__header">
       <UTitle :text="'Requests to team'"></UTitle>
       <div class="request-to-team__header-description">
