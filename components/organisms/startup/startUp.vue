@@ -12,8 +12,14 @@
       v-show="requestFeedBack"
       @clikOnButton="toggleRequestFeedBack"
     ></RequestFeedback>
+    <EditStartupInfo
+      v-show="editStartupInfo"
+      @clikOnButton="toggleEditStartupInfo"
+    ></EditStartupInfo>
     <div
-      v-show="!requestToTeam && !newFeedBack && !requestFeedBack"
+      v-show="
+        !requestToTeam && !newFeedBack && !requestFeedBack && !editStartupInfo
+      "
       class="startup"
       :class="
         isStarted && (isDeveloper || isOwner || isExpert)
@@ -129,7 +135,7 @@
               </button>
             </li>
             <li class="owner-menu__item">
-              <button type="button">
+              <button type="button" @click="toggleEditStartupInfo">
                 <span>Edit Startup Info</span>
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
               </button>
@@ -304,6 +310,7 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 import RequestToTeam from "./requestsToTeam.vue";
 import newFeedBack from "./newFeedBack.vue";
 import RequestFeedback from "./requestFeedback.vue";
+import EditStartupInfo from "./editStartupInfo.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import OpenPositionCard from "~/components/molecules/openPositionCard.vue";
@@ -329,6 +336,7 @@ import Sources from "~/components/molecules/sources.vue";
     Sources,
     newFeedBack,
     RequestFeedback,
+    EditStartupInfo,
   },
 })
 export default class extends Vue {
@@ -344,10 +352,15 @@ export default class extends Vue {
   finished = false;
   requestToTeam = false;
   newFeedBack = false;
-  requestFeedBack = true;
+  requestFeedBack = false;
+  editStartupInfo = true;
 
   toggleRequestToTeam() {
     this.requestToTeam = !this.requestToTeam;
+  }
+
+  toggleEditStartupInfo() {
+    this.editStartupInfo = !this.editStartupInfo;
   }
 
   toggleNewFeedBack() {
