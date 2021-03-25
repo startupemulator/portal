@@ -8,8 +8,12 @@
       v-show="newFeedBack"
       @clikOnButton="toggleNewFeedBack"
     ></NewFeedBack>
+    <RequestFeedback
+      v-show="requestFeedBack"
+      @clikOnButton="toggleRequestFeedBack"
+    ></RequestFeedback>
     <div
-      v-show="!requestToTeam && !newFeedBack"
+      v-show="!requestToTeam && !newFeedBack && !requestFeedBack"
       class="startup"
       :class="
         isStarted && (isDeveloper || isOwner || isExpert)
@@ -299,6 +303,7 @@
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import RequestToTeam from "./requestsToTeam.vue";
 import newFeedBack from "./newFeedBack.vue";
+import RequestFeedback from "./requestFeedback.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import OpenPositionCard from "~/components/molecules/openPositionCard.vue";
@@ -323,6 +328,7 @@ import Sources from "~/components/molecules/sources.vue";
     RequestToTeam,
     Sources,
     newFeedBack,
+    RequestFeedback,
   },
 })
 export default class extends Vue {
@@ -337,7 +343,8 @@ export default class extends Vue {
   popupGuide = false;
   finished = false;
   requestToTeam = false;
-  newFeedBack = true;
+  newFeedBack = false;
+  requestFeedBack = true;
 
   toggleRequestToTeam() {
     this.requestToTeam = !this.requestToTeam;
@@ -345,6 +352,10 @@ export default class extends Vue {
 
   toggleNewFeedBack() {
     this.newFeedBack = !this.newFeedBack;
+  }
+
+  toggleRequestFeedBack() {
+    this.requestFeedBack = !this.requestFeedBack;
   }
 
   togglepopupCancelApplication() {

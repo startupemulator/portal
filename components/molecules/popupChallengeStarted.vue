@@ -53,5 +53,8 @@ export default {
   .signing-up-link-sent p {
     width: 468px;
   }
+  .request-feedback .signing-up-link-sent .signing-up-link-sent__content {
+    min-height: 360px;
+  }
 }
 </style>

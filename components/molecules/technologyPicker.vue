@@ -14,6 +14,7 @@
       </u-tags>
     </form>
     <input
+      v-if="addTechnology"
       class="input-technology"
       type="text"
       placeholder="Type a technology to add"
@@ -31,6 +32,10 @@ export default {
     title: {
       type: String,
       default: " ",
+    },
+    addTechnology: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {
@@ -103,10 +108,23 @@ export default {
     border: 2px solid #b5c1d8;
   }
 }
+.technology-picker__title {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  margin-top: -5px;
+  margin-bottom: 14px;
+}
 @media (min-width: 768px) {
   .input-technology {
     width: 660px;
     height: 56px;
+  }
+  .technology-picker__title {
+    font-size: 17px;
+    line-height: 32px;
+    margin-top: -3px;
+    margin-bottom: 14px;
   }
 }
 </style>
