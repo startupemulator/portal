@@ -17,13 +17,18 @@
       @clikOnButton="toggleEditStartupInfo"
     ></EditStartupInfo>
     <EditTeam v-show="editTeam" @clikOnButton="toggleEditTeam"></EditTeam>
+    <EditResources
+      v-show="editResources"
+      @clikOnButton="toggleEditResources"
+    ></EditResources>
     <div
       v-show="
         !requestToTeam &&
         !newFeedBack &&
         !requestFeedBack &&
         !editStartupInfo &&
-        !editTeam
+        !editTeam &&
+        !editResources
       "
       class="startup"
       :class="
@@ -152,7 +157,7 @@
               </button>
             </li>
             <li class="owner-menu__item">
-              <button type="button">
+              <button type="button" @click="toggleEditResources">
                 <span>Edit Sources</span>
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
               </button>
@@ -317,6 +322,7 @@ import newFeedBack from "./newFeedBack.vue";
 import RequestFeedback from "./requestFeedback.vue";
 import EditStartupInfo from "./editStartupInfo.vue";
 import EditTeam from "./editTeam.vue";
+import EditResources from "./editSources.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import OpenPositionCard from "~/components/molecules/openPositionCard.vue";
@@ -344,6 +350,7 @@ import Sources from "~/components/molecules/sources.vue";
     RequestFeedback,
     EditStartupInfo,
     EditTeam,
+    EditResources,
   },
 })
 export default class extends Vue {
@@ -361,10 +368,15 @@ export default class extends Vue {
   newFeedBack = false;
   requestFeedBack = false;
   editStartupInfo = false;
-  editTeam = true;
+  editTeam = false;
+  editResources = true;
 
   toggleRequestToTeam() {
     this.requestToTeam = !this.requestToTeam;
+  }
+
+  toggleEditResources() {
+    this.editResources = !this.editResources;
   }
 
   toggleEditTeam() {
