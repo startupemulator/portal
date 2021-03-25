@@ -4,12 +4,12 @@
       v-show="requestToTeam"
       @clikOnButton="toggleRequestToTeam"
     ></RequestToTeam>
-    <EditAddRealise
-      v-show="editAddRealise"
-      @clikOnButton="toggleEditAddRealise"
-    ></EditAddRealise>
+    <NewFeedBack
+      v-show="newFeedBack"
+      @clikOnButton="toggleNewFeedBack"
+    ></NewFeedBack>
     <div
-      v-show="!requestToTeam && !editAddRealise"
+      v-show="!requestToTeam && !newFeedBack"
       class="startup"
       :class="
         isStarted && (isDeveloper || isOwner || isExpert)
@@ -298,7 +298,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import RequestToTeam from "./requestsToTeam.vue";
-import EditAddRealise from "./editAddRealise.vue";
+import newFeedBack from "./newFeedBack.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import OpenPositionCard from "~/components/molecules/openPositionCard.vue";
@@ -322,7 +322,7 @@ import Sources from "~/components/molecules/sources.vue";
     GuidePopup,
     RequestToTeam,
     Sources,
-    EditAddRealise,
+    newFeedBack,
   },
 })
 export default class extends Vue {
@@ -337,14 +337,14 @@ export default class extends Vue {
   popupGuide = false;
   finished = false;
   requestToTeam = false;
-  editAddRealise = true;
+  newFeedBack = true;
 
   toggleRequestToTeam() {
     this.requestToTeam = !this.requestToTeam;
   }
 
-  toggleEditAddRealise() {
-    this.editAddRealise = !this.editAddRealise;
+  toggleNewFeedBack() {
+    this.newFeedBack = !this.newFeedBack;
   }
 
   togglepopupCancelApplication() {
