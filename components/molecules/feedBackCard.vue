@@ -41,7 +41,9 @@
       </div>
       <div v-show="show_feedback" class="feed-back-card__main-content-body">
         <img src="~/assets/img/feedback.svg" alt="feedback" />
+
         <div class="feed-back-card__main-content-feedback">
+          <h4 v-if="activity_state">Expert’s Full Name</h4>
           <ul class="main-content-feedback__criterions">
             <li
               v-for="(criterion, i) in 5"
@@ -127,6 +129,7 @@ export default class extends Vue {
   border-radius: 12px;
   box-sizing: border-box;
   color: #fff;
+  margin-bottom: 16px;
   ul {
     margin: 0;
     padding: 0;
@@ -157,7 +160,13 @@ export default class extends Vue {
     padding: 16px 24px 0 24px;
     .feed-back-card__main-content-feedback {
       margin-left: 15px;
-
+      h4 {
+        margin-top: 0;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+        margin-bottom: 12px;
+      }
       .main-content-feedback__criterion {
         .criterion-star {
           svg {
@@ -236,7 +245,7 @@ export default class extends Vue {
     }
   }
   .feed-back-card__expert-buttons {
-    padding: 16px 0;
+    padding: 16px 0 0 0;
     margin-top: 16px;
     border-top: 1px solid #4e5a71;
     display: flex;
@@ -271,6 +280,9 @@ export default class extends Vue {
     }
     .feed-back-card__expert-buttons {
       padding: 24px 0 0 0;
+      padding-left: 32px;
+      padding-right: 32px;
+      margin-top: 24px;
       .u-button {
         max-width: 371px;
         max-height: 48px;
