@@ -45,9 +45,9 @@
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 
-import UButton from "~/components/atoms/uButton";
-import toast from "~/components/molecules/toast";
-import AppHeader from "~/components/molecules/appHeader";
+import UButton from "~/components/atoms/uButton.vue";
+import toast from "~/components/molecules/toast.vue";
+import AppHeader from "~/components/molecules/appHeader.vue";
 
 @Component({
   components: {

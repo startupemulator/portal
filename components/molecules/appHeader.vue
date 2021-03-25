@@ -195,7 +195,7 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UButton from "../atoms/uButton.vue";
 import ULogo from "../atoms/uLogo.vue";
 import NotificationsPopup from "../molecules/notificationsPopup.vue";
-import toast from "../molecules/toast";
+import toast from "../molecules/toast.vue";
 
 @Component({
   components: { UButton, ULogo, NotificationsPopup, toast },

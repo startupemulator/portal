@@ -1,0 +1,35 @@
+.request-to-team {
+  color: $main-text-color;
+  padding: 0 16px;
+  max-width: 660px;
+  margin: 0 auto;
+  margin-top: 36px;
+  h2 {
+    margin-bottom: 12px;
+  }
+  .request-to-team__header-description {
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+  }
+  .request-to-team__content {
+    margin-top: 8px;
+  }
+}
+@media (min-width: 1440px) {
+  .request-to-team {
+    width: 660px;
+    margin-top: 46px;
+    padding: 0;
+    h2 {
+      margin-bottom: 16px;
+    }
+    .request-to-team__header-description {
+      font-size: 17px;
+      line-height: 24px;
+    }
+    .request-to-team__content {
+      margin-top: 16px;
+    }
+  }
+}
