@@ -407,10 +407,10 @@ export default class extends Vue {
   isDeveloper = false;
   isExpert = false;
   isOwner = true;
-  isStarted = false;
+  isStarted = true;
   popupDeleteStartup = false;
   popupGuide = false;
-  finished = true;
+  finished = false;
   requestToTeam = false;
   newFeedBack = false;
   requestFeedBack = false;

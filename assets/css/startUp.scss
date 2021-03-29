@@ -106,44 +106,7 @@
       margin-bottom: 0;
     }
   }
-  .startup-card__sources {
-    padding-bottom: 24px;
-    h3 {
-      font-weight: bold;
-      font-size: 26px;
-      line-height: 32px;
-      margin-top: 0;
-    }
-    .startup-card__sources-design {
-      margin-top: 16px;
-    }
-    .startup-card__sources-content {
-      background: #2e384a;
-      box-shadow: 0 8px 24px rgba(28, 35, 48, 0.2);
-      border-radius: 12px;
-      padding: 20px 0 20px 24px;
-      display: flex;
-      justify-content: space-between;
-      max-width: 403px;
-    }
-    .startup-card__sources-button {
-      background: transparent;
-      padding: 0;
-    }
-    h5 {
-      font-weight: normal;
-      font-size: 16px;
-      line-height: 24px;
-      margin: 0;
-    }
-    p {
-      margin: 0;
-      font-weight: normal;
-      font-size: 14px;
-      line-height: 20px;
-      color: #8c97ac;
-    }
-  }
+
   .startup-card__activity {
     h3 {
       margin-top: 10px;
@@ -424,29 +387,7 @@
       font-size: 17px;
       line-height: 32px;
     }
-    .startup-card__sources h3,
-    .startup-card__activity h3 {
-      font-weight: 600;
-      font-size: 35px;
-      line-height: 40px;
-    }
 
-    .startup-card__activity,
-    .startup-card__sources {
-      margin-top: 40px;
-    }
-    .startup-card__sources--finished {
-      display: flex;
-      justify-content: space-between;
-      .startup-card__sources-content {
-        width: 403px;
-        max-width: 403px;
-        box-sizing: border-box;
-      }
-      .startup-card__sources-design {
-        margin-top: 0;
-      }
-    }
     .comments-expert {
       margin-top: 56px;
       h2 {

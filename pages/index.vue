@@ -30,7 +30,8 @@
       </li>
       <li><nuxt-link to="/profile">Profile</nuxt-link></li>
       <li><nuxt-link to="/myProfile">myProfile</nuxt-link></li>
-      <nuxt-link to="/startup">Startup</nuxt-link>
+      <li><nuxt-link to="/startup">Startup</nuxt-link></li>
+      <li><nuxt-link to="/challenge">Challenge</nuxt-link></li>
     </ul>
     <UButton
       v-if="$strapi.user"
