@@ -12,7 +12,8 @@
     "lint:js": "eslint --ext \".ts,.js,.vue\" --ignore-path .gitignore .",
     "lint:style": "stylelint \"**/*.{vue,css,scss}\" --ignore-path .gitignore",
     "lint": "npm run lint:js && npm run lint:style",
-    "test": "jest"
+    "test": "jest",
+    "storybook": "nuxt storybook"
   },
   "lint-staged": {
     "*.{js,vue}": "eslint",
@@ -34,6 +35,7 @@
     "nuxt": "^2.14.12",
     "nuxt-helmet": "^2.0.0",
     "nuxt-property-decorator": "^2.9.1",
+    "ts-node": "^9.1.1",
     "vuelidate": "^0.7.6",
     "vuelidate-property-decorators": "^1.0.28",
     "vuex-persist": "^3.1.3"
@@ -44,12 +46,13 @@
     "@commitlint/config-conventional": "^11.0.0",
     "@nuxt/test-utils": "^0.1.3",
     "@nuxt/types": "^2.15.2",
-    "@nuxtjs/device": "^2.0.1",
     "@nuxt/typescript-build": "^2.0.6",
+    "@nuxtjs/device": "^2.0.1",
     "@nuxtjs/eslint-config": "^5.0.0",
     "@nuxtjs/eslint-config-typescript": "^5.0.0",
     "@nuxtjs/eslint-module": "^3.0.2",
     "@nuxtjs/proxy": "^2.1.0",
+    "@nuxtjs/storybook": "^3.3.1",
     "@nuxtjs/stylelint-module": "^4.0.0",
     "@nuxtjs/svg": "^0.1.12",
     "@types/vuelidate": "^0.7.13",

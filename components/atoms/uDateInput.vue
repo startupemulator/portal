@@ -7,8 +7,9 @@
   </div>
 </template>
 <script lang="ts">
-import { Vue } from "nuxt-property-decorator";
+import { Component, Vue } from "nuxt-property-decorator";
 
+@Component({})
 export default class extends Vue {}
 </script>
 

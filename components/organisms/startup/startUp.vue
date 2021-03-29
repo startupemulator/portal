@@ -317,6 +317,8 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
+import FeedBackCard from "../../molecules/feedbackCard.vue";
+import GuidePopup from "../../molecules/popupGuide.vue";
 import RequestToTeam from "./requestsToTeam.vue";
 import newFeedBack from "./newFeedBack.vue";
 import RequestFeedback from "./requestFeedback.vue";
@@ -330,9 +332,7 @@ import { Startup } from "~/models/Startup";
 import UButton from "~/components/atoms/uButton.vue";
 import PopupDeleteStartup from "~/components/molecules/popupDeleteStartup.vue";
 import projectParticipant from "~/components/molecules/projectParticipant.vue";
-import FeedBackCard from "~/components/molecules/feedBackCard.vue";
 import { Testimonial } from "~/models/Testimonial";
-import GuidePopup from "~/components/molecules/guidePopup.vue";
 import Sources from "~/components/molecules/sources.vue";
 @Component({
   components: {
