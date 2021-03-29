@@ -145,14 +145,21 @@
         <div v-if="isOwner" class="owner-menu">
           <ul v-if="!finished" class="owner-menu__list">
             <li class="owner-menu__item">
-              <button type="button" @click="toggleRequestToTeam">
-                <span v-if="!isStarted"
+              <button
+                v-if="!isStarted"
+                type="button"
+                @click="toggleRequestToTeam"
+              >
+                <span
                   >Requests to Team
                   <div class="owner-menu__item--message">
                     <span>2</span>
                   </div></span
                 >
-                <span v-if="isStarted"
+                <img src="~/assets/img/arrow.svg" alt="arrow" />
+              </button>
+              <button v-if="isStarted" type="button" @click="toggleNewFeedBack">
+                <span
                   >New Feedback
                   <div class="owner-menu__item--message">
                     <span>2</span>
@@ -162,9 +169,17 @@
               </button>
             </li>
             <li class="owner-menu__item">
-              <button type="button">
-                <span v-if="!isStarted">Start Startup</span>
-                <span v-if="isStarted">Request Feedback</span>
+              <button v-if="!isStarted" type="button">
+                <span>Start Startup</span>
+
+                <img src="~/assets/img/arrow.svg" alt="arrow" />
+              </button>
+              <button
+                v-if="isStarted"
+                type="button"
+                @click="toggleRequestFeedBack"
+              >
+                <span>Request Feedback</span>
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
               </button>
             </li>
@@ -202,7 +217,7 @@
           </ul>
           <ul v-if="finished" class="owner-menu__list">
             <li class="owner-menu__item">
-              <button type="button">
+              <button type="button" @click="toggleReleaseLikns">
                 <span>Add Release Links </span>
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
               </button>
@@ -390,12 +405,12 @@ export default class extends Vue {
   @Prop() testimonials: Array<Testimonial>;
   popupCancelApplication = false;
   isDeveloper = false;
-  isExpert = true;
-  isOwner = false;
+  isExpert = false;
+  isOwner = true;
   isStarted = false;
   popupDeleteStartup = false;
   popupGuide = false;
-  finished = false;
+  finished = true;
   requestToTeam = false;
   newFeedBack = false;
   requestFeedBack = false;
