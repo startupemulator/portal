@@ -1,10 +1,10 @@
 <template>
   <div class="pick-bage">
-    <h4>Pick a badge (Optional)</h4>
+    <h4>{{ title }}</h4>
     <div class="pick-bage__content">
-      <ul class="pick-bage__conten-list">
+      <ul ref="pickBageList" class="pick-bage__conten-list">
         <li
-          v-for="(item, i) in 4"
+          v-for="(item, i) in 10"
           :key="i"
           class="pick-bage__content-item"
           @click="clickOnBage"
@@ -12,11 +12,7 @@
           <div class="">
             <img src="~/assets/img/profile-image.svg" alt="boots" />
             <span>{{
-              i % 2
-                ? "Boost"
-                : i % 3
-                ? "Super  supersuper boost "
-                : "Super boost"
+              i % 2 ? "Boost" : i % 3 ? "Super super boost" : "Super boost"
             }}</span>
           </div>
         </li>
@@ -26,20 +22,24 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
+import { Component, Prop, Vue } from "nuxt-property-decorator";
 
 @Component({
   components: {},
 })
 export default class extends Vue {
+  @Prop({ default: "Pick a badge" }) title: String;
   clickOnBage($event) {
     const obj = $event.currentTarget;
     if (obj.classList.contains("active")) {
       obj.classList.remove("active");
     } else {
+      const bageList = this.$refs.pickBageList.children;
+      bageList.forEach((item) =>
+        item.classList.contains("active") ? item.classList.remove("active") : ""
+      );
       obj.classList.add("active");
     }
-    console.log(obj.classList);
   }
 }
 </script>
@@ -50,6 +50,7 @@ export default class extends Vue {
     font-size: 16px;
     line-height: 24px;
     color: #fff;
+    margin-bottom: 12px;
   }
   ul {
     margin: 0;
@@ -80,6 +81,32 @@ export default class extends Vue {
         line-height: 32px;
         display: inline-block;
         margin-left: 8px;
+      }
+    }
+  }
+}
+@media (min-width: 768px) {
+  .pick-bage {
+    h4 {
+      font-weight: 500;
+      font-size: 17px;
+      line-height: 32px;
+      margin-top: 32px;
+      margin-bottom: 10px;
+    }
+    ul {
+      li {
+        margin-right: 5px;
+        margin-bottom: 8px;
+        img {
+          width: 72px;
+        }
+        span {
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 32px;
+          margin-left: 8px;
+        }
       }
     }
   }

@@ -1,18 +1,17 @@
 <template>
-  <div class="add-team-feedback">
-    <div class="add-team-feedback__header">
+  <div class="add-team-badge">
+    <div class="add-team-badge__header">
       <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
-      <UTitle :text="'Add team feedback'"></UTitle>
+      <UTitle :text="'Add team badge'"></UTitle>
     </div>
-    <div class="add-team-feedback__content">
-      <Criterios v-for="(item, i) in 5" :key="i" :i="i"></Criterios>
-      <div class="add-team-feedback__comment">
-        <p>Comment</p>
+    <div class="add-team-badge__content">
+      <PickBadeg></PickBadeg>
+      <div class="add-team-badge__comment">
+        <p>Comment (Optional)</p>
         <textarea placeholder="Enter your comment"></textarea>
       </div>
-      <PickBadeg :title="'Pick a badge (Optional)'"></PickBadeg>
     </div>
-    <div class="add-team-feedback__buttons">
+    <div class="add-team-badge__buttons">
       <U-button
         :button-name="'Submit'"
         :button-class="'u-button-blue'"
@@ -40,16 +39,12 @@ import PickBadeg from "~/components/molecules/pickBadge.vue";
 export default class extends Vue {}
 </script>
 
-<style lang="scss" scoped>
-.add-team-feedback {
+<style lang="scss">
+.add-team-badge {
   width: 343px;
   margin: 0 auto;
-  padding: 0 16px;
-  margin-top: 40px;
-  h2 {
-    margin-bottom: 28px;
-  }
-  .add-team-feedback__comment {
+  margin-top: 36px;
+  .add-team-badge__comment {
     margin-top: 8px;
     p {
       color: #fff;
@@ -79,7 +74,7 @@ export default class extends Vue {}
       }
     }
   }
-  .add-team-feedback__buttons {
+  .add-team-badge__buttons {
     position: fixed;
     left: 0;
     bottom: 0;
@@ -97,15 +92,11 @@ export default class extends Vue {}
   }
 }
 @media (min-width: 768px) {
-  .add-team-feedback {
+  .add-team-badge {
     width: 660px;
-    padding: 0;
     margin-top: 48px;
-    h2 {
-      margin-bottom: 38px;
-    }
-    .add-team-feedback__comment {
-      margin-top: 32px;
+    .add-team-badge__comment {
+      margin-top: 22px;
       p {
         margin-bottom: 10px;
       }
@@ -124,7 +115,7 @@ export default class extends Vue {}
         }
       }
     }
-    .add-team-feedback__buttons {
+    .add-team-badge__buttons {
       position: static;
       border: none;
       border-top: 1px solid #3b465a;
