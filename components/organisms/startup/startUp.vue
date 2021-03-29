@@ -406,7 +406,7 @@ export default class extends Vue {
   finishStartup = false;
   releaseLikns = false;
   addTeamFeedBack = false;
-  addTeamBadge = true;
+  addTeamBadge = false;
 
   toggleReleaseLikns() {
     this.releaseLikns = !this.releaseLikns;
