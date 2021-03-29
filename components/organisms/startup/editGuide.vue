@@ -1,29 +1,31 @@
 <template>
-  <div class="edit-sources">
-    <div class="edit-sources__header">
+  <div class="edit-guide">
+    <div class="edit-guide__header">
       <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
-      <UTitle :text="title"></UTitle>
+      <UTitle :text="'Edit '"></UTitle>
       <p>
-        {{ description }}
+        Add any links, comments, an information about messengers, logins and
+        passwords, etc. All the information that you need to share with your
+        future team.
       </p>
     </div>
-    <div class="edit-sources__content">
+    <div class="edit-guide__content">
       <div
         :is="item.type"
-        v-for="(item, i) in existingSourseComponent"
+        v-for="(item, i) in guideSourseComponent"
         :key="item.id"
-        :name="'Link ' + (i + 1)"
-        @removeExistingSources="removeExistingSources(item.id)"
+        :name="'Item ' + (i + 1)"
+        @removeGuideSources="removeGuideSources(item.id)"
       ></div>
-      <div class="existing-sources__add-link">
+      <div class="edit-guide__add-link">
         <U-button
           :button-name="'Add Link'"
           :button-class="'u-button-blue'"
-          @clickOnButton="addExistingSourse"
+          @clickOnButton="addGuideSourse"
         ></U-button>
       </div>
     </div>
-    <div class="edit-sources__buttons">
+    <div class="edit-guide__buttons">
       <U-button
         :button-name="'Save'"
         :button-class="'u-button-blue'"
@@ -37,55 +39,50 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from "nuxt-property-decorator";
+import { Component, Vue } from "nuxt-property-decorator";
 
 import UButton from "~/components/atoms/uButton.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
-import AddExistingSourse from "~/components/molecules/addExistingSourse.vue";
+// import AddExistingSourse from "~/components/molecules/addExistingSourse.vue";
+import CreateGuide from "~/components/molecules/createGuide";
 
 @Component({
-  components: { UButton, UBack, UTitle, AddExistingSourse },
+  components: { UButton, UBack, UTitle, CreateGuide },
 })
 export default class extends Vue {
-  @Prop({ default: "Edit sources" }) title: String;
-  @Prop({
-    default: `Add links on design, userflows, repositories, etc., which will be used
-        during the project’s development. You can skip this step for now.`,
-  })
-  description: String;
-
   data() {
     return {
-      existingSourseComponent: [
-        { id: 1, type: "add-existing-sourse" },
-        { id: 2, type: "add-existing-sourse" },
+      popupPublish: false,
+      guideSourseComponent: [
+        { id: 1, type: "create-guide" },
+        { id: 2, type: "create-guide" },
       ],
     };
   }
 
-  addExistingSourse() {
-    this.existingSourseComponent.push({
-      id: this.existingSourseComponent.length + 1,
-      type: "add-existing-sourse",
+  addGuideSourse() {
+    this.guideSourseComponent.push({
+      id: this.guideSourseComponent.length + 1,
+      type: "create-guide",
     });
   }
 
-  removeExistingSources(i) {
-    this.existingSourseComponent = this.existingSourseComponent.filter(
+  removeGuideSources(i) {
+    this.guideSourseComponent = this.guideSourseComponent.filter(
       (item) => item.id !== i
     );
   }
 }
 </script>
-<style lang="scss" scoped>
-.edit-sources {
+<style lang="scss">
+.edit-guide {
   color: #fff;
   max-width: 660px;
   margin: 0 auto;
   padding: 0 16px;
   margin-top: 36px;
-  .edit-sources__header {
+  .edit-guide__header {
     h2 {
       margin-bottom: 12px;
     }
@@ -95,17 +92,37 @@ export default class extends Vue {
       line-height: 22px;
     }
   }
-  .edit-sources__content {
+  .edit-guide__content {
     margin-top: 34px;
-    .existing-sources__add-link {
+    .edit-guide__add-link {
       margin-top: 8px;
 
       .u-button {
         height: 40px;
       }
     }
+    textarea {
+      background: #2e384a;
+      border-radius: 12px;
+      width: 343px;
+      min-height: 48px;
+      padding: 8px 16px;
+      box-sizing: border-box;
+      color: #fff;
+      outline: none;
+      font-weight: normal;
+      font-size: 16px;
+      //   line-height: 32px;
+      border: 2px solid transparent;
+      &:focus {
+        border: 2px solid #b5c1d8;
+      }
+      &::placeholder {
+        color: #b5c1d8;
+      }
+    }
   }
-  .edit-sources__buttons {
+  .edit-guide__buttons {
     position: fixed;
     left: 0;
     bottom: 0;
@@ -123,9 +140,9 @@ export default class extends Vue {
   }
 }
 @media (min-width: 768px) {
-  .edit-sources {
+  .edit-guide {
     margin-top: 48px;
-    .edit-sources__header {
+    .edit-guide__header {
       p {
         margin-top: 14px;
         font-size: 17px;
@@ -133,9 +150,9 @@ export default class extends Vue {
         width: 600px;
       }
     }
-    .edit-sources__content {
+    .edit-guide__content {
       margin-top: 48px;
-      .existing-sources__add-link {
+      .edit-guide__add-link {
         margin-top: 20px;
 
         .u-button {
@@ -143,8 +160,15 @@ export default class extends Vue {
           width: 121px;
         }
       }
+      textarea {
+        width: 620px;
+        min-height: 56px;
+        font-weight: normal;
+        font-size: 18px;
+        // line-height: 32px;
+      }
     }
-    .edit-sources__buttons {
+    .edit-guide__buttons {
       position: static;
       border: none;
       border-top: 1px solid #3b465a;

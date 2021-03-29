@@ -10,7 +10,10 @@ body {
 input {
   outline: none;
 }
-
+textarea {
+  overflow: hidden;
+  outline: none;
+}
 button {
   color: $button-color;
   cursor: pointer;
