@@ -1,7 +1,6 @@
 <template>
   <div class="startups-page">
     <App-header></App-header>
-
     <Challenge></Challenge>
     <App-footer></App-footer>
   </div>

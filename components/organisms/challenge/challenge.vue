@@ -3,6 +3,7 @@
     <ChallengeTask
       v-if="challengeTask"
       :is-started="isStarted"
+      :finished="finished"
       @clickOnButton="toggleChallengeTask"
       @openParticipantSolution="toggleChallengeTask"
     ></ChallengeTask>
@@ -24,6 +25,7 @@ export default class extends Vue {
   challengeTask = true;
   participantSolution = false;
   isStarted = true;
+  finished = false;
 
   toggleParticipantSolution() {
     this.participantSolution = !this.participantSolution;
