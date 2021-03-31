@@ -55,6 +55,14 @@
             @clickOnButton="showPopupEmailLink"
           ></U-button>
         </div>
+        <div class="account__go-to-sign-up">
+          <span>Don’t have an account?</span>
+          <U-Back
+            link="/createAccount"
+            :img="false"
+            :title="'Sign up'"
+          ></U-Back>
+        </div>
       </div>
     </form>
     <popup-email-link

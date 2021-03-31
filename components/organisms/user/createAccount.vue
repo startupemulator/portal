@@ -8,6 +8,7 @@
         <U-input
           :placeholder="'Enter your full name'"
           :type="'text'"
+          :value="name"
           :account-class="
             $v.name.$error
               ? 'create-account__password error'
@@ -23,6 +24,7 @@
         <U-input
           :placeholder="'Enter your email'"
           :type="'email'"
+          :value="email"
           :account-class="
             $v.email.$error
               ? 'create-account__email error'
@@ -37,6 +39,7 @@
         <U-input
           :placeholder="'Set a password'"
           :type="'password'"
+          :value="password"
           :account-class="
             $v.password.$error
               ? 'create-account__password error'
@@ -51,6 +54,7 @@
         </p>
         <U-input
           :placeholder="'Repeat a password'"
+          :value="repeatPassword"
           :type="'password'"
           :account-class="
             $v.repeatPassword.$error
@@ -85,6 +89,10 @@
             @clickOnButton="showPopupEmailLink"
           ></U-button>
         </div>
+        <div class="account__go-to-sign-up">
+          <span>Don’t have an account?</span>
+          <U-Back link="/login" :img="false" :title="'Log in'"></U-Back>
+        </div>
       </div>
     </form>
     <popup-email-link
@@ -101,6 +109,7 @@
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 import { email, minLength, required, sameAs } from "vuelidate/lib/validators";
+import Toast from "../../../store/modules/Toast";
 import PopupEmailLink from "~/components/molecules/popupEmailLink.vue";
 import SigningUpLinkSent from "~/components/molecules/signingUpLinkSent.vue";
 import SystemAlert from "~/components/molecules/systemAlert.vue";
@@ -159,19 +168,16 @@ export default class CreateAccount extends Vue {
           this.error = "";
           this.$nuxt.$router.push("/");
         }
-      } catch (error) {
-        this.error = error.message;
-        this.$toast.error(error.message, {
-          icon: "highlight_off",
-          position: "top-right",
-          // duration: 3000,
+      } catch (e) {
+        Toast.show({
+          data: e.message,
+          duration: 3000,
         });
       }
     } else {
-      this.$toast.error("Fill the form correctly.", {
-        icon: "highlight_off",
-        position: "top-right",
-        // duration: 3000,
+      Toast.show({
+        data: "Fill the form correctly.",
+        duration: 3000,
       });
     }
   }

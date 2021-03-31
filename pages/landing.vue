@@ -20,15 +20,15 @@ import { Testimonial } from "~/models/Testimonial";
 import Specialisations from "~/store/modules/Specialisations";
 
 import Technologies from "~/store/modules/Technologies";
-import AppHeader from "~/components/molecules/appHeader";
-import AppFooter from "~/components/molecules/appFooter";
-import AppChallengesBlock from "~/components/organisms/landing/appChallengesBlock";
-import AppGetExperience from "~/components/organisms/landing/appGetExperience";
-import AppStartupsBlock from "~/components/organisms/landing/appStartupsBlock";
-import AppTeamDevelop from "~/components/organisms/landing/appTeamDevelop";
-import AppTakePart from "~/components/organisms/landing/appTakePart";
-import AppTopStartups from "~/components/organisms/landing/appTopStartups";
-import AppTestimonials from "~/components/organisms/landing/appTestimonials";
+import AppHeader from "~/components/molecules/appHeader.vue";
+import AppFooter from "~/components/molecules/appFooter.vue";
+import AppChallengesBlock from "~/components/organisms/landing/appChallengesBlock.vue";
+import AppGetExperience from "~/components/organisms/landing/appGetExperience.vue";
+import AppStartupsBlock from "~/components/organisms/landing/appStartupsBlock.vue";
+import AppTeamDevelop from "~/components/organisms/landing/appTeamDevelop.vue";
+import AppTakePart from "~/components/organisms/landing/appTakePart.vue";
+import AppTopStartups from "~/components/organisms/landing/appTopStartups.vue";
+import AppTestimonials from "~/components/organisms/landing/appTestimonials.vue";
 
 @Component({
   components: {
