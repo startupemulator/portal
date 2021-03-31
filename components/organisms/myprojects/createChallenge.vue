@@ -55,7 +55,7 @@ import UButton from "~/components/atoms/uButton.vue";
 import UInput from "~/components/atoms/uInput.vue";
 import Utags from "~/components/atoms/uTags.vue";
 
-import AddExistingSourse from "~/components/molecules/addExistingSourse.vue";
+import AddExistingSourse from "~/components/molecules/addExistingSource.vue";
 
 @Component({
   components: {

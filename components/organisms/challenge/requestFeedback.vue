@@ -47,7 +47,7 @@ import { Component, Vue } from "nuxt-property-decorator";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
-import AddExistingSourse from "~/components/molecules/addExistingSourse.vue";
+import AddExistingSourse from "~/components/molecules/addExistingSource.vue";
 import TechnologyPicker from "~/components/molecules/technologyPicker.vue";
 
 @Component({
