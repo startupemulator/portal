@@ -39,10 +39,10 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 
+import AddExistingSourse from "../../molecules/addExistingSource.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
-import AddExistingSourse from "~/components/molecules/addExistingSourse.vue";
 
 @Component({
   components: { UButton, UBack, UTitle, AddExistingSourse },

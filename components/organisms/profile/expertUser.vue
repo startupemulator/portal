@@ -19,8 +19,8 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
+import FeedBackCard from "../../molecules/feedbackCard.vue";
 import { Testimonial } from "~/models/Testimonial";
-import FeedBackCard from "~/components/molecules/feedBackCard.vue";
 
 @Component({
   components: { FeedBackCard },

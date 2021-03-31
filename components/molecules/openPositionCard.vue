@@ -7,10 +7,10 @@
       <div class="position-card__developer_technologies">
         <h4>Back-end Developer</h4>
         <U-tags
-          v-for="technologi in startup.technologies"
-          :key="technologi.id"
-          :technologi-id="technologi.id"
-          :title="technologi.title"
+          v-for="technology in startup.technologies"
+          :key="technology.id"
+          :technologi-id="technology.id"
+          :title="technology.title"
         ></U-tags>
       </div>
       <div class="position-card__developer__button">
@@ -33,7 +33,7 @@ import { Startup } from "~/models/Startup";
   components: { UButton, UTags },
 })
 export default class AppHeader extends Vue {
-  @Prop() startup: Array<Startup>;
+  @Prop() startup: Startup;
 }
 </script>
 

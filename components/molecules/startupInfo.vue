@@ -2,7 +2,6 @@
   <div class="startup-info">
     <div class="startup-info__form">
       <p>Startup name</p>
-
       <UInput
         :value="'Startup #1'"
         :placeholder="'Enter the startup name'"

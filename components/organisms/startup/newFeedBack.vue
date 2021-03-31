@@ -38,9 +38,9 @@
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 
+import FeedBackCard from "../../molecules/feedbackCard.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
-import FeedBackCard from "~/components/molecules/feedBackCard.vue";
 
 @Component({
   components: { UBack, UTitle, FeedBackCard },

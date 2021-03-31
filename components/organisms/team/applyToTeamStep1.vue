@@ -20,7 +20,7 @@
 import TechnologyPicker from "~/components/molecules/technologyPicker.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton";
-import DurationExperiencePicker from "~/components/molecules/durationExperiensePicker";
+import DurationExperiencePicker from "~/components/molecules/durationExperiencePicker";
 export default {
   components: {
     DurationExperiencePicker,
