@@ -125,34 +125,26 @@
           access to materials; simplify the implementation and validation of
           practical tasks; open access to current ratings.
         </p>
-        <div v-if="isExpert" class="comments-expert">
-          <U-title :text="'Comments for experts'"></U-title>
-          <div class="comments-expert__content">
-            <div class="comments-expert__content-header">
-              <h4>Product Owner’s <span> Full Name </span></h4>
-              <p>5 Sep 2020 14:40</p>
-            </div>
-            <div class="comments-expert__content-description">
-              <img src="~/assets/img/feedback.svg" alt="feedback" />
-              <h5>
-                Some comment and feedback that this expert left with this bage,
-                probably in a few lines. Some comment and feedback that this
-                expert left with this bage, probably in a few lines.
-              </h5>
-            </div>
-          </div>
-        </div>
+        <CommentExpert v-if="isExpert"></CommentExpert>
+
         <div v-if="isOwner" class="owner-menu">
           <ul v-if="!finished" class="owner-menu__list">
             <li class="owner-menu__item">
-              <button type="button" @click="toggleRequestToTeam">
-                <span v-if="!isStarted"
+              <button
+                v-if="!isStarted"
+                type="button"
+                @click="toggleRequestToTeam"
+              >
+                <span
                   >Requests to Team
                   <div class="owner-menu__item--message">
                     <span>2</span>
                   </div></span
                 >
-                <span v-if="isStarted"
+                <img src="~/assets/img/arrow.svg" alt="arrow" />
+              </button>
+              <button v-if="isStarted" type="button" @click="toggleNewFeedBack">
+                <span
                   >New Feedback
                   <div class="owner-menu__item--message">
                     <span>2</span>
@@ -162,9 +154,17 @@
               </button>
             </li>
             <li class="owner-menu__item">
-              <button type="button">
-                <span v-if="!isStarted">Start Startup</span>
-                <span v-if="isStarted">Request Feedback</span>
+              <button v-if="!isStarted" type="button">
+                <span>Start Startup</span>
+
+                <img src="~/assets/img/arrow.svg" alt="arrow" />
+              </button>
+              <button
+                v-if="isStarted"
+                type="button"
+                @click="toggleRequestFeedBack"
+              >
+                <span>Request Feedback</span>
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
               </button>
             </li>
@@ -202,7 +202,7 @@
           </ul>
           <ul v-if="finished" class="owner-menu__list">
             <li class="owner-menu__item">
-              <button type="button">
+              <button type="button" @click="toggleReleaseLikns">
                 <span>Add Release Links </span>
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
               </button>
@@ -245,6 +245,7 @@
         <div class="startup-card__activity">
           <h3>Activity</h3>
           <!-- Statick -> change to feed-back-card -->
+
           <div class="startup-card__activity-content">
             <h4>Full Name <span>makes</span> Merge request</h4>
             <p>6 Sep 2020 00:45</p>
@@ -362,6 +363,7 @@ import PopupDeleteStartup from "~/components/molecules/popupDeleteStartup.vue";
 import projectParticipant from "~/components/molecules/projectParticipant.vue";
 import { Testimonial } from "~/models/Testimonial";
 import Sources from "~/components/molecules/sources.vue";
+import CommentExpert from "~/components/molecules/commentForExpert.vue";
 @Component({
   components: {
     UBack,
@@ -383,6 +385,7 @@ import Sources from "~/components/molecules/sources.vue";
     FinishStartup,
     AddTeamFeedBack,
     AddTeamBadge,
+    CommentExpert,
   },
 })
 export default class extends Vue {
@@ -392,7 +395,7 @@ export default class extends Vue {
   isDeveloper = false;
   isExpert = true;
   isOwner = false;
-  isStarted = false;
+  isStarted = true;
   popupDeleteStartup = false;
   popupGuide = false;
   finished = false;
