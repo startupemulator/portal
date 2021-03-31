@@ -33,6 +33,12 @@
       <input id="finished-challenge" type="checkbox" />
       <label for="finished-challenge">I’ve finished this challenge</label>
     </div>
+    <div class="request-feedback__button">
+      <U-button
+        :button-name="'Submit'"
+        :button-class="'u-button-blue'"
+      ></U-button>
+    </div>
   </div>
 </template>
 <script lang="ts">

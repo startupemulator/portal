@@ -4,6 +4,8 @@
       v-if="challengeTask"
       :is-started="isStarted"
       :finished="finished"
+      :is-developer="isDeveloper"
+      :is-expert="isExpert"
       @clickOnButton="toggleChallengeTask"
       @openParticipantSolution="toggleChallengeTask"
     ></ChallengeTask>
@@ -24,7 +26,9 @@ import ParticipantSolution from "./participantSolution.vue";
 export default class extends Vue {
   challengeTask = true;
   participantSolution = false;
-  isStarted = true;
+  isDeveloper = false;
+  isExpert = true;
+  isStarted = false;
   finished = false;
 
   toggleParticipantSolution() {

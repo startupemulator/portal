@@ -7,6 +7,9 @@
       margin-top: 48px;
       margin-bottom: 24px;
     }
+    .my-projects__header-add-project {
+      position: relative;
+    }
   }
 }
 
@@ -69,6 +72,7 @@
       }
     }
   }
+
   .my-projects_btn {
     width: 56px;
     height: 56px;
@@ -85,6 +89,11 @@
       opacity: 0;
       white-space: nowrap;
     }
+    .my-projects__super-admin-menu {
+      opacity: 0;
+      z-index: -1;
+    }
+
     &:hover {
       width: 231px;
       img {
@@ -94,6 +103,11 @@
       span {
         opacity: 1;
         transition-delay: 0.22s;
+      }
+      .my-projects__super-admin-menu {
+        opacity: 1;
+        transition-delay: 0.22s;
+        z-index: 8;
       }
     }
   }

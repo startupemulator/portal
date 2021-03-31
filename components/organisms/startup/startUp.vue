@@ -125,23 +125,8 @@
           access to materials; simplify the implementation and validation of
           practical tasks; open access to current ratings.
         </p>
-        <div v-if="isExpert" class="comments-expert">
-          <U-title :text="'Comments for experts'"></U-title>
-          <div class="comments-expert__content">
-            <div class="comments-expert__content-header">
-              <h4>Product Owner’s <span> Full Name </span></h4>
-              <p>5 Sep 2020 14:40</p>
-            </div>
-            <div class="comments-expert__content-description">
-              <img src="~/assets/img/feedback.svg" alt="feedback" />
-              <h5>
-                Some comment and feedback that this expert left with this bage,
-                probably in a few lines. Some comment and feedback that this
-                expert left with this bage, probably in a few lines.
-              </h5>
-            </div>
-          </div>
-        </div>
+        <CommentExpert v-if="isExpert"></CommentExpert>
+
         <div v-if="isOwner" class="owner-menu">
           <ul v-if="!finished" class="owner-menu__list">
             <li class="owner-menu__item">
@@ -260,6 +245,7 @@
         <div class="startup-card__activity">
           <h3>Activity</h3>
           <!-- Statick -> change to feed-back-card -->
+
           <div class="startup-card__activity-content">
             <h4>Full Name <span>makes</span> Merge request</h4>
             <p>6 Sep 2020 00:45</p>
@@ -377,6 +363,7 @@ import FeedBackCard from "~/components/molecules/feedBackCard.vue";
 import { Testimonial } from "~/models/Testimonial";
 import GuidePopup from "~/components/molecules/guidePopup.vue";
 import Sources from "~/components/molecules/sources.vue";
+import CommentExpert from "~/components/molecules/commentForExpert.vue";
 @Component({
   components: {
     UBack,
@@ -398,6 +385,7 @@ import Sources from "~/components/molecules/sources.vue";
     FinishStartup,
     AddTeamFeedBack,
     AddTeamBadge,
+    CommentExpert,
   },
 })
 export default class extends Vue {
@@ -405,8 +393,8 @@ export default class extends Vue {
   @Prop() testimonials: Array<Testimonial>;
   popupCancelApplication = false;
   isDeveloper = false;
-  isExpert = false;
-  isOwner = true;
+  isExpert = true;
+  isOwner = false;
   isStarted = true;
   popupDeleteStartup = false;
   popupGuide = false;
