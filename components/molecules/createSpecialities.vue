@@ -211,37 +211,37 @@ export default {
 </script>
 
 <style lang="scss">
-.specialityOne .chosen-technology {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0;
-  margin-top: 16px;
+// .specialityOne .chosen-technology {
+//   display: flex;
+//   flex-wrap: wrap;
+//   padding: 0;
+//   margin-top: 16px;
 
-  li {
-    padding: 8px 14px;
-    border: 1px solid #59667e;
-    box-sizing: border-box;
-    border-radius: 32px;
-    margin-right: 4px;
-    margin-bottom: 8px;
-    color: #b5c1d8;
-    font-size: 14px;
-  }
-}
-.createProgect-step2 .speciality-content:not(:first-of-type) {
-  p {
-    margin-top: 14px;
-  }
-  .chosen-technology {
-    margin-top: 16px;
-  }
-}
-.createProgect-step2
-  .speciality-content
-  .chosen-technology.chosen-technology--empty {
-  display: none;
-}
-.button_pick_technologies.button_pick_technologies--empty {
-  margin-top: 10px;
-}
+//   li {
+//     padding: 8px 14px;
+//     border: 1px solid #59667e;
+//     box-sizing: border-box;
+//     border-radius: 32px;
+//     margin-right: 4px;
+//     margin-bottom: 8px;
+//     color: #b5c1d8;
+//     font-size: 14px;
+//   }
+// }
+// .createProgect-step2 .speciality-content:not(:first-of-type) {
+//   p {
+//     margin-top: 14px;
+//   }
+//   .chosen-technology {
+//     margin-top: 16px;
+//   }
+// }
+// .createProgect-step2
+//   .speciality-content
+//   .chosen-technology.chosen-technology--empty {
+//   display: none;
+// }
+// .button_pick_technologies.button_pick_technologies--empty {
+//   margin-top: 10px;
+// }
 </style>

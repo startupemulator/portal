@@ -7,6 +7,10 @@
         Add an additional speciality to receive new requests, change access
         rights for existing team members or remove them from your team.
       </p>
+      <div class="edit-team__openposition">
+        <h3>Open positions</h3>
+        <AddSpeciality></AddSpeciality>
+      </div>
       <div class="edit-team__header-buttons">
         <U-button
           :button-name="'Add Speciality'"
@@ -29,6 +33,7 @@
         <U-button
           :button-name="'Cancel'"
           :button-class="'u-button-gray'"
+          @clickOnButton="$emit('clikOnButton')"
         ></U-button>
       </div>
     </div>
@@ -41,9 +46,10 @@ import UButton from "~/components/atoms/uButton.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import TeamMemberCard from "~/components/molecules/teamMemberCard.vue";
+import AddSpeciality from "~/components/molecules/addSpeciality.vue";
 
 @Component({
-  components: { UButton, UBack, UTitle, TeamMemberCard },
+  components: { UButton, UBack, UTitle, TeamMemberCard, AddSpeciality },
 })
 export default class extends Vue {}
 </script>
@@ -96,6 +102,14 @@ export default class extends Vue {}
       margin-left: 16px;
     }
   }
+  .edit-team__openposition {
+    h3 {
+      font-weight: bold;
+      font-size: 26px;
+      line-height: 32px;
+      margin-bottom: 16px;
+    }
+  }
 }
 @media (min-width: 768px) {
   .edit-team {
@@ -141,6 +155,15 @@ export default class extends Vue {}
       margin-top: 32px;
       .u-button-gray {
         margin-left: 24px;
+      }
+    }
+    .edit-team__openposition {
+      h3 {
+        font-weight: 600;
+        font-size: 35px;
+        line-height: 40px;
+        margin-bottom: 24px;
+        margin-top: 42px;
       }
     }
   }

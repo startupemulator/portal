@@ -17,10 +17,29 @@
       @clikOnButton="toggleEditStartupInfo"
     ></EditStartupInfo>
     <EditTeam v-show="editTeam" @clikOnButton="toggleEditTeam"></EditTeam>
-    <EditResources
-      v-show="editResources"
-      @clikOnButton="toggleEditResources"
-    ></EditResources>
+    <EditSources
+      v-show="editSources"
+      @clikOnButton="toggleEditSources"
+    ></EditSources>
+    <EditGuide v-show="editGuide" @clikOnButton="toggleEditGuide"></EditGuide>
+    <FinishStartup
+      v-show="finishStartup"
+      @clikOnButton="toggleFinishStartup"
+    ></FinishStartup>
+    <EditSources
+      v-show="releaseLikns"
+      :title="'Add release links'"
+      :description="'Add links on your published product, a case, an article, etc.'"
+      @clikOnButton="toggleReleaseLikns"
+    ></EditSources>
+    <AddTeamFeedBack
+      v-show="addTeamFeedBack"
+      @clikOnButton="toggleAddTeamFeedBack"
+    ></AddTeamFeedBack>
+    <AddTeamBadge
+      v-show="addTeamBadge"
+      @clikOnButton="toggleAddTeamBadge"
+    ></AddTeamBadge>
     <div
       v-show="
         !requestToTeam &&
@@ -28,7 +47,12 @@
         !requestFeedBack &&
         !editStartupInfo &&
         !editTeam &&
-        !editResources
+        !editSources &&
+        !editGuide &&
+        !finishStartup &&
+        !releaseLikns &&
+        !addTeamFeedBack &&
+        !addTeamBadge
       "
       class="startup"
       :class="
@@ -82,11 +106,11 @@
         </div>
         <div v-if="isExpert" class="applied-startup">
           <div class="applied-startup__started">
-            <button type="button" @click="togglePopupGuide">
+            <button type="button" @click="toggleAddTeamFeedBack">
               <span>Add Team Feedback</span>
               <img src="~/assets/img/arrow.svg" alt="arrow" />
             </button>
-            <button type="button">
+            <button type="button" @click="toggleAddTeamBadge">
               <span>Add Team Badge</span>
               <img src="~/assets/img/arrow.svg" alt="arrow" />
             </button>
@@ -157,13 +181,13 @@
               </button>
             </li>
             <li class="owner-menu__item">
-              <button type="button" @click="toggleEditResources">
+              <button type="button" @click="toggleEditSources">
                 <span>Edit Sources</span>
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
               </button>
             </li>
             <li class="owner-menu__item">
-              <button type="button">
+              <button type="button" @click="toggleEditGuide">
                 <span>Edit Guide</span>
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
               </button>
@@ -324,7 +348,11 @@ import newFeedBack from "./newFeedBack.vue";
 import RequestFeedback from "./requestFeedback.vue";
 import EditStartupInfo from "./editStartupInfo.vue";
 import EditTeam from "./editTeam.vue";
-import EditResources from "./editSources.vue";
+import EditSources from "./editSources.vue";
+import EditGuide from "./editGuide.vue";
+import FinishStartup from "./finishStartup.vue";
+import AddTeamFeedBack from "./addTeamFeedback.vue";
+import AddTeamBadge from "./addTeamBadge.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import OpenPositionCard from "~/components/molecules/openPositionCard.vue";
@@ -350,7 +378,11 @@ import Sources from "~/components/molecules/sources.vue";
     RequestFeedback,
     EditStartupInfo,
     EditTeam,
-    EditResources,
+    EditSources,
+    EditGuide,
+    FinishStartup,
+    AddTeamFeedBack,
+    AddTeamBadge,
   },
 })
 export default class extends Vue {
@@ -358,8 +390,8 @@ export default class extends Vue {
   @Prop() testimonials: Array<Testimonial>;
   popupCancelApplication = false;
   isDeveloper = false;
-  isExpert = false;
-  isOwner = true;
+  isExpert = true;
+  isOwner = false;
   isStarted = false;
   popupDeleteStartup = false;
   popupGuide = false;
@@ -369,14 +401,39 @@ export default class extends Vue {
   requestFeedBack = false;
   editStartupInfo = false;
   editTeam = false;
-  editResources = true;
+  editSources = false;
+  editGuide = false;
+  finishStartup = false;
+  releaseLikns = false;
+  addTeamFeedBack = false;
+  addTeamBadge = false;
+
+  toggleReleaseLikns() {
+    this.releaseLikns = !this.releaseLikns;
+  }
+
+  toggleAddTeamBadge() {
+    this.addTeamBadge = !this.addTeamBadge;
+  }
+
+  toggleAddTeamFeedBack() {
+    this.addTeamFeedBack = !this.addTeamFeedBack;
+  }
 
   toggleRequestToTeam() {
     this.requestToTeam = !this.requestToTeam;
   }
 
-  toggleEditResources() {
-    this.editResources = !this.editResources;
+  toggleFinishStartup() {
+    this.finishStartup = !this.finishStartup;
+  }
+
+  toggleEditGuide() {
+    this.editGuide = !this.editGuide;
+  }
+
+  toggleEditSources() {
+    this.editSources = !this.editSources;
   }
 
   toggleEditTeam() {
