@@ -29,7 +29,7 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import durationExperiensePicker from "~/components/molecules/durationExperiensePicker.vue";
+import durationExperiensePicker from "../../molecules/durationExperiencePicker.vue";
 import technologyPicker from "~/components/molecules/technologyPicker.vue";
 import uBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";

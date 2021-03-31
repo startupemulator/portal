@@ -68,7 +68,7 @@
 <script>
 import UButton from "~/components/atoms/uButton";
 import CreateSpecialities from "~/components/molecules/createSpecialities";
-import inviteCollegues from "~/components/molecules/inviteCollegues";
+import inviteCollegues from "~/components/molecules/inviteColleagues";
 
 export default {
   components: {
