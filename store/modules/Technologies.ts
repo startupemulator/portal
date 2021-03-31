@@ -37,7 +37,6 @@ class Technologies extends VuexModule implements TechnologiesState {
 
   @VuexAction({ commit: "apply", rawError: true })
   public async fetch() {
-    console.log(this.store.app);
     return await getTechnologies(this.store.app.$axios);
   }
 }
