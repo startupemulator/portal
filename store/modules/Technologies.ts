@@ -5,6 +5,7 @@ import {
   VuexModule,
   VuexMutation,
 } from "nuxt-property-decorator";
+import { Store } from "vuex";
 import { getTechnologies } from "../api";
 import { store } from "~/store";
 import { Technology } from "~/models/Technology";
@@ -22,6 +23,7 @@ interface TechnologiesState {
 })
 class Technologies extends VuexModule implements TechnologiesState {
   public items: Array<Technology> = [];
+  public store: Store<Technology>;
 
   @VuexMutation
   public apply(items: Array<Technology> = []) {
@@ -35,7 +37,8 @@ class Technologies extends VuexModule implements TechnologiesState {
 
   @VuexAction({ commit: "apply", rawError: true })
   public async fetch() {
-    return await getTechnologies();
+    console.log(this.store.app);
+    return await getTechnologies(this.store.app.$axios);
   }
 }
 
