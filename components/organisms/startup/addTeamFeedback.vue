@@ -40,7 +40,7 @@ import PickBadeg from "~/components/molecules/pickBadge.vue";
 export default class extends Vue {}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .add-team-feedback {
   width: 343px;
   margin: 0 auto;

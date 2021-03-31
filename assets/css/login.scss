@@ -23,8 +23,25 @@
     margin-top: 32px;
     button {
       &:last-child {
-        margin-top: 16px;
+        margin-bottom: 16px;
       }
+    }
+  }
+  .account__go-to-sign-up {
+    display: flex;
+    align-items: baseline;
+    margin-top: 20px;
+    span {
+      color: $main-text-color;
+      font-weight: normal;
+      font-size: 17px;
+      line-height: 24px;
+    }
+    .button-back span {
+      color: #8c97ac;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 32px;
     }
   }
 }
@@ -66,6 +83,12 @@
       }
       .u-button {
         width: 318px;
+      }
+    }
+    .account__go-to-sign-up {
+      margin-top: 0;
+      .button-back {
+        margin-top: 32px;
       }
     }
   }

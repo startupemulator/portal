@@ -2,7 +2,7 @@
   <div class="button-back">
     <nuxt-link v-if="!isButton" :to="link">
       <button type="button" class="btn-back">
-        <img src="~/assets/img/arrow.svg" alt="arrow" />
+        <img v-if="img" src="~/assets/img/arrow.svg" alt="arrow" />
         <span>{{ title }}</span>
       </button>
     </nuxt-link>
@@ -31,6 +31,10 @@ export default {
     title: {
       type: String,
       default: "Back",
+    },
+    img: {
+      type: Boolean,
+      default: true,
     },
   },
 };

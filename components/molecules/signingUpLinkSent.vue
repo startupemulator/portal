@@ -30,6 +30,7 @@ export default {};
   backdrop-filter: blur(16px);
   display: flex;
   justify-content: center;
+  z-index: 5;
   .signing-up-link-sent__content {
     position: relative;
     width: 343px;

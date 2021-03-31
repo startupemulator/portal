@@ -3,6 +3,7 @@
     <div class="my-projects__header">
       <div class="my-projects__header-add-project">
         <U-title :text="'My projects'"></U-title>
+
         <button type="button" class="my-projects_btn">
           <img src="~/assets/img/+.svg" alt="" /> <span>Create Startup</span>
         </button>
@@ -691,6 +692,7 @@ import UTitle from "~/components/atoms/uTitle.vue";
 import { Startup } from "~/models/Startup";
 import DraftCard from "~/components/molecules/draftCard.vue";
 import StartupCard from "~/components/molecules/startupCard.vue";
+
 @Component({
   components: {
     UTitle,

@@ -108,14 +108,14 @@
     color: #fff;
     outline: none;
     border: 2px solid transparent;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 32px;
     &:focus {
       border: 2px solid #b5c1d8;
     }
     &::placeholder {
-      font-weight: normal;
-      font-size: 16px;
       color: #b5c1d8;
-      line-height: 32px;
     }
   }
   .guide-comments {

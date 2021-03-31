@@ -77,7 +77,11 @@
             <span>
               {{ comment }}
             </span>
-            <img src="~/assets/img/profile-image.svg" alt="profile-imag" />
+            <img
+              v-show="profileImg"
+              src="~/assets/img/profile-image.svg"
+              alt="profile-imag"
+            />
           </div>
         </div>
       </div>
@@ -116,6 +120,7 @@ export default class extends Vue {
   @Prop({ default: false }) is_expert: Boolean;
   @Prop({ default: "Add Feedback" }) u_button_blue: string;
   @Prop({ default: "Add Badge" }) u_button_gray: string;
+  @Prop({ default: true }) profileImg: Boolean;
   toggleFeedBack() {
     this.show_feedback = !this.show_feedback;
   }
