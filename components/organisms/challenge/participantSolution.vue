@@ -44,7 +44,7 @@ import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import Sources from "~/components/molecules/sources.vue";
-import FeedBackCard from "~/components/molecules/feedBackCard.vue";
+import FeedBackCard from "~/components/molecules/feedbackCard.vue";
 
 @Component({
   components: { UButton, UTitle, UBack, Sources, FeedBackCard },
