@@ -242,7 +242,6 @@
   margin-left: 8px;
 }
 
-
 @media (min-width: 426px) {
   .challenges-page .start-ups__content .startup-card__started-name {
     margin-top: 0;
@@ -256,7 +255,6 @@
     .startup-card {
       margin-top: -5px;
       width: 318px;
-
     }
     .startup-card__started-name {
       padding-top: 50px;
@@ -294,7 +292,7 @@
       width: 459px;
       margin-top: 23px;
     }
-    .tartup-block-buttton {
+    .startup-block-button {
       margin-left: 55px;
     }
     .startup-card {
@@ -407,7 +405,7 @@
 @media (min-width: 768px) {
   .startup-block.challenges .startup-card__started-name {
     padding-top: 0;
-}
+  }
   .practicants {
     .startup-block-content__desktop-buttons {
       align-items: baseline;

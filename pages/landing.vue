@@ -17,9 +17,9 @@ import { Component, Vue } from "nuxt-property-decorator";
 import { Startup } from "~/models/Startup";
 import { Challenge } from "~/models/Challenge";
 import { Testimonial } from "~/models/Testimonial";
-import Specialisations from "~/store/modules/Specialisations";
+// import Specialisations from "~/store/modules/Specialisations";
 
-import Technologies from "~/store/modules/Technologies";
+// import Technologies from "~/store/modules/Technologies";
 import AppHeader from "~/components/molecules/appHeader.vue";
 import AppFooter from "~/components/molecules/appFooter.vue";
 import AppChallengesBlock from "~/components/organisms/landing/appChallengesBlock.vue";
@@ -55,8 +55,8 @@ export default class extends Vue {
     const testimonials = await $strapi.find("testimonials");
     // const notifications = await $strapi.find("notifications");
     // TODO change it
-    await Technologies.fetch();
-    await Specialisations.fetch();
+    // await Technologies.fetch();
+    // await Specialisations.fetch();
 
     return {
       startups,
