@@ -1,21 +1,23 @@
-import axios from "axios";
+import { AxiosInstance } from "axios";
 import { Technology } from "../models/Technology";
 
-const client = axios.create({
-  baseURL: process.env.STRAPI_URL,
-});
-
-export async function getTechnologies(): Promise<Technology[]> {
+export async function getTechnologies(
+  client: AxiosInstance
+): Promise<Technology[]> {
   const { data } = await client.get("technologies");
   return data;
 }
 
-export async function getSpecialisations(): Promise<Technology[]> {
+export async function getSpecialisations(
+  client: AxiosInstance
+): Promise<Technology[]> {
   const { data } = await client.get("specialisations");
   return data;
 }
 
-export async function getNotifications(): Promise<Notification[]> {
+export async function getNotifications(
+  client: AxiosInstance
+): Promise<Notification[]> {
   const { data } = await client.get("notifications");
   return data;
 }

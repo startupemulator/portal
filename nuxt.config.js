@@ -79,7 +79,9 @@ export default {
     url: process.env.STRAPI_URL || "/api/v1",
   },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    baseURL: process.env.STRAPI_URL || "https://pear.startupemulator.com",
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
