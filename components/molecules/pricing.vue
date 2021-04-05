@@ -33,13 +33,13 @@
           @clickOnButton="$emit('clikOnButton')"
         ></UButton>
       </div>
-      <div class="pricing__card">
+      <div class="pricing__card senior-card">
         <div class="pricing__card-header">
           <div class="free-in-beta"><span>Free in the Beta</span></div>
           <h5>Senior</h5>
         </div>
         <div class="pricing__card-content">
-          <h3>$100 <span>/ per project</span></h3>
+          <h3>$50 <span>/ per project</span></h3>
           <ul class="pricing__card-content-list">
             <li class="pricing__card-content-item">
               <img src="~assets/img/check-circle.svg" alt="check circle" />
@@ -114,7 +114,8 @@ export default class extends Vue {}
   color: #fff;
   padding: 0 16px;
   box-sizing: border-box;
-
+  width: 343px;
+  margin: 0 auto;
   ul {
     padding: 0;
   }
@@ -130,6 +131,7 @@ export default class extends Vue {}
       background: #2e384a;
       border-radius: 12px;
       margin-bottom: 16px;
+
       .pricing__card-header {
         position: relative;
         width: 100%;
@@ -196,6 +198,71 @@ export default class extends Vue {}
   .u-button {
     margin-top: 8px;
     height: 40px;
+  }
+}
+@media (min-width: 1280px) {
+  .pricing {
+    width: auto;
+
+    .pricing__cards {
+      display: flex;
+      justify-content: center;
+      .pricing__card {
+        margin-right: 24px;
+      }
+    }
+  }
+}
+@media (min-width: 1344px) {
+  .pricing {
+    padding: 0;
+    width: 1344px;
+    box-sizing: border-box;
+    h4 {
+      font-weight: 800;
+      font-size: 69px;
+      line-height: 80px;
+    }
+    .pricing__cards {
+      display: flex;
+      margin-top: 94px;
+      .pricing__card {
+        padding: 56px;
+        margin-bottom: 0;
+        margin-right: 24px;
+        max-height: 524px;
+        box-sizing: border-box;
+        .pricing__card-header {
+          .free-in-beta {
+            right: -56px;
+            top: -56px;
+            padding: 14px 12px;
+            margin-bottom: -32px;
+          }
+        }
+        &.senior-card {
+          min-height: 584px;
+          max-height: 584px;
+          margin-top: -32px;
+        }
+        .pricing__card-content {
+          h3 {
+            font-weight: 800;
+            font-size: 56px;
+            line-height: 64px;
+            margin: 32px 0;
+          }
+          .pricing__card-content-item {
+            margin-bottom: 20px;
+          }
+        }
+      }
+    }
+    .u-button {
+      margin-top: 20px;
+      height: 56px;
+      width: 320px;
+    }
   }
 }
 </style>
