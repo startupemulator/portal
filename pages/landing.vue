@@ -6,6 +6,7 @@
     <app-challenges-block :cards="challenges"></app-challenges-block>
     <app-team-develop></app-team-develop>
     <app-take-part></app-take-part>
+    <Pricing></Pricing>
     <app-top-startups></app-top-startups>
     <app-testimonials :cards="testimonials"></app-testimonials>
     <app-footer></app-footer>
@@ -18,7 +19,6 @@ import { Startup } from "~/models/Startup";
 import { Challenge } from "~/models/Challenge";
 import { Testimonial } from "~/models/Testimonial";
 // import Specialisations from "~/store/modules/Specialisations";
-
 // import Technologies from "~/store/modules/Technologies";
 import AppHeader from "~/components/molecules/appHeader.vue";
 import AppFooter from "~/components/molecules/appFooter.vue";
@@ -29,7 +29,7 @@ import AppTeamDevelop from "~/components/organisms/landing/appTeamDevelop.vue";
 import AppTakePart from "~/components/organisms/landing/appTakePart.vue";
 import AppTopStartups from "~/components/organisms/landing/appTopStartups.vue";
 import AppTestimonials from "~/components/organisms/landing/appTestimonials.vue";
-
+import Pricing from "~/components/molecules/pricing.vue";
 @Component({
   components: {
     AppHeader,
@@ -41,6 +41,7 @@ import AppTestimonials from "~/components/organisms/landing/appTestimonials.vue"
     AppTopStartups,
     AppTestimonials,
     AppFooter,
+    Pricing,
   },
 })
 export default class extends Vue {

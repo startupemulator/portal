@@ -14,6 +14,7 @@
 
 "
     ></textarea>
+    <DifficultyLevelPicker></DifficultyLevelPicker>
     <p>Pick specialization this task is for</p>
     <Utags
       v-for="(item, i) in 4"
@@ -54,7 +55,7 @@ import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import UInput from "~/components/atoms/uInput.vue";
 import Utags from "~/components/atoms/uTags.vue";
-
+import DifficultyLevelPicker from "~/components/atoms/difficultyLevelPicker.vue";
 import AddExistingSourse from "~/components/molecules/addExistingSource.vue";
 
 @Component({
@@ -65,6 +66,7 @@ import AddExistingSourse from "~/components/molecules/addExistingSource.vue";
     UInput,
     Utags,
     AddExistingSourse,
+    DifficultyLevelPicker,
   },
 })
 export default class extends Vue {

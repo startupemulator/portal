@@ -1,18 +1,19 @@
 <template>
-  <div class="start-ups startup-block challenges">
-    <div class="start-ups__content">
-      <div class="start-ups__header challenges__header">
-        <U-title :text="'Challenges'"></U-title>
-        <div class="start-ups__header-filter">
+  <div class="challenges">
+    <div class="challenges__header">
+      <UTitle :text="'Challenges'"></UTitle>
+      <div class="challenges__header-speciality-filters">
+        <div class="challenges__header-speciality-filter">
           <p>Filter by Specialty</p>
           <ul
-            class="start-ups__header-filter_list challenges-filter_list"
-            :class="filterList ? 'filter_list--opend' : ''"
+            ref="specialityList"
+            class="challenges__header-speciality-filter_list"
+            :class="filterList ? 'opend-filter' : ''"
           >
             <li
               v-for="specialisation in specialisations"
               :key="specialisation.id"
-              class="start-ups__header-filter_item"
+              class="challenges__header-speciality-filter_item"
             >
               <U-tags
                 :id="specialisation.id"
@@ -20,29 +21,51 @@
                 :name="specialisation.title"
                 :type="'checkbox'"
                 :checked-class="specialisation.checked ? 'checked' : ''"
-                @pick="specialty(i)"
+                @pick="specialty($event)"
+              ></U-tags>
+            </li>
+          </ul>
+          <button
+            v-if="$device.isMobile"
+            type="button"
+            class="filter-list-button"
+            @click="toggleFilserList"
+          >
+            <span v-show="!filterList">Show All Technologies</span>
+            <span v-show="filterList">Show short list Technologies</span>
+          </button>
+        </div>
+        <div class="challenges__header-diffculty-filter">
+          <p>Filter by Difficulty level</p>
+          <ul class="challenges__header-diffculty-filter-list">
+            <li class="challenges__header-diffculty-filter-item">
+              <U-tags
+                v-for="(item, i) in 5"
+                :key="i"
+                :title="'Level ' + (i + 1)"
               ></U-tags>
             </li>
           </ul>
         </div>
       </div>
-
-      <div class="start-ups_cards-content startup-block">
-        <div data-v-4c0228a8="" class="transition__startup-card">
-          <challenge-card
-            v-for="card in challenges"
-            :key="card.id"
-            :card="card"
-          >
-          </challenge-card>
-        </div>
-      </div>
-      <u-button
-        :class="'u-button-gray u-button-gray__show-more'"
-        :button-name="'Show More'"
-      ></u-button>
-      <app-team-develop></app-team-develop>
     </div>
+    <div class="challenges__cards">
+      <ChallengeCard
+        v-for="card in $device.isMobile
+          ? challenges.slice(0, lengthCardList)
+          : challenges"
+        :key="card.id"
+        class="card"
+        :card="card"
+      ></ChallengeCard>
+    </div>
+    <U-button
+      v-if="$device.isMobile && challenges.length > lengthCardList"
+      :button-name="'Show More'"
+      :button-class="'u-button-gray more-cards'"
+      @clickOnButton="showMoreCards"
+    ></U-button>
+    <AppTeamDevelop></AppTeamDevelop>
   </div>
 </template>
 <script lang="ts">
@@ -72,16 +95,187 @@ export default class extends Vue {
   specialisations: Array<Specialisation>;
 
   private filterList: boolean = false;
-  toggleFilserList() {
-    this.filterList = !this.filterList;
+  private filterTarget: String = "";
+
+  lengthCardList = 4;
+  showMoreCards() {
+    this.lengthCardList = this.lengthCardList + 1;
   }
 
-  specialty(i) {
-    this.specialisations.forEach((el) => {
-      if (i + 1 === el.id) {
-        el.checked = !el.checked;
-      }
-    });
+  toggleFilserList() {
+    this.filterList = !this.filterList;
+    console.log(this.filterList);
+  }
+
+  specialty($event) {
+    this.$emit("filterCards");
+    this.$refs.specialityList.children.forEach((item) =>
+      item.children[0].classList.remove("checked")
+    );
+    if ($event.currentTarget.labels[0].classList.contains("checked")) {
+      $event.currentTarget.labels[0].classList.remove("checked");
+    } else {
+      $event.currentTarget.labels[0].classList.add("checked");
+    }
   }
 }
 </script>
+<style lang="scss">
+@import "~/assets/css/variables.scss";
+.challenges {
+  max-width: 1344px;
+  margin: 0 auto;
+  margin-top: 48px;
+  padding: 0 5px 0 16px;
+
+  ul {
+    padding: 0;
+  }
+  p {
+    color: $main-text-color;
+  }
+  .challenges__header-speciality-filter {
+    margin-bottom: 30px;
+    .challenges__header-speciality-filter_list {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 890px;
+      max-height: 92px;
+      overflow: hidden;
+      &.opend-filter {
+        overflow: auto;
+        max-height: inherit;
+      }
+    }
+  }
+  .filter-list-button {
+    background: transparent;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: #8c97ac;
+    padding: 0;
+    &:hover {
+      text-decoration-line: underline;
+    }
+  }
+  .challenges__cards {
+    .card {
+      margin-bottom: 16px;
+    }
+  }
+  .u-button-gray.more-cards {
+    max-width: 343px;
+  }
+  .team-develop {
+    background: transparent;
+    margin-top: 0;
+    margin-left: 0;
+    img {
+      width: 343px;
+      height: 192.88px;
+      margin-top: 48px;
+    }
+    button {
+      margin-top: 24px;
+      background: #4b4ac8;
+      box-shadow: inset 0 -2px 4px 1px rgba(48, 92, 178, 0.15),
+        inset 0 1px 4px rgba(255, 255, 255, 0.15);
+      &:hover {
+        background-color: $button-color-blue-hover;
+      }
+      &:focus {
+        background-color: $button-color-blue-focus;
+        border-width: 2px;
+        border-color: #b5c1d8;
+      }
+      &:active {
+        background-color: $button-color-blue-active;
+      }
+    }
+    .team-develop__text-block {
+      h2 {
+        margin: 0;
+        margin-top: 23px;
+        font-weight: bold;
+        font-size: 23px;
+        line-height: 32px;
+        div {
+          display: inline;
+        }
+      }
+      h3 {
+        margin: 0;
+        margin-top: 8px;
+        font-size: 16px;
+        line-height: 22px;
+        width: auto;
+      }
+    }
+  }
+  .tags-item.checked {
+    background: #59667e;
+  }
+}
+@media (min-width: 768px) {
+  .challenges {
+    padding: 0;
+    .challenges__header {
+      h2 {
+        font-weight: bold;
+        font-size: 69px;
+        line-height: 80px;
+        margin-top: 72px;
+      }
+      .challenges__header-speciality-filters {
+        display: flex;
+        justify-content: space-between;
+        p {
+          font-weight: 500;
+          font-size: 17px;
+          line-height: 32px;
+          margin: 0;
+        }
+      }
+      .challenges__header-speciality-filter {
+        margin-bottom: 16px;
+        .challenges__header-speciality-filter_list {
+          margin-top: 14px;
+        }
+      }
+    }
+    .challenges__cards {
+      display: flex;
+      flex-wrap: wrap;
+      .card {
+        margin-bottom: 24px;
+      }
+    }
+    .team-develop {
+      justify-content: space-between;
+      img {
+        width: 660px;
+        height: 384px;
+        margin-top: 40px;
+      }
+      .team-develop__text-block {
+        margin-top: 36px;
+        h2 {
+          font-weight: bold;
+          font-size: 56px;
+          line-height: 64px;
+          div {
+            display: block;
+          }
+        }
+        h3 {
+          font-size: 17px;
+          line-height: 24px;
+          margin-top: 16px;
+          height: 90px;
+        }
+      }
+    }
+  }
+}
+</style>

@@ -85,7 +85,7 @@
           </div>
         </div>
       </div>
-      <div v-if="is_expert" class="feed-back-card__expert-buttons">
+      <div v-if="isExpert" class="feed-back-card__expert-buttons">
         <U-button
           :button-name="u_button_blue"
           :button-class="'u-button-blue'"

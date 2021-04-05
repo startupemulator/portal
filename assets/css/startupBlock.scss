@@ -46,6 +46,7 @@
   .startup-block-content {
     margin: 0 16px;
   }
+
   .desktop-buttons__slider {
     display: none;
   }
@@ -241,14 +242,23 @@
   text-align: center;
   margin-left: 8px;
 }
+.startup-block.challenges .startup-block-content {
+  margin-left: 0;
+  margin-bottom: 24px;
+}
 
 @media (min-width: 426px) {
-  .challenges-page .start-ups__content .startup-card__started-name {
-    margin-top: 0;
+  .challenges-page .start-ups__content {
+    .startup-card__started-name {
+      margin-top: 0;
+    }
   }
   .startup-block.challenges {
     min-height: 820px;
     margin-top: 30px;
+    .startup-block__startup-cards {
+      margin-left: 0;
+    }
     .startup-card__started-text {
       margin-top: 15px;
     }
@@ -397,6 +407,7 @@
     margin-top: 50px;
     margin-left: 24px;
   }
+
   .draft {
     padding: 12px;
   }
