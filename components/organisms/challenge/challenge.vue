@@ -27,7 +27,7 @@ export default class extends Vue {
   challengeTask = true;
   participantSolution = false;
   isDeveloper = false;
-  isExpert = true;
+  isExpert = false;
   isStarted = false;
   finished = false;
 

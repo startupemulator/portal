@@ -44,7 +44,7 @@ import { Component, Vue } from "nuxt-property-decorator";
 import UButton from "~/components/atoms/uButton.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
-// import AddExistingSourse from "~/components/molecules/addExistingSourse.vue";
+
 import CreateGuide from "~/components/molecules/createGuide";
 
 @Component({

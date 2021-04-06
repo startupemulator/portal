@@ -85,7 +85,7 @@
           </div>
         </div>
       </div>
-      <div v-if="is_expert" class="feed-back-card__expert-buttons">
+      <div v-if="isExpert" class="feed-back-card__expert-buttons">
         <U-button
           :button-name="u_button_blue"
           :button-class="'u-button-blue'"
@@ -117,7 +117,7 @@ export default class extends Vue {
   @Prop({ default: "5 Sep 2020 14:40" }) published: string;
   @Prop({ default: false }) activity_state: Boolean;
   @Prop({ default: true }) show_feedback: Boolean;
-  @Prop({ default: false }) is_expert: Boolean;
+  @Prop({ default: false }) isExpert: Boolean;
   @Prop({ default: "Add Feedback" }) u_button_blue: string;
   @Prop({ default: "Add Badge" }) u_button_gray: string;
   @Prop({ default: true }) profileImg: Boolean;

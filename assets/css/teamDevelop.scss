@@ -4,10 +4,11 @@
   background-color: #199eb6;
   margin: 0 auto;
   border-radius: 12px;
-  margin-top: 5px;
+  // margin-top: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 56px;
   img {
     width: 295px;
     height: 170px;
@@ -86,7 +87,7 @@
   .team-develop {
     max-width: 1344px;
     margin: 0 auto;
-    margin-top: 12px;
+    margin-top: 82px;
     a {
       display: block;
       max-width: 164px;

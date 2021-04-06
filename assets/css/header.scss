@@ -26,8 +26,10 @@
   }
   .main-header-buttons {
     .header-btn {
-      padding: $medium-button;
       font-size: 18px;
+    }
+    .u-button {
+      height: 40px;
     }
     .button-sign-up {
       background-color: $button-color-blue;
@@ -152,6 +154,9 @@
       .header-btn {
         padding: $big-button;
         font-size: 18px;
+      }
+      .u-button {
+        height: 56px;
       }
       .button-login {
         margin-right: 20px;

@@ -23,10 +23,11 @@
       <h3 class="startup-card__started-text">
         {{ card.description | truncate(70, "...") }}
       </h3>
+
       <div class="startup-card__started-technologies">
         <ul class="startup-card__started-technologies-items">
           <li
-            v-for="skill in card.technologies"
+            v-for="skill in technology"
             :key="skill.id"
             class="startup-card__started-technology"
           >
@@ -71,7 +72,7 @@
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UButton from "../atoms/uButton.vue";
 import { Startup } from "~/models/Startup";
-
+import { Technology } from "~/models/Technology";
 @Component({
   components: { UButton },
 })
@@ -80,6 +81,7 @@ export default class StartupCard extends Vue {
   @Prop({ default: true }) button_apply: Boolean;
   @Prop({ default: true }) button_details: Boolean;
   @Prop() card: Startup;
+  @Prop() technology: Technology;
 }
 </script>
 <style lang="scss" scoped>

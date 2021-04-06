@@ -3,7 +3,7 @@
     <div class="startup-block-content">
       <div class="startup-block-content__head">
         <h2>Challenges</h2>
-        <button type="button" class="tartup-block-buttton">
+        <button type="button" class="startup-block-button">
           <span>See All Challenges</span>
           <img src="~/assets/img/arrow.svg" alt="" />
         </button>
@@ -42,7 +42,7 @@
           :key="card.id"
           class="startup-block__startup-card"
         >
-          <challenge-card :card="card"></challenge-card>
+          <ChallengeCard :card="card"></ChallengeCard>
         </div>
       </transition-group>
     </div>

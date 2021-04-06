@@ -39,6 +39,14 @@
       line-height: 22px;
       margin: 32px 24px 16px 24px;
       max-height: 130px;
+      .u-button {
+        display: contents;
+        font-size: 16px;
+        line-height: 22px;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
     p {
       padding-top: 3px;
@@ -60,6 +68,63 @@
       width: 64px;
       height: 64px;
       border-radius: 50%;
+    }
+  }
+  .practicants-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(59, 70, 90, 0.6);
+    backdrop-filter: blur(16px);
+    height: 100vh;
+    width: 100vw;
+    z-index: 6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .practicants-popup__content {
+      padding: 48px 24px 32px;
+      width: 343px;
+      background: #232b39;
+      border-radius: 12px;
+      box-sizing: border-box;
+      position: relative;
+      .sign-up-link__close {
+        position: absolute;
+        background-color: transparent;
+        right: 10px;
+        top: 16px;
+      }
+      h3 {
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 22px;
+        color: #dbe4f3;
+        margin: 0;
+      }
+      .practicants-popup__full-name {
+        text-align: center;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 22px;
+        margin: 0;
+        margin-top: 16px;
+      }
+      .practicants-popup__position {
+        text-align: center;
+        color: #8c97ac;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        margin: 0;
+      }
+      .practicants-popup__img {
+        display: block;
+        margin: 24px auto 0 auto;
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+      }
     }
   }
 }
@@ -90,14 +155,14 @@
       font-size: 69px;
       line-height: 80px;
       margin-left: 0;
-      margin-top: 150px;
+      margin-top: 170px;
       letter-spacing: 0.5px;
     }
     .practicants-content {
       display: flex;
       overflow: hidden;
       height: 386px;
-      margin-top: 65px;
+      margin-top: 40px;
       margin-left: 0;
       .practicant-block {
         width: 432px;
@@ -134,6 +199,25 @@
           left: calc(40%);
           z-index: 3;
           width: 88px;
+        }
+      }
+    }
+    .practicants-popup {
+      .practicants-popup__content {
+        width: 664px;
+        padding: 64px 48px 48px 48px;
+        .sign-up-link__close {
+          right: 20px;
+          top: 24px;
+        }
+        h3 {
+          font-size: 17px;
+          line-height: 24px;
+        }
+        .practicants-popup__full-name {
+          font-size: 17px;
+          line-height: 24px;
+          margin-top: 24px;
         }
       }
     }

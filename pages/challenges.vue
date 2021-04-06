@@ -5,6 +5,7 @@
     <Challenges
       :challenges="challenges"
       :specialisations="specialisations"
+      @filterCards="filterCards"
     ></Challenges>
 
     <app-footer></app-footer>
@@ -32,6 +33,10 @@ export default class extends Vue {
       challenges,
       specialisations,
     };
+  }
+
+  filterCards() {
+    console.log(this.challenges);
   }
 }
 </script>

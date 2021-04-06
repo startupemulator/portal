@@ -100,7 +100,7 @@
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import MyProfileRegularUser from "./myProfileRegularUser.vue";
 import ExpertUser from "./expertUser.vue";
-import badgePopup from "~/components/molecules/badgePopup.vue";
+import badgePopup from "~/components/molecules/popupBadge.vue";
 import EditProfile from "~/components/organisms/profile/editProfile.vue";
 import ChangePassword from "~/components/organisms/profile/changePassword.vue";
 import { Startup } from "~/models/Startup";

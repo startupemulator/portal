@@ -19,7 +19,7 @@
                 <div class="super-admin-menu__item">
                   <div
                     class="super-admin-menu__item-button"
-                    @click="toggleCreateChallenge"
+                    @click="toggleChallengePage"
                   >
                     Create Startup
                   </div>
@@ -27,7 +27,7 @@
                 <div class="super-admin-menu__item">
                   <div
                     class="super-admin-menu__item-button"
-                    @click="toggleChallengePage"
+                    @click="toggleCreateChallenge"
                   >
                     Create Challenge
                   </div>
@@ -499,6 +499,7 @@ export default class extends Vue {
         width: 100%;
         text-align: left;
         box-sizing: border-box;
+        cursor: pointer;
 
         &:hover {
           background: #4b4ac8;

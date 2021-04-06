@@ -24,7 +24,7 @@
         :key="i"
         :title="i < 1 ? 'UI/UX Designer' : 'Front-end Developer'"
       ></UTags>
-
+      <DifficultyLevel></DifficultyLevel>
       <div
         v-if="isStarted || finished"
         class="startup-card__started-start-time"
@@ -171,6 +171,7 @@ import Practicipants from "~/components/molecules/practicipants.vue";
 import UTags from "~/components/atoms/uTags.vue";
 import CommentExpert from "~/components/molecules/commentForExpert.vue";
 import AddTeamFeedBack from "~/components/organisms/startup/addTeamFeedback.vue";
+import DifficultyLevel from "~/components/atoms/difficultyLevel.vue";
 
 @Component({
   components: {
@@ -183,6 +184,7 @@ import AddTeamFeedBack from "~/components/organisms/startup/addTeamFeedback.vue"
     RequestFeedback,
     CommentExpert,
     AddTeamFeedBack,
+    DifficultyLevel,
   },
 })
 export default class extends Vue {
@@ -192,7 +194,7 @@ export default class extends Vue {
   @Prop() isExpert: Boolean;
   requestFeedback = false;
   cancelParticipationPopup = false;
-  commentExpert = true;
+  commentExpert = false;
   addFeedback = false;
 
   toggleAddFeedback() {
