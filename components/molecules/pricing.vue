@@ -112,7 +112,7 @@ export default class extends Vue {}
 <style lang="scss" scoped>
 .pricing {
   color: #fff;
-  padding: 0 16px;
+  // padding: 0 16px;
   box-sizing: border-box;
   width: 343px;
   margin: 0 auto;
@@ -123,7 +123,7 @@ export default class extends Vue {}
     font-weight: bold;
     font-size: 36px;
     line-height: 40px;
-    margin: 16px 0 24px 0;
+    margin: 22px 0 24px 0;
   }
   .pricing__cards {
     .pricing__card {
@@ -218,6 +218,7 @@ export default class extends Vue {}
     padding: 0;
     width: 1344px;
     box-sizing: border-box;
+    margin-top: 170px;
     h4 {
       font-weight: 800;
       font-size: 69px;
@@ -226,6 +227,7 @@ export default class extends Vue {}
     .pricing__cards {
       display: flex;
       margin-top: 94px;
+      margin-left: 20px;
       .pricing__card {
         padding: 56px;
         margin-bottom: 0;

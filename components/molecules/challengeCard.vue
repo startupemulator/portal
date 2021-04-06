@@ -37,10 +37,12 @@
           v-for="specialisation in card.specialisations.slice(0, 2)"
           :key="specialisation.id"
           :title="specialisation.title"
+          class="modificate-challenge-slider"
         ></UTags>
         <UTags
           v-show="card.specialisations.length > 2"
           :title="'+' + (card.specialisations.length - 2)"
+          class="modificate-challenge-slider"
         ></UTags>
       </div>
       <DifficultyLevel></DifficultyLevel>
@@ -179,6 +181,13 @@ export default class extends Vue {
 .startup-block.challenges .challenge-card {
   margin-right: 16px;
   width: 327px;
+  .modificate-challenge-slider {
+    margin-bottom: 12px;
+    margin-top: -4px;
+  }
+  .challenge-card__content .challenge-card__content_buttons {
+    margin-top: 10px;
+  }
 }
 @media (min-width: 768px) {
   .challenge-card {
@@ -222,6 +231,10 @@ export default class extends Vue {
         }
       }
     }
+  }
+  .startup-block.challenges .challenge-card {
+    width: 318px;
+    margin-right: 24px;
   }
 }
 </style>
