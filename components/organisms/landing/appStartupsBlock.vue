@@ -33,17 +33,13 @@
       </div>
     </div>
     <div class="startup-block__startup-cards">
-      <transition-group
-        name="flip-list"
-        tag="div"
-        class="transition__startup-card"
-      >
-        <div
-          v-for="(card, i) in cards"
-          :key="card.id"
-          class="startup-block__startup-card"
-        >
-          <startup-card :key="i" :card="card"></startup-card>
+      <transition-group name="card" tag="div" class="transition__startup-card">
+        <div v-for="card in cards" :key="card.id" class="card-move">
+          <startup-card
+            :key="card.id"
+            :card="card"
+            :technology="technology"
+          ></startup-card>
         </div>
       </transition-group>
     </div>
@@ -53,6 +49,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import { Startup } from "~/models/Startup";
+import { Technology } from "~/models/Technology";
 import StartupCard from "~/components/molecules/startupCard.vue";
 
 @Component({
@@ -62,10 +59,28 @@ import StartupCard from "~/components/molecules/startupCard.vue";
 })
 export default class AppStartupsBlock extends Vue {
   @Prop() cards: Array<Startup>;
+  @Prop() technology: Array<Technology>;
+
+  slideRigth() {
+    const el = this.cards.pop();
+    setTimeout(() => this.cards.unshift(el), 0);
+  }
+
+  slideLeft() {
+    const el = this.cards.shift();
+    setTimeout(() => this.cards.push(el), 0);
+  }
 }
 </script>
 <style lang="scss" scoped>
-.flip-list-move {
-  transition: transform 1s;
+.card-move {
+  transition: 0.2s;
+}
+.card-enter-ective {
+  transition: 0.1s;
+  position: absolute;
+}
+.card-enter-to {
+  position: relative;
 }
 </style>

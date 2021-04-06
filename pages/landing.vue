@@ -1,8 +1,12 @@
 <template>
   <div>
     <app-header></app-header>
+
     <app-get-experience></app-get-experience>
-    <app-startups-block :cards="startups"></app-startups-block>
+    <app-startups-block
+      :cards="startups"
+      :technology="technologies"
+    ></app-startups-block>
     <app-challenges-block :cards="challenges"></app-challenges-block>
     <app-team-develop></app-team-develop>
     <app-take-part></app-take-part>
@@ -18,8 +22,7 @@ import { Component, Vue } from "nuxt-property-decorator";
 import { Startup } from "~/models/Startup";
 import { Challenge } from "~/models/Challenge";
 import { Testimonial } from "~/models/Testimonial";
-// import Specialisations from "~/store/modules/Specialisations";
-// import Technologies from "~/store/modules/Technologies";
+import { Technology } from "~/models/Technology";
 import AppHeader from "~/components/molecules/appHeader.vue";
 import AppFooter from "~/components/molecules/appFooter.vue";
 import AppChallengesBlock from "~/components/organisms/landing/appChallengesBlock.vue";
@@ -48,12 +51,14 @@ export default class extends Vue {
   startups: Array<Startup> = [];
   challenges: Array<Challenge> = [];
   testimonials: Array<Testimonial> = [];
+  technology: Array<Technology> = [];
 
   // data loaded here will be added during server rendering
   async asyncData({ $strapi }) {
     const startups = await $strapi.find("startups");
     const challenges = await $strapi.find("challenges");
     const testimonials = await $strapi.find("testimonials");
+    const technologies = await $strapi.find("technologies");
     // const notifications = await $strapi.find("notifications");
     // TODO change it
     // await Technologies.fetch();
@@ -63,6 +68,7 @@ export default class extends Vue {
       startups,
       challenges,
       testimonials,
+      technologies,
       // notifications,
     };
   }

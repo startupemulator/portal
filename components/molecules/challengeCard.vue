@@ -183,7 +183,7 @@ export default class extends Vue {
   width: 327px;
   .modificate-challenge-slider {
     margin-bottom: 12px;
-    margin-top: -4px;
+    margin-top: -6px;
   }
   .challenge-card__content .challenge-card__content_buttons {
     margin-top: 10px;
@@ -218,9 +218,9 @@ export default class extends Vue {
       .challenge-card__content-specialisation {
         margin-top: 32px;
         min-height: 80px;
-        .tags-item {
-          margin-bottom: 6px;
-        }
+        // .tags-item {
+        //   margin-bottom: 6px;
+        // }
       }
 
       .challenge-card__content_buttons {
