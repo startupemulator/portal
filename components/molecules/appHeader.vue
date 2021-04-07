@@ -3,10 +3,7 @@
     <div class="main-header-content">
       <U-logo></U-logo>
 
-      <nav
-        class="main-header__nav"
-        :class="!!$strapi.user ? 'logged-in__nav' : ''"
-      >
+      <nav class="main-header__nav" :class="isLogined ? 'logged-in__nav' : ''">
         <ul class="nav-list">
           <li
             class="nav-item"
@@ -49,7 +46,7 @@
             >
           </li>
           <!-- logined -->
-          <div v-if="!!$strapi.user">
+          <div v-if="isLogined">
             <li
               class="nav-item"
               :class="{ 'nav-item__active': active === 'my-projects' }"
@@ -170,7 +167,7 @@
         </ul>
       </nav>
 
-      <div v-if="!$strapi.user" class="main-header-buttons">
+      <div v-if="!isLogined" class="main-header-buttons">
         <nuxt-link to="login">
           <U-button
             button-name="Log in"
@@ -201,6 +198,8 @@ import NotificationsPopup from "./popupNotifications.vue";
   components: { UButton, ULogo, NotificationsPopup, toast },
 })
 export default class AppHeader extends Vue {
+  isLogined = !!this.$strapi.user;
+
   @Prop() active: string;
   notification: Boolean = false;
   toggleNotification() {

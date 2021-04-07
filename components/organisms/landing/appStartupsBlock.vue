@@ -18,14 +18,14 @@
           <button
             type="button"
             class="slider-button"
-            @click="slideRigth('startupCard')"
+            @click="$emit('slideRigth', 'startups')"
           >
             <img src="~/assets/img/arrow.svg" alt="arrow" />
           </button>
           <button
             type="button"
             class="slider-button"
-            @click="slideLeft('startupCard')"
+            @click="$emit('slideLeft', 'startups')"
           >
             <img src="~/assets/img/arrow.svg" alt="arrow" />
           </button>
@@ -61,15 +61,15 @@ export default class AppStartupsBlock extends Vue {
   @Prop() cards: Array<Startup>;
   @Prop() technology: Array<Technology>;
 
-  slideRigth() {
-    const el = this.cards.pop();
-    setTimeout(() => this.cards.unshift(el), 0);
-  }
+  // slideRigth() {
+  //   const el = this.cards.pop();
+  //   setTimeout(() => this.cards.unshift(el), 0);
+  // }
 
-  slideLeft() {
-    const el = this.cards.shift();
-    setTimeout(() => this.cards.push(el), 0);
-  }
+  // slideLeft() {
+  //   const el = this.cards.shift();
+  //   setTimeout(() => this.cards.push(el), 0);
+  // }
 }
 </script>
 <style lang="scss" scoped>

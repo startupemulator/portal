@@ -6,14 +6,14 @@
         <button
           type="button"
           class="slider-button"
-          @click="slideRigth('testimonial')"
+          @click="$emit('slideRigth', 'testimonials')"
         >
           <img src="~/assets/img/arrow.svg" alt="arrow" />
         </button>
         <button
           type="button"
           class="slider-button"
-          @click="slideLeft('testimonial')"
+          @click="$emit('slideLeft', 'testimonials')"
         >
           <img src="~/assets/img/arrow.svg" alt="arrow" />
         </button>

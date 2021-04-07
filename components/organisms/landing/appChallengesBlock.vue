@@ -17,14 +17,14 @@
           <button
             type="button"
             class="slider-button"
-            @click="slideRigth('challenges')"
+            @click="$emit('slideRigth', 'challenges')"
           >
             <img src="~/assets/img/arrow.svg" alt="arrow" />
           </button>
           <button
             type="button"
             class="slider-button"
-            @click="slideLeft('challenges')"
+            @click="$emit('slideLeft', 'challenges')"
           >
             <img src="~/assets/img/arrow.svg" alt="arrow" />
           </button>
