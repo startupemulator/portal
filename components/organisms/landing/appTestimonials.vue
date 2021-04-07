@@ -56,6 +56,14 @@
         </button>
         <h3>
           {{ cards[0].comment }}
+          {{ cards[0].comment }}
+          {{ cards[0].comment }}
+          {{ cards[0].comment }}
+          {{ cards[0].comment }}
+          {{ cards[0].comment }}
+          {{ cards[0].comment }}
+          {{ cards[0].comment }}
+          {{ cards[0].comment }}
         </h3>
         <p class="testimonials-popup__full-name">
           {{ cards[testominalNumber].author }}
@@ -77,17 +85,33 @@
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import { Testimonial } from "~/models/Testimonial";
 import UButton from "~/components/atoms/uButton.vue";
-
+import {
+  disableScrolling,
+  enableScrolling,
+} from "~/assets/jshelper/toggleScroll.js";
 @Component({ components: { UButton } })
 export default class extends Vue {
   @Prop() cards: Array<Testimonial>;
   testominalPopup = false;
   testominalNumber: Number = 0;
+
   toggleTestominalPopup(i: Number) {
     this.testominalNumber = i;
+    this.testominalPopup ? enableScrolling() : disableScrolling();
     this.testominalPopup = !this.testominalPopup;
   }
 }
+// function disableScrolling() {
+//   const x = window.scrollX;
+//   const y = window.scrollY;
+//   window.onscroll = function () {
+//     window.scrollTo(x, y);
+//   };
+// }
+
+// function enableScrolling() {
+//   window.onscroll = function () {};
+// }
 </script>
 <style lang="scss" scoped>
 .flip-list-move {
