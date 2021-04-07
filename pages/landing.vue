@@ -1,18 +1,27 @@
 <template>
   <div>
     <app-header></app-header>
-
     <app-get-experience></app-get-experience>
     <app-startups-block
       :cards="startups"
       :technology="technologies"
+      @slideRigth="slideRigth"
+      @slideLeft="slideLeft"
     ></app-startups-block>
-    <app-challenges-block :cards="challenges"></app-challenges-block>
+    <app-challenges-block
+      :cards="challenges"
+      @slideRigth="slideRigth"
+      @slideLeft="slideLeft"
+    ></app-challenges-block>
     <app-team-develop></app-team-develop>
     <app-take-part></app-take-part>
     <Pricing></Pricing>
     <app-top-startups></app-top-startups>
-    <app-testimonials :cards="testimonials"></app-testimonials>
+    <app-testimonials
+      :cards="testimonials"
+      @slideRigth="slideRigth"
+      @slideLeft="slideLeft"
+    ></app-testimonials>
     <app-footer></app-footer>
   </div>
 </template>
@@ -75,6 +84,40 @@ export default class extends Vue {
 
   get state() {
     return this.$store.state;
+  }
+
+  slideRigth(data) {
+    let el: any;
+    switch (data) {
+      case "startups":
+        el = this.startups.pop();
+        setTimeout(() => this.startups.unshift(el), 0);
+        break;
+      case "challenges":
+        el = this.challenges.pop();
+        setTimeout(() => this.challenges.unshift(el), 0);
+        break;
+      case "testimonials":
+        el = this.testimonials.pop();
+        setTimeout(() => this.testimonials.unshift(el), 0);
+    }
+  }
+
+  slideLeft(data) {
+    let el: any;
+    switch (data) {
+      case "startups":
+        el = this.startups.shift();
+        setTimeout(() => this.startups.push(el), 0);
+        break;
+      case "challenges":
+        el = this.challenges.shift();
+        setTimeout(() => this.challenges.push(el), 0);
+        break;
+      case "testimonials":
+        el = this.testimonials.shift();
+        setTimeout(() => this.testimonials.push(el), 0);
+    }
   }
 }
 </script>

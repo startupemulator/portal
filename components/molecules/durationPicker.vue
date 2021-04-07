@@ -2,7 +2,7 @@
   <div class="technology-picker">
     <h2>{{ title }}</h2>
     <form>
-      <technology-item
+      <uTags
         v-for="technology in technologies"
         :key="technology.id"
         :technologi-id="technology.id"
@@ -13,15 +13,16 @@
         @pickTechnologi="pickTechnologi($event, technology.id)"
       >
         {{ technology.title }}
-      </technology-item>
+      </uTags>
     </form>
   </div>
 </template>
 <script>
-import TechnologyItem from "./technologyItem.vue";
+// import TechnologyItem from "./technologyItem.vue";
+import uTags from "~/components/atoms/uTags.vue";
 export default {
   components: {
-    TechnologyItem,
+    uTags,
   },
   props: {
     title: {

@@ -119,7 +119,7 @@
 
         <Sources
           :finished="true"
-          class="challenge-task__feedBacks-sourses"
+          class="challenge-task__feedBacks-sources"
         ></Sources>
       </div>
       <Practicipants

@@ -1,5 +1,5 @@
 <template>
-  <div class="createProgect-content">
+  <div class="createProject-content">
     <U-back v-show="createprodjectSteps.stepOne" :link="'/'"></U-back>
     <div v-show="!createprodjectSteps.stepOne" class="button-back">
       <button type="button" class="btn-back" @click="goToStepBack">
@@ -9,8 +9,8 @@
     </div>
     <U-title :text="'Create a startup'"></U-title>
 
-    <div class="createProgect-step1__progress-bar">
-      <div class="createProgect__progress-bar" :class="progressSpets"></div>
+    <div class="createProject-step1__progress-bar">
+      <div class="createProject__progress-bar" :class="progressSpets"></div>
     </div>
 
     <create-project-step-1

@@ -5,7 +5,7 @@
 }
 .participate-challenge__content {
   margin-top: 36px;
-  .standart-label input {
+  .standard-label input {
     padding-left: 16px;
     font-weight: normal;
     &::placeholder {
@@ -14,7 +14,7 @@
       font-weight: 300;
     }
   }
-  .standart-label::before {
+  .standard-label::before {
     position: absolute;
     content: "days";
     right: 18px;
@@ -81,14 +81,14 @@
         line-height: 32px;
       }
     }
-    .standart-label input {
+    .standard-label input {
       padding-left: 24px;
       font-weight: 300;
       &::placeholder {
         font-size: 18px;
       }
     }
-    .standart-label::before {
+    .standard-label::before {
       position: absolute;
       content: "days";
       font-weight: 500;

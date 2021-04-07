@@ -665,7 +665,8 @@
   </div>
 </template>
 <script>
-import TechnologyItem from "~/components/molecules/technologyItem";
+// import TechnologyItem from "~/components/molecules/technologyItem";
+// import UTags from "~/components/atoms/uTags.vue";
 import AppTeamDevelop from "~/components/organisms/landing/appTeamDevelop.vue";
 import UTitle from "~/components/atoms/uTitle";
 import UTabs from "~/components/atoms/uTabs";
@@ -675,7 +676,7 @@ export default {
   components: {
     UTitle,
     UTabs,
-    TechnologyItem,
+    // UTags,
     AppTeamDevelop,
     UButton,
   },

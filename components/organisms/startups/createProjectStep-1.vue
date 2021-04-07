@@ -1,5 +1,5 @@
 <template>
-  <div class="createProgect-step1">
+  <div class="createProject-step1">
     <div class="startup__name">
       <h4>Startup name</h4>
       <input type="text" placeholder="Enter the startup name" required />
@@ -50,7 +50,7 @@
         <Add-input :placeholder="'Or enter the number of days'"></Add-input>
       </div>
     </div>
-    <div class="createProgect-step1__buttons">
+    <div class="createProject-step1__buttons">
       <U-button
         :button-name="'Next'"
         :button-class="'u-button-blue'"

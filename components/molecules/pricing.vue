@@ -106,7 +106,7 @@
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 import UButton from "~/components/atoms/uButton.vue";
-@Component({ UButton })
+@Component({ components: { UButton } })
 export default class extends Vue {}
 </script>
 <style lang="scss" scoped>

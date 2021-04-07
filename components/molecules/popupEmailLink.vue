@@ -1,5 +1,5 @@
 <template>
-  <div class="sign-up-link">
+  <div class="sign-up-link popup">
     <div class="sign-up-link__content">
       <button
         type="button"
@@ -59,15 +59,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .sign-up-link {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  background: rgba(59, 70, 90, 0.6);
-  backdrop-filter: blur(16px);
-  display: flex;
-  justify-content: center;
   .sign-up-link__content {
     position: relative;
     width: 343px;

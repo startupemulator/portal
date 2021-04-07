@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import SystemAlert from "./systemAlert";
+import SystemAlert from "./systemAlert.vue";
 import Toast from "~/store/modules/Toast";
 
 @Component({

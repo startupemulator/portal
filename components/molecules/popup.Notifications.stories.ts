@@ -1,15 +1,15 @@
-import badgePopup from "./badgePopup.vue";
+import notificationsPopup from "./popupNotifications.vue";
 
 export default {
-  component: badgePopup,
-  title: "molecules/badgePopup",
+  component: notificationsPopup,
+  title: "molecules/notificationsPopup",
 };
 
 // 👇 We create a “template” of how args map to rendering
 const Template = (args: any, { argTypes }: any) => ({
-  components: { badgePopup },
+  components: { notificationsPopup },
   props: Object.keys(argTypes),
-  template: '<badgePopup v-bind="$props" v-on="$props" />',
+  template: '<notificationsPopup v-bind="$props" v-on="$props" />',
 });
 
 // 👇 Each story then reuses that template

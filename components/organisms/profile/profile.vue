@@ -2,7 +2,7 @@
   <div class="profile-content">
     <div class="profile-header">
       <u-back :link="'/'"></u-back>
-      <U-title :text="$strapi.user.name || $strapi.user.username"> </U-title>
+      <U-title :text="acc.user.name || acc.user.username"> </U-title>
     </div>
 
     <Regular-user v-if="false" :startups="startups"></Regular-user>
@@ -46,6 +46,7 @@ import { Testimonial } from "~/models/Testimonial";
   },
 })
 export default class extends Vue {
+  acc = this.$strapi;
   @Prop() startups: Array<Startup>;
   @Prop() technologies: Array<Technology>;
   @Prop() testimonials: Array<Testimonial>;

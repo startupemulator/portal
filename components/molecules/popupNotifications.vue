@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!!$strapi.user" class="notification-popup">
+  <div v-if="isLogined" class="notification-popup">
     <div class="notification-popup__header">
       <h3>Notifications</h3>
     </div>
@@ -93,7 +93,9 @@ import UButton from "../atoms/uButton.vue";
 @Component({
   components: { UButton },
 })
-export default class extends Vue {}
+export default class extends Vue {
+  isLogined = !!this.$strapi.user;
+}
 </script>
 <style lang="scss" scoped>
 .notification-popup {

@@ -34,3 +34,20 @@ a:-webkit-any-link {
 li {
   list-style: none;
 }
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(59, 70, 90, 0.6);
+  backdrop-filter: blur(16px);
+  width: 100vw;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  // padding-top: 238px;
+  // padding-bottom: 238px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
