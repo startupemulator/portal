@@ -1,7 +1,14 @@
+.experience {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
 .apply-to-team {
   width: 343px;
   margin: 0 auto;
   min-height: 320px;
+
   .button-back {
     margin-top: 36px;
   }

@@ -101,17 +101,6 @@ export default class extends Vue {
     this.testominalPopup = !this.testominalPopup;
   }
 }
-// function disableScrolling() {
-//   const x = window.scrollX;
-//   const y = window.scrollY;
-//   window.onscroll = function () {
-//     window.scrollTo(x, y);
-//   };
-// }
-
-// function enableScrolling() {
-//   window.onscroll = function () {};
-// }
 </script>
 <style lang="scss" scoped>
 .flip-list-move {

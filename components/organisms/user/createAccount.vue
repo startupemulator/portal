@@ -117,7 +117,10 @@ import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UInput from "~/components/atoms/uInput.vue";
 import UButton from "~/components/atoms/uButton.vue";
-
+import {
+  disableScrolling,
+  enableScrolling,
+} from "~/assets/jshelper/toggleScroll.js";
 @Component({
   validations: {
     name: {
@@ -183,11 +186,13 @@ export default class CreateAccount extends Vue {
   }
 
   showPopupEmailLink() {
+    this.popupEmailLink ? enableScrolling() : disableScrolling();
     this.popupEmailLink = !this.popupEmailLink;
   }
 
   showPopupLinkSent() {
     if (this.popupSignUpLink) {
+      this.popupSignUpLink ? enableScrolling() : disableScrolling();
       this.popupSignUpLink = !this.popupSignUpLink;
     } else {
       this.popupSignUpLink = !this.popupSignUpLink;
