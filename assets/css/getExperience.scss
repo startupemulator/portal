@@ -167,22 +167,22 @@
     .get-experience-content .get-experience-content-mobile {
       display: none;
     }
-    .get-experience-content-descktop {
+    .get-experience-content-desktop {
       display: flex;
       flex-direction: column;
     }
-    .descktop-1,
-    .descktop-2 {
+    .desktop-1,
+    .desktop-2 {
       width: 1290px;
       max-width: 1290px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
     }
-    .descktop-2 {
+    .desktop-2 {
       margin-top: -10px;
     }
-    .descktop-2 .experience-content__four-image {
+    .desktop-2 .experience-content__four-image {
       margin-top: 20px;
     }
     .button-startups--groupe {

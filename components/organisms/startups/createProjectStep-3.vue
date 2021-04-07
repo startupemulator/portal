@@ -1,5 +1,5 @@
 <template>
-  <div class="createProgect-step3">
+  <div class="createProject-step3">
     <h2>Add existing sources</h2>
     <h3>
       Add links on design, userflows, repositories, etc., which will be used
@@ -19,7 +19,7 @@
         @clickOnButton="addExistingSourse"
       ></U-button>
     </div>
-    <div class="createProgect-step1__buttons">
+    <div class="createProject-step1__buttons">
       <U-button
         :button-name="'Next'"
         :button-class="'u-button-blue'"

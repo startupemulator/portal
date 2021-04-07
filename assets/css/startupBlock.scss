@@ -1,8 +1,6 @@
 .startup-block.challenges {
   margin-top: 58px;
-  .tartup-block-buttton {
-    margin-top: 13px;
-  }
+
   .startup-card__started-name {
     padding-top: 32px;
   }
@@ -13,7 +11,6 @@
     transition: 1s;
     opacity: 1;
     margin-top: 0;
-    // width: 327px;
     min-height: 362px;
     padding-bottom: 32px;
   }
@@ -22,7 +19,7 @@
   }
 }
 
-.practicants {
+.testimonials {
   .desktop-buttons__slider {
     display: none;
   }
@@ -68,16 +65,7 @@
     font-size: 16px;
     line-height: 22px;
   }
-  .tartup-block-buttton {
-    display: flex;
-    align-items: center;
-    span {
-      border-bottom: 1px solid transparent;
-    }
-    &:hover span {
-      border-bottom: 1px solid #8c97ac;
-    }
-  }
+
   button {
     color: #8c97ac;
     font-weight: 600;
@@ -183,7 +171,7 @@
     max-height: 80px;
     overflow: hidden;
     .startup-card__started-technology {
-      color: $second-text-colcor;
+      color: $second-text-color;
       font-size: 14px;
       line-height: 32px;
       font-weight: normal;
@@ -230,23 +218,7 @@
     }
   }
 }
-.startup-card__started--messege {
-  min-width: 24px;
-  min-height: 24px;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 24px;
-  color: #4e5a71;
-  background: #eaf42c;
-  box-shadow: 0 -2px 8px rgba(234, 244, 44, 0.3),
-    0 2px 8px rgba(234, 244, 44, 0.3),
-    inset 0 -2px 4px 1px rgba(117, 122, 14, 0.15),
-    inset 0 1px 4px rgba(255, 255, 255, 0.15);
-  border-radius: 14px;
-  text-align: center;
-  margin-left: 8px;
-}
+
 .startup-block.challenges .startup-block-content {
   margin-left: 0;
   margin-bottom: 24px;
@@ -368,27 +340,12 @@
       .u-button-blue {
         width: 121px;
       }
-      .tartup-block__button-details {
-        padding: 12px 32px;
-        font-weight: bold;
-        font-size: 18px;
-        line-height: 32px;
-        margin-right: 12px;
-        min-width: 121px;
-      }
-      .tartup-block__button-apply {
-        padding: 0;
-        font-weight: bold;
-        font-size: 18px;
-        line-height: 32px;
-        min-width: 121px;
-      }
     }
     .desktop-buttons__slider {
       display: flex;
       width: 145px;
       justify-content: space-between;
-      .slider-buttton {
+      .slider-button {
         width: 64px;
         height: 64px;
         background-color: #3b465a;
@@ -428,7 +385,7 @@
       margin-right: 48px;
     }
   }
-  .practicants {
+  .testimonials {
     .startup-block-content__desktop-buttons {
       align-items: baseline;
       display: flex;
@@ -439,7 +396,7 @@
       min-width: 145px;
       justify-content: space-between;
       margin-right: 32px;
-      .slider-buttton {
+      .slider-button {
         width: 64px;
         height: 64px;
         background-color: #3b465a;
@@ -492,7 +449,7 @@
       margin-right: 0;
     }
   }
-  .practicants {
+  .testimonials {
     .desktop-buttons__slider {
       margin: 0;
       position: relative;

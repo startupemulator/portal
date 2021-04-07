@@ -19,24 +19,31 @@
       </button>
     </div>
     <div class="project-participant_technologies">
-      <Technology-item
+      <!-- <Technology-item
         v-for="(technologi, i) in 4"
         :key="i"
         :technologi-id="i"
         :title="'JavaScript'"
       >
-      </Technology-item>
+      </Technology-item> -->
+      <UTags
+        v-for="(technologi, i) in 4"
+        :key="i"
+        :technologi-id="i"
+        :title="'JavaScript'"
+      ></UTags>
     </div>
   </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UBack from "~/components/atoms/uBack.vue";
-import TechnologyItem from "~/components/molecules/technologyItem.vue";
+// import TechnologyItem from "~/components/molecules/technologyItem.vue";
+import UTags from "~/components/atoms/uTags.vue";
 // import { Startup } from "~/models/Startup";
 
 @Component({
-  components: { UBack, TechnologyItem },
+  components: { UBack, UTags },
 })
 export default class AppHeader extends Vue {
   @Prop({ default: "Product Owners" }) position: String;

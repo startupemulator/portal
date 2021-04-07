@@ -24,10 +24,10 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
-import applyToTeamStep1 from "~/components/organisms/team/applyToTeamStep1";
-import applyToTeamStep2 from "~/components/organisms/team/applyToTeamStep2";
-import PopupApplied from "~/components/molecules/popupApplied";
-import UBack from "~/components/atoms/uBack";
+import applyToTeamStep1 from "~/components/organisms/team/applyToTeamStep1.vue";
+import applyToTeamStep2 from "~/components/organisms/team/applyToTeamStep2.vue";
+import PopupApplied from "~/components/molecules/popupApplied.vue";
+import UBack from "~/components/atoms/uBack.vue";
 import { Startup } from "~/models/Startup";
 
 @Component({

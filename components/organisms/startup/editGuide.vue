@@ -45,7 +45,7 @@ import UButton from "~/components/atoms/uButton.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 
-import CreateGuide from "~/components/molecules/createGuide";
+import CreateGuide from "~/components/molecules/createGuide.vue";
 
 @Component({
   components: { UButton, UBack, UTitle, CreateGuide },

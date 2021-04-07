@@ -21,7 +21,7 @@
   .button-back {
     margin-top: 38px;
   }
-  .createProgect-step1__progress-bar {
+  .createProject-step1__progress-bar {
     width: 343px;
     height: 12px;
     background: #232b39;
@@ -29,7 +29,7 @@
     box-sizing: border-box;
     box-shadow: inset 2px -1px 8px rgba(78, 100, 141, 0.5);
     border-radius: 16px;
-    .createProgect__progress-bar {
+    .createProject__progress-bar {
       background: #6295fc;
       box-shadow: -2px 0 8px rgba(98, 149, 252, 0.8),
         2px 0 8px rgba(98, 149, 252, 0.8);
@@ -60,7 +60,7 @@
     margin-bottom: 8px;
   }
 
-  .button_pick_technologies {
+  .button_pick_technologes {
     background: transparent;
     border: none;
     border-bottom: 1px solid transparent;
@@ -194,7 +194,7 @@
       }
     }
   }
-  .createProgect-step1__buttons,
+  .createProject-step1__buttons,
   .edit-profile__buttons {
     position: fixed;
     left: 0;
@@ -219,8 +219,8 @@
   padding-bottom: 75px;
 }
 
-.createProgect-step2,
-.createProgect-step3 {
+.createProject-step2,
+.createProject-step3 {
   h2 {
     font-weight: 600;
     font-size: 26px;
@@ -278,7 +278,7 @@
       transition: 1s;
     }
   }
-  .specialityOne__item.item-choosen {
+  .specialityOne__item.item-chosen {
     width: 304px;
   }
   .specialityOne__item-list {
@@ -342,11 +342,11 @@
     line-height: 22px;
     color: #fff;
   }
-  .invite-collegues {
+  .invite-colleagues {
     padding-top: 33px;
     border-top: 1px solid #4e5a71;
   }
-  .invite-collegues h5 {
+  .invite-colleagues h5 {
     margin-top: 0;
     font-weight: 300;
     font-size: 16px;
@@ -359,7 +359,7 @@
       display: inline;
     }
   }
-  .invite-collegues__button {
+  .invite-colleagues__button {
     width: 343px;
     height: 40px;
     background: #3b465a;
@@ -381,7 +381,7 @@
   }
 }
 
-.technologi-popup__pick-technology {
+.technology-popup__pick-technology {
   position: fixed;
   top: 0;
   left: 0;
@@ -418,7 +418,7 @@
       width: 316px;
     }
   }
-  .createProgect-step2__buttons-popup {
+  .createProject-step2__buttons-popup {
     margin-top: 20px;
     position: fixed;
     bottom: 0;
@@ -437,7 +437,7 @@
     }
   }
 }
-.invited-collegues {
+.invited-colleagues {
   padding: 0;
   li {
     font-weight: 500;
@@ -447,7 +447,7 @@
   p {
     padding-left: 5px;
   }
-  .invited-collegues__speciality {
+  .invited-colleagues__speciality {
     background: #2e384a;
     border-radius: 12px;
     width: 100%;
@@ -457,7 +457,7 @@
     line-height: 32px;
     box-sizing: border-box;
   }
-  .invited-collegues__speciality-block {
+  .invited-colleagues__speciality-block {
     display: flex;
     .sign-up-link__close {
       margin-left: 20px;
@@ -467,7 +467,7 @@
 }
 
 @media (min-width: 768px) {
-  .technologi-popup__pick-technology {
+  .technology-popup__pick-technology {
     .pick-technology__content {
       max-width: 660px;
       height: 630px;
@@ -498,7 +498,7 @@
       }
     }
   }
-  .technologi-popup__pick-technology .createProgect-step2__buttons-popup {
+  .technology-popup__pick-technology .createProject-step2__buttons-popup {
     position: relative;
     width: 100%;
     border: none;
@@ -518,7 +518,7 @@
       }
     }
 
-    .createProgect-step1__buttons {
+    .createProject-step1__buttons {
       position: relative;
       background-color: transparent;
       border-radius: 0;
@@ -542,10 +542,10 @@
       margin-top: 65px;
       margin-bottom: 38px;
     }
-    .createProgect-step1__progress-bar {
+    .createProject-step1__progress-bar {
       width: 660px;
       height: 12px;
-      .createProgect__progress-bar {
+      .createProject__progress-bar {
         width: 165px;
       }
       .progress-bar__stepTwo {
@@ -642,8 +642,8 @@
       }
     }
   }
-  .createProgect-step2,
-  .createProgect-step3 {
+  .createProject-step2,
+  .createProject-step3 {
     h2 {
       font-weight: 600;
       font-size: 35px;
@@ -671,7 +671,7 @@
       font-size: 18px;
       line-height: 32px;
     }
-    .specialityOne__item.item-choosen {
+    .specialityOne__item.item-chosen {
       width: 620px;
     }
     .specialityOne__item-list {
@@ -684,7 +684,7 @@
       font-size: 17px;
       line-height: 32px;
     }
-    .invite-collegues h5 {
+    .invite-colleagues h5 {
       font-weight: normal;
       font-size: 17px;
       line-height: 24px;
@@ -695,7 +695,7 @@
         display: inline;
       }
     }
-    .invite-collegues__button {
+    .invite-colleagues__button {
       width: 182px;
       height: 48px;
       font-weight: bold;
@@ -710,7 +710,7 @@
   .createProject ~ .main-footer {
     padding-bottom: 0;
   }
-  .createProgect-step3 h3 {
+  .createProject-step3 h3 {
     width: 620px;
   }
 }

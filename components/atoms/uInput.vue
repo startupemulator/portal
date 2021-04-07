@@ -1,5 +1,5 @@
 <template>
-  <label class="standart-label">
+  <label class="standard-label">
     <img v-if="img" :src="img" alt="icon" />
     <input
       :class="accountClass"
@@ -7,7 +7,7 @@
       :placeholder="placeholder"
       :img="img"
       :value="value"
-      class="standart-input"
+      class="standard-input"
       @blur="$emit('textInput', $event.target.value)"
     />
     <button
@@ -64,7 +64,7 @@ export default {
 };
 </script>
 <style lang="scss">
-.standart-label {
+.standard-label {
   position: relative;
   img {
     position: absolute;
@@ -78,7 +78,7 @@ export default {
     left: 290px;
     top: 0;
   }
-  .standart-input {
+  .standard-input {
     background: #2e384a;
     border-radius: 12px;
     font-weight: normal;
@@ -104,14 +104,14 @@ export default {
     }
   }
 }
-.delete-startup__input .standart-input {
+.delete-startup__input .standard-input {
   padding-left: 16px;
 }
-.standart-label .standart-input.error {
+.standard-label .standard-input.error {
   border: 1px solid #e94646;
 }
 @media (min-width: 768px) {
-  .standart-label {
+  .standard-label {
     img {
       position: absolute;
       top: -2px;
@@ -120,7 +120,7 @@ export default {
     .btnShowPassword {
       left: 590px;
     }
-    .standart-input {
+    .standard-input {
       height: 56px;
       padding-left: 64px;
       font-size: 18px;
@@ -131,7 +131,7 @@ export default {
       }
     }
   }
-  .delete-startup__input .standart-input {
+  .delete-startup__input .standard-input {
     padding-left: 24px;
   }
 }

@@ -9,8 +9,8 @@
           <img src="~/assets/img/m-img2.png" alt="" />
         </div>
       </div>
-      <div class="get-experience-content-descktop">
-        <div class="descktop-1">
+      <div class="get-experience-content-desktop">
+        <div class="desktop-1">
           <div class="experience-content__first-image">
             <img src="~/assets/img/left-top.png" alt="" />
           </div>
@@ -18,7 +18,7 @@
             <img src="~/assets/img/right-top.png" alt="" />
           </div>
         </div>
-        <div class="descktop-2">
+        <div class="desktop-2">
           <div class="experience-content__third-image">
             <img src="~/assets/img/left-bottom.png" alt="" />
           </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="createProgect-step3 createProgect-step4">
+  <div class="createProject-step3 createProject-step4">
     <h2>Create a guide for your team</h2>
     <h3>
       Add links on design, userflows, repositories, etc., which will be used
@@ -19,7 +19,7 @@
         @clickOnButton="addGuideSourse"
       ></U-button>
     </div>
-    <div class="createProgect-step1__buttons">
+    <div class="createProject-step1__buttons">
       <U-button
         :button-name="'Publish'"
         :button-class="'u-button-blue'"

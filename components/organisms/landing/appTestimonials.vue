@@ -1,31 +1,31 @@
 <template>
-  <div class="practicants">
+  <div class="testimonials">
     <div class="startup-block-content__desktop-buttons">
-      <h2 class="practicants-title">What our participants say</h2>
+      <h2 class="testimonials-title">What our participants say</h2>
       <div class="desktop-buttons__slider">
         <button
           type="button"
-          class="slider-buttton"
-          @click="slideRigth('practicant')"
+          class="slider-button"
+          @click="slideRigth('testimonial')"
         >
           <img src="~/assets/img/arrow.svg" alt="arrow" />
         </button>
         <button
           type="button"
-          class="slider-buttton"
-          @click="slideLeft('practicant')"
+          class="slider-button"
+          @click="slideLeft('testimonial')"
         >
           <img src="~/assets/img/arrow.svg" alt="arrow" />
         </button>
       </div>
     </div>
     <transition-group
-      key="practicants"
-      class="practicants-content"
+      key="testimonials"
+      class="testimonials-content"
       tag="div"
       name="flip-list"
     >
-      <div v-for="(card, i) in cards" :key="card.id" class="practicant-block">
+      <div v-for="(card, i) in cards" :key="card.id" class="testimonial-block">
         <h3>
           {{ card.comment | truncate(175, "...") }}
           <U-button
@@ -35,18 +35,18 @@
             @clickOnButton="toggleTestominalPopup(i)"
           ></U-button>
         </h3>
-        <p class="practicant-block__full-name">{{ card.author }}</p>
-        <p class="practicant-block__position">{{ card.title }}</p>
+        <p class="testimonial-block__full-name">{{ card.author }}</p>
+        <p class="testimonial-block__position">{{ card.title }}</p>
         <img
           v-if="card.photo[0]"
-          class="practicant-block__img"
+          class="testimonial-block__img"
           :src="'/api/v1' + card.photo[0].url"
-          alt="practicant"
+          alt="testimonial"
         />
       </div>
     </transition-group>
-    <div v-if="testominalPopup" class="practicants-popup popup">
-      <div class="practicants-popup__content">
+    <div v-if="testominalPopup" class="testimonials-popup popup">
+      <div class="testimonials-popup__content">
         <button
           type="button"
           class="sign-up-link__close"
@@ -57,17 +57,17 @@
         <h3>
           {{ cards[0].comment }}
         </h3>
-        <p class="practicants-popup__full-name">
+        <p class="testimonials-popup__full-name">
           {{ cards[testominalNumber].author }}
         </p>
-        <p class="practicants-popup__position">
+        <p class="testimonials-popup__position">
           {{ cards[testominalNumber].title }}
         </p>
         <img
           v-if="cards[testominalNumber].photo[0]"
-          class="practicants-popup__img"
+          class="testimonials-popup__img"
           :src="'/api/v1' + cards[testominalNumber].photo[0].url"
-          alt="practicant"
+          alt="testimonial"
         />
       </div>
     </div>

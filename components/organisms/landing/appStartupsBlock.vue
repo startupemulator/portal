@@ -17,14 +17,14 @@
         <div class="desktop-buttons__slider">
           <button
             type="button"
-            class="slider-buttton"
+            class="slider-button"
             @click="slideRigth('startupCard')"
           >
             <img src="~/assets/img/arrow.svg" alt="arrow" />
           </button>
           <button
             type="button"
-            class="slider-buttton"
+            class="slider-button"
             @click="slideLeft('startupCard')"
           >
             <img src="~/assets/img/arrow.svg" alt="arrow" />

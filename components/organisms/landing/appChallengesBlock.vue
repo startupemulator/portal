@@ -16,14 +16,14 @@
         <div class="desktop-buttons__slider">
           <button
             type="button"
-            class="slider-buttton"
+            class="slider-button"
             @click="slideRigth('challenges')"
           >
             <img src="~/assets/img/arrow.svg" alt="arrow" />
           </button>
           <button
             type="button"
-            class="slider-buttton"
+            class="slider-button"
             @click="slideLeft('challenges')"
           >
             <img src="~/assets/img/arrow.svg" alt="arrow" />
@@ -51,7 +51,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
-import { Challenges } from "~/models/Challenges";
+import { Challenge } from "~/models/Challenge";
 import ChallengeCard from "~/components/molecules/challengeCard.vue";
 
 @Component({
@@ -60,7 +60,7 @@ import ChallengeCard from "~/components/molecules/challengeCard.vue";
   },
 })
 export default class AppChallengesBlock extends Vue {
-  @Prop() cards: Array<Challenges>;
+  @Prop() cards: Array<Challenge>;
 }
 </script>
 <style lang="scss" scoped>

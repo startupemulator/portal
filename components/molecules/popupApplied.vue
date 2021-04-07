@@ -23,8 +23,8 @@
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import UButton from "../atoms/uButton";
-import UTitle from "../atoms/uTitle";
+import UButton from "../atoms/uButton.vue";
+import UTitle from "../atoms/uTitle.vue";
 
 @Component({
   components: {
