@@ -1,6 +1,6 @@
 <template>
-  <div class="signing-up-link-sent">
-    <div class="signing-up-link-sent__content">
+  <div class="signing-up-link-sent popup">
+    <div class="signing-up-link-sent__content successfully-sent">
       <button
         type="button"
         class="sign-up-link__close"

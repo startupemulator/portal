@@ -74,13 +74,14 @@ export default class AppStartupsBlock extends Vue {
 </script>
 <style lang="scss" scoped>
 .card-move {
-  transition: 0.2s;
+  transition: 1.2s;
+  transform: scale(1);
 }
-.card-enter-ective {
-  transition: 0.1s;
-  position: absolute;
-}
-.card-enter-to {
-  position: relative;
-}
+// .card-enter-ective {
+//   transition: 0.1s;
+//   transform: scale(1);
+// }
+// .card-enter-to {
+//   transform: scale(0.8);
+// }
 </style>

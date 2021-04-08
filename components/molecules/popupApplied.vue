@@ -13,10 +13,12 @@
         You will receive an email notification when Product owner selects
         developer for a team. Also, you are able to apply to other startups.
       </p>
-      <U-button
-        :button-name="'Discover More Startups'"
-        :button-class="'u-button-blue'"
-      ></U-button>
+      <nuxt-link to="startups-list">
+        <U-button
+          :button-name="'Discover More Startups'"
+          :button-class="'u-button-blue'"
+        ></U-button>
+      </nuxt-link>
     </div>
   </div>
 </template>

@@ -40,10 +40,7 @@
           </div>
         </li>
       </ul>
-      <button
-        class="invite-colleagues__button"
-        @click="invitecolleagues = !invitecolleagues"
-      >
+      <button class="invite-colleagues__button" @click="toggleInviteColleagues">
         Invite colleagues
       </button>
     </div>
@@ -60,7 +57,7 @@
     </div>
     <invite-colleagues
       v-if="invitecolleagues"
-      @closePopupLinkEmail="invitecolleagues = !invitecolleagues"
+      @closePopupLinkEmail="toggleInviteColleagues"
       @inviteCollegue="inviteCollegue"
     ></invite-colleagues>
   </div>
@@ -69,7 +66,10 @@
 import UButton from "~/components/atoms/uButton";
 import CreateSpecialities from "~/components/molecules/createSpecialities";
 import invitecolleagues from "~/components/molecules/inviteColleagues";
-
+import {
+  enableScrolling,
+  disableScrolling,
+} from "~/assets/jshelper/toggleScroll";
 export default {
   components: {
     UButton,
@@ -85,10 +85,16 @@ export default {
   methods: {
     inviteCollegue(data) {
       this.invitecolleagues = !this.invitecolleagues;
+      enableScrolling();
       this.invitedcolleagues.push({
         email: data.email,
         speciality: data.speciality,
       });
+    },
+    toggleInviteColleagues() {
+      this.invitecolleagues = !this.invitecolleagues;
+      console.log(this.invitecolleagues);
+      this.invitecolleagues ? disableScrolling() : enableScrolling();
     },
     removeSpeciality(id, i) {
       this.specialityComponent = this.specialityComponent.filter(

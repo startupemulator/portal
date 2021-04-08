@@ -1,5 +1,5 @@
 <template>
-  <div class="signing-up-link-sent">
+  <div class="signing-up-link-sent popup">
     <div class="signing-up-link-sent__content">
       <button
         type="button"
@@ -21,20 +21,9 @@ export default {};
 </script>
 <style lang="scss">
 .signing-up-link-sent {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  background: rgba(59, 70, 90, 0.6);
-  backdrop-filter: blur(16px);
-  display: flex;
-  justify-content: center;
-  z-index: 5;
   .signing-up-link-sent__content {
     position: relative;
     width: 343px;
-    height: 196px;
     display: flex;
     flex-direction: column;
     background: #232b39;
@@ -42,6 +31,9 @@ export default {};
     padding: 0 24px;
     box-sizing: border-box;
     margin-top: 262px;
+  }
+  .successfully-sent {
+    height: 280px;
   }
   .sign-up-link__close {
     position: absolute;
@@ -72,6 +64,9 @@ export default {};
       height: 200px;
       padding: 0 48px;
       margin-top: 332px;
+    }
+    .successfully-sent {
+      height: 344px;
     }
     .sign-up-link__close {
       right: 18px;

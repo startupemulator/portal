@@ -61,6 +61,11 @@ export default {
     }
   }
 }
+.createProject-step4 {
+  .standard-label .standard-input {
+    padding-left: 16px;
+  }
+}
 @media (min-width: 768px) {
   .existing-sources__link-name {
     width: 660px;

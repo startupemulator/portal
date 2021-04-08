@@ -124,6 +124,7 @@ export default {
   backdrop-filter: blur(16px);
   display: flex;
   justify-content: center;
+  z-index: 9;
 
   .invite-collegues__content {
     position: relative;
@@ -172,7 +173,7 @@ export default {
   .btn-invite {
     margin-top: 24px;
   }
-  .standart-label {
+  .standard-label {
     margin-top: 16px;
     img {
       top: 12px;
@@ -203,7 +204,7 @@ export default {
     .specialityOne__item {
       width: 468px;
     }
-    .standart-label {
+    .standard-label {
       img {
         top: 16px;
       }

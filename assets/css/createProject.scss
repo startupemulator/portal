@@ -382,22 +382,15 @@
 }
 
 .technology-popup__pick-technology {
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: rgba(59, 70, 90, 0.6);
-  backdrop-filter: blur(16px);
-  min-height: 100vh;
-  width: 100vw;
   z-index: 11;
   .pick-technology__content {
     max-width: 375px;
     box-sizing: border-box;
-    height: 100vh;
     margin: 0 auto;
     background: #232b39;
     border-radius: 12px;
     margin-top: 32px;
+    padding-bottom: 32px;
     padding-top: 1px;
     h2 {
       font-weight: bold;
@@ -414,7 +407,7 @@
     }
     input {
       margin-top: 5px;
-      margin-left: 24px;
+      // margin-left: 24px;
       width: 316px;
     }
   }
@@ -431,7 +424,7 @@
     border-radius: 16px 16px 0 0;
     width: 375px;
     height: 92px;
-    margin-bottom: 28px;
+
     .u-button-blue {
       min-width: 245px;
     }
@@ -470,7 +463,7 @@
   .technology-popup__pick-technology {
     .pick-technology__content {
       max-width: 660px;
-      height: 630px;
+      // height: 630px;
       margin-top: 120px;
       padding-top: 1px;
       h2 {
@@ -481,7 +474,7 @@
         margin: 48px 56px 0 56px;
       }
       .technology-picker {
-        margin: 24px 34px;
+        margin: 24px 16px;
         h2 {
           display: none;
         }
@@ -492,7 +485,7 @@
       }
       input {
         margin-top: 5px;
-        margin-left: 56px;
+        // margin-left: 56px;
         width: 550px;
         box-sizing: border-box;
       }

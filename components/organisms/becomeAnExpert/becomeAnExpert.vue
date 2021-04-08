@@ -16,7 +16,7 @@
         @textInput="checkName"
       ></U-input>
       <p v-show="validInput.fullName" class="errorInput">
-        Please enter a password of at least 6 characters
+        Please enter a name of at least 4 characters
       </p>
       <technology-picker
         :title="'Pick technologies you are expert in'"
@@ -46,7 +46,7 @@ export default {
   methods: {
     checkName(textValue) {
       textValue = textValue.trim();
-      this.validInput.fullName = textValue.length < 6;
+      this.validInput.fullName = textValue.length < 4;
     },
     showAlert() {
       this.alert = !this.alert;
@@ -144,6 +144,7 @@ export default {
     border-radius: 0;
     padding: 0;
     box-sizing: border-box;
+    margin-top: 32px;
     button {
       margin-top: 32px;
       margin-left: 0;

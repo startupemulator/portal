@@ -68,13 +68,13 @@
               ? 'button_pick_technologyes--empty'
               : ''
           "
-          @click="popupPickTechnology = !popupPickTechnology"
+          @click="togglePopupPickTechnologies"
         >
           Pick technologyes for this speciality
         </button>
       </div>
     </div>
-    <div v-show="popupPickTechnology" class="technology-popup">
+    <div v-show="popupPickTechnology" class="technology-popup popup">
       <div class="technology-popup__pick-technology step-1">
         <div class="pick-technology__content">
           <h2>
@@ -84,7 +84,7 @@
           <div class="step-1__experience">
             <div class="technology-picker">
               <h2>{{ title }}</h2>
-              <form>
+              <!-- <form>
                 <label
                   v-for="technology in technologyes"
                   :key="technology.id"
@@ -98,19 +98,20 @@
                     "
                   />
                 </label>
-              </form>
+              </form> -->
+              <technology-picker></technology-picker>
             </div>
           </div>
-          <input
+          <!-- <input
             type="text"
             placeholder="Type a technology to add"
             @keydown="inputTechnology($event)"
-          />
-          <div class="createProgect-step2__buttons-popup">
+          /> -->
+          <div class="createProject-step2__buttons-popup">
             <U-button
               :button-name="'Save'"
               :button-class="'u-button-blue'"
-              @clickOnButton="popupPickTechnology = !popupPickTechnology"
+              @clickOnButton="togglePopupPickTechnologies"
             ></U-button>
             <U-button
               :button-name="'Skip'"
@@ -124,11 +125,16 @@
   </div>
 </template>
 <script>
-import UButton from "~/components/atoms/uButton";
-
+import UButton from "~/components/atoms/uButton.vue";
+import {
+  enableScrolling,
+  disableScrolling,
+} from "~/assets/jshelper/toggleScroll";
+import TechnologyPicker from "~/components/molecules/technologyPicker.vue";
 export default {
   components: {
     UButton,
+    TechnologyPicker,
   },
   props: {
     name: {
@@ -151,43 +157,43 @@ export default {
         { id: 2, specialityPosition: "DevOps" },
         { id: 3, specialityPosition: "Seo" },
       ],
-      technologyes: [
-        { id: 1, checked: false, title: "Javascript" },
-        { id: 2, checked: false, title: "Java" },
-        { id: 3, checked: false, title: "Python" },
-        { id: 4, checked: false, title: "HTML5" },
-        { id: 5, checked: false, title: "CSS3" },
-        { id: 6, checked: false, title: "Javascript" },
-        { id: 7, checked: false, title: "Javascript" },
-        { id: 8, checked: false, title: "Java" },
-        { id: 9, checked: false, title: "Javascript" },
-        { id: 10, checked: false, title: "Java" },
-        { id: 11, checked: false, title: "Python" },
-        { id: 12, checked: false, title: "HTML5" },
-        { id: 13, checked: false, title: "CSS3" },
-        { id: 14, checked: false, title: "Java" },
-        { id: 15, checked: false, title: "Python" },
-        { id: 16, checked: false, title: "Javascript" },
-        { id: 17, checked: false, title: "Java" },
-        { id: 18, checked: false, title: "Python" },
-        { id: 19, checked: false, title: "HTML5" },
-        { id: 20, checked: false, title: "CSS3" },
-      ],
+      // technologyes: [
+      //   { id: 1, checked: false, title: "Javascript" },
+      //   { id: 2, checked: false, title: "Java" },
+      //   { id: 3, checked: false, title: "Python" },
+      //   { id: 4, checked: false, title: "HTML5" },
+      //   { id: 5, checked: false, title: "CSS3" },
+      //   { id: 6, checked: false, title: "Javascript" },
+      //   { id: 7, checked: false, title: "Javascript" },
+      //   { id: 8, checked: false, title: "Java" },
+      //   { id: 9, checked: false, title: "Javascript" },
+      //   { id: 10, checked: false, title: "Java" },
+      //   { id: 11, checked: false, title: "Python" },
+      //   { id: 12, checked: false, title: "HTML5" },
+      //   { id: 13, checked: false, title: "CSS3" },
+      //   { id: 14, checked: false, title: "Java" },
+      //   { id: 15, checked: false, title: "Python" },
+      //   { id: 16, checked: false, title: "Javascript" },
+      //   { id: 17, checked: false, title: "Java" },
+      //   { id: 18, checked: false, title: "Python" },
+      //   { id: 19, checked: false, title: "HTML5" },
+      //   { id: 20, checked: false, title: "CSS3" },
+      // ],
       pickedTechnology: [],
     };
   },
   methods: {
-    inputTechnology(e) {
-      const value = e.target.value.trim();
-      if ((e.keyCode === 13) & (value.length > 2)) {
-        this.technologyes.push({
-          id: this.technologyes.length + 2,
-          checked: false,
-          title: e.target.value,
-        });
-        e.target.value = "";
-      }
-    },
+    // inputTechnology(e) {
+    //   const value = e.target.value.trim();
+    //   if ((e.keyCode === 13) & (value.length > 2)) {
+    //     this.technologyes.push({
+    //       id: this.technologyes.length + 2,
+    //       checked: false,
+    //       title: e.target.value,
+    //     });
+    //     e.target.value = "";
+    //   }
+    // },
     chosespeciality(e) {
       this.chosenSpeciality = e.textContent;
       this.openSpeciality = !this.openSpeciality;
@@ -196,52 +202,39 @@ export default {
       this.pickedTechnology = pickedTechnology;
     },
     skiptechnology() {
+      enableScrolling();
+
       this.popupPickTechnology = !this.popupPickTechnology;
     },
-    picktechnology(item, i, title) {
-      this.technologyes.forEach((el) => {
-        if (i === el.id) {
-          el.checked = !el.checked;
-        }
-      });
-      this.pickedTechnology = this.technologyes.filter((item) => item.checked);
+    togglePopupPickTechnologies() {
+      this.popupPickTechnology = !this.popupPickTechnology;
+      this.popupPickTechnology ? disableScrolling() : enableScrolling();
     },
+    // picktechnology(item, i, title) {
+    //   this.technologyes.forEach((el) => {
+    //     if (i === el.id) {
+    //       el.checked = !el.checked;
+    //     }
+    //   });
+    //   this.pickedTechnology = this.technologyes.filter((item) => item.checked);
+    // },
   },
 };
 </script>
 
 <style lang="scss">
-// .specialityOne .chosen-technology {
-//   display: flex;
-//   flex-wrap: wrap;
-//   padding: 0;
-//   margin-top: 16px;
-
-//   li {
-//     padding: 8px 14px;
-//     border: 1px solid #59667e;
-//     box-sizing: border-box;
-//     border-radius: 32px;
-//     margin-right: 4px;
-//     margin-bottom: 8px;
-//     color: #b5c1d8;
-//     font-size: 14px;
-//   }
-// }
-// .createProgect-step2 .speciality-content:not(:first-of-type) {
-//   p {
-//     margin-top: 14px;
-//   }
-//   .chosen-technology {
-//     margin-top: 16px;
-//   }
-// }
-// .createProgect-step2
-//   .speciality-content
-//   .chosen-technology.chosen-technology--empty {
-//   display: none;
-// }
-// .button_pick_technologyes.button_pick_technologyes--empty {
-//   margin-top: 10px;
-// }
+.button_pick_technologyes {
+  background: transparent;
+  text-decoration: underline;
+  color: #8c97ac;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+}
+.speciality-content {
+  .technology-picker {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
 </style>
