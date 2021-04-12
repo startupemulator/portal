@@ -47,6 +47,7 @@ export default class AppHeader extends Vue {
   display: flex;
   box-sizing: border-box;
   margin-bottom: 16px;
+  color: #fff;
   .position-card__highlighter {
     min-height: 100%;
     background: #283040;

@@ -66,11 +66,50 @@ export default {
     padding-left: 16px;
   }
 }
+.existing-sources {
+  .standard-label .standard-input {
+    padding-left: 8px;
+  }
+  textarea {
+    background: #2e384a;
+    border-radius: 12px;
+    width: 343px;
+    min-height: 48px;
+    padding: 8px 16px;
+    box-sizing: border-box;
+    color: #fff;
+    outline: none;
+    font-weight: normal;
+    font-size: 16px;
+    //   line-height: 32px;
+    border: 2px solid transparent;
+    &:focus {
+      border: 2px solid #b5c1d8;
+    }
+    &::placeholder {
+      color: #b5c1d8;
+    }
+  }
+}
+
 @media (min-width: 768px) {
   .existing-sources__link-name {
     width: 660px;
     label {
       width: 620px;
+    }
+  }
+
+  .existing-sources {
+    textarea {
+      width: 620px;
+      min-height: 56px;
+      font-weight: normal;
+      font-size: 18px;
+      // line-height: 32px;
+    }
+    .standard-label .standard-input {
+      padding-left: 16px;
     }
   }
 }

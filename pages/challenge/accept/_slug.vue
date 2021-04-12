@@ -1,22 +1,16 @@
 <template>
   <div class="fullscreen">
-    <app-header></app-header>
     <participate-challenge :challenge="challenge"></participate-challenge>
-    <app-footer></app-footer>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import AppHeader from "~/components/molecules/appHeader.vue";
 import ParticipateChallenge from "~/components/organisms/participate/participateChallenge.vue";
-import AppFooter from "~/components/molecules/appFooter.vue";
 
 @Component({
   components: {
-    AppHeader,
     ParticipateChallenge,
-    AppFooter,
   },
   middleware: ["deny-unauthenticated"],
 })

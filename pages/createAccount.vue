@@ -1,22 +1,17 @@
 <template>
   <div class="createaccount-fullscreen">
-    <app-header></app-header>
-
     <create-account></create-account>
-    <app-footer :mobile-bottom-button="false"></app-footer>
+    <toast></toast>
   </div>
 </template>
 
 <script>
-import AppHeader from "~/components/molecules/appHeader.vue";
 import CreateAccount from "~/components/organisms/user/createAccount.vue";
-import AppFooter from "~/components/molecules/appFooter.vue";
-
+import toast from "~/components/molecules/toast.vue";
 export default {
   components: {
-    AppHeader,
-    AppFooter,
     CreateAccount,
+    toast,
   },
   middleware: "deny-authenticated",
 };

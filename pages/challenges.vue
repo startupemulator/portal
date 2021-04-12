@@ -1,27 +1,20 @@
 <template>
   <div class="startups-page">
-    <app-header active="challenges"></app-header>
-
     <Challenges
       :challenges="challengesList"
       :specialisations="specialisations"
       @filterCards="filterCards"
     ></Challenges>
-
-    <app-footer></app-footer>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import AppHeader from "~/components/molecules/appHeader.vue";
+
 import Challenges from "~/components/organisms/challenges/challenges.vue";
-import AppFooter from "~/components/molecules/appFooter.vue";
 
 @Component({
   components: {
-    AppHeader,
     Challenges,
-    AppFooter,
   },
 })
 export default class extends Vue {
@@ -49,5 +42,7 @@ export default class extends Vue {
       );
     });
   }
+
+  difficultyFilter() {}
 }
 </script>

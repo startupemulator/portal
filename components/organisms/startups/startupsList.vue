@@ -39,6 +39,7 @@
             v-for="card in startups"
             :key="card.id"
             :card="card"
+            :technology="technologies"
           ></Startup-card>
         </div>
       </div>

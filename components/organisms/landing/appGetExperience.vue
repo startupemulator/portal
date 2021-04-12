@@ -30,7 +30,7 @@
       <div class="experience-content__five-image experience-content__title">
         <h2>Get an experience in real projects</h2>
         <div class="button-startups--groupe">
-          <nuxt-link to="/startups">
+          <nuxt-link to="/startups-list">
             <U-button
               :button-name="'Explore Startups'"
               :button-class="'u-button-blue'"

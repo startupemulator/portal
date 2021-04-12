@@ -237,4 +237,75 @@ export default {
     margin-left: 0;
   }
 }
+.specialityOne {
+  color: #fff;
+}
+.specialityOne__list {
+  position: relative;
+  .button-remove-speciality {
+    position: absolute;
+    top: 15px;
+    right: 0;
+    background-color: transparent;
+  }
+}
+.specialityOne__item {
+  width: 340px;
+  height: 48px;
+  background: #2e384a;
+  color: #b5c1d8;
+  border-radius: 12px;
+  padding: 8px 16px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 32px;
+  position: relative;
+  transition: 0.4s;
+  img {
+    transform: rotate(90deg);
+    margin-right: 5px;
+    transition: 1s;
+  }
+}
+.specialityOne__item.item-chosen {
+  width: 304px;
+}
+.specialityOne__item-list {
+  width: 340px;
+  background: #2e384a;
+  border-radius: 12px;
+  box-sizing: border-box;
+  position: absolute;
+  padding: 0;
+  z-index: 2;
+  color: #fff;
+  .specialityOne__item-item {
+    width: 100%;
+    height: 48px;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 32px;
+    position: relative;
+    padding: 8px 16px;
+    box-sizing: border-box;
+    cursor: pointer;
+    &:first-child {
+      border-radius: 12px 12px 0 0;
+    }
+    &:last-child {
+      border-radius: 0 0 12px 12px;
+    }
+    &:hover {
+      background: #4e5a71;
+    }
+    &:active {
+      background: #4b4ac8;
+    }
+  }
+}
 </style>

@@ -116,7 +116,6 @@ export default class extends Vue {
   password: string = "";
   popupEmailLink: boolean = false;
   popupSignUpLink: boolean = false;
-
   async login() {
     this.$v.$touch();
     if (!this.$v.$error) {

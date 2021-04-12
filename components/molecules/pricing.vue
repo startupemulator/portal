@@ -65,7 +65,7 @@
             </li>
           </ul>
         </div>
-        <nuxt-link to="logIn">
+        <nuxt-link to="createAccount">
           <UButton
             :button-name="'Sign Up'"
             :button-class="'u-button-blue'"
@@ -98,11 +98,13 @@
             </li>
           </ul>
         </div>
-        <UButton
-          :button-name="'Contact Us'"
-          :button-class="'u-button-gray'"
-          @clickOnButton="$emit('clikOnButton')"
-        ></UButton>
+        <nuxt-link to="/">
+          <UButton
+            :button-name="'Contact Us'"
+            :button-class="'u-button-gray'"
+            @clickOnButton="$emit('clikOnButton')"
+          ></UButton>
+        </nuxt-link>
       </div>
     </div>
   </div>

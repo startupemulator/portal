@@ -3,10 +3,12 @@
     <div class="startup-block-content">
       <div class="startup-block-content__head">
         <h2>Startups</h2>
-        <button type="button" class="startup-block-button">
-          <span>See All Startups</span>
-          <img src="~/assets/img/arrow.svg" alt="" />
-        </button>
+        <nuxt-link to="/startups-list" class="startup-block-link">
+          <button type="button" class="startup-block-button">
+            <span>See All Startups</span>
+            <img src="~/assets/img/arrow.svg" alt="" />
+          </button>
+        </nuxt-link>
       </div>
       <div class="startup-block-content__desktop-buttons">
         <h3>

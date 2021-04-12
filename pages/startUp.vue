@@ -1,14 +1,12 @@
 <template>
   <div class="startups-page">
-    <App-header></App-header>
-
     <Start-up :startup="startup" :testimonials="testimonials"></Start-up>
     <App-footer></App-footer>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import AppHeader from "~/components/molecules/appHeader.vue";
+
 import StartUp from "~/components/organisms/startup/startUp.vue";
 import AppFooter from "~/components/molecules/appFooter.vue";
 // import { Startup } from "~/models/Startup";
@@ -16,7 +14,6 @@ import AppFooter from "~/components/molecules/appFooter.vue";
 
 @Component({
   components: {
-    AppHeader,
     StartUp,
     AppFooter,
   },

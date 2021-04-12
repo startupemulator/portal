@@ -1,5 +1,5 @@
 <template>
-  <div class="signing-up-link-sent">
+  <div class="signing-up-link-sent popup">
     <div class="signing-up-link-sent__content">
       <button
         type="button"
