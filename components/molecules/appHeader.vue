@@ -1,6 +1,5 @@
 <template>
   <header class="main-header">
-    {{ "logined? - " + isLogined }}
     <div class="main-header-content">
       <U-logo></U-logo>
       <nav class="main-header__nav" :class="isLogined ? 'logged-in__nav' : ''">
