@@ -42,9 +42,11 @@ export default {
   },
   methods: {
     pickTechnologi(item, i) {
+      this.$emit("aeb");
       this.technologies.forEach((el) => {
         if (i === el.id) {
           el.checked = !el.checked;
+          this.$emit("clickOnDuration", el);
         } else if (i !== el.id) {
           el.checked = false;
         }

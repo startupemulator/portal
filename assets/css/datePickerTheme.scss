@@ -12,6 +12,12 @@ $primary-color: #1c232f;
 .xmx-calendar-content .cell:hover {
   background-color: #1c232f;
 }
+.xmx-table-date .today {
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  border: 1px solid #1c232f;
+}
 .xmx-datepicker {
   .xmx-input-wrapper input {
     padding-left: 56px;

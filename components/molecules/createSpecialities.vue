@@ -99,7 +99,9 @@
                   />
                 </label>
               </form> -->
-              <technology-picker></technology-picker>
+              <technology-picker
+                @chosenTechnologi="chosenTechnologi"
+              ></technology-picker>
             </div>
           </div>
           <!-- <input
@@ -146,7 +148,7 @@ export default {
       default: " ",
     },
   },
-  data() {
+  data: () => {
     return {
       openSpeciality: false,
       chosenSpeciality: "Select a speciality",
@@ -183,6 +185,9 @@ export default {
     };
   },
   methods: {
+    chosenTechnologi(chosenTechnologi) {
+      this.pickedTechnology = chosenTechnologi;
+    },
     // inputTechnology(e) {
     //   const value = e.target.value.trim();
     //   if ((e.keyCode === 13) & (value.length > 2)) {
@@ -197,13 +202,13 @@ export default {
     chosespeciality(e) {
       this.chosenSpeciality = e.textContent;
       this.openSpeciality = !this.openSpeciality;
+      this.$emit("chosenSpeciality", [this.chosenSpeciality.trim()]);
     },
     mychosentechnology(pickedTechnology) {
       this.pickedTechnology = pickedTechnology;
     },
     skiptechnology() {
       enableScrolling();
-
       this.popupPickTechnology = !this.popupPickTechnology;
     },
     togglePopupPickTechnologies() {

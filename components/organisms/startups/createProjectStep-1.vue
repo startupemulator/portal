@@ -2,17 +2,23 @@
   <div class="createProject-step1">
     <div class="startup__name">
       <h4>Startup name</h4>
-      <input type="text" placeholder="Enter the startup name" required />
+      <input
+        v-model="title"
+        type="text"
+        placeholder="Enter the startup name"
+        required
+      />
     </div>
     <div class="startup__description" required>
       <h4>Description</h4>
       <textarea
+        v-model="description"
         placeholder="Describe your idea and main goals of your startup to interest developers to join your team"
       ></textarea>
       <div class="startup__start-date">
         <h4>Start date</h4>
         <DatePicker
-          v-model="time1"
+          v-model="date"
           value-type="format"
           format="DD  |  MM  |  YYYY"
           placeholder="DD  |  MM  |  YYYY"
@@ -92,61 +98,77 @@
         </div> -->
       </div>
       <div class="startup__finish-date">
-        <Duration-picker :title="'Estimated duration'"></Duration-picker>
-        <Add-input :placeholder="'Or enter the number of days'"></Add-input>
+        <Duration-picker
+          :title="'Estimated duration'"
+          @clickOnDuration="chooseDuration"
+        ></Duration-picker>
+        <Add-input
+          :placeholder="'Or enter the number of days'"
+          @addDuration="addDuration"
+        ></Add-input>
       </div>
     </div>
     <div class="createProject-step1__buttons">
       <U-button
         :button-name="'Next'"
         :button-class="'u-button-blue'"
-        @clickOnButton="$emit('goToStepTwo')"
+        @clickOnButton="goToStepTwo"
       ></U-button>
       <U-button
         :button-name="'Save Draft'"
         :button-class="'u-button-gray'"
+        @clickOnButton="test"
       ></U-button>
     </div>
   </div>
 </template>
-<script>
-import { mapState } from "vuex";
+
+<script lang="ts">
 import DatePicker from "vue2-datepicker";
+import { Component, Vue } from "nuxt-property-decorator";
 import UButton from "~/components/atoms/uButton.vue";
-import DurationPicker from "~/components/molecules/durationPicker";
-import AddInput from "~/components/atoms/addInput";
-export default {
-  components: {
-    UButton,
-    DurationPicker,
-    AddInput,
-    DatePicker,
-  },
-  data() {
-    return {
-      time1: null,
+import DurationPicker from "~/components/molecules/durationPicker.vue";
+import AddInput from "~/components/atoms/addInput.vue";
+
+@Component({
+  components: { DatePicker, UButton, DurationPicker, AddInput },
+})
+export default class extends Vue {
+  date: String = "";
+  title: String = "";
+  description: String = "";
+  start_date: Date = new Date();
+  duration: String = "";
+  numberDays: String = "";
+  technologies: Array<[string | boolean]>;
+
+  test() {
+    console.log(this.title + " - title");
+    console.log(this.description + " - description");
+    console.log(this.date.split("|").join("") + " - date");
+    console.log(this.duration + "duration");
+  }
+
+  chooseDuration(el) {
+    if (el.checked) {
+      this.duration = el.title;
+    } else this.duration = "";
+  }
+
+  addDuration(duration) {
+    this.duration = duration[duration.length - 1].name;
+  }
+
+  goToStepTwo() {
+    const firstStepData = {
+      title: this.title,
+      description: this.description,
+      date: this.date.split("|").join(""),
+      duration: this.duration,
     };
-  },
-
-  // data: () => ({
-  //   startDay: "",
-  //   startMonth: "",
-  //   startYear: "",
-  //   finishDay: "",
-  //   finishMonth: "",
-  //   finishYear: "",
-  //   message: "",
-  //   time1: null,
-  // }),
-
-  computed: {
-    ...mapState(["device", "createprodjectSteps"]),
-  },
-
-  methods: {
-    checkinput(key) {},
-  },
-};
+    this.$emit("goToStepTwo", firstStepData);
+  }
+}
 </script>
 <style lang="scss">
 .startup__name input {

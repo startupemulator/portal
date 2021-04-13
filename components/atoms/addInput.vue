@@ -41,10 +41,10 @@ export default {
       if ((srt.length > 1) & (e.keyCode === 13)) {
         this.addData.push({ id: this.addData.length, name: srt });
         this.inputedtext = "";
+        this.$emit("addDuration", this.addData);
       }
     },
     onfocus() {
-      console.log("focus");
       this.focused = !this.focused;
     },
     removeItem(id) {
