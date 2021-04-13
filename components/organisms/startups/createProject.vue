@@ -31,13 +31,13 @@
   </div>
 </template>
 <script>
-// import { mapState } from "vuex";
 import createProjectStep1 from "./createProjectStep-1.vue";
 import createProjectStep2 from "./createProjectStep-2.vue";
 import createProjectStep3 from "./createProjectStep-3.vue";
 import createProjectStep4 from "./createProjectStep-4.vue";
 import UTitle from "~/components/atoms/uTitle";
 import UBack from "~/components/atoms/uBack";
+
 export default {
   components: {
     createProjectStep1,
@@ -67,9 +67,10 @@ export default {
     },
   },
   methods: {
-    goToStepTwo() {
+    goToStepTwo(firstStepData) {
       this.createprodjectSteps.stepOne = false;
       this.createprodjectSteps.stepTwo = true;
+      console.log(firstStepData);
     },
     goToStepBack() {
       if (

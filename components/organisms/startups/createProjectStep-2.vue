@@ -13,6 +13,7 @@
       :class="'speciality-content'"
       :name="'Speciality ' + (i + 1)"
       @removeSpeciality="removeSpeciality(item.id, i)"
+      @chosenSpeciality="addSpecialityToSpecialityComponent($event, i)"
     ></div>
 
     <button class="specialityOne__button" @click="addSpeciality">
@@ -40,10 +41,7 @@
           </div>
         </li>
       </ul>
-      <button
-        class="invite-colleagues__button"
-        @click="invitecolleagues = !invitecolleagues"
-      >
+      <button class="invite-colleagues__button" @click="toggleInviteColleagues">
         Invite colleagues
       </button>
     </div>
@@ -56,57 +54,79 @@
       <U-button
         :button-name="'Save Draft'"
         :button-class="'u-button-gray'"
+        @clickOnButton="test"
       ></U-button>
     </div>
     <invite-colleagues
       v-if="invitecolleagues"
-      @closePopupLinkEmail="invitecolleagues = !invitecolleagues"
+      @closePopupLinkEmail="toggleInviteColleagues"
       @inviteCollegue="inviteCollegue"
     ></invite-colleagues>
   </div>
 </template>
-<script>
-import UButton from "~/components/atoms/uButton";
-import CreateSpecialities from "~/components/molecules/createSpecialities";
-import invitecolleagues from "~/components/molecules/inviteColleagues";
+<script lang="ts">
+import { Component, Vue } from "nuxt-property-decorator";
+import UButton from "~/components/atoms/uButton.vue";
+import CreateSpecialities from "~/components/molecules/createSpecialities.vue";
+import invitecolleagues from "~/components/molecules/inviteColleagues.vue";
+import {
+  enableScrolling,
+  disableScrolling,
+} from "~/assets/jshelper/toggleScroll.js";
 
-export default {
-  components: {
-    UButton,
-    CreateSpecialities,
-    invitecolleagues,
-  },
-  data: () => ({
-    specialityComponent: [{ id: 1, type: "create-specialities" }],
-    invitedcolleagues: [],
-    invitecolleagues: false,
-  }),
+@Component({
+  components: { UButton, CreateSpecialities, invitecolleagues },
+})
+export default class extends Vue {
+  specialityComponent: Array<[number | string]> = [
+    { id: 1, type: "create-specialities" },
+  ];
 
-  methods: {
-    inviteCollegue(data) {
-      this.invitecolleagues = !this.invitecolleagues;
-      this.invitedcolleagues.push({
-        email: data.email,
-        speciality: data.speciality,
-      });
-    },
-    removeSpeciality(id, i) {
-      this.specialityComponent = this.specialityComponent.filter(
-        (item) => item.id !== this.specialityComponent[i].id
-      );
-    },
-    addSpeciality() {
-      this.specialityComponent.push({
-        id: Math.random(),
-        type: "create-specialities",
-      });
-    },
-    removeInvitedcolleagues(email, speciality) {
-      this.invitedcolleagues = this.invitedcolleagues.filter(
-        (item) => (item.email !== email) & (item.speciality !== speciality)
-      );
-      console.log(email, speciality);
-    },
-  },
-};
+  invitedcolleagues: Array<any>;
+  invitecolleagues: Boolean = false;
+
+  test() {
+    console.log(this.specialityComponent);
+  }
+
+  addSpecialityToSpecialityComponent($event, i) {
+    this.specialityComponent[i].speciality = $event[0];
+    console.dir(this.specialityComponent);
+    console.log($event, i);
+  }
+
+  inviteCollegue(data) {
+    this.invitecolleagues = !this.invitecolleagues;
+    enableScrolling();
+    this.invitedcolleagues.push({
+      email: data.email,
+      speciality: data.speciality,
+    });
+  }
+
+  toggleInviteColleagues() {
+    this.invitecolleagues = !this.invitecolleagues;
+    console.log(this.invitecolleagues);
+    this.invitecolleagues ? disableScrolling() : enableScrolling();
+  }
+
+  removeSpeciality(id, i) {
+    this.specialityComponent = this.specialityComponent.filter(
+      (item) => item.id !== this.specialityComponent[i].id
+    );
+  }
+
+  addSpeciality() {
+    this.specialityComponent.push({
+      id: this.specialityComponent.length + 1,
+      type: "create-specialities",
+    });
+  }
+
+  removeInvitedcolleagues(email, speciality) {
+    this.invitedcolleagues = this.invitedcolleagues.filter(
+      (item) => (item.email !== email) & (item.speciality !== speciality)
+    );
+  }
+}
 </script>

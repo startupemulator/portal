@@ -1,28 +1,21 @@
 <template>
   <div class="profile">
-    <app-header active="profile"></app-header>
-
     <Profile
       :startups="startups"
       :technologies="technologies"
       :testimonials="testimonials"
     ></Profile>
-
-    <app-footer></app-footer>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import AppHeader from "~/components/molecules/appHeader.vue";
+
 import Profile from "~/components/organisms/profile/profile.vue";
-import AppFooter from "~/components/molecules/appFooter.vue";
 
 @Component({
   components: {
     Profile,
-    AppHeader,
-    AppFooter,
   },
 })
 export default class extends Vue {

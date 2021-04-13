@@ -68,13 +68,13 @@
               ? 'button_pick_technologyes--empty'
               : ''
           "
-          @click="popupPickTechnology = !popupPickTechnology"
+          @click="togglePopupPickTechnologies"
         >
           Pick technologyes for this speciality
         </button>
       </div>
     </div>
-    <div v-show="popupPickTechnology" class="technology-popup">
+    <div v-show="popupPickTechnology" class="technology-popup popup">
       <div class="technology-popup__pick-technology step-1">
         <div class="pick-technology__content">
           <h2>
@@ -84,7 +84,7 @@
           <div class="step-1__experience">
             <div class="technology-picker">
               <h2>{{ title }}</h2>
-              <form>
+              <!-- <form>
                 <label
                   v-for="technology in technologyes"
                   :key="technology.id"
@@ -98,19 +98,22 @@
                     "
                   />
                 </label>
-              </form>
+              </form> -->
+              <technology-picker
+                @chosenTechnologi="chosenTechnologi"
+              ></technology-picker>
             </div>
           </div>
-          <input
+          <!-- <input
             type="text"
             placeholder="Type a technology to add"
             @keydown="inputTechnology($event)"
-          />
-          <div class="createProgect-step2__buttons-popup">
+          /> -->
+          <div class="createProject-step2__buttons-popup">
             <U-button
               :button-name="'Save'"
               :button-class="'u-button-blue'"
-              @clickOnButton="popupPickTechnology = !popupPickTechnology"
+              @clickOnButton="togglePopupPickTechnologies"
             ></U-button>
             <U-button
               :button-name="'Skip'"
@@ -124,11 +127,16 @@
   </div>
 </template>
 <script>
-import UButton from "~/components/atoms/uButton";
-
+import UButton from "~/components/atoms/uButton.vue";
+import {
+  enableScrolling,
+  disableScrolling,
+} from "~/assets/jshelper/toggleScroll";
+import TechnologyPicker from "~/components/molecules/technologyPicker.vue";
 export default {
   components: {
     UButton,
+    TechnologyPicker,
   },
   props: {
     name: {
@@ -140,7 +148,7 @@ export default {
       default: " ",
     },
   },
-  data() {
+  data: () => {
     return {
       openSpeciality: false,
       chosenSpeciality: "Select a speciality",
@@ -151,97 +159,158 @@ export default {
         { id: 2, specialityPosition: "DevOps" },
         { id: 3, specialityPosition: "Seo" },
       ],
-      technologyes: [
-        { id: 1, checked: false, title: "Javascript" },
-        { id: 2, checked: false, title: "Java" },
-        { id: 3, checked: false, title: "Python" },
-        { id: 4, checked: false, title: "HTML5" },
-        { id: 5, checked: false, title: "CSS3" },
-        { id: 6, checked: false, title: "Javascript" },
-        { id: 7, checked: false, title: "Javascript" },
-        { id: 8, checked: false, title: "Java" },
-        { id: 9, checked: false, title: "Javascript" },
-        { id: 10, checked: false, title: "Java" },
-        { id: 11, checked: false, title: "Python" },
-        { id: 12, checked: false, title: "HTML5" },
-        { id: 13, checked: false, title: "CSS3" },
-        { id: 14, checked: false, title: "Java" },
-        { id: 15, checked: false, title: "Python" },
-        { id: 16, checked: false, title: "Javascript" },
-        { id: 17, checked: false, title: "Java" },
-        { id: 18, checked: false, title: "Python" },
-        { id: 19, checked: false, title: "HTML5" },
-        { id: 20, checked: false, title: "CSS3" },
-      ],
+      // technologyes: [
+      //   { id: 1, checked: false, title: "Javascript" },
+      //   { id: 2, checked: false, title: "Java" },
+      //   { id: 3, checked: false, title: "Python" },
+      //   { id: 4, checked: false, title: "HTML5" },
+      //   { id: 5, checked: false, title: "CSS3" },
+      //   { id: 6, checked: false, title: "Javascript" },
+      //   { id: 7, checked: false, title: "Javascript" },
+      //   { id: 8, checked: false, title: "Java" },
+      //   { id: 9, checked: false, title: "Javascript" },
+      //   { id: 10, checked: false, title: "Java" },
+      //   { id: 11, checked: false, title: "Python" },
+      //   { id: 12, checked: false, title: "HTML5" },
+      //   { id: 13, checked: false, title: "CSS3" },
+      //   { id: 14, checked: false, title: "Java" },
+      //   { id: 15, checked: false, title: "Python" },
+      //   { id: 16, checked: false, title: "Javascript" },
+      //   { id: 17, checked: false, title: "Java" },
+      //   { id: 18, checked: false, title: "Python" },
+      //   { id: 19, checked: false, title: "HTML5" },
+      //   { id: 20, checked: false, title: "CSS3" },
+      // ],
       pickedTechnology: [],
     };
   },
   methods: {
-    inputTechnology(e) {
-      const value = e.target.value.trim();
-      if ((e.keyCode === 13) & (value.length > 2)) {
-        this.technologyes.push({
-          id: this.technologyes.length + 2,
-          checked: false,
-          title: e.target.value,
-        });
-        e.target.value = "";
-      }
+    chosenTechnologi(chosenTechnologi) {
+      this.pickedTechnology = chosenTechnologi;
     },
+    // inputTechnology(e) {
+    //   const value = e.target.value.trim();
+    //   if ((e.keyCode === 13) & (value.length > 2)) {
+    //     this.technologyes.push({
+    //       id: this.technologyes.length + 2,
+    //       checked: false,
+    //       title: e.target.value,
+    //     });
+    //     e.target.value = "";
+    //   }
+    // },
     chosespeciality(e) {
       this.chosenSpeciality = e.textContent;
       this.openSpeciality = !this.openSpeciality;
+      this.$emit("chosenSpeciality", [this.chosenSpeciality.trim()]);
     },
     mychosentechnology(pickedTechnology) {
       this.pickedTechnology = pickedTechnology;
     },
     skiptechnology() {
+      enableScrolling();
       this.popupPickTechnology = !this.popupPickTechnology;
     },
-    picktechnology(item, i, title) {
-      this.technologyes.forEach((el) => {
-        if (i === el.id) {
-          el.checked = !el.checked;
-        }
-      });
-      this.pickedTechnology = this.technologyes.filter((item) => item.checked);
+    togglePopupPickTechnologies() {
+      this.popupPickTechnology = !this.popupPickTechnology;
+      this.popupPickTechnology ? disableScrolling() : enableScrolling();
     },
+    // picktechnology(item, i, title) {
+    //   this.technologyes.forEach((el) => {
+    //     if (i === el.id) {
+    //       el.checked = !el.checked;
+    //     }
+    //   });
+    //   this.pickedTechnology = this.technologyes.filter((item) => item.checked);
+    // },
   },
 };
 </script>
 
 <style lang="scss">
-// .specialityOne .chosen-technology {
-//   display: flex;
-//   flex-wrap: wrap;
-//   padding: 0;
-//   margin-top: 16px;
-
-//   li {
-//     padding: 8px 14px;
-//     border: 1px solid #59667e;
-//     box-sizing: border-box;
-//     border-radius: 32px;
-//     margin-right: 4px;
-//     margin-bottom: 8px;
-//     color: #b5c1d8;
-//     font-size: 14px;
-//   }
-// }
-// .createProgect-step2 .speciality-content:not(:first-of-type) {
-//   p {
-//     margin-top: 14px;
-//   }
-//   .chosen-technology {
-//     margin-top: 16px;
-//   }
-// }
-// .createProgect-step2
-//   .speciality-content
-//   .chosen-technology.chosen-technology--empty {
-//   display: none;
-// }
-// .button_pick_technologyes.button_pick_technologyes--empty {
-//   margin-top: 10px;
-// }
+.button_pick_technologyes {
+  background: transparent;
+  text-decoration: underline;
+  color: #8c97ac;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+}
+.speciality-content {
+  .technology-picker {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+.specialityOne {
+  color: #fff;
+}
+.specialityOne__list {
+  position: relative;
+  .button-remove-speciality {
+    position: absolute;
+    top: 15px;
+    right: 0;
+    background-color: transparent;
+  }
+}
+.specialityOne__item {
+  width: 340px;
+  height: 48px;
+  background: #2e384a;
+  color: #b5c1d8;
+  border-radius: 12px;
+  padding: 8px 16px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 32px;
+  position: relative;
+  transition: 0.4s;
+  img {
+    transform: rotate(90deg);
+    margin-right: 5px;
+    transition: 1s;
+  }
+}
+.specialityOne__item.item-chosen {
+  width: 304px;
+}
+.specialityOne__item-list {
+  width: 340px;
+  background: #2e384a;
+  border-radius: 12px;
+  box-sizing: border-box;
+  position: absolute;
+  padding: 0;
+  z-index: 2;
+  color: #fff;
+  .specialityOne__item-item {
+    width: 100%;
+    height: 48px;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 32px;
+    position: relative;
+    padding: 8px 16px;
+    box-sizing: border-box;
+    cursor: pointer;
+    &:first-child {
+      border-radius: 12px 12px 0 0;
+    }
+    &:last-child {
+      border-radius: 0 0 12px 12px;
+    }
+    &:hover {
+      background: #4e5a71;
+    }
+    &:active {
+      background: #4b4ac8;
+    }
+  }
+}
 </style>

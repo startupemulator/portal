@@ -3,10 +3,12 @@
     <div class="startup-block-content">
       <div class="startup-block-content__head">
         <h2>Startups</h2>
-        <button type="button" class="startup-block-button">
-          <span>See All Startups</span>
-          <img src="~/assets/img/arrow.svg" alt="" />
-        </button>
+        <nuxt-link to="/startups-list" class="startup-block-link">
+          <button type="button" class="startup-block-button">
+            <span>See All Startups</span>
+            <img src="~/assets/img/arrow.svg" alt="" />
+          </button>
+        </nuxt-link>
       </div>
       <div class="startup-block-content__desktop-buttons">
         <h3>
@@ -74,13 +76,14 @@ export default class AppStartupsBlock extends Vue {
 </script>
 <style lang="scss" scoped>
 .card-move {
-  transition: 0.2s;
+  transition: 1.2s;
+  transform: scale(1);
 }
-.card-enter-ective {
-  transition: 0.1s;
-  position: absolute;
-}
-.card-enter-to {
-  position: relative;
-}
+// .card-enter-ective {
+//   transition: 0.1s;
+//   transform: scale(1);
+// }
+// .card-enter-to {
+//   transform: scale(0.8);
+// }
 </style>

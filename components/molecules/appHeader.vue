@@ -2,12 +2,11 @@
   <header class="main-header">
     <div class="main-header-content">
       <U-logo></U-logo>
-
       <nav class="main-header__nav" :class="isLogined ? 'logged-in__nav' : ''">
         <ul class="nav-list">
           <li
-            class="nav-item"
-            :class="{ 'nav-item__active': active === 'startups-list' }"
+            class="nav-item nav-item-startups"
+            :class="{ 'nav-item__active': currentRoute === 'startups-list' }"
           >
             <nuxt-link to="startups-list">
               <svg
@@ -27,7 +26,7 @@
           </li>
           <li
             class="nav-item"
-            :class="{ 'nav-item__active': active === 'challenges' }"
+            :class="{ 'nav-item__active': currentRoute === 'challenges' }"
           >
             <nuxt-link to="challenges">
               <svg
@@ -45,11 +44,39 @@
               >Challenges</nuxt-link
             >
           </li>
+          <li
+            class="nav-item nav-item-pricing"
+            :class="{ 'nav-item__active': currentRoute === 'pricing' }"
+          >
+            <nuxt-link to="pricing">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="1"
+                  y="4"
+                  width="22"
+                  height="16"
+                  rx="1"
+                  stroke="#8C97AC"
+                  stroke-width="2"
+                />
+                <path d="M2 9H22" stroke="#8C97AC" stroke-width="3" />
+                <rect x="4" y="15" width="8" height="2" rx="1" fill="#8C97AC" />
+              </svg>
+
+              Pricing</nuxt-link
+            >
+          </li>
           <!-- logined -->
           <div v-if="isLogined">
             <li
               class="nav-item"
-              :class="{ 'nav-item__active': active === 'my-projects' }"
+              :class="{ 'nav-item__active': currentRoute === 'myProjects' }"
             >
               <nuxt-link to="myProjects">
                 <svg
@@ -76,7 +103,7 @@
             </li>
             <li
               class="nav-item"
-              :class="{ 'nav-item__active': active === 'profile' }"
+              :class="{ 'nav-item__active': currentRoute === 'profile' }"
             >
               <nuxt-link to="profile">
                 <svg
@@ -111,7 +138,11 @@
                 Profile</nuxt-link
               >
             </li>
-            <li class="nav-item notification" @click="toggleNotification">
+            <li
+              class="nav-item notification"
+              :class="{ 'nav-item__active': notification }"
+              @click="toggleNotification"
+            >
               <nuxt-link to="#">
                 <svg
                   width="24"
@@ -126,6 +157,7 @@
                     stroke-width="2"
                   />
                   <path
+                    class="fill"
                     d="M9 3.67363C9.62171 3.37829 10.2939 3.1719 11 3.07089V3C11 2.44772 11.4477 2 12 2C12.5523 2 13 2.44772 13 3V3.07089C13.7061 3.1719 14.3783 3.37829 15 3.67363V3C15 1.34315 13.6569 0 12 0C10.3431 0 9 1.34315 9 3V3.67363Z"
                     fill="#8C97AC"
                   />
@@ -144,6 +176,7 @@
                   <circle cx="2" cy="19" r="1" fill="#8C97AC" />
                   <circle cx="22" cy="19" r="1" fill="#8C97AC" />
                   <path
+                    class="fill"
                     fill-rule="evenodd"
                     clip-rule="evenodd"
                     d="M8 19V20C8 22.2091 9.79086 24 12 24C14.2091 24 16 22.2091 16 20V19H14V20C14 21.1046 13.1046 22 12 22C10.8954 22 10 21.1046 10 20V19H8Z"
@@ -184,23 +217,22 @@
       </div>
     </div>
     <Notifications-popup v-show="notification"></Notifications-popup>
-    <toast />
   </header>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UButton from "../atoms/uButton.vue";
 import ULogo from "../atoms/uLogo.vue";
-import toast from "../molecules/toast.vue";
+
 import NotificationsPopup from "./popupNotifications.vue";
 
 @Component({
-  components: { UButton, ULogo, NotificationsPopup, toast },
+  components: { UButton, ULogo, NotificationsPopup },
 })
 export default class AppHeader extends Vue {
-  isLogined = !!this.$strapi.user;
+  @Prop() currentRoute: string;
+  @Prop() isLogined: Boolean;
 
-  @Prop() active: string;
   notification: Boolean = false;
   toggleNotification() {
     this.notification = !this.notification;

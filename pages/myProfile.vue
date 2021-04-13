@@ -1,29 +1,21 @@
 <template>
   <div class="profile">
-    <app-header active="profile"></app-header>
-
     <my-profile
       :startups="startups"
       :technologies="technologies"
       :testimonials="testimonials"
       @copyBaseUri="copyBaseUri"
     ></my-profile>
-
-    <app-footer></app-footer>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import AppHeader from "~/components/molecules/appHeader.vue";
 import myProfile from "~/components/organisms/profile/myProfile.vue";
-import AppFooter from "~/components/molecules/appFooter.vue";
 
 @Component({
   components: {
-    AppHeader,
     myProfile,
-    AppFooter,
   },
   middleware: ["deny-unauthenticated"],
 })

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <app-header></app-header>
     <app-get-experience></app-get-experience>
     <app-startups-block
       :cards="startups"
@@ -22,7 +21,6 @@
       @slideRigth="slideRigth"
       @slideLeft="slideLeft"
     ></app-testimonials>
-    <app-footer></app-footer>
   </div>
 </template>
 
@@ -32,8 +30,7 @@ import { Startup } from "~/models/Startup";
 import { Challenge } from "~/models/Challenge";
 import { Testimonial } from "~/models/Testimonial";
 import { Technology } from "~/models/Technology";
-import AppHeader from "~/components/molecules/appHeader.vue";
-import AppFooter from "~/components/molecules/appFooter.vue";
+
 import AppChallengesBlock from "~/components/organisms/landing/appChallengesBlock.vue";
 import AppGetExperience from "~/components/organisms/landing/appGetExperience.vue";
 import AppStartupsBlock from "~/components/organisms/landing/appStartupsBlock.vue";
@@ -44,7 +41,6 @@ import AppTestimonials from "~/components/organisms/landing/appTestimonials.vue"
 import Pricing from "~/components/molecules/pricing.vue";
 @Component({
   components: {
-    AppHeader,
     AppGetExperience,
     AppStartupsBlock,
     AppChallengesBlock,
@@ -52,7 +48,7 @@ import Pricing from "~/components/molecules/pricing.vue";
     AppTakePart,
     AppTopStartups,
     AppTestimonials,
-    AppFooter,
+
     Pricing,
   },
 })

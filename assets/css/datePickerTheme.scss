@@ -1,0 +1,54 @@
+$namespace: "xmx"; // change the 'mx' to 'xmx'. then <date-picker prefix-class="xmx" />
+
+$default-color: #fff;
+$primary-color: #1c232f;
+
+@import "~vue2-datepicker/scss/index.scss";
+
+.xmx-datepicker-main {
+  background-color: #2e384a;
+  border-radius: 12px;
+}
+.xmx-calendar-content .cell:hover {
+  background-color: #1c232f;
+}
+.xmx-table-date .today {
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  border: 1px solid #1c232f;
+}
+.xmx-datepicker {
+  .xmx-input-wrapper input {
+    padding-left: 56px;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 32px;
+    color: #b5c1d8;
+  }
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+  .xmx-icon-calendar {
+    right: auto;
+    left: 16px;
+    color: transparent;
+  }
+  .xmx-icon-clear {
+    right: auto;
+    left: 16px;
+    color: #b5c1d8;
+  }
+}
+@media (min-width: 768px) {
+  .xmx-datepicker {
+    .xmx-input-wrapper input {
+      padding-left: 65px;
+    }
+    .xmx-icon-calendar,
+    .xmx-icon-clear {
+      left: 24px;
+    }
+  }
+}

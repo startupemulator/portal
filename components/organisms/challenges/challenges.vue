@@ -37,12 +37,19 @@
         </div>
         <div class="challenges__header-diffculty-filter">
           <p>Filter by Difficulty level</p>
-          <ul class="challenges__header-diffculty-filter-list">
+
+          <ul
+            ref="diffcultyList"
+            class="challenges__header-diffculty-filter-list"
+          >
             <li class="challenges__header-diffculty-filter-item">
               <U-tags
                 v-for="(item, i) in 5"
-                :key="i"
+                :id="i + 1 * 124"
+                :key="i * 124"
+                :type="'checkbox'"
                 :title="'Level ' + (i + 1)"
+                @pick="levelFilter"
               ></U-tags>
             </li>
           </ul>
@@ -107,8 +114,17 @@ export default class extends Vue {
     console.log(this.filterList);
   }
 
+  levelFilter($event) {
+    this.$emit("difficultyFilter", $event);
+    if ($event.currentTarget.labels[0].classList.contains("checked")) {
+      $event.currentTarget.labels[0].classList.remove("checked");
+    } else {
+      $event.currentTarget.labels[0].classList.add("checked");
+    }
+  }
+
   specialty($event) {
-    this.$emit("filterCards");
+    this.$emit("filterCards", $event);
     this.$refs.specialityList.children.forEach((item) =>
       item.children[0].classList.remove("checked")
     );

@@ -140,10 +140,33 @@ export default {
   }
   .u-tabs-message,
   .startup-card__started--messege {
-    display: inline-block;
+    display: flex;
+    align-items: center;
   }
   .tartup-card__started--disable {
     display: none;
+  }
+  .startup-card__started--messege {
+    box-shadow: 0 -2px 8px rgba(234, 244, 44, 0.3),
+      0 2px 8px rgba(234, 244, 44, 0.3),
+      inset 0 -2px 4px 1px rgba(117, 122, 14, 0.15),
+      inset 0 1px 4px rgba(255, 255, 255, 0.15);
+    border-radius: 14px;
+    background: #eaf42c;
+    width: 24px;
+    height: 24px;
+    margin-left: 8px;
+    margin-top: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    span {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 24px;
+      color: #4e5a71;
+      margin-bottom: 4px;
+    }
   }
 }
 @media (min-width: 768px) {

@@ -35,7 +35,10 @@ import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import AddInput from "~/components/atoms/addInput.vue";
-
+import {
+  enableScrolling,
+  disableScrolling,
+} from "~/assets/jshelper/toggleScroll";
 @Component({
   components: {
     UBack,
@@ -53,6 +56,7 @@ export default class ParticipateChallenge extends Vue {
 
   togglePopupChallengeStarted() {
     this.popupChallengeStarted = !this.popupChallengeStarted;
+    this.popupChallengeStarted ? disableScrolling() : enableScrolling();
   }
 }
 </script>

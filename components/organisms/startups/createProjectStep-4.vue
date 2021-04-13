@@ -40,6 +40,10 @@
 import UButton from "~/components/atoms/uButton";
 import CreateGuide from "~/components/molecules/createGuide";
 import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartUp";
+import {
+  enableScrolling,
+  disableScrolling,
+} from "~/assets/jshelper/toggleScroll";
 export default {
   components: { UButton, CreateGuide, PopupCreatedStartUp },
   data() {
@@ -51,6 +55,7 @@ export default {
       ],
     };
   },
+
   methods: {
     addGuideSourse() {
       this.guideSourseComponent.push({
@@ -65,6 +70,7 @@ export default {
     },
     publish() {
       this.popupPublish = !this.popupPublish;
+      this.popupPublish ? disableScrolling() : enableScrolling();
     },
   },
 };

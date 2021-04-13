@@ -35,6 +35,7 @@
           </li>
         </ul>
       </div>
+
       <div class="startup-card__started-start-time">
         <div class="started-start-time__start">
           <h3>Start</h3>

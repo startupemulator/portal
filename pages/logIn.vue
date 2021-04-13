@@ -1,22 +1,15 @@
 <template>
   <div class="createaccount-fullscreen">
-    <app-header></app-header>
     <log-in></log-in>
-    <app-footer></app-footer>
+    <toast></toast>
   </div>
 </template>
 
 <script>
-import AppHeader from "~/components/molecules/appHeader.vue";
+import toast from "~/components/molecules/toast.vue";
 import LogIn from "~/components/organisms/user/logIn.vue";
-import AppFooter from "~/components/molecules/appFooter.vue";
-
 export default {
-  components: {
-    AppHeader,
-    AppFooter,
-    LogIn,
-  },
+  components: { toast, LogIn },
   middleware: "deny-authenticated",
 };
 </script>

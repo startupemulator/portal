@@ -1,6 +1,6 @@
 <template>
-  <div class="signing-up-link-sent">
-    <div class="signing-up-link-sent__content">
+  <div class="signing-up-link-sent popup">
+    <div class="signing-up-link-sent__content challenge-started">
       <button
         type="button"
         class="sign-up-link__close"
@@ -44,6 +44,9 @@ export default {
 }
 .signing-up-link-sent p {
   margin-bottom: 24px;
+}
+.popup .challenge-started {
+  height: 312px;
 }
 @media (min-width: 768px) {
   .signing-up-link-sent .signing-up-link-sent__content {

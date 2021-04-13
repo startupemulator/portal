@@ -36,6 +36,7 @@
     "nuxt-helmet": "^2.0.0",
     "nuxt-property-decorator": "^2.9.1",
     "ts-node": "^9.1.1",
+    "vue2-datepicker": "^3.9.0",
     "vuelidate": "^0.7.6",
     "vuelidate-property-decorators": "^1.0.28",
     "vuex-persist": "^3.1.3"

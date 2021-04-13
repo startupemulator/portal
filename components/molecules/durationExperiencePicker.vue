@@ -4,13 +4,13 @@
     <form>
       <UTags
         v-for="technology in technologies"
+        :id="technology.id"
         :key="technology.id"
-        :technologi-id="technology.id"
         :title="technology.title"
         :checked-class="technology.checked ? 'checked' : ''"
         :type="'radio'"
         :name="'duration'"
-        @pickTechnologi="pickTechnology($event, technology.id)"
+        @pick="pickTechnology($event, technology.id)"
       >
         {{ technology.title }}
       </UTags>
@@ -18,7 +18,6 @@
   </div>
 </template>
 <script>
-// import TechnologyItem from "./technologyItem.vue";
 import UTags from "~/components/atoms/uTags.vue";
 export default {
   components: {
