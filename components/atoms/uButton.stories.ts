@@ -18,4 +18,6 @@ export const Primary = Template.bind({});
 Primary.args = {
   buttonClass: ["u-button-blue"],
   buttonName: "Primary",
+  isLink: "button",
+  href: "'/'",
 };

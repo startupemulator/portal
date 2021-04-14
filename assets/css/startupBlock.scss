@@ -24,21 +24,7 @@
     display: none;
   }
 }
-// .start-ups_cards-content .startup-card.startup-card--draft {
-//   width: 339px;
-//   min-height: auto;
-//   padding-bottom: 30px;
-//   .startup-card__started-name {
-//     margin-top: 16px;
-//     min-height: auto;
-//   }
-//   .startup-card__started-text {
-//     width: 285px;
-//     margin-top: 10px;
-//   }
-// }
 .startup-block {
-  // min-height: 654px;
   margin-top: 56px;
   .startup-block-content {
     margin: 0 16px;
@@ -67,7 +53,8 @@
     line-height: 22px;
   }
 
-  button {
+  button,
+  a {
     color: #8c97ac;
     font-weight: 600;
     font-size: 16px;
@@ -95,10 +82,6 @@
     border-radius: 12px;
     margin-left: 16px;
     margin-top: 10px;
-    // &.startup-card--draft {
-    //   background-color: transparent;
-    //   border: 2px dashed #8c97ac;
-    // }
 
     .startup-card__started {
       display: flex;
@@ -109,17 +92,9 @@
       background: #283040;
       box-shadow: inset 2px -2px 8px rgba(28, 35, 48, 0.25);
       border-radius: 0 12px 0 16px;
-      // margin-left: auto;
       display: flex;
       align-items: center;
     }
-
-    // .draft {
-    //   padding: 8px;
-    //   background-color: transparent;
-    //   box-shadow: none;
-    //   box-sizing: border-box;
-    // }
     .startup-card__started-title {
       background: #8c97ac;
       box-shadow: 0 -2px 8px rgba(140, 151, 172, 0.3),
@@ -254,7 +229,6 @@
       margin-top: 0;
     }
   }
-  // work
   .startup-block {
     max-width: 1440px;
     margin: 0 auto;

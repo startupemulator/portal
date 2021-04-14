@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{ isLogined }}
     <app-get-experience></app-get-experience>
     <app-startups-block
       :cards="startups"
@@ -12,7 +13,7 @@
       @slideRigth="slideRigth"
       @slideLeft="slideLeft"
     ></app-challenges-block>
-    <app-team-develop></app-team-develop>
+    <app-team-develop :is-logined="isLogined"></app-team-develop>
     <app-take-part></app-take-part>
     <Pricing></Pricing>
     <app-top-startups></app-top-startups>
@@ -25,12 +26,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
+import { Component, Watch, Vue, strapi } from "nuxt-property-decorator";
 import { Startup } from "~/models/Startup";
 import { Challenge } from "~/models/Challenge";
 import { Testimonial } from "~/models/Testimonial";
 import { Technology } from "~/models/Technology";
-
 import AppChallengesBlock from "~/components/organisms/landing/appChallengesBlock.vue";
 import AppGetExperience from "~/components/organisms/landing/appGetExperience.vue";
 import AppStartupsBlock from "~/components/organisms/landing/appStartupsBlock.vue";
@@ -38,7 +38,7 @@ import AppTeamDevelop from "~/components/organisms/landing/appTeamDevelop.vue";
 import AppTakePart from "~/components/organisms/landing/appTakePart.vue";
 import AppTopStartups from "~/components/organisms/landing/appTopStartups.vue";
 import AppTestimonials from "~/components/organisms/landing/appTestimonials.vue";
-import Pricing from "~/components/molecules/pricing.vue";
+import Pricing from "~/components/organisms/landing/pricing.vue";
 @Component({
   components: {
     AppGetExperience,
@@ -48,7 +48,6 @@ import Pricing from "~/components/molecules/pricing.vue";
     AppTakePart,
     AppTopStartups,
     AppTestimonials,
-
     Pricing,
   },
 })
@@ -57,7 +56,7 @@ export default class extends Vue {
   challenges: Array<Challenge> = [];
   testimonials: Array<Testimonial> = [];
   technology: Array<Technology> = [];
-
+  isLogined = !!this.$strapi.user;
   // data loaded here will be added during server rendering
   async asyncData({ $strapi }) {
     const startups = await $strapi.find("startups");
@@ -80,6 +79,11 @@ export default class extends Vue {
 
   get state() {
     return this.$store.state;
+  }
+
+  @Watch("$strapi", { immediate: true, deep: true })
+  onLogin(newVal: strapi) {
+    this.isLogined = !!this.$strapi.user;
   }
 
   slideRigth(data) {

@@ -1,13 +1,12 @@
 <template>
   <div class="technology-picker">
     <h2 class="technology-picker__title">{{ title }}</h2>
-    <form>
+    <form ref="technologyList">
       <u-tags
-        v-for="item in technologyes"
-        :id="item.id"
+        v-for="item in technologies"
+        :id="Math.floor(Math.random() * 10000)"
         :key="item.id"
         :title="item.title"
-        :checked-class="item.checked ? 'checked' : ''"
         @pick="pickTechnology($event, item.id, item.title)"
       >
         {{ item.title }}
@@ -25,54 +24,36 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UTags from "../atoms/uTags.vue";
+import { Technology } from "~/models/Technology";
 @Component({
   components: { UTags },
 })
 export default class extends Vue {
   @Prop({ default: " " }) title: String;
   @Prop({ default: true }) addTechnology: Boolean;
-  technologyes: Array<any> = [
-    { id: 1, checked: false, title: "Javascript" },
-    { id: 2, checked: false, title: "Java" },
-    { id: 3, checked: false, title: "Python" },
-    { id: 4, checked: false, title: "HTML5" },
-    { id: 5, checked: false, title: "CSS3" },
-    { id: 6, checked: false, title: "Javascript" },
-    { id: 7, checked: false, title: "Javascript" },
-    { id: 8, checked: false, title: "Java" },
-    { id: 9, checked: false, title: "Javascript" },
-    { id: 10, checked: false, title: "Java" },
-    { id: 11, checked: false, title: "Python" },
-    { id: 12, checked: false, title: "HTML5" },
-    { id: 13, checked: false, title: "CSS3" },
-    { id: 14, checked: false, title: "Java" },
-    { id: 15, checked: false, title: "Python" },
-    { id: 16, checked: false, title: "Javascript" },
-    { id: 17, checked: false, title: "Java" },
-    { id: 18, checked: false, title: "Python" },
-    { id: 19, checked: false, title: "HTML5" },
-    { id: 20, checked: false, title: "CSS3" },
-  ];
-
+  @Prop() technologies: Array<Technology>;
   chosenTechnology: Array<any>;
   pickTechnology(item, i, title) {
-    this.technologyes.forEach((el) => {
-      if (i === el.id) {
-        el.checked = !el.checked;
-      }
-    });
+    const pickeTechnology = item.target.parentNode.classList;
+    pickeTechnology.contains("checked")
+      ? pickeTechnology.remove("checked")
+      : pickeTechnology.add("checked");
 
-    this.chosenTechnology = this.technologyes.filter((item) => item.checked);
-    this.$emit("chosenTechnologi", this.chosenTechnology);
+    const pickedTechnology = [];
+    this.$refs.technologyList.forEach((el) =>
+      el.parentElement.classList.contains("checked")
+        ? pickedTechnology.push(el.parentElement.textContent)
+        : () => {}
+    );
+
+    this.$emit("chosenTechnologi", pickedTechnology);
   }
 
   inputTechnology(e) {
     const value = e.target.value.trim();
-
     if ((e.keyCode === 13) & (value.length > 2)) {
-      this.technologyes.push({
-        id: this.technologyes.length + 1,
-        checked: false,
+      this.technologies.push({
+        id: this.technologies.length + 1,
         title: value,
       });
       e.target.value = "";

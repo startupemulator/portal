@@ -30,18 +30,19 @@
       <div class="experience-content__five-image experience-content__title">
         <h2>Get an experience in real projects</h2>
         <div class="button-startups--groupe">
-          <nuxt-link to="/startups-list">
-            <U-button
-              :button-name="'Explore Startups'"
-              :button-class="'u-button-blue'"
-            ></U-button>
-          </nuxt-link>
-          <nuxt-link to="/challenges">
-            <U-button
-              :button-name="'Explore Challenges'"
-              :button-class="'u-button-gray '"
-            ></U-button>
-          </nuxt-link>
+          <U-button
+            :button-name="'Explore Startups'"
+            :button-class="'u-button-blue'"
+            :is-link="'nuxt-link'"
+            :href="'/startups'"
+          ></U-button>
+
+          <U-button
+            :button-name="'Explore Challenges'"
+            :button-class="'u-button-gray '"
+            :is-link="'nuxt-link'"
+            :href="'/challenges'"
+          ></U-button>
         </div>
       </div>
     </div>

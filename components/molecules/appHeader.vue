@@ -8,7 +8,7 @@
             class="nav-item nav-item-startups"
             :class="{ 'nav-item__active': currentRoute === 'startups-list' }"
           >
-            <nuxt-link to="startups-list">
+            <nuxt-link to="startups">
               <svg
                 width="24"
                 height="24"

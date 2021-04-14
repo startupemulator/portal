@@ -3,8 +3,16 @@
     <p>{{ name }}</p>
     <div class="existing-sources__link-name">
       <div class="link-name__inputs">
-        <U-input :type="'text'" :placeholder="'Enter a link name'"></U-input>
-        <U-input :type="'text'" :placeholder="'https://...'"></U-input>
+        <U-input
+          :type="'text'"
+          :placeholder="'Enter a link name'"
+          @textInput="$emit('textInput', [$event, 'name'])"
+        ></U-input>
+        <U-input
+          :type="'text'"
+          :placeholder="'https://...'"
+          @textInput="$emit('textInput', [$event, 'url'])"
+        ></U-input>
       </div>
       <button
         class="button-remove-link"
@@ -32,6 +40,7 @@ export default {
       dd: true,
     };
   },
+  methods: {},
 };
 </script>
 <style lang="scss">

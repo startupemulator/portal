@@ -27,13 +27,13 @@
             </li>
           </ul>
         </div>
-        <nuxt-link to="logIn">
-          <UButton
-            :button-name="'Sign Up'"
-            :button-class="'u-button-gray'"
-            @clickOnButton="$emit('clikOnButton')"
-          ></UButton>
-        </nuxt-link>
+
+        <UButton
+          :button-name="'Sign Up'"
+          :button-class="'u-button-gray'"
+          :is-link="'nuxt-link'"
+          :href="'logIn'"
+        ></UButton>
       </div>
       <div class="pricing__card senior-card">
         <div class="pricing__card-header">
@@ -65,13 +65,13 @@
             </li>
           </ul>
         </div>
-        <nuxt-link to="createAccount">
-          <UButton
-            :button-name="'Sign Up'"
-            :button-class="'u-button-blue'"
-            @clickOnButton="$emit('clikOnButton')"
-          ></UButton>
-        </nuxt-link>
+
+        <UButton
+          :button-name="'Sign Up'"
+          :button-class="'u-button-blue'"
+          :is-link="'nuxt-link'"
+          :href="'createAccount'"
+        ></UButton>
       </div>
       <div class="pricing__card">
         <div class="pricing__card-header">
@@ -98,13 +98,13 @@
             </li>
           </ul>
         </div>
-        <nuxt-link to="/">
-          <UButton
-            :button-name="'Contact Us'"
-            :button-class="'u-button-gray'"
-            @clickOnButton="$emit('clikOnButton')"
-          ></UButton>
-        </nuxt-link>
+
+        <UButton
+          :button-name="'Contact Us'"
+          :button-class="'u-button-gray'"
+          :is-link="'nuxt-link'"
+          :href="'/'"
+        ></UButton>
       </div>
     </div>
   </div>

@@ -24,8 +24,6 @@
 
       <li>
         <nuxt-link to="/startups">Startups</nuxt-link>
-        (TODO: startups with cards
-        <nuxt-link to="/startups-list">List</nuxt-link>)
       </li>
       <li><nuxt-link to="/profile">Profile</nuxt-link></li>
       <li><nuxt-link to="/myProfile">myProfile</nuxt-link></li>

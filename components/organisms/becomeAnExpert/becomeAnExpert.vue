@@ -4,56 +4,105 @@
       <U-title :text="'Become an expert'"></U-title>
       <p>Full name</p>
       <U-input
+        :value="fullName"
         :placeholder="'Enter your full name'"
         :type="'text'"
         :img="require('~/assets/img/profile.svg')"
         :btn-show-password="false"
         :account-class="
-          validInput.fullName
+          $v.fullName.$error
             ? 'create-account__password error'
             : 'create-account__password'
         "
         @textInput="checkName"
       ></U-input>
-      <p v-show="validInput.fullName" class="errorInput">
+      <p v-show="$v.fullName.$error" class="errorInput">
         Please enter a name of at least 4 characters
       </p>
-      <technology-picker
-        :title="'Pick technologies you are expert in'"
-      ></technology-picker>
+      <TechnologyPicker
+        :technologies="technologies"
+        @chosenTechnologi="chosenTechnologi"
+      ></TechnologyPicker>
       <div class="become-expert__buttons">
         <U-button
           :button-name="'Finish Signing Up'"
           :button-class="'u-button-blue create-account__log-in'"
+          @clickOnButton="finishSigningUp"
         ></U-button>
       </div>
     </div>
+    <Toast></Toast>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Prop, Vue } from "nuxt-property-decorator";
+import { minLength, required } from "vuelidate/lib/validators";
+
 import TechnologyPicker from "~/components/molecules/technologyPicker.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UInput from "~/components/atoms/uInput.vue";
 import UButton from "~/components/atoms/uButton.vue";
-export default {
-  components: { UTitle, UInput, UButton, TechnologyPicker },
-  data: () => ({
-    validInput: {
-      fullName: false,
-    },
-  }),
-  methods: {
-    checkName(textValue) {
-      textValue = textValue.trim();
-      this.validInput.fullName = textValue.length < 4;
-    },
-    showAlert() {
-      this.alert = !this.alert;
-      setTimeout(() => (this.alert = !this.alert), 4000);
+import { Technology } from "~/models/Technology";
+import Toast from "~/store/modules/Toast";
+@Component({
+  components: {
+    TechnologyPicker,
+    UTitle,
+    UInput,
+    UButton,
+  },
+  validations: {
+    fullName: {
+      required,
+      minLength: minLength(4),
     },
   },
-};
+})
+export default class extends Vue {
+  @Prop() technologies: Array<Technology>;
+
+  fullName: string = "";
+  choosenTechnology: string = "";
+  role: string = "expert";
+  checkName(textValue: string) {
+    this.fullName = textValue;
+    this.$v.fullName.$touch();
+  }
+
+  chosenTechnologi(choosenTechnology: string) {
+    this.choosenTechnology = choosenTechnology;
+  }
+
+  async finishSigningUp(): Promise<void> {
+    this.$v.$touch();
+    if (!this.$v.$error) {
+      try {
+        const finishSignUp = await this.$strapi.roles({
+          // i do not know where to sent the data
+          // username: this.fullName,
+          // role: this.role,
+          // updated_by: new Date(),
+          // technology: this.choosenTechnology // - just for example
+        });
+        if (finishSignUp !== null) {
+          this.error = "";
+          this.$nuxt.$router.push("/");
+        }
+      } catch (e) {
+        Toast.show({
+          data: e.message,
+          duration: 3000,
+        });
+      }
+    } else {
+      Toast.show({
+        data: "Fill the form correctly.",
+        duration: 3000,
+      });
+    }
+  }
+}
 </script>
 <style lang="scss">
 .become-expert {
@@ -129,7 +178,7 @@ export default {
     }
     .technology-picker {
       form {
-        min-height: 230px;
+        min-height: auto;
         width: 603px;
       }
     }

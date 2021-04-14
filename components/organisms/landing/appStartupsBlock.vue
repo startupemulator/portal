@@ -3,11 +3,11 @@
     <div class="startup-block-content">
       <div class="startup-block-content__head">
         <h2>Startups</h2>
-        <nuxt-link to="/startups-list" class="startup-block-link">
-          <button type="button" class="startup-block-button">
-            <span>See All Startups</span>
-            <img src="~/assets/img/arrow.svg" alt="" />
-          </button>
+        <nuxt-link to="/startups" class="startup-block-button">
+          <!-- <button type="button" class="startup-block-button"> -->
+          <span>See All Startups</span>
+          <img src="~/assets/img/arrow.svg" alt="arrow" />
+          <!-- </button> -->
         </nuxt-link>
       </div>
       <div class="startup-block-content__desktop-buttons">
@@ -62,16 +62,6 @@ import StartupCard from "~/components/molecules/startupCard.vue";
 export default class AppStartupsBlock extends Vue {
   @Prop() cards: Array<Startup>;
   @Prop() technology: Array<Technology>;
-
-  // slideRigth() {
-  //   const el = this.cards.pop();
-  //   setTimeout(() => this.cards.unshift(el), 0);
-  // }
-
-  // slideLeft() {
-  //   const el = this.cards.shift();
-  //   setTimeout(() => this.cards.push(el), 0);
-  // }
 }
 </script>
 <style lang="scss" scoped>
@@ -79,11 +69,4 @@ export default class AppStartupsBlock extends Vue {
   transition: 1.2s;
   transform: scale(1);
 }
-// .card-enter-ective {
-//   transition: 0.1s;
-//   transform: scale(1);
-// }
-// .card-enter-to {
-//   transform: scale(0.8);
-// }
 </style>

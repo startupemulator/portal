@@ -11,6 +11,7 @@
       :key="item.id"
       :name="'Link ' + (i + 1)"
       @removeExistingSources="removeExistingSources(item.id)"
+      @textInput="textInput($event, i)"
     ></div>
     <div class="existing-sources__add-link">
       <U-button
@@ -23,11 +24,12 @@
       <U-button
         :button-name="'Next'"
         :button-class="'u-button-blue'"
-        @clickOnButton="$emit('goToStepFour')"
+        @clickOnButton="goToStepFour"
       ></U-button>
       <U-button
         :button-name="'Save Draft'"
         :button-class="'u-button-gray'"
+        @clickOnButton="test"
       ></U-button>
     </div>
   </div>
@@ -46,6 +48,24 @@ export default {
     };
   },
   methods: {
+    test() {
+      console.log(this.existingSourseComponent);
+    },
+    textInput($event, i) {
+      switch ($event[1]) {
+        case "name":
+          this.existingSourseComponent[i].name = $event[0];
+          break;
+        case "url":
+          this.existingSourseComponent[i].link = $event[0];
+
+          break;
+        default:
+      }
+    },
+    goToStepFour() {
+      this.$emit("goToStepFour", this.existingSourseComponent);
+    },
     addExistingSourse() {
       this.existingSourseComponent.push({
         id: this.existingSourseComponent.length + 1,
