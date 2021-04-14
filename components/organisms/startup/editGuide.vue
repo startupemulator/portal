@@ -101,26 +101,6 @@ export default class extends Vue {
         height: 40px;
       }
     }
-    // textarea {
-    //   background: #2e384a;
-    //   border-radius: 12px;
-    //   width: 343px;
-    //   min-height: 48px;
-    //   padding: 8px 16px;
-    //   box-sizing: border-box;
-    //   color: #fff;
-    //   outline: none;
-    //   font-weight: normal;
-    //   font-size: 16px;
-    //   //   line-height: 32px;
-    //   border: 2px solid transparent;
-    //   &:focus {
-    //     border: 2px solid #b5c1d8;
-    //   }
-    //   &::placeholder {
-    //     color: #b5c1d8;
-    //   }
-    // }
   }
   .edit-guide__buttons {
     position: fixed;
@@ -160,13 +140,6 @@ export default class extends Vue {
           width: 121px;
         }
       }
-      // textarea {
-      //   width: 620px;
-      //   min-height: 56px;
-      //   font-weight: normal;
-      //   font-size: 18px;
-      //   // line-height: 32px;
-      // }
     }
     .edit-guide__buttons {
       position: static;

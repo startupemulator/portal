@@ -60,7 +60,7 @@ export default class extends Vue {
     stepFour: false,
   };
 
-  startUpData: Array<Startup> = {};
+  startUpData: Array<Startup> = [];
   get progressSpets() {
     console.log(this.startUpData);
     return {
