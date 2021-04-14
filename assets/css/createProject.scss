@@ -245,7 +245,15 @@
     margin-bottom: 10px;
   }
   ul {
-    margin-top: 4px;
+    margin-top: 16px;
+    padding-left: 0;
+  }
+  .chosen-technology .tags-item {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 32px;
+    color: #b5c1d8;
+    padding: 0 16px;
   }
   .existing-sources__add-link {
     margin-top: 15px;
@@ -655,7 +663,15 @@
     }
 
     ul {
-      margin-top: 4px;
+      margin-top: 16px;
+      padding-left: 0;
+    }
+    .chosen-technology .tags-item {
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 32px;
+      color: #b5c1d8;
+      padding: 0 16px;
     }
     .specialityOne__item {
       width: 660px;

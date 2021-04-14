@@ -10,10 +10,12 @@
       :is="item.type"
       v-for="(item, i) in specialityComponent"
       :key="item.id"
+      :technologies="technologies"
       :class="'speciality-content'"
       :name="'Speciality ' + (i + 1)"
       @removeSpeciality="removeSpeciality(item.id, i)"
       @chosenSpeciality="addSpecialityToSpecialityComponent($event, i)"
+      @chosenTechnologies="addchosenTechnologies($event, i)"
     ></div>
 
     <button class="specialityOne__button" @click="addSpeciality">
@@ -49,7 +51,7 @@
       <U-button
         :button-name="'Next'"
         :button-class="'u-button-blue'"
-        @clickOnButton="$emit('goToStepThree')"
+        @clickOnButton="goToStepThree"
       ></U-button>
       <U-button
         :button-name="'Save Draft'"
@@ -65,7 +67,7 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
+import { Component, Vue, Prop } from "nuxt-property-decorator";
 import UButton from "~/components/atoms/uButton.vue";
 import CreateSpecialities from "~/components/molecules/createSpecialities.vue";
 import invitecolleagues from "~/components/molecules/inviteColleagues.vue";
@@ -73,15 +75,13 @@ import {
   enableScrolling,
   disableScrolling,
 } from "~/assets/jshelper/toggleScroll.js";
-
+import { Technology } from "~/models/Technology";
 @Component({
   components: { UButton, CreateSpecialities, invitecolleagues },
 })
 export default class extends Vue {
-  specialityComponent: Array<[number | string]> = [
-    { id: 1, type: "create-specialities" },
-  ];
-
+  @Prop() technologies: Array<Technology>;
+  specialityComponent: Array<any> = [{ id: 1, type: "create-specialities" }];
   invitedcolleagues: Array<any>;
   invitecolleagues: Boolean = false;
 
@@ -90,18 +90,22 @@ export default class extends Vue {
   }
 
   addSpecialityToSpecialityComponent($event, i) {
-    this.specialityComponent[i].speciality = $event[0];
-    console.dir(this.specialityComponent);
-    console.log($event, i);
+    // console.log($event);
+    this.specialityComponent[i].speciality = $event[0].title;
+  }
+
+  addchosenTechnologies($event, i) {
+    this.specialityComponent[i].technologies = [$event[0].technologies];
+    // console.log(this.specialityComponent);
+  }
+
+  goToStepThree() {
+    this.$emit("goToStepThree", this.specialityComponent);
   }
 
   inviteCollegue(data) {
     this.invitecolleagues = !this.invitecolleagues;
     enableScrolling();
-    this.invitedcolleagues.push({
-      email: data.email,
-      speciality: data.speciality,
-    });
   }
 
   toggleInviteColleagues() {

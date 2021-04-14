@@ -104,6 +104,7 @@
         ></Duration-picker>
         <Add-input
           :placeholder="'Or enter the number of days'"
+          :length="1"
           @addDuration="addDuration"
         ></Add-input>
       </div>
@@ -145,17 +146,17 @@ export default class extends Vue {
   test() {
     console.log(this.title + " - title");
     console.log(this.description + " - description");
-    console.log(this.date.split("|").join("") + " - date");
-    console.log(this.duration + "duration");
+    console.log(this.date.split("  |  ").join(".") + " - date");
+    console.log(this.duration + " - duration");
   }
 
-  chooseDuration(el) {
+  chooseDuration(el: { [key: string]: any }) {
     if (el.checked) {
       this.duration = el.title;
     } else this.duration = "";
   }
 
-  addDuration(duration) {
+  addDuration(duration: { [key: string]: any }) {
     this.duration = duration[duration.length - 1].name;
   }
 
@@ -163,7 +164,7 @@ export default class extends Vue {
     const firstStepData = {
       title: this.title,
       description: this.description,
-      date: this.date.split("|").join(""),
+      date: this.date.split("  |  ").join("."),
       duration: this.duration,
     };
     this.$emit("goToStepTwo", firstStepData);

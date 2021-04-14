@@ -1,16 +1,28 @@
 <template>
   <div>
     <div class="createProject">
-      <create-prodgect></create-prodgect>
+      <create-prodgect :technologies="technologies"></create-prodgect>
     </div>
   </div>
 </template>
-<script>
+
+<script lang="ts">
+import { Component, Vue } from "nuxt-property-decorator";
 import CreateProdgect from "~/components/organisms/startups/createProject.vue";
-export default {
+
+@Component({
   components: {
     CreateProdgect,
   },
-  middleware: ["deny-unauthenticated"],
-};
+})
+export default class extends Vue {
+  async asyncData({ $strapi }) {
+    const technologies = await $strapi.find("technologies");
+    return {
+      technologies,
+    };
+  }
+
+  middleware: ["deny-unauthenticated"];
+}
 </script>
