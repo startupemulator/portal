@@ -15,26 +15,32 @@
         describe his idea, main there is a description of this projects, where a
         product owner should describe his idea.
       </h3>
-      <nuxt-link v-if="!$strapi.user" to="createAccount">
-        <U-button
-          :button-name="'Sign Up'"
-          :button-class="'u-button-gray'"
-        ></U-button>
-      </nuxt-link>
-      <nuxt-link v-if="$strapi.user" to="/startup/create">
-        <U-button
-          :button-name="'Create Startup'"
-          :button-class="'u-button-gray'"
-        ></U-button>
-      </nuxt-link>
+
+      <U-button
+        v-if="!isLogined"
+        :href="'createAccount'"
+        :button-name="'Sign Up'"
+        :button-class="'u-button-gray'"
+        :is-link="'nuxt-link'"
+      ></U-button>
+
+      <U-button
+        v-if="isLogined"
+        :href="'/startup/create'"
+        :button-name="'Create Startup'"
+        :button-class="'u-button-gray'"
+        :is-link="'nuxt-link'"
+      ></U-button>
     </div>
   </div>
 </template>
-<script>
-import UButton from "~/components/atoms/uButton";
-export default {
-  components: {
-    UButton,
-  },
-};
+<script lang="ts">
+import { Component, Vue, Prop } from "nuxt-property-decorator";
+import UButton from "~/components/atoms/uButton.vue";
+@Component({
+  components: { UButton },
+})
+export default class extends Vue {
+  @Prop() isLogined: Boolean;
+}
 </script>

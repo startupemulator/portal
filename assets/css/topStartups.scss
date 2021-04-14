@@ -1,7 +1,6 @@
 .top-startups {
   color: $main-text-color;
   width: 343px;
-  // margin: 0 auto;
   margin-left: 16px;
   .top-startups__title {
     font-weight: bold;
@@ -61,7 +60,7 @@
     align-items: center;
     border-radius: 0 0 12px 12px;
     padding-top: 20px;
-    button {
+    .button-link {
       height: 40px;
       width: 279px;
     }
@@ -97,7 +96,7 @@
     line-height: 22px;
     margin-top: 0;
   }
-  a {
+  .button-link {
     margin-top: 20px;
     display: block;
     width: 295px;
@@ -172,7 +171,7 @@
       flex-direction: row;
       align-items: center;
       justify-content: center;
-      button {
+      .button-link {
         width: 286px;
         height: 56px;
         margin-top: 0;
@@ -210,13 +209,11 @@
     }
   }
   .next-startup {
-    button {
-      height: 56px !important;
-    }
-    a {
+    .next-link {
       margin-top: 44px;
       display: block;
-      width: 180px;
+      width: 180px !important;
+      height: 56px !important;
     }
     h2 {
       font-weight: bold;

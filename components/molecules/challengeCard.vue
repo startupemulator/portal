@@ -48,23 +48,22 @@
       <DifficultyLevel></DifficultyLevel>
 
       <div class="challenge-card__content_buttons">
-        <nuxt-link :to="'/challenge/' + card.slug">
-          <U-button
-            :button-name="'Details'"
-            :button-class="'u-button-gray'"
-            @clickOnButton="$emit('clikOnButton')"
-          ></U-button>
-        </nuxt-link>
-        <nuxt-link
+        <U-button
+          :button-name="'Details'"
+          :button-class="'u-button-gray'"
+          :is-link="'nuxt-link'"
+          :href="'/challenge/' + card.slug"
+          @clickOnButton="$emit('clikOnButton')"
+        ></U-button>
+
+        <U-button
           v-if="card.status !== 'new'"
-          :to="'/challenge/accept/' + card.slug"
-        >
-          <U-button
-            :button-name="'Take Part'"
-            :button-class="'u-button-blue'"
-            @clickOnButton="$emit('clikOnButton')"
-          ></U-button>
-        </nuxt-link>
+          :button-name="'Take Part'"
+          :button-class="'u-button-blue'"
+          :is-link="'nuxt-link'"
+          :href="'/challenge/accept/' + card.slug"
+          @clickOnButton="$emit('clikOnButton')"
+        ></U-button>
       </div>
     </div>
   </div>
@@ -171,10 +170,6 @@ export default class extends Vue {
       .u-button-blue {
         margin-left: 9px;
       }
-      a {
-        display: contents;
-        max-width: 100%;
-      }
     }
   }
 }
@@ -218,9 +213,6 @@ export default class extends Vue {
       .challenge-card__content-specialisation {
         margin-top: 32px;
         min-height: 80px;
-        // .tags-item {
-        //   margin-bottom: 6px;
-        // }
       }
 
       .challenge-card__content_buttons {

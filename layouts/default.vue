@@ -4,6 +4,7 @@
       :current-route="currentRoute"
       :is-logined="isLogined"
     ></AppHeader>
+
     <Nuxt />
     <AppFooter></AppFooter>
   </div>

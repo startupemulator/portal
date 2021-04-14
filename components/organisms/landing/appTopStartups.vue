@@ -16,31 +16,36 @@
           <U-button
             :button-name="'See Details'"
             :button-class="'u-button-blue'"
+            :is-link="'nuxt-link'"
+            :href="'/'"
           ></U-button>
           <U-button
             :button-name="'Go to the Website'"
             :button-class="'u-button-gray'"
+            :is-link="'nuxt-link'"
+            :href="'/'"
           ></U-button>
         </div>
       </div>
       <div class="next-startup">
         <h2>Your startup can be the next</h2>
         <h3>Join a team or create your startup</h3>
-        <nuxt-link to="createAccount"
-          ><U-button
-            :button-name="'Sign Up'"
-            :button-class="'u-button-blue'"
-          ></U-button
-        ></nuxt-link>
+        <U-button
+          :button-name="'Sign Up'"
+          :button-class="'u-button-blue'"
+          :is-link="'nuxt-link'"
+          :href="'createAccount'"
+          class="next-link"
+        ></U-button>
       </div>
     </div>
   </div>
 </template>
-<script>
-import UButton from "~/components/atoms/uButton";
-export default {
-  components: {
-    UButton,
-  },
-};
+<script lang="ts">
+import { Component, Vue } from "nuxt-property-decorator";
+import UButton from "~/components/atoms/uButton.vue";
+@Component({
+  components: { UButton },
+})
+export default class extends Vue {}
 </script>

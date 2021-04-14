@@ -47,23 +47,22 @@
         </div>
       </div>
       <div class="startup-block__buttons">
-        <nuxt-link
+        <U-button
           v-if="button_details"
-          :to="'/startup/' + card.slug"
+          :button-name="'Details'"
+          :button-class="'u-button-gray'"
           :style="!button_apply ? 'width:100%' : ''"
-        >
-          <U-button
-            :button-name="'Details'"
-            :button-class="'u-button-gray'"
-            :style="!button_apply ? 'width:100%' : ''"
-          ></U-button>
-        </nuxt-link>
-        <nuxt-link v-if="button_apply" :to="'/startup/apply/' + card.slug">
-          <U-button
-            :button-name="'Apply'"
-            :button-class="'u-button-blue'"
-          ></U-button>
-        </nuxt-link>
+          :is-link="'nuxt-link'"
+          :href="'/startup/' + card.slug"
+        ></U-button>
+
+        <U-button
+          v-if="button_apply"
+          :href="'/startup/apply/' + card.slug"
+          :button-name="'Apply'"
+          :is-link="'nuxt-link'"
+          :button-class="'u-button-blue'"
+        ></U-button>
       </div>
     </div>
   </div>
