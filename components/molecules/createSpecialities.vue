@@ -133,6 +133,9 @@ export default {
     },
     technologies: {
       type: Array,
+      default() {
+        return [];
+      },
     },
   },
   data: () => {
