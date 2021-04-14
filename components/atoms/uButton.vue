@@ -1,12 +1,14 @@
 <template>
-  <button
+  <component
+    :is="isLink"
+    :to="isLink !== 'button' ? href : null"
     type="button"
     class="u-button"
-    :class="buttonClass"
+    :class="isLink !== 'button' ? ['button-link', buttonClass] : buttonClass"
     @click="$emit('clickOnButton')"
   >
     {{ buttonName }}
-  </button>
+  </component>
 </template>
 <script>
 // u-button-blue or u-button-gray
@@ -19,6 +21,14 @@ export default {
     buttonClass: {
       type: [Array, String],
       default: "",
+    },
+    isLink: {
+      type: String,
+      default: "button",
+    },
+    href: {
+      type: String,
+      default: "/",
     },
   },
 };
@@ -39,6 +49,16 @@ export default {
   line-height: 32px;
   color: $main-text-color;
   transition: 0.3s;
+}
+a.u-button {
+  color: $main-text-color !important;
+  cursor: pointer;
+  border-radius: 12px;
+  font-size: 17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
 }
 .u-button-transpend {
   background: transparent;

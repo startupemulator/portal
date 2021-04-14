@@ -3,11 +3,11 @@
     <div class="startup-block-content">
       <div class="startup-block-content__head">
         <h2>Challenges</h2>
-        <nuxt-link to="/challenges" class="startup-block-link">
-          <button type="button" class="startup-block-button">
-            <span>See All Challenges</span>
-            <img src="~/assets/img/arrow.svg" alt="" />
-          </button>
+        <nuxt-link to="/challenges" class="startup-block-button">
+          <!-- <button type="button" class="startup-block-button"> -->
+          <span>See All Challenges</span>
+          <img src="~/assets/img/arrow.svg" alt="" />
+          <!-- </button> -->
         </nuxt-link>
       </div>
       <div class="startup-block-content__desktop-buttons">
