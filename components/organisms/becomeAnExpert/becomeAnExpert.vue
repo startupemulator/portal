@@ -78,7 +78,7 @@ export default class extends Vue {
     this.$v.$touch();
     if (!this.$v.$error) {
       try {
-        const finishSignUp = await this.$strapi.update({
+        const finishSignUp = await this.$strapi.roles({
           // i do not know where to sent the data
           // username: this.fullName,
           // role: this.role,

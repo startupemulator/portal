@@ -1,7 +1,6 @@
 <template>
   <div class="challenge-card">
     <div class="challenge-card__header">
-      {{ card.slug }}
       <div
         v-show="card.status !== 'new'"
         class="challenge-card__header-startup-state"
