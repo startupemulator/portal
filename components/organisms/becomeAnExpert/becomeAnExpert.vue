@@ -78,16 +78,17 @@ export default class extends Vue {
     this.$v.$touch();
     if (!this.$v.$error) {
       try {
-        const finishSignUp = await this.$strapi.roles({
+        const finishSignUp = await this.$strapi.setUser({
           // i do not know where to sent the data
-          // username: this.fullName,
-          // role: this.role,
-          // updated_by: new Date(),
+          username: this.fullName,
+          role: this.role,
+          updated_by: new Date(),
           // technology: this.choosenTechnology // - just for example
         });
+        console.log(finishSignUp);
         if (finishSignUp !== null) {
           this.error = "";
-          this.$nuxt.$router.push("/");
+          // this.$nuxt.$router.push("/");
         }
       } catch (e) {
         Toast.show({

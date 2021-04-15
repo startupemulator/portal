@@ -13,6 +13,15 @@
   }
 }
 
+a.my-projects_btn {
+  cursor: pointer;
+  border: none;
+  border-radius: 12px;
+  color: $main-text-color !important;
+  span {
+    margin-left: 12px;
+  }
+}
 .my-projects_btn {
   width: 343px;
   height: 48px;
@@ -30,6 +39,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
   span {
     margin-left: 12px;
   }
@@ -72,7 +82,11 @@
       }
     }
   }
-
+  a.my-projects_btn {
+    img {
+      margin-left: 18px;
+    }
+  }
   .my-projects_btn {
     width: 56px;
     height: 56px;
