@@ -61,26 +61,31 @@
           : ''
       "
     >
+      <pre>{{ startup }}</pre>
+      <pre>{{ $strapi.user }}</pre>
+
       <div class="startup_block-1">
-        <U-back :title="'Startups'" :link="'/startups-list'"></U-back>
+        <U-back :title="'Startups'" :link="'/startups'"></U-back>
 
         <div class="startup__header">
-          <U-title :text="'Startup #1'"></U-title>
+          <U-title :text="'Startup #' + startup.id"></U-title>
           <div
             class="startup__header__startup-state"
-            :class="isStarted ? 'in_progress' : finished ? 'finished' : ''"
+            :class="isStarted ? 'started' : finished ? 'finished' : ''"
           >
-            Not started
+            {{ startup.state.split("_").join(" ") | capitalize }}
           </div>
         </div>
         <div class="startup-card__started-start-time">
           <div class="started-start-time__start">
             <h3>Start</h3>
-            <p>27 Sep 2020</p>
+            <p>
+              {{ new Date(startup.created_at).toUTCString().substr(4, 12) }}
+            </p>
           </div>
           <div class="started-start-time__duration">
             <h3>Duration</h3>
-            <p>3 months</p>
+            <p>{{ startup.duration }} months</p>
           </div>
         </div>
         <div v-if="isDeveloper" class="applied-startup">
@@ -118,12 +123,7 @@
         </div>
 
         <p class="startup__description">
-          The goal is to implement Learning Management Portal - a portal for
-          managing the educational process and teaching materials as part of the
-          university curriculum. Our purposes are remove the manual work of the
-          teacher; combine online learning tools in one tool; give students easy
-          access to materials; simplify the implementation and validation of
-          practical tasks; open access to current ratings.
+          {{ startup.description }}
         </p>
         <CommentExpert v-if="isExpert"></CommentExpert>
 
@@ -226,9 +226,9 @@
         <div v-if="!finished" class="startup__open-position">
           <h3>Open positions</h3>
           <Open-position-card
-            v-for="startup in startup"
-            :key="startup.id"
-            :startup="startup"
+            v-for="item in 3"
+            :key="item.id"
+            :startup="item"
           ></Open-position-card>
         </div>
         <div class="startup-card__team">
@@ -295,7 +295,7 @@
 
         <div class="project-started">
           <h4>Project started</h4>
-          <p>10 Jun 2020 14:30</p>
+          <p>{{ new Date(startup.start_date).toUTCString().substr(4, 18) }}</p>
         </div>
       </div>
       <div class="position-card__developer__primary-button">
@@ -393,9 +393,9 @@ export default class extends Vue {
   @Prop() testimonials: Array<Testimonial>;
   popupCancelApplication = false;
   isDeveloper = false;
-  isExpert = true;
+  isExpert = false;
   isOwner = false;
-  isStarted = true;
+  isStarted = false;
   popupDeleteStartup = false;
   popupGuide = false;
   finished = false;
@@ -465,6 +465,14 @@ export default class extends Vue {
 
   togglePopupGuide() {
     this.popupGuide = !this.popupGuide;
+  }
+
+  mounted() {
+    if (this.startup.state === "in_progress") {
+      return (this.isStarted = true);
+    } else if (this.startup.state === "finished") {
+      return (this.finished = true);
+    }
   }
 }
 </script>
