@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ isLogined }}
     <app-get-experience></app-get-experience>
     <app-startups-block
       :cards="startups"
@@ -26,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Watch, Vue, strapi } from "nuxt-property-decorator";
+import { Component, Watch, Vue } from "nuxt-property-decorator";
 import { Startup } from "~/models/Startup";
 import { Challenge } from "~/models/Challenge";
 import { Testimonial } from "~/models/Testimonial";
@@ -82,7 +81,7 @@ export default class extends Vue {
   }
 
   @Watch("$strapi", { immediate: true, deep: true })
-  onLogin(newVal: strapi) {
+  onLogin() {
     this.isLogined = !!this.$strapi.user;
   }
 
