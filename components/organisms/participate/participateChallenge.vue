@@ -7,7 +7,10 @@
         :title="'Select your expected estimation for this challenge'"
       ></Duration-picker>
 
-      <Add-input :placeholder="'Or enter the number of days'"></Add-input>
+      <Add-input
+        :placeholder="'Or enter the number of days'"
+        :length="1"
+      ></Add-input>
       <div class="bottom-fixed-button">
         <U-button
           :button-name="'Start'"

@@ -37,13 +37,15 @@
   </div>
 </template>
 <script>
+import Toast from "../../../store/modules/Toast";
 import UButton from "~/components/atoms/uButton";
 import CreateGuide from "~/components/molecules/createGuide";
+
 import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartUp";
-import {
-  enableScrolling,
-  disableScrolling,
-} from "~/assets/jshelper/toggleScroll";
+// import {
+//   enableScrolling,
+//   disableScrolling,
+// } from "~/assets/jshelper/toggleScroll";
 export default {
   components: { UButton, CreateGuide, PopupCreatedStartUp },
   data() {
@@ -68,9 +70,36 @@ export default {
         (item) => item.id !== i
       );
     },
-    publish() {
-      this.popupPublish = !this.popupPublish;
-      this.popupPublish ? disableScrolling() : enableScrolling();
+    async publish() {
+      // this.popupPublish = !this.popupPublish;
+      // this.popupPublish ? disableScrolling() : enableScrolling();
+      try {
+        const newStartup = await this.$strapi.create({
+          id: "string",
+          title: "string title",
+          slug: "string-slug",
+          description:
+            "string string string string string string string string string",
+          full_info: " string string string string string string string",
+          start_date: new Date(),
+          duration: 10,
+          technologies: [],
+          sources: [],
+          secrets: [],
+          applications: [],
+          published_date: new Date(),
+        });
+        if (newStartup !== null) {
+          this.error = "";
+          console.log("newStartup");
+        }
+      } catch (e) {
+        console.error(e);
+        Toast.show({
+          data: e.message,
+          duration: 3000,
+        });
+      }
     },
   },
 };

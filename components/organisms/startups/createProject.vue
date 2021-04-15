@@ -75,7 +75,6 @@ export default class extends Vue {
     this.createprodjectSteps.stepTwo = true;
 
     this.startUpData = firstStepData;
-    // console.log(this.startUpData);
   }
 
   goToStepBack() {
@@ -113,7 +112,6 @@ export default class extends Vue {
       delete thirdStepData[0].type;
       this.startUpData.sources.push(el);
     });
-    console.log(thirdStepData);
   }
 }
 </script>

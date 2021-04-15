@@ -47,7 +47,6 @@ export default {
         (e.keyCode === 13) &
         (this.addData.length < this.length)
       ) {
-        console.log(this.length);
         this.addData.push({ id: this.addData.length, name: srt });
         this.inputedtext = "";
         this.$emit("addDuration", this.addData);

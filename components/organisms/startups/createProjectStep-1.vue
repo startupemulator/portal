@@ -64,38 +64,6 @@
               <rect x="17" y="16" width="2" height="2" fill="#8C97AC" />
             </svg> </i
         ></DatePicker>
-        <!-- <div class="start-date__row">
-          <img src="~/assets/img/calendar.svg" alt="Calendar" />
-          <div class="start-date__col1">
-            <input
-              v-model="startDay"
-              type="number"
-              placeholder="DD"
-              required
-              @input="checkinput('startDay')"
-            />
-          </div>
-
-          <div class="start-date__col2">
-            <input
-              v-model="startMonth"
-              type="number"
-              placeholder="MM"
-              required
-              @input="checkinput('startMonth')"
-            />
-          </div>
-
-          <div class="start-date__col3">
-            <input
-              v-model="startYear"
-              type="number"
-              placeholder="YYYY"
-              required
-              @input="checkinput('startYear')"
-            />
-          </div>
-        </div> -->
       </div>
       <div class="startup__finish-date">
         <Duration-picker

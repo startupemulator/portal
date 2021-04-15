@@ -1,6 +1,6 @@
 <template>
   <div class="projects">
-    <my-projects></my-projects>
+    <MyProjects></MyProjects>
   </div>
 </template>
 <script lang="ts">

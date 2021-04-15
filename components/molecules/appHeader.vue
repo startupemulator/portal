@@ -6,9 +6,9 @@
         <ul class="nav-list">
           <li
             class="nav-item nav-item-startups"
-            :class="{ 'nav-item__active': currentRoute === 'startups-list' }"
+            :class="{ 'nav-item__active': currentRoute === 'startups' }"
           >
-            <nuxt-link to="startups">
+            <nuxt-link to="/startups">
               <svg
                 width="24"
                 height="24"
@@ -28,7 +28,7 @@
             class="nav-item"
             :class="{ 'nav-item__active': currentRoute === 'challenges' }"
           >
-            <nuxt-link to="challenges">
+            <nuxt-link to="/challenges">
               <svg
                 width="19"
                 height="24"
@@ -48,7 +48,7 @@
             class="nav-item nav-item-pricing"
             :class="{ 'nav-item__active': currentRoute === 'pricing' }"
           >
-            <nuxt-link to="pricing">
+            <nuxt-link to="/pricing">
               <svg
                 width="24"
                 height="24"
@@ -78,7 +78,7 @@
               class="nav-item"
               :class="{ 'nav-item__active': currentRoute === 'myProjects' }"
             >
-              <nuxt-link to="myProjects">
+              <nuxt-link to="/myProjects">
                 <svg
                   width="24"
                   height="24"
@@ -105,7 +105,7 @@
               class="nav-item"
               :class="{ 'nav-item__active': currentRoute === 'profile' }"
             >
-              <nuxt-link to="profile">
+              <nuxt-link to="/profile">
                 <svg
                   width="24"
                   height="24"
@@ -223,7 +223,6 @@
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UButton from "../atoms/uButton.vue";
 import ULogo from "../atoms/uLogo.vue";
-
 import NotificationsPopup from "./popupNotifications.vue";
 
 @Component({

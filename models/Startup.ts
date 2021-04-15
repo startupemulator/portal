@@ -6,6 +6,7 @@ export interface Startup {
   full_info: string;
   start_date: Date;
   duration: number;
+  state: string;
   technologies: any[];
   sources: any[];
   secrets: any[];
