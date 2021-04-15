@@ -61,9 +61,6 @@
           : ''
       "
     >
-      <pre>{{ startup }}</pre>
-      <pre>{{ $strapi.user }}</pre>
-
       <div class="startup_block-1">
         <U-back :title="'Startups'" :link="'/startups'"></U-back>
 
