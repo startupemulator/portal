@@ -4,9 +4,8 @@
       <u-back :link="'/'"></u-back>
       <U-title :text="acc.user.name || acc.user.username"> </U-title>
     </div>
-
-    <Regular-user v-if="false" :startups="startups"></Regular-user>
-    <Expert-user v-if="true" :testimonials="testimonials"> </Expert-user>
+    <Regular-user v-if="true" :startups="startups"></Regular-user>
+    <Expert-user v-if="false" :testimonials="testimonials"> </Expert-user>
     <div class="profile-projects__experience">
       <h3>Experience</h3>
       <div class="experience-work">1-2 years</div>

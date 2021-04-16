@@ -3,6 +3,7 @@
     <AppHeader
       :current-route="currentRoute"
       :is-logined="isLogined"
+      :user="user"
     ></AppHeader>
 
     <Nuxt />
@@ -26,6 +27,7 @@ import AppHeader from "~/components/molecules/appHeader.vue";
 })
 export default class extends Vue {
   isLogined = !!this.$strapi.user;
+  user = this.$strapi.user ? this.$strapi.user.name : "";
   currentRoute = this.$router.currentRoute.name;
 
   @Watch("$route", { immediate: true, deep: true })
@@ -36,6 +38,7 @@ export default class extends Vue {
   @Watch("$strapi", { immediate: true, deep: true })
   onLogin() {
     this.isLogined = !!this.$strapi.user;
+    this.user = this.$strapi.user ? this.$strapi.user.name : "";
   }
 
   get state() {

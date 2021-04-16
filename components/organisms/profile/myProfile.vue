@@ -127,18 +127,19 @@ import { Testimonial } from "~/models/Testimonial";
 export default class extends Vue {
   @Prop() startups: Array<Startup>;
   @Prop() technologies: Array<Technology>;
+  @Prop() testimonials: Array<Testimonial>;
+  @Prop() userState: any;
   private opendPopup: boolean = false;
   private editProfile: boolean = false;
   private changePassword: boolean = false;
-  @Prop() testimonials: Array<Testimonial>;
 
-  data() {
-    return {
-      opendPopup: false,
-      editProfile: false,
-      changePassword: false,
-    };
-  }
+  // data() {
+  //   return {
+  //     opendPopup: false,
+  //     editProfile: false,
+  //     changePassword: false,
+  //   };
+  // }
 
   logOut() {
     this.$strapi.logout();
