@@ -5,7 +5,7 @@
         <U-title :text="'Profile'"> </U-title>
         <div class="profile-header__menu">
           <ul>
-            <li v-if="false">
+            <li v-if="true">
               <button type="button" @click="$emit('copyBaseUri')">
                 Copy Link On My Profile
                 <img src="~/assets/img/copy.svg" alt="copy" />
@@ -34,42 +34,17 @@
           <div>
             <span>Full name</span>
             <p>
-              {{ $strapi.state.user.username + " Longfirstname Longlastname" }}
+              {{ userData.username }}
             </p>
           </div>
           <div>
             <span class="account-data__email">Email</span>
-            <p>{{ $strapi.state.user.email }}</p>
+            <p>{{ userData.email }}</p>
           </div>
         </div>
       </div>
-      <!-- <div class="profile__personal-achivements">
-        <h3>Personal achivements</h3>
-        <div class="arhivements-image">
-          <img
-            src="~/assets/img/profile-image.svg"
-            alt="profile-imag"
-            @click="togglePopup"
-          />
-        </div>
-      </div> -->
-      <!-- <div class="profile__team-achivements">
-        <h3>Team achivements</h3>
-        <div class="arhivements-image">
-          <img
-            src="~/assets/img/profile-image.svg"
-            alt="profile-imag"
-            @click="togglePopup"
-          />
-          <img
-            src="~/assets/img/profile-image.svg"
-            alt="profile-imag"
-            @click="togglePopup"
-          />
-        </div>
-      </div> -->
-      <My-profile-regular-user v-if="false"></My-profile-regular-user>
-      <Expert-user v-if="true" :testimonials="testimonials"> </Expert-user>
+      <My-profile-regular-user v-if="true"></My-profile-regular-user>
+      <Expert-user v-if="false" :testimonials="testimonials"> </Expert-user>
       <div class="profile-projects__experience">
         <h3>Experience</h3>
         <div class="experience-work">1-2 years</div>
@@ -128,19 +103,10 @@ export default class extends Vue {
   @Prop() startups: Array<Startup>;
   @Prop() technologies: Array<Technology>;
   @Prop() testimonials: Array<Testimonial>;
-  @Prop() userState: any;
+  @Prop() userData: Array<any>;
   private opendPopup: boolean = false;
   private editProfile: boolean = false;
   private changePassword: boolean = false;
-
-  // data() {
-  //   return {
-  //     opendPopup: false,
-  //     editProfile: false,
-  //     changePassword: false,
-  //   };
-  // }
-
   logOut() {
     this.$strapi.logout();
     this.$nuxt.$router.push("/");
@@ -156,6 +122,17 @@ export default class extends Vue {
 
   toggleChangePassword() {
     this.changePassword = !this.changePassword;
+  }
+
+  async mounted() {
+    try {
+      const userData = await this.$strapi.find("honors");
+      if (userData) {
+        console.log(userData);
+      }
+    } catch (e) {
+      console.error(e);
+    }
   }
 }
 </script>

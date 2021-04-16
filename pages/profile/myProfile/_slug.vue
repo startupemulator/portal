@@ -1,26 +1,28 @@
 <template>
   <div class="profile">
-    <my-profile
+    <MyProfile
       :startups="startups"
       :technologies="technologies"
       :testimonials="testimonials"
+      :user-data="userData"
       @copyBaseUri="copyBaseUri"
-    ></my-profile>
+    ></MyProfile>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import myProfile from "~/components/organisms/profile/myProfile.vue";
+import MyProfile from "~/components/organisms/profile/myProfile.vue";
 
 @Component({
   components: {
-    myProfile,
+    MyProfile,
   },
   middleware: ["deny-unauthenticated"],
 })
 export default class extends Vue {
   // data loaded here will be added during server rendering
+  userData = this.$strapi.user ? this.$strapi.user : null;
   async asyncData({ $strapi }) {
     const startups = await $strapi.find("startups");
     const technologies = await $strapi.find("technologies");

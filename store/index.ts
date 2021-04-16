@@ -1,7 +1,7 @@
 import Vuex, { Store } from "vuex";
-
+import Vue from "vue";
 interface RootState {}
-
+Vue.use(Vuex);
 export const store = new Vuex.Store<RootState>({
   actions: {
     nuxtServerInit: async () => {

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Toast />
     <AppHeader
       :current-route="currentRoute"
       :is-logined="isLogined"
@@ -16,13 +17,13 @@ import { Component, Watch, Vue } from "nuxt-property-decorator";
 import AppFooter from "~/components/molecules/appFooter.vue";
 import AppHeader from "~/components/molecules/appHeader.vue";
 
-// import Toast from "~/components/molecules/toast.vue";
+import Toast from "~/components/molecules/toast.vue";
 
 @Component({
   components: {
     AppHeader,
     AppFooter,
-    // Toast,
+    Toast,
   },
 })
 export default class extends Vue {
