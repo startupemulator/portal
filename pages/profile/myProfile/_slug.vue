@@ -13,7 +13,7 @@
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 import MyProfile from "~/components/organisms/profile/myProfile.vue";
-
+import { copyToClipboard } from "~/assets/jshelper/copyToClipBoard";
 @Component({
   components: {
     MyProfile,
@@ -34,12 +34,12 @@ export default class extends Vue {
     };
   }
 
-  async copyBaseUri() {
-    try {
-      await navigator.clipboard.writeText(location.href);
-    } catch (err) {
-      console.error("Failed to copy: ", err);
-    }
+  copyBaseUri() {
+    const url = window.location.href.split("/myProfile").join("");
+    console.log(url);
+    copyToClipboard(url)
+      .then(() => console.log("text copied !"))
+      .catch(() => console.log("error"));
   }
 }
 </script>

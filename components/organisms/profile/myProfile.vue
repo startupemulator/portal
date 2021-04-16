@@ -1,11 +1,13 @@
 <template>
   <div class="profile-content my-profile">
+    <pre style="color: #fff">{{ userData }}</pre>
+
     <div v-if="!changePassword & !editProfile" class="my-profile__content">
       <div class="profile-header">
         <U-title :text="'Profile'"> </U-title>
         <div class="profile-header__menu">
           <ul>
-            <li v-if="true">
+            <li v-if="userData.role.type !== 'expert'">
               <button type="button" @click="$emit('copyBaseUri')">
                 Copy Link On My Profile
                 <img src="~/assets/img/copy.svg" alt="copy" />
@@ -43,8 +45,15 @@
           </div>
         </div>
       </div>
-      <My-profile-regular-user v-if="true"></My-profile-regular-user>
-      <Expert-user v-if="false" :testimonials="testimonials"> </Expert-user>
+      <My-profile-regular-user
+        v-if="userData.role.type !== 'expert'"
+        @togglePopup="togglePopup"
+      ></My-profile-regular-user>
+      <Expert-user
+        v-if="userData.role.type === 'expert'"
+        :testimonials="testimonials"
+      >
+      </Expert-user>
       <div class="profile-projects__experience">
         <h3>Experience</h3>
         <div class="experience-work">1-2 years</div>
@@ -107,6 +116,7 @@ export default class extends Vue {
   private opendPopup: boolean = false;
   private editProfile: boolean = false;
   private changePassword: boolean = false;
+
   logOut() {
     this.$strapi.logout();
     this.$nuxt.$router.push("/");
@@ -124,15 +134,15 @@ export default class extends Vue {
     this.changePassword = !this.changePassword;
   }
 
-  async mounted() {
-    try {
-      const userData = await this.$strapi.find("honors");
-      if (userData) {
-        console.log(userData);
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  }
+  // async mounted() {
+  //   try {
+  //     const userData = await this.$strapi.find("honors");
+  //     if (userData) {
+  //       console.log(userData);
+  //     }
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // }
 }
 </script>
