@@ -10,7 +10,10 @@
       v-for="(item, i) in guideSourseComponent"
       :key="item.id"
       :name="'Item ' + (i + 1)"
+      :guide-name="item.name"
+      :guide-comment="item.comment"
       @removeGuideSources="removeGuideSources(item.id)"
+      @textInput="textInput($event, i)"
     ></div>
     <div class="existing-sources__add-link">
       <U-button
@@ -28,79 +31,104 @@
       <U-button
         :button-name="'Save Draft'"
         :button-class="'u-button-gray'"
+        @clickOnButton="saveDraft"
       ></U-button>
     </div>
     <popup-created-start-up
       v-if="popupPublish"
       @closePopup="publish"
     ></popup-created-start-up>
+
+    <pre> {{ startUpData }}</pre>
   </div>
 </template>
-<script>
+<script lang="ts">
+import { Component, Prop, Vue } from "nuxt-property-decorator";
 import Toast from "../../../store/modules/Toast";
-import UButton from "~/components/atoms/uButton";
-import CreateGuide from "~/components/molecules/createGuide";
+import UButton from "~/components/atoms/uButton.vue";
+import CreateGuide from "~/components/molecules/createGuide.vue";
 
-import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartUp";
-// import {
-//   enableScrolling,
-//   disableScrolling,
-// } from "~/assets/jshelper/toggleScroll";
-export default {
-  components: { UButton, CreateGuide, PopupCreatedStartUp },
-  data() {
-    return {
-      popupPublish: false,
-      guideSourseComponent: [
-        { id: 1, type: "create-guide" },
-        { id: 2, type: "create-guide" },
-      ],
-    };
-  },
+import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartUp.vue";
+import {
+  enableScrolling,
+  disableScrolling,
+} from "~/assets/jshelper/toggleScroll";
+@Component({ components: { UButton, CreateGuide, PopupCreatedStartUp } })
+export default class extends Vue {
+  @Prop() startUpData!: Array<any>;
+  popupPublish: Boolean = false;
+  guideSourseComponent: Array<any> = [
+    { id: 1, type: "create-guide" },
+    { id: 2, type: "create-guide" },
+  ];
 
-  methods: {
-    addGuideSourse() {
-      this.guideSourseComponent.push({
-        id: this.guideSourseComponent.length + 1,
-        type: "create-guide",
+  addGuideSourse() {
+    this.guideSourseComponent.push({
+      id: this.guideSourseComponent.length + 1,
+      type: "create-guide",
+    });
+  }
+
+  removeGuideSources(i) {
+    this.guideSourseComponent = this.guideSourseComponent.filter(
+      (item) => item.id !== i
+    );
+  }
+
+  textInput($event, i) {
+    switch ($event[1]) {
+      case "name":
+        this.guideSourseComponent[i].name = $event[0];
+        break;
+      case "comment":
+        this.guideSourseComponent[i].comment = $event[0];
+        break;
+      default:
+    }
+    this.$emit("addSomeGiude", this.guideSourseComponent);
+  }
+
+  async publish() {
+    try {
+      const newStartup = await this.$strapi.create("startups", {
+        id: "string",
+        title: "string title",
+        slug: "string-slug",
+        description:
+          "string string string string string string string string string",
+        full_info: " string string string string string string string",
+        start_date: new Date(),
+        duration: 10,
+        technologies: [],
+        sources: [],
+        secrets: [],
+        applications: [],
+        published_date: new Date(),
       });
-    },
-    removeGuideSources(i) {
-      this.guideSourseComponent = this.guideSourseComponent.filter(
-        (item) => item.id !== i
-      );
-    },
-    async publish() {
-      // this.popupPublish = !this.popupPublish;
-      // this.popupPublish ? disableScrolling() : enableScrolling();
-      try {
-        const newStartup = await this.$strapi.create({
-          id: "string",
-          title: "string title",
-          slug: "string-slug",
-          description:
-            "string string string string string string string string string",
-          full_info: " string string string string string string string",
-          start_date: new Date(),
-          duration: 10,
-          technologies: [],
-          sources: [],
-          secrets: [],
-          applications: [],
-          published_date: new Date(),
-        });
-        if (newStartup !== null) {
-          this.error = "";
-          console.log("newStartup");
-        }
-      } catch (e) {
-        console.error(e);
-        Toast.show({
-          data: e.message,
-          duration: 3000,
-        });
+      if (newStartup !== null) {
+        this.error = "";
+        console.log("newStartup");
+        this.popupPublish = !this.popupPublish;
+        this.popupPublish ? disableScrolling() : enableScrolling();
       }
-    },
-  },
-};
+    } catch (e) {
+      console.error(e);
+      Toast.show({
+        data: e.message,
+        duration: 3000,
+      });
+    }
+  }
+
+  mounted() {
+    if (this.startUpData.guide) {
+      this.startUpData.guide.forEach((el, i) => {
+        if (el.name) {
+          this.guideSourseComponent[i] = el;
+        }
+      });
+      console.log(this.guideSourseComponent);
+    }
+  }
+}
 </script>

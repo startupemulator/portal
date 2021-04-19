@@ -12,22 +12,26 @@
     <div class="createProject-step1__progress-bar">
       <div class="createProject__progress-bar" :class="progressSpets"></div>
     </div>
-
     <create-project-step-1
       v-if="createprodjectSteps.stepOne"
+      :start-up-data="startUpData"
       @goToStepTwo="goToStepTwo"
     ></create-project-step-1>
     <create-project-step-2
       v-if="createprodjectSteps.stepTwo"
       :technologies="technologies"
+      :start-up-data="startUpData"
       @goToStepThree="goToStepThree"
     ></create-project-step-2>
     <create-project-step-3
       v-if="createprodjectSteps.stepThree"
+      :start-up-data="startUpData"
       @goToStepFour="goToStepFour"
     ></create-project-step-3>
     <create-project-step-4
       v-if="createprodjectSteps.stepFour"
+      :start-up-data="startUpData"
+      @addSomeGiude="addSomeGiude"
     ></create-project-step-4>
   </div>
 </template>
@@ -73,8 +77,16 @@ export default class extends Vue {
   goToStepTwo(firstStepData: Array<Startup>) {
     this.createprodjectSteps.stepOne = false;
     this.createprodjectSteps.stepTwo = true;
+    if (this.startUpData.title) {
+      this.startUpData.title = firstStepData.title;
+      this.startUpData.date = firstStepData.date;
+      this.startUpData.description = firstStepData.description;
+      this.startUpData.duration = firstStepData.duration;
+    } else {
+      this.startUpData = firstStepData;
+    }
 
-    this.startUpData = firstStepData;
+    // this.startUpData = firstStepData;
   }
 
   goToStepBack() {
@@ -99,18 +111,28 @@ export default class extends Vue {
   goToStepThree(secodStepData) {
     this.createprodjectSteps.stepTwo = false;
     this.createprodjectSteps.stepThree = true;
-    this.startUpData.technologies = [];
-    secodStepData.forEach((el) => this.startUpData.technologies.push(el));
+    this.startUpData.specialists = [];
+    this.startUpData.coleagues = [];
+    console.log(secodStepData);
+    secodStepData[0].forEach((el) => this.startUpData.specialists.push(el));
+    secodStepData[1].forEach((el) => this.startUpData.coleagues.push(el));
   }
 
   goToStepFour(thirdStepData) {
     this.createprodjectSteps.stepThree = false;
     this.createprodjectSteps.stepFour = true;
     this.startUpData.sources = [];
-
     thirdStepData.forEach((el) => {
-      delete thirdStepData[0].type;
       this.startUpData.sources.push(el);
+    });
+  }
+
+  addSomeGiude(data) {
+    this.startUpData.guide = [];
+    data.forEach((el) => {
+      if (el.name) {
+        this.startUpData.guide.push(el);
+      }
     });
   }
 }

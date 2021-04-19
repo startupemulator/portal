@@ -56,6 +56,7 @@
           </button>
         </ul>
         <button
+          v-if="picker"
           v-show="
             (chosenSpeciality !== 'Select a speciality') &
             (pickedTechnology.length === 0)
@@ -108,7 +109,8 @@
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
+import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UButton from "~/components/atoms/uButton.vue";
 import {
   enableScrolling,
@@ -116,32 +118,37 @@ import {
 } from "~/assets/jshelper/toggleScroll";
 import TechnologyPicker from "~/components/molecules/technologyPicker.vue";
 import Utags from "~/components/atoms/uTags.vue";
-export default {
+
+@Component({
   components: {
     UButton,
     TechnologyPicker,
     Utags,
   },
-  props: {
-    name: {
-      type: String,
-      default: "",
+})
+export default class extends Vue {
+  @Prop({ default: "" }) name: String;
+  @Prop({ default: "" }) title: String;
+  @Prop({
+    default() {
+      return [];
     },
-    title: {
-      type: String,
-      default: " ",
+  })
+  technologies: Array<any>;
+
+  @Prop({
+    default() {
+      return [];
     },
-    technologies: {
-      type: Array,
-      default() {
-        return [];
-      },
-    },
-  },
-  data: () => {
+  })
+  checkedTechnologies: Array<any>;
+
+  @Prop({ default: "" }) picker: Boolean;
+  @Prop({ default: "Select a speciality" }) specialityFromParent: String;
+  data() {
     return {
       openSpeciality: false,
-      chosenSpeciality: "Select a speciality",
+      chosenSpeciality: this.specialityFromParent,
       popupPickTechnology: false,
       speciality: [
         { id: 0, specialityPosition: "Front-end" },
@@ -149,38 +156,46 @@ export default {
         { id: 2, specialityPosition: "DevOps" },
         { id: 3, specialityPosition: "Seo" },
       ],
+
       pickedTechnology: [],
       chosenTechnologies: [],
     };
-  },
-  methods: {
-    chosenTechnologi(chosenTechnologies) {
-      this.chosenTechnologies = chosenTechnologies;
-    },
-    chosespeciality(e) {
-      this.chosenSpeciality = e.textContent;
-      this.openSpeciality = !this.openSpeciality;
-      this.$emit("chosenSpeciality", [{ title: this.chosenSpeciality.trim() }]);
-    },
-    togglePopupPickTechnologies() {
-      this.pickedTechnology = this.chosenTechnologies;
+  }
 
-      this.$emit("chosenTechnologies", [
-        { technologies: this.pickedTechnology },
-      ]);
-      this.popupPickTechnology = !this.popupPickTechnology;
-      this.popupPickTechnology ? disableScrolling() : enableScrolling();
-    },
-    mychosentechnology(pickedTechnology) {
-      this.pickedTechnology = pickedTechnology;
-    },
-    skiptechnology() {
-      this.pickedTechnology = [];
-      enableScrolling();
-      this.popupPickTechnology = !this.popupPickTechnology;
-    },
-  },
-};
+  chosenTechnologi(chosenTechnologies) {
+    this.chosenTechnologies = chosenTechnologies;
+  }
+
+  chosespeciality(e) {
+    this.chosenSpeciality = e.textContent.trim();
+    this.openSpeciality = !this.openSpeciality;
+    this.$emit("chosenSpeciality", [{ title: this.chosenSpeciality.trim() }]);
+  }
+
+  togglePopupPickTechnologies() {
+    this.pickedTechnology = this.chosenTechnologies;
+
+    this.$emit("chosenTechnologies", [{ technologies: this.pickedTechnology }]);
+    this.popupPickTechnology = !this.popupPickTechnology;
+    this.popupPickTechnology ? disableScrolling() : enableScrolling();
+  }
+
+  mychosentechnology(pickedTechnology) {
+    this.pickedTechnology = pickedTechnology;
+  }
+
+  skiptechnology() {
+    this.pickedTechnology = [];
+    enableScrolling();
+    this.popupPickTechnology = !this.popupPickTechnology;
+  }
+
+  mounted() {
+    if (this.checkedTechnologies) {
+      this.pickedTechnology = this.checkedTechnologies;
+    }
+  }
+}
 </script>
 
 <style lang="scss">
@@ -243,7 +258,7 @@ export default {
   box-sizing: border-box;
   position: absolute;
   padding: 0;
-  z-index: 2;
+  z-index: 6;
   color: #fff;
   .specialityOne__item-item {
     width: 100%;

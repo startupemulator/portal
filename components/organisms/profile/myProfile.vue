@@ -1,7 +1,5 @@
 <template>
   <div class="profile-content my-profile">
-    <pre style="color: #fff">{{ userData }}</pre>
-
     <div v-if="!changePassword & !editProfile" class="my-profile__content">
       <div class="profile-header">
         <U-title :text="'Profile'"> </U-title>
