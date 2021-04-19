@@ -1,6 +1,6 @@
 <template>
   <div class="fullscreen">
-    <become-an-expert :technologies="technologies"></become-an-expert>
+    <BecomeAnExpert :technologies="technologies"></BecomeAnExpert>
   </div>
 </template>
 

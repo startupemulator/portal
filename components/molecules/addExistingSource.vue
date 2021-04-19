@@ -6,11 +6,13 @@
         <U-input
           :type="'text'"
           :placeholder="'Enter a link name'"
+          :value="linkName"
           @textInput="$emit('textInput', [$event, 'name'])"
         ></U-input>
         <U-input
           :type="'text'"
           :placeholder="'https://...'"
+          :value="linkHref"
           @textInput="$emit('textInput', [$event, 'url'])"
         ></U-input>
       </div>
@@ -24,24 +26,18 @@
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
+import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UInput from "../atoms/uInput.vue";
 
-export default {
+@Component({
   components: { UInput },
-  props: {
-    name: {
-      type: String,
-      default: "i",
-    },
-  },
-  data() {
-    return {
-      dd: true,
-    };
-  },
-  methods: {},
-};
+})
+export default class AppHeader extends Vue {
+  @Prop() name: String;
+  @Prop() linkName: String;
+  @Prop() linkHref: String;
+}
 </script>
 <style lang="scss">
 .existing-sources__link-name {

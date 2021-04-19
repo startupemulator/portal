@@ -13,6 +13,9 @@
       :technologies="technologies"
       :class="'speciality-content'"
       :name="'Speciality ' + (i + 1)"
+      :picker="true"
+      :speciality-from-parent="item.speciality"
+      :checked-technologies="item.technologies"
       @removeSpeciality="removeSpeciality(item.id, i)"
       @chosenSpeciality="addSpecialityToSpecialityComponent($event, i)"
       @chosenTechnologies="addchosenTechnologies($event, i)"
@@ -26,23 +29,17 @@
         You can also invite your colleagues
         <p>to the team as developers or as product owners.</p>
       </h5>
-      <ul class="invited-colleagues">
-        <li v-for="item in invitedcolleagues" :key="item.email">
-          <p>{{ item.email }}</p>
-          <div class="invited-colleagues__speciality-block">
-            <div class="invited-colleagues__speciality">
-              {{ item.speciality }}
-            </div>
-            <button
-              type="button"
-              class="sign-up-link__close"
-              @click="removeInvitedcolleagues(item.email, item.speciality)"
-            >
-              <img src="~/assets/img/close.svg" alt="Close" />
-            </button>
-          </div>
-        </li>
-      </ul>
+      <div
+        :is="item.type"
+        v-for="item in invitedcolleagues"
+        :key="item.id"
+        :name="item.email"
+        :picker="false"
+        :speciality-from-parent="item.choosenSpeciality"
+        @removeSpeciality="
+          removeInvitedcolleagues(item.email, item.choosenSpeciality)
+        "
+      ></div>
       <button class="invite-colleagues__button" @click="toggleInviteColleagues">
         Invite colleagues
       </button>
@@ -64,6 +61,7 @@
       @closePopupLinkEmail="toggleInviteColleagues"
       @inviteCollegue="inviteCollegue"
     ></invite-colleagues>
+    <pre>{{ startUpData }}</pre>
   </div>
 </template>
 <script lang="ts">
@@ -81,8 +79,10 @@ import { Technology } from "~/models/Technology";
 })
 export default class extends Vue {
   @Prop() technologies: Array<Technology>;
+  @Prop() startUpData!: Array<any>;
   specialityComponent: Array<any> = [{ id: 1, type: "create-specialities" }];
-  invitedcolleagues: Array<any>;
+  invitedcolleagues: Array<any> = [];
+
   invitecolleagues: Boolean = false;
 
   test() {
@@ -90,27 +90,35 @@ export default class extends Vue {
   }
 
   addSpecialityToSpecialityComponent($event, i) {
-    // console.log($event);
     this.specialityComponent[i].speciality = $event[0].title;
   }
 
   addchosenTechnologies($event, i) {
-    this.specialityComponent[i].technologies = [$event[0].technologies];
-    // console.log(this.specialityComponent);
+    this.specialityComponent[i].technologies = $event[0].technologies;
   }
 
   goToStepThree() {
-    this.$emit("goToStepThree", this.specialityComponent);
+    console.log(this.specialityComponent);
+    this.$emit("goToStepThree", [
+      this.specialityComponent,
+      this.invitedcolleagues,
+    ]);
   }
 
   inviteCollegue(data) {
     this.invitecolleagues = !this.invitecolleagues;
+    const someData = {
+      id: this.invitedcolleagues.length + 1,
+      type: "create-specialities",
+      email: data.email,
+      choosenSpeciality: data.speciality.trim(),
+    };
+    this.invitedcolleagues.push(someData);
     enableScrolling();
   }
 
   toggleInviteColleagues() {
     this.invitecolleagues = !this.invitecolleagues;
-    console.log(this.invitecolleagues);
     this.invitecolleagues ? disableScrolling() : enableScrolling();
   }
 
@@ -129,8 +137,17 @@ export default class extends Vue {
 
   removeInvitedcolleagues(email, speciality) {
     this.invitedcolleagues = this.invitedcolleagues.filter(
-      (item) => (item.email !== email) & (item.speciality !== speciality)
+      (item) => item.email !== email && item.choosenSpeciality !== speciality
     );
+  }
+
+  mounted() {
+    if (this.startUpData.coleagues) {
+      this.invitedcolleagues = this.startUpData.coleagues;
+    }
+    if (this.startUpData.specialists) {
+      this.specialityComponent = this.startUpData.specialists;
+    }
   }
 }
 </script>

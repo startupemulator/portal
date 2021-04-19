@@ -1,6 +1,6 @@
 <template>
   <div class="startups-page">
-    <Start-up :startup="startup" :testimonials="testimonials"></Start-up>
+    <StartUp :startup="startup" :testimonials="testimonials"></StartUp>
     <App-footer></App-footer>
   </div>
 </template>

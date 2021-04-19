@@ -10,6 +10,8 @@
       v-for="(item, i) in existingSourseComponent"
       :key="item.id"
       :name="'Link ' + (i + 1)"
+      :link-name="item.name"
+      :link-href="item.link"
       @removeExistingSources="removeExistingSources(item.id)"
       @textInput="textInput($event, i)"
     ></div>
@@ -34,49 +36,62 @@
     </div>
   </div>
 </template>
-<script>
-import UButton from "~/components/atoms/uButton";
-import AddExistingSourse from "~/components/molecules/addExistingSource";
-export default {
-  components: { UButton, AddExistingSourse },
-  data() {
-    return {
-      existingSourseComponent: [
-        { id: 1, type: "add-existing-sourse" },
-        { id: 2, type: "add-existing-sourse" },
-      ],
-    };
-  },
-  methods: {
-    test() {
-      console.log(this.existingSourseComponent);
-    },
-    textInput($event, i) {
-      switch ($event[1]) {
-        case "name":
-          this.existingSourseComponent[i].name = $event[0];
-          break;
-        case "url":
-          this.existingSourseComponent[i].link = $event[0];
+<script lang="ts">
+import { Component, Prop, Vue } from "nuxt-property-decorator";
+import UButton from "~/components/atoms/uButton.vue";
+import AddExistingSourse from "~/components/molecules/addExistingSource.vue";
 
-          break;
-        default:
-      }
-    },
-    goToStepFour() {
-      this.$emit("goToStepFour", this.existingSourseComponent);
-    },
-    addExistingSourse() {
-      this.existingSourseComponent.push({
-        id: this.existingSourseComponent.length + 1,
-        type: "add-existing-sourse",
-      });
-    },
-    removeExistingSources(i) {
-      this.existingSourseComponent = this.existingSourseComponent.filter(
-        (item) => item.id !== i
-      );
-    },
+@Component({
+  components: {
+    UButton,
+    AddExistingSourse,
   },
-};
+})
+export default class extends Vue {
+  @Prop() startUpData!: Array<any>;
+  existingSourseComponent: Array<any> = [
+    { id: 1, type: "add-existing-sourse" },
+    { id: 2, type: "add-existing-sourse" },
+  ];
+
+  test() {
+    console.log(this.existingSourseComponent);
+  }
+
+  textInput($event, i) {
+    switch ($event[1]) {
+      case "name":
+        this.existingSourseComponent[i].name = $event[0];
+        break;
+      case "url":
+        this.existingSourseComponent[i].link = $event[0];
+        break;
+      default:
+    }
+  }
+
+  goToStepFour() {
+    this.$emit("goToStepFour", this.existingSourseComponent);
+  }
+
+  addExistingSourse() {
+    this.existingSourseComponent.push({
+      id: this.existingSourseComponent.length + 1,
+      type: "add-existing-sourse",
+    });
+  }
+
+  removeExistingSources(i) {
+    this.existingSourseComponent = this.existingSourseComponent.filter(
+      (item) => item.id !== i
+    );
+  }
+
+  mounted() {
+    if (this.startUpData.sources) {
+      this.existingSourseComponent = this.startUpData.sources;
+      console.log(this.existingSourseComponent);
+    }
+  }
+}
 </script>

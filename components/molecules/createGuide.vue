@@ -3,10 +3,17 @@
     <p>{{ name }}</p>
     <div class="existing-sources__link-name">
       <div class="link-name__inputs">
-        <U-input :type="'text'" :placeholder="'Enter an item name'"></U-input>
+        <UInput
+          :type="'text'"
+          :placeholder="'Enter an item name'"
+          :value="guideName"
+          @textInput="$emit('textInput', [$event, 'name'])"
+        ></UInput>
         <textarea
           class="guide-comments"
           placeholder="Enter your comment"
+          :value="guideComment"
+          @blur="$emit('textInput', [$event.target.value, 'comment'])"
         ></textarea>
       </div>
       <button
@@ -19,23 +26,22 @@
     </div>
   </div>
 </template>
-<script>
-import UInput from "../atoms/uInput.vue";
 
-export default {
-  components: { UInput },
-  props: {
-    name: {
-      type: String,
-      default: "i",
-    },
+<script lang="ts">
+import { Component, Prop, Vue } from "nuxt-property-decorator";
+
+import UInput from "~/components/atoms/uInput.vue";
+
+@Component({
+  components: {
+    UInput,
   },
-  data() {
-    return {
-      dd: true,
-    };
-  },
-};
+})
+export default class extends Vue {
+  @Prop({ default: "i" }) name: String;
+  @Prop() guideName: String;
+  @Prop() guideComment: String;
+}
 </script>
 <style lang="scss">
 .existing-sources__link-name {

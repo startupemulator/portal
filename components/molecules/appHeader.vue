@@ -105,7 +105,7 @@
               class="nav-item"
               :class="{ 'nav-item__active': currentRoute === 'profile' }"
             >
-              <nuxt-link to="/profile">
+              <nuxt-link :to="'/profile/myProfile/' + user">
                 <svg
                   width="24"
                   height="24"
@@ -231,7 +231,7 @@ import NotificationsPopup from "./popupNotifications.vue";
 export default class AppHeader extends Vue {
   @Prop() currentRoute: string;
   @Prop() isLogined: Boolean;
-
+  @Prop() user: string;
   notification: Boolean = false;
   toggleNotification() {
     this.notification = !this.notification;

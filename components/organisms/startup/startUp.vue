@@ -1,5 +1,6 @@
 <template>
   <div>
+    }
     <RequestToTeam
       v-show="requestToTeam"
       @clikOnButton="toggleRequestToTeam"

@@ -68,11 +68,13 @@
       <div class="startup__finish-date">
         <Duration-picker
           :title="'Estimated duration'"
+          :duration="duration"
           @clickOnDuration="chooseDuration"
         ></Duration-picker>
         <Add-input
           :placeholder="'Or enter the number of days'"
           :length="1"
+          :duration="duration"
           @addDuration="addDuration"
         ></Add-input>
       </div>
@@ -94,7 +96,7 @@
 
 <script lang="ts">
 import DatePicker from "vue2-datepicker";
-import { Component, Vue } from "nuxt-property-decorator";
+import { Component, Vue, Prop } from "nuxt-property-decorator";
 import UButton from "~/components/atoms/uButton.vue";
 import DurationPicker from "~/components/molecules/durationPicker.vue";
 import AddInput from "~/components/atoms/addInput.vue";
@@ -103,11 +105,18 @@ import AddInput from "~/components/atoms/addInput.vue";
   components: { DatePicker, UButton, DurationPicker, AddInput },
 })
 export default class extends Vue {
-  date: String = "";
-  title: String = "";
-  description: String = "";
+  @Prop() startUpData!: Array<any>;
+
+  date: String = this.startUpData.date ? this.startUpData.date : "";
+  title: String = this.startUpData.title ? this.startUpData.title : "";
+
+  description: String = this.startUpData.description
+    ? this.startUpData.description
+    : "";
+
   start_date: Date = new Date();
-  duration: String = "";
+  duration: String = this.startUpData.duration ? this.startUpData.duration : "";
+
   numberDays: String = "";
   technologies: Array<[string | boolean]>;
 
@@ -132,7 +141,8 @@ export default class extends Vue {
     const firstStepData = {
       title: this.title,
       description: this.description,
-      date: this.date.split("  |  ").join("."),
+      // date: this.date.split("  |  ").join("."),
+      date: this.date,
       duration: this.duration,
     };
     this.$emit("goToStepTwo", firstStepData);

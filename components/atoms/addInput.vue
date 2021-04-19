@@ -20,50 +20,49 @@
     </ul>
   </div>
 </template>
-<script>
-export default {
-  props: {
-    placeholder: {
-      type: String,
-      default: "",
-    },
-    length: {
-      type: Number,
-      default: 9999,
-    },
-  },
-  data() {
-    return {
-      addData: [],
-      inputedtext: "",
-      focused: false,
-    };
-  },
-  methods: {
-    addInputedtext(e) {
-      const srt = this.inputedtext.trim();
-      if (
-        (srt.length > 1) &
-        (e.keyCode === 13) &
-        (this.addData.length < this.length)
-      ) {
-        this.addData.push({ id: this.addData.length, name: srt });
-        this.inputedtext = "";
-        this.$emit("addDuration", this.addData);
+<script lang="ts">
+import { Component, Prop, Vue } from "nuxt-property-decorator";
+
+@Component({})
+export default class extends Vue {
+  @Prop() placeholder: String;
+  @Prop({ default: 9999 }) length: Number;
+  @Prop() duration: String;
+  addData: Array<any> = [];
+  inputedtext: String = "";
+  focused: Boolean = false;
+  addInputedtext(e) {
+    const srt = this.inputedtext.trim();
+    if (
+      srt.length > 1 &&
+      e.keyCode === 13 &&
+      this.addData.length < this.length
+    ) {
+      this.addData.push({ id: this.addData.length, name: srt });
+      this.inputedtext = "";
+      this.$emit("addDuration", this.addData);
+    }
+  }
+
+  onfocus() {
+    this.focused = !this.focused;
+  }
+
+  removeItem(id) {
+    this.addData.forEach((el, i) => {
+      if (+i === +id) {
+        this.addData.splice(i, 1);
       }
-    },
-    onfocus() {
-      this.focused = !this.focused;
-    },
-    removeItem(id) {
-      this.addData.forEach((el, i) => {
-        if (+i === +id) {
-          this.addData.splice(i, 1);
-        }
-      });
-    },
-  },
-};
+    });
+  }
+
+  mounted() {
+    if (this.duration) {
+      console.log(this.duration);
+      this.addData.push({ id: this.addData.length, name: this.duration });
+    }
+  }
+}
 </script>
 <style lang="scss" scoped>
 .input-add.focused {

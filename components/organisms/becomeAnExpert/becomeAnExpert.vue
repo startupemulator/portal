@@ -1,5 +1,6 @@
 <template>
   <div class="become-expert">
+    <pre style="color: #fff">{{ $strapi.user }}</pre>
     <div class="become-expert__content">
       <U-title :text="'Become an expert'"></U-title>
       <p>Full name</p>
@@ -79,16 +80,24 @@ export default class extends Vue {
     if (!this.$v.$error) {
       try {
         const finishSignUp = await this.$strapi.setUser({
-          // i do not know where to sent the data
+          id: this.$strapi.user.id,
           username: this.fullName,
-          role: this.role,
-          updated_by: new Date(),
-          // technology: this.choosenTechnology // - just for example
+          email: this.$strapi.user.email,
+          provider: this.$strapi.user.provider,
+          confirmed: this.$strapi.user.confirmed,
+          blocked: this.$strapi.user.blocked,
+          role: {
+            id: this.$strapi.user.role.id,
+            name: this.$strapi.user.name,
+            description: this.$strapi.user.description,
+            type: this.role,
+          },
+          created_at: this.$strapi.user.created_at,
+          updated_at: new Date(),
+          name: this.$strapi.user.name,
         });
-        console.log(finishSignUp);
         if (finishSignUp !== null) {
           this.error = "";
-          // this.$nuxt.$router.push("/");
         }
       } catch (e) {
         Toast.show({

@@ -33,5 +33,9 @@ import { Component, Vue } from "nuxt-property-decorator";
 @Component({
   components: {},
 })
-export default class extends Vue {}
+export default class extends Vue {
+  togglePopup() {
+    this.$emit("togglePopup");
+  }
+}
 </script>
