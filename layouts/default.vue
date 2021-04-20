@@ -16,7 +16,6 @@
 import { Component, Watch, Vue } from "nuxt-property-decorator";
 import AppFooter from "~/components/molecules/appFooter.vue";
 import AppHeader from "~/components/molecules/appHeader.vue";
-
 import Toast from "~/components/molecules/toast.vue";
 
 @Component({
@@ -33,7 +32,7 @@ export default class extends Vue {
 
   @Watch("$route", { immediate: true, deep: true })
   onUrlChange() {
-    this.currentRoute = this.$router.currentRoute.name;
+    this.currentRoute = this.$router.currentRoute.fullPath;
   }
 
   @Watch("$strapi", { immediate: true, deep: true })

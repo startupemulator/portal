@@ -38,6 +38,7 @@ import AppTakePart from "~/components/organisms/landing/appTakePart.vue";
 import AppTopStartups from "~/components/organisms/landing/appTopStartups.vue";
 import AppTestimonials from "~/components/organisms/landing/appTestimonials.vue";
 import Pricing from "~/components/organisms/landing/pricing.vue";
+import { goToPricing } from "~/assets/jshelper/scrollToPricing";
 @Component({
   components: {
     AppGetExperience,
@@ -116,6 +117,12 @@ export default class extends Vue {
       case "testimonials":
         el = this.testimonials.shift();
         setTimeout(() => this.testimonials.push(el), 0);
+    }
+  }
+
+  mounted() {
+    if (this.$router.currentRoute.fullPath === "/landing#pricing") {
+      goToPricing();
     }
   }
 }

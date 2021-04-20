@@ -1,6 +1,6 @@
 <template>
   <div class="experience">
-    <Experience :technology="technology" :startup="startup"></Experience>
+    <Experience :technology="technology" :startups="startups"></Experience>
   </div>
 </template>
 
@@ -17,14 +17,12 @@ import { Startup } from "~/models/Startup";
 export default class extends Vue {
   startups: Array<Startup> = [];
   technology: Array<Technology> = [];
-  async asyncData({ $strapi, route }) {
+  async asyncData({ $strapi }) {
     const technology = await $strapi.find("technologies");
-    const startup = await $strapi.find("startups", {
-      slug: route.params.slug,
-    });
+    const startups = await $strapi.find("startups");
     return {
       technology,
-      startup,
+      startups,
     };
   }
 }

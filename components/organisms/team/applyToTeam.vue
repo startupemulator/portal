@@ -6,40 +6,43 @@
       :is-button="true"
       @clikOnButton="applyToTeamGoStep2"
     ></U-back>
-    <apply-to-team-step-1
+    <ApplyToTeamStep1
       v-if="applyToTeamStep1"
+      :technologies="technology"
       @applyToTeamGoStep2="applyToTeamGoStep2"
-    ></apply-to-team-step-1>
-    <apply-to-team-step-2
+    ></ApplyToTeamStep1>
+    <ApplyToTeamStep2
       v-if="applyToTeamStep2"
       :startup="startup || {}"
       @popupApplied="togglePopupApplied"
-    ></apply-to-team-step-2>
-    <popup-applied
+    ></ApplyToTeamStep2>
+    <PopupApplied
       v-show="popupApplied"
       @closePopupLinkSent="togglePopupApplied"
-    ></popup-applied>
+    ></PopupApplied>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
-import applyToTeamStep1 from "~/components/organisms/team/applyToTeamStep1.vue";
-import applyToTeamStep2 from "~/components/organisms/team/applyToTeamStep2.vue";
+import ApplyToTeamStep1 from "~/components/organisms/team/applyToTeamStep1.vue";
+import ApplyToTeamStep2 from "~/components/organisms/team/applyToTeamStep2.vue";
 import PopupApplied from "~/components/molecules/popupApplied.vue";
 import UBack from "~/components/atoms/uBack.vue";
+import { Technology } from "~/models/Technology";
 import { Startup } from "~/models/Startup";
 
 @Component({
   components: {
     UBack,
-    applyToTeamStep2,
-    applyToTeamStep1,
+    ApplyToTeamStep2,
+    ApplyToTeamStep1,
     PopupApplied,
   },
 })
 export default class extends Vue {
-  @Prop() startup: Startup;
+  @Prop() technology: Array<Technology>;
+  @Prop() startup: Array<Startup>;
 
   private applyToTeamStep1: boolean = true;
   private applyToTeamStep2: boolean = false;

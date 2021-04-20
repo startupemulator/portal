@@ -9,7 +9,7 @@
     <div
       :is="item.type"
       v-for="(item, i) in specialityComponent"
-      :key="item.id"
+      :key="Math.floor(Math.random() * 144554) + i"
       :technologies="technologies"
       :class="'speciality-content'"
       :name="'Speciality ' + (i + 1)"
@@ -53,7 +53,7 @@
       <U-button
         :button-name="'Save Draft'"
         :button-class="'u-button-gray'"
-        @clickOnButton="test"
+        @clickOnButton="$emit('saveDraft')"
       ></U-button>
     </div>
     <invite-colleagues
@@ -61,7 +61,6 @@
       @closePopupLinkEmail="toggleInviteColleagues"
       @inviteCollegue="inviteCollegue"
     ></invite-colleagues>
-    <pre>{{ startUpData }}</pre>
   </div>
 </template>
 <script lang="ts">
@@ -80,14 +79,10 @@ import { Technology } from "~/models/Technology";
 export default class extends Vue {
   @Prop() technologies: Array<Technology>;
   @Prop() startUpData!: Array<any>;
-  specialityComponent: Array<any> = [{ id: 1, type: "create-specialities" }];
+  specialityComponent: Array<any> = [{ id: 0, type: "create-specialities" }];
   invitedcolleagues: Array<any> = [];
 
   invitecolleagues: Boolean = false;
-
-  test() {
-    console.log(this.specialityComponent);
-  }
 
   addSpecialityToSpecialityComponent($event, i) {
     this.specialityComponent[i].speciality = $event[0].title;
@@ -98,7 +93,6 @@ export default class extends Vue {
   }
 
   goToStepThree() {
-    console.log(this.specialityComponent);
     this.$emit("goToStepThree", [
       this.specialityComponent,
       this.invitedcolleagues,

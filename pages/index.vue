@@ -10,7 +10,15 @@
     <ul>
       <li><nuxt-link to="/landing">Landing</nuxt-link></li>
       <li><nuxt-link to="/logIn">Log In</nuxt-link></li>
-      <li><nuxt-link to="/applyToTeam">Apply to Team</nuxt-link></li>
+      <li>
+        <nuxt-link to="/applyToTeam">Apply to Team </nuxt-link> => available in
+        <nuxt-link to="/startups">
+          <span style="color: #fff; border-bottom: 1px solid #fff"
+            >Startups</span
+          >
+        </nuxt-link>
+        button Apply
+      </li>
       <li><nuxt-link to="/createAccount">Create Account</nuxt-link></li>
       <li><nuxt-link to="/createStartup">Create Startup</nuxt-link></li>
       <hr />
@@ -21,10 +29,6 @@
       <li><nuxt-link to="/startups">Startups</nuxt-link></li>
       <li><nuxt-link to="/challenges">Challenges</nuxt-link></li>
       <li><nuxt-link to="/myProjects">My Projects</nuxt-link></li>
-
-      <li>
-        <nuxt-link to="/startups">Startups</nuxt-link>
-      </li>
       <li><nuxt-link to="/profile">Profile</nuxt-link></li>
       <li><nuxt-link to="/myProfile">myProfile</nuxt-link></li>
       <li><nuxt-link to="/startup">Startup</nuxt-link></li>
