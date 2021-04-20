@@ -1,6 +1,5 @@
 <template>
   <div class="become-expert">
-    <pre style="color: #fff">{{ $strapi.user }}</pre>
     <div class="become-expert__content">
       <U-title :text="'Become an expert'"></U-title>
       <p>Full name</p>
@@ -32,7 +31,6 @@
         ></U-button>
       </div>
     </div>
-    <Toast></Toast>
   </div>
 </template>
 
@@ -72,10 +70,11 @@ export default class extends Vue {
   }
 
   chosenTechnologi(choosenTechnology: string) {
+    console.log("fwe");
     this.choosenTechnology = choosenTechnology;
   }
 
-  async finishSigningUp(): Promise<void> {
+  async finishSigningUp() {
     this.$v.$touch();
     if (!this.$v.$error) {
       try {

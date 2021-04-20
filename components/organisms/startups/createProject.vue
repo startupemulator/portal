@@ -84,7 +84,6 @@ export default class extends Vue {
   startUpData: Array<Startup> = [];
   popupPublish: Boolean = false;
   get progressSpets() {
-    console.log(this.startUpData);
     return {
       "progress-bar__stepTwo": this.createprodjectSteps.stepTwo,
       "progress-bar__stepThree": this.createprodjectSteps.stepThree,
@@ -92,26 +91,24 @@ export default class extends Vue {
     };
   }
 
-  saveDraft() {
-    console.log("save draft");
-  }
+  saveDraft() {}
 
   async publish() {
     try {
-      const newStartup: Array<Startup> = await this.$strapi.create("startups", {
+      const newStartup = await this.$strapi.create("startup", {
         title: this.startUpData.title,
         slug: "Unknown Type: uid",
         description: this.startUpData.description,
         full_info: "string",
-        start_date: "2021-04-20T07:45:34.953Z",
-        duration: 3,
+        start_date: "string",
+        duration: this.startUpData.duration,
         state: "not_started",
         technologies: ["string"],
-        sources: ["string"],
+        sources: this.startUpData.sources,
         secrets: ["string"],
-        applications: ["string"],
+        applications: this.startUpData.guide,
         published_at: "2021-04-20T07:45:34.953Z",
-        created_by: "string",
+        created_by: new Date(),
         updated_by: "string",
       });
       if (newStartup !== null) {
@@ -166,7 +163,6 @@ export default class extends Vue {
     this.createprodjectSteps.stepThree = true;
     this.startUpData.specialists = [];
     this.startUpData.coleagues = [];
-    console.log(secodStepData);
     secodStepData[0].forEach((el) => this.startUpData.specialists.push(el));
     secodStepData[1].forEach((el) => this.startUpData.coleagues.push(el));
   }

@@ -172,6 +172,7 @@ import UTags from "~/components/atoms/uTags.vue";
 import CommentExpert from "~/components/molecules/commentForExpert.vue";
 import AddTeamFeedBack from "~/components/organisms/startup/addTeamFeedback.vue";
 import DifficultyLevel from "~/components/atoms/difficultyLevel.vue";
+import FeedBackCard from "~/components/molecules/feedbackCard.vue";
 
 @Component({
   components: {
@@ -185,6 +186,7 @@ import DifficultyLevel from "~/components/atoms/difficultyLevel.vue";
     CommentExpert,
     AddTeamFeedBack,
     DifficultyLevel,
+    FeedBackCard,
   },
 })
 export default class extends Vue {
