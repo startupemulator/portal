@@ -26,33 +26,28 @@
       <U-button
         :button-name="'Publish'"
         :button-class="'u-button-blue'"
-        @clickOnButton="publish"
+        @clickOnButton="$emit('publish')"
       ></U-button>
       <U-button
         :button-name="'Save Draft'"
         :button-class="'u-button-gray'"
-        @clickOnButton="saveDraft"
+        @clickOnButton="$emit('saveDraft')"
       ></U-button>
     </div>
     <popup-created-start-up
       v-if="popupPublish"
       @closePopup="publish"
     ></popup-created-start-up>
-
-    <pre> {{ startUpData }}</pre>
   </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
-import Toast from "../../../store/modules/Toast";
+
 import UButton from "~/components/atoms/uButton.vue";
 import CreateGuide from "~/components/molecules/createGuide.vue";
 
 import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartUp.vue";
-import {
-  enableScrolling,
-  disableScrolling,
-} from "~/assets/jshelper/toggleScroll";
+
 @Component({ components: { UButton, CreateGuide, PopupCreatedStartUp } })
 export default class extends Vue {
   @Prop() startUpData!: Array<any>;
@@ -88,38 +83,6 @@ export default class extends Vue {
     this.$emit("addSomeGiude", this.guideSourseComponent);
   }
 
-  async publish() {
-    try {
-      const newStartup = await this.$strapi.create("startups", {
-        id: "string",
-        title: "string title",
-        slug: "string-slug",
-        description:
-          "string string string string string string string string string",
-        full_info: " string string string string string string string",
-        start_date: new Date(),
-        duration: 10,
-        technologies: [],
-        sources: [],
-        secrets: [],
-        applications: [],
-        published_date: new Date(),
-      });
-      if (newStartup !== null) {
-        this.error = "";
-        console.log("newStartup");
-        this.popupPublish = !this.popupPublish;
-        this.popupPublish ? disableScrolling() : enableScrolling();
-      }
-    } catch (e) {
-      console.error(e);
-      Toast.show({
-        data: e.message,
-        duration: 3000,
-      });
-    }
-  }
-
   mounted() {
     if (this.startUpData.guide) {
       this.startUpData.guide.forEach((el, i) => {
@@ -127,7 +90,6 @@ export default class extends Vue {
           this.guideSourseComponent[i] = el;
         }
       });
-      console.log(this.guideSourseComponent);
     }
   }
 }

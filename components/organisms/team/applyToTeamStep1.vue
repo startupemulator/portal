@@ -1,12 +1,13 @@
 <template>
   <div class="apply-to-team-step1">
-    <U-title :text="'Your experience'"></U-title>
-    <duration-experience-picker
+    <UTitle :text="'Your experience'"></UTitle>
+    <DurationExperiencePicker
       :title="'Total years of your experience'"
-    ></duration-experience-picker>
-    <technology-picker
+    ></DurationExperiencePicker>
+    <TechnologyPicker
       :title="'Pick technologies you have an experience with'"
-    ></technology-picker>
+      :technologies="technologies"
+    ></TechnologyPicker>
     <div class="apply-to-team__button">
       <U-button
         :button-class="'u-button-blue'"
@@ -16,17 +17,22 @@
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
+import { Vue, Component, Prop } from "nuxt-property-decorator";
 import TechnologyPicker from "~/components/molecules/technologyPicker.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
-import UButton from "~/components/atoms/uButton";
-import DurationExperiencePicker from "~/components/molecules/durationExperiencePicker";
-export default {
+import UButton from "~/components/atoms/uButton.vue";
+import DurationExperiencePicker from "~/components/molecules/durationExperiencePicker.vue";
+import { Technology } from "~/models/Technology";
+@Component({
   components: {
     DurationExperiencePicker,
     UTitle,
     UButton,
     TechnologyPicker,
   },
-};
+})
+export default class extends Vue {
+  @Prop() technologies: Array<Technology>;
+}
 </script>

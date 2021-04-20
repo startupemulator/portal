@@ -33,7 +33,7 @@ export default class extends Vue {
   @Prop({ default: true }) addTechnology: Boolean;
   @Prop() technologies: Array<Technology>;
   chosenTechnology: Array<any>;
-  pickTechnology(item, i, title) {
+  pickTechnology(item) {
     const pickeTechnology = item.target.parentNode.classList;
     pickeTechnology.contains("checked")
       ? pickeTechnology.remove("checked")

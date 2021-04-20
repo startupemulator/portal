@@ -1,16 +1,16 @@
 <template>
   <div class="startups-page">
-    <StartUp :startup="startup" :testimonials="testominal"></StartUp>
+    <StartupPage :startup="startup" :testimonials="testominal"></StartupPage>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import StartUp from "~/components/organisms/startup/startUp.vue";
+import StartupPage from "~/components/organisms/startup/startup.vue";
 import { Startup } from "~/models/Startup";
 import { Testimonial } from "~/models/Testimonial";
 @Component({
   components: {
-    StartUp,
+    StartupPage,
   },
 })
 export default class extends Vue {

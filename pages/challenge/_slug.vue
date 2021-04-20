@@ -1,22 +1,21 @@
 <template>
-  <div>
-    <div class="createProject">
-      <create-project></create-project>
-    </div>
+  <div class="startups-page">
+    <ChallengePage :challenge="challenge"></ChallengePage>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 
-import CreateProject from "~/components/organisms/startups/createProject.vue";
-
+import ChallengePage from "~/components/organisms/challenge/challenge.vue";
+import { Challenge } from "~/models/Challenge";
 @Component({
   components: {
-    CreateProject,
+    ChallengePage,
   },
   middleware: ["deny-unauthenticated"],
 })
 export default class TakeChallenge extends Vue {
+  challenge: Challenge;
   async asyncData({ $strapi, route }) {
     const [challenge] = await $strapi.find("challenges", {
       slug: route.params.slug,

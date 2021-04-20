@@ -8,17 +8,17 @@
       >
         <img src="~/assets/img/close.svg" alt="Close" />
       </button>
-      <u-title :text="'You successfully applied'"></u-title>
+      <UTitle :text="'You successfully applied'"></UTitle>
       <p>
         You will receive an email notification when Product owner selects
         developer for a team. Also, you are able to apply to other startups.
       </p>
-      <nuxt-link to="startups-list">
-        <U-button
-          :button-name="'Discover More Startups'"
-          :button-class="'u-button-blue'"
-        ></U-button>
-      </nuxt-link>
+      <U-button
+        :button-name="'Discover More Startups'"
+        :button-class="'u-button-blue'"
+        :is-link="'nuxt-link'"
+        :href="'/startups'"
+      ></U-button>
     </div>
   </div>
 </template>

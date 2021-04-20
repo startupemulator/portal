@@ -16,27 +16,38 @@
       v-if="createprodjectSteps.stepOne"
       :start-up-data="startUpData"
       @goToStepTwo="goToStepTwo"
+      @saveDraft="saveDraft"
     ></create-project-step-1>
     <create-project-step-2
       v-if="createprodjectSteps.stepTwo"
       :technologies="technologies"
       :start-up-data="startUpData"
       @goToStepThree="goToStepThree"
+      @saveDraft="saveDraft"
     ></create-project-step-2>
     <create-project-step-3
       v-if="createprodjectSteps.stepThree"
       :start-up-data="startUpData"
       @goToStepFour="goToStepFour"
+      @saveDraft="saveDraft"
     ></create-project-step-3>
     <create-project-step-4
       v-if="createprodjectSteps.stepFour"
       :start-up-data="startUpData"
       @addSomeGiude="addSomeGiude"
+      @saveDraft="saveDraft"
+      @publish="publish"
     ></create-project-step-4>
+    <popup-created-start-up
+      v-if="popupPublish"
+      @closePopup="popupPublish = !popupPublish"
+    ></popup-created-start-up>
+    <pre>{{ startUpData }}</pre>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
+import Toast from "../../../store/modules/Toast";
 import createProjectStep1 from "./createProjectStep-1.vue";
 import createProjectStep2 from "./createProjectStep-2.vue";
 import createProjectStep3 from "./createProjectStep-3.vue";
@@ -45,6 +56,11 @@ import UTitle from "~/components/atoms/uTitle.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import { Technology } from "~/models/Technology";
 import { Startup } from "~/models/Startup";
+import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartUp.vue";
+import {
+  enableScrolling,
+  disableScrolling,
+} from "~/assets/jshelper/toggleScroll";
 @Component({
   components: {
     createProjectStep1,
@@ -53,6 +69,7 @@ import { Startup } from "~/models/Startup";
     createProjectStep4,
     UTitle,
     UBack,
+    PopupCreatedStartUp,
   },
 })
 export default class extends Vue {
@@ -65,13 +82,48 @@ export default class extends Vue {
   };
 
   startUpData: Array<Startup> = [];
+  popupPublish: Boolean = false;
   get progressSpets() {
-    console.log(this.startUpData);
     return {
       "progress-bar__stepTwo": this.createprodjectSteps.stepTwo,
       "progress-bar__stepThree": this.createprodjectSteps.stepThree,
       "progress-bar__stepFour": this.createprodjectSteps.stepFour,
     };
+  }
+
+  saveDraft() {}
+
+  async publish() {
+    try {
+      const newStartup = await this.$strapi.create("startup", {
+        title: this.startUpData.title,
+        slug: "Unknown Type: uid",
+        description: this.startUpData.description,
+        full_info: "string",
+        start_date: "string",
+        duration: this.startUpData.duration,
+        state: "not_started",
+        technologies: ["string"],
+        sources: this.startUpData.sources,
+        secrets: ["string"],
+        applications: this.startUpData.guide,
+        published_at: "2021-04-20T07:45:34.953Z",
+        created_by: new Date(),
+        updated_by: "string",
+      });
+      if (newStartup !== null) {
+        this.error = "";
+        console.log("newStartup");
+        this.popupPublish = !this.popupPublish;
+        this.popupPublish ? disableScrolling() : enableScrolling();
+      }
+    } catch (e) {
+      console.error(e);
+      Toast.show({
+        data: e.message,
+        duration: 3000,
+      });
+    }
   }
 
   goToStepTwo(firstStepData: Array<Startup>) {
@@ -85,8 +137,6 @@ export default class extends Vue {
     } else {
       this.startUpData = firstStepData;
     }
-
-    // this.startUpData = firstStepData;
   }
 
   goToStepBack() {
@@ -113,7 +163,6 @@ export default class extends Vue {
     this.createprodjectSteps.stepThree = true;
     this.startUpData.specialists = [];
     this.startUpData.coleagues = [];
-    console.log(secodStepData);
     secodStepData[0].forEach((el) => this.startUpData.specialists.push(el));
     secodStepData[1].forEach((el) => this.startUpData.coleagues.push(el));
   }

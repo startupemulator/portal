@@ -6,7 +6,7 @@
         <ul class="nav-list">
           <li
             class="nav-item nav-item-startups"
-            :class="{ 'nav-item__active': currentRoute === 'startups' }"
+            :class="{ 'nav-item__active': currentRoute === '/startups' }"
           >
             <nuxt-link to="/startups">
               <svg
@@ -26,7 +26,7 @@
           </li>
           <li
             class="nav-item"
-            :class="{ 'nav-item__active': currentRoute === 'challenges' }"
+            :class="{ 'nav-item__active': currentRoute === '/challenges' }"
           >
             <nuxt-link to="/challenges">
               <svg
@@ -45,10 +45,12 @@
             >
           </li>
           <li
+            v-show="!isLogined"
             class="nav-item nav-item-pricing"
-            :class="{ 'nav-item__active': currentRoute === 'pricing' }"
+            :class="{ 'nav-item__active': currentRoute === '/landing#pricing' }"
+            @click="scrollToPricing"
           >
-            <nuxt-link to="/pricing">
+            <nuxt-link to="/landing#pricing">
               <svg
                 width="24"
                 height="24"
@@ -76,7 +78,7 @@
           <div v-if="isLogined">
             <li
               class="nav-item"
-              :class="{ 'nav-item__active': currentRoute === 'myProjects' }"
+              :class="{ 'nav-item__active': currentRoute === '/myProjects' }"
             >
               <nuxt-link to="/myProjects">
                 <svg
@@ -103,7 +105,7 @@
             </li>
             <li
               class="nav-item"
-              :class="{ 'nav-item__active': currentRoute === 'profile' }"
+              :class="{ 'nav-item__active': currentRoute === '/profile' }"
             >
               <nuxt-link :to="'/profile/myProfile/' + user">
                 <svg
@@ -224,7 +226,7 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UButton from "../atoms/uButton.vue";
 import ULogo from "../atoms/uLogo.vue";
 import NotificationsPopup from "./popupNotifications.vue";
-
+import { goToPricing } from "~/assets/jshelper/scrollToPricing";
 @Component({
   components: { UButton, ULogo, NotificationsPopup },
 })
@@ -235,6 +237,13 @@ export default class AppHeader extends Vue {
   notification: Boolean = false;
   toggleNotification() {
     this.notification = !this.notification;
+  }
+
+  scrollToPricing() {
+    console.log(this.currentRoute);
+    if (this.currentRoute === "/landing#pricing") {
+      goToPricing();
+    }
   }
 }
 </script>

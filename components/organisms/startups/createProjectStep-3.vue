@@ -31,7 +31,7 @@
       <U-button
         :button-name="'Save Draft'"
         :button-class="'u-button-gray'"
-        @clickOnButton="test"
+        @clickOnButton="$emit('saveDraft')"
       ></U-button>
     </div>
   </div>
@@ -53,10 +53,6 @@ export default class extends Vue {
     { id: 1, type: "add-existing-sourse" },
     { id: 2, type: "add-existing-sourse" },
   ];
-
-  test() {
-    console.log(this.existingSourseComponent);
-  }
 
   textInput($event, i) {
     switch ($event[1]) {
@@ -90,7 +86,6 @@ export default class extends Vue {
   mounted() {
     if (this.startUpData.sources) {
       this.existingSourseComponent = this.startUpData.sources;
-      console.log(this.existingSourseComponent);
     }
   }
 }
