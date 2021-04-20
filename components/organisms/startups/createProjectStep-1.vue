@@ -88,7 +88,7 @@
       <U-button
         :button-name="'Save Draft'"
         :button-class="'u-button-gray'"
-        @clickOnButton="test"
+        @clickOnButton="$emit('saveDraft')"
       ></U-button>
     </div>
   </div>
@@ -119,13 +119,6 @@ export default class extends Vue {
 
   numberDays: String = "";
   technologies: Array<[string | boolean]>;
-
-  test() {
-    console.log(this.title + " - title");
-    console.log(this.description + " - description");
-    console.log(this.date.split("  |  ").join(".") + " - date");
-    console.log(this.duration + " - duration");
-  }
 
   chooseDuration(el: { [key: string]: any }) {
     if (el.checked) {
