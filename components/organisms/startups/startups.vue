@@ -78,18 +78,24 @@ export default class extends Vue {
   @Prop() technologies: Array<Technology>;
 
   private filterList: boolean = false;
-
+  checkedList: Array<string> = [];
   toggleFilserList() {
     this.filterList = !this.filterList;
   }
 
   pickTechnologi(event) {
     const el = event.target;
+
     if (el.checked & !el.parentElement.classList.contains("checked")) {
       el.parentElement.classList.add("checked");
+      this.checkedList.push(el.parentElement.textContent);
     } else {
       el.parentElement.classList.remove("checked");
+      this.checkedList = this.checkedList.filter(
+        (item) => item !== el.parentElement.textContent
+      );
     }
+    this.$emit("checkedTechnologyList", this.checkedList);
   }
 }
 </script>
