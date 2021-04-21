@@ -15,6 +15,7 @@
     <create-project-step-1
       v-if="createprodjectSteps.stepOne"
       :start-up-data="startUpData"
+      :estimations="estimations"
       @goToStepTwo="goToStepTwo"
       @saveDraft="saveDraft"
     ></create-project-step-1>
@@ -56,6 +57,7 @@ import UTitle from "~/components/atoms/uTitle.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import { Technology } from "~/models/Technology";
 import { Startup } from "~/models/Startup";
+import { Estimations } from "~/models/Estimations";
 import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartup.vue";
 import {
   enableScrolling,
@@ -74,6 +76,7 @@ import {
 })
 export default class extends Vue {
   @Prop() technologies: Array<Technology>;
+  @Prop() estimations: Array<Estimations>;
   createprodjectSteps: { [key: string]: boolean } = {
     stepOne: true,
     stepTwo: false,
