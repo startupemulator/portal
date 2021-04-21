@@ -46,7 +46,7 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UButton from "~/components/atoms/uButton.vue";
 import CreateGuide from "~/components/molecules/createGuide.vue";
 
-import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartUp.vue";
+import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartup.vue";
 
 @Component({ components: { UButton, CreateGuide, PopupCreatedStartUp } })
 export default class extends Vue {

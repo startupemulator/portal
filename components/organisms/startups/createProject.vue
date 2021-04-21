@@ -56,7 +56,7 @@ import UTitle from "~/components/atoms/uTitle.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import { Technology } from "~/models/Technology";
 import { Startup } from "~/models/Startup";
-import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartUp.vue";
+import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartup.vue";
 import {
   enableScrolling,
   disableScrolling,
