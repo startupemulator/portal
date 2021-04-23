@@ -162,7 +162,6 @@ export default class extends Vue {
   }
 
   checkPassword(textValue: string) {
-    console.log(textValue);
     this.password = textValue;
     this.$v.password.$touch();
   }

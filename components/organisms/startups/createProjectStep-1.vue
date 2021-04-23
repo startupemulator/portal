@@ -3,27 +3,22 @@
     <div class="startup__name">
       <h4>Startup name</h4>
       <input
-        v-model.trim="$v.title.$model"
+        v-model="title"
         type="text"
         placeholder="Enter the startup name"
+        required
       />
     </div>
-    <p v-show="!$v.title.minLength" class="errorInput">
-      Please enter a startup name of at least 8 characters
-    </p>
-    <div class="startup__description">
+    <div class="startup__description" required>
       <h4>Description</h4>
       <textarea
-        v-model.trim="$v.description.$model"
+        v-model="description"
         placeholder="Describe your idea and main goals of your startup to interest developers to join your team"
       ></textarea>
-      <p v-show="!$v.description.minLength" class="errorInput">
-        Please enter a description name of at least 8 characters
-      </p>
       <div class="startup__start-date">
         <h4>Start date</h4>
         <DatePicker
-          v-model.trim="$v.date.$model"
+          v-model="date"
           value-type="format"
           format="DD  |  MM  |  YYYY"
           placeholder="DD  |  MM  |  YYYY"
@@ -69,13 +64,11 @@
               <rect x="17" y="16" width="2" height="2" fill="#8C97AC" />
             </svg> </i
         ></DatePicker>
-        <p v-show="!$v.date.required" class="errorInput">Please enter a date</p>
       </div>
       <div class="startup__finish-date">
         <Duration-picker
           :title="'Estimated duration'"
           :duration="duration"
-          :estimations="estimations"
           @clickOnDuration="chooseDuration"
         ></Duration-picker>
         <Add-input
@@ -104,31 +97,15 @@
 <script lang="ts">
 import DatePicker from "vue2-datepicker";
 import { Component, Vue, Prop } from "nuxt-property-decorator";
-import { required, minLength } from "vuelidate/lib/validators";
 import UButton from "~/components/atoms/uButton.vue";
 import DurationPicker from "~/components/molecules/durationPicker.vue";
 import AddInput from "~/components/atoms/addInput.vue";
-import { Estimations } from "~/models/Estimations";
 
 @Component({
-  validations: {
-    title: {
-      required,
-      minLength: minLength(8),
-    },
-    description: {
-      required,
-      minLength: minLength(8),
-    },
-    date: {
-      required,
-    },
-  },
   components: { DatePicker, UButton, DurationPicker, AddInput },
 })
 export default class extends Vue {
   @Prop() startUpData!: Array<any>;
-  @Prop() estimations: Array<Estimations>;
 
   date: String = this.startUpData.date ? this.startUpData.date : "";
   title: String = this.startUpData.title ? this.startUpData.title : "";
@@ -144,9 +121,9 @@ export default class extends Vue {
   technologies: Array<[string | boolean]>;
 
   chooseDuration(el: { [key: string]: any }) {
-    console.log(el);
-
-    this.duration = el.title;
+    if (el.checked) {
+      this.duration = el.title;
+    } else this.duration = "";
   }
 
   addDuration(duration: { [key: string]: any }) {
@@ -166,11 +143,6 @@ export default class extends Vue {
 }
 </script>
 <style lang="scss">
-.createProject-step1 {
-  .errorInput {
-    top: 0;
-  }
-}
 .startup__name input {
   border: 2px solid transparent;
   &:focus {
