@@ -16,6 +16,7 @@
       v-if="createprodjectSteps.stepOne"
       :start-up-data="startUpData"
       :estimations="estimations"
+      :created-startup-id="createdStartupId"
       @goToStepTwo="goToStepTwo"
       @saveDraft="saveDraft"
     ></create-project-step-1>
@@ -43,12 +44,11 @@
       v-if="popupPublish"
       @closePopup="popupPublish = !popupPublish"
     ></popup-created-start-up>
-    <pre>{{ startUpData }}</pre>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
-import Toast from "../../../store/modules/Toast";
+// import Toast from "../../../store/modules/Toast";
 import createProjectStep1 from "./createProjectStep-1.vue";
 import createProjectStep2 from "./createProjectStep-2.vue";
 import createProjectStep3 from "./createProjectStep-3.vue";
@@ -59,10 +59,10 @@ import { Technology } from "~/models/Technology";
 import { Startup } from "~/models/Startup";
 import { Estimations } from "~/models/Estimations";
 import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartup.vue";
-import {
-  enableScrolling,
-  disableScrolling,
-} from "~/assets/jshelper/toggleScroll";
+// import {
+//   enableScrolling,
+//   disableScrolling,
+// } from "~/assets/jshelper/toggleScroll";
 @Component({
   components: {
     createProjectStep1,
@@ -84,6 +84,8 @@ export default class extends Vue {
     stepFour: false,
   };
 
+  createdStartupId: Number = 0;
+
   startUpData: Array<Startup> = [];
   popupPublish: Boolean = false;
   get progressSpets() {
@@ -94,52 +96,59 @@ export default class extends Vue {
     };
   }
 
-  saveDraft() {}
+  async saveDraft() {
+    try {
+      const data = {
+        title: "string",
+        slug: "string",
+        description: "string",
+        full_info: "string",
+        sources: [
+          {
+            id: 1,
+            title: "lolololo",
+          },
+        ],
+        technologies: [
+          {
+            id: 1,
+            title: "lolololo",
+          },
+          {
+            id: 2,
+            title: "lolololo",
+          },
+          {
+            id: 3,
+            title: "lolololo",
+          },
+        ],
+      };
+      const updateStartup = await this.$strapi.update("startups", "27", data);
+      const technologies = await this.$strapi.find("technologies");
+      console.log(technologies);
+      console.log(updateStartup);
+    } catch (e) {}
+  }
 
   async publish() {
     try {
-      const newStartup = await this.$strapi.create("startup", {
-        title: this.startUpData.title,
-        slug: "Unknown Type: uid",
-        description: this.startUpData.description,
-        full_info: "string",
-        start_date: "string",
-        duration: this.startUpData.duration,
-        state: "not_started",
-        technologies: ["string"],
-        sources: this.startUpData.sources,
-        secrets: ["string"],
-        applications: this.startUpData.guide,
-        published_at: "2021-04-20T07:45:34.953Z",
-        created_by: new Date(),
-        updated_by: "string",
-      });
-      if (newStartup !== null) {
-        this.error = "";
-        console.log("newStartup");
-        this.popupPublish = !this.popupPublish;
-        this.popupPublish ? disableScrolling() : enableScrolling();
-      }
-    } catch (e) {
-      console.error(e);
-      Toast.show({
-        data: e.message,
-        duration: 3000,
-      });
-    }
+      const updateStartup = await this.$strapi.update(
+        "startups",
+        this.createdStartupId.toString(),
+        {
+          description: "new descriptiondescriptiondescriptiondescription",
+        }
+      );
+      console.log(updateStartup);
+    } catch (e) {}
   }
 
-  goToStepTwo(firstStepData: Array<Startup>) {
+  goToStepTwo(data: Array<Startup> = []) {
     this.createprodjectSteps.stepOne = false;
     this.createprodjectSteps.stepTwo = true;
-    if (this.startUpData.title) {
-      this.startUpData.title = firstStepData.title;
-      this.startUpData.date = firstStepData.date;
-      this.startUpData.description = firstStepData.description;
-      this.startUpData.duration = firstStepData.duration;
-    } else {
-      this.startUpData = firstStepData;
-    }
+    this.createdStartupId = data.id;
+    this.startUpData = data;
   }
 
   goToStepBack() {
@@ -177,6 +186,7 @@ export default class extends Vue {
     thirdStepData.forEach((el) => {
       this.startUpData.sources.push(el);
     });
+    console.log(this.startUpData);
   }
 
   addSomeGiude(data) {
