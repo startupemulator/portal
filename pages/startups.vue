@@ -1,6 +1,10 @@
 <template>
   <div class="startups-page">
-    <Startups :startups="startups" :technologies="technologies"></Startups>
+    <Startups
+      :startups="technologiesList"
+      :technologies="technologies"
+      @pickedTechnologies="filterStartupsList"
+    ></Startups>
   </div>
 </template>
 <script lang="ts">
@@ -18,10 +22,19 @@ export default class extends Vue {
   async asyncData({ $strapi }) {
     const startups = await $strapi.find("startups");
     const technologies = await $strapi.find("technologies");
+    const technologiesList = await startups;
     return {
-      startups,
       technologies,
+      technologiesList,
     };
+  }
+
+  async filterStartupsList(data) {
+    const filtredStartups = await this.$strapi.find("startups", data);
+    this.technologiesList = filtredStartups;
+    if (filtredStartups.lenght === 0) {
+      this.technologiesList = this.startups;
+    }
   }
 }
 </script>
