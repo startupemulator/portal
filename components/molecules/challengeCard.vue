@@ -45,7 +45,7 @@
           class="modificate-challenge-slider"
         ></UTags>
       </div>
-      <DifficultyLevel></DifficultyLevel>
+      <DifficultyLevel :card="card"></DifficultyLevel>
 
       <div class="challenge-card__content_buttons">
         <U-button
@@ -160,7 +160,7 @@ export default class extends Vue {
         color: #b5c1d8;
         padding: 0 15px;
         border: 1px solid #59667e;
-        margin-right: 0;
+        margin-right: 4px;
       }
     }
 
