@@ -12,7 +12,6 @@
         :name="'duration'"
         @pick="pickTechnologi($event.currentTarget, technology.id)"
       >
-        {{ technology.title }}
       </uTags>
     </form>
   </div>
@@ -44,13 +43,15 @@ export default class extends Vue {
     });
   }
 
-  // mounted() {
-  //   if (this.duration) {
-  //     this.technologies.forEach((el) =>
-  //       el.title === this.duration ? (el.checked = true) : (el.checked = false)
-  //     );
-  //   }
-  // }
+  mounted() {
+    if (this.duration) {
+      this.estimations.forEach((el) => {
+        if (el.value === this.duration) {
+          this.$refs.utags.children[el.id - 1].classList.add("checked");
+        }
+      });
+    }
+  }
 }
 </script>
 <style lang="scss">

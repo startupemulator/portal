@@ -44,6 +44,7 @@
       v-if="popupPublish"
       @closePopup="popupPublish = !popupPublish"
     ></popup-created-start-up>
+    {{ startUpData }}
   </div>
 </template>
 <script lang="ts">
@@ -99,32 +100,9 @@ export default class extends Vue {
   async saveDraft() {
     try {
       const data = {
-        title: "string",
-        slug: "string",
-        description: "string",
-        full_info: "string",
-        sources: [
-          {
-            id: 1,
-            title: "lolololo",
-          },
-        ],
-        technologies: [
-          {
-            id: 1,
-            title: "lolololo",
-          },
-          {
-            id: 2,
-            title: "lolololo",
-          },
-          {
-            id: 3,
-            title: "lolololo",
-          },
-        ],
+        title: "work startup",
       };
-      const updateStartup = await this.$strapi.update("startups", "27", data);
+      const updateStartup = await this.$strapi.update("startups", "32", data);
       const technologies = await this.$strapi.find("technologies");
       console.log(technologies);
       console.log(updateStartup);

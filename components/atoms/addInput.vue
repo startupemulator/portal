@@ -62,12 +62,11 @@ export default class extends Vue {
     });
   }
 
-  // mounted() {
-  //   if (this.duration) {
-  //     console.log(this.duration);
-  //     this.addData.push({ id: this.addData.length, name: this.duration });
-  //   }
-  // }
+  mounted() {
+    if (this.duration) {
+      this.addData.push({ id: this.addData.length, name: this.duration });
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>

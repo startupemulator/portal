@@ -69,6 +69,7 @@
               <rect x="17" y="16" width="2" height="2" fill="#8C97AC" />
             </svg> </i
         ></DatePicker>
+
         <p v-show="!$v.date.required" class="errorInput">Please enter a date</p>
       </div>
       <div class="startup__finish-date">
@@ -78,6 +79,7 @@
           :estimations="estimations"
           @clickOnDuration="chooseDuration"
         ></Duration-picker>
+
         <Add-input
           :placeholder="'Or enter the number of days'"
           :length="1"
@@ -131,7 +133,14 @@ export default class extends Vue {
   @Prop() startUpData!: Array<any>;
   @Prop() estimations: Array<Estimations>;
   @Prop() createdStartupId: Number;
-  date: String = this.startUpData.date ? this.startUpData.date : "";
+  date: String = this.startUpData.date
+    ? this.startUpData.start_datethis.startUpData.start_date
+        .split("T")[0]
+        .split("-")
+        .reverse()
+        .join("  |  ")
+    : "";
+
   title: String = this.startUpData.title ? this.startUpData.title : "";
 
   description: String = this.startUpData.description
@@ -152,16 +161,15 @@ export default class extends Vue {
     this.duration = duration[duration.length - 1].name;
   }
 
-  // goToStepTwo() {
-  //   const firstStepData = {
-  //     title: this.title,
-  //     description: this.description,
-  //     // date: this.date.split("  |  ").join("."),
-  //     date: this.date,
-  //     duration: this.duration,
-  //   };
-  //   this.$emit("goToStepTwo", firstStepData);
-  // }
+  mounted() {
+    if (this.startUpData.start_date) {
+      this.date = this.startUpData.start_date
+        .split("T")[0]
+        .split("-")
+        .reverse()
+        .join("  |  ");
+    }
+  }
 
   async goToStepTwo() {
     this.$v.$touch();
@@ -181,23 +189,29 @@ export default class extends Vue {
               duration: this.duration,
               published_date: new Date(),
             };
-            console.log(data);
             const createStartup = await this.$strapi.create("startups", data);
             if (createStartup) {
               console.log(createStartup);
             }
             this.$emit("goToStepTwo", createStartup);
           }
+        } else {
+          // if went back one step and update some data
+          const data = {
+            title: this.title,
+            description: this.description,
+            start_date: new Date(this.date.split("  |  ").reverse().join("-")),
+            duration: this.duration,
+          };
+          const updateStartup = await this.$strapi.update(
+            "startups",
+            this.createdStartupId.toString(),
+            data
+          );
+          if (updateStartup) {
+            this.$emit("goToStepTwo", updateStartup);
+          }
         }
-        // else {
-        // if went back one step
-        // console.log(this.createdStartupId);
-        // const findStartup = await this.$strapi.findOne(
-        //   "startups",
-        //   this.createdStartupId
-        // );
-        // console.log(findStartup);
-        // }
       } catch (e) {
         console.log(e);
       }
