@@ -177,24 +177,18 @@ export default class extends Vue {
       try {
         if (this.createdStartupId === 0) {
           // if new startup
-          const startupCount = await this.$strapi.count("startups");
-          if (startupCount) {
-            const data = {
-              id: startupCount + 1,
-              title: this.title,
-              description: this.description,
-              start_date: new Date(
-                this.date.split("  |  ").reverse().join("-")
-              ),
-              duration: this.duration,
-              published_date: new Date(),
-            };
-            const createStartup = await this.$strapi.create("startups", data);
-            if (createStartup) {
-              console.log(createStartup);
-            }
-            this.$emit("goToStepTwo", createStartup);
+          const data = {
+            title: this.title,
+            description: this.description,
+            start_date: new Date(this.date.split("  |  ").reverse().join("-")),
+            duration: this.duration,
+            published_date: new Date(),
+          };
+          const createStartup = await this.$strapi.create("startups", data);
+          if (createStartup) {
+            console.log(createStartup);
           }
+          this.$emit("goToStepTwo", createStartup);
         } else {
           // if went back one step and update some data
           const data = {

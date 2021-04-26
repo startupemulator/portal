@@ -152,7 +152,6 @@ export default class extends Vue {
       openSpeciality: false,
       chosenSpeciality: this.specialityFromParent,
       popupPickTechnology: false,
-
       pickedTechnology: [],
       chosenTechnologies: [],
     };

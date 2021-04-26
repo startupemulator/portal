@@ -126,6 +126,7 @@
     color: $main-text-color;
     margin-top: 20px;
     min-height: 70px;
+    word-wrap: break-word;
   }
   .startup-card__started-text {
     min-height: 72px;
@@ -134,6 +135,7 @@
     line-height: 22px;
     width: 250px;
     margin: 0;
+    word-wrap: break-word;
   }
   .startup-card__started-technologies {
     min-height: 80px;
