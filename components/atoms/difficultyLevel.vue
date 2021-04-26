@@ -6,16 +6,33 @@
         v-for="(item, i) in 5"
         :key="i + 'difficulty'"
         class="difficulty-level-item"
-        :class="i < 3 ? 'started' : ''"
+        :class="
+          card.difficulty < 1
+            ? ''
+            : card.difficulty === 1 && i < 1
+            ? 'started'
+            : card.difficulty === 2 && i < 2
+            ? 'started'
+            : card.difficulty === 3 && i < 3
+            ? 'finished'
+            : card.difficulty === 4 && i < 4
+            ? 'finished'
+            : card.difficulty === 5 && i < 5
+            ? 'hard'
+            : ''
+        "
       ></li>
     </ul>
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
-
+import { Component, Prop, Vue } from "nuxt-property-decorator";
+import { Challenge } from "../../models/Challenge";
+// :class="card.difficulty === 1 ? 'started' : ''"
 @Component({})
-export default class extends Vue {}
+export default class extends Vue {
+  @Prop() card: Array<Challenge>;
+}
 </script>
 <style lang="scss" scoped>
 .difficulty-level {
@@ -48,6 +65,10 @@ export default class extends Vue {}
         background: #f0663b;
         box-shadow: -4px 0 6px 1px rgba(240, 102, 59, 0.25),
           4px 0 6px 1px rgba(240, 102, 59, 0.25);
+      }
+      &.hard {
+        background: #e94646;
+        box-shadow: 0 -1px 6px #e94646, 0 1px 6px rgba(233, 70, 70, 0.25);
       }
     }
   }
