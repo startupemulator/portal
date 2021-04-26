@@ -69,6 +69,7 @@
               <rect x="17" y="16" width="2" height="2" fill="#8C97AC" />
             </svg> </i
         ></DatePicker>
+
         <p v-show="!$v.date.required" class="errorInput">Please enter a date</p>
       </div>
       <div class="startup__finish-date">
@@ -78,6 +79,7 @@
           :estimations="estimations"
           @clickOnDuration="chooseDuration"
         ></Duration-picker>
+
         <Add-input
           :placeholder="'Or enter the number of days'"
           :length="1"
@@ -105,6 +107,7 @@
 import DatePicker from "vue2-datepicker";
 import { Component, Vue, Prop } from "nuxt-property-decorator";
 import { required, minLength } from "vuelidate/lib/validators";
+import Toast from "../../../store/modules/Toast";
 import UButton from "~/components/atoms/uButton.vue";
 import DurationPicker from "~/components/molecules/durationPicker.vue";
 import AddInput from "~/components/atoms/addInput.vue";
@@ -129,8 +132,15 @@ import { Estimations } from "~/models/Estimations";
 export default class extends Vue {
   @Prop() startUpData!: Array<any>;
   @Prop() estimations: Array<Estimations>;
+  @Prop() createdStartupId: Number;
+  date: String = this.startUpData.date
+    ? this.startUpData.start_datethis.startUpData.start_date
+        .split("T")[0]
+        .split("-")
+        .reverse()
+        .join("  |  ")
+    : "";
 
-  date: String = this.startUpData.date ? this.startUpData.date : "";
   title: String = this.startUpData.title ? this.startUpData.title : "";
 
   description: String = this.startUpData.description
@@ -138,30 +148,73 @@ export default class extends Vue {
     : "";
 
   start_date: Date = new Date();
-  duration: String = this.startUpData.duration ? this.startUpData.duration : "";
+  duration: Number = this.startUpData.duration ? this.startUpData.duration : "";
 
   numberDays: String = "";
   technologies: Array<[string | boolean]>;
 
   chooseDuration(el: { [key: string]: any }) {
-    console.log(el);
-
-    this.duration = el.title;
+    this.duration = el.value;
   }
 
   addDuration(duration: { [key: string]: any }) {
     this.duration = duration[duration.length - 1].name;
   }
 
-  goToStepTwo() {
-    const firstStepData = {
-      title: this.title,
-      description: this.description,
-      // date: this.date.split("  |  ").join("."),
-      date: this.date,
-      duration: this.duration,
-    };
-    this.$emit("goToStepTwo", firstStepData);
+  mounted() {
+    if (this.startUpData.start_date) {
+      this.date = this.startUpData.start_date
+        .split("T")[0]
+        .split("-")
+        .reverse()
+        .join("  |  ");
+    }
+  }
+
+  async goToStepTwo() {
+    this.$v.$touch();
+    if (!this.$v.$error) {
+      try {
+        if (this.createdStartupId === 0) {
+          // if new startup
+          const data = {
+            title: this.title,
+            description: this.description,
+            start_date: new Date(this.date.split("  |  ").reverse().join("-")),
+            duration: this.duration,
+            published_date: new Date(),
+          };
+          const createStartup = await this.$strapi.create("startups", data);
+          if (createStartup) {
+            console.log(createStartup);
+          }
+          this.$emit("goToStepTwo", createStartup);
+        } else {
+          // if went back one step and update some data
+          const data = {
+            title: this.title,
+            description: this.description,
+            start_date: new Date(this.date.split("  |  ").reverse().join("-")),
+            duration: this.duration,
+          };
+          const updateStartup = await this.$strapi.update(
+            "startups",
+            this.createdStartupId.toString(),
+            data
+          );
+          if (updateStartup) {
+            this.$emit("goToStepTwo", updateStartup);
+          }
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      Toast.show({
+        data: "Fill the form correctly.",
+        duration: 3000,
+      });
+    }
   }
 }
 </script>

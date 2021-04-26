@@ -4,6 +4,7 @@
       <create-prodgect
         :technologies="technologies"
         :estimations="estimations"
+        :specialisations="specialisations"
       ></create-prodgect>
     </div>
   </div>
@@ -22,6 +23,7 @@ export default class extends Vue {
   async asyncData({ $strapi }) {
     const technologies = await $strapi.find("technologies");
     const estimation = await $strapi.find("estimations");
+    const specialisations = await $strapi.find("specialisations");
     let estimations;
     if (estimation !== null) {
       estimations = estimation.sort(function (a, b) {
@@ -37,6 +39,7 @@ export default class extends Vue {
     return {
       technologies,
       estimations,
+      specialisations,
     };
   }
 

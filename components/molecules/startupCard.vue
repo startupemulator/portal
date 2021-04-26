@@ -1,5 +1,6 @@
 <template>
   <div class="startup-card" :class="i > 3 ? 'startup-card_animation' : ''">
+    {{ card.technologies.title }}
     <div v-show="!!card.state" class="startup-card__started">
       <div class="startup-card__started-state">
         <div
@@ -27,7 +28,7 @@
       <div class="startup-card__started-technologies">
         <ul class="startup-card__started-technologies-items">
           <li
-            v-for="skill in technology"
+            v-for="skill in card.technologies"
             :key="skill.id"
             class="startup-card__started-technology"
           >

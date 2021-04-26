@@ -21,16 +21,22 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from "nuxt-property-decorator";
+import { Component, Prop, Vue, Watch } from "nuxt-property-decorator";
 
 @Component({})
 export default class extends Vue {
   @Prop() placeholder: String;
   @Prop({ default: 9999 }) length: Number;
-  @Prop() duration: String;
+  @Prop() duration!: String;
   addData: Array<any> = [];
   inputedtext: String = "";
   focused: Boolean = false;
+  @Watch("duration")
+  changeDuration() {
+    this.addData = [];
+    this.addData.push({ id: this.addData.length, name: this.duration });
+  }
+
   addInputedtext(e) {
     const srt = this.inputedtext.trim();
     if (
@@ -58,7 +64,6 @@ export default class extends Vue {
 
   mounted() {
     if (this.duration) {
-      console.log(this.duration);
       this.addData.push({ id: this.addData.length, name: this.duration });
     }
   }
@@ -97,7 +102,7 @@ export default class extends Vue {
     color: #fff;
     display: flex;
     margin-right: 8px;
-    margin-bottom: 8px;
+    // margin-bottom: 8px;
     justify-content: space-between;
 
     button {

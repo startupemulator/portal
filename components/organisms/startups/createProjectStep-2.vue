@@ -14,6 +14,7 @@
       :class="'speciality-content'"
       :name="'Speciality ' + (i + 1)"
       :picker="true"
+      :specialisations="specialisations"
       :speciality-from-parent="item.speciality"
       :checked-technologies="item.technologies"
       @removeSpeciality="removeSpeciality(item.id, i)"
@@ -34,6 +35,7 @@
         v-for="item in invitedcolleagues"
         :key="item.id"
         :name="item.email"
+        :specialisations="specialisations"
         :picker="false"
         :speciality-from-parent="item.choosenSpeciality"
         @removeSpeciality="
@@ -58,6 +60,7 @@
     </div>
     <invite-colleagues
       v-if="invitecolleagues"
+      :specialisations="specialisations"
       @closePopupLinkEmail="toggleInviteColleagues"
       @inviteCollegue="inviteCollegue"
     ></invite-colleagues>
@@ -68,6 +71,7 @@ import { Component, Vue, Prop } from "nuxt-property-decorator";
 import UButton from "~/components/atoms/uButton.vue";
 import CreateSpecialities from "~/components/molecules/createSpecialities.vue";
 import invitecolleagues from "~/components/molecules/inviteColleagues.vue";
+import { Specialisation } from "~/models/Specialisation";
 import {
   enableScrolling,
   disableScrolling,
@@ -79,6 +83,7 @@ import { Technology } from "~/models/Technology";
 export default class extends Vue {
   @Prop() technologies: Array<Technology>;
   @Prop() startUpData!: Array<any>;
+  @Prop() specialisations: Array<Specialisation>;
   specialityComponent: Array<any> = [{ id: 0, type: "create-specialities" }];
   invitedcolleagues: Array<any> = [];
 

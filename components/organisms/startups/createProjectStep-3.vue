@@ -49,6 +49,7 @@ import AddExistingSourse from "~/components/molecules/addExistingSource.vue";
 })
 export default class extends Vue {
   @Prop() startUpData!: Array<any>;
+
   existingSourseComponent: Array<any> = [
     { id: 1, type: "add-existing-sourse" },
     { id: 2, type: "add-existing-sourse" },
@@ -57,7 +58,7 @@ export default class extends Vue {
   textInput($event, i) {
     switch ($event[1]) {
       case "name":
-        this.existingSourseComponent[i].name = $event[0];
+        this.existingSourseComponent[i].title = $event[0];
         break;
       case "url":
         this.existingSourseComponent[i].link = $event[0];
