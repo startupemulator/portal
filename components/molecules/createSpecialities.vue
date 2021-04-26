@@ -29,12 +29,12 @@
         </button>
         <ul v-show="openSpeciality" class="specialityOne__item-list">
           <li
-            v-for="item in speciality"
+            v-for="item in specialisations"
             :key="item.id"
             class="specialityOne__item-item"
             @click="chosespeciality($event.target)"
           >
-            {{ item.specialityPosition }}
+            {{ item.title }}
           </li>
         </ul>
         <ul
@@ -118,6 +118,7 @@ import {
 } from "~/assets/jshelper/toggleScroll";
 import TechnologyPicker from "~/components/molecules/technologyPicker.vue";
 import Utags from "~/components/atoms/uTags.vue";
+import { Specialisation } from "~/models/Specialisation";
 
 @Component({
   components: {
@@ -145,17 +146,12 @@ export default class extends Vue {
 
   @Prop({ default: "" }) picker: Boolean;
   @Prop({ default: "Select a speciality" }) specialityFromParent: String;
+  @Prop() specialisations: Array<Specialisation>;
   data() {
     return {
       openSpeciality: false,
       chosenSpeciality: this.specialityFromParent,
       popupPickTechnology: false,
-      speciality: [
-        { id: 0, specialityPosition: "Front-end" },
-        { id: 1, specialityPosition: "Back-end" },
-        { id: 2, specialityPosition: "DevOps" },
-        { id: 3, specialityPosition: "Seo" },
-      ],
 
       pickedTechnology: [],
       chosenTechnologies: [],

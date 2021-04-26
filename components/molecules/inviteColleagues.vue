@@ -32,12 +32,12 @@
 
           <ul v-show="openSpeciality" class="specialityOne__item-list">
             <li
-              v-for="item in speciality"
+              v-for="item in specialisations"
               :key="item.id"
               class="specialityOne__item-item"
               @click="chosespeciality($event.target)"
             >
-              {{ item.specialityPosition }}
+              {{ item.title }}
             </li>
           </ul>
         </div>
@@ -45,10 +45,13 @@
       <U-input
         :placeholder="'Enter your email'"
         :type="'email'"
-        :account-class="
-          !email ? 'create-account__email error' : 'create-account__email'
-        "
         :img="require('~/assets/img/email.svg')"
+        :value="email"
+        :account-class="
+          $v.email.$error
+            ? 'create-account__email error'
+            : 'create-account__email'
+        "
         @textInput="checkEmail"
       ></U-input>
       <U-button
@@ -59,11 +62,23 @@
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
+import { Component, Prop, Vue } from "nuxt-property-decorator";
+import { required, email } from "vuelidate/lib/validators";
 import UInput from "../atoms/uInput.vue";
 import UButton from "../atoms/uButton.vue";
-export default {
-  components: { UInput, UButton },
+import { Specialisation } from "~/models/Specialisation";
+@Component({
+  components: { UButton, UInput },
+  validations: {
+    email: {
+      required,
+      email,
+    },
+  },
+})
+export default class extends Vue {
+  @Prop() specialisations: Array<Specialisation>;
   data() {
     return {
       openSpeciality: false,
@@ -71,47 +86,32 @@ export default {
       email: " ",
       inputedEmail: "false",
       choosenCollegues: true,
-      emailPattern: /^([\w-.]+@([\w-]+\.)+[\w-]{2,4})?$/,
-      speciality: [
-        { id: 0, specialityPosition: "Front-end" },
-        { id: 1, specialityPosition: "Back-end" },
-        { id: 2, specialityPosition: "DevOps" },
-        { id: 3, specialityPosition: "Seo" },
-      ],
     };
-  },
-  methods: {
-    chosespeciality(e) {
-      this.choosenSpeciality = e.textContent;
-      this.openSpeciality = !this.openSpeciality;
-      this.choosenCollegues = true;
-    },
-    checkEmail(e) {
-      if (this.emailPattern.test(e)) {
-        this.email = true;
-        this.inputedEmail = e;
-      } else {
-        this.email = false;
-        this.inputedEmail = "";
-      }
-    },
-    invite() {
-      if (this.choosenSpeciality === "Select a speciality") {
-        this.choosenCollegues = false;
-      } else if (this.email === " ") {
-        this.email = false;
-      } else if (
-        this.email &
-        (this.choosenSpeciality !== "Select a speciality")
-      ) {
-        this.$emit("inviteCollegue", {
-          email: this.inputedEmail,
-          speciality: this.choosenSpeciality,
-        });
-      }
-    },
-  },
-};
+  }
+
+  chosespeciality(e) {
+    this.choosenSpeciality = e.textContent;
+    this.openSpeciality = !this.openSpeciality;
+    this.choosenCollegues = true;
+  }
+
+  checkEmail(textValue: string) {
+    this.email = textValue;
+    this.$v.email.$touch();
+  }
+
+  invite() {
+    this.$v.$touch();
+    if (this.choosenSpeciality === "Select a speciality" && this.$v.$error) {
+      this.choosenCollegues = false;
+    } else if (!this.$v.$error) {
+      this.$emit("inviteCollegue", {
+        email: this.email,
+        speciality: this.choosenSpeciality,
+      });
+    }
+  }
+}
 </script>
 <style lang="scss">
 .invite-collegues-popup {

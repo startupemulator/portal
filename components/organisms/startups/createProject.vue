@@ -24,6 +24,7 @@
       v-if="createprodjectSteps.stepTwo"
       :technologies="technologies"
       :start-up-data="startUpData"
+      :specialisations="specialisations"
       @goToStepThree="goToStepThree"
       @saveDraft="saveDraft"
     ></create-project-step-2>
@@ -44,7 +45,6 @@
       v-if="popupPublish"
       @closePopup="popupPublish = !popupPublish"
     ></popup-created-start-up>
-    {{ startUpData }}
   </div>
 </template>
 <script lang="ts">
@@ -59,6 +59,7 @@ import UBack from "~/components/atoms/uBack.vue";
 import { Technology } from "~/models/Technology";
 import { Startup } from "~/models/Startup";
 import { Estimations } from "~/models/Estimations";
+import { Specialisation } from "~/models/Specialisation";
 import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartup.vue";
 // import {
 //   enableScrolling,
@@ -78,6 +79,7 @@ import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartup.vue"
 export default class extends Vue {
   @Prop() technologies: Array<Technology>;
   @Prop() estimations: Array<Estimations>;
+  @Prop() specialisations: Array<Specialisation>;
   createprodjectSteps: { [key: string]: boolean } = {
     stepOne: true,
     stepTwo: false,
@@ -106,6 +108,8 @@ export default class extends Vue {
       const technologies = await this.$strapi.find("technologies");
       console.log(technologies);
       console.log(updateStartup);
+      this.createprodjectSteps.stepOne = false;
+      this.createprodjectSteps.stepTwo = true;
     } catch (e) {}
   }
 
