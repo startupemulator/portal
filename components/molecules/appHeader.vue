@@ -203,19 +203,19 @@
       </nav>
 
       <div v-if="!isLogined" class="main-header-buttons">
-        <nuxt-link to="login">
-          <U-button
-            button-name="Log in"
-            :button-class="['u-button-blue', 'create-account__log-in']"
-          ></U-button>
-        </nuxt-link>
+        <U-button
+          button-name="Log in"
+          :button-class="['u-button-blue', 'create-account__log-in']"
+          :is-link="'nuxt-link'"
+          :href="'/login'"
+        ></U-button>
 
-        <nuxt-link to="createAccount">
-          <U-button
-            :button-name="'Sign Up'"
-            :button-class="'u-button-gray'"
-          ></U-button>
-        </nuxt-link>
+        <U-button
+          :button-name="'Sign Up'"
+          :button-class="'u-button-gray'"
+          :is-link="'nuxt-link'"
+          :href="'/createAccount'"
+        ></U-button>
       </div>
     </div>
     <Notifications-popup v-show="notification"></Notifications-popup>

@@ -1,8 +1,9 @@
 <template>
   <div class="challenge-card">
+    <!-- <pre>{{ card }}</pre> -->
     <div class="challenge-card__header">
       <div
-        v-show="card.status !== 'new'"
+        v-show="card.status !== null"
         class="challenge-card__header-startup-state"
       >
         <span
@@ -30,17 +31,19 @@
         {{ card.description | truncate(90, "...") }}
       </h4>
       <h4 v-else class="challenge-card__content-description">
-        {{ card.description | truncate(80, "...") }}
+        {{ card.description | truncate(70, "...") }}
       </h4>
       <div class="challenge-card__content-specialisation">
         <UTags
           v-for="specialisation in card.specialisations.slice(0, 2)"
+          :id="specialisation.id + 'specialisations'"
           :key="specialisation.id"
           :title="specialisation.title"
           class="modificate-challenge-slider"
         ></UTags>
         <UTags
           v-show="card.specialisations.length > 2"
+          :id="'specialisations'"
           :title="'+' + (card.specialisations.length - 2)"
           class="modificate-challenge-slider"
         ></UTags>
@@ -188,12 +191,17 @@ export default class extends Vue {
   .challenge-card {
     padding: 24px 32px 40px 32px;
     width: 318px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     &:not(:nth-child(4n)) {
       margin-right: 24px;
     }
+
     .challenge-card__header {
       .challenge-card__header-title {
         h4 {
+          margin-top: 0;
           font-size: 35px;
           line-height: 40px;
         }
@@ -203,16 +211,20 @@ export default class extends Vue {
         top: -24px;
         right: -32px;
       }
+      & ~ .challenge-card__header-title {
+        margin-top: -16px;
+      }
     }
     .challenge-card__content {
       .challenge-card__content-description {
         font-size: 17px;
         line-height: 24px;
         margin-top: 24px;
+        min-height: 96px;
       }
       .challenge-card__content-specialisation {
         margin-top: 32px;
-        min-height: 80px;
+        margin-top: auto;
       }
 
       .challenge-card__content_buttons {
