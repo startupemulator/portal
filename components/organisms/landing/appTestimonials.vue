@@ -35,6 +35,7 @@
             @clickOnButton="toggleTestominalPopup(i)"
           ></U-button>
         </h3>
+
         <p class="testimonial-block__full-name">{{ card.author }}</p>
         <p class="testimonial-block__position">{{ card.title }}</p>
         <img
@@ -55,14 +56,6 @@
           <img src="~/assets/img/close.svg" alt="Close" />
         </button>
         <h3>
-          {{ cards[0].comment }}
-          {{ cards[0].comment }}
-          {{ cards[0].comment }}
-          {{ cards[0].comment }}
-          {{ cards[0].comment }}
-          {{ cards[0].comment }}
-          {{ cards[0].comment }}
-          {{ cards[0].comment }}
           {{ cards[0].comment }}
         </h3>
         <p class="testimonials-popup__full-name">

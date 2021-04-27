@@ -25,6 +25,7 @@
       :technologies="technologies"
       :start-up-data="startUpData"
       :specialisations="specialisations"
+      :created-startup-id="createdStartupId"
       @goToStepThree="goToStepThree"
       @saveDraft="saveDraft"
     ></create-project-step-2>
@@ -87,7 +88,8 @@ export default class extends Vue {
     stepFour: false,
   };
 
-  createdStartupId: Number = 0;
+  // createdStartupId: Number = 0;
+  createdStartupId: Number = 5; // test, after be removed
 
   startUpData: Array<Startup> = [];
   popupPublish: Boolean = false;
@@ -102,9 +104,9 @@ export default class extends Vue {
   async saveDraft() {
     try {
       const data = {
-        title: "work startup",
+        title: "My new Startup with owner this if update somthing",
       };
-      const updateStartup = await this.$strapi.update("startups", "32", data);
+      const updateStartup = await this.$strapi.update("startups", "5", data);
       const technologies = await this.$strapi.find("technologies");
       console.log(technologies);
       console.log(updateStartup);
