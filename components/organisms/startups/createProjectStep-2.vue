@@ -114,7 +114,7 @@ export default class extends Vue {
       });
     }
     if (this.invitedcolleagues.length !== 0) {
-      console.log(this.invitedcolleagues);
+      console.log(this.invitedcolleagues); // work
     }
 
     // this.$emit("goToStepThree", [
@@ -127,7 +127,7 @@ export default class extends Vue {
     try {
       await this.$strapi.create("positions", data);
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }
 
