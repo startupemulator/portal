@@ -45,7 +45,7 @@
             <li class="challenges__header-diffculty-filter-item">
               <U-tags
                 v-for="(item, i) in 5"
-                :id="i + 1 * 124"
+                :id="i + 1 + '.difficulty'"
                 :key="i * 124"
                 :type="'checkbox'"
                 :title="'Level ' + (i + 1)"
@@ -102,8 +102,8 @@ export default class extends Vue {
   specialisations: Array<Specialisation>;
 
   private filterList: boolean = false;
-  private filterTarget: String = "";
-
+  difficultyFilter: Array<any> = [];
+  specialityFilter: Array<any> = [];
   lengthCardList = 4;
   showMoreCards() {
     this.lengthCardList = this.lengthCardList + 1;
@@ -111,28 +111,37 @@ export default class extends Vue {
 
   toggleFilserList() {
     this.filterList = !this.filterList;
-    console.log(this.filterList);
   }
 
   levelFilter($event) {
-    this.$emit("difficultyFilter", $event);
     if ($event.currentTarget.labels[0].classList.contains("checked")) {
       $event.currentTarget.labels[0].classList.remove("checked");
+      this.difficultyFilter = this.difficultyFilter.filter(
+        (el) => el[1] !== $event.currentTarget.id.split(".")[0]
+      );
     } else {
       $event.currentTarget.labels[0].classList.add("checked");
+      this.difficultyFilter.push([
+        "difficulty",
+        $event.currentTarget.id.split(".")[0],
+      ]);
     }
+
+    this.$emit("difficultyFilter", this.difficultyFilter);
   }
 
   specialty($event) {
-    this.$emit("filterCards", $event);
-    this.$refs.specialityList.children.forEach((item) =>
-      item.children[0].classList.remove("checked")
-    );
     if ($event.currentTarget.labels[0].classList.contains("checked")) {
       $event.currentTarget.labels[0].classList.remove("checked");
+      this.specialityFilter = this.difficultyFilter.filter(
+        (el) => el[1] !== $event.currentTarget.id
+      );
     } else {
       $event.currentTarget.labels[0].classList.add("checked");
+      this.specialityFilter.push(["specialisations", $event.currentTarget.id]);
     }
+
+    this.$emit("filterCards", this.specialityFilter);
   }
 }
 </script>

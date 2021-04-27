@@ -28,7 +28,6 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import { Challenge } from "../../models/Challenge";
-// :class="card.difficulty === 1 ? 'started' : ''"
 @Component({})
 export default class extends Vue {
   @Prop() card: Array<Challenge>;
