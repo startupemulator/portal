@@ -111,7 +111,6 @@ export default class extends Vue {
 
   toggleFilserList() {
     this.filterList = !this.filterList;
-    console.log(this.filterList);
   }
 
   levelFilter($event) {

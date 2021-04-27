@@ -35,17 +35,14 @@ export default class extends Vue {
   pickedSpecialty: Array<any> = [];
 
   async filterCards() {
-    // console.log(this.difficultyLevel);
-    // console.log(this.pickedSpecialty);
     const findCriterios = [];
-    // findCriterios.push(this.difficultyLevel);
-    // findCriterios.push(this.pickedSpecialty);
-    console.log(findCriterios);
+    this.difficultyLevel.forEach((el) => findCriterios.push(el));
+    this.pickedSpecialty.forEach((el) => findCriterios.push(el));
+
     const filterChallenges = await this.$strapi.find(
       "challenges",
       findCriterios
     );
-    // console.log(filterChallenges);
     this.challengesList = filterChallenges;
   }
 
