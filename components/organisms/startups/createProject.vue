@@ -12,11 +12,7 @@
     <div class="createProject-step1__progress-bar">
       <div class="createProject__progress-bar" :class="progressSpets"></div>
     </div>
-    <div v-if="loading" class="loader">
-      <div class="loader-content">
-        <MoonLoader :color="'#6295FC'"></MoonLoader>
-      </div>
-    </div>
+
     <create-project-step-1
       v-if="createprodjectSteps.stepOne"
       :start-up-data="startUpData"
@@ -51,16 +47,17 @@
       v-if="popupPublish"
       @closePopup="popupPublish = !popupPublish"
     ></popup-created-start-up>
+    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
 // import Toast from "../../../store/modules/Toast";
-import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 import createProjectStep1 from "./createProjectStep-1.vue";
 import createProjectStep2 from "./createProjectStep-2.vue";
 import createProjectStep3 from "./createProjectStep-3.vue";
 import createProjectStep4 from "./createProjectStep-4.vue";
+import Spiner from "~/components/molecules/spiner.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import { Technology } from "~/models/Technology";
@@ -81,7 +78,7 @@ import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartup.vue"
     UTitle,
     UBack,
     PopupCreatedStartUp,
-    MoonLoader,
+    Spiner,
   },
 })
 export default class extends Vue {
@@ -163,6 +160,7 @@ export default class extends Vue {
       if (this.startUpData.guide.some((el) => el.name)) {
         this.startUpData.guide.forEach((el) => {
           this.addGuide(el);
+          this.popupPublish = !this.popupPublish;
         });
       }
       this.loading = false;

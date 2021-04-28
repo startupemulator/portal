@@ -100,6 +100,7 @@
         @clickOnButton="$emit('saveDraft')"
       ></U-button>
     </div>
+    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 
@@ -112,6 +113,8 @@ import UButton from "~/components/atoms/uButton.vue";
 import DurationPicker from "~/components/molecules/durationPicker.vue";
 import AddInput from "~/components/atoms/addInput.vue";
 import { Estimations } from "~/models/Estimations";
+
+import Spiner from "~/components/molecules/spiner.vue";
 
 @Component({
   validations: {
@@ -127,7 +130,7 @@ import { Estimations } from "~/models/Estimations";
       required,
     },
   },
-  components: { DatePicker, UButton, DurationPicker, AddInput },
+  components: { DatePicker, UButton, DurationPicker, AddInput, Spiner },
 })
 export default class extends Vue {
   @Prop() startUpData!: Array<any>;
@@ -141,6 +144,7 @@ export default class extends Vue {
         .join("  |  ")
     : "";
 
+  loading = false;
   title: String = this.startUpData.title ? this.startUpData.title : "";
 
   description: String = this.startUpData.description
@@ -175,6 +179,7 @@ export default class extends Vue {
     this.$v.$touch();
     if (!this.$v.$error) {
       try {
+        this.loading = true;
         if (this.createdStartupId === 0) {
           // if new startup
           const data = {
@@ -205,6 +210,7 @@ export default class extends Vue {
             this.$emit("goToStepTwo", updateStartup);
           }
         }
+        this.loading = false;
       } catch (e) {}
     } else {
       Toast.show({
