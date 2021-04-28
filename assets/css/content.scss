@@ -51,3 +51,31 @@ li {
   overflow-x: hidden;
   overflow-y: auto;
 }
+* {
+  box-sizing: inherit;
+}
+.loader {
+  position: fixed;
+  top: 0;
+  right: 0;
+  box-sizing: border-box;
+  background: transparent;
+  height: 100vh;
+  width: 100vw;
+  z-index: 12;
+}
+.loader-content {
+  position: absolute;
+  top: 20%;
+  right: 50%;
+}
+.v-spinner .v-moon2 {
+  box-shadow: -2px 0 8px rgba(98, 149, 252, 0.8),
+    2px 0 8px rgba(98, 149, 252, 0.8);
+}
+.v-spinner .v-moon3 {
+  box-shadow: inset 2px -1px 8px rgba(35, 43, 57, 0.5);
+  opacity: 1 !important;
+  background: transparent;
+  border-color: #4e5a71 !important;
+}

@@ -32,7 +32,7 @@
             v-for="item in specialisations"
             :key="item.id"
             class="specialityOne__item-item"
-            @click="chosespeciality($event.target)"
+            @click="chosespeciality($event.target, item.id)"
           >
             {{ item.title }}
           </li>
@@ -88,6 +88,7 @@
               <technology-picker
                 :technologies="technologies"
                 @chosenTechnologi="chosenTechnologi"
+                @addTechnologies="addTechnologies"
               ></technology-picker>
             </div>
           </div>
@@ -154,23 +155,42 @@ export default class extends Vue {
       popupPickTechnology: false,
       pickedTechnology: [],
       chosenTechnologies: [],
+      pickedTechnologyId: [],
+      newTechnologies: [],
     };
   }
 
-  chosenTechnologi(chosenTechnologies) {
+  chosenTechnologi(chosenTechnologies, pickedTechnologyId) {
+    this.pickedTechnologyId = pickedTechnologyId;
     this.chosenTechnologies = chosenTechnologies;
   }
 
-  chosespeciality(e) {
+  addTechnologies(data) {
+    this.newTechnologies = data.map((el) => el.name);
+  }
+
+  chosespeciality(e, id) {
     this.chosenSpeciality = e.textContent.trim();
     this.openSpeciality = !this.openSpeciality;
-    this.$emit("chosenSpeciality", [{ title: this.chosenSpeciality.trim() }]);
+    this.$emit("chosenSpeciality", [
+      { title: this.chosenSpeciality.trim(), id },
+    ]);
   }
 
   togglePopupPickTechnologies() {
     this.pickedTechnology = this.chosenTechnologies;
 
-    this.$emit("chosenTechnologies", [{ technologies: this.pickedTechnology }]);
+    this.newTechnologies.forEach((el) => {
+      this.pickedTechnology.push(el);
+    });
+
+    this.$emit("chosenTechnologies", [
+      {
+        technologies: this.pickedTechnology,
+        newTechnologies: this.newTechnologies,
+        id: this.pickedTechnologyId,
+      },
+    ]);
     this.popupPickTechnology = !this.popupPickTechnology;
     this.popupPickTechnology ? disableScrolling() : enableScrolling();
   }

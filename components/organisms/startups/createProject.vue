@@ -12,6 +12,7 @@
     <div class="createProject-step1__progress-bar">
       <div class="createProject__progress-bar" :class="progressSpets"></div>
     </div>
+
     <create-project-step-1
       v-if="createprodjectSteps.stepOne"
       :start-up-data="startUpData"
@@ -25,6 +26,7 @@
       :technologies="technologies"
       :start-up-data="startUpData"
       :specialisations="specialisations"
+      :created-startup-id="createdStartupId"
       @goToStepThree="goToStepThree"
       @saveDraft="saveDraft"
     ></create-project-step-2>
@@ -45,6 +47,7 @@
       v-if="popupPublish"
       @closePopup="popupPublish = !popupPublish"
     ></popup-created-start-up>
+    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
@@ -54,6 +57,7 @@ import createProjectStep1 from "./createProjectStep-1.vue";
 import createProjectStep2 from "./createProjectStep-2.vue";
 import createProjectStep3 from "./createProjectStep-3.vue";
 import createProjectStep4 from "./createProjectStep-4.vue";
+import Spiner from "~/components/molecules/spiner.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import { Technology } from "~/models/Technology";
@@ -74,6 +78,7 @@ import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartup.vue"
     UTitle,
     UBack,
     PopupCreatedStartUp,
+    Spiner,
   },
 })
 export default class extends Vue {
@@ -88,9 +93,9 @@ export default class extends Vue {
   };
 
   createdStartupId: Number = 0;
-
+  loading = false;
   startUpData: Array<Startup> = [];
-  popupPublish: Boolean = false;
+  popupPublish = false;
   get progressSpets() {
     return {
       "progress-bar__stepTwo": this.createprodjectSteps.stepTwo,
@@ -102,12 +107,11 @@ export default class extends Vue {
   async saveDraft() {
     try {
       const data = {
-        title: "work startup",
+        title: "My new Startup with owner this if update somthing",
       };
-      const updateStartup = await this.$strapi.update("startups", "32", data);
-      const technologies = await this.$strapi.find("technologies");
-      console.log(technologies);
-      console.log(updateStartup);
+      await this.$strapi.update("startups", "5", data);
+      await this.$strapi.find("technologies");
+
       this.createprodjectSteps.stepOne = false;
       this.createprodjectSteps.stepTwo = true;
     } catch (e) {}
@@ -115,14 +119,51 @@ export default class extends Vue {
 
   async publish() {
     try {
-      const updateStartup = await this.$strapi.update(
-        "startups",
-        this.createdStartupId.toString(),
-        {
-          description: "new descriptiondescriptiondescriptiondescription",
-        }
-      );
-      console.log(updateStartup);
+      this.loading = true;
+      await this.$strapi.update("startups", this.createdStartupId.toString(), {
+        description: "new descriptiondescriptiondescriptiondescription",
+      });
+      // send specialists
+      if (this.startUpData.specialists.some((el) => el.speciality_id)) {
+        const newPositions = {
+          startup: this.createdStartupId,
+          technologies: [],
+          specialisation: "",
+        };
+        this.startUpData.specialists.forEach((el) => {
+          newPositions.technologies = el.technologiesId;
+          newPositions.specialisation = el.speciality_id;
+          this.createSpecialisation(newPositions);
+        });
+        const addedTechnologies = [];
+        this.startUpData.specialists.forEach((el) =>
+          el.technologiesId.forEach((item) => addedTechnologies.push(item))
+        );
+        this.addTechnologiesToStartup(addedTechnologies);
+        let newTechnologies: Array<String> = [];
+        this.startUpData.specialists.forEach((el) => {
+          newTechnologies = newTechnologies.concat(el.newTechnologies);
+        });
+        newTechnologies.forEach((el) => this.createNewTechnologies(el));
+      }
+      // sent technologies & invites
+      if (this.startUpData.coleagues.some((el) => el.email)) {
+        this.newInvate(this.startUpData.coleagues);
+      }
+      // send sources
+      if (this.startUpData.sources.some((el) => el.link)) {
+        this.startUpData.sources.forEach((el) => {
+          this.addLink(el);
+        });
+      }
+      // send guide
+      if (this.startUpData.guide.some((el) => el.name)) {
+        this.startUpData.guide.forEach((el) => {
+          this.addGuide(el);
+          this.popupPublish = !this.popupPublish;
+        });
+      }
+      this.loading = false;
     } catch (e) {}
   }
 
@@ -168,7 +209,6 @@ export default class extends Vue {
     thirdStepData.forEach((el) => {
       this.startUpData.sources.push(el);
     });
-    console.log(this.startUpData);
   }
 
   addSomeGiude(data) {
@@ -178,6 +218,72 @@ export default class extends Vue {
         this.startUpData.guide.push(el);
       }
     });
+  }
+
+  async createSpecialisation(data) {
+    try {
+      await this.$strapi.create("positions", data);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async addTechnologiesToStartup(data) {
+    try {
+      await this.$strapi.update("startups", this.createdStartupId.toString(), {
+        technologies: data,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async createNewTechnologies(data) {
+    try {
+      await this.$strapi.create("technologies", {
+        creator_id: this.$strapi.user.id,
+        title: data,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async newInvate(data) {
+    try {
+      await this.$strapi.create("invites", {
+        inviter: this.$strapi.user.id,
+        startup: this.createdStartupId.toString(),
+        position: "1",
+        email: data.email,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async addLink(data) {
+    try {
+      await this.$strapi.create("links", {
+        title: data.title,
+        url: data.link,
+        startup: this.createdStartupId.toString(),
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async addGuide(data) {
+    try {
+      await this.$strapi.create("sources", {
+        title: data.name,
+        link: data.comment,
+        startups: this.createdStartupId.toString(),
+      });
+    } catch (e) {
+      console.error(e);
+    }
   }
 }
 </script>

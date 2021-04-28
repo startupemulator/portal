@@ -55,12 +55,12 @@
       <U-button
         :button-name="'Save Draft'"
         :button-class="'u-button-gray'"
-        @clickOnButton="$emit('saveDraft')"
+        @clickOnButton="saveDraft"
       ></U-button>
     </div>
     <invite-colleagues
       v-if="invitecolleagues"
-      :specialisations="specialisations"
+      :specialisations="specialityComponent"
       @closePopupLinkEmail="toggleInviteColleagues"
       @inviteCollegue="inviteCollegue"
     ></invite-colleagues>
@@ -84,17 +84,22 @@ export default class extends Vue {
   @Prop() technologies: Array<Technology>;
   @Prop() startUpData!: Array<any>;
   @Prop() specialisations: Array<Specialisation>;
+  @Prop() createdStartupId: Number;
   specialityComponent: Array<any> = [{ id: 0, type: "create-specialities" }];
   invitedcolleagues: Array<any> = [];
-
   invitecolleagues: Boolean = false;
 
-  addSpecialityToSpecialityComponent($event, i) {
-    this.specialityComponent[i].speciality = $event[0].title;
+  saveDraft() {}
+
+  addSpecialityToSpecialityComponent(data, i) {
+    this.specialityComponent[i].speciality = data[0].title;
+    this.specialityComponent[i].speciality_id = data[0].id;
   }
 
   addchosenTechnologies($event, i) {
     this.specialityComponent[i].technologies = $event[0].technologies;
+    this.specialityComponent[i].technologiesId = $event[0].id;
+    this.specialityComponent[i].newTechnologies = $event[0].newTechnologies;
   }
 
   goToStepThree() {
@@ -117,8 +122,10 @@ export default class extends Vue {
   }
 
   toggleInviteColleagues() {
-    this.invitecolleagues = !this.invitecolleagues;
-    this.invitecolleagues ? disableScrolling() : enableScrolling();
+    if (this.specialityComponent[0].speciality) {
+      this.invitecolleagues = !this.invitecolleagues;
+      this.invitecolleagues ? disableScrolling() : enableScrolling();
+    }
   }
 
   removeSpeciality(id, i) {

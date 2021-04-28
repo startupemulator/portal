@@ -37,7 +37,7 @@
               class="specialityOne__item-item"
               @click="chosespeciality($event.target)"
             >
-              {{ item.title }}
+              {{ item.speciality }}
             </li>
           </ul>
         </div>
@@ -67,7 +67,7 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 import { required, email } from "vuelidate/lib/validators";
 import UInput from "../atoms/uInput.vue";
 import UButton from "../atoms/uButton.vue";
-import { Specialisation } from "~/models/Specialisation";
+// import { Specialisation } from "~/models/Specialisation";
 @Component({
   components: { UButton, UInput },
   validations: {
@@ -78,7 +78,7 @@ import { Specialisation } from "~/models/Specialisation";
   },
 })
 export default class extends Vue {
-  @Prop() specialisations: Array<Specialisation>;
+  @Prop() specialisations: Array<any>;
   data() {
     return {
       openSpeciality: false,
