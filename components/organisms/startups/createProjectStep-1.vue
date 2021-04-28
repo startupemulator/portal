@@ -84,7 +84,7 @@
           :placeholder="'Or enter the number of days'"
           :length="1"
           :duration="duration"
-          @addDuration="addDuration"
+          @add="add"
         ></Add-input>
       </div>
     </div>
@@ -157,7 +157,7 @@ export default class extends Vue {
     this.duration = el.value;
   }
 
-  addDuration(duration: { [key: string]: any }) {
+  add(duration: { [key: string]: any }) {
     this.duration = duration[duration.length - 1].name;
   }
 
@@ -186,9 +186,7 @@ export default class extends Vue {
             owner: this.$strapi.user.id,
           };
           const createStartup = await this.$strapi.create("startups", data);
-          if (createStartup) {
-            console.log(createStartup);
-          }
+
           this.$emit("goToStepTwo", createStartup);
         } else {
           // if went back one step and update some data
@@ -207,9 +205,7 @@ export default class extends Vue {
             this.$emit("goToStepTwo", updateStartup);
           }
         }
-      } catch (e) {
-        console.log(e);
-      }
+      } catch (e) {}
     } else {
       Toast.show({
         data: "Fill the form correctly.",

@@ -55,7 +55,7 @@
       <U-button
         :button-name="'Save Draft'"
         :button-class="'u-button-gray'"
-        @clickOnButton="$emit('saveDraft')"
+        @clickOnButton="saveDraft"
       ></U-button>
     </div>
     <invite-colleagues
@@ -89,6 +89,8 @@ export default class extends Vue {
   invitedcolleagues: Array<any> = [];
   invitecolleagues: Boolean = false;
 
+  saveDraft() {}
+
   addSpecialityToSpecialityComponent(data, i) {
     this.specialityComponent[i].speciality = data[0].title;
     this.specialityComponent[i].speciality_id = data[0].id;
@@ -97,38 +99,14 @@ export default class extends Vue {
   addchosenTechnologies($event, i) {
     this.specialityComponent[i].technologies = $event[0].technologies;
     this.specialityComponent[i].technologiesId = $event[0].id;
+    this.specialityComponent[i].newTechnologies = $event[0].newTechnologies;
   }
 
   goToStepThree() {
-    if (this.specialityComponent.some((el) => el.speciality_id)) {
-      const newPositions = {
-        startup: this.createdStartupId,
-        technologies: [],
-        specialisation: "",
-      };
-      this.specialityComponent.forEach((el) => {
-        newPositions.technologies = el.technologiesId;
-        newPositions.specialisation = el.speciality_id;
-
-        this.createSpecialisation(newPositions);
-      });
-    }
-    if (this.invitedcolleagues.length !== 0) {
-      console.log(this.invitedcolleagues); // work
-    }
-
-    // this.$emit("goToStepThree", [
-    //   this.specialityComponent,
-    //   this.invitedcolleagues,
-    // ]);
-  }
-
-  async createSpecialisation(data) {
-    try {
-      await this.$strapi.create("positions", data);
-    } catch (e) {
-      console.error(e);
-    }
+    this.$emit("goToStepThree", [
+      this.specialityComponent,
+      this.invitedcolleagues,
+    ]);
   }
 
   inviteCollegue(data) {

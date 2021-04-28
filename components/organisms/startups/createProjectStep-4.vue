@@ -52,10 +52,7 @@ import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartup.vue"
 export default class extends Vue {
   @Prop() startUpData!: Array<any>;
   popupPublish: Boolean = false;
-  guideSourseComponent: Array<any> = [
-    { id: 1, type: "create-guide" },
-    { id: 2, type: "create-guide" },
-  ];
+  guideSourseComponent: Array<any> = [{ id: 1, type: "create-guide" }];
 
   addGuideSourse() {
     this.guideSourseComponent.push({

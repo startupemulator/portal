@@ -12,21 +12,28 @@
         {{ item.title }}
       </u-tags>
     </form>
-    <input
+    <!-- <input
       v-if="addTechnology"
       class="input-technology"
       type="text"
       placeholder="Type a technology to add"
       @keydown="inputTechnology($event)"
-    />
+    /> -->
+    <Add-input
+      :placeholder="'Type a technology to add'"
+      :length="12"
+      :title="false"
+      @add="$emit('addTechnologies', $event)"
+    ></Add-input>
   </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UTags from "../atoms/uTags.vue";
+import AddInput from "~/components/atoms/addInput.vue";
 import { Technology } from "~/models/Technology";
 @Component({
-  components: { UTags },
+  components: { UTags, AddInput },
 })
 export default class extends Vue {
   @Prop({ default: " " }) title: String;

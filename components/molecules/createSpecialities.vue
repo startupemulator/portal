@@ -88,6 +88,7 @@
               <technology-picker
                 :technologies="technologies"
                 @chosenTechnologi="chosenTechnologi"
+                @addTechnologies="addTechnologies"
               ></technology-picker>
             </div>
           </div>
@@ -155,13 +156,17 @@ export default class extends Vue {
       pickedTechnology: [],
       chosenTechnologies: [],
       pickedTechnologyId: [],
+      newTechnologies: [],
     };
   }
 
   chosenTechnologi(chosenTechnologies, pickedTechnologyId) {
     this.pickedTechnologyId = pickedTechnologyId;
-
     this.chosenTechnologies = chosenTechnologies;
+  }
+
+  addTechnologies(data) {
+    this.newTechnologies = data.map((el) => el.name);
   }
 
   chosespeciality(e, id) {
@@ -175,9 +180,14 @@ export default class extends Vue {
   togglePopupPickTechnologies() {
     this.pickedTechnology = this.chosenTechnologies;
 
+    this.newTechnologies.forEach((el) => {
+      this.pickedTechnology.push(el);
+    });
+
     this.$emit("chosenTechnologies", [
       {
         technologies: this.pickedTechnology,
+        newTechnologies: this.newTechnologies,
         id: this.pickedTechnologyId,
       },
     ]);

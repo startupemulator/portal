@@ -16,7 +16,7 @@
         @focus="onfocus"
         @blur="onfocus"
       />
-      <span class="input-add__item-title">days</span>
+      <span v-if="title" class="input-add__item-title">days</span>
     </ul>
   </div>
 </template>
@@ -28,9 +28,11 @@ export default class extends Vue {
   @Prop() placeholder: String;
   @Prop({ default: 9999 }) length: Number;
   @Prop() duration!: String;
+  @Prop({ default: true }) title: Boolean;
   addData: Array<any> = [];
   inputedtext: String = "";
   focused: Boolean = false;
+
   @Watch("duration")
   changeDuration() {
     this.addData = [];
@@ -38,7 +40,7 @@ export default class extends Vue {
   }
 
   addInputedtext(e) {
-    const srt = this.inputedtext.trim();
+    const srt = this.inputedtext.trim().toLowerCase();
     if (
       srt.length > 1 &&
       e.keyCode === 13 &&
@@ -46,7 +48,8 @@ export default class extends Vue {
     ) {
       this.addData.push({ id: this.addData.length, name: srt });
       this.inputedtext = "";
-      this.$emit("addDuration", this.addData);
+
+      this.$emit("add", this.addData);
     }
   }
 
@@ -60,6 +63,7 @@ export default class extends Vue {
         this.addData.splice(i, 1);
       }
     });
+    this.$emit("add", this.addData);
   }
 
   mounted() {

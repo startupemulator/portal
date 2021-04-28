@@ -52,7 +52,6 @@ export default class extends Vue {
 
   existingSourseComponent: Array<any> = [
     { id: 1, type: "add-existing-sourse" },
-    { id: 2, type: "add-existing-sourse" },
   ];
 
   textInput($event, i) {

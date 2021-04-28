@@ -88,8 +88,7 @@ export default class extends Vue {
     stepFour: false,
   };
 
-  // createdStartupId: Number = 0;
-  createdStartupId: Number = 5; // test, after be removed
+  createdStartupId: Number = 0;
 
   startUpData: Array<Startup> = [];
   popupPublish: Boolean = false;
@@ -106,10 +105,9 @@ export default class extends Vue {
       const data = {
         title: "My new Startup with owner this if update somthing",
       };
-      const updateStartup = await this.$strapi.update("startups", "5", data);
-      const technologies = await this.$strapi.find("technologies");
-      console.log(technologies);
-      console.log(updateStartup);
+      await this.$strapi.update("startups", "5", data);
+      await this.$strapi.find("technologies");
+
       this.createprodjectSteps.stepOne = false;
       this.createprodjectSteps.stepTwo = true;
     } catch (e) {}
@@ -117,14 +115,48 @@ export default class extends Vue {
 
   async publish() {
     try {
-      const updateStartup = await this.$strapi.update(
-        "startups",
-        this.createdStartupId.toString(),
-        {
-          description: "new descriptiondescriptiondescriptiondescription",
-        }
-      );
-      console.log(updateStartup);
+      await this.$strapi.update("startups", this.createdStartupId.toString(), {
+        description: "new descriptiondescriptiondescriptiondescription",
+      });
+      // send specialists
+      if (this.startUpData.specialists.some((el) => el.speciality_id)) {
+        const newPositions = {
+          startup: this.createdStartupId,
+          technologies: [],
+          specialisation: "",
+        };
+        this.startUpData.specialists.forEach((el) => {
+          newPositions.technologies = el.technologiesId;
+          newPositions.specialisation = el.speciality_id;
+          this.createSpecialisation(newPositions);
+        });
+        const addedTechnologies = [];
+        this.startUpData.specialists.forEach((el) =>
+          el.technologiesId.forEach((item) => addedTechnologies.push(item))
+        );
+        this.addTechnologiesToStartup(addedTechnologies);
+        let newTechnologies: Array<String> = [];
+        this.startUpData.specialists.forEach((el) => {
+          newTechnologies = newTechnologies.concat(el.newTechnologies);
+        });
+        newTechnologies.forEach((el) => this.createNewTechnologies(el));
+      }
+      // sent technologies & invites
+      if (this.startUpData.coleagues.some((el) => el.email)) {
+        this.newInvate(this.startUpData.coleagues);
+      }
+      // send sources
+      if (this.startUpData.sources.some((el) => el.link)) {
+        this.startUpData.sources.forEach((el) => {
+          this.addLink(el);
+        });
+      }
+      // send guide
+      if (this.startUpData.guide.some((el) => el.name)) {
+        this.startUpData.guide.forEach((el) => {
+          this.addGuide(el);
+        });
+      }
     } catch (e) {}
   }
 
@@ -170,7 +202,6 @@ export default class extends Vue {
     thirdStepData.forEach((el) => {
       this.startUpData.sources.push(el);
     });
-    console.log(this.startUpData);
   }
 
   addSomeGiude(data) {
@@ -180,6 +211,72 @@ export default class extends Vue {
         this.startUpData.guide.push(el);
       }
     });
+  }
+
+  async createSpecialisation(data) {
+    try {
+      await this.$strapi.create("positions", data);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async addTechnologiesToStartup(data) {
+    try {
+      await this.$strapi.update("startups", this.createdStartupId.toString(), {
+        technologies: data,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async createNewTechnologies(data) {
+    try {
+      await this.$strapi.create("technologies", {
+        creator_id: this.$strapi.user.id,
+        title: data,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async newInvate(data) {
+    try {
+      await this.$strapi.create("invites", {
+        inviter: this.$strapi.user.id,
+        startup: this.createdStartupId.toString(),
+        position: "1",
+        email: data.email,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async addLink(data) {
+    try {
+      await this.$strapi.create("links", {
+        title: data.title,
+        url: data.link,
+        startup: this.createdStartupId.toString(),
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async addGuide(data) {
+    try {
+      await this.$strapi.create("sources", {
+        title: data.name,
+        link: data.comment,
+        startups: this.createdStartupId.toString(),
+      });
+    } catch (e) {
+      console.error(e);
+    }
   }
 }
 </script>
