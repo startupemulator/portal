@@ -3,7 +3,8 @@
     <Challenges
       :challenges="challengesList"
       :specialisations="specialisations"
-      @filterCards="filterCards"
+      @filterCards="specialtyFilter"
+      @difficultyFilter="difficultyFilter"
     ></Challenges>
   </div>
 </template>
@@ -30,19 +31,29 @@ export default class extends Vue {
     };
   }
 
-  filterCards($event) {
-    console.log(this.challengesList);
-    this.challengesList = [];
-    console.log($event.currentTarget.name);
-    this.challenges.forEach((item) => {
-      item.specialisations.forEach((el) =>
-        el.title === $event.currentTarget.name
-          ? this.challengesList.push(item)
-          : ""
-      );
-    });
+  difficultyLevel: Array<any> = [];
+  pickedSpecialty: Array<any> = [];
+
+  async filterCards() {
+    const findCriterios = [];
+    this.difficultyLevel.forEach((el) => findCriterios.push(el));
+    this.pickedSpecialty.forEach((el) => findCriterios.push(el));
+
+    const filterChallenges = await this.$strapi.find(
+      "challenges",
+      findCriterios
+    );
+    this.challengesList = filterChallenges;
   }
 
-  difficultyFilter() {}
+  specialtyFilter(data) {
+    this.pickedSpecialty = data;
+    this.filterCards();
+  }
+
+  difficultyFilter(data) {
+    this.difficultyLevel = data;
+    this.filterCards();
+  }
 }
 </script>
