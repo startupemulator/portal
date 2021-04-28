@@ -12,6 +12,11 @@
     <div class="createProject-step1__progress-bar">
       <div class="createProject__progress-bar" :class="progressSpets"></div>
     </div>
+    <div v-if="loading" class="loader">
+      <div class="loader-content">
+        <MoonLoader :color="'#6295FC'"></MoonLoader>
+      </div>
+    </div>
     <create-project-step-1
       v-if="createprodjectSteps.stepOne"
       :start-up-data="startUpData"
@@ -51,6 +56,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
 // import Toast from "../../../store/modules/Toast";
+import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 import createProjectStep1 from "./createProjectStep-1.vue";
 import createProjectStep2 from "./createProjectStep-2.vue";
 import createProjectStep3 from "./createProjectStep-3.vue";
@@ -75,6 +81,7 @@ import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartup.vue"
     UTitle,
     UBack,
     PopupCreatedStartUp,
+    MoonLoader,
   },
 })
 export default class extends Vue {
@@ -89,9 +96,9 @@ export default class extends Vue {
   };
 
   createdStartupId: Number = 0;
-
+  loading = false;
   startUpData: Array<Startup> = [];
-  popupPublish: Boolean = false;
+  popupPublish = false;
   get progressSpets() {
     return {
       "progress-bar__stepTwo": this.createprodjectSteps.stepTwo,
@@ -115,6 +122,7 @@ export default class extends Vue {
 
   async publish() {
     try {
+      this.loading = true;
       await this.$strapi.update("startups", this.createdStartupId.toString(), {
         description: "new descriptiondescriptiondescriptiondescription",
       });
@@ -157,6 +165,7 @@ export default class extends Vue {
           this.addGuide(el);
         });
       }
+      this.loading = false;
     } catch (e) {}
   }
 
