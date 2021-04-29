@@ -35,6 +35,7 @@ export default class extends Vue {
   border-radius: 12px;
   color: #fff;
   display: flex;
+  z-index: 99;
   .system-alert__left-border {
     min-width: 16px;
     height: 148px;

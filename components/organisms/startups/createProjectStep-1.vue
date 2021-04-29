@@ -11,6 +11,9 @@
     <p v-show="!$v.title.minLength" class="errorInput">
       Please enter a startup name of at least 8 characters
     </p>
+    <p v-show="!$v.title.required" class="errorInput">
+      Please enter a startup name
+    </p>
     <div class="startup__description">
       <h4>Description</h4>
       <textarea
@@ -19,6 +22,9 @@
       ></textarea>
       <p v-show="!$v.description.minLength" class="errorInput">
         Please enter a description name of at least 8 characters
+      </p>
+      <p v-show="!$v.description.required" class="errorInput">
+        Please enter a description
       </p>
       <div class="startup__start-date">
         <h4>Start date</h4>
@@ -159,6 +165,7 @@ export default class extends Vue {
 
   chooseDuration(el: { [key: string]: any }) {
     this.duration = el.value;
+    console.log(this.duration);
   }
 
   add(duration: { [key: string]: any }) {
@@ -191,6 +198,7 @@ export default class extends Vue {
             duration: this.duration,
             owner: this.$strapi.user.id,
           };
+          console.log(data);
           const createStartup = await this.$strapi.create("startups", data);
 
           this.$emit("goToStepTwo", createStartup);
@@ -212,7 +220,13 @@ export default class extends Vue {
           }
         }
         this.loading = false;
-      } catch (e) {}
+      } catch (e) {
+        Toast.show({
+          data: "Something wrong.",
+          duration: 3000,
+        });
+        this.loading = false;
+      }
     } else {
       Toast.show({
         data: "Fill the form correctly.",

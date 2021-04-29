@@ -1,12 +1,12 @@
 <template>
-  <transition name="fade">
+  <transition-group name="fade">
     <SystemAlert
       v-for="message in $store.state.Toast.messages"
       :key="message.id"
       :msg="message.data"
       :timer="message.timer"
     />
-  </transition>
+  </transition-group>
 </template>
 
 <script lang="ts">
