@@ -7,7 +7,7 @@
           <img src="~/assets/img/+.svg" alt="" /> <span>Create Startup</span>
         </nuxt-link>
       </div>
-      <U-Tabs-Long :owned="true"></U-Tabs-Long>
+      <U-Tabs-Long :owned="true" @filterCards="filterCards"></U-Tabs-Long>
     </div>
     <div class="start-ups_cards-content startup-block">
       <div class="transition__startup-card">
@@ -48,6 +48,27 @@ export default class extends Vue {
 
   draft: Array<Startup> = [];
   startup: Array<Startup> = [];
+
+  filterCards($event) {
+    console.log($event);
+    switch ($event) {
+      case 2:
+        this.startup = this.startups.filter((el) => el.state !== "draft");
+        break;
+      case 3:
+        this.startup = this.startups.filter((el) => el.state === "not_started");
+        break;
+      case 4:
+        this.startup = this.startups.filter((el) => el.state === "in_progress");
+        break;
+      case 5:
+        this.startup = this.startups.filter((el) => el.state === "finished");
+        break;
+      default:
+        break;
+    }
+  }
+
   mounted() {
     this.draft = this.startups.filter((el) => el.state === "draft");
     this.startup = this.startups.filter((el) => el.state !== "draft");

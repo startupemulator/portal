@@ -84,6 +84,7 @@ export default {
       } else {
         this.move = false;
       }
+      this.$emit("filterCards", id);
     },
   },
 };
