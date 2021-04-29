@@ -109,7 +109,7 @@ export default class extends Vue {
       const data = {
         title: "My new Startup with owner this if update somthing",
       };
-      await this.$strapi.update("startups", "5", data);
+      await this.$strapi.update("startups", "12", data);
       await this.$strapi.find("technologies");
 
       this.createprodjectSteps.stepOne = false;
@@ -171,6 +171,7 @@ export default class extends Vue {
     this.createprodjectSteps.stepOne = false;
     this.createprodjectSteps.stepTwo = true;
     this.createdStartupId = data.id;
+    console.log(data);
     this.startUpData = data;
   }
 
@@ -228,16 +229,6 @@ export default class extends Vue {
     }
   }
 
-  async addTechnologiesToStartup(data) {
-    try {
-      await this.$strapi.update("startups", this.createdStartupId.toString(), {
-        technologies: data,
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
   async createNewTechnologies(data) {
     try {
       await this.$strapi.create("technologies", {
@@ -262,6 +253,18 @@ export default class extends Vue {
     }
   }
 
+  async addGuide(data) {
+    try {
+      await this.$strapi.create("sources", {
+        title: data.name,
+        link: data.comment,
+        startups: this.createdStartupId.toString(),
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   async addLink(data) {
     try {
       await this.$strapi.create("links", {
@@ -274,12 +277,10 @@ export default class extends Vue {
     }
   }
 
-  async addGuide(data) {
+  async addTechnologiesToStartup(data) {
     try {
-      await this.$strapi.create("sources", {
-        title: data.name,
-        link: data.comment,
-        startups: this.createdStartupId.toString(),
+      await this.$strapi.update("startups", this.createdStartupId.toString(), {
+        technologies: data,
       });
     } catch (e) {
       console.error(e);

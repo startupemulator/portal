@@ -162,7 +162,9 @@ export default class extends Vue {
   }
 
   add(duration: { [key: string]: any }) {
-    this.duration = duration[duration.length - 1].name;
+    if (duration.length !== 0) {
+      this.duration = duration[duration.length - 1].name;
+    }
   }
 
   mounted() {
@@ -187,7 +189,6 @@ export default class extends Vue {
             description: this.description,
             start_date: new Date(this.date.split("  |  ").reverse().join("-")),
             duration: this.duration,
-            published_date: new Date(),
             owner: this.$strapi.user.id,
           };
           const createStartup = await this.$strapi.create("startups", data);
