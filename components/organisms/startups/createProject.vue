@@ -264,24 +264,26 @@ export default class extends Vue {
     }
   }
 
+  // secrets guide data
   async addGuide(data) {
     try {
-      await this.$strapi.create("sources", {
+      await this.$strapi.create("secrets", {
         title: data.name,
-        link: data.comment,
-        startups: this.createdStartupId.toString(),
+        description: data.comment,
+        startup: this.createdStartupId.toString(),
       });
     } catch (e) {
       console.error(e);
     }
   }
 
+  // sources ---
   async addLink(data) {
     try {
-      await this.$strapi.create("links", {
+      await this.$strapi.create("sources", {
         title: data.title,
-        url: data.link,
-        startup: this.createdStartupId.toString(),
+        link: data.link,
+        startups: this.createdStartupId.toString(),
       });
     } catch (e) {
       console.error(e);
