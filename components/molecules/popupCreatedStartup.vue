@@ -16,7 +16,7 @@
       <U-button
         :button-name="'Got It'"
         :is-link="'nuxt-link'"
-        :href="'/profile'"
+        :href="'/myProjects'"
         :button-class="'u-button-blue'"
       ></U-button>
     </div>

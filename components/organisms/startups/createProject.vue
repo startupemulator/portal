@@ -45,7 +45,7 @@
     ></create-project-step-4>
     <popup-created-start-up
       v-if="popupPublish"
-      @closePopup="$nuxt.$router.push('/profile')"
+      @closePopup="$nuxt.$router.push('/myProjects')"
     ></popup-created-start-up>
     <Spiner :loading="loading"></Spiner>
   </div>
