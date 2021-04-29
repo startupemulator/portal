@@ -7,7 +7,11 @@
           <img src="~/assets/img/+.svg" alt="" /> <span>Create Startup</span>
         </nuxt-link>
       </div>
-      <U-Tabs-Long :owned="true" @filterCards="filterCards"></U-Tabs-Long>
+      <U-Tabs-Long
+        :owned="true"
+        :message-lenght="inProgress"
+        @filterCards="filterCards"
+      ></U-Tabs-Long>
     </div>
     <div class="start-ups_cards-content startup-block">
       <div class="transition__startup-card">
@@ -48,7 +52,7 @@ export default class extends Vue {
 
   draft: Array<Startup> = [];
   startup: Array<Startup> = [];
-
+  inProgress: Number;
   filterCards($event) {
     console.log($event);
     switch ($event) {
@@ -72,6 +76,9 @@ export default class extends Vue {
   mounted() {
     this.draft = this.startups.filter((el) => el.state === "draft");
     this.startup = this.startups.filter((el) => el.state !== "draft");
+    this.inProgress = this.startups.filter(
+      (el) => el.state === "in_progress"
+    ).length;
   }
 }
 </script>
