@@ -25,7 +25,9 @@ export default class extends Vue {
       ["state", "not_started"],
       ["state", "finished"],
     ]);
-    const technologies = await $strapi.find("technologies");
+    const technologies = await $strapi.find("technologies", [
+      ["is_public", true],
+    ]);
     const startupsList = await startups;
     return {
       technologies,

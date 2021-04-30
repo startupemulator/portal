@@ -19,7 +19,7 @@
                 : 'tartup-card__started--disable'
             "
           >
-            <span>{{ messageLenght }}</span>
+            <span>{{ messageLength }}</span>
           </div>
         </button>
       </li>
@@ -33,7 +33,7 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 })
 export default class extends Vue {
   @Prop() owned: true;
-  @Prop({ default: 99 }) messageLenght: Number;
+  @Prop({ default: 99 }) messageLength: Number;
   move = false;
   tabs: Array<any> = [
     {
@@ -41,14 +41,14 @@ export default class extends Vue {
       title: "Owned",
       active: false,
       message: false,
-      messageLenght: 0,
+      messageLength: 0,
     },
     {
       id: 3,
       title: "Pending",
       active: true,
       message: false,
-      messageLenght: 0,
+      messageLength: 0,
     },
     {
       id: 4,
@@ -61,7 +61,7 @@ export default class extends Vue {
       title: "Finished",
       active: false,
       message: false,
-      messageLenght: 0,
+      messageLength: 0,
     },
   ];
 

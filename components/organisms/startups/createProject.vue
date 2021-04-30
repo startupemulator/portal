@@ -113,7 +113,7 @@ export default class extends Vue {
     try {
       this.loading = true;
       await this.$strapi.update("startups", this.createdStartupId.toString(), {
-        description: "new descriptiondescriptiondescriptiondescription",
+        description: this.startUpData.description,
       });
       // send specialists
       if (this.startUpData.specialists.some((el) => el.speciality_id)) {
@@ -264,7 +264,6 @@ export default class extends Vue {
     }
   }
 
-  // secrets guide data
   async addGuide(data) {
     try {
       await this.$strapi.create("secrets", {
@@ -277,7 +276,6 @@ export default class extends Vue {
     }
   }
 
-  // sources ---
   async addLink(data) {
     try {
       await this.$strapi.create("sources", {

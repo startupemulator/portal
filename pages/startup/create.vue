@@ -12,11 +12,11 @@
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import CreateProdgect from "~/components/organisms/startups/createProject.vue";
+import CreateProdject from "~/components/organisms/startups/createProject.vue";
 
 @Component({
   components: {
-    CreateProdgect,
+    CreateProdject,
   },
 })
 export default class extends Vue {
