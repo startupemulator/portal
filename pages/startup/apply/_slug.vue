@@ -16,9 +16,20 @@ import { Startup } from "~/models/Startup";
 })
 export default class extends Vue {
   startups: Array<Startup> = [];
+  technologies: Array<Technology> = [];
   technology: Array<Technology> = [];
+
   async asyncData({ $strapi, route }) {
-    const technology = await $strapi.find("technologies");
+    const technologies = await $strapi.find("technologies", [
+      ["is_public", true],
+    ]);
+    const myTechnologies = await $strapi.find("technologies", [
+      ["creator_id", $strapi.user.id],
+    ]);
+    const technology = await technologies;
+    if (myTechnologies !== null) {
+      myTechnologies.forEach((el) => technology.push(el));
+    }
     const startup = await $strapi.find("startups", {
       slug: route.params.slug,
     });
