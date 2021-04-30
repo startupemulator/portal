@@ -42,9 +42,11 @@ export default class extends Vue {
     const dataMatch = this.estimations.filter(
       (el) => el.value === +this.duration
     );
+    this.$refs.utags.children.forEach((element, i) => {
+      element.classList.remove("checked");
+    });
     if (dataMatch.length !== 0) {
       this.$refs.utags.children.forEach((element, i) => {
-        element.classList.remove("checked");
         if (i + 1 === dataMatch[0].id) {
           element.classList.add("checked");
         }
