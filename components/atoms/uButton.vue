@@ -49,6 +49,7 @@ export default {
   line-height: 32px;
   color: $main-text-color;
   transition: 0.3s;
+  box-sizing: border-box;
 }
 a.u-button {
   color: $main-text-color !important;

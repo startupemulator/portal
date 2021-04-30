@@ -13,7 +13,6 @@
         @filterCards="filterCards"
       ></U-Tabs-Long>
     </div>
-    <pre style="color: #fff">{{ startup[0] }}</pre>
     <div class="start-ups_cards-content startup-block">
       <div class="transition__startup-card">
         <Draft-card
