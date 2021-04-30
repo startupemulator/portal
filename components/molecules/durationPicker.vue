@@ -10,14 +10,14 @@
         :checked-class="technology.checked ? 'checked' : ''"
         :type="'radio'"
         :name="'duration'"
-        @pick="pickTechnologi($event.currentTarget, technology.id)"
+        @pick="pickTechnologi(technology.id)"
       >
       </uTags>
     </form>
   </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from "nuxt-property-decorator";
+import { Component, Prop, Vue, Watch } from "nuxt-property-decorator";
 import uTags from "~/components/atoms/uTags.vue";
 import { Estimations } from "~/models/Estimations";
 
@@ -29,18 +29,29 @@ export default class extends Vue {
   @Prop() duration: String;
   @Prop() estimations: Array<Estimations>;
 
-  pickTechnologi(item, i) {
-    //   this.$emit("aeb");
-    this.$refs.utags.children.forEach((element) => {
-      element.classList.remove("checked");
-    });
+  pickTechnologi(i) {
     this.estimations.forEach((el) => {
       if (i === el.id) {
-        item.parentNode.classList.add("checked");
-
         this.$emit("clickOnDuration", el);
       }
     });
+  }
+
+  @Watch("duration")
+  changeDuration() {
+    const dataMatch = this.estimations.filter(
+      (el) => el.value === +this.duration
+    );
+    this.$refs.utags.children.forEach((element, i) => {
+      element.classList.remove("checked");
+    });
+    if (dataMatch.length !== 0) {
+      this.$refs.utags.children.forEach((element, i) => {
+        if (i + 1 === dataMatch[0].id) {
+          element.classList.add("checked");
+        }
+      });
+    }
   }
 
   mounted() {

@@ -20,10 +20,12 @@
           :key="card.id"
           :card="card"
         ></Draft-card>
+
         <Startup-card
           v-for="card in startup"
           :key="card.id"
           :card="card"
+          :user-id="userId"
           :button_apply="false"
           :button_details="true"
         ></Startup-card>
@@ -49,12 +51,11 @@ import StartupCard from "~/components/molecules/startupCard.vue";
 })
 export default class extends Vue {
   @Prop() startups!: Array<Startup>;
-
+  @Prop() userId: Number;
   draft: Array<Startup> = [];
   startup: Array<Startup> = [];
   inProgress: Number;
   filterCards($event) {
-    console.log($event);
     switch ($event) {
       case 2:
         this.startup = this.startups.filter((el) => el.state !== "draft");

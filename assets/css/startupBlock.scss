@@ -115,6 +115,10 @@
     .startup-card__started-title.finished {
       background: #f0663b;
     }
+    .startup-card__started-title.owner {
+      background: #19adc7;
+      margin-left: 8px;
+    }
   }
   .startup-card-content {
     padding: 0 24px;
@@ -157,7 +161,7 @@
       box-sizing: border-box;
       border-radius: 32px;
       padding: 0 16px;
-      margin: 0 2px 8px 0;
+      margin: 0 4px 8px 0;
     }
   }
   .startup-card__started-start-time {

@@ -86,12 +86,13 @@
           @clickOnDuration="chooseDuration"
         ></Duration-picker>
 
-        <Add-input
-          :placeholder="'Or enter the number of days'"
-          :length="1"
-          :duration="duration"
-          @add="add"
-        ></Add-input>
+        <label for="days-title" class="days-title">
+          <input
+            id="days-title"
+            v-model="duration"
+            type="text"
+            placeholder="Or enter the number of days"
+        /></label>
       </div>
     </div>
     <div class="createProject-step1__buttons">
@@ -246,6 +247,19 @@ export default class extends Vue {
   border: 2px solid transparent;
   &:focus {
     border: 2px solid #b5c1d8;
+  }
+}
+.days-title {
+  position: relative;
+  &::after {
+    position: absolute;
+    content: "days";
+    right: 24px;
+    bottom: 0;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    color: #dbe4f3;
   }
 }
 </style>
