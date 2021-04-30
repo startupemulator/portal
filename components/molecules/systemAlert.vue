@@ -25,7 +25,7 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .system-alert {
-  position: absolute;
+  position: fixed;
   width: 343px;
   height: 148px;
   right: 16px;
@@ -35,6 +35,7 @@ export default class extends Vue {
   border-radius: 12px;
   color: #fff;
   display: flex;
+  z-index: 99;
   .system-alert__left-border {
     min-width: 16px;
     height: 148px;

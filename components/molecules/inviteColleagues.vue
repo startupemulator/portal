@@ -35,6 +35,7 @@
               v-for="item in specialisations"
               :key="item.id"
               class="specialityOne__item-item"
+              :style="specialisations.length > 1 ? 'border-radius: 12px' : ''"
               @click="chosespeciality($event.target)"
             >
               {{ item.speciality }}

@@ -45,14 +45,14 @@
     ></create-project-step-4>
     <popup-created-start-up
       v-if="popupPublish"
-      @closePopup="popupPublish = !popupPublish"
+      @closePopup="$nuxt.$router.push('/myProjects')"
     ></popup-created-start-up>
     <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
-// import Toast from "../../../store/modules/Toast";
+import Toast from "../../../store/modules/Toast";
 import createProjectStep1 from "./createProjectStep-1.vue";
 import createProjectStep2 from "./createProjectStep-2.vue";
 import createProjectStep3 from "./createProjectStep-3.vue";
@@ -104,24 +104,16 @@ export default class extends Vue {
     };
   }
 
-  async saveDraft() {
-    try {
-      const data = {
-        title: "My new Startup with owner this if update somthing",
-      };
-      await this.$strapi.update("startups", "5", data);
-      await this.$strapi.find("technologies");
-
-      this.createprodjectSteps.stepOne = false;
-      this.createprodjectSteps.stepTwo = true;
-    } catch (e) {}
+  saveDraft() {
+    this.createprodjectSteps.stepOne = false;
+    this.createprodjectSteps.stepTwo = true;
   }
 
   async publish() {
     try {
       this.loading = true;
       await this.$strapi.update("startups", this.createdStartupId.toString(), {
-        description: "new descriptiondescriptiondescriptiondescription",
+        description: this.startUpData.description,
       });
       // send specialists
       if (this.startUpData.specialists.some((el) => el.speciality_id)) {
@@ -147,31 +139,51 @@ export default class extends Vue {
         newTechnologies.forEach((el) => this.createNewTechnologies(el));
       }
       // sent technologies & invites
-      if (this.startUpData.coleagues.some((el) => el.email)) {
+      if (this.startUpData.coleagues.length !== 0) {
         this.newInvate(this.startUpData.coleagues);
       }
       // send sources
-      if (this.startUpData.sources.some((el) => el.link)) {
+      if (
+        this.startUpData.sources &&
+        !!this.startUpData.sources.some((el) => el.link)
+      ) {
+        console.log(!!this.startUpData.sources);
+        console.log(!!this.startUpData.sources.some((el) => el.link));
         this.startUpData.sources.forEach((el) => {
           this.addLink(el);
         });
       }
       // send guide
-      if (this.startUpData.guide.some((el) => el.name)) {
+      if (this.startUpData.guide) {
         this.startUpData.guide.forEach((el) => {
           this.addGuide(el);
-          this.popupPublish = !this.popupPublish;
         });
       }
+      this.popupPublish = !this.popupPublish;
       this.loading = false;
-    } catch (e) {}
+    } catch (e) {
+      Toast.show({
+        data: "Something wrong.",
+        duration: 3000,
+      });
+      console.error(e);
+      this.loading = false;
+    }
   }
 
   goToStepTwo(data: Array<Startup> = []) {
     this.createprodjectSteps.stepOne = false;
     this.createprodjectSteps.stepTwo = true;
     this.createdStartupId = data.id;
-    this.startUpData = data;
+
+    if (this.startUpData.length !== 0) {
+      this.startUpData.title = data.title;
+      this.startUpData.description = data.description;
+      this.startUpData.start_date = data.start_date;
+      this.startUpData.duration = data.duration;
+    } else {
+      this.startUpData = data;
+    }
   }
 
   goToStepBack() {
@@ -228,16 +240,6 @@ export default class extends Vue {
     }
   }
 
-  async addTechnologiesToStartup(data) {
-    try {
-      await this.$strapi.update("startups", this.createdStartupId.toString(), {
-        technologies: data,
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
   async createNewTechnologies(data) {
     try {
       await this.$strapi.create("technologies", {
@@ -262,11 +264,11 @@ export default class extends Vue {
     }
   }
 
-  async addLink(data) {
+  async addGuide(data) {
     try {
-      await this.$strapi.create("links", {
-        title: data.title,
-        url: data.link,
+      await this.$strapi.create("secrets", {
+        title: data.name,
+        description: data.comment,
         startup: this.createdStartupId.toString(),
       });
     } catch (e) {
@@ -274,12 +276,22 @@ export default class extends Vue {
     }
   }
 
-  async addGuide(data) {
+  async addLink(data) {
     try {
       await this.$strapi.create("sources", {
-        title: data.name,
-        link: data.comment,
+        title: data.title,
+        link: data.link,
         startups: this.createdStartupId.toString(),
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async addTechnologiesToStartup(data) {
+    try {
+      await this.$strapi.update("startups", this.createdStartupId.toString(), {
+        technologies: data,
       });
     } catch (e) {
       console.error(e);

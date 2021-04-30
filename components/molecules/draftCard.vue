@@ -119,6 +119,7 @@ export default class extends Vue {
   button {
     margin-top: 16px;
   }
+
   .startup-card__started-name {
     font-weight: bold;
     font-size: 26px;
@@ -131,13 +132,25 @@ export default class extends Vue {
 @media (min-width: 768px) {
   .startup-card.startup-card--draft {
     min-height: 568px;
+    width: 318px;
+    box-sizing: border-box;
     .startup-card__started-text {
-      min-height: 274px;
+      min-height: 203px;
+      margin-top: 24px;
     }
 
     .draft {
       padding: 12px;
     }
+  }
+  .startup-card--draft {
+    .startup-card__started-name {
+      font-size: 35px;
+      line-height: 38px;
+    }
+  }
+  .startup-card.startup-card--draft .startup-card__started-name {
+    margin-top: 24px;
   }
 }
 </style>

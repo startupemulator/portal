@@ -148,6 +148,7 @@ export default class extends Vue {
   }
 
   mounted() {
+    console.log(this.startUpData);
     if (this.startUpData.coleagues) {
       this.invitedcolleagues = this.startUpData.coleagues;
     }

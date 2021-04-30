@@ -19,74 +19,70 @@
                 : 'tartup-card__started--disable'
             "
           >
-            <span>{{ button.messageLenght }}</span>
+            <span>{{ messageLength }}</span>
           </div>
         </button>
       </li>
     </ul>
   </div>
 </template>
-<script>
-export default {
-  props: {
-    owned: {
-      type: Boolean,
-      default: true,
+<script lang="ts">
+import { Component, Prop, Vue } from "nuxt-property-decorator";
+@Component({
+  components: {},
+})
+export default class extends Vue {
+  @Prop() owned: true;
+  @Prop({ default: 99 }) messageLength: Number;
+  move = false;
+  tabs: Array<any> = [
+    {
+      id: 2,
+      title: "Owned",
+      active: false,
+      message: false,
+      messageLength: 0,
     },
-  },
-  data() {
-    return {
-      move: false,
-      tabs: [
-        {
-          id: 2,
-          title: "Owned",
-          active: false,
-          message: false,
-          messageLenght: 0,
-        },
-        {
-          id: 3,
-          title: "Pending",
-          active: true,
-          message: false,
-          messageLenght: 0,
-        },
-        {
-          id: 4,
-          title: "In progress",
-          active: false,
-          message: true,
-          messageLenght: 99,
-        },
-        {
-          id: 5,
-          title: "Finished",
-          active: false,
-          message: false,
-          messageLenght: 0,
-        },
-      ],
-    };
-  },
+    {
+      id: 3,
+      title: "Pending",
+      active: true,
+      message: false,
+      messageLength: 0,
+    },
+    {
+      id: 4,
+      title: "In progress",
+      active: false,
+      message: true,
+    },
+    {
+      id: 5,
+      title: "Finished",
+      active: false,
+      message: false,
+      messageLength: 0,
+    },
+  ];
+
+  activateButton(id) {
+    this.tabs.forEach((tab) => {
+      tab.id !== id ? (tab.active = false) : (tab.active = true);
+    });
+    if (id > 3) {
+      this.move = true;
+    } else {
+      this.move = false;
+    }
+    this.$emit("filterCards", id);
+  }
+
   mounted() {
     if (!this.owned) {
       this.tabs.shift();
     }
-  },
-  methods: {
-    activateButton(id) {
-      this.tabs.forEach((tab) => {
-        tab.id !== id ? (tab.active = false) : (tab.active = true);
-      });
-      if (id > 3) {
-        this.move = true;
-      } else {
-        this.move = false;
-      }
-    },
-  },
-};
+  }
+}
 </script>
 <style lang="scss" scoped>
 .u-tab {

@@ -7,7 +7,11 @@
           <img src="~/assets/img/+.svg" alt="" /> <span>Create Startup</span>
         </nuxt-link>
       </div>
-      <U-Tabs-Long :owned="true"></U-Tabs-Long>
+      <U-Tabs-Long
+        :owned="true"
+        :message-lenght="inProgress"
+        @filterCards="filterCards"
+      ></U-Tabs-Long>
     </div>
     <div class="start-ups_cards-content startup-block">
       <div class="transition__startup-card">
@@ -17,7 +21,7 @@
           :card="card"
         ></Draft-card>
         <Startup-card
-          v-for="card in startups"
+          v-for="card in startup"
           :key="card.id"
           :card="card"
           :button_apply="false"
@@ -44,18 +48,38 @@ import StartupCard from "~/components/molecules/startupCard.vue";
   },
 })
 export default class extends Vue {
-  @Prop() startups: Array<Startup>;
-  @Prop({
-    default: () => [
-      {
-        id: "0",
-        title: "Startup #1",
-        description:
-          "Continue creating your own startup to gather a team you need to develop your idea. Continue creating your own startup to gather a team you need to develop your idea.",
-      },
-    ],
-  })
-  draft: Array<"Draft">;
+  @Prop() startups!: Array<Startup>;
+
+  draft: Array<Startup> = [];
+  startup: Array<Startup> = [];
+  inProgress: Number;
+  filterCards($event) {
+    console.log($event);
+    switch ($event) {
+      case 2:
+        this.startup = this.startups.filter((el) => el.state !== "draft");
+        break;
+      case 3:
+        this.startup = this.startups.filter((el) => el.state === "not_started");
+        break;
+      case 4:
+        this.startup = this.startups.filter((el) => el.state === "in_progress");
+        break;
+      case 5:
+        this.startup = this.startups.filter((el) => el.state === "finished");
+        break;
+      default:
+        break;
+    }
+  }
+
+  mounted() {
+    this.draft = this.startups.filter((el) => el.state === "draft");
+    this.startup = this.startups.filter((el) => el.state !== "draft");
+    this.inProgress = this.startups.filter(
+      (el) => el.state === "in_progress"
+    ).length;
+  }
 }
 </script>
 <style lang="scss">
@@ -84,6 +108,15 @@ export default class extends Vue {
         width: 254px;
         height: 56px;
       }
+    }
+  }
+}
+
+@media (min-width: 1425px) {
+  .my-projects {
+    .startup-block {
+      max-width: 1450px;
+      margin-left: -25px;
     }
   }
 }

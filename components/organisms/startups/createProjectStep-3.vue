@@ -10,7 +10,7 @@
       v-for="(item, i) in existingSourseComponent"
       :key="item.id"
       :name="'Link ' + (i + 1)"
-      :link-name="item.name"
+      :link-name="item.title"
       :link-href="item.link"
       @removeExistingSources="removeExistingSources(item.id)"
       @textInput="textInput($event, i)"
@@ -84,7 +84,8 @@ export default class extends Vue {
   }
 
   mounted() {
-    if (this.startUpData.sources) {
+    if (this.startUpData.sources.length !== 0) {
+      console.log(this.startUpData.sources);
       this.existingSourseComponent = this.startUpData.sources;
     }
   }
