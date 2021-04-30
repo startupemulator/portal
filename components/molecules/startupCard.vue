@@ -17,6 +17,12 @@
         >
           {{ card.state.split("_").join(" ") | capitalize }}
         </div>
+        <div
+          v-if="card.owner.id === userId"
+          class="startup-card__started-title owner"
+        >
+          Owner
+        </div>
       </div>
     </div>
     <div class="startup-card-content">
@@ -83,6 +89,7 @@ export default class StartupCard extends Vue {
   @Prop({ default: true }) button_details: Boolean;
   @Prop() card: Startup;
   @Prop() technology: Technology;
+  @Prop() userId: Number;
 }
 </script>
 <style lang="scss" scoped>

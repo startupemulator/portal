@@ -1,6 +1,6 @@
 <template>
   <div class="projects">
-    <MyProjects :startups="startupsList"></MyProjects>
+    <MyProjects :startups="startupsList" :user-id="userId"></MyProjects>
   </div>
 </template>
 <script lang="ts">
@@ -14,6 +14,7 @@ import myProjects from "~/components/organisms/myprojects/myProjects.vue";
   },
 })
 export default class extends Vue {
+  userId: Number = this.$strapi.user.id;
   async asyncData({ $strapi }) {
     const startups = await $strapi.find("startups", [
       ["owner.id", $strapi.user.id],
