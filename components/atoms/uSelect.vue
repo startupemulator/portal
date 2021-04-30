@@ -18,40 +18,35 @@
 
       <ul v-show="openSpeciality" class="u-select__item-list">
         <li
-          v-for="item in speciality"
+          v-for="item in specialisations"
           :key="item.id"
           @click="chooseSpeciality($event)"
         >
-          {{ item.specialityPosition }}
+          {{ item.title }}
         </li>
       </ul>
     </div>
   </div>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      openSpeciality: false,
-      choosenSpeciality: "Select a speciality",
-      speciality: [
-        { id: 0, specialityPosition: "Front-end" },
-        { id: 1, specialityPosition: "Back-end" },
-        { id: 2, specialityPosition: "DevOps" },
-        { id: 3, specialityPosition: "Seo" },
-      ],
-    };
-  },
-  methods: {
-    toggleSelect() {
-      this.openSpeciality = !this.openSpeciality;
-    },
-    chooseSpeciality(e) {
-      this.choosenSpeciality = e.target.textContent;
-      this.openSpeciality = !this.openSpeciality;
-    },
-  },
-};
+<script lang="ts">
+import { Component, Prop, Vue } from "nuxt-property-decorator";
+
+@Component({
+  components: {},
+})
+export default class extends Vue {
+  @Prop() specialisations: Array<any>;
+  openSpeciality: Boolean = false;
+  choosenSpeciality: String = "Select a speciality";
+  toggleSelect() {
+    this.openSpeciality = !this.openSpeciality;
+  }
+
+  chooseSpeciality(e) {
+    this.choosenSpeciality = e.target.textContent;
+    this.openSpeciality = !this.openSpeciality;
+  }
+}
 </script>
 <style lang="scss">
 .u-select__list {
