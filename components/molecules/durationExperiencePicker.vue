@@ -10,7 +10,7 @@
         :checked-class="technology.checked ? 'checked' : ''"
         :type="'radio'"
         :name="'duration'"
-        @pick="pickTechnologi(technology.id)"
+        @pick="pickTechnology(technology.id)"
       >
       </uTags>
     </form>
@@ -29,7 +29,7 @@ export default class extends Vue {
   @Prop() duration: Number;
   @Prop() experiences: Array<Experience>;
 
-  pickTechnologi(i) {
+  pickTechnology(i) {
     this.experiences.forEach((el) => {
       if (i === el.id) {
         this.$refs.utags.children.forEach((element, i) => {
