@@ -82,7 +82,6 @@ export default class extends Vue {
       if (newRequest !== null) {
         this.loading = false;
         this.popupApplied = !this.popupApplied;
-        console.log(newRequest);
       }
     } catch (e) {
       this.loading = false;
