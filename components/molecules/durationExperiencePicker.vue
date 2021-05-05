@@ -1,59 +1,48 @@
 <template>
   <div class="technology-picker">
     <h2>{{ title }}</h2>
-    <form>
-      <UTags
-        v-for="technology in technologies"
+    <form ref="utags">
+      <uTags
+        v-for="technology in experiences"
         :id="technology.id"
         :key="technology.id"
         :title="technology.title"
         :checked-class="technology.checked ? 'checked' : ''"
         :type="'radio'"
         :name="'duration'"
-        @pick="pickTechnology($event, technology.id)"
+        @pick="pickTechnology(technology.id)"
       >
-        {{ technology.title }}
-      </UTags>
+      </uTags>
     </form>
   </div>
 </template>
-<script>
-import UTags from "~/components/atoms/uTags.vue";
-export default {
-  components: {
-    UTags,
-  },
-  props: {
-    title: {
-      type: String,
-      default: " ",
-    },
-  },
-  data() {
-    return {
-      technologies: [
-        { id: "01", checked: true, title: "Less than 6 months" },
-        { id: "02", checked: false, title: "6 months – 1 year" },
-        { id: "03", checked: false, title: "1–2 years" },
-        { id: "04", checked: false, title: "2–3 years" },
-        { id: "05", checked: false, title: "3–4 years" },
-        { id: "06", checked: false, title: "4–5 years" },
-        { id: "07", checked: false, title: "More than 5 years" },
-      ],
-    };
-  },
-  methods: {
-    pickTechnology(item, i) {
-      this.technologies.forEach((el) => {
-        if (i === el.id) {
-          el.checked = !el.checked;
-        } else if (i !== el.id) {
-          el.checked = false;
-        }
-      });
-    },
-  },
-};
+<script lang="ts">
+import { Component, Prop, Vue } from "nuxt-property-decorator";
+import uTags from "~/components/atoms/uTags.vue";
+import { Experience } from "~/models/Experience";
+
+@Component({
+  components: { uTags },
+})
+export default class extends Vue {
+  @Prop({ default: " " }) title: String;
+  @Prop() duration: Number;
+  @Prop() experiences: Array<Experience>;
+
+  pickTechnology(i) {
+    this.experiences.forEach((el) => {
+      if (i === el.id) {
+        this.$refs.utags.children.forEach((element, i) => {
+          element.classList.remove("checked");
+          if (i + 1 === el.id) {
+            element.classList.add("checked");
+          }
+        });
+        this.$emit("clickOnDuration", el);
+      }
+    });
+  }
+}
 </script>
 <style lang="scss">
 .technology-picker h2 {

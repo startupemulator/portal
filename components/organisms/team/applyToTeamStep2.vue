@@ -1,7 +1,8 @@
 <template>
   <div class="apply-to-team apply-to-team-step2">
     <UTitle :text="'Apply to Startup ' + startup[0].title"></UTitle>
-    <USelect></USelect>
+
+    <USelect :specialisations="specialisations"></USelect>
     <textarea class="apply-to-team__comment" placeholder="Comment"></textarea>
     <div class="apply-to-team__button">
       <U-button
@@ -27,5 +28,6 @@ import { Startup } from "~/models/Startup";
 })
 export default class extends Vue {
   @Prop() startup: Array<Startup>;
+  @Prop() specialisations: Array<any>;
 }
 </script>
