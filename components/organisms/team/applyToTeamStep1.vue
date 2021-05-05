@@ -6,12 +6,15 @@
     <DurationExperiencePicker
       :title="'Total years of your experience'"
       :experiences="experiences"
-      :duration="duration"
+      :duration="newRequest.duration"
       @clickOnDuration="$emit('chooseDuration', $event)"
     ></DurationExperiencePicker>
     <TechnologyPicker
       :title="'Pick technologies you have an experience with'"
       :technologies="technologies"
+      :choosen-technologies="newRequest.technologies"
+      @chosenTechnologi="chosenTechnology"
+      @addTechnologies="$emit('addTechnologies', $event)"
     ></TechnologyPicker>
     <div class="apply-to-team__button">
       <U-button
@@ -42,6 +45,10 @@ import { Experience } from "~/models/Experience";
 export default class extends Vue {
   @Prop() technologies: Array<Technology>;
   @Prop() experiences: Array<Experience>;
-  @Prop() duration: Number;
+  @Prop() newRequest: Array<any>;
+
+  chosenTechnology(data, id) {
+    this.$emit("chosenTechnology", id);
+  }
 }
 </script>

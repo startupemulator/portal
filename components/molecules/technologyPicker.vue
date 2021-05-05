@@ -12,13 +12,7 @@
         {{ item.title }}
       </u-tags>
     </form>
-    <!-- <input
-      v-if="addTechnology"
-      class="input-technology"
-      type="text"
-      placeholder="Type a technology to add"
-      @keydown="inputTechnology($event)"
-    /> -->
+
     <Add-input
       :placeholder="'Type a technology to add'"
       :length="12"
@@ -39,6 +33,7 @@ export default class extends Vue {
   @Prop({ default: " " }) title: String;
   @Prop({ default: true }) addTechnology: Boolean;
   @Prop() technologies: Array<Technology>;
+  @Prop() choosenTechnologies: Array<any>;
   chosenTechnology: Array<any>;
   pickTechnology(item, id) {
     const pickeTechnology = item.target.parentNode.classList;
@@ -66,6 +61,18 @@ export default class extends Vue {
         title: value,
       });
       e.target.value = "";
+    }
+  }
+
+  mounted() {
+    if (this.choosenTechnologies) {
+      this.$refs.technologyList.forEach((el, i) => {
+        if (
+          this.choosenTechnologies.some((item) => item === el.id.split("-")[0])
+        ) {
+          el.parentElement.classList.add("checked");
+        }
+      });
     }
   }
 }
