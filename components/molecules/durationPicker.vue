@@ -26,7 +26,7 @@ import { Estimations } from "~/models/Estimations";
 })
 export default class extends Vue {
   @Prop({ default: " " }) title: String;
-  @Prop() duration: String;
+  @Prop() duration: String | Number;
   @Prop() estimations: Array<Estimations>;
 
   pickTechnologi(i) {
@@ -39,6 +39,7 @@ export default class extends Vue {
 
   @Watch("duration")
   changeDuration() {
+    console.log(this.duration);
     const dataMatch = this.estimations.filter(
       (el) => el.value === +this.duration
     );

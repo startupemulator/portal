@@ -1,31 +1,34 @@
 <template>
   <div class="participate-challenge">
     <div class="participate-challenge__content">
-      <U-Back link="/"></U-Back>
+      <U-Back link="/challenges"></U-Back>
       <U-title :text="'Participate in ' + challenge.title"></U-title>
       <Duration-picker
         :title="'Select your expected estimation for this challenge'"
+        :estimations="estimations"
+        :duration="duration"
+        @clickOnDuration="chooseDuration"
       ></Duration-picker>
 
-      <Add-input
+      <UInput
         :placeholder="'Or enter the number of days'"
-        :length="1"
-      ></Add-input>
+        :value="duration"
+        @textInput="textInput"
+      ></UInput>
       <div class="bottom-fixed-button">
         <U-button
           :button-name="'Start'"
           :button-class="'u-button-blue'"
-          @clickOnButton="togglePopupChallengeStarted"
+          @clickOnButton="startChallenge"
         ></U-button>
       </div>
     </div>
-    <popup-challenge-started
+    <PopupChallengeStarted
       v-if="popupChallengeStarted"
       :title="'The challenge has started'"
       :text-content="`Come back when you complete this challenge and get feedback from our
         experts. Also, feel free to request feedback when you are in progress.`"
-      @closePopupLinkSent="togglePopupChallengeStarted"
-    ></popup-challenge-started>
+    ></PopupChallengeStarted>
   </div>
 </template>
 
@@ -34,32 +37,68 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 import DurationPicker from "~/components/molecules/durationPicker.vue";
 import PopupChallengeStarted from "~/components/molecules/popupChallengeStarted.vue";
 import { Challenge } from "~/models/Challenge";
+import { Estimations } from "~/models/Estimations";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
-import AddInput from "~/components/atoms/addInput.vue";
-import {
-  enableScrolling,
-  disableScrolling,
-} from "~/assets/jshelper/toggleScroll";
+import UInput from "~/components/atoms/uInput.vue";
+// import {
+//   enableScrolling,
+//   disableScrolling,
+// } from "~/assets/jshelper/toggleScroll";
+// import durationExperiencePickerVue from "~/components/molecules/durationExperiencePicker.vue";
 @Component({
   components: {
     UBack,
     UTitle,
     UButton,
     DurationPicker,
-    AddInput,
+    UInput,
     PopupChallengeStarted,
   },
 })
 export default class ParticipateChallenge extends Vue {
   @Prop() challenge: Challenge;
-  popupChallengeStarted = false;
+  @Prop() estimations: Estimations;
+  duration: Number | String = "";
+
+  @Prop() popupChallengeStarted = false;
   numberDays = 3;
 
-  togglePopupChallengeStarted() {
-    this.popupChallengeStarted = !this.popupChallengeStarted;
-    this.popupChallengeStarted ? disableScrolling() : enableScrolling();
+  startChallenge() {
+    this.$emit("startChallenge", this.duration);
+
+    // this.popupChallengeStarted ? disableScrolling() : enableScrolling();
+  }
+
+  textInput(days) {
+    this.duration = days;
+  }
+
+  chooseDuration(el: { [key: string]: any }) {
+    this.duration = el.value;
+    console.log(this.duration);
   }
 }
 </script>
+<style lang="scss">
+input {
+  border: 2px solid transparent;
+  &:focus {
+    border: 2px solid #b5c1d8;
+  }
+}
+.days-title {
+  position: relative;
+  &::after {
+    position: absolute;
+    content: "days";
+    right: 24px;
+    bottom: 0;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    color: #dbe4f3;
+  }
+}
+</style>
