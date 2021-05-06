@@ -166,7 +166,6 @@ export default class extends Vue {
 
   chooseDuration(el: { [key: string]: any }) {
     this.duration = el.value;
-    console.log(this.duration);
   }
 
   add(duration: { [key: string]: any }) {
