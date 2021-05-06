@@ -12,7 +12,6 @@ import { Challenge } from "~/models/Challenge";
   components: {
     ChallengePage,
   },
-  middleware: ["deny-unauthenticated"],
 })
 export default class TakeChallenge extends Vue {
   challenge: Challenge;

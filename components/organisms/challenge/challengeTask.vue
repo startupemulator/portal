@@ -3,13 +3,14 @@
     class="challenge-task"
     :style="requestFeedback || addFeedback ? 'margin: 0 auto;' : ''"
   >
+    <pre style="color: #fff"> {{ challenge }}</pre>
     <div
       v-show="!requestFeedback && !addFeedback"
       class="challenge-task__content"
     >
       <UBack :link="'/challenges'"></UBack>
       <div class="challenge-task__header">
-        <UTitle :text="'Task Name'"></UTitle>
+        <UTitle :text="challenge.title"></UTitle>
         <div
           v-if="isStarted || finished"
           class="challenge-task__header__startup-state"
@@ -20,11 +21,11 @@
       </div>
 
       <UTags
-        v-for="(item, i) in 2"
+        v-for="(item, i) in challenge.specialisations"
         :key="i"
-        :title="i < 1 ? 'UI/UX Designer' : 'Front-end Developer'"
+        :title="item.title"
       ></UTags>
-      <DifficultyLevel></DifficultyLevel>
+      <DifficultyLevel :card="challenge"></DifficultyLevel>
       <div
         v-if="isStarted || finished"
         class="startup-card__started-start-time"
@@ -53,12 +54,7 @@
         </li>
       </ul>
       <p>
-        The goal is to implement Learning Management Portal - a portal for
-        managing the educational process and teaching materials as part of the
-        university curriculum. Our purposes are remove the manual work of the
-        teacher; combine online learning tools in one tool; give students easy
-        access to materials; simplify the implementation and validation of
-        practical tasks; open access to current ratings.
+        {{ challenge.description }}
       </p>
       <CommentExpert v-if="isExpert"></CommentExpert>
       <div v-if="!isStarted && commentExpert" class="challenge-task__button">
@@ -72,13 +68,24 @@
         <U-button
           :button-name="'Take Part'"
           :button-class="'u-button-blue '"
+          :is-link="'nuxt-link'"
+          :href="'/challenge/accept/' + challenge.slug"
         ></U-button>
       </div>
 
-      <Sources
+      <!-- <Sources
         :finished="true"
         :title="'Solution'"
         :link1="'Link 1'"
+        :link2="'Link 2'"
+      ></Sources>  -->
+      <Sources
+        v-for="item in challenge.sources"
+        :key="item.id"
+        :finished="false"
+        :title="'Sources'"
+        :title-link1="item.title"
+        :link1="item.link"
         :link2="'Link 2'"
       ></Sources>
       <div class="used-technologies">
@@ -161,8 +168,9 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
-
 import RequestFeedback from "./requestFeedback.vue";
+import { Challenge } from "~/models/Challenge";
+
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
@@ -190,6 +198,7 @@ import FeedBackCard from "~/components/molecules/feedbackCard.vue";
   },
 })
 export default class extends Vue {
+  @Prop() challenge: Array<Challenge>;
   @Prop() isStarted: Boolean;
   @Prop() finished: Boolean;
   @Prop() isDeveloper: Boolean;
