@@ -19,6 +19,7 @@ import { Experience } from "~/models/Experience";
   components: {
     BecomeToExpert,
   },
+  middleware: ["deny-unauthenticated"],
 })
 export default class extends Vue {
   startups: Array<Startup> = [];

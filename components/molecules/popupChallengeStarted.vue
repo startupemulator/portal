@@ -4,7 +4,7 @@
       <button
         type="button"
         class="sign-up-link__close"
-        @click="$emit('closePopupLinkSent')"
+        @click="$router.push('/challenges')"
       >
         <img src="~/assets/img/close.svg" alt="Close" />
       </button>
@@ -15,6 +15,7 @@
       <U-button
         :button-name="'Got It'"
         :button-class="'u-button-blue'"
+        @clickOnButton="$router.push('/challenges')"
       ></U-button>
     </div>
   </div>
