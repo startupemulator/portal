@@ -58,9 +58,9 @@ export default class extends Vue {
   technology: Array<Technology> = [];
   isLogined = !!this.$strapi.user;
   // data loaded here will be added during server rendering
-  async asyncData({ $strapi, $startups }) {
-    const startups = await $startups();
-    const challenges = await $strapi.find("challenges");
+  async asyncData({ $strapi, $startups, $challenges }) {
+    const { startups } = await $startups();
+    const { challenges } = await $challenges();
     const testimonials = await $strapi.find("testimonials");
     const technologies = await $strapi.find("technologies");
     // const notifications = await $strapi.find("notifications");
@@ -70,7 +70,7 @@ export default class extends Vue {
     // console.log(startups);
     // console.log(challenges);
     return {
-      startups: startups.startups,
+      startups,
       challenges,
       testimonials,
       technologies,
