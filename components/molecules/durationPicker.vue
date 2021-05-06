@@ -18,8 +18,8 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "nuxt-property-decorator";
+import { Estimation } from "../../models/Estimation";
 import uTags from "~/components/atoms/uTags.vue";
-import { Estimations } from "~/models/Estimations";
 
 @Component({
   components: { uTags },
@@ -27,7 +27,7 @@ import { Estimations } from "~/models/Estimations";
 export default class extends Vue {
   @Prop({ default: " " }) title: String;
   @Prop() duration: String | Number;
-  @Prop() estimations: Array<Estimations>;
+  @Prop() estimations: Array<Estimation>;
 
   pickTechnologi(i) {
     this.estimations.forEach((el) => {

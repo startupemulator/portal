@@ -16,10 +16,9 @@ import { Challenge } from "~/models/Challenge";
 })
 export default class TakeChallenge extends Vue {
   challenge: Challenge;
-  async asyncData({ $strapi, route }) {
-    const [challenge] = await $strapi.find("challenges", {
-      slug: route.params.slug,
-    });
+
+  async asyncData({ $challenge, route }) {
+    const challenge = await $challenge(route.params.slug);
     return { challenge };
   }
 }

@@ -34,10 +34,10 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
+import { Estimation } from "../../../models/Estimation";
 import DurationPicker from "~/components/molecules/durationPicker.vue";
 import PopupChallengeStarted from "~/components/molecules/popupChallengeStarted.vue";
 import { Challenge } from "~/models/Challenge";
-import { Estimations } from "~/models/Estimations";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
@@ -59,7 +59,7 @@ import UInput from "~/components/atoms/uInput.vue";
 })
 export default class ParticipateChallenge extends Vue {
   @Prop() challenge: Challenge;
-  @Prop() estimations: Estimations;
+  @Prop() estimations: Estimation;
   duration: Number | String = "";
 
   @Prop() popupChallengeStarted = false;

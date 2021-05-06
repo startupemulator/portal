@@ -1,11 +1,13 @@
 import { Strapi } from "@nuxtjs/strapi";
 
 export function startups($strapi: Strapi) {
-  return () => {
+  return (states: string[] = ["in_progress", "not_started", "finished"]) => {
     return $strapi.graphql({
       query: `
         query {
-          startups {
+          startups (where: {state_in:[${states
+            .map((i) => `"${i}"`)
+            .join(",")}]}){
             id
             title
             slug
