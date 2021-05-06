@@ -13,6 +13,7 @@ input {
 textarea {
   overflow: hidden;
   outline: none;
+  resize: vertical;
 }
 button {
   color: $button-color;

@@ -1,22 +1,102 @@
 $namespace: "xmx"; // change the 'mx' to 'xmx'. then <date-picker prefix-class="xmx" />
 
 $default-color: #fff;
-$primary-color: #1c232f;
+$primary-color: #b5c1d8;
 
 @import "~vue2-datepicker/scss/index.scss";
 
 .xmx-datepicker-main {
   background-color: #2e384a;
+  box-shadow: 0 8px 24px rgba(28, 35, 48, 0.2);
   border-radius: 12px;
+  border: none;
+  font-family: $font-stack;
+}
+.xmx-table-date .cell.not-current-month {
+  color: #b5c1d8;
+}
+.xmx-date-row td div {
+  font-weight: 500;
+  font-size: 17px;
+}
+.xmx-table thead th {
+  color: #8c97ac;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 32px;
 }
 .xmx-calendar-content .cell:hover {
-  background-color: #1c232f;
+  box-shadow: inset 0 -2px 4px 1px rgba(48, 92, 178, 0.15),
+    inset 0 1px 4px rgba(255, 255, 255, 0.15);
+  box-sizing: border-box;
+  border-radius: 6px;
+  background: #59667e;
+}
+.xmx-calendar-content .cell.active {
+  border-radius: 6px;
+  background: #59667e;
+}
+.xmx-icon-left::before,
+.xmx-icon-right::before,
+.xmx-icon-double-left::before,
+.xmx-icon-double-right::before,
+.xmx-icon-double-left::after,
+.xmx-icon-double-right::after {
+  width: 15px;
+  height: 15px;
+  border-width: 3px 0 0 3px;
+}
+.xmx-table-date td,
+.xmx-table-date th {
+  height: 48px;
+  width: 48px;
+}
+.xmx-table-month td,
+.xmx-table-month th {
+  width: 112px;
+  height: 72px;
+}
+.xmx-table-year td,
+.xmx-table-year th {
+  width: 168px;
+  height: 57.5px;
+}
+.xmx-calendar-header-label {
+  font-weight: 500;
+  font-size: 17px;
+}
+.xmx-calendar {
+  width: 384px;
+  height: 392px;
+  font-weight: 500;
+  font-size: 17px;
+  padding: 16px;
+}
+.xmx-table-month,
+.xmx-table-year {
+  margin-top: 24px;
+}
+.xmx-btn {
+  color: #8c97ac;
+  font-weight: 500;
+  font-size: 17px;
+}
+.xmx-calendar-header-label .xmx-btn-text {
+  color: #fff;
+}
+.xmx-btn-text:hover {
+  border-radius: 6px;
+  background: #59667e;
+  color: #fff;
 }
 .xmx-table-date .today {
   color: #fff;
-  font-size: 14px;
-  font-weight: bold;
-  border: 1px solid #1c232f;
+  font-weight: 500;
+  font-size: 17px;
+  border-radius: 6px;
+  line-height: 32px;
+  background: #59667e;
+  border: 1px solid #8c97ac;
 }
 .xmx-datepicker {
   .xmx-input-wrapper input {

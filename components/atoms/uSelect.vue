@@ -20,7 +20,7 @@
         <li
           v-for="item in specialisations"
           :key="item.id"
-          @click="chooseSpeciality($event)"
+          @click="chooseSpeciality($event, item.id)"
         >
           {{ item.title }}
         </li>
@@ -42,9 +42,10 @@ export default class extends Vue {
     this.openSpeciality = !this.openSpeciality;
   }
 
-  chooseSpeciality(e) {
+  chooseSpeciality(e, id) {
     this.choosenSpeciality = e.target.textContent;
     this.openSpeciality = !this.openSpeciality;
+    this.$emit("choosenSpeciality", id);
   }
 }
 </script>

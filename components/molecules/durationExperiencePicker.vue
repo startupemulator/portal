@@ -38,9 +38,16 @@ export default class extends Vue {
             element.classList.add("checked");
           }
         });
+
         this.$emit("clickOnDuration", el);
       }
     });
+  }
+
+  mounted() {
+    if (this.duration) {
+      this.pickTechnology(this.duration);
+    }
   }
 }
 </script>

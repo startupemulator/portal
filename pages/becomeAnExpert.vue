@@ -1,6 +1,6 @@
 <template>
   <div class="fullscreen">
-    <pre style="color: #fff">{{ technologies }}</pre>
+    <!-- <pre style="color: #fff">{{ technologies }}</pre> -->
 
     <BecomeAnExpert :technologies="technologies"></BecomeAnExpert>
   </div>
