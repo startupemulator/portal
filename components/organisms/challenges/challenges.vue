@@ -13,6 +13,7 @@
             <li
               v-for="specialisation in specialisations"
               :key="specialisation.id"
+              ref="specialisations"
               class="challenges__header-speciality-filter_item"
             >
               <U-tags
@@ -42,7 +43,10 @@
             ref="diffcultyList"
             class="challenges__header-diffculty-filter-list"
           >
-            <li class="challenges__header-diffculty-filter-item">
+            <li
+              ref="difficulty"
+              class="challenges__header-diffculty-filter-item"
+            >
               <U-tags
                 v-for="(item, i) in 5"
                 :id="i + 1 + '.difficulty'"
@@ -72,6 +76,7 @@
       :button-class="'u-button-gray more-cards'"
       @clickOnButton="showMoreCards"
     ></U-button>
+    <EmptyState v-if="emptyState" @clickOnButton="cleanFilter"></EmptyState>
     <AppTeamDevelop></AppTeamDevelop>
   </div>
 </template>
@@ -84,6 +89,7 @@ import UTags from "~/components/atoms/uTags.vue";
 import { Challenge } from "~/models/Challenge";
 import { Specialisation } from "~/models/Specialisation";
 import UButton from "~/components/atoms/uButton.vue";
+import EmptyState from "~/components/molecules/emptyState.vue";
 
 @Component({
   components: {
@@ -92,6 +98,7 @@ import UButton from "~/components/atoms/uButton.vue";
     AppTeamDevelop,
     ChallengeCard,
     UButton,
+    EmptyState,
   },
 })
 export default class extends Vue {
@@ -101,6 +108,7 @@ export default class extends Vue {
   @Prop()
   specialisations: Array<Specialisation>;
 
+  @Prop() emptyState: Boolean;
   private filterList: boolean = false;
   difficultyFilter: Array<any> = [];
   specialityFilter: Array<any> = [];
@@ -111,6 +119,16 @@ export default class extends Vue {
 
   toggleFilserList() {
     this.filterList = !this.filterList;
+  }
+
+  cleanFilter() {
+    this.$refs.specialisations.forEach((el) => {
+      el.children[0].classList.remove("checked");
+    });
+    this.$refs.difficulty.children.forEach((el) => {
+      el.classList.remove("checked");
+    });
+    this.$emit("cleanFilter", []);
   }
 
   levelFilter($event) {

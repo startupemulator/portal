@@ -197,9 +197,10 @@ export default class extends Vue {
             description: this.description,
             start_date: new Date(this.date.split("  |  ").reverse().join("-")),
             duration: this.duration,
+            slug: new Date().getTime().toString(),
             owner: this.$strapi.user.id,
           };
-          console.log(data);
+
           const createStartup = await this.$strapi.create("startups", data);
 
           this.$emit("goToStepTwo", createStartup);

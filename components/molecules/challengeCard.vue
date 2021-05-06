@@ -239,7 +239,7 @@ export default class extends Vue {
   .startup-block.challenges .challenge-card {
     width: 318px;
     margin-right: 24px;
-    min-height: 522px;
+    min-height: 484px;
   }
 }
 </style>

@@ -1,5 +1,7 @@
 <template>
   <div class="fullscreen">
+    <!-- <pre style="color: #fff">{{ technologies }}</pre> -->
+
     <BecomeAnExpert :technologies="technologies"></BecomeAnExpert>
   </div>
 </template>
@@ -16,7 +18,9 @@ import BecomeAnExpert from "~/components/organisms/becomeAnExpert/becomeAnExpert
 })
 export default class extends Vue {
   async asyncData({ $strapi }) {
-    const technologies = await $strapi.find("technologies");
+    const technologies = await $strapi.find("technologies", [
+      ["is_public", true],
+    ]);
     return {
       technologies,
     };

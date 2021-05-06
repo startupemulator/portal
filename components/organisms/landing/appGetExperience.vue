@@ -3,27 +3,51 @@
     <div class="get-experience-content">
       <div class="get-experience-content-mobile">
         <div class="experience-content__first-mobile-image">
-          <img src="~/assets/img/m-img1.png" alt="" />
+          <img
+            src="~/assets/img/mobile-img-1.png"
+            alt=""
+            srcset="~/assets/img/m-img1.png 2x"
+          />
         </div>
         <div class="experience-content__second-mobile-image">
-          <img src="~/assets/img/m-img2.png" alt="" />
+          <img
+            src="~/assets/img/mobile-img-2.png"
+            alt=""
+            srcset="~/assets/img/m-img2.png 2x"
+          />
         </div>
       </div>
       <div class="get-experience-content-desktop">
         <div class="desktop-1">
           <div class="experience-content__first-image">
-            <img src="~/assets/img/left-top.png" alt="" />
+            <img
+              src="~/assets/img/lefttop.png"
+              alt=""
+              srcset="~/assets/img/left-top.png 2x"
+            />
           </div>
           <div class="experience-content__second-image">
-            <img src="~/assets/img/right-top.png" alt="" />
+            <img
+              src="~/assets/img/righttop.png"
+              alt=""
+              srcset="~/assets/img/right-top.png 2x"
+            />
           </div>
         </div>
         <div class="desktop-2">
           <div class="experience-content__third-image">
-            <img src="~/assets/img/left-bottom.png" alt="" />
+            <img
+              src="~/assets/img/leftbottom.png"
+              alt=""
+              srcset="~/assets/img/left-bottom.png 2x"
+            />
           </div>
           <div class="experience-content__four-image">
-            <img src="~/assets/img/right-bottom.png" alt="" />
+            <img
+              src="~/assets/img/rightbottom.png"
+              alt=""
+              srcset="~/assets/img/right-bottom.png 2x"
+            />
           </div>
         </div>
       </div>
