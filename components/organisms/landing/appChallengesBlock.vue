@@ -37,17 +37,11 @@
         tag="div"
         class="transition__startup-card"
       >
-        <!-- <div
-          v-for="card in cards"
-          :key="card.id"
-          class="startup-block__startup-card"
-        > -->
         <ChallengeCard
           v-for="card in cards"
           :key="card.id"
           :card="card"
         ></ChallengeCard>
-        <!-- </div> -->
       </transition-group>
     </div>
   </div>
