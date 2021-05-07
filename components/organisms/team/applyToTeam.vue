@@ -58,12 +58,16 @@ export default class extends Vue {
   @Prop() experiences: Array<Experience>;
   @Prop() specialisations: Array<any>;
   @Prop() userId: Number;
+  @Prop() experience: string;
   private applyToTeamStep1 = true;
   private applyToTeamStep2 = false;
   private popupApplied = false;
   loading = false;
-  duration: Number = 0;
-  newRequest: Array<any> = {};
+
+  newRequest: Array<any> = {
+    duration: this.experience ? this.experience : "1",
+  };
+
   applyToTeamGoStep2() {
     this.applyToTeamStep1 = !this.applyToTeamStep1;
     this.applyToTeamStep2 = !this.applyToTeamStep2;

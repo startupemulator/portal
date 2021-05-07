@@ -7,6 +7,7 @@
       :experiences="experiences"
       :specialisations="specialisations"
       :user-id="userId"
+      :experience="profile.experience.id"
     ></BecomeToExpert>
   </div>
 </template>
@@ -17,6 +18,7 @@ import BecomeToExpert from "~/components/organisms/team/applyToTeam.vue";
 import { Technology } from "~/models/Technology";
 import { Startup } from "~/models/Startup";
 import { Experience } from "~/models/Experience";
+import { Profile } from "~/models/Profile";
 @Component({
   components: {
     BecomeToExpert,
@@ -27,7 +29,9 @@ export default class extends Vue {
   startups: Array<Startup> = [];
   technologies: Array<Technology> = [];
   technology: Array<Technology> = [];
+  profile: Array<Profile>;
   experiences: Array<Experience>;
+
   userId = this.$strapi.user.id;
   // ---------
   startup: Startup;
