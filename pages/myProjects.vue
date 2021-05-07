@@ -12,6 +12,7 @@ import myProjects from "~/components/organisms/myprojects/myProjects.vue";
   components: {
     myProjects,
   },
+  middleware: ["deny-unauthenticated"],
 })
 export default class extends Vue {
   userId: Number = this.$strapi.user.id;

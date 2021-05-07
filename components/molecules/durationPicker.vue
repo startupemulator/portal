@@ -39,7 +39,6 @@ export default class extends Vue {
 
   @Watch("duration")
   changeDuration() {
-    console.log(this.duration);
     const dataMatch = this.estimations.filter(
       (el) => el.value === +this.duration
     );
@@ -48,7 +47,7 @@ export default class extends Vue {
     });
     if (dataMatch.length !== 0) {
       this.$refs.utags.children.forEach((element, i) => {
-        if (i + 1 === dataMatch[0].id) {
+        if (i + 1 === +dataMatch[0].id) {
           element.classList.add("checked");
         }
       });

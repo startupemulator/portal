@@ -18,6 +18,7 @@ import CreateProdgect from "~/components/organisms/startups/createProject.vue";
   components: {
     CreateProdgect,
   },
+  middleware: ["deny-unauthenticated"],
 })
 export default class extends Vue {
   async asyncData({ $strapi }) {
@@ -42,7 +43,5 @@ export default class extends Vue {
       specialisations,
     };
   }
-
-  middleware: ["deny-unauthenticated"];
 }
 </script>

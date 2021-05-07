@@ -1,6 +1,5 @@
 <template>
   <div class="challenge-card">
-    <!-- <pre>{{ card }}</pre> -->
     <div class="challenge-card__header">
       <div
         v-show="card.status !== null"

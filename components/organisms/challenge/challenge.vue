@@ -1,11 +1,13 @@
 <template>
   <div class="challenge-page">
+    <!-- <pre style="color: #fff"> {{ challenge }}</pre> -->
     <ChallengeTask
       v-if="challengeTask"
       :is-started="isStarted"
       :finished="finished"
       :is-developer="isDeveloper"
       :is-expert="isExpert"
+      :challenge="challenge"
       @clickOnButton="toggleChallengeTask"
       @openParticipantSolution="toggleChallengeTask"
     ></ChallengeTask>
@@ -16,14 +18,16 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
+import { Component, Prop, Vue } from "nuxt-property-decorator";
 import ChallengeTask from "./challengeTask.vue";
 import ParticipantSolution from "./participantSolution.vue";
+import { Challenge } from "~/models/Challenge";
 
 @Component({
   components: { ChallengeTask, ParticipantSolution },
 })
 export default class extends Vue {
+  @Prop() challenge: Array<Challenge>;
   challengeTask = true;
   participantSolution = false;
   isDeveloper = false;

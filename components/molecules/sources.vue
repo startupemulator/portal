@@ -1,16 +1,16 @@
 <template>
   <div class="startup-card__sources">
-    <h3>{{ title }}</h3>
+    <h3>Sources</h3>
     <div class="startup-card__sources--finished">
       <div class="startup-card__sources-repository">
         <div class="startup-card__sources-content">
           <div>
-            <h5>{{ link1 }}</h5>
-            <p>repository.github.io</p>
+            <h5>{{ titleLink1 }}</h5>
+            <p>{{ link1 }}</p>
           </div>
           <a
             target="_blank"
-            href="repository.github.io"
+            :href="link1"
             type="button"
             class="startup-card__sources-button"
           >
@@ -44,6 +44,7 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 export default class extends Vue {
   @Prop() finished: Boolean;
   @Prop({ default: "Sources" }) title: String;
+  @Prop({ default: "Repository" }) titleLink1: String;
   @Prop({ default: "Repository" }) link1: String;
   @Prop({ default: "Design" }) link2: String;
 }

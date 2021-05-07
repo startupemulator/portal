@@ -13,8 +13,16 @@
       <UInput
         :placeholder="'Or enter the number of days'"
         :value="duration"
+        :account-class="
+          $v.duration.$error
+            ? 'create-account__email error'
+            : 'create-account__email'
+        "
         @textInput="textInput"
       ></UInput>
+      <p v-show="$v.duration.$error" class="errorInput">
+        Please enter an estimation
+      </p>
       <div class="bottom-fixed-button">
         <U-button
           :button-name="'Start'"
@@ -34,6 +42,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
+import { required, minLength } from "vuelidate/lib/validators";
 import { Estimation } from "../../../models/Estimation";
 import DurationPicker from "~/components/molecules/durationPicker.vue";
 import PopupChallengeStarted from "~/components/molecules/popupChallengeStarted.vue";
@@ -42,11 +51,7 @@ import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import UInput from "~/components/atoms/uInput.vue";
-// import {
-//   enableScrolling,
-//   disableScrolling,
-// } from "~/assets/jshelper/toggleScroll";
-// import durationExperiencePickerVue from "~/components/molecules/durationExperiencePicker.vue";
+
 @Component({
   components: {
     UBack,
@@ -56,6 +61,12 @@ import UInput from "~/components/atoms/uInput.vue";
     UInput,
     PopupChallengeStarted,
   },
+  validations: {
+    duration: {
+      required,
+      minLength: minLength(1),
+    },
+  },
 })
 export default class ParticipateChallenge extends Vue {
   @Prop() challenge: Challenge;
@@ -63,12 +74,12 @@ export default class ParticipateChallenge extends Vue {
   duration: Number | String = "";
 
   @Prop() popupChallengeStarted = false;
-  numberDays = 3;
 
   startChallenge() {
-    this.$emit("startChallenge", this.duration);
-
-    // this.popupChallengeStarted ? disableScrolling() : enableScrolling();
+    this.$v.$touch();
+    if (!this.$v.$error) {
+      this.$emit("startChallenge", this.duration);
+    }
   }
 
   textInput(days) {
@@ -77,7 +88,6 @@ export default class ParticipateChallenge extends Vue {
 
   chooseDuration(el: { [key: string]: any }) {
     this.duration = el.value;
-    console.log(this.duration);
   }
 }
 </script>
@@ -99,6 +109,11 @@ input {
     font-size: 14px;
     line-height: 24px;
     color: #dbe4f3;
+  }
+}
+.participate-challenge {
+  .errorInput {
+    top: 0;
   }
 }
 </style>
