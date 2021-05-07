@@ -1,8 +1,6 @@
 <template>
   <div class="apply-to-team-step1">
     <UTitle :text="'Your experience'"></UTitle>
-
-    <!-- <pre style="color: #fff">{{ experiences }}</pre> -->
     <DurationExperiencePicker
       :title="'Total years of your experience'"
       :experiences="experiences"

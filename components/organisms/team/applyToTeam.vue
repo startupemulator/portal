@@ -57,7 +57,7 @@ export default class extends Vue {
   @Prop() startup!: Array<Startup>;
   @Prop() experiences: Array<Experience>;
   @Prop() specialisations: Array<any>;
-
+  @Prop() userId: Number;
   private applyToTeamStep1 = true;
   private applyToTeamStep2 = false;
   private popupApplied = false;
@@ -75,10 +75,20 @@ export default class extends Vue {
   }
 
   async apply(data) {
-    this.newRequest.Comment = data[0];
+    this.newRequest.comment = data[0];
+    this.newRequest.user = this.userId;
+    const position = this.startup.positions.filter(
+      (el) => el.specialisation.id === data[1]
+    );
+    this.newRequest.position = position[0].id;
+
+    console.log(this.newRequest);
     try {
       this.loading = true;
-      const newRequest = await this.$strapi.create("requests", this.newRequest);
+      const newRequest = await this.$strapi.create(
+        "applications",
+        this.newRequest
+      );
       if (newRequest !== null) {
         this.loading = false;
         this.popupApplied = !this.popupApplied;
@@ -106,7 +116,7 @@ export default class extends Vue {
   }
 
   mounted() {
-    this.newRequest.startup = this.startup[0].id;
+    this.newRequest.startup = this.startup.id;
   }
 }
 </script>

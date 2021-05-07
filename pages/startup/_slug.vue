@@ -13,17 +13,13 @@ import { Testimonial } from "~/models/Testimonial";
     StartupPage,
   },
 })
-export default class extends Vue {
+export default class TakeStartup extends Vue {
   startup: Startup;
   testominal: Testimonial;
-  async asyncData({ $strapi, route }) {
-    const [startup] = await $strapi.find("startups", {
-      slug: route.params.slug,
-    });
-    const [testominal] = await $strapi.find("startups", {
-      id: startup.id,
-    });
-    return { startup, testominal };
+
+  async asyncData({ $startup, route }) {
+    const startup = await $startup(route.params.slug);
+    return { startup };
   }
 }
 </script>

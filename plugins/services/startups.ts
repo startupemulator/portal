@@ -23,8 +23,50 @@ export function startups($strapi: Strapi) {
               id
               title
             }
+            
           }
         }`,
     });
+  };
+}
+export function startup($strapi: Strapi) {
+  return async (slug: string) => {
+    const data = await $strapi.graphql({
+      query: `query {
+        startups(where: {slug: "${slug}"}){
+          id
+          title
+          slug
+          description
+          start_date
+          duration
+          state
+          positions {
+            id
+            sort
+            status
+            specialisation {
+              id
+              title
+            }
+            technologies{
+              id
+              title
+            }
+          }
+          owner {
+            id
+            name
+          }
+          technologies {
+            id
+            title
+          }
+          
+        }
+        
+      }`,
+    });
+    return data.startups ? data.startups[0] : null;
   };
 }

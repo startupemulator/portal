@@ -8,8 +8,23 @@ export function technologies($strapi: Strapi) {
     id
     title
     is_public
+   
   }
 }`,
     });
+  };
+}
+export function myTechnologies($strapi: Strapi) {
+  return async (creator: string) => {
+    const data = await $strapi.graphql({
+      query: `query {
+  technologies (where: {creator_id: "${creator}"}) {
+    id
+    title
+    creator_id
+  }
+}`,
+    });
+    return data.technologies ? data.technologies : null;
   };
 }
