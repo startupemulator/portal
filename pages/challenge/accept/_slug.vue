@@ -13,6 +13,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
+import { Challenge } from "../../../models/Challenge";
 import ParticipateChallenge from "~/components/organisms/participate/participateChallenge.vue";
 import Spiner from "~/components/molecules/spiner.vue";
 
@@ -26,23 +27,11 @@ import Spiner from "~/components/molecules/spiner.vue";
 export default class TakeChallenge extends Vue {
   loading = false;
   popupChallengeStarted = false;
-  async asyncData({ $strapi, route }) {
-    const estimation = await $strapi.find("estimations");
-    let estimations;
-    if (estimation !== null) {
-      estimations = estimation.sort(function (a, b) {
-        if (a.id > b.id) {
-          return 1;
-        }
-        if (a.id < b.id) {
-          return -1;
-        }
-        return 0;
-      });
-    }
-    const [challenge] = await $strapi.find("challenges", {
-      slug: route.params.slug,
-    });
+  challenge: Challenge;
+
+  async asyncData({ route, $estimations, $challenge }) {
+    const { estimations } = await $estimations();
+    const challenge = await $challenge(route.params.slug);
     return { challenge, estimations };
   }
 

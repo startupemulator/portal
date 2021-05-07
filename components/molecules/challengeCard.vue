@@ -60,7 +60,7 @@
 
         <U-button
           v-if="card.status !== 'new'"
-          :button-name="'Take Part'"
+          :button-name="'Accept'"
           :button-class="'u-button-blue'"
           :is-link="'nuxt-link'"
           :href="'/challenge/accept/' + card.slug"

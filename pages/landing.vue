@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Watch, Vue } from "nuxt-property-decorator";
+import { Component, Vue, Watch } from "nuxt-property-decorator";
 import { Startup } from "~/models/Startup";
 import { Challenge } from "~/models/Challenge";
 import { Testimonial } from "~/models/Testimonial";
@@ -39,6 +39,7 @@ import AppTopStartups from "~/components/organisms/landing/appTopStartups.vue";
 import AppTestimonials from "~/components/organisms/landing/appTestimonials.vue";
 import Pricing from "~/components/organisms/landing/pricing.vue";
 import { goToPricing } from "~/assets/jshelper/scrollToPricing";
+
 @Component({
   components: {
     AppGetExperience,
@@ -57,29 +58,19 @@ export default class extends Vue {
   testimonials: Array<Testimonial> = [];
   technology: Array<Technology> = [];
   isLogined = !!this.$strapi.user;
+
   // data loaded here will be added during server rendering
-  async asyncData({ $strapi, $startups }) {
-    const startups = await $startups();
-    const challenges = await $strapi.find("challenges");
-    const testimonials = await $strapi.find("testimonials");
-    const technologies = await $strapi.find("technologies");
-    // const notifications = await $strapi.find("notifications");
-    // TODO change it
-    // await Technologies.fetch();
-    // await Specialisations.fetch();
-    // console.log(startups);
-    // console.log(challenges);
+  async asyncData({ $technologies, $startups, $challenges, $testimonials }) {
+    const { startups } = await $startups();
+    const { challenges } = await $challenges();
+    const { testimonials } = await $testimonials();
+    const { technologies } = await $technologies();
     return {
-      startups: startups.startups,
+      startups,
       challenges,
       testimonials,
       technologies,
-      // notifications,
     };
-  }
-
-  get state() {
-    return this.$store.state;
   }
 
   @Watch("$strapi", { immediate: true, deep: true })

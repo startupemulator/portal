@@ -53,6 +53,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
 import Toast from "../../../store/modules/Toast";
+import { Estimation } from "../../../models/Estimation";
 import createProjectStep1 from "./createProjectStep-1.vue";
 import createProjectStep2 from "./createProjectStep-2.vue";
 import createProjectStep3 from "./createProjectStep-3.vue";
@@ -62,7 +63,6 @@ import UTitle from "~/components/atoms/uTitle.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import { Technology } from "~/models/Technology";
 import { Startup } from "~/models/Startup";
-import { Estimations } from "~/models/Estimations";
 import { Specialisation } from "~/models/Specialisation";
 import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartup.vue";
 // import {
@@ -83,7 +83,7 @@ import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartup.vue"
 })
 export default class extends Vue {
   @Prop() technologies: Array<Technology>;
-  @Prop() estimations: Array<Estimations>;
+  @Prop() estimations: Array<Estimation>;
   @Prop() specialisations: Array<Specialisation>;
   createprodjectSteps: { [key: string]: boolean } = {
     stepOne: true,
