@@ -116,10 +116,10 @@ import DatePicker from "vue2-datepicker";
 import { Component, Vue, Prop } from "nuxt-property-decorator";
 import { required, minLength } from "vuelidate/lib/validators";
 import Toast from "../../../store/modules/Toast";
+import { Estimation } from "../../../models/Estimation";
 import UButton from "~/components/atoms/uButton.vue";
 import DurationPicker from "~/components/molecules/durationPicker.vue";
 import AddInput from "~/components/atoms/addInput.vue";
-import { Estimations } from "~/models/Estimations";
 
 import Spiner from "~/components/molecules/spiner.vue";
 
@@ -141,7 +141,7 @@ import Spiner from "~/components/molecules/spiner.vue";
 })
 export default class extends Vue {
   @Prop() startUpData!: Array<any>;
-  @Prop() estimations: Array<Estimations>;
+  @Prop() estimations: Array<Estimation>;
   @Prop() createdStartupId: Number;
   date: String = this.startUpData.date
     ? this.startUpData.start_datethis.startUpData.start_date
