@@ -41,6 +41,7 @@ export function challenge($strapi: Strapi) {
     specialisations {
       id
       title
+      status
     }
     author {
       id

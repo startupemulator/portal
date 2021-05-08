@@ -1,6 +1,6 @@
 <template>
   <div class="apply-to-team apply-to-team-step2">
-    <UTitle :text="'Apply to Startup ' + startup[0].title"></UTitle>
+    <UTitle :text="'Apply to Startup ' + startup.title"></UTitle>
 
     <USelect
       :specialisations="specialisations"

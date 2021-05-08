@@ -34,7 +34,7 @@ export default class extends Vue {
       if (i === el.id) {
         this.$refs.utags.children.forEach((element, i) => {
           element.classList.remove("checked");
-          if (i + 1 === el.id) {
+          if (i + 1 === +el.id) {
             element.classList.add("checked");
           }
         });
@@ -45,6 +45,7 @@ export default class extends Vue {
   }
 
   mounted() {
+    console.log(this.duration);
     if (this.duration) {
       this.pickTechnology(this.duration);
     }

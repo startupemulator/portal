@@ -1,10 +1,13 @@
 <template>
   <div class="experience">
+    <pre style="color: #fff">{{ profile }}</pre>
     <BecomeToExpert
       :technology="technology"
       :startup="startup"
       :experiences="experiences"
       :specialisations="specialisations"
+      :user-id="userId"
+      :experience="profile.experience.id"
     ></BecomeToExpert>
   </div>
 </template>
@@ -15,6 +18,7 @@ import BecomeToExpert from "~/components/organisms/team/applyToTeam.vue";
 import { Technology } from "~/models/Technology";
 import { Startup } from "~/models/Startup";
 import { Experience } from "~/models/Experience";
+import { Profile } from "~/models/Profile";
 @Component({
   components: {
     BecomeToExpert,
@@ -25,53 +29,44 @@ export default class extends Vue {
   startups: Array<Startup> = [];
   technologies: Array<Technology> = [];
   technology: Array<Technology> = [];
+  profile: Array<Profile>;
   experiences: Array<Experience>;
-  async asyncData({ $strapi, route }) {
-    const technologies = await $strapi.find("technologies", [
-      ["is_public", true],
-    ]);
-    const myTechnologies = await $strapi.find("technologies", [
-      ["creator_id", $strapi.user.id],
-    ]);
-    const technology = await technologies;
-    if (myTechnologies !== null) {
-      myTechnologies.forEach((el) => technology.push(el));
-    }
-    const startup = await $strapi.find("startups", {
-      slug: route.params.slug,
-    });
-    const specialisationsList = [];
-    if (startup !== null) {
-      await startup.forEach((el, i) => {
-        el.positions.forEach((item, i) =>
-          specialisationsList.push(["id", item.specialisation])
-        );
-      });
-    }
 
-    const specialisations = await $strapi.find(
-      "specialisations",
-      specialisationsList
-    );
-    const experience = await $strapi.find("experiences");
-    let experiences;
-    if (experience !== null) {
-      experiences = experience.sort(function (a, b) {
-        if (a.id > b.id) {
-          return 1;
-        }
-        if (a.id < b.id) {
-          return -1;
-        }
-        return 0;
+  userId = this.$strapi.user.id;
+  // ---------
+  startup: Startup;
+
+  async asyncData({
+    $myTechnologies,
+    $technologies,
+    $experiences,
+    $startup,
+    route,
+    $strapi,
+    $profile,
+  }) {
+    const startup = await $startup(route.params.slug);
+
+    const { technologies } = await $technologies();
+    const profile = await $profile($strapi.user.id);
+    const myTechnologies = await $myTechnologies($strapi.user.id);
+    let technology = [];
+    if (myTechnologies !== null) {
+      technology = technologies.concat(myTechnologies);
+    }
+    const specialisations = [];
+    if (startup !== null) {
+      startup.positions.forEach((el) => {
+        specialisations.push(el.specialisation);
       });
     }
+    const { experiences } = await $experiences();
     return {
       technology,
-      specialisations,
       startup,
       experiences,
-      specialisationsList,
+      specialisations,
+      profile,
     };
   }
 }
