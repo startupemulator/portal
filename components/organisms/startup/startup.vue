@@ -385,7 +385,6 @@ import CommentExpert from "~/components/molecules/commentForExpert.vue";
 })
 export default class extends Vue {
   @Prop() startup: Array<Startup>;
-  @Prop() testimonials: Array<Testimonial>;
   popupCancelApplication = false;
   isDeveloper = false;
   isExpert = false;

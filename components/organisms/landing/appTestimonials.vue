@@ -67,7 +67,7 @@
         <img
           v-if="cards[testominalNumber].photo[0]"
           class="testimonials-popup__img"
-          :src="'/api/v1' + cards[testominalNumber].photo[0].url"
+          :src="cards[testominalNumber].photo[0].url"
           alt="testimonial"
         />
       </div>
