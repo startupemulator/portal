@@ -45,7 +45,6 @@ export default class extends Vue {
   }
 
   mounted() {
-    console.log(this.duration);
     if (this.duration) {
       this.pickTechnology(this.duration);
     }

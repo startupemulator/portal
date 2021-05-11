@@ -5,7 +5,8 @@ export function profile($strapi: Strapi) {
     const data = await $strapi.graphql({
       query: `query {
   profiles(where:{user:{id: "${id}"}}) {
-      user {
+      id
+    user {
         id
       }
       technologies{

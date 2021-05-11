@@ -59,6 +59,7 @@ export default class extends Vue {
   @Prop() specialisations: Array<any>;
   @Prop() userId: Number;
   @Prop() experience: string;
+  @Prop() profileId: string;
   private applyToTeamStep1 = true;
   private applyToTeamStep2 = false;
   private popupApplied = false;
@@ -93,6 +94,18 @@ export default class extends Vue {
         "applications",
         this.newRequest
       );
+      if (this.newRequest.newTechnologies) {
+        this.newRequest.newTechnologies.forEach((el) =>
+          this.createNewTechnologies(el.name)
+        );
+      }
+
+      if (this.newRequest.duration !== this.experience) {
+        await this.$strapi.update("profiles", this.profileId.toString(), {
+          experience: this.newRequest.duration,
+        });
+      }
+
       if (newRequest !== null) {
         this.loading = false;
         this.popupApplied = !this.popupApplied;
@@ -103,6 +116,17 @@ export default class extends Vue {
         data: "Something wrong.",
         duration: 3000,
       });
+      console.error(e);
+    }
+  }
+
+  async createNewTechnologies(data) {
+    try {
+      await this.$strapi.create("technologies", {
+        creator_id: this.$strapi.user.id,
+        title: data,
+      });
+    } catch (e) {
       console.error(e);
     }
   }
