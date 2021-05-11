@@ -5,6 +5,7 @@
       :startups="startupsList"
       :technologies="technologies"
       :empty-state="emptyState"
+      :autorizated="autorizated"
       @pickedTechnologies="filterStartupsList"
     ></Startups>
   </div>
@@ -24,6 +25,7 @@ export default class extends Vue {
   // data loaded here will be added during server rendering
   emptyState = false;
   loading = false;
+  autorizated = !!this.$strapi.user;
 
   async asyncData({ $strapi }) {
     const startups = await $strapi.find("startups", [
