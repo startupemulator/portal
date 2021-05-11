@@ -358,6 +358,7 @@ import PopupDeleteStartup from "~/components/molecules/popupDeleteStartup.vue";
 import projectParticipant from "~/components/molecules/projectParticipant.vue";
 import Sources from "~/components/molecules/sources.vue";
 import CommentExpert from "~/components/molecules/commentForExpert.vue";
+import { Testimonial } from "~/models/Testimonial";
 @Component({
   components: {
     UBack,
