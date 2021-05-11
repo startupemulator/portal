@@ -1,6 +1,11 @@
 import { Context, Plugin } from "@nuxt/types";
 import { Inject } from "@nuxt/types/app";
-import { startup, startups } from "~/plugins/services/startups";
+import {
+  startup,
+  startups,
+  myStartups,
+  deleteDraft,
+} from "~/plugins/services/startups";
 import { Startup } from "~/models/Startup";
 import { challenge, challenges } from "~/plugins/services/challenges";
 import { Challenge } from "~/models/Challenge";
@@ -27,6 +32,9 @@ export interface Services {
   $challenge(slug: string): Promise<Partial<Challenge>>;
 
   $startups(states: string[]): Promise<Partial<Startup>[]>;
+  $myStartups(states: string[]): Promise<Partial<Startup>[]>;
+  $deleteDraft(states: string[]): Promise<Partial<Startup>>;
+
   $startup(slug: string[]): Promise<Partial<Startup>>;
   $testimonials(): Promise<Partial<Testimonial>[]>;
 
@@ -42,6 +50,8 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("challenge", challenge(ctx.$strapi));
 
   inject("startups", startups(ctx.$strapi));
+  inject("myStartups", myStartups(ctx.$strapi));
+  inject("deleteDraft", deleteDraft(ctx.$strapi));
   inject("startup", startup(ctx.$strapi));
 
   inject("profile", profile(ctx.$strapi));

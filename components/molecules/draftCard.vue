@@ -35,6 +35,7 @@
           type="button"
           :button-name="'Delete Draft'"
           class="u-button-gray"
+          @clickOnButton="$emit('clickOnButton', card.id)"
         >
         </U-button>
       </div>
