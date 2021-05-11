@@ -356,7 +356,6 @@ import { Startup } from "~/models/Startup";
 import UButton from "~/components/atoms/uButton.vue";
 import PopupDeleteStartup from "~/components/molecules/popupDeleteStartup.vue";
 import projectParticipant from "~/components/molecules/projectParticipant.vue";
-import { Testimonial } from "~/models/Testimonial";
 import Sources from "~/components/molecules/sources.vue";
 import CommentExpert from "~/components/molecules/commentForExpert.vue";
 @Component({

@@ -1,6 +1,6 @@
 <template>
   <div class="experience">
-    <pre style="color: #fff">{{ profile }}</pre>
+    <!-- <pre style="color: #fff"> {{ profile }}</pre> -->
     <BecomeToExpert
       :technology="technology"
       :startup="startup"
@@ -8,6 +8,7 @@
       :specialisations="specialisations"
       :user-id="userId"
       :experience="profile.experience.id"
+      :profile-id="profile.id"
     ></BecomeToExpert>
   </div>
 </template>

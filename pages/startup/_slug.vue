@@ -1,13 +1,13 @@
 <template>
   <div class="startups-page">
-    <StartupPage :startup="startup" :testimonials="testominal"></StartupPage>
+    <StartupPage :startup="startup"></StartupPage>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 import StartupPage from "~/components/organisms/startup/startup.vue";
 import { Startup } from "~/models/Startup";
-import { Testimonial } from "~/models/Testimonial";
+// import { Testimonial } from "~/models/Testimonial";
 @Component({
   components: {
     StartupPage,
@@ -15,7 +15,7 @@ import { Testimonial } from "~/models/Testimonial";
 })
 export default class TakeStartup extends Vue {
   startup: Startup;
-  testominal: Testimonial;
+  // testominal: Testimonial;
 
   async asyncData({ $startup, route }) {
     const startup = await $startup(route.params.slug);
