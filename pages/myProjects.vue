@@ -47,7 +47,6 @@ export default class extends Vue {
   @Watch("myStartups")
   startupUpdate() {
     this.updateFlag += 1;
-    console.log(this.myStartups);
   }
 }
 </script>

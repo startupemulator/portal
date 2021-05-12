@@ -5,6 +5,8 @@
       :technologies="technologies"
       :testimonials="testimonials"
       :user-data="userData"
+      :user-experience="profile.experience"
+      :experiences="experiences"
       @copyBaseUri="copyBaseUri"
     ></MyProfile>
   </div>
@@ -21,16 +23,29 @@ import { copyToClipboard } from "~/assets/jshelper/copyToClipBoard";
   middleware: ["deny-unauthenticated"],
 })
 export default class extends Vue {
-  // data loaded here will be added during server rendering
   userData = this.$strapi.user ? this.$strapi.user : null;
-  async asyncData({ $strapi }) {
-    const startups = await $strapi.find("startups");
-    const technologies = await $strapi.find("technologies");
-    const testimonials = await $strapi.find("testimonials");
+
+  async asyncData({
+    $myTechnologies,
+    $myStartups,
+    $strapi,
+    $profile,
+    $experiences,
+  }) {
+    const startups = await $myStartups($strapi.user.id);
+    const technologies = await $myTechnologies($strapi.user.id);
+    const profile = await $profile($strapi.user.id);
+    const { experiences } = await $experiences();
+
+    if (profile.technologies !== null) {
+      profile.technologies.forEach((el) => technologies.push(el));
+    }
+
     return {
       startups,
+      profile,
       technologies,
-      testimonials,
+      experiences,
     };
   }
 

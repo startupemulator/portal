@@ -9,7 +9,7 @@
       </div>
       <U-Tabs-Long
         :owned="true"
-        :message-lenght="inProgress"
+        :in-progress="inProgress"
         @filterCards="filterCards"
       ></U-Tabs-Long>
     </div>
@@ -77,8 +77,6 @@ export default class extends Vue {
 
   deleteDraft(id) {
     this.$emit("deleteDraft", id);
-    // console.log("deleteDraft", id);
-    // await this.$strapi.delete("startups", id);
   }
 
   mounted() {

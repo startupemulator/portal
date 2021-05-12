@@ -6,13 +6,16 @@
     </div>
     <div class="edit-profile__content">
       <p>Full name</p>
-      <u-input :placeholder="''" :value="$strapi.state.user.username"></u-input>
-      <duration-experiense-picker
+
+      <u-input :placeholder="''" :value="userData.username"></u-input>
+      {{ experiences }}
+      <DurationExperiensePicker
         :title="'Total years of your experience'"
-      ></duration-experiense-picker>
-      <technology-picker
+        :experience="experiences"
+      ></DurationExperiensePicker>
+      <TechnologyPicker
         :title="'Pick technologies you have an experience with'"
-      ></technology-picker>
+      ></TechnologyPicker>
       <div class="edit-profile__buttons">
         <u-button
           :button-name="'Save'"
@@ -28,22 +31,27 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
-import durationExperiensePicker from "../../molecules/durationExperiencePicker.vue";
-import technologyPicker from "~/components/molecules/technologyPicker.vue";
+import { Component, Vue, Prop } from "nuxt-property-decorator";
+import DurationExperiensePicker from "../../molecules/durationExperiencePicker.vue";
+import TechnologyPicker from "~/components/molecules/technologyPicker.vue";
 import uBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UInput from "~/components/atoms/uInput.vue";
 import uButton from "~/components/atoms/uButton.vue";
+import { Experience } from "~/models/Experience";
+
 @Component({
   components: {
     uBack,
     UTitle,
     uButton,
     UInput,
-    durationExperiensePicker,
-    technologyPicker,
+    DurationExperiensePicker,
+    TechnologyPicker,
   },
 })
-export default class extends Vue {}
+export default class extends Vue {
+  @Prop() userData: Array<any>;
+  @Prop() experiences: Array<Experience>;
+}
 </script>
