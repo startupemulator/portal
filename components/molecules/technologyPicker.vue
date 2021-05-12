@@ -66,7 +66,7 @@ export default class extends Vue {
 
   mounted() {
     if (this.choosenTechnologies) {
-      this.$refs.technologyList.forEach((el, i) => {
+      this.$refs.technologyList.forEach((el) => {
         if (
           this.choosenTechnologies.some((item) => item === el.id.split("-")[0])
         ) {

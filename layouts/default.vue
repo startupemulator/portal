@@ -10,6 +10,7 @@
     <Nuxt />
 
     <AppFooter></AppFooter>
+    <Toast />
   </div>
 </template>
 <script lang="ts">

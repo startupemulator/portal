@@ -1,12 +1,13 @@
 <template>
   <div class="profile-content my-profile">
+    <Spiner :loading="loading"></Spiner>
     <div v-if="!changePassword & !editProfile" class="my-profile__content">
       <div class="profile-header">
         <U-title :text="'Profile'"> </U-title>
         <div class="profile-header__menu">
           <ul>
-            <li v-if="userData.role.type !== 'expert'">
-              <button type="button" @click="$emit('copyBaseUri')">
+            <li v-if="userData.provider !== 'expert'">
+              <button type="button" @click="copyBaseUri">
                 Copy Link On My Profile
                 <img src="~/assets/img/copy.svg" alt="copy" />
               </button>
@@ -34,29 +35,30 @@
           <div>
             <span>Full name</span>
             <p>
-              {{ userData.username }}
+              {{ userData.user.username }}
             </p>
           </div>
           <div>
             <span class="account-data__email">Email</span>
-            <p>{{ userData.email }}</p>
+            <p>{{ userData.user.email }}</p>
           </div>
         </div>
       </div>
       <My-profile-regular-user
-        v-if="userData.role.type !== 'expert'"
+        v-if="userData.provider !== 'expert'"
         @togglePopup="togglePopup"
       ></My-profile-regular-user>
       <Expert-user
-        v-if="userData.role.type === 'expert'"
+        v-if="userData.provider === 'expert'"
         :testimonials="testimonials"
       >
       </Expert-user>
+
       <div class="profile-projects__experience">
         <h3>Experience</h3>
         <div class="experience-work">{{ userExperience.title }}</div>
         <ul class="experience_list">
-          <li v-for="item in technologies" :key="item.id">
+          <li v-for="item in myTechnologies" :key="item.id">
             <U-tags
               :id="item.id"
               :title="item.title"
@@ -71,9 +73,13 @@
 
     <EditProfile
       v-if="editProfile"
-      :user-data="userData"
+      :user-data="userData.user"
       :experiences="experiences"
+      :user-experience="userExperience"
+      :technologies="technologies"
+      :my-technologies="myTechnologies"
       @clickOnButton="toggleEditProfile"
+      @saveProfileUpdateData="saveProfileUpdateData"
     ></EditProfile>
     <ChangePassword
       v-if="changePassword"
@@ -96,7 +102,8 @@ import UTags from "~/components/atoms/uTags.vue";
 import StartupCard from "~/components/molecules/startupCard.vue";
 import { Testimonial } from "~/models/Testimonial";
 import { Experience } from "~/models/Experience";
-
+import Spiner from "~/components/molecules/spiner.vue";
+import { copyToClipboard } from "~/assets/jshelper/copyToClipBoard";
 @Component({
   components: {
     UTitle,
@@ -108,6 +115,7 @@ import { Experience } from "~/models/Experience";
     ChangePassword,
     MyProfileRegularUser,
     ExpertUser,
+    Spiner,
   },
 })
 export default class extends Vue {
@@ -117,10 +125,11 @@ export default class extends Vue {
   @Prop() userData: Array<any>;
   @Prop() userExperience: String;
   @Prop() experiences: Array<Experience>;
-
+  @Prop() myTechnologies: Array<Technology>;
   private opendPopup: boolean = false;
   private editProfile: boolean = false;
   private changePassword: boolean = false;
+  loading = false;
 
   logOut() {
     this.$strapi.logout();
@@ -137,6 +146,37 @@ export default class extends Vue {
 
   toggleChangePassword() {
     this.changePassword = !this.changePassword;
+  }
+
+  copyBaseUri() {
+    this.loading = true;
+    const url = window.location.href.split("/myProfile").join("");
+    copyToClipboard(url)
+      .then(() => console.log("text copied !"))
+      .catch(() => console.log("error"));
+    setTimeout(() => (this.loading = false), 500);
+  }
+
+  async saveProfileUpdateData(data) {
+    this.loading = true;
+    if (!data.technologies) {
+      data.technologies = [];
+      this.myTechnologies.forEach((el) => data.technologies.push(el.id));
+    }
+    try {
+      const result = await this.$updateProfile(
+        this.userData.id,
+        data.technologies,
+        data.experiences.id
+      );
+      if (result !== null) {
+        this.$emit("updateData");
+      }
+      this.loading = false;
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
+    }
   }
 }
 </script>
