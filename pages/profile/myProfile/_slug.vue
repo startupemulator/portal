@@ -6,7 +6,7 @@
       :technologies="allTechnologies"
       :my-technologies="myTechnologies"
       :testimonials="testimonials"
-      :user-data="userData"
+      :user-data="profile"
       :user-experience="profile.experience"
       :experiences="experiences"
       @updateData="updateData"
@@ -25,7 +25,6 @@ import MyProfile from "~/components/organisms/profile/myProfile.vue";
   middleware: ["deny-unauthenticated"],
 })
 export default class extends Vue {
-  userData = this.$strapi.user ? this.$strapi.user : null;
   testimonials = false; // test
   updatePageAfterSendNewDataInProfile = 0;
   async asyncData({
@@ -43,6 +42,7 @@ export default class extends Vue {
     const allTechnologies = technologies
       .filter((el) => myTechnologies.every((item) => el.id !== item.id))
       .concat(myTechnologies);
+    console.log(profile);
 
     return {
       startups,

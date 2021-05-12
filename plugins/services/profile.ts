@@ -8,6 +8,10 @@ export function profile($strapi: Strapi) {
       id
     user {
         id
+        username
+        email
+        provider
+        
       }
       technologies{
         id
@@ -40,6 +44,8 @@ export function updateProfile($strapi: Strapi) {
             id
             user {
                 id
+                username
+                email
               }
               technologies{
                 id

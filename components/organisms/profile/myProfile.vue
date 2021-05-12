@@ -6,7 +6,7 @@
         <U-title :text="'Profile'"> </U-title>
         <div class="profile-header__menu">
           <ul>
-            <li v-if="userData.role.type !== 'expert'">
+            <li v-if="userData.provider !== 'expert'">
               <button type="button" @click="copyBaseUri">
                 Copy Link On My Profile
                 <img src="~/assets/img/copy.svg" alt="copy" />
@@ -35,21 +35,21 @@
           <div>
             <span>Full name</span>
             <p>
-              {{ userData.username }}
+              {{ userData.user.username }}
             </p>
           </div>
           <div>
             <span class="account-data__email">Email</span>
-            <p>{{ userData.email }}</p>
+            <p>{{ userData.user.email }}</p>
           </div>
         </div>
       </div>
       <My-profile-regular-user
-        v-if="userData.role.type !== 'expert'"
+        v-if="userData.provider !== 'expert'"
         @togglePopup="togglePopup"
       ></My-profile-regular-user>
       <Expert-user
-        v-if="userData.role.type === 'expert'"
+        v-if="userData.provider === 'expert'"
         :testimonials="testimonials"
       >
       </Expert-user>
@@ -73,7 +73,7 @@
 
     <EditProfile
       v-if="editProfile"
-      :user-data="userData"
+      :user-data="userData.user"
       :experiences="experiences"
       :user-experience="userExperience"
       :technologies="technologies"
@@ -165,7 +165,7 @@ export default class extends Vue {
     }
     try {
       const result = await this.$updateProfile(
-        this.userData.profile,
+        this.userData.id,
         data.technologies,
         data.experiences.id
       );
