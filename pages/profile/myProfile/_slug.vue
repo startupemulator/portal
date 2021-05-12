@@ -9,13 +9,13 @@
       :user-data="userData"
       :user-experience="profile.experience"
       :experiences="experiences"
-      @updatePage="updatePage"
+      @updateData="updateData"
     ></MyProfile>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
+import { Component, Vue, Watch } from "nuxt-property-decorator";
 import MyProfile from "~/components/organisms/profile/myProfile.vue";
 
 @Component({
@@ -54,7 +54,14 @@ export default class extends Vue {
     };
   }
 
-  updatePage() {
+  async updateData() {
+    console.log("hi");
+    this.profile = await this.$profile(this.$strapi.user.id);
+    this.myTechnologies = this.profile.technologies;
+  }
+
+  @Watch("profile")
+  updateComponetn() {
     this.updatePageAfterSendNewDataInProfile += 1;
   }
 }

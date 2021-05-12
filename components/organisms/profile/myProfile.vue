@@ -170,7 +170,7 @@ export default class extends Vue {
         data.experiences.id
       );
       if (result !== null) {
-        this.$emit("updatePage");
+        this.$emit("updateData");
       }
       this.loading = false;
     } catch (e) {
