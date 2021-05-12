@@ -29,8 +29,6 @@ export interface Services {
     technologies: Array<string>,
     experience: string
   ): Promise<Partial<Profile>[]>;
-
-  // experience: string
   $challenges(
     difficulty: number[],
     specialisations: number[]

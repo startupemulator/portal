@@ -39,7 +39,7 @@ export function updateProfile($strapi: Strapi) {
         updateProfile(
           input: {
           where: {id: "${id}" }
-          data: {technologies: [${technologies}],  experience: "${experience}"} }) {
+          data: { technologies: [${technologies}],  experience: "${experience}"} }) {
           profile {
             id
             user {
