@@ -50,7 +50,7 @@
         :button-name="'Show More'"
       ></u-button>
       <EmptyState v-if="emptyState" @clickOnButton="cleanFilter"></EmptyState>
-      <app-team-develop></app-team-develop>
+      <AppTeamDevelop v-if="!autorizated"></AppTeamDevelop>
     </div>
   </div>
 </template>
@@ -80,6 +80,7 @@ export default class extends Vue {
   @Prop() startups: Array<Startup>;
   @Prop() technologies: Array<Technology>;
   @Prop() emptyState: Boolean;
+  @Prop() autorizated: Boolean;
   private filterList: boolean = false;
   pickedTechnologies: Array<string> = [];
 

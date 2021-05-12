@@ -54,7 +54,7 @@
       </Expert-user>
       <div class="profile-projects__experience">
         <h3>Experience</h3>
-        <div class="experience-work">1-2 years</div>
+        <div class="experience-work">{{ userExperience.title }}</div>
         <ul class="experience_list">
           <li v-for="item in technologies" :key="item.id">
             <U-tags
@@ -68,14 +68,17 @@
       </div>
       <badge-popup v-if="opendPopup" @closePopup="togglePopup"></badge-popup>
     </div>
-    <edit-profile
+
+    <EditProfile
       v-if="editProfile"
+      :user-data="userData"
+      :experiences="experiences"
       @clickOnButton="toggleEditProfile"
-    ></edit-profile>
-    <change-password
+    ></EditProfile>
+    <ChangePassword
       v-if="changePassword"
       @clickOnButton="toggleChangePassword"
-    ></change-password>
+    ></ChangePassword>
   </div>
 </template>
 <script lang="ts">
@@ -92,6 +95,7 @@ import { Technology } from "~/models/Technology";
 import UTags from "~/components/atoms/uTags.vue";
 import StartupCard from "~/components/molecules/startupCard.vue";
 import { Testimonial } from "~/models/Testimonial";
+import { Experience } from "~/models/Experience";
 
 @Component({
   components: {
@@ -111,6 +115,9 @@ export default class extends Vue {
   @Prop() technologies: Array<Technology>;
   @Prop() testimonials: Array<Testimonial>;
   @Prop() userData: Array<any>;
+  @Prop() userExperience: String;
+  @Prop() experiences: Array<Experience>;
+
   private opendPopup: boolean = false;
   private editProfile: boolean = false;
   private changePassword: boolean = false;
@@ -131,16 +138,5 @@ export default class extends Vue {
   toggleChangePassword() {
     this.changePassword = !this.changePassword;
   }
-
-  // async mounted() {
-  //   try {
-  //     const userData = await this.$strapi.find("honors");
-  //     if (userData) {
-  //       console.log(userData);
-  //     }
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // }
 }
 </script>

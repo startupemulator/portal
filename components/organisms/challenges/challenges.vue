@@ -77,7 +77,7 @@
       @clickOnButton="showMoreCards"
     ></U-button>
     <EmptyState v-if="emptyState" @clickOnButton="cleanFilter"></EmptyState>
-    <AppTeamDevelop></AppTeamDevelop>
+    <AppTeamDevelop v-if="!autorizated"></AppTeamDevelop>
   </div>
 </template>
 <script lang="ts">
@@ -109,6 +109,7 @@ export default class extends Vue {
   specialisations: Array<Specialisation>;
 
   @Prop() emptyState: Boolean;
+  @Prop() autorizated: Boolean;
   private filterList: boolean = false;
   difficultyFilter: Array<any> = [];
   specialityFilter: Array<any> = [];

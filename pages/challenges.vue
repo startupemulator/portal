@@ -5,6 +5,7 @@
       :challenges="challengesList"
       :specialisations="specialisations"
       :empty-state="emptyState"
+      :autorizated="autorizated"
       @filterCards="specialtyFilter"
       @difficultyFilter="difficultyFilter"
       @cleanFilter="cleanFilter"
@@ -25,7 +26,7 @@ import Challenges from "~/components/organisms/challenges/challenges.vue";
 export default class extends Vue {
   // data loaded here will be added during server rendering
   emptyState = false;
-
+  autorizated = !!this.$strapi.user;
   async asyncData({ $strapi }) {
     const challenges = await $strapi.find("challenges");
     const specialisations = await $strapi.find("specialisations");

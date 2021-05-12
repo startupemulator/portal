@@ -1,10 +1,6 @@
 <template>
   <div class="profile">
-    <Profile
-      :startups="startups"
-      :technologies="technologies"
-      :testimonials="testimonials"
-    ></Profile>
+    <Profile :startups="startups" :technologies="technologies"></Profile>
   </div>
 </template>
 
@@ -20,14 +16,25 @@ import Profile from "~/components/organisms/profile/profile.vue";
 })
 export default class extends Vue {
   // data loaded here will be added during server rendering
-  async asyncData({ $strapi }) {
-    const startups = await $strapi.find("startups");
-    const technologies = await $strapi.find("technologies");
-    const testimonials = await $strapi.find("testimonials");
+  // async asyncData({ $strapi }) {
+  //   const startups = await $strapi.find("startups");
+  //   const technologies = await $strapi.find("technologies");
+  //   const testimonials = await $strapi.find("testimonials");
+  //   return {
+  //     startups,
+  //     technologies,
+  //     testimonials,
+  //   };
+  // }
+  async asyncData({ $technologies, $myStartups, $profile }) {
+    // const { startups } = await $myStartups(route.params.slug);
+    const startups = await $myStartups("2");
+    const { technologies } = await $technologies();
+
     return {
       startups,
+
       technologies,
-      testimonials,
     };
   }
 }

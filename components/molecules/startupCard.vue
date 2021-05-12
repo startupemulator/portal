@@ -17,8 +17,9 @@
         >
           {{ card.state.split("_").join(" ") | capitalize }}
         </div>
+
         <div
-          v-if="card.owner.id === userId"
+          v-if="+card.owner.id === +userId"
           class="startup-card__started-title owner"
         >
           Owner

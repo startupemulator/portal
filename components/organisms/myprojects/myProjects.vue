@@ -9,7 +9,7 @@
       </div>
       <U-Tabs-Long
         :owned="true"
-        :message-lenght="inProgress"
+        :in-progress="inProgress"
         @filterCards="filterCards"
       ></U-Tabs-Long>
     </div>
@@ -19,6 +19,7 @@
           v-for="card in draft"
           :key="card.id"
           :card="card"
+          @clickOnButton="deleteDraft"
         ></Draft-card>
 
         <Startup-card
@@ -54,7 +55,7 @@ export default class extends Vue {
   @Prop() userId: Number;
   draft: Array<Startup> = [];
   startup: Array<Startup> = [];
-  inProgress: Number;
+  inProgress: Number = 0;
   filterCards($event) {
     switch ($event) {
       case 2:
@@ -72,6 +73,10 @@ export default class extends Vue {
       default:
         break;
     }
+  }
+
+  deleteDraft(id) {
+    this.$emit("deleteDraft", id);
   }
 
   mounted() {
