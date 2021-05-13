@@ -1,6 +1,5 @@
 <template>
   <div class="edit-profile">
-    <!-- <pre style="color: #fff">{{ myTechnologies }}</pre> -->
     <div class="edit-profile__header">
       <u-back :is-button="true" @clikOnButton="$emit('clickOnButton')"></u-back>
       <u-title :text="'Edit profile'"></u-title>
@@ -106,7 +105,7 @@ export default class extends Vue {
   }
 
   addTechnologies(data) {
-    this.profileUpdateData.newTwchnologies = data;
+    this.profileUpdateData.newTechnologies = data;
   }
 
   textInput(data) {

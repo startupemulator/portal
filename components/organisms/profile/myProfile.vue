@@ -175,9 +175,19 @@ export default class extends Vue {
         data.experiences.id
       );
       const updateUserName = await this.$updateUser(data.userId, data.userName);
+
+      if (data.newTechnologies) {
+        const newTechnologies = [];
+        data.newTechnologies.forEach((element) => {
+          newTechnologies.push(element.name);
+          this.$createTechnologies(data.userId, element.name);
+        });
+      }
+
       if (result !== null && updateUserName !== null) {
         this.$emit("updateData");
       }
+
       this.loading = false;
     } catch (e) {
       Toast.show({
