@@ -28,3 +28,25 @@ export function myTechnologies($strapi: Strapi) {
     return data.technologies ? data.technologies : null;
   };
 }
+export function createTechnologies($strapi: Strapi) {
+  return async (creator: number, title: string) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+        createTechnology(
+          input: {
+            data: {
+              title:  "${title}", creator_id: ${creator}
+            }
+          }
+        ) {
+            technology {
+              creator_id
+              title
+            }
+    
+  }
+}`,
+    });
+    return data.technologies ? data.technologies : null;
+  };
+}

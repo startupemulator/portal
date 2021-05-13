@@ -15,7 +15,11 @@ import { Estimation } from "~/models/Estimation";
 import { Experience } from "~/models/Experience";
 import { Testimonial } from "~/models/Testimonial";
 import { testimonials } from "~/plugins/services/testimonials";
-import { myTechnologies, technologies } from "~/plugins/services/technologies";
+import {
+  myTechnologies,
+  technologies,
+  createTechnologies,
+} from "~/plugins/services/technologies";
 import { Technology } from "~/models/Technology";
 import { Profile } from "~/models/Profile";
 import { profile, updateProfile } from "~/plugins/services/profile";
@@ -51,6 +55,11 @@ export interface Services {
   $testimonials(): Promise<Partial<Testimonial>[]>;
 
   $technologies(isPublic: boolean): Promise<Partial<Technology>[]>;
+  $createTechnologies(
+    creator: number,
+    title: string
+  ): Promise<Partial<Technology>[]>;
+
   $myTechnologies(creator: string): Promise<Partial<Technology>[]>;
 }
 
@@ -76,6 +85,7 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
 
   inject("technologies", technologies(ctx.$strapi));
   inject("myTechnologies", myTechnologies(ctx.$strapi));
+  inject("createTechnologies", createTechnologies(ctx.$strapi));
 };
 
 export default strapiServices;
