@@ -174,7 +174,8 @@ export default class extends Vue {
         data.technologies,
         data.experiences.id
       );
-      if (result !== null) {
+      const updateUserName = await this.$updateUser(data.userId, data.userName);
+      if (result !== null && updateUserName !== null) {
         this.$emit("updateData");
       }
       this.loading = false;

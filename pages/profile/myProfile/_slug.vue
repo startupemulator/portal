@@ -42,7 +42,6 @@ export default class extends Vue {
     const allTechnologies = technologies
       .filter((el) => myTechnologies.every((item) => el.id !== item.id))
       .concat(myTechnologies);
-    console.log(profile);
 
     return {
       startups,

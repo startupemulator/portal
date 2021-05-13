@@ -90,6 +90,8 @@ export default class extends Vue {
   userName = this.userData.username;
   saveProfileUpdateData() {
     this.$v.$touch();
+    this.profileUpdateData.userName = this.userName;
+    this.profileUpdateData.userId = this.userData.id;
     if (!this.$v.$error) {
       this.$emit("saveProfileUpdateData", this.profileUpdateData);
     }
@@ -110,7 +112,6 @@ export default class extends Vue {
   textInput(data) {
     this.$v.$touch();
     this.userName = data;
-    this.profileUpdateData.username = this.userName;
   }
 
   mounted() {
