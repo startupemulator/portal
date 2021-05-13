@@ -24,13 +24,18 @@ import { Technology } from "~/models/Technology";
 import { Profile } from "~/models/Profile";
 import { profile, updateProfile } from "~/plugins/services/profile";
 import { NotificationUser } from "~/models/NotificationUser";
-import { updateUser, users } from "~/plugins/services/user";
-
+import { updateUser, users, updateUserPassword } from "~/plugins/services/user";
+import { login } from "~/plugins/services/login";
 export interface Services {
   $estimations(): Promise<Partial<Estimation>[]>;
   $experiences(): Promise<Partial<Experience>[]>;
-  $profile(): Promise<Partial<Profile>[]>;
+  $profile(id: string): Promise<Partial<Profile>[]>;
   $users(): Promise<Partial<NotificationUser>[]>;
+  $login(email: string, password: string): Promise<Partial<NotificationUser>[]>;
+  $updateUserPassword(
+    id: string,
+    password: string
+  ): Promise<Partial<NotificationUser>[]>;
   $updateUser(
     id: string,
     username: string
@@ -79,7 +84,10 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("updateProfile", updateProfile(ctx.$strapi));
 
   inject("updateUser", updateUser(ctx.$strapi));
+  inject("updateUserPassword", updateUserPassword(ctx.$strapi));
   inject("users", users(ctx.$strapi));
+
+  inject("login", login(ctx.$strapi));
 
   inject("testimonials", testimonials(ctx.$strapi));
 

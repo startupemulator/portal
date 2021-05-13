@@ -35,3 +35,23 @@ export function updateUser($strapi: Strapi) {
     return data.updateUser ? data.updateUser.user : null;
   };
 }
+export function updateUserPassword($strapi: Strapi) {
+  return async (id: string, password: string) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+        updateUser(
+          input: {
+          where: {id: "${id}" }
+          data: { password: "${password}"}
+         }
+         ) {
+            user {
+              username
+              email
+            }
+        }
+      }`,
+    });
+    return data.updateUser ? data.updateUser.user : null;
+  };
+}

@@ -83,6 +83,7 @@
     ></EditProfile>
     <ChangePassword
       v-if="changePassword"
+      :user-id="userData.user.id"
       @clickOnButton="toggleChangePassword"
     ></ChangePassword>
   </div>

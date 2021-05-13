@@ -11,7 +11,6 @@ export function profile($strapi: Strapi) {
         username
         email
         provider
-        
       }
       technologies{
         id
