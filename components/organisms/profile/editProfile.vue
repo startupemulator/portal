@@ -9,10 +9,18 @@
       <p>Full name</p>
 
       <UInput
+        v-model="userName"
         :placeholder="''"
-        :value="userData.username"
+        :account-class="
+          $v.userName.$error
+            ? 'create-account__password error'
+            : 'create-account__password'
+        "
         @textInput="textInput"
       ></UInput>
+      <p v-show="$v.userName.$error" class="errorInput">
+        Please enter a full name, least 6 characters
+      </p>
       <DurationExperiensePicker
         :title="'Total years of your experience'"
         :experiences="experiences"
@@ -44,6 +52,7 @@
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
+import { minLength, required } from "vuelidate/lib/validators";
 import DurationExperiensePicker from "../../molecules/durationExperiencePicker.vue";
 import TechnologyPicker from "~/components/molecules/technologyPicker.vue";
 import uBack from "~/components/atoms/uBack.vue";
@@ -62,9 +71,15 @@ import { Technology } from "~/models/Technology";
     DurationExperiensePicker,
     TechnologyPicker,
   },
+  validations: {
+    userName: {
+      required,
+      minLength: minLength(6),
+    },
+  },
 })
 export default class extends Vue {
-  @Prop() userData: Array<any>;
+  @Prop() userData!: Array<any>;
   @Prop() userExperience: Array<any>;
   @Prop() experiences: Array<Experience>;
   @Prop() technologies: Array<Technology>;
@@ -72,8 +87,12 @@ export default class extends Vue {
   choosenTechnologies = [];
   profileUpdateData = {};
   updateKey = 0;
+  userName = this.userData.username;
   saveProfileUpdateData() {
-    this.$emit("saveProfileUpdateData", this.profileUpdateData);
+    this.$v.$touch();
+    if (!this.$v.$error) {
+      this.$emit("saveProfileUpdateData", this.profileUpdateData);
+    }
   }
 
   clickOnDuration(data) {
@@ -89,7 +108,9 @@ export default class extends Vue {
   }
 
   textInput(data) {
-    this.profileUpdateData.username = data;
+    this.$v.$touch();
+    this.userName = data;
+    this.profileUpdateData.username = this.userName;
   }
 
   mounted() {
@@ -98,3 +119,11 @@ export default class extends Vue {
   }
 }
 </script>
+
+<style lang="scss">
+.edit-profile {
+  .errorInput {
+    top: 0;
+  }
+}
+</style>
