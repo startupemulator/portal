@@ -89,6 +89,7 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
+import Toast from "../../../store/modules/Toast";
 import MyProfileRegularUser from "./myProfileRegularUser.vue";
 import ExpertUser from "./expertUser.vue";
 import badgePopup from "~/components/molecules/popupBadge.vue";
@@ -104,6 +105,7 @@ import { Testimonial } from "~/models/Testimonial";
 import { Experience } from "~/models/Experience";
 import Spiner from "~/components/molecules/spiner.vue";
 import { copyToClipboard } from "~/assets/jshelper/copyToClipBoard";
+
 @Component({
   components: {
     UTitle,
@@ -174,7 +176,10 @@ export default class extends Vue {
       }
       this.loading = false;
     } catch (e) {
-      console.error(e);
+      Toast.show({
+        data: e.message,
+        duration: 3000,
+      });
       this.loading = false;
     }
   }
