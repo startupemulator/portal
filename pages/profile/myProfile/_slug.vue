@@ -42,7 +42,6 @@ export default class extends Vue {
     const allTechnologies = technologies
       .filter((el) => myTechnologies.every((item) => el.id !== item.id))
       .concat(myTechnologies);
-    console.log(profile);
 
     return {
       startups,
@@ -55,7 +54,6 @@ export default class extends Vue {
   }
 
   async updateData() {
-    console.log("hi");
     this.profile = await this.$profile(this.$strapi.user.id);
     this.myTechnologies = this.profile.technologies;
   }

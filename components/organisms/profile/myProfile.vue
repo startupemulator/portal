@@ -89,6 +89,8 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
+import Toast from "../../../store/modules/Toast";
+
 import MyProfileRegularUser from "./myProfileRegularUser.vue";
 import ExpertUser from "./expertUser.vue";
 import badgePopup from "~/components/molecules/popupBadge.vue";
@@ -104,6 +106,7 @@ import { Testimonial } from "~/models/Testimonial";
 import { Experience } from "~/models/Experience";
 import Spiner from "~/components/molecules/spiner.vue";
 import { copyToClipboard } from "~/assets/jshelper/copyToClipBoard";
+
 @Component({
   components: {
     UTitle,
@@ -151,10 +154,12 @@ export default class extends Vue {
   copyBaseUri() {
     this.loading = true;
     const url = window.location.href.split("/myProfile").join("");
-    copyToClipboard(url)
-      .then(() => console.log("text copied !"))
-      .catch(() => console.log("error"));
+    copyToClipboard(url);
     setTimeout(() => (this.loading = false), 500);
+    Toast.show({
+      data: "Link copied is  -  " + url,
+      duration: 3000,
+    });
   }
 
   async saveProfileUpdateData(data) {
@@ -169,12 +174,16 @@ export default class extends Vue {
         data.technologies,
         data.experiences.id
       );
-      if (result !== null) {
+      const updateUserName = await this.$updateUser(data.userId, data.userName);
+      if (result !== null && updateUserName !== null) {
         this.$emit("updateData");
       }
       this.loading = false;
     } catch (e) {
-      console.error(e);
+      Toast.show({
+        data: e.message,
+        duration: 3000,
+      });
       this.loading = false;
     }
   }
