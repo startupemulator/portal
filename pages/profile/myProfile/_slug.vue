@@ -55,7 +55,6 @@ export default class extends Vue {
   }
 
   async updateData() {
-    console.log("hi");
     this.profile = await this.$profile(this.$strapi.user.id);
     this.myTechnologies = this.profile.technologies;
   }

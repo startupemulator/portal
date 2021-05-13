@@ -90,6 +90,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import Toast from "../../../store/modules/Toast";
+
 import MyProfileRegularUser from "./myProfileRegularUser.vue";
 import ExpertUser from "./expertUser.vue";
 import badgePopup from "~/components/molecules/popupBadge.vue";
@@ -153,10 +154,12 @@ export default class extends Vue {
   copyBaseUri() {
     this.loading = true;
     const url = window.location.href.split("/myProfile").join("");
-    copyToClipboard(url)
-      .then(() => console.log("text copied !"))
-      .catch(() => console.log("error"));
+    copyToClipboard(url);
     setTimeout(() => (this.loading = false), 500);
+    Toast.show({
+      data: "Link copied is  -  " + url,
+      duration: 3000,
+    });
   }
 
   async saveProfileUpdateData(data) {
