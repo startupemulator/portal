@@ -124,6 +124,12 @@ export default class extends Vue {
           identifier: this.email,
           password: this.password,
         });
+        console.log(user);
+        if (user) {
+          this.$nuxt.$router.push("/");
+        }
+        // const user = await this.$login(this.email, this.password);
+        // console.log(user);
         if (user) {
           this.$nuxt.$router.push("/");
         }

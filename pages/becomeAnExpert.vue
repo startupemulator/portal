@@ -1,8 +1,10 @@
 <template>
   <div class="fullscreen">
-    <!-- <pre style="color: #fff">{{ technologies }}</pre> -->
-
-    <BecomeAnExpert :technologies="technologies"></BecomeAnExpert>
+    <BecomeAnExpert
+      :technologies="technologies"
+      :user-id="userId"
+      :user-name="userName"
+    ></BecomeAnExpert>
   </div>
 </template>
 
@@ -17,10 +19,10 @@ import BecomeAnExpert from "~/components/organisms/becomeAnExpert/becomeAnExpert
   middleware: ["deny-unauthenticated"],
 })
 export default class extends Vue {
-  async asyncData({ $strapi }) {
-    const technologies = await $strapi.find("technologies", [
-      ["is_public", true],
-    ]);
+  userId = this.$strapi.user.id;
+  userName = this.$strapi.user.username;
+  async asyncData({ $technologies }) {
+    const { technologies } = await $technologies();
     return {
       technologies,
     };

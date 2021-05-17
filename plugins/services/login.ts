@@ -7,12 +7,11 @@ export function login($strapi: Strapi) {
         login(input: { identifier: "${identifier}", password: "${password}" }) {
           jwt
           user {
+            id
             username
             email
           }
-            
         }
-        
       }`,
     });
     return data;

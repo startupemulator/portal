@@ -24,7 +24,11 @@ import {
 } from "~/plugins/services/technologies";
 import { Technology } from "~/models/Technology";
 import { Profile } from "~/models/Profile";
-import { profile, updateProfile } from "~/plugins/services/profile";
+import {
+  profile,
+  updateProfile,
+  createProfile,
+} from "~/plugins/services/profile";
 import { NotificationUser } from "~/models/NotificationUser";
 import {
   updateUser,
@@ -55,6 +59,10 @@ export interface Services {
     id: string,
     username: string
   ): Promise<Partial<NotificationUser>[]>;
+  $createProfile(
+    id: string,
+    technologies: Array<string>
+  ): Promise<Partial<Profile>[]>;
   $updateProfile(
     id: string,
     technologies: Array<string>,
@@ -97,6 +105,7 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
 
   inject("profile", profile(ctx.$strapi));
   inject("updateProfile", updateProfile(ctx.$strapi));
+  inject("createProfile", createProfile(ctx.$strapi));
 
   inject("updateUser", updateUser(ctx.$strapi));
   inject("users", users(ctx.$strapi));

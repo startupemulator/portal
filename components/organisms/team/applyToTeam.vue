@@ -87,7 +87,6 @@ export default class extends Vue {
     );
     this.newRequest.position = position[0].id;
 
-    console.log(this.newRequest);
     try {
       this.loading = true;
       const newRequest = await this.$strapi.create(

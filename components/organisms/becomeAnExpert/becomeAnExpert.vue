@@ -4,7 +4,7 @@
       <U-title :text="'Become an expert'"></U-title>
       <p>Full name</p>
       <U-input
-        :value="fullName"
+        :value="userName"
         :placeholder="'Enter your full name'"
         :type="'text'"
         :img="require('~/assets/img/profile.svg')"
@@ -60,44 +60,34 @@ import Toast from "~/store/modules/Toast";
 })
 export default class extends Vue {
   @Prop() technologies: Array<Technology>;
-
-  fullName: string = "";
-  choosenTechnology: string = "";
-  role: string = "expert";
-  checkName(textValue: string) {
-    this.fullName = textValue;
+  @Prop() userId: String;
+  @Prop() userName!: String;
+  fullName = this.userName ? this.userName : "";
+  choosenTechnology: String = "";
+  role: String = "expert";
+  checkName(textValue: String) {
+    this.fullName = textValue.trim();
     this.$v.fullName.$touch();
   }
 
-  chosenTechnologi(choosenTechnology: string) {
-    console.log("fwe");
-    this.choosenTechnology = choosenTechnology;
+  chosenTechnologi(choosenTechnology, id) {
+    this.choosenTechnology = id;
   }
 
   async finishSigningUp() {
     this.$v.$touch();
     if (!this.$v.$error) {
       try {
-        const finishSignUp = await this.$strapi.setUser({
-          id: this.$strapi.user.id,
-          username: this.fullName,
-          email: this.$strapi.user.email,
-          provider: this.$strapi.user.provider,
-          confirmed: this.$strapi.user.confirmed,
-          blocked: this.$strapi.user.blocked,
-          role: {
-            id: this.$strapi.user.role.id,
-            name: this.$strapi.user.name,
-            description: this.$strapi.user.description,
-            type: this.role,
-          },
-          created_at: this.$strapi.user.created_at,
-          updated_at: new Date(),
-          name: this.$strapi.user.name,
-        });
-        if (finishSignUp !== null) {
-          this.error = "";
-        }
+        const updateUser = await this.$updateUser(this.userId, this.fullName);
+
+        console.log(updateUser);
+        console.log(this.choosenTechnology);
+
+        const createProfile = await this.$createProfile(
+          this.userId,
+          this.choosenTechnology
+        );
+        console.log(createProfile);
       } catch (e) {
         Toast.show({
           data: e.message,

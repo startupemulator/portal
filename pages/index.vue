@@ -1,8 +1,8 @@
 <template>
   <div>
     <toast />
-    <div style="display: flex">
-      <div style="width: 50%">
+    <div style="display: flex; justify-content: space-between">
+      <div style="width: 49%">
         <h2>Pages List</h2>
         <h1 v-if="$strapi.user">
           Current user:
@@ -12,8 +12,10 @@
 
         <ul>
           <li><nuxt-link to="/landing">Landing</nuxt-link></li>
-          <li><nuxt-link to="/logIn">Log In</nuxt-link></li>
-          <li>
+          <li style="text-decoration: line-through">
+            <nuxt-link to="/logIn">Log In</nuxt-link>
+          </li>
+          <li style="text-decoration: line-through">
             <nuxt-link to="/applyToTeam">Apply to Team </nuxt-link> => available
             in
             <nuxt-link to="/startups">
@@ -23,11 +25,23 @@
             </nuxt-link>
             button Apply
           </li>
-          <li><nuxt-link to="/createAccount">Create Account</nuxt-link></li>
+          <li style="text-decoration: line-through">
+            <nuxt-link to="/createAccount">Create Account</nuxt-link>
+          </li>
           <li><nuxt-link to="/createStartup">Create Startup</nuxt-link></li>
           <hr />
-          <li><nuxt-link to="/becomeAnExpert">BecomeAnExpert</nuxt-link></li>
-          <li><nuxt-link to="/participate">Participate</nuxt-link></li>
+          <li>
+            <nuxt-link to="/becomeAnExpert">BecomeAnExpert</nuxt-link>
+          </li>
+          <li style="text-decoration: line-through">
+            <nuxt-link to="/participate">Participate</nuxt-link> => available in
+            <nuxt-link to="/challenges">
+              <span style="color: #fff; border-bottom: 1px solid #fff"
+                >Challenge</span
+              >
+            </nuxt-link>
+            button Accept
+          </li>
           <hr />
 
           <li><nuxt-link to="/startups">Startups</nuxt-link></li>
@@ -44,16 +58,33 @@
           </li>
         </ul>
       </div>
-      <div style="width: 50%">
+      <div style="width: 49%">
+        <h2 style="display: inline-block">Finished</h2>
+        <span style="color: #fff">/ or add some task to do state finished</span>
+
+        <hr style="margin-top: 0" />
         <ul>
-          <li><h2>Finished</h2></li>
-          <h1 v-if="$strapi.user">
-            Current user:
-            {{ $strapi.user.name ? $strapi.user.name : $strapi.user.username }}
-          </h1>
-          <hr />
           <li><nuxt-link to="/logIn">Log In</nuxt-link></li>
           <li><nuxt-link to="/createAccount">Create Account</nuxt-link></li>
+          <li>
+            <nuxt-link to="/applyToTeam">Apply to Team </nuxt-link> => available
+            in
+            <nuxt-link to="/startups">
+              <span style="color: #fff; border-bottom: 1px solid #fff"
+                >Startups</span
+              >
+            </nuxt-link>
+            button Apply
+          </li>
+          <li>
+            <nuxt-link to="/participate">Participate</nuxt-link> => available in
+            <nuxt-link to="/challenges">
+              <span style="color: #fff; border-bottom: 1px solid #fff"
+                >Challenge</span
+              >
+            </nuxt-link>
+            button Accept
+          </li>
         </ul>
       </div>
     </div>

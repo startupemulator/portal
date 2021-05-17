@@ -49,7 +49,6 @@ export default class extends Vue {
     const profile = await $profile($strapi.user.id);
     let technology = [];
     if (startup.technologies !== null) {
-      console.log(startup.technologies);
       technologies.forEach((el) => {
         startup.technologies.forEach((element, i) => {
           if (el.id === element.id) {
@@ -57,7 +56,6 @@ export default class extends Vue {
           }
         });
       });
-      console.log(startup.technologies);
       technology = technologies.concat(startup.technologies);
     }
     const specialisations = [];

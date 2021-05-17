@@ -1,6 +1,6 @@
 <template>
   <div class="profile">
-    <Profile :startups="startups" :technologies="technologies"></Profile>
+    <!-- <Profile :startups="startups" :technologies="technologies"></Profile> -->
   </div>
 </template>
 
@@ -33,7 +33,6 @@ export default class extends Vue {
 
     return {
       startups,
-
       technologies,
     };
   }
