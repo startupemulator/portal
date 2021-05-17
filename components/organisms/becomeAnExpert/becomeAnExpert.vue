@@ -22,6 +22,7 @@
       <TechnologyPicker
         :technologies="technologies"
         @chosenTechnologi="chosenTechnologi"
+        @addTechnologies="addTechnologies"
       ></TechnologyPicker>
       <div class="become-expert__buttons">
         <U-button
@@ -31,6 +32,7 @@
         ></U-button>
       </div>
     </div>
+    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 
@@ -44,12 +46,15 @@ import UInput from "~/components/atoms/uInput.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import { Technology } from "~/models/Technology";
 import Toast from "~/store/modules/Toast";
+import Spiner from "~/components/molecules/spiner.vue";
+
 @Component({
   components: {
     TechnologyPicker,
     UTitle,
     UInput,
     UButton,
+    Spiner,
   },
   validations: {
     fullName: {
@@ -64,7 +69,9 @@ export default class extends Vue {
   @Prop() userName!: String;
   fullName = this.userName ? this.userName : "";
   choosenTechnology: String = "";
-  role: String = "expert";
+  addedTechnologies: Array<String> = [];
+  loading = false;
+
   checkName(textValue: String) {
     this.fullName = textValue.trim();
     this.$v.fullName.$touch();
@@ -74,27 +81,37 @@ export default class extends Vue {
     this.choosenTechnology = id;
   }
 
+  addTechnologies(data) {
+    this.addedTechnologies = data;
+  }
+
   async finishSigningUp() {
     this.$v.$touch();
     if (!this.$v.$error) {
+      this.loading = true;
       try {
-        const updateUser = await this.$updateUser(this.userId, this.fullName);
+        await this.$updateUser(this.userId, this.fullName);
 
-        console.log(updateUser);
-        console.log(this.choosenTechnology);
-
-        const createProfile = await this.$createProfile(
-          this.userId,
-          this.choosenTechnology
-        );
-        console.log(createProfile);
+        const findProfile = await this.$profile(this.userId);
+        if (findProfile === undefined) {
+          await this.$createProfile(this.userId, this.choosenTechnology);
+        }
+        if (this.addedTechnologies.length > 0) {
+          await this.addedTechnologies.forEach((el) => {
+            this.$createTechnologies(this.userId, el.name);
+          });
+        }
+        this.loading = false;
+        this.$nuxt.$router.push("/myProjects");
       } catch (e) {
+        this.loading = false;
         Toast.show({
           data: e.message,
           duration: 3000,
         });
       }
     } else {
+      this.loading = false;
       Toast.show({
         data: "Fill the form correctly.",
         duration: 3000,
