@@ -84,6 +84,7 @@ export default class extends Vue {
   background: #2e384a;
   border-radius: 12px;
   border: 2px solid transparent;
+  box-sizing: border-box;
   &:focus {
     border: 2px solid #b5c1d8;
   }

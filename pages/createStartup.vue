@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="createProject">
-      <create-prodgect
+      <CreateProdgect
         :technologies="technologies"
         :estimations="estimations"
         :specialisations="specialisations"
-      ></create-prodgect>
+      ></CreateProdgect>
     </div>
   </div>
 </template>
@@ -21,22 +21,11 @@ import CreateProdgect from "~/components/organisms/startups/createProject.vue";
   middleware: ["deny-unauthenticated"],
 })
 export default class extends Vue {
-  async asyncData({ $strapi }) {
-    const technologies = await $strapi.find("technologies");
-    const estimation = await $strapi.find("estimations");
-    const specialisations = await $strapi.find("specialisations");
-    let estimations;
-    if (estimation !== null) {
-      estimations = estimation.sort(function (a, b) {
-        if (a.id > b.id) {
-          return 1;
-        }
-        if (a.id < b.id) {
-          return -1;
-        }
-        return 0;
-      });
-    }
+  async asyncData({ $technologies, $estimations, $specialisations }) {
+    const { technologies } = await $technologies();
+    const { estimations } = await $estimations();
+    const { specialisations } = await $specialisations();
+
     return {
       technologies,
       estimations,

@@ -30,7 +30,7 @@
           </li>
           <li><nuxt-link to="/createStartup">Create Startup</nuxt-link></li>
           <hr />
-          <li>
+          <li style="text-decoration: line-through">
             <nuxt-link to="/becomeAnExpert">BecomeAnExpert</nuxt-link>
           </li>
           <li style="text-decoration: line-through">
@@ -84,6 +84,9 @@
               >
             </nuxt-link>
             button Accept
+          </li>
+          <li>
+            <nuxt-link to="/becomeAnExpert">BecomeAnExpert</nuxt-link>
           </li>
         </ul>
       </div>

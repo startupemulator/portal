@@ -17,6 +17,8 @@ import { Estimation } from "~/models/Estimation";
 import { Experience } from "~/models/Experience";
 import { Testimonial } from "~/models/Testimonial";
 import { testimonials } from "~/plugins/services/testimonials";
+import { specialisations } from "~/plugins/services/specialisations";
+import Specialisation from "~/models/Specialisation";
 import {
   myTechnologies,
   technologies,
@@ -39,6 +41,7 @@ import {
 import { login } from "~/plugins/services/login";
 export interface Services {
   $estimations(): Promise<Partial<Estimation>[]>;
+  $specialisations(): Promise<Partial<Specialisation>[]>;
   $experiences(): Promise<Partial<Experience>[]>;
   $profile(id: string): Promise<Partial<Profile>[]>;
   $users(): Promise<Partial<NotificationUser>[]>;
@@ -93,6 +96,7 @@ export interface Services {
 
 const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("estimations", estimations(ctx.$strapi));
+  inject("specialisations", specialisations(ctx.$strapi));
   inject("experiences", experiences(ctx.$strapi));
 
   inject("challenges", challenges(ctx.$strapi));
