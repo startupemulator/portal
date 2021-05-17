@@ -1,6 +1,6 @@
 <template>
   <div class="apply-to-team">
-    <U-back v-if="applyToTeamStep1" :link="'/'"></U-back>
+    <U-back v-if="applyToTeamStep1" :link="'/startups'"></U-back>
     <U-back
       v-if="!applyToTeamStep1"
       :is-button="true"
