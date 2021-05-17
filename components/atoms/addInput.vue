@@ -106,7 +106,8 @@ export default class extends Vue {
     color: #fff;
     display: flex;
     margin-right: 8px;
-    // margin-bottom: 8px;
+    margin-bottom: 4px;
+    margin-top: 4px;
     justify-content: space-between;
 
     button {
