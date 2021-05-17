@@ -18,7 +18,7 @@ import { Experience } from "~/models/Experience";
 import { Testimonial } from "~/models/Testimonial";
 import { testimonials } from "~/plugins/services/testimonials";
 import { specialisations } from "~/plugins/services/specialisations";
-import Specialisation from "~/models/Specialisation";
+import { Specialisation } from "~/models/Specialisation";
 import {
   myTechnologies,
   technologies,
