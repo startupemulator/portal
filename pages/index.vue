@@ -68,10 +68,10 @@ export default class extends Vue {
     };
   }
 
-  async mounted() {
-    const startups = await this.$startups();
-    console.log(startups);
-  }
+  // async mounted() {
+  //   const startups = await this.$startups();
+  //   console.log(startups);
+  // }
 }
 </script>
 

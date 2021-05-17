@@ -127,6 +127,11 @@ export default class extends Vue {
         if (user) {
           this.$nuxt.$router.push("/");
         }
+        // const user = await this.$login(this.email, this.password);
+        // console.log(user);
+        // if (user) {
+        //   this.$nuxt.$router.push("/");
+        // }
       } catch (e) {
         Toast.show({
           data: e.message,
@@ -162,7 +167,6 @@ export default class extends Vue {
   }
 
   checkPassword(textValue: string) {
-    console.log(textValue);
     this.password = textValue;
     this.$v.password.$touch();
   }

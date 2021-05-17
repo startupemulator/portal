@@ -66,16 +66,19 @@
       :text-content="``"
       @closePopupLinkSent="togglePopupChallengeStarted"
     ></popup-challenge-started>
+    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import { minLength, required, sameAs } from "vuelidate/lib/validators";
+import Toast from "../../../store/modules/Toast";
 import uBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UInput from "~/components/atoms/uInput.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import PopupChallengeStarted from "~/components/molecules/popupChallengeStarted.vue";
+import Spiner from "~/components/molecules/spiner.vue";
 
 @Component({
   components: {
@@ -84,6 +87,7 @@ import PopupChallengeStarted from "~/components/molecules/popupChallengeStarted.
     UInput,
     UButton,
     PopupChallengeStarted,
+    Spiner,
   },
   validations: {
     currentPassword: {
@@ -105,18 +109,36 @@ export default class extends Vue {
   currentPassword = "";
   password = "";
   confirmPassword = "";
+  loading = false;
 
   async changePassword() {
     this.$v.$touch();
     if (!this.$v.$error) {
       try {
-        // this update password
-        // const checkPassword = await this.$updateUserPassword(
-        //   this.userId,
-        //   "Password"
-        // );
-        // console.log(checkPassword);
+        this.loading = true;
+        // before update password need check current password
+
+        const updateUserPassword = await this.$updateUserPassword(
+          this.userId,
+          "this.password"
+        );
+        console.log(updateUserPassword);
+        if (updateUserPassword !== null) {
+          this.togglePopupChallengeStarted();
+          this.loading = false;
+        } else {
+          this.loading = false;
+          Toast.show({
+            data: "Something wrong.",
+            duration: 3000,
+          });
+        }
       } catch (e) {
+        this.loading = false;
+        Toast.show({
+          data: "Something wrong.",
+          duration: 3000,
+        });
         console.error(e);
       }
     }

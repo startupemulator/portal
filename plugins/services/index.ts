@@ -31,7 +31,10 @@ export interface Services {
   $experiences(): Promise<Partial<Experience>[]>;
   $profile(id: string): Promise<Partial<Profile>[]>;
   $users(): Promise<Partial<NotificationUser>[]>;
-  $login(email: string, password: string): Promise<Partial<NotificationUser>[]>;
+  $login(
+    identifier: string,
+    password: string
+  ): Promise<Partial<NotificationUser>[]>;
   $updateUserPassword(
     id: string,
     password: string
