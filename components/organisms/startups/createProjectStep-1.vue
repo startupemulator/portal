@@ -6,25 +6,21 @@
         v-model.trim="$v.title.$model"
         type="text"
         placeholder="Enter the startup name"
+        :class="$v.title.$error ? ' error' : ''"
       />
     </div>
-    <p v-show="!$v.title.minLength" class="errorInput">
+    <p v-show="$v.title.$error" class="errorInput">
       Please enter a startup name of at least 8 characters
-    </p>
-    <p v-show="!$v.title.required" class="errorInput">
-      Please enter a startup name
     </p>
     <div class="startup__description">
       <h4>Description</h4>
       <textarea
         v-model.trim="$v.description.$model"
         placeholder="Describe your idea and main goals of your startup to interest developers to join your team"
+        :class="$v.title.$error ? ' error' : ''"
       ></textarea>
-      <p v-show="!$v.description.minLength" class="errorInput">
+      <p v-show="$v.description.$error" class="errorInput">
         Please enter a description name of at least 8 characters
-      </p>
-      <p v-show="!$v.description.required" class="errorInput">
-        Please enter a description
       </p>
       <div class="startup__start-date">
         <h4>Start date</h4>
@@ -76,7 +72,7 @@
             </svg> </i
         ></DatePicker>
 
-        <p v-show="!$v.date.required" class="errorInput">Please enter a date</p>
+        <p v-show="$v.date.$error" class="errorInput">Please enter a date</p>
       </div>
       <div class="startup__finish-date">
         <Duration-picker
@@ -130,8 +126,8 @@ import Spiner from "~/components/molecules/spiner.vue";
       minLength: minLength(8),
     },
     description: {
+      minLength: minLength(10),
       required,
-      minLength: minLength(8),
     },
     date: {
       required,
@@ -140,11 +136,11 @@ import Spiner from "~/components/molecules/spiner.vue";
   components: { DatePicker, UButton, DurationPicker, AddInput, Spiner },
 })
 export default class extends Vue {
-  @Prop() startUpData!: Array<any>;
+  @Prop() startupData!: Array<any>;
   @Prop() estimations: Array<Estimation>;
   @Prop() createdStartupId: Number;
-  date: String = this.startUpData.date
-    ? this.startUpData.start_datethis.startUpData.start_date
+  date: String = this.startupData.date
+    ? this.startupData.start_datethis.startupData.start_date
         .split("T")[0]
         .split("-")
         .reverse()
@@ -152,14 +148,16 @@ export default class extends Vue {
     : "";
 
   loading = false;
-  title: String = this.startUpData.title ? this.startUpData.title : "";
+  title: String = this.startupData.title ? this.startupData.title : "";
 
-  description: String = this.startUpData.description
-    ? this.startUpData.description
+  description: String = this.startupData.description
+    ? this.startupData.description
     : "";
 
   start_date: Date = new Date();
-  duration: Number = this.startUpData.duration ? this.startUpData.duration : "";
+  duration: Number = this.startupData.duration
+    ? this.startupData.duration
+    : null;
 
   numberDays: String = "";
   technologies: Array<[string | boolean]>;
@@ -175,8 +173,8 @@ export default class extends Vue {
   }
 
   mounted() {
-    if (this.startUpData.start_date) {
-      this.date = this.startUpData.start_date
+    if (this.startupData.start_date) {
+      this.date = this.startupData.start_date
         .split("T")[0]
         .split("-")
         .reverse()

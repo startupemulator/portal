@@ -15,7 +15,7 @@
 
     <create-project-step-1
       v-if="createprodjectSteps.stepOne"
-      :start-up-data="startUpData"
+      :startup-data="startupData"
       :estimations="estimations"
       :created-startup-id="createdStartupId"
       @goToStepTwo="goToStepTwo"
@@ -24,7 +24,7 @@
     <create-project-step-2
       v-if="createprodjectSteps.stepTwo"
       :technologies="technologies"
-      :start-up-data="startUpData"
+      :startup-data="startupData"
       :specialisations="specialisations"
       :created-startup-id="createdStartupId"
       @goToStepThree="goToStepThree"
@@ -32,13 +32,13 @@
     ></create-project-step-2>
     <create-project-step-3
       v-if="createprodjectSteps.stepThree"
-      :start-up-data="startUpData"
+      :startup-data="startupData"
       @goToStepFour="goToStepFour"
       @saveDraft="saveDraft"
     ></create-project-step-3>
     <create-project-step-4
       v-if="createprodjectSteps.stepFour"
-      :start-up-data="startUpData"
+      :startup-data="startupData"
       @addSomeGiude="addSomeGiude"
       @saveDraft="saveDraft"
       @publish="publish"
@@ -94,7 +94,7 @@ export default class extends Vue {
 
   createdStartupId: Number = 0;
   loading = false;
-  startUpData: Array<Startup> = [];
+  startupData: Array<Startup> = [];
   popupPublish = false;
   get progressSpets() {
     return {
@@ -113,49 +113,49 @@ export default class extends Vue {
     try {
       this.loading = true;
       await this.$strapi.update("startups", this.createdStartupId.toString(), {
-        description: this.startUpData.description,
+        description: this.startupData.description,
       });
       // send specialists
-      if (this.startUpData.specialists.some((el) => el.speciality_id)) {
+      if (this.startupData.specialists.some((el) => el.speciality_id)) {
         const newPositions = {
           startup: this.createdStartupId,
           technologies: [],
           specialisation: "",
         };
-        this.startUpData.specialists.forEach((el) => {
+        this.startupData.specialists.forEach((el) => {
           newPositions.technologies = el.technologiesId;
           newPositions.specialisation = el.speciality_id;
           this.createSpecialisation(newPositions);
         });
         const addedTechnologies = [];
-        this.startUpData.specialists.forEach((el) =>
+        this.startupData.specialists.forEach((el) =>
           el.technologiesId.forEach((item) => addedTechnologies.push(item))
         );
         this.addTechnologiesToStartup(addedTechnologies);
         let newTechnologies: Array<String> = [];
-        this.startUpData.specialists.forEach((el) => {
+        this.startupData.specialists.forEach((el) => {
           newTechnologies = newTechnologies.concat(el.newTechnologies);
         });
         newTechnologies.forEach((el) => this.createNewTechnologies(el));
       }
       // sent technologies & invites
-      if (this.startUpData.coleagues.length !== 0) {
-        this.newInvate(this.startUpData.coleagues);
+      if (this.startupData.coleagues.length !== 0) {
+        this.newInvate(this.startupData.coleagues);
       }
       // send sources
       if (
-        this.startUpData.sources &&
-        !!this.startUpData.sources.some((el) => el.link)
+        this.startupData.sources &&
+        !!this.startupData.sources.some((el) => el.link)
       ) {
-        console.log(!!this.startUpData.sources);
-        console.log(!!this.startUpData.sources.some((el) => el.link));
-        this.startUpData.sources.forEach((el) => {
+        console.log(!!this.startupData.sources);
+        console.log(!!this.startupData.sources.some((el) => el.link));
+        this.startupData.sources.forEach((el) => {
           this.addLink(el);
         });
       }
       // send guide
-      if (this.startUpData.guide) {
-        this.startUpData.guide.forEach((el) => {
+      if (this.startupData.guide) {
+        this.startupData.guide.forEach((el) => {
           this.addGuide(el);
         });
       }
@@ -176,13 +176,13 @@ export default class extends Vue {
     this.createprodjectSteps.stepTwo = true;
     this.createdStartupId = data.id;
 
-    if (this.startUpData.length !== 0) {
-      this.startUpData.title = data.title;
-      this.startUpData.description = data.description;
-      this.startUpData.start_date = data.start_date;
-      this.startUpData.duration = data.duration;
+    if (this.startupData.length !== 0) {
+      this.startupData.title = data.title;
+      this.startupData.description = data.description;
+      this.startupData.start_date = data.start_date;
+      this.startupData.duration = data.duration;
     } else {
-      this.startUpData = data;
+      this.startupData = data;
     }
   }
 
@@ -208,26 +208,26 @@ export default class extends Vue {
   goToStepThree(secodStepData) {
     this.createprodjectSteps.stepTwo = false;
     this.createprodjectSteps.stepThree = true;
-    this.startUpData.specialists = [];
-    this.startUpData.coleagues = [];
-    secodStepData[0].forEach((el) => this.startUpData.specialists.push(el));
-    secodStepData[1].forEach((el) => this.startUpData.coleagues.push(el));
+    this.startupData.specialists = [];
+    this.startupData.coleagues = [];
+    secodStepData[0].forEach((el) => this.startupData.specialists.push(el));
+    secodStepData[1].forEach((el) => this.startupData.coleagues.push(el));
   }
 
   goToStepFour(thirdStepData) {
     this.createprodjectSteps.stepThree = false;
     this.createprodjectSteps.stepFour = true;
-    this.startUpData.sources = [];
+    this.startupData.sources = [];
     thirdStepData.forEach((el) => {
-      this.startUpData.sources.push(el);
+      this.startupData.sources.push(el);
     });
   }
 
   addSomeGiude(data) {
-    this.startUpData.guide = [];
+    this.startupData.guide = [];
     data.forEach((el) => {
       if (el.name) {
-        this.startUpData.guide.push(el);
+        this.startupData.guide.push(el);
       }
     });
   }
