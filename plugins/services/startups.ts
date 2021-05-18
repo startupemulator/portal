@@ -125,7 +125,7 @@ export function deleteDraft($strapi: Strapi) {
     });
   };
 }
-// where: {technologies: {id_contains: [${technologies}]}}
+
 export function filterStartup($strapi: Strapi) {
   return async (technologies: Array<string>) => {
     const data = await $strapi.graphql({

@@ -47,7 +47,9 @@
           <hr />
 
           <li><nuxt-link to="/startups">Startups</nuxt-link></li>
-          <li><nuxt-link to="/challenges">Challenges</nuxt-link></li>
+          <li style="text-decoration: line-through">
+            <nuxt-link to="/challenges">Challenges</nuxt-link>
+          </li>
           <li><nuxt-link to="/myProjects">My Projects</nuxt-link></li>
           <li><nuxt-link to="/profile">Profile</nuxt-link></li>
           <li><nuxt-link to="/myProfile">myProfile</nuxt-link></li>
@@ -92,6 +94,7 @@
           <li>
             <nuxt-link to="/becomeAnExpert">BecomeAnExpert</nuxt-link>
           </li>
+          <li><nuxt-link to="/challenges">Challenges</nuxt-link></li>
         </ul>
       </div>
     </div>

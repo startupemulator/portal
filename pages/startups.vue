@@ -27,22 +27,7 @@ export default class extends Vue {
   loading = false;
   autorizated = !!this.$strapi.user;
 
-  // async asyncData({ $strapi }) {
-  //   const startups = await $strapi.find("startups", [
-  //     ["state", "in_progress"],
-  //     ["state", "not_started"],
-  //     ["state", "finished"],
-  //   ]);
-  //   const technologies = await $strapi.find("technologies", [
-  //     ["is_public", true],
-  //   ]);
-  //   const startupsList = await startups;
-  //   return {
-  //     technologies,
-  //     startupsList,
-  //   };
-  // }
-  async asyncData({ $technologies, $startups, $challenges, $testimonials }) {
+  async asyncData({ $technologies, $startups }) {
     const { startups } = await $startups();
     const { technologies } = await $technologies();
     const startupsList = await startups;

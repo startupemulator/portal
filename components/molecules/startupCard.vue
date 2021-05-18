@@ -56,16 +56,15 @@
       </div>
       <div class="startup-block__buttons">
         <U-button
-          v-if="button_details"
           :button-name="'Details'"
           :button-class="'u-button-gray'"
-          :style="!button_apply ? 'width:100%' : ''"
+          :style="card.state === 'finished' ? 'width:100%' : ''"
           :is-link="'nuxt-link'"
           :href="'/startup/' + card.slug"
         ></U-button>
 
         <U-button
-          v-if="button_apply"
+          v-if="card.state !== 'finished'"
           :href="'/startup/apply/' + card.slug"
           :button-name="'Apply'"
           :is-link="'nuxt-link'"
@@ -86,8 +85,6 @@ import { Technology } from "~/models/Technology";
 })
 export default class StartupCard extends Vue {
   @Prop() i: number;
-  @Prop({ default: true }) button_apply: Boolean;
-  @Prop({ default: true }) button_details: Boolean;
   @Prop() card: Startup;
   @Prop() technology: Technology;
   @Prop() userId: Number;
