@@ -48,7 +48,7 @@ import AddExistingSourse from "~/components/molecules/addExistingSource.vue";
   },
 })
 export default class extends Vue {
-  @Prop() startUpData!: Array<any>;
+  @Prop() startupData!: Array<any>;
 
   existingSourseComponent: Array<any> = [
     { id: 1, type: "add-existing-sourse" },
@@ -84,9 +84,9 @@ export default class extends Vue {
   }
 
   mounted() {
-    if (this.startUpData.sources.length !== 0) {
-      console.log(this.startUpData.sources);
-      this.existingSourseComponent = this.startUpData.sources;
+    if (this.startupData.sources.length !== 0) {
+      console.log(this.startupData.sources);
+      this.existingSourseComponent = this.startupData.sources;
     }
   }
 }

@@ -28,7 +28,9 @@
           <li style="text-decoration: line-through">
             <nuxt-link to="/createAccount">Create Account</nuxt-link>
           </li>
-          <li><nuxt-link to="/createStartup">Create Startup</nuxt-link></li>
+          <li style="text-decoration: line-through">
+            <nuxt-link to="/createStartup">Create Startup</nuxt-link>
+          </li>
           <hr />
           <li style="text-decoration: line-through">
             <nuxt-link to="/becomeAnExpert">BecomeAnExpert</nuxt-link>
@@ -66,6 +68,8 @@
         <ul>
           <li><nuxt-link to="/logIn">Log In</nuxt-link></li>
           <li><nuxt-link to="/createAccount">Create Account</nuxt-link></li>
+          <li><nuxt-link to="/createStartup">Create Startup</nuxt-link></li>
+
           <li>
             <nuxt-link to="/applyToTeam">Apply to Team </nuxt-link> => available
             in

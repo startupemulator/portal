@@ -50,7 +50,7 @@ import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartup.vue"
 
 @Component({ components: { UButton, CreateGuide, PopupCreatedStartUp } })
 export default class extends Vue {
-  @Prop() startUpData!: Array<any>;
+  @Prop() startupData!: Array<any>;
   popupPublish: Boolean = false;
   guideSourseComponent: Array<any> = [{ id: 1, type: "create-guide" }];
 
@@ -81,8 +81,8 @@ export default class extends Vue {
   }
 
   mounted() {
-    if (this.startUpData.guide) {
-      this.startUpData.guide.forEach((el, i) => {
+    if (this.startupData.guide) {
+      this.startupData.guide.forEach((el, i) => {
         if (el.name) {
           this.guideSourseComponent[i] = el;
         }

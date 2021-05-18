@@ -88,7 +88,11 @@
             v-model="duration"
             type="text"
             placeholder="Or enter the number of days"
+            :class="$v.title.$error ? ' error' : ''"
         /></label>
+        <p v-show="$v.duration.$error" class="errorInput">
+          Please enter or choose estimation duration
+        </p>
       </div>
     </div>
     <div class="createProject-step1__buttons">
@@ -110,13 +114,12 @@
 <script lang="ts">
 import DatePicker from "vue2-datepicker";
 import { Component, Vue, Prop } from "nuxt-property-decorator";
-import { required, minLength } from "vuelidate/lib/validators";
+import { required, minLength, numeric } from "vuelidate/lib/validators";
 import Toast from "../../../store/modules/Toast";
 import { Estimation } from "../../../models/Estimation";
 import UButton from "~/components/atoms/uButton.vue";
 import DurationPicker from "~/components/molecules/durationPicker.vue";
 import AddInput from "~/components/atoms/addInput.vue";
-
 import Spiner from "~/components/molecules/spiner.vue";
 
 @Component({
@@ -131,6 +134,10 @@ import Spiner from "~/components/molecules/spiner.vue";
     },
     date: {
       required,
+    },
+    duration: {
+      required,
+      numeric,
     },
   },
   components: { DatePicker, UButton, DurationPicker, AddInput, Spiner },
