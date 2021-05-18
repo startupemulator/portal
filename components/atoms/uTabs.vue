@@ -16,7 +16,7 @@
                 : 'tartup-card__started--disable'
             "
           >
-            <span>{{ button.messageLenght }}</span>
+            <span>{{ staffed }}</span>
           </div>
         </button>
       </li>

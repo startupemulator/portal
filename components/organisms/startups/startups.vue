@@ -96,7 +96,7 @@ export default class extends Vue {
     this.$refs.filter.forEach((el) => {
       el.children[0].classList.remove("checked");
     });
-    this.$emit("pickedTechnologies");
+    this.$emit("cleanFilter");
   }
 
   pickTechnologi(event) {

@@ -8,6 +8,7 @@
       :empty-state="emptyState"
       :autorizated="autorizated"
       @pickedTechnologies="filterStartupsList"
+      @cleanFilter="cleanFilter"
       @filterByPosition="filterByPosition"
     ></Startups>
   </div>
@@ -28,7 +29,7 @@ export default class extends Vue {
   emptyState = false;
   loading = false;
   position = 1;
-  staffed: string = "";
+  staffed: Number = 0;
   autorizated = !!this.$strapi.user;
 
   async asyncData({ $technologies, $startups }) {
@@ -41,6 +42,7 @@ export default class extends Vue {
       startupsList,
       technologies,
       stateForFilterStartupsByPositions,
+      startups,
     };
   }
 
@@ -66,6 +68,14 @@ export default class extends Vue {
     setTimeout(() => (this.loading = false), 300);
   }
 
+  cleanFilter() {
+    this.loading = true;
+
+    this.stateForFilterStartupsByPositions = this.startups;
+    this.filterByPosition(this.position);
+    setTimeout(() => (this.loading = false), 300);
+  }
+
   async filterStartupsList(data) {
     this.loading = true;
     const technologies = [];
@@ -83,6 +93,7 @@ export default class extends Vue {
         this.emptyState = false;
       }
       this.filterByPosition(this.position);
+
       this.loading = false;
     } else {
       const { startups } = await this.$startups();
