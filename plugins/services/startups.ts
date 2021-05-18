@@ -23,6 +23,11 @@ export function startups($strapi: Strapi) {
               id
               title
             }
+            positions{
+              id
+              status
+             
+            }
             
           }
         }`,
@@ -145,6 +150,11 @@ export function filterStartup($strapi: Strapi) {
             technologies {
               id
               title
+            }
+            positions{
+              id
+              status
+             
             }
             
           }

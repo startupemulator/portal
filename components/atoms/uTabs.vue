@@ -56,6 +56,7 @@ export default {
       this.tabs.forEach((tab) => {
         tab.id !== id ? (tab.active = false) : (tab.active = true);
       });
+      this.$emit("activateButton", id);
     },
   },
 };

@@ -1,5 +1,5 @@
 <template>
-  <div class="start-ups">
+  <div v-cloak class="start-ups">
     <div class="start-ups__content">
       <div class="start-ups__header">
         <U-title :text="'Startups'"></U-title>
@@ -30,7 +30,7 @@
           </button>
         </div>
         <div class="start-ups__header-state-button">
-          <U-Tabs></U-Tabs>
+          <U-Tabs @activateButton="$emit('filterByPosition', $event)"></U-Tabs>
         </div>
       </div>
       <div class="start-ups_cards-content startup-block">

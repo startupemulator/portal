@@ -7,6 +7,7 @@
       :empty-state="emptyState"
       :autorizated="autorizated"
       @pickedTechnologies="filterStartupsList"
+      @filterByPosition="filterByPosition"
     ></Startups>
   </div>
 </template>
@@ -25,16 +26,42 @@ export default class extends Vue {
   // data loaded here will be added during server rendering
   emptyState = false;
   loading = false;
+  position = 1;
   autorizated = !!this.$strapi.user;
 
   async asyncData({ $technologies, $startups }) {
     const { startups } = await $startups();
     const { technologies } = await $technologies();
     const startupsList = await startups;
+    const stateForFilterStartupsByPositions = await startups;
+
     return {
       startupsList,
       technologies,
+      stateForFilterStartupsByPositions,
     };
+  }
+
+  filterByPosition(data) {
+    this.loading = true;
+    this.position = data;
+    const positionStatus = data === 0 ? "open" : "staffed";
+
+    const startupListFiltredByPosition = [];
+    this.stateForFilterStartupsByPositions.forEach((item) =>
+      item.positions.forEach((el) => {
+        if (el.status === positionStatus) {
+          startupListFiltredByPosition.push(item);
+        }
+      })
+    );
+    this.startupsList = startupListFiltredByPosition;
+    if (this.startupsList.length === 0) {
+      this.emptyState = true;
+    } else {
+      this.emptyState = false;
+    }
+    setTimeout(() => (this.loading = false), 300);
   }
 
   async filterStartupsList(data) {
@@ -42,18 +69,30 @@ export default class extends Vue {
     const technologies = [];
 
     data.forEach((el) => technologies.push(el[1]));
-    console.log(technologies);
+
     if (technologies.length > 0) {
       const newData = await this.$filterStartup(technologies);
 
       this.startupsList = newData;
-
+      this.stateForFilterStartupsByPositions = newData;
+      if (this.stateForFilterStartupsByPositions.length === 0) {
+        this.emptyState = true;
+      } else {
+        this.emptyState = false;
+      }
+      this.filterByPosition(this.position);
       this.loading = false;
     } else {
       const { startups } = await this.$startups();
       this.startupsList = startups;
+      this.stateForFilterStartupsByPositions = startups;
+      this.filterByPosition(this.position);
       this.loading = false;
     }
+  }
+
+  mounted() {
+    this.filterByPosition(this.position);
   }
 }
 </script>
