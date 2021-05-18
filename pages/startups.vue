@@ -3,6 +3,7 @@
     <Spiner :loading="loading"></Spiner>
     <Startups
       :startups="startupsList"
+      :staffed="staffed"
       :technologies="technologies"
       :empty-state="emptyState"
       :autorizated="autorizated"
@@ -27,6 +28,7 @@ export default class extends Vue {
   emptyState = false;
   loading = false;
   position = 1;
+  staffed: string = "";
   autorizated = !!this.$strapi.user;
 
   async asyncData({ $technologies, $startups }) {
@@ -93,6 +95,7 @@ export default class extends Vue {
 
   mounted() {
     this.filterByPosition(this.position);
+    this.staffed = this.startupsList.length;
   }
 }
 </script>

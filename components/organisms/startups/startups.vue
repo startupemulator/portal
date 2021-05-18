@@ -30,7 +30,10 @@
           </button>
         </div>
         <div class="start-ups__header-state-button">
-          <U-Tabs @activateButton="$emit('filterByPosition', $event)"></U-Tabs>
+          <U-Tabs
+            :staffed="staffed"
+            @activateButton="$emit('filterByPosition', $event)"
+          ></U-Tabs>
         </div>
       </div>
       <div class="start-ups_cards-content startup-block">
@@ -80,6 +83,7 @@ export default class extends Vue {
   @Prop() startups: Array<Startup>;
   @Prop() technologies: Array<Technology>;
   @Prop() emptyState: Boolean;
+  @Prop() staffed: Number;
   @Prop() autorizated: Boolean;
   private filterList: boolean = false;
   pickedTechnologies: Array<string> = [];
