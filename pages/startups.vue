@@ -27,46 +27,47 @@ export default class extends Vue {
   loading = false;
   autorizated = !!this.$strapi.user;
 
-  async asyncData({ $strapi }) {
-    const startups = await $strapi.find("startups", [
-      ["state", "in_progress"],
-      ["state", "not_started"],
-      ["state", "finished"],
-    ]);
-    const technologies = await $strapi.find("technologies", [
-      ["is_public", true],
-    ]);
+  // async asyncData({ $strapi }) {
+  //   const startups = await $strapi.find("startups", [
+  //     ["state", "in_progress"],
+  //     ["state", "not_started"],
+  //     ["state", "finished"],
+  //   ]);
+  //   const technologies = await $strapi.find("technologies", [
+  //     ["is_public", true],
+  //   ]);
+  //   const startupsList = await startups;
+  //   return {
+  //     technologies,
+  //     startupsList,
+  //   };
+  // }
+  async asyncData({ $technologies, $startups, $challenges, $testimonials }) {
+    const { startups } = await $startups();
+    const { technologies } = await $technologies();
     const startupsList = await startups;
     return {
-      technologies,
       startupsList,
+      technologies,
     };
   }
 
   async filterStartupsList(data) {
     this.loading = true;
-    if (data === undefined) {
-      const startups = await this.$strapi.find("startups", [
-        ["state", "in_progress"],
-        ["state", "not_started"],
-        ["state", "finished"],
-      ]);
-      if (startups !== null) {
-        this.startupsList = startups;
-        this.loading = false;
-        this.emptyState = false;
-      }
+    const technologies = [];
+
+    data.forEach((el) => technologies.push(el[1]));
+    console.log(technologies);
+    if (technologies.length > 0) {
+      const newData = await this.$filterStartup(technologies);
+
+      this.startupsList = newData;
+
+      this.loading = false;
     } else {
-      const filtredStartups = await this.$strapi.find("startups", data);
-      this.startupsList = filtredStartups;
-      if (this.startupsList.length === 0) {
-        this.emptyState = true;
-      } else {
-        this.emptyState = false;
-      }
-      if (filtredStartups) {
-        this.loading = false;
-      }
+      const { startups } = await this.$startups();
+      this.startupsList = startups;
+      this.loading = false;
     }
   }
 }

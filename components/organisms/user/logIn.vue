@@ -130,9 +130,9 @@ export default class extends Vue {
         }
         // const user = await this.$login(this.email, this.password);
         // console.log(user);
-        if (user) {
-          this.$nuxt.$router.push("/");
-        }
+        // if (user) {
+        //   this.$nuxt.$router.push("/");
+        // }
       } catch (e) {
         Toast.show({
           data: e.message,
