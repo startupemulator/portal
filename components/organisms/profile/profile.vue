@@ -34,6 +34,7 @@ import { Technology } from "~/models/Technology";
 import UTags from "~/components/atoms/uTags.vue";
 import { Profile } from "~/models/Profile";
 import { NotificationUser } from "~/models/NotificationUser";
+import { Feedbacks } from "~/models/Feedbacks";
 
 @Component({
   components: {
@@ -50,5 +51,6 @@ export default class extends Vue {
   @Prop() technologies: Array<Technology>;
   @Prop() user: Array<NotificationUser>;
   @Prop() profile: Array<Profile>;
+  @Prop() feedbacks: Array<Feedbacks>;
 }
 </script>
