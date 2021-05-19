@@ -34,9 +34,9 @@ export default class extends Vue {
     $profile,
     $experiences,
   }) {
-    const startups = await $myStartups($strapi.state.user.user);
+    const startups = await $myStartups($strapi.user.id);
     const { technologies } = await $technologies();
-    const profile = await $profile($strapi.state.user.user);
+    const profile = await $profile($strapi.user.id);
     const { experiences } = await $experiences();
     const myTechnologies = profile.technologies;
     const allTechnologies = technologies
@@ -54,7 +54,7 @@ export default class extends Vue {
   }
 
   async updateData() {
-    this.profile = await this.$profile(this.$strapi.state.user.user);
+    this.profile = await this.$profile(this.$strapi.user.id);
     this.myTechnologies = this.profile.technologies;
   }
 

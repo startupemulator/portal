@@ -120,20 +120,21 @@ export default class extends Vue {
     this.$v.$touch();
     if (!this.$v.$error) {
       try {
-        // const user = await this.$strapi.login({
-        //   identifier: this.email,
-        //   password: this.password,
-        // });
-        // console.log(user);
-        // if (user) {
-        //   this.$nuxt.$router.push("/");
-        // }
-        const user = await this.$login(this.email, this.password);
+        const user = await this.$strapi.login({
+          identifier: this.email,
+          password: this.password,
+        });
         console.log(user);
         if (user) {
-          this.$strapi.setUser(user);
           this.$nuxt.$router.push("/");
         }
+        // const user = await this.$login(this.email, this.password);
+        // console.log(user);
+        // if (user) {
+        //   this.$strapi.setUser(user);
+
+        //   this.$nuxt.$router.push("/");
+        // }
       } catch (e) {
         Toast.show({
           data: e.message,

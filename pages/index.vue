@@ -110,7 +110,6 @@
       button-name="Log Out"
       @clickOnButton="$strapi.logout()"
     ></UButton>
-    <pre style="color: #fff">{{ $strapi.state.user.user }}</pre>
   </div>
 </template>
 
