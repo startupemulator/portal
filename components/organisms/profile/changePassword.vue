@@ -64,7 +64,6 @@
       v-if="popupChallengeStarted"
       :title="'You successfully changed your password'"
       :text-content="``"
-      @closePopupLinkSent="togglePopupChallengeStarted"
     ></popup-challenge-started>
     <Spiner :loading="loading"></Spiner>
   </div>
@@ -117,26 +116,30 @@ export default class extends Vue {
       try {
         this.loading = true;
         // before update password need check current password
-
-        const updateUserPassword = await this.$updateUserPassword(
-          this.userId,
-          "this.password"
-        );
-        console.log(updateUserPassword);
-        if (updateUserPassword !== null) {
-          this.togglePopupChallengeStarted();
-          this.loading = false;
-        } else {
-          this.loading = false;
-          Toast.show({
-            data: "Something wrong.",
-            duration: 3000,
-          });
+        const user = await this.$strapi.login({
+          identifier: this.$strapi.user.email,
+          password: this.currentPassword,
+        });
+        if (user !== null) {
+          const updateUserPassword = await this.$updateUserPassword(
+            this.userId,
+            this.password
+          );
+          if (updateUserPassword !== null) {
+            this.togglePopupChallengeStarted();
+            this.loading = false;
+          } else {
+            this.loading = false;
+            Toast.show({
+              data: "Something wrong.",
+              duration: 3000,
+            });
+          }
         }
       } catch (e) {
         this.loading = false;
         Toast.show({
-          data: "Something wrong.",
+          data: e,
           duration: 3000,
         });
         console.error(e);
