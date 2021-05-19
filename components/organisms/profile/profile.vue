@@ -2,13 +2,13 @@
   <div class="profile-content">
     <div class="profile-header">
       <u-back :link="'/'"></u-back>
-      <U-title :text="acc.user.name || acc.user.username"> </U-title>
+      <U-title :text="user.name || user.username"> </U-title>
     </div>
-    <Regular-user v-if="true" :startups="startups"></Regular-user>
-    <Expert-user v-if="false" :testimonials="testimonials"> </Expert-user>
+    <Regular-user v-if="false" :startups="startups"></Regular-user>
+    <Expert-user v-if="true"> </Expert-user>
     <div class="profile-projects__experience">
       <h3>Experience</h3>
-      <div class="experience-work">1-2 years</div>
+      <div class="experience-work">{{ profile.experience.title }}</div>
       <ul class="experience_list">
         <li v-for="item in technologies" :key="item.id">
           <U-tags
@@ -32,7 +32,8 @@ import UButton from "~/components/atoms/uButton.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import { Technology } from "~/models/Technology";
 import UTags from "~/components/atoms/uTags.vue";
-import { Testimonial } from "~/models/Testimonial";
+import { Profile } from "~/models/Profile";
+import { NotificationUser } from "~/models/NotificationUser";
 
 @Component({
   components: {
@@ -45,9 +46,9 @@ import { Testimonial } from "~/models/Testimonial";
   },
 })
 export default class extends Vue {
-  acc = this.$strapi;
   @Prop() startups: Array<Startup>;
   @Prop() technologies: Array<Technology>;
-  @Prop() testimonials: Array<Testimonial>;
+  @Prop() user: Array<NotificationUser>;
+  @Prop() profile: Array<Profile>;
 }
 </script>

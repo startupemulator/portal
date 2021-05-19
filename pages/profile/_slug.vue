@@ -1,7 +1,11 @@
 <template>
   <div class="profile">
-    <pre style="color: #fff">{{ user }}</pre>
-    <Profile :startups="startups" :technologies="technologies"></Profile>
+    <Profile
+      :startups="startups"
+      :technologies="myTechnologies"
+      :user="user"
+      :profile="profile"
+    ></Profile>
   </div>
 </template>
 
@@ -16,26 +20,17 @@ import Profile from "~/components/organisms/profile/profile.vue";
   },
 })
 export default class extends Vue {
-  // data loaded here will be added during server rendering
-  // async asyncData({ $strapi }) {
-  //   const startups = await $strapi.find("startups");
-  //   const technologies = await $strapi.find("technologies");
-  //   const testimonials = await $strapi.find("testimonials");
-  //   return {
-  //     startups,
-  //     technologies,
-  //     testimonials,
-  //   };
-  // }
-  async asyncData({ $technologies, $myStartups, $getUserBySlug, route }) {
+  async asyncData({ $myStartups, $getUserBySlug, $profile, route }) {
     const user = await $getUserBySlug(route.params.slug);
     const startups = await $myStartups(user.id);
-    const { technologies } = await $technologies();
 
+    const profile = await $profile(user.id);
+    const myTechnologies = profile.technologies;
     return {
       user,
       startups,
-      technologies,
+      myTechnologies,
+      profile,
     };
   }
 }

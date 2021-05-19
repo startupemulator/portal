@@ -4,7 +4,7 @@
       <div class="profile-projects__header">
         <h3>Feedbacks</h3>
         <div class="profile-projects__header-project-quantity">
-          <span>{{ testimonials.length }}</span>
+          <span>2</span>
         </div>
       </div>
       <feed-back-card

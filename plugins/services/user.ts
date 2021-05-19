@@ -23,6 +23,7 @@ export function getUserBySlug($strapi: Strapi) {
     username 
     
     
+    
   }
 }`,
     });
