@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     closeSiginUpPopup() {
-      this.$nuxt.$router.push("/");
+      this.$nuxt.$router.push("/login");
       this.$strapi.logout();
     },
   },

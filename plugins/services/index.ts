@@ -41,6 +41,7 @@ import {
   updateUser,
   createUser,
   users,
+  getUserBySlug,
   updateUserPassword,
 } from "~/plugins/services/user";
 import { login } from "~/plugins/services/login";
@@ -50,6 +51,7 @@ export interface Services {
   $experiences(): Promise<Partial<Experience>[]>;
   $profile(id: string): Promise<Partial<Profile>[]>;
   $users(): Promise<Partial<NotificationUser>[]>;
+  $getUserBySlug(slug: string): Promise<Partial<NotificationUser>[]>;
   $login(data: NuxtStrapiLoginData): Promise<NuxtStrapiLoginResult>;
   $updateUserPassword(
     id: string,
@@ -118,6 +120,8 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
 
   inject("updateUser", updateUser(ctx.$strapi));
   inject("users", users(ctx.$strapi));
+  inject("getUserBySlug", getUserBySlug(ctx.$strapi));
+
   inject("createUser", createUser(ctx.$strapi));
 
   inject("updateUserPassword", updateUserPassword(ctx.$strapi));

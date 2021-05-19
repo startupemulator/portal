@@ -1,6 +1,7 @@
 <template>
   <div class="profile">
-    <!-- <Profile :startups="startups" :technologies="technologies"></Profile> -->
+    <pre style="color: #fff">{{ user }}</pre>
+    <Profile :startups="startups" :technologies="technologies"></Profile>
   </div>
 </template>
 
@@ -26,12 +27,13 @@ export default class extends Vue {
   //     testimonials,
   //   };
   // }
-  async asyncData({ $technologies, $myStartups, $profile }) {
-    // const { startups } = await $myStartups(route.params.slug);
-    const startups = await $myStartups("2");
+  async asyncData({ $technologies, $myStartups, $getUserBySlug, route }) {
+    const user = await $getUserBySlug(route.params.slug);
+    const startups = await $myStartups(user.id);
     const { technologies } = await $technologies();
 
     return {
+      user,
       startups,
       technologies,
     };

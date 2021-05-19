@@ -14,6 +14,21 @@ export function users($strapi: Strapi) {
     return data.users ? data.users[0] : null;
   };
 }
+export function getUserBySlug($strapi: Strapi) {
+  return async (slug: string) => {
+    const data = await $strapi.graphql({
+      query: `query {
+  users (where: {name: "${slug}"}) {
+    id
+    username 
+    
+    
+  }
+}`,
+    });
+    return data.users ? data.users[0] : null;
+  };
+}
 export function createUser($strapi: Strapi) {
   return async (email: string, name: string, password: String) => {
     const data = await $strapi.graphql({
