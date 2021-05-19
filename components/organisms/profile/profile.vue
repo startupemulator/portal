@@ -4,8 +4,8 @@
       <u-back :link="'/'"></u-back>
       <U-title :text="user.name || user.username"> </U-title>
     </div>
-    <Regular-user v-if="false" :startups="startups"></Regular-user>
-    <Expert-user v-if="true" :feedbacks="feedbacks"> </Expert-user>
+    <Regular-user v-if="true" :startups="startups"></Regular-user>
+    <Expert-user v-if="false" :feedbacks="feedbacks"> </Expert-user>
     <div class="profile-projects__experience">
       <h3>Experience</h3>
       <div class="experience-work">{{ profile.experience.title }}</div>

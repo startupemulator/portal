@@ -5,7 +5,7 @@
       :startups="startups"
       :technologies="allTechnologies"
       :my-technologies="myTechnologies"
-      :testimonials="testimonials"
+      :feedbacks="feedbacks"
       :user-data="profile"
       :user-experience="profile.experience"
       :experiences="experiences"
@@ -33,6 +33,7 @@ export default class extends Vue {
     $strapi,
     $profile,
     $experiences,
+    $feedbacks,
   }) {
     const startups = await $myStartups($strapi.user.id);
     const { technologies } = await $technologies();
@@ -42,7 +43,7 @@ export default class extends Vue {
     const allTechnologies = technologies
       .filter((el) => myTechnologies.every((item) => el.id !== item.id))
       .concat(myTechnologies);
-
+    const feedbacks = await $feedbacks();
     return {
       startups,
       profile,
@@ -50,6 +51,7 @@ export default class extends Vue {
       myTechnologies,
       allTechnologies,
       technologies,
+      feedbacks,
     };
   }
 

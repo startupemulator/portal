@@ -48,10 +48,7 @@
         v-if="userData.provider !== 'expert'"
         @togglePopup="togglePopup"
       ></My-profile-regular-user>
-      <Expert-user
-        v-if="userData.provider === 'expert'"
-        :testimonials="testimonials"
-      >
+      <Expert-user v-if="userData.provider === 'expert'" :feedbacks="feedbacks">
       </Expert-user>
 
       <div class="profile-projects__experience">
@@ -103,10 +100,10 @@ import UTitle from "~/components/atoms/uTitle.vue";
 import { Technology } from "~/models/Technology";
 import UTags from "~/components/atoms/uTags.vue";
 import StartupCard from "~/components/molecules/startupCard.vue";
-import { Testimonial } from "~/models/Testimonial";
 import { Experience } from "~/models/Experience";
 import Spiner from "~/components/molecules/spiner.vue";
 import { copyToClipboard } from "~/assets/jshelper/copyToClipBoard";
+import { Feedbacks } from "~/models/Feedbacks";
 
 @Component({
   components: {
@@ -125,7 +122,7 @@ import { copyToClipboard } from "~/assets/jshelper/copyToClipBoard";
 export default class extends Vue {
   @Prop() startups: Array<Startup>;
   @Prop() technologies: Array<Technology>;
-  @Prop() testimonials: Array<Testimonial>;
+  @Prop() feedbacks: Array<Feedbacks>;
   @Prop() userData: Array<any>;
   @Prop() userExperience: String;
   @Prop() experiences: Array<Experience>;
