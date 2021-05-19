@@ -4,28 +4,27 @@
       <div class="profile-projects__header">
         <h3>Feedbacks</h3>
         <div class="profile-projects__header-project-quantity">
-          <span>2</span>
+          <span>{{ feedbacksCount }}</span>
         </div>
       </div>
-      <feed-back-card
-        v-for="testimonial in testimonials"
-        :key="testimonial.id"
-        :comment="testimonial.comment"
-        :author="testimonial.author"
-        :published="testimonial.published_at"
-      ></feed-back-card>
+      <FeedBackCard
+        v-for="feedback in feedbacks"
+        :key="feedback.id"
+        :feedback="feedback"
+      ></FeedBackCard>
     </div>
   </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import FeedBackCard from "../../molecules/feedbackCard.vue";
-import { Testimonial } from "~/models/Testimonial";
+import { Feedbacks } from "~/models/Feedbacks";
 
 @Component({
   components: { FeedBackCard },
 })
 export default class extends Vue {
-  @Prop() testimonials: Array<Testimonial>;
+  @Prop() feedbacks!: Array<Feedbacks>;
+  feedbacksCount = this.feedbacks.length;
 }
 </script>

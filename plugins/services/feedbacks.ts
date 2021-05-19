@@ -11,13 +11,22 @@ export function feedbacks($strapi: Strapi) {
     published_at
     criterions{
       id
+      mark
+      direction{
+        id 
+        title
+      }
     }
     badges{
       id
+      title
+      image{
+        url
+      }
     }
   }
 }`,
     });
-    return data.feedbacks ? data.feedbacks[0] : null;
+    return data.feedbacks ? data.feedbacks : null;
   };
 }

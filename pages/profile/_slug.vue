@@ -1,6 +1,5 @@
 <template>
   <div class="profile">
-    <pre style="color: #fff">    {{ feedbacks }} </pre>
     <Profile
       :startups="startups"
       :technologies="myTechnologies"
