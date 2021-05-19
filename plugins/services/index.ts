@@ -1,5 +1,9 @@
 import { Context, Plugin } from "@nuxt/types";
-import type { NuxtStrapiLoginResult } from "@nuxtjs/strapi/types/types";
+
+import type {
+  NuxtStrapiLoginResult,
+  NuxtStrapiLoginData,
+} from "@nuxtjs/strapi/types/types";
 
 import { Inject } from "@nuxt/types/app";
 import {
@@ -46,10 +50,7 @@ export interface Services {
   $experiences(): Promise<Partial<Experience>[]>;
   $profile(id: string): Promise<Partial<Profile>[]>;
   $users(): Promise<Partial<NotificationUser>[]>;
-  $login(
-    identifier: string,
-    password: string
-  ): Promise<Partial<NuxtStrapiLoginResult>[]>;
+  $login(data: NuxtStrapiLoginData): Promise<NuxtStrapiLoginResult>;
   $updateUserPassword(
     id: string,
     password: string

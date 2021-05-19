@@ -46,11 +46,15 @@
           </li>
           <hr />
 
-          <li><nuxt-link to="/startups">Startups</nuxt-link></li>
+          <li style="text-decoration: line-through">
+            <nuxt-link to="/startups">Startups</nuxt-link>
+          </li>
           <li style="text-decoration: line-through">
             <nuxt-link to="/challenges">Challenges</nuxt-link>
           </li>
-          <li><nuxt-link to="/myProjects">My Projects</nuxt-link></li>
+          <li style="text-decoration: line-through">
+            <nuxt-link to="/myProjects">My Projects</nuxt-link>
+          </li>
           <li><nuxt-link to="/profile">Profile</nuxt-link></li>
           <li><nuxt-link to="/myProfile">myProfile</nuxt-link></li>
           <li><nuxt-link to="/startup">Startup</nuxt-link></li>
@@ -95,6 +99,8 @@
             <nuxt-link to="/becomeAnExpert">BecomeAnExpert</nuxt-link>
           </li>
           <li><nuxt-link to="/challenges">Challenges</nuxt-link></li>
+          <li><nuxt-link to="/myProjects">My Projects</nuxt-link></li>
+          <li><nuxt-link to="/startups">Startups</nuxt-link></li>
         </ul>
       </div>
     </div>
@@ -104,7 +110,7 @@
       button-name="Log Out"
       @clickOnButton="$strapi.logout()"
     ></UButton>
-    <!-- test@test.com T3stT3st -->
+    <pre style="color: #fff">{{ $strapi.state.user.user }}</pre>
   </div>
 </template>
 

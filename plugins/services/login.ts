@@ -14,6 +14,6 @@ export function login($strapi: Strapi) {
         }
       }`,
     });
-    return data;
+    return data.login;
   };
 }
