@@ -1,15 +1,14 @@
 <template>
   <div>
-    }
     <RequestToTeam
       v-show="requestToTeam"
       @clikOnButton="toggleRequestToTeam"
     ></RequestToTeam>
-    <NewFeedBack
+    <!--  <NewFeedBack
       v-show="newFeedBack"
       @clikOnButton="toggleNewFeedBack"
     ></NewFeedBack>
-    <RequestFeedback
+      <RequestFeedback
       v-show="requestFeedBack"
       @clikOnButton="toggleRequestFeedBack"
     ></RequestFeedback>
@@ -18,7 +17,7 @@
       @clikOnButton="toggleEditStartupInfo"
     ></EditStartupInfo>
     <EditTeam v-show="editTeam" @clikOnButton="toggleEditTeam"></EditTeam>
-    <EditSources
+      <EditSources
       v-show="editSources"
       @clikOnButton="toggleEditSources"
     ></EditSources>
@@ -36,11 +35,11 @@
     <AddTeamFeedBack
       v-show="addTeamFeedBack"
       @clikOnButton="toggleAddTeamFeedBack"
-    ></AddTeamFeedBack>
-    <AddTeamBadge
+    ></AddTeamFeedBack> -->
+    <!-- <AddTeamBadge
       v-show="addTeamBadge"
       @clikOnButton="toggleAddTeamBadge"
-    ></AddTeamBadge>
+    ></AddTeamBadge> -->
     <div
       v-show="
         !requestToTeam &&
@@ -78,12 +77,12 @@
           <div class="started-start-time__start">
             <h3>Start</h3>
             <p>
-              {{ new Date(startup.created_at).toUTCString().substr(4, 12) }}
+              {{ new Date(startup.start_date).toUTCString().substr(4, 12) }}
             </p>
           </div>
           <div class="started-start-time__duration">
             <h3>Duration</h3>
-            <p>{{ startup.duration }} months</p>
+            <p>{{ startup.duration }} days</p>
           </div>
         </div>
         <div v-if="isDeveloper" class="applied-startup">
@@ -224,18 +223,19 @@
         <div v-if="!finished" class="startup__open-position">
           <h3>Open positions</h3>
           <Open-position-card
-            v-for="item in 3"
+            v-for="item in openPosition"
             :key="item.id"
-            :startup="item"
+            :position="item"
+            :slug="startup.slug"
           ></Open-position-card>
         </div>
         <div class="startup-card__team">
           <h3>Team</h3>
 
-          <project-participant
-            v-for="(item, i) in 2"
-            :key="i"
-          ></project-participant>
+          <ProjectParticipant
+            :owner="startup.owner"
+            :technologies="startup.technologies"
+          ></ProjectParticipant>
         </div>
       </div>
       <div v-if="isStarted || finished" class="startup_block-3">
@@ -266,25 +266,21 @@
             </div>
           </div>
           <!-- Statick -> change to feed-back-card (end)-->
-          <feed-back-card
+          <!--  <feed-back-card
             v-for="testimonial in 1"
             :key="testimonial.id"
             :comment="testimonial.comment"
             :author="testimonial.author"
             :published="testimonial.published_at"
             :is_expert="isExpert"
-          >
-          </feed-back-card>
-          <feed-back-card
-            v-for="testimonial in 1"
-            :key="testimonial.id"
-            :comment="testimonial.comment"
-            :author="testimonial.author"
-            :published="testimonial.published_at"
-            :activity_state="true"
-            :show_feedback="false"
+          > 
+          </feed-back-card>-->
+          <FeedBackCard
+            v-for="feedback in feedbacks"
+            :key="feedback.id"
+            :feedback="feedback"
             :is_expert="isExpert"
-          ></feed-back-card>
+          ></FeedBackCard>
         </div>
         <U-button
           :button-name="'Show ' + '23' + ' Earlier Actions'"
@@ -333,6 +329,7 @@
       ></PopupDeleteStartup>
       <GuidePopup v-if="popupGuide" @closePopup="togglePopupGuide"></GuidePopup>
     </div>
+    <pre style="color: #fff">{{ startup }} </pre>
   </div>
 </template>
 <script lang="ts">
@@ -355,10 +352,10 @@ import OpenPositionCard from "~/components/molecules/openPositionCard.vue";
 import { Startup } from "~/models/Startup";
 import UButton from "~/components/atoms/uButton.vue";
 import PopupDeleteStartup from "~/components/molecules/popupDeleteStartup.vue";
-import projectParticipant from "~/components/molecules/projectParticipant.vue";
+import ProjectParticipant from "~/components/molecules/projectParticipant.vue";
 import Sources from "~/components/molecules/sources.vue";
 import CommentExpert from "~/components/molecules/commentForExpert.vue";
-import { Testimonial } from "~/models/Testimonial";
+import { Feedbacks } from "~/models/Feedbacks";
 @Component({
   components: {
     UBack,
@@ -366,7 +363,7 @@ import { Testimonial } from "~/models/Testimonial";
     UTitle,
     OpenPositionCard,
     PopupDeleteStartup,
-    projectParticipant,
+    ProjectParticipant,
     FeedBackCard,
     GuidePopup,
     RequestToTeam,
@@ -384,12 +381,15 @@ import { Testimonial } from "~/models/Testimonial";
   },
 })
 export default class extends Vue {
-  @Prop() startup: Array<Startup>;
-  @Prop() testimonials: Array<Testimonial>;
+  @Prop() startup!: Array<Startup>;
+  @Prop() feedbacks: Array<Feedbacks>;
+  @Prop() isOwner: Boolean;
+  openPosition = [];
+
   popupCancelApplication = false;
   isDeveloper = false;
   isExpert = false;
-  isOwner = false;
+
   isStarted = false;
   popupDeleteStartup = false;
   popupGuide = false;
@@ -468,6 +468,9 @@ export default class extends Vue {
     } else if (this.startup.state === "finished") {
       return (this.finished = true);
     }
+    this.openPosition = this.startup.positions.filter(
+      (position) => position.status === "open"
+    );
   }
 }
 </script>
