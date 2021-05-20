@@ -4,7 +4,7 @@
       <button
         type="button"
         class="sign-up-link__close"
-        @click="$router.push('/challenges')"
+        @click="closeSiginUpPopup"
       >
         <img src="~/assets/img/close.svg" alt="Close" />
       </button>
@@ -15,7 +15,7 @@
       <U-button
         :button-name="'Got It'"
         :button-class="'u-button-blue'"
-        @clickOnButton="$router.push('/challenges')"
+        @clickOnButton="closeSiginUpPopup"
       ></U-button>
     </div>
   </div>
@@ -36,8 +36,15 @@ export default {
       default: "",
     },
   },
+  methods: {
+    closeSiginUpPopup() {
+      this.$nuxt.$router.push("/login");
+      this.$strapi.logout();
+    },
+  },
 };
 </script>
+
 <style scoped>
 .signing-up-link-sent .signing-up-link-sent__content {
   min-height: 312px;

@@ -82,7 +82,7 @@ import { Technology } from "~/models/Technology";
 })
 export default class extends Vue {
   @Prop() technologies: Array<Technology>;
-  @Prop() startUpData!: Array<any>;
+  @Prop() startupData!: Array<any>;
   @Prop() specialisations: Array<Specialisation>;
   @Prop() createdStartupId: Number;
   specialityComponent: Array<any> = [{ id: 0, type: "create-specialities" }];
@@ -148,12 +148,12 @@ export default class extends Vue {
   }
 
   mounted() {
-    console.log(this.startUpData);
-    if (this.startUpData.coleagues) {
-      this.invitedcolleagues = this.startUpData.coleagues;
+    console.log(this.startupData);
+    if (this.startupData.coleagues) {
+      this.invitedcolleagues = this.startupData.coleagues;
     }
-    if (this.startUpData.specialists) {
-      this.specialityComponent = this.startUpData.specialists;
+    if (this.startupData.specialists) {
+      this.specialityComponent = this.startupData.specialists;
     }
   }
 }

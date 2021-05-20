@@ -1,10 +1,17 @@
 import { Context, Plugin } from "@nuxt/types";
+
+import type {
+  NuxtStrapiLoginResult,
+  NuxtStrapiLoginData,
+} from "@nuxtjs/strapi/types/types";
+
 import { Inject } from "@nuxt/types/app";
 import {
   startup,
   startups,
   myStartups,
   deleteDraft,
+  filterStartup,
 } from "~/plugins/services/startups";
 import { Startup } from "~/models/Startup";
 import { challenge, challenges } from "~/plugins/services/challenges";
@@ -15,6 +22,9 @@ import { Estimation } from "~/models/Estimation";
 import { Experience } from "~/models/Experience";
 import { Testimonial } from "~/models/Testimonial";
 import { testimonials } from "~/plugins/services/testimonials";
+import { specialisations } from "~/plugins/services/specialisations";
+import { Specialisation } from "~/models/Specialisation";
+import { Feedbacks } from "~/models/Feedbacks";
 import {
   myTechnologies,
   technologies,
@@ -22,19 +32,50 @@ import {
 } from "~/plugins/services/technologies";
 import { Technology } from "~/models/Technology";
 import { Profile } from "~/models/Profile";
-import { profile, updateProfile } from "~/plugins/services/profile";
+import {
+  profile,
+  updateProfile,
+  createProfile,
+} from "~/plugins/services/profile";
 import { NotificationUser } from "~/models/NotificationUser";
-import { updateUser, users } from "~/plugins/services/user";
-
+import { Notification } from "~/models/Notification";
+import {
+  updateUser,
+  createUser,
+  users,
+  getUserBySlug,
+  updateUserPassword,
+} from "~/plugins/services/user";
+import { login } from "~/plugins/services/login";
+import { feedbacks } from "~/plugins/services/feedbacks";
+import { notifications } from "~/plugins//services/notifications";
 export interface Services {
   $estimations(): Promise<Partial<Estimation>[]>;
+  $specialisations(): Promise<Partial<Specialisation>[]>;
   $experiences(): Promise<Partial<Experience>[]>;
-  $profile(): Promise<Partial<Profile>[]>;
+  $profile(id: string): Promise<Partial<Profile>[]>;
   $users(): Promise<Partial<NotificationUser>[]>;
+  $feedbacks(): Promise<Partial<Feedbacks>[]>;
+  $notifications(): Promise<Partial<Notification>[]>;
+  $getUserBySlug(slug: string): Promise<Partial<NotificationUser>[]>;
+  $login(data: NuxtStrapiLoginData): Promise<NuxtStrapiLoginResult>;
+  $updateUserPassword(
+    id: string,
+    password: string
+  ): Promise<Partial<NotificationUser>[]>;
+  $createUser(
+    email: string,
+    name: string,
+    password: String
+  ): Promise<Partial<NotificationUser>[]>;
   $updateUser(
     id: string,
     username: string
   ): Promise<Partial<NotificationUser>[]>;
+  $createProfile(
+    id: string,
+    technologies: Array<string>
+  ): Promise<Partial<Profile>[]>;
   $updateProfile(
     id: string,
     technologies: Array<string>,
@@ -52,6 +93,7 @@ export interface Services {
   $deleteDraft(states: string[]): Promise<Partial<Startup>>;
 
   $startup(slug: string[]): Promise<Partial<Startup>>;
+  $filterStartup(id: Array<string>): Promise<Partial<Startup>>;
   $testimonials(): Promise<Partial<Testimonial>[]>;
 
   $technologies(isPublic: boolean): Promise<Partial<Technology>[]>;
@@ -65,27 +107,41 @@ export interface Services {
 
 const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("estimations", estimations(ctx.$strapi));
+  inject("specialisations", specialisations(ctx.$strapi));
   inject("experiences", experiences(ctx.$strapi));
 
   inject("challenges", challenges(ctx.$strapi));
   inject("challenge", challenge(ctx.$strapi));
 
   inject("startups", startups(ctx.$strapi));
+  inject("filterStartup", filterStartup(ctx.$strapi));
+
   inject("myStartups", myStartups(ctx.$strapi));
   inject("deleteDraft", deleteDraft(ctx.$strapi));
   inject("startup", startup(ctx.$strapi));
 
   inject("profile", profile(ctx.$strapi));
   inject("updateProfile", updateProfile(ctx.$strapi));
+  inject("createProfile", createProfile(ctx.$strapi));
 
   inject("updateUser", updateUser(ctx.$strapi));
   inject("users", users(ctx.$strapi));
+  inject("getUserBySlug", getUserBySlug(ctx.$strapi));
+
+  inject("createUser", createUser(ctx.$strapi));
+
+  inject("updateUserPassword", updateUserPassword(ctx.$strapi));
+
+  inject("login", login(ctx.$strapi));
 
   inject("testimonials", testimonials(ctx.$strapi));
 
   inject("technologies", technologies(ctx.$strapi));
   inject("myTechnologies", myTechnologies(ctx.$strapi));
   inject("createTechnologies", createTechnologies(ctx.$strapi));
+
+  inject("feedbacks", feedbacks(ctx.$strapi));
+  inject("notifications", notifications(ctx.$strapi));
 };
 
 export default strapiServices;

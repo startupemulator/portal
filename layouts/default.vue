@@ -1,6 +1,7 @@
 <template>
   <div>
     <Toast />
+
     <AppHeader
       :current-route="currentRoute"
       :is-logined="isLogined"

@@ -23,6 +23,11 @@ export function startups($strapi: Strapi) {
               id
               title
             }
+            positions{
+              id
+              status
+             
+            }
             
           }
         }`,
@@ -123,5 +128,38 @@ export function deleteDraft($strapi: Strapi) {
         }
       }`,
     });
+  };
+}
+
+export function filterStartup($strapi: Strapi) {
+  return async (technologies: Array<string>) => {
+    const data = await $strapi.graphql({
+      query: `query {
+        startups(where: {technologies: {id_contains: [${technologies}]}}){
+          id
+            title
+            slug
+            description
+            start_date
+            duration
+            state
+            owner {
+              id
+              name
+            }
+            technologies {
+              id
+              title
+            }
+            positions{
+              id
+              status
+             
+            }
+            
+          }
+      }`,
+    });
+    return data.startups;
   };
 }

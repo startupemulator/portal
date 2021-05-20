@@ -3,7 +3,7 @@
     <div class="feed-back-card__main-content">
       <div class="feed-back-card__main-content-header">
         <h3>{{ author }} <span>for</span> Startup #1</h3>
-        <p>{{ new Date(published).toUTCString().substr(4, 18) }}</p>
+        <p>{{ new Date(feedback.published_at).toUTCString().substr(4, 18) }}</p>
         <div
           v-if="activity_state"
           class="startup-card__activity-like active-like"
@@ -46,7 +46,7 @@
           <h4 v-if="activity_state">Expert’s Full Name</h4>
           <ul class="main-content-feedback__criterions">
             <li
-              v-for="(criterion, i) in 5"
+              v-for="(criterion, i) in feedback.criterions"
               :key="i"
               class="main-content-feedback__criterion"
             >
@@ -55,7 +55,7 @@
                   <svg
                     v-for="(item, j) in 5"
                     :key="j"
-                    :class="j < i + Math.random() * (5 - j) ? 'active' : ''"
+                    :class="criterion.mark > j ? 'active' : ''"
                     width="16"
                     height="16"
                     viewBox="0 0 16 16"
@@ -67,21 +67,24 @@
                       stroke="none"
                     />
                   </svg>
-
-                  <span> {{ "Criterion " + (i + 1) }}</span>
+                  <span> {{ criterion.direction.title }}</span>
                 </li>
               </ul>
             </li>
           </ul>
           <div class="main-content-feedback__descrition">
             <span>
-              {{ comment }}
+              {{ feedback.description }}
             </span>
-            <img
-              v-show="profileImg"
-              src="~/assets/img/profile-image.svg"
-              alt="profile-imag"
-            />
+            <div class="feedbacks_badges">
+              <img
+                v-for="badge in feedbackImgUrl"
+                v-show="profileImg"
+                :key="badge.id"
+                :src="badge.src"
+                :alt="badge.title"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -101,28 +104,37 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UButton from "~/components/atoms/uButton.vue";
+import { Feedbacks } from "~/models/Feedbacks";
+
 @Component({
   components: {
     UButton,
   },
 })
 export default class extends Vue {
-  @Prop({
-    default:
-      "Some comment and feedback that this expert left with this bage, probably in a few lines. Some comment and feedback that this expert left with this bage, probably in a few lines.",
-  })
-  comment: string;
-
   @Prop({ default: "Expert" }) author: string;
-  @Prop({ default: "5 Sep 2020 14:40" }) published: string;
+  // @Prop({ default: "5 Sep 2020 14:40" }) published: string;
   @Prop({ default: false }) activity_state: Boolean;
   @Prop({ default: true }) show_feedback: Boolean;
   @Prop({ default: false }) isExpert: Boolean;
   @Prop({ default: "Add Feedback" }) u_button_blue: string;
   @Prop({ default: "Add Badge" }) u_button_gray: string;
   @Prop({ default: true }) profileImg: Boolean;
+  @Prop() feedback!: Array<Feedbacks>;
+  feedbackImgUrl = [];
   toggleFeedBack() {
     this.show_feedback = !this.show_feedback;
+  }
+
+  // url.image[0].url
+  mounted() {
+    this.feedback.badges.forEach((url) => {
+      this.feedbackImgUrl.push({
+        id: url.id,
+        src: url.image[0].url,
+        title: url.title,
+      });
+    });
   }
 }
 </script>
@@ -261,6 +273,11 @@ export default class extends Vue {
     .u-button-gray {
       margin-left: 9px;
     }
+  }
+  .feedbacks_badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
   }
 }
 @media (min-width: 768px) {

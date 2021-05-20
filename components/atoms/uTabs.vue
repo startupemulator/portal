@@ -16,7 +16,7 @@
                 : 'tartup-card__started--disable'
             "
           >
-            <span>{{ button.messageLenght }}</span>
+            <span>{{ staffed }}</span>
           </div>
         </button>
       </li>
@@ -29,6 +29,10 @@ export default {
     longTabs: {
       type: Boolean,
       default: false,
+    },
+    staffed: {
+      type: Number,
+      default: 0,
     },
   },
   data() {
@@ -46,7 +50,7 @@ export default {
           title: "Fully staffed",
           active: true,
           message: true,
-          messageLenght: 23,
+          messageLenght: this.staffed,
         },
       ],
     };
@@ -56,6 +60,7 @@ export default {
       this.tabs.forEach((tab) => {
         tab.id !== id ? (tab.active = false) : (tab.active = true);
       });
+      this.$emit("activateButton", id);
     },
   },
 };

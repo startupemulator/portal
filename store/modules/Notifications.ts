@@ -8,7 +8,7 @@ import {
 import { Store } from "vuex";
 import { getNotifications } from "../api";
 import { Notification } from "../../models/Notification";
-import { store } from "~/store";
+import { store } from "../index";
 
 interface NotificationsState {
   items: Array<Notification>;

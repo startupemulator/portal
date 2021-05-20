@@ -4,7 +4,7 @@
       <U-title :text="'Become an expert'"></U-title>
       <p>Full name</p>
       <U-input
-        :value="fullName"
+        :value="userName"
         :placeholder="'Enter your full name'"
         :type="'text'"
         :img="require('~/assets/img/profile.svg')"
@@ -22,6 +22,7 @@
       <TechnologyPicker
         :technologies="technologies"
         @chosenTechnologi="chosenTechnologi"
+        @addTechnologies="addTechnologies"
       ></TechnologyPicker>
       <div class="become-expert__buttons">
         <U-button
@@ -31,6 +32,7 @@
         ></U-button>
       </div>
     </div>
+    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 
@@ -44,12 +46,15 @@ import UInput from "~/components/atoms/uInput.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import { Technology } from "~/models/Technology";
 import Toast from "~/store/modules/Toast";
+import Spiner from "~/components/molecules/spiner.vue";
+
 @Component({
   components: {
     TechnologyPicker,
     UTitle,
     UInput,
     UButton,
+    Spiner,
   },
   validations: {
     fullName: {
@@ -60,51 +65,53 @@ import Toast from "~/store/modules/Toast";
 })
 export default class extends Vue {
   @Prop() technologies: Array<Technology>;
+  @Prop() userId: String;
+  @Prop() userName!: String;
+  fullName = this.userName ? this.userName : "";
+  choosenTechnology: String = "";
+  addedTechnologies: Array<String> = [];
+  loading = false;
 
-  fullName: string = "";
-  choosenTechnology: string = "";
-  role: string = "expert";
-  checkName(textValue: string) {
-    this.fullName = textValue;
+  checkName(textValue: String) {
+    this.fullName = textValue.trim();
     this.$v.fullName.$touch();
   }
 
-  chosenTechnologi(choosenTechnology: string) {
-    console.log("fwe");
-    this.choosenTechnology = choosenTechnology;
+  chosenTechnologi(choosenTechnology, id) {
+    this.choosenTechnology = id;
+  }
+
+  addTechnologies(data) {
+    this.addedTechnologies = data;
   }
 
   async finishSigningUp() {
     this.$v.$touch();
     if (!this.$v.$error) {
+      this.loading = true;
       try {
-        const finishSignUp = await this.$strapi.setUser({
-          id: this.$strapi.user.id,
-          username: this.fullName,
-          email: this.$strapi.user.email,
-          provider: this.$strapi.user.provider,
-          confirmed: this.$strapi.user.confirmed,
-          blocked: this.$strapi.user.blocked,
-          role: {
-            id: this.$strapi.user.role.id,
-            name: this.$strapi.user.name,
-            description: this.$strapi.user.description,
-            type: this.role,
-          },
-          created_at: this.$strapi.user.created_at,
-          updated_at: new Date(),
-          name: this.$strapi.user.name,
-        });
-        if (finishSignUp !== null) {
-          this.error = "";
+        await this.$updateUser(this.userId, this.fullName);
+
+        const findProfile = await this.$profile(this.userId);
+        if (findProfile === undefined) {
+          await this.$createProfile(this.userId, this.choosenTechnology);
         }
+        if (this.addedTechnologies.length > 0) {
+          await this.addedTechnologies.forEach((el) => {
+            this.$createTechnologies(this.userId, el.name);
+          });
+        }
+        this.loading = false;
+        this.$nuxt.$router.push("/myProjects");
       } catch (e) {
+        this.loading = false;
         Toast.show({
           data: e.message,
           duration: 3000,
         });
       }
     } else {
+      this.loading = false;
       Toast.show({
         data: "Fill the form correctly.",
         duration: 3000,

@@ -1,6 +1,5 @@
 <template>
   <div class="experience">
-    <!-- <pre style="color: #fff"> {{ profile }}</pre> -->
     <BecomeToExpert
       :technology="technology"
       :startup="startup"
@@ -34,11 +33,9 @@ export default class extends Vue {
   experiences: Array<Experience>;
 
   userId = this.$strapi.user.id;
-  // ---------
   startup: Startup;
 
   async asyncData({
-    $myTechnologies,
     $technologies,
     $experiences,
     $startup,
@@ -50,10 +47,16 @@ export default class extends Vue {
 
     const { technologies } = await $technologies();
     const profile = await $profile($strapi.user.id);
-    const myTechnologies = await $myTechnologies($strapi.user.id);
     let technology = [];
-    if (myTechnologies !== null) {
-      technology = technologies.concat(myTechnologies);
+    if (startup.technologies !== null) {
+      technologies.forEach((el) => {
+        startup.technologies.forEach((element, i) => {
+          if (el.id === element.id) {
+            startup.technologies.splice(i, 1);
+          }
+        });
+      });
+      technology = technologies.concat(startup.technologies);
     }
     const specialisations = [];
     if (startup !== null) {

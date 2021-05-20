@@ -167,9 +167,15 @@ export default class CreateAccount extends Vue {
           name: this.name,
           password: this.password,
         });
+        // const newUser = await this.$createUser(
+        //   this.email,
+        //   this.name,
+        //   this.password
+        // );
+
         if (newUser !== null) {
           this.error = "";
-          this.$nuxt.$router.push("/");
+          this.$nuxt.$router.push("/becomeAnExpert");
         }
       } catch (e) {
         Toast.show({

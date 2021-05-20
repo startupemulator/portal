@@ -1,6 +1,6 @@
 <template>
   <div class="apply-to-team">
-    <U-back v-if="applyToTeamStep1" :link="'/'"></U-back>
+    <U-back v-if="applyToTeamStep1" :link="'/startups'"></U-back>
     <U-back
       v-if="!applyToTeamStep1"
       :is-button="true"
@@ -87,7 +87,6 @@ export default class extends Vue {
     );
     this.newRequest.position = position[0].id;
 
-    console.log(this.newRequest);
     try {
       this.loading = true;
       const newRequest = await this.$strapi.create(

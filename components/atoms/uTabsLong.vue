@@ -39,14 +39,14 @@ export default class extends Vue {
     {
       id: 2,
       title: "Owned",
-      active: false,
+      active: true,
       message: false,
       messageLength: 0,
     },
     {
       id: 3,
       title: "Pending",
-      active: true,
+      active: false,
       message: false,
       messageLength: 0,
     },

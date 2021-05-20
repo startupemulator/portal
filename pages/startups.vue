@@ -3,10 +3,13 @@
     <Spiner :loading="loading"></Spiner>
     <Startups
       :startups="startupsList"
+      :staffed="staffed"
       :technologies="technologies"
       :empty-state="emptyState"
       :autorizated="autorizated"
       @pickedTechnologies="filterStartupsList"
+      @cleanFilter="cleanFilter"
+      @filterByPosition="filterByPosition"
     ></Startups>
   </div>
 </template>
@@ -25,49 +28,85 @@ export default class extends Vue {
   // data loaded here will be added during server rendering
   emptyState = false;
   loading = false;
+  position = 1;
+  staffed: Number = 0;
   autorizated = !!this.$strapi.user;
 
-  async asyncData({ $strapi }) {
-    const startups = await $strapi.find("startups", [
-      ["state", "in_progress"],
-      ["state", "not_started"],
-      ["state", "finished"],
-    ]);
-    const technologies = await $strapi.find("technologies", [
-      ["is_public", true],
-    ]);
+  async asyncData({ $technologies, $startups }) {
+    const { startups } = await $startups();
+    const { technologies } = await $technologies();
     const startupsList = await startups;
+    const stateForFilterStartupsByPositions = await startups;
+
     return {
-      technologies,
       startupsList,
+      technologies,
+      stateForFilterStartupsByPositions,
+      startups,
     };
+  }
+
+  filterByPosition(data) {
+    this.loading = true;
+    this.position = data;
+    const positionStatus = data === 0 ? "open" : "staffed";
+
+    const startupListFiltredByPosition = [];
+    this.stateForFilterStartupsByPositions.forEach((item) =>
+      item.positions.forEach((el) => {
+        if (el.status === positionStatus) {
+          startupListFiltredByPosition.push(item);
+        }
+      })
+    );
+    this.startupsList = startupListFiltredByPosition;
+    if (this.startupsList.length === 0) {
+      this.emptyState = true;
+    } else {
+      this.emptyState = false;
+    }
+    setTimeout(() => (this.loading = false), 300);
+  }
+
+  cleanFilter() {
+    this.loading = true;
+
+    this.stateForFilterStartupsByPositions = this.startups;
+    this.filterByPosition(this.position);
+    setTimeout(() => (this.loading = false), 300);
   }
 
   async filterStartupsList(data) {
     this.loading = true;
-    if (data === undefined) {
-      const startups = await this.$strapi.find("startups", [
-        ["state", "in_progress"],
-        ["state", "not_started"],
-        ["state", "finished"],
-      ]);
-      if (startups !== null) {
-        this.startupsList = startups;
-        this.loading = false;
-        this.emptyState = false;
-      }
-    } else {
-      const filtredStartups = await this.$strapi.find("startups", data);
-      this.startupsList = filtredStartups;
-      if (this.startupsList.length === 0) {
+    const technologies = [];
+
+    data.forEach((el) => technologies.push(el[1]));
+
+    if (technologies.length > 0) {
+      const newData = await this.$filterStartup(technologies);
+
+      this.startupsList = newData;
+      this.stateForFilterStartupsByPositions = newData;
+      if (this.stateForFilterStartupsByPositions.length === 0) {
         this.emptyState = true;
       } else {
         this.emptyState = false;
       }
-      if (filtredStartups) {
-        this.loading = false;
-      }
+      this.filterByPosition(this.position);
+
+      this.loading = false;
+    } else {
+      const { startups } = await this.$startups();
+      this.startupsList = startups;
+      this.stateForFilterStartupsByPositions = startups;
+      this.filterByPosition(this.position);
+      this.loading = false;
     }
+  }
+
+  mounted() {
+    this.filterByPosition(this.position);
+    this.staffed = this.startupsList.length;
   }
 }
 </script>

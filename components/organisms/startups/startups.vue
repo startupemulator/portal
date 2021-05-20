@@ -1,5 +1,5 @@
 <template>
-  <div class="start-ups">
+  <div v-cloak class="start-ups">
     <div class="start-ups__content">
       <div class="start-ups__header">
         <U-title :text="'Startups'"></U-title>
@@ -30,7 +30,10 @@
           </button>
         </div>
         <div class="start-ups__header-state-button">
-          <U-Tabs></U-Tabs>
+          <U-Tabs
+            :staffed="staffed"
+            @activateButton="$emit('filterByPosition', $event)"
+          ></U-Tabs>
         </div>
       </div>
       <div class="start-ups_cards-content startup-block">
@@ -80,6 +83,7 @@ export default class extends Vue {
   @Prop() startups: Array<Startup>;
   @Prop() technologies: Array<Technology>;
   @Prop() emptyState: Boolean;
+  @Prop() staffed: Number;
   @Prop() autorizated: Boolean;
   private filterList: boolean = false;
   pickedTechnologies: Array<string> = [];
@@ -92,7 +96,7 @@ export default class extends Vue {
     this.$refs.filter.forEach((el) => {
       el.children[0].classList.remove("checked");
     });
-    this.$emit("pickedTechnologies");
+    this.$emit("cleanFilter");
   }
 
   pickTechnologi(event) {
