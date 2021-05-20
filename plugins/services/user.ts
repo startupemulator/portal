@@ -11,7 +11,7 @@ export function users($strapi: Strapi) {
   }
 }`,
     });
-    return data.users ? data.users[0] : null;
+    return data.users;
   };
 }
 export function getUserBySlug($strapi: Strapi) {

@@ -5,9 +5,9 @@
     </div>
     <div class="position-card__developer">
       <div class="position-card__developer_technologies">
-        <h4>Back-end Developer</h4>
+        <h4>{{ position.specialisation.title }}</h4>
         <U-tags
-          v-for="technology in startup.technologies"
+          v-for="technology in position.technologies"
           :key="technology.id"
           :technologi-id="technology.id"
           :title="technology.title"
@@ -15,8 +15,10 @@
       </div>
       <div class="position-card__developer__button">
         <U-button
-          :button-name="'Apply to Teams'"
+          :button-name="'Apply to Team'"
           :button-class="'u-button-blue'"
+          :is-link="'nuxt-link'"
+          :href="'/startup/apply/' + slug"
         ></U-button>
       </div>
     </div>
@@ -27,13 +29,12 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UTags from "../atoms/uTags.vue";
 import UButton from "~/components/atoms/uButton.vue";
 
-import { Startup } from "~/models/Startup";
-
 @Component({
   components: { UButton, UTags },
 })
 export default class AppHeader extends Vue {
-  @Prop() startup: Startup;
+  @Prop() position: Array<any>;
+  @Prop() slug: string;
 }
 </script>
 

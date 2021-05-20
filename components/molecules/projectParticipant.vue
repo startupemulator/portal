@@ -2,35 +2,21 @@
   <div class="project-participant">
     <p>{{ position }}</p>
     <div class="specializacion_names">
-      <button type="button" class="project-participant__team-button">
-        <span>Full Name</span> <img src="~/assets/img/arrow.svg" alt="arrow" />
-      </button>
-      <button type="button" class="project-participant__team-button">
-        <span>Name Surname</span>
-        <img src="~/assets/img/arrow.svg" alt="arrow" />
-      </button>
-      <button type="button" class="project-participant__team-button">
-        <span>First Name</span>
-        <img src="~/assets/img/arrow.svg" alt="arrow" />
-      </button>
-      <button type="button" class="project-participant__team-button">
-        <span>Last Name</span>
-        <img src="~/assets/img/arrow.svg" alt="arrow" />
-      </button>
-    </div>
-    <div class="project-participant_technologies">
-      <!-- <Technology-item
-        v-for="(technologi, i) in 4"
-        :key="i"
-        :technologi-id="i"
-        :title="'JavaScript'"
+      <nuxt-link
+        class="project-participant__team-button"
+        :to="'/profile/' + owner.name"
       >
-      </Technology-item> -->
+        <span>{{ owner.name }}</span>
+        <img src="~/assets/img/arrow.svg" alt="arrow" />
+      </nuxt-link>
+    </div>
+
+    <div class="project-participant_technologies">
       <UTags
-        v-for="(technologi, i) in 4"
+        v-for="(technologi, i) in technology"
         :key="i"
         :technologi-id="i"
-        :title="'JavaScript'"
+        :title="technology.title"
       ></UTags>
     </div>
   </div>
@@ -38,15 +24,16 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UBack from "~/components/atoms/uBack.vue";
-// import TechnologyItem from "~/components/molecules/technologyItem.vue";
 import UTags from "~/components/atoms/uTags.vue";
-// import { Startup } from "~/models/Startup";
-
+import UButton from "~/components/atoms/uButton.vue";
+import { Technology } from "~/models/Technology";
 @Component({
-  components: { UBack, UTags },
+  components: { UBack, UTags, UButton },
 })
 export default class AppHeader extends Vue {
   @Prop({ default: "Product Owners" }) position: String;
+  @Prop() owner: String;
+  @Prop() technology: Array<Technology>;
 }
 </script>
 
@@ -71,6 +58,7 @@ export default class AppHeader extends Vue {
       font-weight: normal;
       font-size: 16px;
       line-height: 32px;
+      color: #fff;
     }
     img {
       margin-left: 16px;

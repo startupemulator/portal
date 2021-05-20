@@ -1,13 +1,17 @@
 <template>
   <div class="startups-page">
-    <StartupPage :startup="startup"></StartupPage>
+    <StartupPage
+      :startup="startup"
+      :feedbacks="feedbacks"
+      :is-owner="isOwner"
+    ></StartupPage>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 import StartupPage from "~/components/organisms/startup/startup.vue";
 import { Startup } from "~/models/Startup";
-// import { Testimonial } from "~/models/Testimonial";
+
 @Component({
   components: {
     StartupPage,
@@ -15,11 +19,18 @@ import { Startup } from "~/models/Startup";
 })
 export default class TakeStartup extends Vue {
   startup: Startup;
-  // testominal: Testimonial;
+  isOwner = false;
 
-  async asyncData({ $startup, route }) {
+  async asyncData({ $startup, $feedbacks, route }) {
     const startup = await $startup(route.params.slug);
-    return { startup };
+    const feedbacks = await $feedbacks();
+    return { startup, feedbacks };
+  }
+
+  mounted() {
+    if (this.$strapi.user && +this.user === +this.startup.owner.id) {
+      this.isOwner = true;
+    }
   }
 }
 </script>
