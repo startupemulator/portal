@@ -38,6 +38,7 @@ import {
   createProfile,
 } from "~/plugins/services/profile";
 import { NotificationUser } from "~/models/NotificationUser";
+import { Notification } from "~/models/Notification";
 import {
   updateUser,
   createUser,
@@ -47,6 +48,7 @@ import {
 } from "~/plugins/services/user";
 import { login } from "~/plugins/services/login";
 import { feedbacks } from "~/plugins/services/feedbacks";
+import { notifications } from "~/plugins//services/notifications";
 export interface Services {
   $estimations(): Promise<Partial<Estimation>[]>;
   $specialisations(): Promise<Partial<Specialisation>[]>;
@@ -54,6 +56,7 @@ export interface Services {
   $profile(id: string): Promise<Partial<Profile>[]>;
   $users(): Promise<Partial<NotificationUser>[]>;
   $feedbacks(): Promise<Partial<Feedbacks>[]>;
+  $notifications(): Promise<Partial<Notification>[]>;
   $getUserBySlug(slug: string): Promise<Partial<NotificationUser>[]>;
   $login(data: NuxtStrapiLoginData): Promise<NuxtStrapiLoginResult>;
   $updateUserPassword(
@@ -138,6 +141,7 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("createTechnologies", createTechnologies(ctx.$strapi));
 
   inject("feedbacks", feedbacks(ctx.$strapi));
+  inject("notifications", notifications(ctx.$strapi));
 };
 
 export default strapiServices;

@@ -219,6 +219,7 @@
       </div>
     </div>
     <Notifications-popup v-show="notification"></Notifications-popup>
+    <!-- <pre style="color: #fff">{{ technologies }} sdrg</pre> -->
   </header>
 </template>
 <script lang="ts">
@@ -227,6 +228,7 @@ import UButton from "../atoms/uButton.vue";
 import ULogo from "../atoms/uLogo.vue";
 import NotificationsPopup from "./popupNotifications.vue";
 import { goToPricing } from "~/assets/jshelper/scrollToPricing";
+
 @Component({
   components: { UButton, ULogo, NotificationsPopup },
 })
@@ -234,7 +236,9 @@ export default class AppHeader extends Vue {
   @Prop() currentRoute: string;
   @Prop() isLogined: Boolean;
   @Prop() user: string;
+
   notification: Boolean = false;
+
   toggleNotification() {
     this.notification = !this.notification;
   }
