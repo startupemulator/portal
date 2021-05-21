@@ -1,9 +1,10 @@
 <template>
   <div class="startups-page">
-    <pre style="color: #fff">    {{ applications }}</pre>
+    <!-- <pre style="color: #fff">    {{ applications }}</pre> -->
     <StartupPage
       :startup="startup"
       :feedbacks="feedbacks"
+      :applications="applications"
       :is-owner="isOwner"
     ></StartupPage>
   </div>
@@ -25,8 +26,8 @@ export default class TakeStartup extends Vue {
   async asyncData({ $startup, $feedbacks, $applicationsByStartupId, route }) {
     const startup = await $startup(route.params.slug);
     const feedbacks = await $feedbacks();
-    const { applications } = await $applicationsByStartupId();
-    // const sometest = await $strapi.find("applications");
+    const { applications } = await $applicationsByStartupId(startup.id);
+
     return { startup, feedbacks, applications };
   }
 

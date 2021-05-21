@@ -1,10 +1,9 @@
 <template>
   <div class="position-card">
     <h5>
-      {{ name }}
-
-      <span v-show="uncheck || check"
-        ><img
+      <span class="position-card__user-name"> {{ name }}</span>
+      <span v-show="uncheck || check">
+        <img
           class="position-card__check"
           :src="
             uncheck
@@ -14,9 +13,10 @@
               : ''
           "
           alt="uncheck"
-      /></span>
+        />
+      </span>
       <img
-        v-show="declineReason"
+        v-show="uncheck"
         class="position-card__feedback"
         src="~/assets/img/feedback.svg"
         alt="feedback"
@@ -25,8 +25,12 @@
       />
     </h5>
     <p class="position-card__experience">Experience</p>
-    <p class="position-card__experience-count">1–2 years</p>
-    <u-tags v-for="(tag, i) in 4" :key="i" :title="'Javascript'"></u-tags>
+    <p class="position-card__experience-count">{{ experience }}</p>
+    <UTags
+      v-for="technology in technologies"
+      :key="technology.title"
+      :title="technology.title"
+    ></UTags>
     <div class="position-card__buttons">
       <U-button
         v-if="!access"
@@ -104,11 +108,7 @@
             <u-title :text="'Decline reason'"></u-title>
             <div class="decline-reason__description">
               <p>
-                Here is the decline reason that you wrote when you were
-                declining this candidate. Here is the decline reason that you
-                wrote when you were declining this candidate. Here is the
-                decline reason that you wrote when you were declining this
-                candidate.
+                {{ declineReason }}
               </p>
             </div>
           </div>
@@ -132,7 +132,9 @@ export default class extends Vue {
   @Prop() uncheck: Boolean;
   @Prop() check: Boolean;
   @Prop() access: Boolean;
-  @Prop() declineReason: Boolean;
+  @Prop() declineReason: string;
+  @Prop() experience: string;
+  @Prop() technologies: Array<string>;
   declineReasonMessage = false;
   accsessList = false;
   declineCandidate = false;
@@ -176,11 +178,15 @@ export default class extends Vue {
   box-sizing: border-box;
 
   h5 {
+    word-break: break-all;
     font-weight: bold;
     font-size: 17px;
     line-height: 32px;
     margin: 0;
     display: flex;
+    .position-card__user-name {
+      width: 75%;
+    }
   }
   .position-card__check {
     margin-left: 8px;
@@ -188,6 +194,7 @@ export default class extends Vue {
   .position-card__feedback {
     margin-left: auto;
     cursor: pointer;
+    align-self: baseline;
   }
   .position-card__experience {
     font-weight: normal;

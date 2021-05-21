@@ -24,21 +24,43 @@ export function applications($strapi: Strapi) {
   };
 }
 export function applicationsByStartupId($strapi: Strapi) {
-  return async () => {
+  return async (id: string) => {
     const data = await $strapi.graphql({
       query: `query {
-    applications(where:{position:{startup: "90"}}) {
+    applications(where:{position:{startup: "${id}"}}) {
     id
     status
     comment
     decline_reason
-    user{
-      id
-      username
-      email
-    }
     position{
       id
+      status
+      startup{
+        id
+      }
+      specialisation{
+        id
+        title
+      }
+      applications{
+        id
+        status
+        decline_reason
+        user {
+          username
+          profile{
+            id 
+            technologies{
+              id
+              title
+            }
+            experience{
+              id 
+              title
+            }
+          }
+        }
+      }
     }
   }
 }`,

@@ -56,7 +56,7 @@ import {
 } from "~/plugins/services/applications";
 export interface Services {
   $applications(): Promise<Partial<Estimation>[]>;
-  $applicationsByStartupId(): Promise<Partial<Estimation>[]>;
+  $applicationsByStartupId(id: string): Promise<Partial<Estimation>[]>;
 
   $estimations(): Promise<Partial<Estimation>[]>;
   $specialisations(): Promise<Partial<Specialisation>[]>;

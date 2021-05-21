@@ -2,6 +2,7 @@
   <div>
     <RequestToTeam
       v-show="requestToTeam"
+      :applications="applications"
       @clikOnButton="toggleRequestToTeam"
     ></RequestToTeam>
     <!-- <NewFeedBack
@@ -135,7 +136,7 @@
                 <span
                   >Requests to Team
                   <div class="owner-menu__item--message">
-                    <span>2</span>
+                    <span>{{ applications.length }}</span>
                   </div></span
                 >
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
@@ -330,7 +331,6 @@
       ></PopupDeleteStartup>
       <GuidePopup v-if="popupGuide" @closePopup="togglePopupGuide"></GuidePopup>
     </div>
-    <pre style="color: #fff">{{ startup }} </pre>
   </div>
 </template>
 <script lang="ts">
@@ -357,6 +357,7 @@ import ProjectParticipant from "~/components/molecules/projectParticipant.vue";
 import Sources from "~/components/molecules/sources.vue";
 import CommentExpert from "~/components/molecules/commentForExpert.vue";
 import { Feedbacks } from "~/models/Feedbacks";
+import { Applications } from "~/models/Applications";
 @Component({
   components: {
     UBack,
@@ -385,12 +386,12 @@ export default class extends Vue {
   @Prop() startup!: Array<Startup>;
   @Prop() feedbacks: Array<Feedbacks>;
   @Prop() isOwner: Boolean;
+  @Prop() applications: Array<Applications>;
   openPosition = [];
 
   popupCancelApplication = false;
   isDeveloper = false;
   isExpert = false;
-
   isStarted = false;
   popupDeleteStartup = false;
   popupGuide = false;
