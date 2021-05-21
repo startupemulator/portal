@@ -37,6 +37,8 @@
         :decline-reason="position.decline_reason"
         :experience="item.user.profile.experience.title"
         :technologies="item.user.profile.technologies"
+        :position-id="item.id"
+        @accept="accept"
       ></position-card>
     </div>
   </div>
@@ -57,6 +59,10 @@ export default class extends Vue {
 
   togglePosition() {
     this.opendPosition = !this.opendPosition;
+  }
+
+  accept(id) {
+    this.$emit("accept", id);
   }
 
   mounted() {

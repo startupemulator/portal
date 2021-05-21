@@ -4,6 +4,7 @@
       v-show="requestToTeam"
       :applications="applications"
       @clikOnButton="toggleRequestToTeam"
+      @accept="accept"
     ></RequestToTeam>
     <!-- <NewFeedBack
       v-show="newFeedBack"
@@ -473,6 +474,15 @@ export default class extends Vue {
     this.openPosition = this.startup.positions.filter(
       (position) => position.status === "open"
     );
+  }
+
+  async accept(id) {
+    try {
+      const accept = await this.$applicationAccept(id);
+      console.log(accept);
+    } catch (e) {
+      console.error(e);
+    }
   }
 }
 </script>

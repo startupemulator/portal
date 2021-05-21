@@ -36,6 +36,7 @@
         v-if="!access"
         :button-name="'Accept'"
         :button-class="'u-button-blue'"
+        @clickOnButton="$emit('accept', positionId)"
       ></U-button>
       <U-button
         v-if="!access"
@@ -135,6 +136,7 @@ export default class extends Vue {
   @Prop() declineReason: string;
   @Prop() experience: string;
   @Prop() technologies: Array<string>;
+  @Prop() positionId: string;
   declineReasonMessage = false;
   accsessList = false;
   declineCandidate = false;
@@ -163,6 +165,12 @@ export default class extends Vue {
     const checkedAccses = $event.currentTarget.children[0].textContent;
     this.accsessButtonTitle = checkedAccses;
     this.accsessList = !this.accsessList;
+  }
+
+  mounted() {
+    if (this.uncheck) {
+      this.accsessButtonTitle = "Decline";
+    }
   }
 }
 </script>

@@ -17,6 +17,7 @@
         :key="item.id"
         :title="item.position.specialisation.title"
         :position="item"
+        @accept="accept"
       ></PositionList>
     </div>
   </div>
@@ -33,77 +34,8 @@ import { Applications } from "~/models/Applications";
 })
 export default class extends Vue {
   @Prop() applications: Array<Applications>;
-  data() {
-    return {
-      specialisations: [
-        {
-          id: 0,
-          title: "Back-end Developer",
-          position: [
-            {
-              user: "Andrey Maslov",
-              uncheck: false,
-              check: false,
-              access: false,
-              profile: false,
-            },
-          ],
-        },
-        {
-          id: 1,
-          title: "Front-end Developer",
-          position: [
-            {
-              user: "Artem Mith",
-              uncheck: false,
-              check: true,
-              access: true,
-              profile: false,
-            },
-            {
-              user: "Jon Snow",
-              uncheck: true,
-              check: true,
-              access: true,
-              profile: true,
-            },
-            {
-              user: "Sara Conor",
-              uncheck: true,
-              check: true,
-              access: true,
-              profile: false,
-            },
-          ],
-        },
-        {
-          id: 2,
-          title: "Full Stack Developer",
-          position: [
-            {
-              user: "Jon Dow",
-              uncheck: true,
-              check: false,
-              access: true,
-              profile: false,
-            },
-          ],
-        },
-        {
-          id: 3,
-          title: "UI/UX Designer",
-          position: [
-            {
-              user: "Alex Cortex",
-              uncheck: false,
-              check: false,
-              access: false,
-              profile: false,
-            },
-          ],
-        },
-      ],
-    };
+  accept(id) {
+    this.$emit("accept", id);
   }
 }
 </script>

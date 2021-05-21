@@ -68,3 +68,21 @@ export function applicationsByStartupId($strapi: Strapi) {
     return data;
   };
 }
+
+export function applicationAccept($strapi: Strapi) {
+  return async (id: string) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+    updateApplication( 
+      input: {
+      where: {id: "${id}" }
+      data: { status: "accepted"}
+     }
+     )
+      {}
+  }
+}`,
+    });
+    return data;
+  };
+}
