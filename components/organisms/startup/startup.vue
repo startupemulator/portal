@@ -4,11 +4,11 @@
       v-show="requestToTeam"
       @clikOnButton="toggleRequestToTeam"
     ></RequestToTeam>
-    <!--  <NewFeedBack
+    <!-- <NewFeedBack
       v-show="newFeedBack"
       @clikOnButton="toggleNewFeedBack"
-    ></NewFeedBack>
-      <RequestFeedback
+    ></NewFeedBack> -->
+    <RequestFeedback
       v-show="requestFeedBack"
       @clikOnButton="toggleRequestFeedBack"
     ></RequestFeedback>
@@ -17,7 +17,7 @@
       @clikOnButton="toggleEditStartupInfo"
     ></EditStartupInfo>
     <EditTeam v-show="editTeam" @clikOnButton="toggleEditTeam"></EditTeam>
-      <EditSources
+    <EditSources
       v-show="editSources"
       @clikOnButton="toggleEditSources"
     ></EditSources>
@@ -35,11 +35,11 @@
     <AddTeamFeedBack
       v-show="addTeamFeedBack"
       @clikOnButton="toggleAddTeamFeedBack"
-    ></AddTeamFeedBack> -->
-    <!-- <AddTeamBadge
+    ></AddTeamFeedBack>
+    <AddTeamBadge
       v-show="addTeamBadge"
       @clikOnButton="toggleAddTeamBadge"
-    ></AddTeamBadge> -->
+    ></AddTeamBadge>
     <div
       v-show="
         !requestToTeam &&
@@ -227,6 +227,7 @@
             :key="item.id"
             :position="item"
             :slug="startup.slug"
+            :is-owner="isOwner"
           ></Open-position-card>
         </div>
         <div class="startup-card__team">

@@ -49,7 +49,10 @@ import {
 import { login } from "~/plugins/services/login";
 import { feedbacks } from "~/plugins/services/feedbacks";
 import { notifications } from "~/plugins//services/notifications";
+
+import applications from "~/plugins/services/applications";
 export interface Services {
+  $applications(): Promise<Partial<Estimation>[]>;
   $estimations(): Promise<Partial<Estimation>[]>;
   $specialisations(): Promise<Partial<Specialisation>[]>;
   $experiences(): Promise<Partial<Experience>[]>;
@@ -107,6 +110,8 @@ export interface Services {
 
 const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("estimations", estimations(ctx.$strapi));
+  inject("applications", applications(ctx.$strapi));
+
   inject("specialisations", specialisations(ctx.$strapi));
   inject("experiences", experiences(ctx.$strapi));
 
