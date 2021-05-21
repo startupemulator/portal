@@ -4,7 +4,7 @@ export function applications($strapi: Strapi) {
   return () => {
     return $strapi.graphql({
       query: `query {
-    applications(sort: "id") {
+    applications {
     id
     status
     comment

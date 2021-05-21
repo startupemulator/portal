@@ -1,5 +1,6 @@
 <template>
   <div class="startups-page">
+    {{ applications }}
     <StartupPage
       :startup="startup"
       :feedbacks="feedbacks"
@@ -21,10 +22,11 @@ export default class TakeStartup extends Vue {
   startup: Startup;
   isOwner = false;
 
-  async asyncData({ $startup, $feedbacks, route }) {
+  async asyncData({ $startup, $feedbacks, $applications, route }) {
     const startup = await $startup(route.params.slug);
     const feedbacks = await $feedbacks();
-    return { startup, feedbacks };
+    const applications = await $applications();
+    return { startup, feedbacks, applications };
   }
 
   mounted() {
