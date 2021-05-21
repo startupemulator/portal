@@ -39,6 +39,8 @@ import {
 } from "~/plugins/services/profile";
 import { NotificationUser } from "~/models/NotificationUser";
 import { Notification } from "~/models/Notification";
+import { Applications } from "~/models/Applications";
+
 import {
   updateUser,
   createUser,
@@ -49,7 +51,17 @@ import {
 import { login } from "~/plugins/services/login";
 import { feedbacks } from "~/plugins/services/feedbacks";
 import { notifications } from "~/plugins//services/notifications";
+
+import {
+  applications,
+  applicationsByStartupId,
+  applicationAccept,
+} from "~/plugins/services/applications";
 export interface Services {
+  $applications(): Promise<Partial<Applications>[]>;
+  $applicationsByStartupId(id: string): Promise<Partial<Applications>[]>;
+  $applicationAccept(id: string): Promise<Partial<Applications>[]>;
+
   $estimations(): Promise<Partial<Estimation>[]>;
   $specialisations(): Promise<Partial<Specialisation>[]>;
   $experiences(): Promise<Partial<Experience>[]>;
@@ -107,6 +119,11 @@ export interface Services {
 
 const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("estimations", estimations(ctx.$strapi));
+
+  inject("applications", applications(ctx.$strapi));
+  inject("applicationsByStartupId", applicationsByStartupId(ctx.$strapi));
+  inject("applicationAccept", applicationAccept(ctx.$strapi));
+
   inject("specialisations", specialisations(ctx.$strapi));
   inject("experiences", experiences(ctx.$strapi));
 

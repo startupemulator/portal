@@ -1,8 +1,10 @@
 <template>
   <div class="startups-page">
+    <!-- <pre style="color: #fff">    {{ applications }}</pre> -->
     <StartupPage
       :startup="startup"
       :feedbacks="feedbacks"
+      :applications="applications"
       :is-owner="isOwner"
     ></StartupPage>
   </div>
@@ -21,14 +23,17 @@ export default class TakeStartup extends Vue {
   startup: Startup;
   isOwner = false;
 
-  async asyncData({ $startup, $feedbacks, route }) {
+  async asyncData({ $startup, $feedbacks, $applicationsByStartupId, route }) {
     const startup = await $startup(route.params.slug);
     const feedbacks = await $feedbacks();
-    return { startup, feedbacks };
+    const { applications } = await $applicationsByStartupId(startup.id);
+
+    return { startup, feedbacks, applications };
   }
 
   mounted() {
-    if (this.$strapi.user && +this.user === +this.startup.owner.id) {
+    console.log(this.$strapi.user);
+    if (this.$strapi.user && +this.$strapi.user.id === +this.startup.owner.id) {
       this.isOwner = true;
     }
   }

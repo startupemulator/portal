@@ -1,13 +1,15 @@
 <template>
   <div class="position-list">
     <div class="position-list__header">
+      <!-- <pre style="color: #fff">{{ position }} </pre> -->
+
       <div class="position-list__header-name">
         <h4>{{ title }}</h4>
 
-        <span>99</span>
+        <span>{{ newAplications }}</span>
       </div>
       <div class="position-list__header-button">
-        <span>{{ id }}</span>
+        <span>{{ position.position.applications.length }}</span>
         <img
           src="~/assets/img/arrow.svg"
           alt="arrow"
@@ -19,14 +21,24 @@
 
     <div class="position-list__cards">
       <position-card
-        v-for="item in position.position"
+        v-for="item in position.position.applications"
         v-show="opendPosition"
-        :key="item.user"
-        :name="item.user"
-        :uncheck="item.uncheck"
-        :check="item.check"
-        :access="item.access"
-        :decline-reason="item.profile"
+        :key="item.id"
+        :name="item.user.username"
+        :uncheck="item.status === 'declined' ? true : false"
+        :check="item.status === 'accepted' ? true : false"
+        :access="
+          item.status === 'accepted'
+            ? true
+            : item.status === 'declined'
+            ? true
+            : false
+        "
+        :decline-reason="position.decline_reason"
+        :experience="item.user.profile.experience.title"
+        :technologies="item.user.profile.technologies"
+        :position-id="item.id"
+        @accept="accept"
       ></position-card>
     </div>
   </div>
@@ -43,8 +55,20 @@ export default class extends Vue {
   @Prop() id: Number;
   @Prop() position: Array<any>;
   opendPosition = false;
+  newAplications: Number = 0;
+
   togglePosition() {
     this.opendPosition = !this.opendPosition;
+  }
+
+  accept(id) {
+    this.$emit("accept", id);
+  }
+
+  mounted() {
+    this.newAplications = this.position.position.applications.filter(
+      (position) => position.status === "waiting"
+    ).length;
   }
 }
 </script>

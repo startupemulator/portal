@@ -2,13 +2,15 @@
   <div>
     <RequestToTeam
       v-show="requestToTeam"
+      :applications="applications"
       @clikOnButton="toggleRequestToTeam"
+      @accept="accept"
     ></RequestToTeam>
-    <!--  <NewFeedBack
+    <!-- <NewFeedBack
       v-show="newFeedBack"
       @clikOnButton="toggleNewFeedBack"
-    ></NewFeedBack>
-      <RequestFeedback
+    ></NewFeedBack> -->
+    <RequestFeedback
       v-show="requestFeedBack"
       @clikOnButton="toggleRequestFeedBack"
     ></RequestFeedback>
@@ -17,7 +19,7 @@
       @clikOnButton="toggleEditStartupInfo"
     ></EditStartupInfo>
     <EditTeam v-show="editTeam" @clikOnButton="toggleEditTeam"></EditTeam>
-      <EditSources
+    <EditSources
       v-show="editSources"
       @clikOnButton="toggleEditSources"
     ></EditSources>
@@ -35,11 +37,11 @@
     <AddTeamFeedBack
       v-show="addTeamFeedBack"
       @clikOnButton="toggleAddTeamFeedBack"
-    ></AddTeamFeedBack> -->
-    <!-- <AddTeamBadge
+    ></AddTeamFeedBack>
+    <AddTeamBadge
       v-show="addTeamBadge"
       @clikOnButton="toggleAddTeamBadge"
-    ></AddTeamBadge> -->
+    ></AddTeamBadge>
     <div
       v-show="
         !requestToTeam &&
@@ -135,7 +137,7 @@
                 <span
                   >Requests to Team
                   <div class="owner-menu__item--message">
-                    <span>2</span>
+                    <span>{{ applications.length }}</span>
                   </div></span
                 >
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
@@ -227,6 +229,7 @@
             :key="item.id"
             :position="item"
             :slug="startup.slug"
+            :is-owner="isOwner"
           ></Open-position-card>
         </div>
         <div class="startup-card__team">
@@ -329,7 +332,6 @@
       ></PopupDeleteStartup>
       <GuidePopup v-if="popupGuide" @closePopup="togglePopupGuide"></GuidePopup>
     </div>
-    <pre style="color: #fff">{{ startup }} </pre>
   </div>
 </template>
 <script lang="ts">
@@ -356,6 +358,7 @@ import ProjectParticipant from "~/components/molecules/projectParticipant.vue";
 import Sources from "~/components/molecules/sources.vue";
 import CommentExpert from "~/components/molecules/commentForExpert.vue";
 import { Feedbacks } from "~/models/Feedbacks";
+import { Applications } from "~/models/Applications";
 @Component({
   components: {
     UBack,
@@ -384,12 +387,12 @@ export default class extends Vue {
   @Prop() startup!: Array<Startup>;
   @Prop() feedbacks: Array<Feedbacks>;
   @Prop() isOwner: Boolean;
+  @Prop() applications: Array<Applications>;
   openPosition = [];
 
   popupCancelApplication = false;
   isDeveloper = false;
   isExpert = false;
-
   isStarted = false;
   popupDeleteStartup = false;
   popupGuide = false;
@@ -471,6 +474,15 @@ export default class extends Vue {
     this.openPosition = this.startup.positions.filter(
       (position) => position.status === "open"
     );
+  }
+
+  async accept(id) {
+    try {
+      const accept = await this.$applicationAccept(id);
+      console.log(accept);
+    } catch (e) {
+      console.error(e);
+    }
   }
 }
 </script>
