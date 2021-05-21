@@ -28,7 +28,7 @@ export default class TakeStartup extends Vue {
   }
 
   mounted() {
-    if (this.$strapi.user && +this.user === +this.startup.owner.id) {
+    if (this.$strapi.user && +this.$strapi.user.id === +this.startup.owner.id) {
       this.isOwner = true;
     }
   }
