@@ -50,6 +50,10 @@ export function startup($strapi: Strapi) {
             id
             sort
             status
+            applications{
+              id
+
+            }
             specialisation {
               id
               title

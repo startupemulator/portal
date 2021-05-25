@@ -83,11 +83,15 @@
             Write a few words to this candidate. He will be grateful if you tell
             him why you are declining him.
           </p>
-          <textarea placeholder="Enter your comment"></textarea>
+          <textarea
+            v-model="declinetext"
+            placeholder="Enter your comment"
+          ></textarea>
           <div class="decline-popup__buttons">
             <U-button
               :button-name="'Yes, Decline'"
               :button-class="'u-button-blue'"
+              @clickOnButton="decline"
             ></U-button>
             <U-button
               :button-name="'No, Don’t Decline'"
@@ -140,7 +144,7 @@ export default class extends Vue {
   declineReasonMessage = false;
   accsessList = false;
   declineCandidate = false;
-
+  declinetext: string = "";
   accsessButtonTitle = "Default access";
   showDeclineReasonMessage() {
     //   if mobile it work like click
@@ -158,13 +162,17 @@ export default class extends Vue {
   toggleDeclineCandidate() {
     this.declineCandidate = !this.declineCandidate;
     this.accsessList = !this.accsessList;
-    console.log(this.$data);
   }
 
   clickOnButtonAccses($event) {
     const checkedAccses = $event.currentTarget.children[0].textContent;
     this.accsessButtonTitle = checkedAccses;
     this.accsessList = !this.accsessList;
+  }
+
+  decline() {
+    this.$emit("decline", this.positionId, this.declinetext);
+    this.declineCandidate = !this.declineCandidate;
   }
 
   mounted() {

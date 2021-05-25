@@ -1,15 +1,13 @@
 <template>
   <div class="position-list">
     <div class="position-list__header">
-      <!-- <pre style="color: #fff">{{ position }} </pre> -->
-
       <div class="position-list__header-name">
         <h4>{{ title }}</h4>
 
         <span>{{ newAplications }}</span>
       </div>
       <div class="position-list__header-button">
-        <span>{{ position.position.applications.length }}</span>
+        <span>{{ applications.length }}</span>
         <img
           src="~/assets/img/arrow.svg"
           alt="arrow"
@@ -20,25 +18,27 @@
     </div>
 
     <div class="position-list__cards">
+      <!-- <pre style="color: #fff"> {{ applications[1] }}</pre> -->
       <position-card
-        v-for="item in position.position.applications"
+        v-for="item in applications"
         v-show="opendPosition"
         :key="item.id"
-        :name="item.user.username"
-        :uncheck="item.status === 'declined' ? true : false"
-        :check="item.status === 'accepted' ? true : false"
+        :name="'item.position.applications.user.username'"
+        :uncheck="'item.status' === 'declined' ? true : false"
+        :check="'item.status' === 'accepted' ? true : false"
         :access="
-          item.status === 'accepted'
+          'item.status' === 'accepted'
             ? true
-            : item.status === 'declined'
+            : 'item.status' === 'declined'
             ? true
             : false
         "
-        :decline-reason="position.decline_reason"
-        :experience="item.user.profile.experience.title"
-        :technologies="item.user.profile.technologies"
-        :position-id="item.id"
+        :decline-reason="'position.decline_reason'"
+        :experience="'item.user.profile.experience.title'"
+        :technologies="'item.user.profile.technologies'"
+        :position-id="'item.id'"
         @accept="accept"
+        @decline="decline"
       ></position-card>
     </div>
   </div>
@@ -56,7 +56,7 @@ export default class extends Vue {
   @Prop() position: Array<any>;
   opendPosition = false;
   newAplications: Number = 0;
-
+  applications = [];
   togglePosition() {
     this.opendPosition = !this.opendPosition;
   }
@@ -65,8 +65,16 @@ export default class extends Vue {
     this.$emit("accept", id);
   }
 
+  decline(id, declinetext) {
+    this.$emit("decline", id, declinetext);
+  }
+
   mounted() {
-    this.newAplications = this.position.position.applications.filter(
+    this.applications = this.position.filter(
+      (el) => el.position.id === this.id
+    );
+    console.log(this.applications[0]);
+    this.newAplications = this.applications.filter(
       (position) => position.status === "waiting"
     ).length;
   }
