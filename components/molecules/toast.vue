@@ -5,6 +5,7 @@
       :key="message.id"
       :msg="message.data"
       :timer="message.timer"
+      :success="message.success"
     />
   </transition-group>
 </template>

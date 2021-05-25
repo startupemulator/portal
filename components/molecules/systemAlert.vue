@@ -1,8 +1,12 @@
 <template>
   <div class="system-alert">
-    <div class="system-alert__left-border"></div>
+    <div
+      class="system-alert__left-border"
+      :class="success ? 'success' : ''"
+    ></div>
     <div class="system-alert__message">
-      <h3>Something went wrong</h3>
+      <h3 v-if="!success">Something went wrong</h3>
+      <h4 v-else>Succes alert</h4>
       <p>
         {{ msg }}
         <span v-if="timer"
@@ -20,6 +24,7 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 export default class extends Vue {
   @Prop() private msg;
   @Prop() private timer;
+  @Prop() private success: boolean;
 }
 </script>
 
@@ -43,6 +48,11 @@ export default class extends Vue {
     box-shadow: -4px 0 6px 1px rgba(233, 70, 70, 0.25),
       4px 0 6px 1px rgba(233, 70, 70, 0.25);
     border-radius: 12px 0 0 12px;
+    &.success {
+      background: #3cc28d;
+      box-shadow: 0 -2px 8px rgba(60, 194, 141, 0.3),
+        0 2px 8px rgba(60, 194, 141, 0.3);
+    }
   }
   h3 {
     margin-bottom: 10px;
@@ -58,6 +68,23 @@ export default class extends Vue {
       width: 24px;
       height: 24px;
       background-image: url(../../assets/img/error.svg);
+      left: 24px;
+    }
+  }
+  h4 {
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 56px;
+    padding-right: 25px;
+    font-weight: bold;
+    font-size: 17px;
+    line-height: 24px;
+    &::before {
+      content: "";
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      background-image: url(../../assets/img/success-alert.svg);
       left: 24px;
     }
   }
@@ -88,7 +115,8 @@ export default class extends Vue {
       min-width: 16px;
       height: 120px;
     }
-    h3 {
+    h3,
+    h4 {
       padding-left: 60px;
       font-weight: bold;
       font-size: 18px;

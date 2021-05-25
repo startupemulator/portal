@@ -104,7 +104,7 @@
       <U-button
         :button-name="'Save Draft'"
         :button-class="'u-button-gray'"
-        @clickOnButton="$emit('saveDraft')"
+        @clickOnButton="saveDraft"
       ></U-button>
     </div>
     <Spiner :loading="loading"></Spiner>
@@ -186,6 +186,18 @@ export default class extends Vue {
         .split("-")
         .reverse()
         .join("  |  ");
+    }
+  }
+
+  saveDraft() {
+    this.$v.$touch();
+    if (!this.$v.$error) {
+      this.goToStepTwo();
+    } else {
+      Toast.show({
+        data: "Fill the form correctly.",
+        duration: 3000,
+      });
     }
   }
 

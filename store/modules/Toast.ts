@@ -16,6 +16,7 @@ interface Message {
   type: "error" | "info" | "warn";
   duration: number;
   timer?: number;
+  success: boolean;
 }
 
 interface ToastState {
@@ -78,6 +79,7 @@ class Toast extends VuexModule implements ToastState {
       duration: toast.duration || 0,
       type: toast.type || "error",
       timer: Math.ceil((toast.duration as number) / 1000),
+      success: toast.success || false,
     };
   }
 }

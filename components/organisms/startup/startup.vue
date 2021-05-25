@@ -3,8 +3,10 @@
     <RequestToTeam
       v-show="requestToTeam"
       :applications="applications"
+      :startup="startup"
       @clikOnButton="toggleRequestToTeam"
       @accept="accept"
+      @decline="decline"
     ></RequestToTeam>
     <!-- <NewFeedBack
       v-show="newFeedBack"
@@ -478,8 +480,17 @@ export default class extends Vue {
 
   async accept(id) {
     try {
+      console.log(id);
       const accept = await this.$applicationAccept(id);
       console.log(accept);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async decline(id, declinetext) {
+    try {
+      await this.$applicationDecline(id, declinetext);
     } catch (e) {
       console.error(e);
     }

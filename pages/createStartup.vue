@@ -32,5 +32,9 @@ export default class extends Vue {
       specialisations,
     };
   }
+
+  mounted() {
+    console.log(this.$route.params.slug);
+  }
 }
 </script>

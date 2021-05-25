@@ -105,18 +105,22 @@ export default class extends Vue {
   }
 
   saveDraft() {
-    this.createprodjectSteps.stepOne = false;
-    this.createprodjectSteps.stepTwo = true;
+    this.publish("draft");
   }
 
-  async publish() {
+  async publish(state = "review") {
     try {
       this.loading = true;
+      console.log(state);
       await this.$strapi.update("startups", this.createdStartupId.toString(), {
         description: this.startupData.description,
+        state,
       });
       // send specialists
-      if (this.startupData.specialists.some((el) => el.speciality_id)) {
+      if (
+        this.startupData.specialists &&
+        !!this.startupData.specialists.some((el) => el.speciality_id)
+      ) {
         const newPositions = {
           startup: this.createdStartupId,
           technologies: [],
@@ -139,7 +143,10 @@ export default class extends Vue {
         newTechnologies.forEach((el) => this.createNewTechnologies(el));
       }
       // sent technologies & invites
-      if (this.startupData.coleagues.length !== 0) {
+      if (
+        this.startupData.coleagues &&
+        this.startupData.coleagues.length !== 0
+      ) {
         this.newInvate(this.startupData.coleagues);
       }
       // send sources
@@ -147,8 +154,6 @@ export default class extends Vue {
         this.startupData.sources &&
         !!this.startupData.sources.some((el) => el.link)
       ) {
-        console.log(!!this.startupData.sources);
-        console.log(!!this.startupData.sources.some((el) => el.link));
         this.startupData.sources.forEach((el) => {
           this.addLink(el);
         });
@@ -159,8 +164,17 @@ export default class extends Vue {
           this.addGuide(el);
         });
       }
-      this.popupPublish = !this.popupPublish;
-      this.loading = false;
+      if (state === "draft") {
+        this.loading = false;
+        Toast.show({
+          data: "Draft saved.",
+          duration: 1500,
+          success: true,
+        });
+      } else {
+        this.popupPublish = !this.popupPublish;
+        this.loading = false;
+      }
     } catch (e) {
       Toast.show({
         data: "Something wrong.",
