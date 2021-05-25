@@ -168,7 +168,8 @@ export default class extends Vue {
         this.loading = false;
         Toast.show({
           data: "Draft saved.",
-          duration: 3000,
+          duration: 1500,
+          success: true,
         });
       } else {
         this.popupPublish = !this.popupPublish;

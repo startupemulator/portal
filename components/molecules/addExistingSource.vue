@@ -51,8 +51,6 @@ export default class AppHeader extends Vue {
     this.$v.$touch();
     if (!this.$v.$error) {
       this.$emit("textInput", [e, "url"]);
-    } else {
-      console.log(e);
     }
   }
 }
