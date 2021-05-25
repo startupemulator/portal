@@ -25,9 +25,6 @@ export default class extends Vue {
   @Prop() private msg;
   @Prop() private timer;
   @Prop() private success: boolean;
-  mounted() {
-    console.log(this.success);
-  }
 }
 </script>
 
