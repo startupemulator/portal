@@ -78,9 +78,11 @@
           <div v-if="isLogined">
             <li
               class="nav-item"
-              :class="{ 'nav-item__active': currentRoute === '/myProjects' }"
+              :class="{
+                'nav-item__active': currentRoute === '/profile/projects',
+              }"
             >
-              <nuxt-link to="/myProjects">
+              <nuxt-link to="/profile/projects">
                 <svg
                   width="24"
                   height="24"
@@ -107,7 +109,7 @@
               class="nav-item"
               :class="{ 'nav-item__active': currentRoute === '/profile' }"
             >
-              <nuxt-link :to="'/profile/myProfile/' + user">
+              <nuxt-link to="/profile">
                 <svg
                   width="24"
                   height="24"
