@@ -104,16 +104,78 @@ export default class extends Vue {
     };
   }
 
-  saveDraft() {
-    this.createprodjectSteps.stepOne = false;
-    this.createprodjectSteps.stepTwo = true;
+  async saveDraft() {
+    try {
+      this.loading = true;
+      await this.$strapi.update("startups", this.createdStartupId.toString(), {
+        description: this.startupData.description,
+      });
+      // send specialists
+      if (this.startupData.specialists.some((el) => el.speciality_id)) {
+        const newPositions = {
+          startup: this.createdStartupId,
+          technologies: [],
+          specialisation: "",
+        };
+        this.startupData.specialists.forEach((el) => {
+          newPositions.technologies = el.technologiesId;
+          newPositions.specialisation = el.speciality_id;
+          this.createSpecialisation(newPositions);
+        });
+        const addedTechnologies = [];
+        this.startupData.specialists.forEach((el) =>
+          el.technologiesId.forEach((item) => addedTechnologies.push(item))
+        );
+        this.addTechnologiesToStartup(addedTechnologies);
+        let newTechnologies: Array<String> = [];
+        this.startupData.specialists.forEach((el) => {
+          newTechnologies = newTechnologies.concat(el.newTechnologies);
+        });
+        newTechnologies.forEach((el) => this.createNewTechnologies(el));
+      }
+      // sent technologies & invites
+      if (this.startupData.coleagues.length !== 0) {
+        this.newInvate(this.startupData.coleagues);
+      }
+      // send sources
+      if (
+        this.startupData.sources &&
+        !!this.startupData.sources.some((el) => el.link)
+      ) {
+        console.log(!!this.startupData.sources);
+        console.log(!!this.startupData.sources.some((el) => el.link));
+        this.startupData.sources.forEach((el) => {
+          this.addLink(el);
+        });
+      }
+      // send guide
+      if (this.startupData.guide) {
+        this.startupData.guide.forEach((el) => {
+          this.addGuide(el);
+        });
+      }
+      this.loading = false;
+      Toast.show({
+        data: "Draft saved.",
+        duration: 3000,
+      });
+    } catch (e) {
+      Toast.show({
+        data: "Something wrong.",
+        duration: 3000,
+      });
+      console.error(e);
+      this.loading = false;
+    }
   }
 
   async publish() {
     try {
       this.loading = true;
+
       await this.$strapi.update("startups", this.createdStartupId.toString(), {
         description: this.startupData.description,
+        state: "review",
       });
       // send specialists
       if (this.startupData.specialists.some((el) => el.speciality_id)) {

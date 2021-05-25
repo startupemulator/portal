@@ -55,7 +55,7 @@
       <U-button
         :button-name="'Save Draft'"
         :button-class="'u-button-gray'"
-        @clickOnButton="saveDraft"
+        @clickOnButton="$emit('saveDraft')"
       ></U-button>
     </div>
     <invite-colleagues
@@ -88,8 +88,6 @@ export default class extends Vue {
   specialityComponent: Array<any> = [{ id: 0, type: "create-specialities" }];
   invitedcolleagues: Array<any> = [];
   invitecolleagues: Boolean = false;
-
-  saveDraft() {}
 
   addSpecialityToSpecialityComponent(data, i) {
     this.specialityComponent[i].speciality = data[0].title;
