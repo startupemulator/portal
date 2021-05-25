@@ -12,9 +12,11 @@
         <U-input
           :type="'text'"
           :placeholder="'https://...'"
-          :value="linkHref"
-          @textInput="$emit('textInput', [$event, 'url'])"
+          :value="link"
+          :account-class="$v.link.$error ? ' error' : ''"
+          @textInput="inputUrl($event)"
         ></U-input>
+        <p v-show="$v.link.$error" class="errorInput">Please enter a link</p>
       </div>
       <button
         class="button-remove-link"
@@ -28,15 +30,31 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
+import { url } from "vuelidate/lib/validators";
 import UInput from "../atoms/uInput.vue";
 
 @Component({
   components: { UInput },
+  validations: {
+    link: {
+      minLength: url,
+    },
+  },
 })
 export default class AppHeader extends Vue {
   @Prop() name: String;
   @Prop() linkName: String;
-  @Prop() linkHref: String;
+  @Prop() linkHref!: String;
+  link = this.linkHref ? this.linkHref : "";
+  inputUrl(e) {
+    this.link = e;
+    this.$v.$touch();
+    if (!this.$v.$error) {
+      this.$emit("textInput", [e, "url"]);
+    } else {
+      console.log(e);
+    }
+  }
 }
 </script>
 <style lang="scss">
@@ -45,6 +63,9 @@ export default class AppHeader extends Vue {
   justify-content: space-between;
   align-items: flex-start;
   width: 340px;
+  .errorInput {
+    top: 0;
+  }
   label {
     width: 100%;
   }
