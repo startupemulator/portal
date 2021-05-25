@@ -107,9 +107,9 @@
             </li>
             <li
               class="nav-item"
-              :class="{ 'nav-item__active': currentRoute === '/profile/me' }"
+              :class="{ 'nav-item__active': currentRoute === '/profile' }"
             >
-              <nuxt-link to="/profile/me">
+              <nuxt-link to="/profile">
                 <svg
                   width="24"
                   height="24"
