@@ -5,12 +5,16 @@
   .main-footer__content {
     padding-top: 1px;
   }
+
   .main-footer__list {
     margin-left: 18px;
     padding: 0;
     padding-bottom: 25px;
     margin-bottom: 0;
     color: #8c97ac;
+    .main-footer__item-c {
+      color: #8c97ac;
+    }
   }
   .main-footer__item a {
     display: flex;
@@ -49,7 +53,7 @@
       display: flex;
       margin-left: 48px;
       margin-right: 48px;
-      margin-top: 20px;
+      margin-top: 24px;
       padding-bottom: 0;
       .main-footer__item:not(:last-child) {
         order: 10;
