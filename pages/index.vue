@@ -1,170 +1,121 @@
 <template>
   <div>
-    <toast />
-    <div style="display: flex; justify-content: space-between">
-      <div style="width: 49%">
-        <h2>Pages List</h2>
-        <h1 v-if="$strapi.user">
-          Current user:
-          {{ $strapi.user.name ? $strapi.user.name : $strapi.user.username }}
-        </h1>
-        <hr />
-
-        <ul>
-          <li><nuxt-link to="/landing">Landing</nuxt-link></li>
-          <li style="text-decoration: line-through">
-            <nuxt-link to="/logIn">Log In</nuxt-link>
-          </li>
-          <li style="text-decoration: line-through">
-            <nuxt-link to="/applyToTeam">Apply to Team </nuxt-link> => available
-            in
-            <nuxt-link to="/startups">
-              <span style="color: #fff; border-bottom: 1px solid #fff"
-                >Startups</span
-              >
-            </nuxt-link>
-            button Apply
-          </li>
-          <li style="text-decoration: line-through">
-            <nuxt-link to="/createAccount">Create Account</nuxt-link>
-          </li>
-          <li style="text-decoration: line-through">
-            <nuxt-link to="/createStartup">Create Startup</nuxt-link>
-          </li>
-          <hr />
-          <li style="text-decoration: line-through">
-            <nuxt-link to="/becomeAnExpert">BecomeAnExpert</nuxt-link>
-          </li>
-          <li style="text-decoration: line-through">
-            <nuxt-link to="/participate">Participate</nuxt-link> => available in
-            <nuxt-link to="/challenges">
-              <span style="color: #fff; border-bottom: 1px solid #fff"
-                >Challenge</span
-              >
-            </nuxt-link>
-            button Accept
-          </li>
-          <hr />
-
-          <li style="text-decoration: line-through">
-            <nuxt-link to="/startups">Startups</nuxt-link>
-          </li>
-          <li style="text-decoration: line-through">
-            <nuxt-link to="/challenges">Challenges</nuxt-link>
-          </li>
-          <li style="text-decoration: line-through">
-            <nuxt-link to="/myProjects">My Projects</nuxt-link>
-          </li>
-          <li style="text-decoration: line-through">
-            <nuxt-link to="/profile">Profile</nuxt-link>
-          </li>
-          <li style="text-decoration: line-through">
-            <nuxt-link to="/myProfile">myProfile</nuxt-link>
-          </li>
-          <li><nuxt-link to="/startup">Startup</nuxt-link></li>
-          <li><nuxt-link to="/challenge">Challenge</nuxt-link></li>
-          <li>
-            <nuxt-link to="/myProjectsCreateChallenges"
-              >myProjectsCreateChallenges</nuxt-link
-            >
-          </li>
-        </ul>
-      </div>
-      <div style="width: 49%">
-        <h2 style="display: inline-block">Finished</h2>
-        <span style="color: #fff">/ or add some task to do state finished</span>
-
-        <hr style="margin-top: 0" />
-        <ul>
-          <li><nuxt-link to="/logIn">Log In</nuxt-link></li>
-          <li><nuxt-link to="/createAccount">Create Account</nuxt-link></li>
-          <li><nuxt-link to="/createStartup">Create Startup</nuxt-link></li>
-
-          <li>
-            <nuxt-link to="/applyToTeam">Apply to Team </nuxt-link> => available
-            in
-            <nuxt-link to="/startups">
-              <span style="color: #fff; border-bottom: 1px solid #fff"
-                >Startups</span
-              >
-            </nuxt-link>
-            button Apply
-          </li>
-          <li>
-            <nuxt-link to="/participate">Participate</nuxt-link> => available in
-            <nuxt-link to="/challenges">
-              <span style="color: #fff; border-bottom: 1px solid #fff"
-                >Challenge</span
-              >
-            </nuxt-link>
-            button Accept
-          </li>
-          <li>
-            <nuxt-link to="/becomeAnExpert">BecomeAnExpert</nuxt-link>
-          </li>
-          <li><nuxt-link to="/challenges">Challenges</nuxt-link></li>
-          <li><nuxt-link to="/myProjects">My Projects</nuxt-link></li>
-          <li><nuxt-link to="/startups">Startups</nuxt-link></li>
-          <li><nuxt-link to="/myProfile">myProfile</nuxt-link></li>
-          <li><nuxt-link to="/profile">Profile</nuxt-link></li>
-        </ul>
-      </div>
-    </div>
-    <UButton
-      v-if="$strapi.user"
-      button-class="u-button-gray"
-      button-name="Log Out"
-      @clickOnButton="$strapi.logout()"
-    ></UButton>
+    <app-get-experience></app-get-experience>
+    <app-startups-block
+      :cards="startups"
+      :technology="technologies"
+      @slideRigth="slideRigth"
+      @slideLeft="slideLeft"
+    ></app-startups-block>
+    <app-challenges-block
+      :cards="challenges"
+      @slideRigth="slideRigth"
+      @slideLeft="slideLeft"
+    ></app-challenges-block>
+    <app-team-develop :is-logined="isLogined"></app-team-develop>
+    <app-take-part></app-take-part>
+    <Pricing></Pricing>
+    <app-top-startups></app-top-startups>
+    <app-testimonials
+      :cards="testimonials"
+      @slideRigth="slideRigth"
+      @slideLeft="slideLeft"
+    ></app-testimonials>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
-
-import UButton from "~/components/atoms/uButton.vue";
-import toast from "~/components/molecules/toast.vue";
+import { Component, Vue, Watch } from "nuxt-property-decorator";
+import { Startup } from "~/models/Startup";
+import { Challenge } from "~/models/Challenge";
+import { Testimonial } from "~/models/Testimonial";
+import { Technology } from "~/models/Technology";
+import AppChallengesBlock from "~/components/organisms/landing/appChallengesBlock.vue";
+import AppGetExperience from "~/components/organisms/landing/appGetExperience.vue";
+import AppStartupsBlock from "~/components/organisms/landing/appStartupsBlock.vue";
+import AppTeamDevelop from "~/components/organisms/landing/appTeamDevelop.vue";
+import AppTakePart from "~/components/organisms/landing/appTakePart.vue";
+import AppTopStartups from "~/components/organisms/landing/appTopStartups.vue";
+import AppTestimonials from "~/components/organisms/landing/appTestimonials.vue";
+import Pricing from "~/components/organisms/landing/pricing.vue";
+import { goToPricing } from "~/assets/jshelper/scrollToPricing";
 
 @Component({
   components: {
-    UButton,
-    toast,
+    AppGetExperience,
+    AppStartupsBlock,
+    AppChallengesBlock,
+    AppTeamDevelop,
+    AppTakePart,
+    AppTopStartups,
+    AppTestimonials,
+    Pricing,
   },
 })
 export default class extends Vue {
-  head() {
+  startups: Array<Startup> = [];
+  challenges: Array<Challenge> = [];
+  testimonials: Array<Testimonial> = [];
+  technology: Array<Technology> = [];
+  isLogined = !!this.$strapi.user;
+
+  // data loaded here will be added during server rendering
+  async asyncData({ $technologies, $startups, $challenges, $testimonials }) {
+    const { startups } = await $startups();
+    const { challenges } = await $challenges();
+    const { testimonials } = await $testimonials();
+    const { technologies } = await $technologies();
     return {
-      title: "Home page",
+      startups,
+      challenges,
+      testimonials,
+      technologies,
     };
   }
 
-  // async mounted() {
-  //   const startups = await this.$startups();
-  //   console.log(startups);
-  // }
+  @Watch("$strapi", { immediate: true, deep: true })
+  onLogin() {
+    this.isLogined = !!this.$strapi.user;
+  }
+
+  slideRigth(data) {
+    let el: any;
+    switch (data) {
+      case "startups":
+        el = this.startups.pop();
+        setTimeout(() => this.startups.unshift(el), 0);
+        break;
+      case "challenges":
+        el = this.challenges.pop();
+        setTimeout(() => this.challenges.unshift(el), 0);
+        break;
+      case "testimonials":
+        el = this.testimonials.pop();
+        setTimeout(() => this.testimonials.unshift(el), 0);
+    }
+  }
+
+  slideLeft(data) {
+    let el: any;
+    switch (data) {
+      case "startups":
+        el = this.startups.shift();
+        setTimeout(() => this.startups.push(el), 0);
+        break;
+      case "challenges":
+        el = this.challenges.shift();
+        setTimeout(() => this.challenges.push(el), 0);
+        break;
+      case "testimonials":
+        el = this.testimonials.shift();
+        setTimeout(() => this.testimonials.push(el), 0);
+    }
+  }
+
+  mounted() {
+    if (this.$router.currentRoute.fullPath === "/landing#pricing") {
+      goToPricing();
+    }
+  }
 }
 </script>
-
-<style lang="scss">
-h1 {
-  color: white;
-}
-li {
-  color: white;
-}
-#content {
-  width: 400px;
-  margin: 40px auto;
-
-  a {
-    color: #3cc28d;
-  }
-
-  a.button {
-    color: #3cc28d;
-    border: 1px solid #3cc28d;
-    border-radius: 5px;
-    padding: 10px;
-  }
-}
-</style>
