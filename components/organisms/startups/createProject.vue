@@ -45,7 +45,7 @@
     ></create-project-step-4>
     <popup-created-start-up
       v-if="popupPublish"
-      @closePopup="$nuxt.$router.push('/myProjects')"
+      @closePopup="$nuxt.$router.push('/profile/projects')"
     ></popup-created-start-up>
     <Spiner :loading="loading"></Spiner>
   </div>
@@ -85,6 +85,7 @@ export default class extends Vue {
   @Prop() technologies: Array<Technology>;
   @Prop() estimations: Array<Estimation>;
   @Prop() specialisations: Array<Specialisation>;
+  @Prop() draftStartup!: Array<Startup>;
   createprodjectSteps: { [key: string]: boolean } = {
     stepOne: true,
     stepTwo: false,
@@ -92,9 +93,9 @@ export default class extends Vue {
     stepFour: false,
   };
 
-  createdStartupId: Number = 0;
+  createdStartupId: Number = this.draftStartup.id ? this.draftStartup.id : 0;
   loading = false;
-  startupData: Array<Startup> = [];
+  startupData: Array<Startup> = this.draftStartup;
   popupPublish = false;
   get progressSpets() {
     return {
@@ -106,6 +107,7 @@ export default class extends Vue {
 
   saveDraft() {
     this.publish("draft");
+    console.log(this.startupData);
   }
 
   async publish(state = "review") {
@@ -147,7 +149,7 @@ export default class extends Vue {
         this.startupData.coleagues &&
         this.startupData.coleagues.length !== 0
       ) {
-        this.newInvate(this.startupData.coleagues);
+        this.startupData.coleagues.forEach((el) => this.newInvate(el));
       }
       // send sources
       if (
@@ -266,13 +268,15 @@ export default class extends Vue {
   }
 
   async newInvate(data) {
+    console.log(data);
     try {
-      await this.$strapi.create("invites", {
-        inviter: this.$strapi.user.id,
+      const invite = await this.$strapi.create("invites", {
+        inviter: this.$strapi.user.id.toString(),
         startup: this.createdStartupId.toString(),
-        position: "1",
+        position: data.position,
         email: data.email,
       });
+      console.log(invite);
     } catch (e) {
       console.error(e);
     }
@@ -311,5 +315,11 @@ export default class extends Vue {
       console.error(e);
     }
   }
+
+  // async updateDateDraft() {
+  //   console.log(this.$route.params.slug);
+  //   const dataDraft = await this.$startup(this.$route.params.slug);
+  //   this.startupData = dataDraft;
+  // }
 }
 </script>

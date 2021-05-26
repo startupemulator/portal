@@ -58,13 +58,17 @@
         <U-button
           :button-name="'Details'"
           :button-class="'u-button-gray'"
-          :style="card.state === 'finished' ? 'width:100%' : ''"
+          :style="
+            card.state === 'finished' || !!(+card.owner.id === +userId)
+              ? 'width:100%'
+              : ''
+          "
           :is-link="'nuxt-link'"
           :href="'/startup/' + card.slug"
         ></U-button>
 
         <U-button
-          v-if="card.state !== 'finished'"
+          v-if="!(+card.owner.id === +userId) && !(card.state === 'finished')"
           :href="'/startup/apply/' + card.slug"
           :button-name="'Apply'"
           :is-link="'nuxt-link'"

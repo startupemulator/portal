@@ -84,7 +84,7 @@ export default class extends Vue {
   }
 
   mounted() {
-    if (this.startupData.sources.length !== 0) {
+    if (this.startupData.sources && this.startupData.sources.length !== 0) {
       this.existingSourseComponent = this.startupData.sources;
     }
   }

@@ -26,9 +26,10 @@
 
       <div class="draft-buttons">
         <U-button
-          type="button"
           :button-name="'Continue Creating'"
           class="u-button-blue"
+          :is-link="'nuxt-link'"
+          :href="'/createStartup/' + card.slug"
         >
         </U-button>
         <U-button

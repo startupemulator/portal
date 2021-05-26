@@ -66,6 +66,14 @@ export function startup($strapi: Strapi) {
           owner {
             id
             name
+            invites{
+              id
+              email
+              position{
+                id
+              }
+
+            }
           }
           technologies {
             id

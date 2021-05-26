@@ -120,11 +120,31 @@ export default class extends Vue {
   }
 
   toggleInviteColleagues() {
-    if (this.specialityComponent[0].speciality) {
+    // console.log(this.specialityComponent);
+    if (
+      this.specialityComponent.length !== 0 &&
+      this.specialityComponent[0].speciality
+    ) {
+      // this.specialityComponent.forEach((el) => {
+      //   this.findPosition(el);
+      // });
       this.invitecolleagues = !this.invitecolleagues;
       this.invitecolleagues ? disableScrolling() : enableScrolling();
     }
   }
+
+  // async findPosition(el) {
+  //   const position = await this.$positions(el.id);
+  //   if (position === undefined) {
+  //     const createPosition = await this.$createPosition(
+  //       this.createdStartupId.toString(),
+  //       el.technologiesId,
+  //       el.speciality_id
+  //     );
+  //     console.log(createPosition);
+  //   }
+  // this.$emit("updateDateDraft");
+  // }
 
   removeSpeciality(id, i) {
     this.specialityComponent = this.specialityComponent.filter(
@@ -148,6 +168,20 @@ export default class extends Vue {
   mounted() {
     if (this.startupData.coleagues) {
       this.invitedcolleagues = this.startupData.coleagues;
+    } else if (this.startupData.positions) {
+      this.specialityComponent = [];
+      this.startupData.positions.forEach((el) => {
+        const technologies = [];
+        el.technologies.forEach((el) => technologies.push(el.title));
+        const someData = {
+          id: el.id,
+          type: "create-specialities",
+          speciality: el.specialisation.title,
+          technologies,
+        };
+
+        this.specialityComponent.push(someData);
+      });
     }
     if (this.startupData.specialists) {
       this.specialityComponent = this.startupData.specialists;
