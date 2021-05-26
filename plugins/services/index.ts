@@ -65,8 +65,16 @@ import {
   updatePosition,
 } from "~/plugins/services/positions";
 import { Positions } from "~/models/Positions";
+import { Invites } from "~/models/Invites";
+import { createInvite } from "~/plugins/services/invites";
 export interface Services {
   $positions(id: string): Promise<Partial<Positions>[]>;
+  $createInvite(
+    email: string,
+    position: string,
+    startup: string,
+    inviter: string
+  ): Promise<Partial<Invites>[]>;
   $createPosition(
     startup: string,
     technologies: Array<Technology>,
@@ -146,9 +154,10 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("estimations", estimations(ctx.$strapi));
   inject("positions", positions(ctx.$strapi));
   inject("updatePosition", updatePosition(ctx.$strapi));
-
   inject("createPosition", createPosition(ctx.$strapi));
   inject("deletePositions", deletePositions(ctx.$strapi));
+
+  inject("createInvite", createInvite(ctx.$strapi));
 
   inject("applications", applications(ctx.$strapi));
   inject("applicationsByStartupId", applicationsByStartupId(ctx.$strapi));

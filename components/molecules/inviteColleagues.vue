@@ -36,7 +36,7 @@
               :key="item.id"
               class="specialityOne__item-item"
               :style="specialisations.length > 1 ? 'border-radius: 12px' : ''"
-              @click="chosespeciality($event.target)"
+              @click="chosespeciality($event.target, item.speciality_id)"
             >
               {{ item.speciality }}
             </li>
@@ -68,7 +68,6 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 import { required, email } from "vuelidate/lib/validators";
 import UInput from "../atoms/uInput.vue";
 import UButton from "../atoms/uButton.vue";
-// import { Specialisation } from "~/models/Specialisation";
 @Component({
   components: { UButton, UInput },
   validations: {
@@ -87,11 +86,13 @@ export default class extends Vue {
       email: " ",
       inputedEmail: "false",
       choosenCollegues: true,
+      speciality_id: "",
     };
   }
 
-  chosespeciality(e) {
+  chosespeciality(e, id) {
     this.choosenSpeciality = e.textContent;
+    this.speciality_id = id;
     this.openSpeciality = !this.openSpeciality;
     this.choosenCollegues = true;
   }
@@ -103,12 +104,14 @@ export default class extends Vue {
 
   invite() {
     this.$v.$touch();
+
     if (this.choosenSpeciality === "Select a speciality" && this.$v.$error) {
       this.choosenCollegues = false;
     } else if (!this.$v.$error) {
       this.$emit("inviteCollegue", {
         email: this.email,
         speciality: this.choosenSpeciality,
+        speciality_id: this.speciality_id,
       });
     }
   }

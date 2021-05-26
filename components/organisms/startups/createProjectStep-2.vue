@@ -95,13 +95,13 @@ export default class extends Vue {
 
   async addSpecialityToSpecialityComponent(data, i, id) {
     this.loading = true;
-    console.log(data);
-
     const updatePostition = await this.$updatePosition(id, ["0"], data[0].id);
-    console.log(updatePostition);
+    if (updatePostition !== null) {
+      this.specialityComponent[i].speciality = data[0].title;
+      this.specialityComponent[i].speciality_id = data[0].id;
+      console.log(this.specialityComponent);
+    }
     this.loading = false;
-    this.specialityComponent[i].speciality = data[0].title;
-    this.specialityComponent[i].speciality_id = data[0].id;
   }
 
   addchosenTechnologies($event, i) {
@@ -117,15 +117,18 @@ export default class extends Vue {
     ]);
   }
 
-  inviteCollegue(data) {
+  async inviteCollegue(data) {
+    console.log(data);
+    const invite = await this.$createInvite(data.email, "307", "2", "2");
+    console.log(invite);
     this.invitecolleagues = !this.invitecolleagues;
-    const someData = {
-      id: this.invitedcolleagues.length + 1,
-      type: "create-specialities",
-      email: data.email,
-      choosenSpeciality: data.speciality.trim(),
-    };
-    this.invitedcolleagues.push(someData);
+    // const someData = {
+    //   id: this.invitedcolleagues.length + 1,
+    //   type: "create-specialities",
+    //   email: data.email,
+    //   choosenSpeciality: data.speciality.trim(),
+    // };
+    // this.invitedcolleagues.push(someData);
     enableScrolling();
   }
 
@@ -182,6 +185,7 @@ export default class extends Vue {
           id: el.id,
           type: "create-specialities",
           speciality: el.specialisation.title,
+          speciality_id: el.specialisation.id,
           technologies,
         };
 
