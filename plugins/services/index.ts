@@ -66,7 +66,7 @@ import {
 } from "~/plugins/services/positions";
 import { Positions } from "~/models/Positions";
 import { Invites } from "~/models/Invites";
-import { createInvite } from "~/plugins/services/invites";
+import { createInvite, deleteInvite } from "~/plugins/services/invites";
 export interface Services {
   $positions(id: string): Promise<Partial<Positions>[]>;
   $createInvite(
@@ -75,6 +75,7 @@ export interface Services {
     startup: string,
     inviter: string
   ): Promise<Partial<Invites>[]>;
+  $deleteInvite(id: string): Promise<Partial<Invites>>;
   $createPosition(
     startup: string,
     technologies: Array<Technology>,
@@ -158,6 +159,7 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("deletePositions", deletePositions(ctx.$strapi));
 
   inject("createInvite", createInvite(ctx.$strapi));
+  inject("deleteInvite", deleteInvite(ctx.$strapi));
 
   inject("applications", applications(ctx.$strapi));
   inject("applicationsByStartupId", applicationsByStartupId(ctx.$strapi));

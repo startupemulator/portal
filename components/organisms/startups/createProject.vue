@@ -13,15 +13,15 @@
       <div class="createProject__progress-bar" :class="progressSpets"></div>
     </div>
 
-    <create-project-step-1
+    <CreateProjectStep1
       v-if="createprodjectSteps.stepOne"
       :startup-data="startupData"
       :estimations="estimations"
       :created-startup-id="createdStartupId"
       @goToStepTwo="goToStepTwo"
       @saveDraft="saveDraft"
-    ></create-project-step-1>
-    <create-project-step-2
+    ></CreateProjectStep1>
+    <CreateProjectStep2
       v-if="createprodjectSteps.stepTwo"
       :technologies="technologies"
       :startup-data="startupData"
@@ -29,24 +29,24 @@
       :created-startup-id="createdStartupId"
       @goToStepThree="goToStepThree"
       @saveDraft="saveDraft"
-    ></create-project-step-2>
-    <create-project-step-3
+    ></CreateProjectStep2>
+    <CreateProjectStep3
       v-if="createprodjectSteps.stepThree"
       :startup-data="startupData"
       @goToStepFour="goToStepFour"
       @saveDraft="saveDraft"
-    ></create-project-step-3>
-    <create-project-step-4
+    ></CreateProjectStep3>
+    <CreateProjectStep4
       v-if="createprodjectSteps.stepFour"
       :startup-data="startupData"
       @addSomeGiude="addSomeGiude"
       @saveDraft="saveDraft"
       @publish="publish"
-    ></create-project-step-4>
-    <popup-created-start-up
+    ></CreateProjectStep4>
+    <PopupCreatedStartUp
       v-if="popupPublish"
       @closePopup="$nuxt.$router.push('/profile/projects')"
-    ></popup-created-start-up>
+    ></PopupCreatedStartUp>
     <Spiner :loading="loading"></Spiner>
   </div>
 </template>
@@ -54,10 +54,10 @@
 import { Component, Vue, Prop } from "nuxt-property-decorator";
 import Toast from "../../../store/modules/Toast";
 import { Estimation } from "../../../models/Estimation";
-import createProjectStep1 from "./createProjectStep-1.vue";
-import createProjectStep2 from "./createProjectStep-2.vue";
-import createProjectStep3 from "./createProjectStep-3.vue";
-import createProjectStep4 from "./createProjectStep-4.vue";
+import CreateProjectStep1 from "./createProjectStep-1.vue";
+import CreateProjectStep2 from "./createProjectStep-2.vue";
+import CreateProjectStep3 from "./createProjectStep-3.vue";
+import CreateProjectStep4 from "./createProjectStep-4.vue";
 import Spiner from "~/components/molecules/spiner.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UBack from "~/components/atoms/uBack.vue";
@@ -71,10 +71,10 @@ import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartup.vue"
 // } from "~/assets/jshelper/toggleScroll";
 @Component({
   components: {
-    createProjectStep1,
-    createProjectStep2,
-    createProjectStep3,
-    createProjectStep4,
+    CreateProjectStep1,
+    CreateProjectStep2,
+    CreateProjectStep3,
+    CreateProjectStep4,
     UTitle,
     UBack,
     PopupCreatedStartUp,
@@ -315,11 +315,5 @@ export default class extends Vue {
       console.error(e);
     }
   }
-
-  // async updateDateDraft() {
-  //   console.log(this.$route.params.slug);
-  //   const dataDraft = await this.$startup(this.$route.params.slug);
-  //   this.startupData = dataDraft;
-  // }
 }
 </script>

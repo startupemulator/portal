@@ -36,7 +36,7 @@
               :key="item.id"
               class="specialityOne__item-item"
               :style="specialisations.length > 1 ? 'border-radius: 12px' : ''"
-              @click="chosespeciality($event.target, item.speciality_id)"
+              @click="chosespeciality($event.target, item)"
             >
               {{ item.speciality }}
             </li>
@@ -90,9 +90,9 @@ export default class extends Vue {
     };
   }
 
-  chosespeciality(e, id) {
+  chosespeciality(e, item) {
     this.choosenSpeciality = e.textContent;
-    this.speciality_id = id;
+    this.speciality_id = item.id;
     this.openSpeciality = !this.openSpeciality;
     this.choosenCollegues = true;
   }

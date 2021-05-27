@@ -71,6 +71,13 @@ export function startup($strapi: Strapi) {
               email
               position{
                 id
+                startup{
+                  id
+                }
+                specialisation{
+                  id
+                  title
+                }
               }
 
             }

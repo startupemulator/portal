@@ -24,3 +24,17 @@ export function createInvite($strapi: Strapi) {
     return data.createInvite ? data.createInvite : null;
   };
 }
+export function deleteInvite($strapi: Strapi) {
+  return async (id: string) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+        deleteInvite(input: { where: { id: "${id}" } }) {
+            invite {
+              id
+            }
+          }
+        }`,
+    });
+    return data.deleteInvite.invite ? data.deleteInvite.invite : null;
+  };
+}

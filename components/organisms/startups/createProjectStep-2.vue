@@ -39,7 +39,7 @@
         :picker="false"
         :speciality-from-parent="item.choosenSpeciality"
         @removeSpeciality="
-          removeInvitedcolleagues(item.email, item.choosenSpeciality)
+          removeInvitedcolleagues(item.email, item.choosenSpeciality, item.id)
         "
       ></div>
       <button class="invite-colleagues__button" @click="toggleInviteColleagues">
@@ -99,7 +99,6 @@ export default class extends Vue {
     if (updatePostition !== null) {
       this.specialityComponent[i].speciality = data[0].title;
       this.specialityComponent[i].speciality_id = data[0].id;
-      console.log(this.specialityComponent);
     }
     this.loading = false;
   }
@@ -118,17 +117,20 @@ export default class extends Vue {
   }
 
   async inviteCollegue(data) {
-    console.log(data);
-    const invite = await this.$createInvite(data.email, "307", "2", "2");
-    console.log(invite);
+    const invite = await this.$createInvite(
+      data.email,
+      data.speciality_id,
+      this.startupData.id,
+      this.startupData.owner.id
+    );
     this.invitecolleagues = !this.invitecolleagues;
-    // const someData = {
-    //   id: this.invitedcolleagues.length + 1,
-    //   type: "create-specialities",
-    //   email: data.email,
-    //   choosenSpeciality: data.speciality.trim(),
-    // };
-    // this.invitedcolleagues.push(someData);
+    const inviteData = {
+      id: invite.id,
+      type: "create-specialities",
+      email: invite.email,
+      choosenSpeciality: data.speciality.trim(),
+    };
+    this.invitedcolleagues.push(inviteData);
     enableScrolling();
   }
 
@@ -167,10 +169,15 @@ export default class extends Vue {
     this.loading = false;
   }
 
-  removeInvitedcolleagues(email, speciality) {
-    this.invitedcolleagues = this.invitedcolleagues.filter(
-      (item) => item.email !== email && item.choosenSpeciality !== speciality
-    );
+  async removeInvitedcolleagues(email, speciality, id) {
+    this.loading = true;
+    const removeInvite = await this.$deleteInvite(id);
+    if (id === removeInvite.id) {
+      this.invitedcolleagues = this.invitedcolleagues.filter(
+        (item) => item.email !== email && item.choosenSpeciality !== speciality
+      );
+    }
+    this.loading = false;
   }
 
   mounted() {
@@ -181,7 +188,7 @@ export default class extends Vue {
       this.startupData.positions.forEach((el) => {
         const technologies = [];
         el.technologies.forEach((el) => technologies.push(el.title));
-        const someData = {
+        const data = {
           id: el.id,
           type: "create-specialities",
           speciality: el.specialisation.title,
@@ -189,11 +196,28 @@ export default class extends Vue {
           technologies,
         };
 
-        this.specialityComponent.push(someData);
+        this.specialityComponent.push(data);
       });
     }
+
     if (this.startupData.specialists) {
       this.specialityComponent = this.startupData.specialists;
+    } else if (this.startupData.owner.invites) {
+      this.invitedcolleagues = [];
+      this.startupData.owner.invites.forEach((el) => {
+        if (
+          el.position.startup !== null &&
+          this.startupData.id === el.position.startup.id
+        ) {
+          const data = {
+            id: el.id,
+            type: "create-specialities",
+            email: el.email,
+            choosenSpeciality: el.position.specialisation.title,
+          };
+          this.invitedcolleagues.push(data);
+        }
+      });
     }
   }
 }
