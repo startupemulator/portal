@@ -36,6 +36,7 @@
         :key="item.id"
         :name="item.email"
         :specialisations="specialisations"
+        :speciality="specialityComponent"
         :picker="false"
         :speciality-from-parent="item.choosenSpeciality"
         @removeSpeciality="

@@ -29,11 +29,12 @@
         </button>
         <ul v-show="openSpeciality" class="specialityOne__item-list">
           <li
-            v-for="item in specialisations"
+            v-for="item in speciality.length > 0 ? speciality : specialisations"
             :key="item.id"
             class="specialityOne__item-item"
             @click="chosespeciality($event.target, item.id)"
           >
+            {{ item.speciality }}
             {{ item.title }}
           </li>
         </ul>
@@ -131,6 +132,13 @@ import { Specialisation } from "~/models/Specialisation";
 export default class extends Vue {
   @Prop({ default: "" }) name: String;
   @Prop({ default: "" }) title: String;
+  @Prop({
+    default() {
+      return {};
+    },
+  })
+  speciality: Array<any>;
+
   @Prop({
     default() {
       return [];
