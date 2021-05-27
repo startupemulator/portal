@@ -29,7 +29,7 @@
           :button-name="'Continue Creating'"
           class="u-button-blue"
           :is-link="'nuxt-link'"
-          :href="'/createStartup/' + card.slug"
+          :href="'/startup/edit/' + card.slug"
         >
         </U-button>
         <U-button
