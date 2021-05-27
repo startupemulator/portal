@@ -3,7 +3,7 @@
     <div class="my-projects__header">
       <div class="my-projects__header-add-project">
         <U-title :text="'My projects'"></U-title>
-        <nuxt-link to="/createStartup" class="my-projects_btn">
+        <nuxt-link to="/startup/create" class="my-projects_btn">
           <img src="~/assets/img/+.svg" alt="" /> <span>Create Startup</span>
         </nuxt-link>
       </div>

@@ -15,10 +15,10 @@
         <div class="specialityOne__list">
           <div
             class="specialityOne__item"
-            :class="choosenCollegues ? '' : 'error'"
+            :class="chosenCollegues ? '' : 'error'"
             @click="openSpeciality = !openSpeciality"
           >
-            <span>{{ choosenSpeciality }}</span>
+            <span>{{ chosenSpeciality }}</span>
             <img
               src="~/assets/img/arrow.svg"
               alt="arrow"
@@ -36,7 +36,7 @@
               :key="item.id"
               class="specialityOne__item-item"
               :style="specialisations.length > 1 ? 'border-radius: 12px' : ''"
-              @click="chosespeciality($event.target)"
+              @click="chooseSpeciality($event.target, item)"
             >
               {{ item.speciality }}
             </li>
@@ -68,7 +68,6 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 import { required, email } from "vuelidate/lib/validators";
 import UInput from "../atoms/uInput.vue";
 import UButton from "../atoms/uButton.vue";
-// import { Specialisation } from "~/models/Specialisation";
 @Component({
   components: { UButton, UInput },
   validations: {
@@ -83,17 +82,19 @@ export default class extends Vue {
   data() {
     return {
       openSpeciality: false,
-      choosenSpeciality: "Select a speciality",
+      chosenSpeciality: "Select a speciality",
       email: " ",
       inputedEmail: "false",
-      choosenCollegues: true,
+      chosenCollegues: true,
+      speciality_id: "",
     };
   }
 
-  chosespeciality(e) {
-    this.choosenSpeciality = e.textContent;
+  chooseSpeciality(e, item) {
+    this.chosenSpeciality = e.textContent;
+    this.speciality_id = item.id;
     this.openSpeciality = !this.openSpeciality;
-    this.choosenCollegues = true;
+    this.chosenCollegues = true;
   }
 
   checkEmail(textValue: string) {
@@ -103,12 +104,14 @@ export default class extends Vue {
 
   invite() {
     this.$v.$touch();
-    if (this.choosenSpeciality === "Select a speciality" && this.$v.$error) {
-      this.choosenCollegues = false;
+
+    if (this.chosenSpeciality === "Select a speciality" && this.$v.$error) {
+      this.chosenCollegues = false;
     } else if (!this.$v.$error) {
       this.$emit("inviteCollegue", {
         email: this.email,
-        speciality: this.choosenSpeciality,
+        speciality: this.chosenSpeciality,
+        speciality_id: this.speciality_id,
       });
     }
   }
