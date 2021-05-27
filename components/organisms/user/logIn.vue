@@ -126,15 +126,8 @@ export default class extends Vue {
         });
         console.log(user);
         if (user) {
-          this.$nuxt.$router.push("/");
+          this.$nuxt.$router.push("/profile/projects");
         }
-        // const user = await this.$login(this.email, this.password);
-        // console.log(user);
-        // if (user) {
-        //   this.$strapi.setUser(user);
-
-        //   this.$nuxt.$router.push("/");
-        // }
       } catch (e) {
         Toast.show({
           data: e.message,
