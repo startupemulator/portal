@@ -15,6 +15,10 @@ $primary-color: #b5c1d8;
 .xmx-table-date .cell.not-current-month {
   color: #b5c1d8;
 }
+.xmx-calendar-content .cell.disabled {
+  color: #fff;
+  background-color: transparent;
+}
 .xmx-date-row td div {
   font-weight: 500;
   font-size: 17px;
