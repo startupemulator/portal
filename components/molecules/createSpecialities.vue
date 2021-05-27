@@ -165,6 +165,7 @@ export default class extends Vue {
       chosenTechnologies: [],
       pickedTechnologyId: [],
       newTechnologies: [],
+      specialityId: "",
     };
   }
 
@@ -180,6 +181,8 @@ export default class extends Vue {
   chosespeciality(e, id) {
     this.chosenSpeciality = e.textContent.trim();
     this.openSpeciality = !this.openSpeciality;
+    this.specialityId = id;
+
     this.$emit("chosenSpeciality", [
       { title: this.chosenSpeciality.trim(), id },
     ]);
@@ -197,6 +200,7 @@ export default class extends Vue {
         technologies: this.pickedTechnology,
         newTechnologies: this.newTechnologies,
         id: this.pickedTechnologyId,
+        specialisation: this.specialityId,
       },
     ]);
     this.popupPickTechnology = !this.popupPickTechnology;

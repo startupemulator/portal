@@ -33,11 +33,11 @@ export default class extends Vue {
     const { estimations } = await $estimations();
     const { specialisations } = await $specialisations();
     let draftStartup: Array<Startup> = [];
+
     if (route.params.slug !== undefined) {
       const startup = await $startup(route.params.slug);
       draftStartup = startup;
     }
-
     return {
       technologies,
       estimations,

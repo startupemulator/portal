@@ -21,7 +21,7 @@ export function createInvite($strapi: Strapi) {
           }
         }`,
     });
-    return data.createInvite ? data.createInvite : null;
+    return data.createInvite ? data.createInvite.invite : null;
   };
 }
 export function deleteInvite($strapi: Strapi) {
