@@ -327,16 +327,21 @@
       width: 145px;
       justify-content: space-between;
       .slider-button {
-        width: 64px;
-        height: 64px;
+        width: 60px;
+        height: 60px;
         background-color: #3b465a;
         border-radius: 50%;
         display: flex;
         justify-content: center;
         align-items: center;
+        border: 2px solid transparent;
+        &:active {
+          border: 2px solid #b5c1d8;
+        }
         &:first-child img {
           transform: rotate(180deg);
         }
+
         img {
           margin: 0;
         }
@@ -385,6 +390,11 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        padding: 0;
+        border: 2px solid transparent;
+        &:active {
+          border: 2px solid #b5c1d8;
+        }
         &:first-child img {
           transform: rotate(180deg);
         }
