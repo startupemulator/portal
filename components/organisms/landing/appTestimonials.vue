@@ -41,7 +41,7 @@
         <img
           v-if="card.photo[0]"
           class="testimonial-block__img"
-          :src="'/api/v1' + card.photo[0].url"
+          :src="card.photo[0].url"
           alt="testimonial"
         />
       </div>
