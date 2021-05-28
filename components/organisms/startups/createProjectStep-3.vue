@@ -13,7 +13,7 @@
       :link-name="item.title"
       :link-href="item.link"
       @removeExistingSources="removeExistingSources(item.id)"
-      @textInput="textInput($event, i)"
+      @textInput="textInput($event, i, item.id)"
     ></div>
     <div class="existing-sources__add-link">
       <U-button
@@ -34,32 +34,53 @@
         @clickOnButton="$emit('saveDraft')"
       ></U-button>
     </div>
+    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UButton from "~/components/atoms/uButton.vue";
 import AddExistingSourse from "~/components/molecules/addExistingSource.vue";
+import Spiner from "~/components/molecules/spiner.vue";
 
 @Component({
   components: {
     UButton,
     AddExistingSourse,
+    Spiner,
   },
 })
 export default class extends Vue {
   @Prop() startupData!: Array<any>;
+  loading = false;
 
-  existingSourseComponent: Array<any> = [
-    { id: 1, type: "add-existing-sourse" },
-  ];
+  existingSourseComponent: Array<any> = [];
 
-  textInput($event, i) {
+  async updateSources(id, title = "", link = "") {
+    this.loading = true;
+    try {
+      const sources = await this.$updateSource(id, title, link);
+      if (sources !== null) {
+        this.loading = false;
+      }
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
+    }
+  }
+
+  textInput($event, i, id) {
     switch ($event[1]) {
       case "name":
+        this.updateSources(id, $event[0], this.existingSourseComponent[i].link);
         this.existingSourseComponent[i].title = $event[0];
         break;
       case "url":
+        this.updateSources(
+          id,
+          this.existingSourseComponent[i].title,
+          $event[0]
+        );
         this.existingSourseComponent[i].link = $event[0];
         break;
       default:
@@ -70,24 +91,57 @@ export default class extends Vue {
     this.$emit("goToStepFour", this.existingSourseComponent);
   }
 
-  addExistingSourse() {
-    this.existingSourseComponent.push({
-      id: this.existingSourseComponent.length + 1,
-      type: "add-existing-sourse",
-    });
+  async addExistingSourse() {
+    this.loading = true;
+    try {
+      const source = await this.$createSource(
+        "",
+        "https://",
+        this.startupData.id
+      );
+      if (source !== null) {
+        this.existingSourseComponent.push({
+          id: source.id,
+          title: source.title,
+          link: source.link.trim(),
+          type: "add-existing-sourse",
+        });
+      }
+      this.loading = false;
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
+    }
   }
 
-  removeExistingSources(i) {
-    this.existingSourseComponent = this.existingSourseComponent.filter(
-      (item) => item.id !== i
-    );
+  async removeExistingSources(id) {
+    this.loading = true;
+    try {
+      const sources = await this.$deleteSource(id);
+      if (+sources.id === +id) {
+        this.existingSourseComponent = this.existingSourseComponent.filter(
+          (item) => item.id !== id
+        );
+        this.loading = false;
+      }
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
+    }
   }
 
   mounted() {
     if (this.startupData.sources && this.startupData.sources.length !== 0) {
-      this.existingSourseComponent = this.startupData.sources;
+      this.startupData.sources.forEach((el) => {
+        const data = {
+          id: el.id,
+          link: el.link,
+          title: el.title,
+          type: "add-existing-sourse",
+        };
+        this.existingSourseComponent.push(data);
+      });
     }
-    console.log(this.startupData);
   }
 }
 </script>

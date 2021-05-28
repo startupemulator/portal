@@ -7,7 +7,7 @@ export function sources($strapi: Strapi) {
         sources (where: {id: ${id}}) {
     id
     title
-    url
+    link
   }
 }`,
     });
@@ -29,15 +29,15 @@ export function deleteSource($strapi: Strapi) {
   };
 }
 export function createSource($strapi: Strapi) {
-  return async (title: string, link: string) => {
+  return async (title: string, link: string, startupId: string) => {
     const data = await $strapi.graphql({
       query: `mutation {
         createSource(input: { data: { 
-          title: "${title}", url: [${link}]  } }) {
+          title: "${title}", link: "${link} ", startups:"${startupId}" } }) {
             source {
            id
            title
-           url
+           link
           }
         }
       }`,
@@ -52,13 +52,13 @@ export function updateSource($strapi: Strapi) {
         updateSource(
             input: {
              where: {id: "${id}"}
-             data: { title: "${title}", url: [${link}]  }
+             data: { title: "${title}", link: "${link}"  }
              }
              ) {
               source {
                 id
                 title
-                url
+                link
                }
         }
       }`,

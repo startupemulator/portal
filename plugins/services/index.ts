@@ -185,7 +185,11 @@ export interface Services {
 
   $sources(id: string): Promise<Partial<Sources>[]>;
   $deleteSource(id: string): Promise<Partial<Sources>>;
-  $createSource(title: string, link: string): Promise<Partial<Sources>[]>;
+  $createSource(
+    title: string,
+    link: string,
+    startupId: string
+  ): Promise<Partial<Sources>[]>;
   $updateSource(
     id: string,
     title: string,

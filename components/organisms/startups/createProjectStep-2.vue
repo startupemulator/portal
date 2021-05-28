@@ -105,7 +105,6 @@ export default class extends Vue {
   }
 
   async addchosenTechnologies(data, i, id) {
-    await console.log(data, i, id);
     const updatePostition = await this.$updatePosition(
       id,
       data[0].id,
