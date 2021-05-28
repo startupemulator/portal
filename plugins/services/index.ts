@@ -75,6 +75,7 @@ import {
   updateLink,
 } from "~/plugins/services/Links";
 import { Sources } from "~/models/Sources";
+import { Secrets } from "~/models/Secrets";
 
 import {
   sources,
@@ -83,6 +84,12 @@ import {
   updateSource,
 } from "~/plugins/services/Sources";
 
+import {
+  secrets,
+  deleteSecret,
+  createSecret,
+  updateSecret,
+} from "~/plugins/services/Secrets";
 export interface Services {
   $positions(id: string): Promise<Partial<Positions>[]>;
   $createInvite(
@@ -185,6 +192,18 @@ export interface Services {
     link: string
   ): Promise<Partial<Sources>[]>;
 
+  $secrets(id: string): Promise<Partial<Secrets>[]>;
+  $deleteSecret(id: string): Promise<Partial<Secrets>>;
+  $createSecret(
+    title: string,
+    description: string
+  ): Promise<Partial<Secrets>[]>;
+  $updateSecret(
+    id: string,
+    title: string,
+    description: string
+  ): Promise<Partial<Secrets>[]>;
+
   $deleteInvite(id: string): Promise<Partial<Invites>>;
 }
 
@@ -200,6 +219,11 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("updateLink", updateLink(ctx.$strapi));
   inject("createLink", createLink(ctx.$strapi));
   inject("deleteLink", deleteLink(ctx.$strapi));
+
+  inject("secrets", secrets(ctx.$strapi));
+  inject("deleteSecret", deleteSecret(ctx.$strapi));
+  inject("createSecret", createSecret(ctx.$strapi));
+  inject("updateSecret", updateSecret(ctx.$strapi));
 
   inject("sources", sources(ctx.$strapi));
   inject("deleteSource", deleteSource(ctx.$strapi));
