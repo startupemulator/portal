@@ -69,7 +69,7 @@
               ? 'button_pick_technologyes--empty'
               : ''
           "
-          @click="togglePopupPickTechnologies"
+          @click="openPopupPickTechnologies"
         >
           Pick technologyes for this speciality
         </button>
@@ -98,7 +98,7 @@
             <U-button
               :button-name="'Save'"
               :button-class="'u-button-blue'"
-              @clickOnButton="togglePopupPickTechnologies"
+              @clickOnButton="savePopupPickTechnologies"
             ></U-button>
             <U-button
               :button-name="'Skip'"
@@ -154,7 +154,7 @@ export default class extends Vue {
   checkedTechnologies: Array<any>;
 
   @Prop({ default: "" }) picker: Boolean;
-  @Prop({ default: "Select a speciality" }) specialityFromParent: String;
+  @Prop({ default: "Select a speciality" }) specialityFromParent!: String;
   @Prop() specialisations: Array<Specialisation>;
   data() {
     return {
@@ -188,7 +188,11 @@ export default class extends Vue {
     ]);
   }
 
-  togglePopupPickTechnologies() {
+  openPopupPickTechnologies() {
+    this.popupPickTechnology = !this.popupPickTechnology;
+  }
+
+  savePopupPickTechnologies() {
     this.pickedTechnology = this.chosenTechnologies;
 
     this.newTechnologies.forEach((el) => {

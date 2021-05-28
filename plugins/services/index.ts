@@ -66,7 +66,16 @@ import {
 } from "~/plugins/services/positions";
 import { Positions } from "~/models/Positions";
 import { Invites } from "~/models/Invites";
-import { createInvite, deleteInvite } from "~/plugins/services/invites";
+import {
+  createInvite,
+  deleteInvite,
+  links,
+  deleteLink,
+  createLink,
+  updateLink,
+} from "~/plugins/services/invites";
+import { Links } from "~/models/Links";
+
 export interface Services {
   $positions(id: string): Promise<Partial<Positions>[]>;
   $createInvite(
@@ -75,6 +84,15 @@ export interface Services {
     startup: string,
     inviter: string
   ): Promise<Partial<Invites>[]>;
+  $links(id: string): Promise<Partial<Links>[]>;
+  $deleteLinks(id: string): Promise<Partial<Links>[]>;
+  $createLinks(title: string, url: string): Promise<Partial<Links>[]>;
+  $updateLink(
+    id: string,
+    title: string,
+    url: string
+  ): Promise<Partial<Links>[]>;
+
   $deleteInvite(id: string): Promise<Partial<Invites>>;
   $createPosition(
     startup: string,
@@ -153,10 +171,16 @@ export interface Services {
 
 const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("estimations", estimations(ctx.$strapi));
+
   inject("positions", positions(ctx.$strapi));
   inject("updatePosition", updatePosition(ctx.$strapi));
   inject("createPosition", createPosition(ctx.$strapi));
   inject("deletePositions", deletePositions(ctx.$strapi));
+
+  inject("links", positions(ctx.$strapi));
+  inject("updateLink", updateLink(ctx.$strapi));
+  inject("createLink", createLink(ctx.$strapi));
+  inject("deleteLink", deleteLink(ctx.$strapi));
 
   inject("createInvite", createInvite(ctx.$strapi));
   inject("deleteInvite", deleteInvite(ctx.$strapi));
