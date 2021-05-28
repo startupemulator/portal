@@ -200,7 +200,8 @@ export interface Services {
   $deleteSecret(id: string): Promise<Partial<Secrets>>;
   $createSecret(
     title: string,
-    description: string
+    description: string,
+    startupId: string
   ): Promise<Partial<Secrets>[]>;
   $updateSecret(
     id: string,

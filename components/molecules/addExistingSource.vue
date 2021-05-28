@@ -49,7 +49,7 @@ import UInput from "../atoms/uInput.vue";
     },
   },
 })
-export default class AppHeader extends Vue {
+export default class extends Vue {
   @Prop() name: String;
   @Prop() linkName: String;
   @Prop() linkHref!: String;
