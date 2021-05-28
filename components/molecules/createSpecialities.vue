@@ -29,11 +29,12 @@
         </button>
         <ul v-show="openSpeciality" class="specialityOne__item-list">
           <li
-            v-for="item in specialisations"
+            v-for="item in speciality.length > 0 ? speciality : specialisations"
             :key="item.id"
             class="specialityOne__item-item"
             @click="chosespeciality($event.target, item.id)"
           >
+            {{ item.speciality }}
             {{ item.title }}
           </li>
         </ul>
@@ -68,7 +69,7 @@
               ? 'button_pick_technologyes--empty'
               : ''
           "
-          @click="togglePopupPickTechnologies"
+          @click="openPopupPickTechnologies"
         >
           Pick technologyes for this speciality
         </button>
@@ -97,7 +98,7 @@
             <U-button
               :button-name="'Save'"
               :button-class="'u-button-blue'"
-              @clickOnButton="togglePopupPickTechnologies"
+              @clickOnButton="savePopupPickTechnologies"
             ></U-button>
             <U-button
               :button-name="'Skip'"
@@ -133,6 +134,13 @@ export default class extends Vue {
   @Prop({ default: "" }) title: String;
   @Prop({
     default() {
+      return {};
+    },
+  })
+  speciality: Array<any>;
+
+  @Prop({
+    default() {
       return [];
     },
   })
@@ -146,7 +154,7 @@ export default class extends Vue {
   checkedTechnologies: Array<any>;
 
   @Prop({ default: "" }) picker: Boolean;
-  @Prop({ default: "Select a speciality" }) specialityFromParent: String;
+  @Prop({ default: "Select a speciality" }) specialityFromParent!: String;
   @Prop() specialisations: Array<Specialisation>;
   data() {
     return {
@@ -157,6 +165,7 @@ export default class extends Vue {
       chosenTechnologies: [],
       pickedTechnologyId: [],
       newTechnologies: [],
+      specialityId: "",
     };
   }
 
@@ -172,12 +181,18 @@ export default class extends Vue {
   chosespeciality(e, id) {
     this.chosenSpeciality = e.textContent.trim();
     this.openSpeciality = !this.openSpeciality;
+    this.specialityId = id;
+
     this.$emit("chosenSpeciality", [
       { title: this.chosenSpeciality.trim(), id },
     ]);
   }
 
-  togglePopupPickTechnologies() {
+  openPopupPickTechnologies() {
+    this.popupPickTechnology = !this.popupPickTechnology;
+  }
+
+  savePopupPickTechnologies() {
     this.pickedTechnology = this.chosenTechnologies;
 
     this.newTechnologies.forEach((el) => {
@@ -189,6 +204,7 @@ export default class extends Vue {
         technologies: this.pickedTechnology,
         newTechnologies: this.newTechnologies,
         id: this.pickedTechnologyId,
+        specialisation: this.specialityId,
       },
     ]);
     this.popupPickTechnology = !this.popupPickTechnology;

@@ -30,6 +30,7 @@
           format="DD  |  MM  |  YYYY"
           placeholder="DD  |  MM  |  YYYY"
           prefix-class="xmx"
+          :disabled-date="disabledBeforeTodayAndAfterAWeek"
         >
           <i slot="icon-calendar">
             <svg
@@ -177,6 +178,15 @@ export default class extends Vue {
     if (duration.length !== 0) {
       this.duration = duration[duration.length - 1].name;
     }
+  }
+
+  disabledBeforeTodayAndAfterAWeek(date) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    return (
+      date < today || date > new Date(today.getTime() + 365 * 24 * 3600 * 1000)
+    );
   }
 
   mounted() {

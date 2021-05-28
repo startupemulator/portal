@@ -67,6 +67,29 @@ import {
 import { Positions } from "~/models/Positions";
 import { Invites } from "~/models/Invites";
 import { createInvite, deleteInvite } from "~/plugins/services/invites";
+import { Links } from "~/models/Links";
+import {
+  links,
+  deleteLink,
+  createLink,
+  updateLink,
+} from "~/plugins/services/Links";
+import { Sources } from "~/models/Sources";
+import { Secrets } from "~/models/Secrets";
+
+import {
+  sources,
+  deleteSource,
+  createSource,
+  updateSource,
+} from "~/plugins/services/Sources";
+
+import {
+  secrets,
+  deleteSecret,
+  createSecret,
+  updateSecret,
+} from "~/plugins/services/Secrets";
 export interface Services {
   $positions(id: string): Promise<Partial<Positions>[]>;
   $createInvite(
@@ -75,12 +98,13 @@ export interface Services {
     startup: string,
     inviter: string
   ): Promise<Partial<Invites>[]>;
-  $deleteInvite(id: string): Promise<Partial<Invites>>;
+
   $createPosition(
     startup: string,
     technologies: Array<Technology>,
     specialisation: string
   ): Promise<Partial<Positions>[]>;
+
   $deletePositions(id: string): Promise<Partial<Positions>>;
   $updatePosition(
     id: string,
@@ -149,14 +173,66 @@ export interface Services {
   ): Promise<Partial<Technology>[]>;
 
   $myTechnologies(creator: string): Promise<Partial<Technology>[]>;
+
+  $links(id: string): Promise<Partial<Links>[]>;
+  $deleteLink(id: string): Promise<Partial<Links>>;
+  $createLink(title: string, url: string): Promise<Partial<Links>[]>;
+  $updateLink(
+    id: string,
+    title: string,
+    url: string
+  ): Promise<Partial<Links>[]>;
+
+  $sources(id: string): Promise<Partial<Sources>[]>;
+  $deleteSource(id: string): Promise<Partial<Sources>>;
+  $createSource(
+    title: string,
+    link: string,
+    startupId: string
+  ): Promise<Partial<Sources>[]>;
+  $updateSource(
+    id: string,
+    title: string,
+    link: string
+  ): Promise<Partial<Sources>[]>;
+
+  $secrets(id: string): Promise<Partial<Secrets>[]>;
+  $deleteSecret(id: string): Promise<Partial<Secrets>>;
+  $createSecret(
+    title: string,
+    description: string
+  ): Promise<Partial<Secrets>[]>;
+  $updateSecret(
+    id: string,
+    title: string,
+    description: string
+  ): Promise<Partial<Secrets>[]>;
+
+  $deleteInvite(id: string): Promise<Partial<Invites>>;
 }
 
 const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("estimations", estimations(ctx.$strapi));
+
   inject("positions", positions(ctx.$strapi));
   inject("updatePosition", updatePosition(ctx.$strapi));
   inject("createPosition", createPosition(ctx.$strapi));
   inject("deletePositions", deletePositions(ctx.$strapi));
+
+  inject("links", links(ctx.$strapi));
+  inject("updateLink", updateLink(ctx.$strapi));
+  inject("createLink", createLink(ctx.$strapi));
+  inject("deleteLink", deleteLink(ctx.$strapi));
+
+  inject("secrets", secrets(ctx.$strapi));
+  inject("deleteSecret", deleteSecret(ctx.$strapi));
+  inject("createSecret", createSecret(ctx.$strapi));
+  inject("updateSecret", updateSecret(ctx.$strapi));
+
+  inject("sources", sources(ctx.$strapi));
+  inject("deleteSource", deleteSource(ctx.$strapi));
+  inject("createSource", createSource(ctx.$strapi));
+  inject("updateSource", updateSource(ctx.$strapi));
 
   inject("createInvite", createInvite(ctx.$strapi));
   inject("deleteInvite", deleteInvite(ctx.$strapi));

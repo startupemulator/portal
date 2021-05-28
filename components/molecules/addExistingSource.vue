@@ -7,8 +7,12 @@
           :type="'text'"
           :placeholder="'Enter a link name'"
           :value="linkName"
-          @textInput="$emit('textInput', [$event, 'name'])"
+          :account-class="$v.linkName.$error ? ' error' : ''"
+          @textInput="inputlinkName($event)"
         ></U-input>
+        <p v-show="$v.linkName.$error" class="errorInput">
+          Please enter a link name of at least 8 characters
+        </p>
         <U-input
           :type="'text'"
           :placeholder="'https://...'"
@@ -30,7 +34,7 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
-import { url } from "vuelidate/lib/validators";
+import { url, minLength, required } from "vuelidate/lib/validators";
 import UInput from "../atoms/uInput.vue";
 
 @Component({
@@ -38,6 +42,10 @@ import UInput from "../atoms/uInput.vue";
   validations: {
     link: {
       minLength: url,
+    },
+    linkName: {
+      required,
+      minLength: minLength(8),
     },
   },
 })
@@ -51,6 +59,14 @@ export default class AppHeader extends Vue {
     this.$v.$touch();
     if (!this.$v.$error) {
       this.$emit("textInput", [e, "url"]);
+    }
+  }
+
+  inputlinkName(e) {
+    this.linkName = e;
+    this.$v.$touch();
+    if (!this.$v.$error) {
+      this.$emit("textInput", [e, "name"]);
     }
   }
 }

@@ -86,6 +86,22 @@ export function startup($strapi: Strapi) {
             id
             title
           }
+          sources{
+            id 
+            title
+            link
+            startups{
+              id
+            }
+          }
+          secrets{
+            id
+            title
+            description
+            startup{
+              id
+            }
+          }
           
         }
         

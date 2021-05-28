@@ -9,7 +9,7 @@
     <div
       :is="item.type"
       v-for="(item, i) in specialityComponent"
-      :key="Math.floor(Math.random() * 144554) + i"
+      :key="item.id"
       :technologies="technologies"
       :class="'speciality-content'"
       :name="'Speciality ' + (i + 1)"
@@ -19,7 +19,7 @@
       :checked-technologies="item.technologies"
       @removeSpeciality="removeSpeciality(item.id, i)"
       @chosenSpeciality="addSpecialityToSpecialityComponent($event, i, item.id)"
-      @chosenTechnologies="addchosenTechnologies($event, i)"
+      @chosenTechnologies="addchosenTechnologies($event, i, item.id)"
     ></div>
 
     <button class="specialityOne__button" @click="addSpeciality">
@@ -36,6 +36,7 @@
         :key="item.id"
         :name="item.email"
         :specialisations="specialisations"
+        :speciality="specialityComponent"
         :picker="false"
         :speciality-from-parent="item.choosenSpeciality"
         @removeSpeciality="
@@ -103,10 +104,16 @@ export default class extends Vue {
     this.loading = false;
   }
 
-  addchosenTechnologies($event, i) {
-    this.specialityComponent[i].technologies = $event[0].technologies;
-    this.specialityComponent[i].technologiesId = $event[0].id;
-    this.specialityComponent[i].newTechnologies = $event[0].newTechnologies;
+  async addchosenTechnologies(data, i, id) {
+    const updatePostition = await this.$updatePosition(
+      id,
+      data[0].id,
+      data[0].specialisation
+    );
+    console.log(updatePostition);
+    this.specialityComponent[i].technologies = data[0].technologies;
+    this.specialityComponent[i].technologiesId = data[0].id;
+    this.specialityComponent[i].newTechnologies = data[0].newTechnologies;
   }
 
   goToStepThree() {
@@ -123,15 +130,18 @@ export default class extends Vue {
       this.startupData.id,
       this.startupData.owner.id
     );
-    this.invitecolleagues = !this.invitecolleagues;
-    const inviteData = {
-      id: invite.id,
-      type: "create-specialities",
-      email: invite.email,
-      choosenSpeciality: data.speciality.trim(),
-    };
-    this.invitedcolleagues.push(inviteData);
-    enableScrolling();
+    if (invite !== null) {
+      const inviteData = {
+        id: invite.id,
+        type: "create-specialities",
+        email: invite.email,
+        choosenSpeciality: data.speciality.trim(),
+      };
+      this.invitedcolleagues.push(inviteData);
+      console.log(this.invitedcolleagues);
+      this.invitecolleagues = !this.invitecolleagues;
+      enableScrolling();
+    }
   }
 
   toggleInviteColleagues() {
@@ -174,7 +184,7 @@ export default class extends Vue {
     const removeInvite = await this.$deleteInvite(id);
     if (id === removeInvite.id) {
       this.invitedcolleagues = this.invitedcolleagues.filter(
-        (item) => item.email !== email && item.choosenSpeciality !== speciality
+        (item) => item.id !== removeInvite.id
       );
     }
     this.loading = false;
@@ -204,8 +214,10 @@ export default class extends Vue {
       this.specialityComponent = this.startupData.specialists;
     } else if (this.startupData.owner.invites) {
       this.invitedcolleagues = [];
+
       this.startupData.owner.invites.forEach((el) => {
         if (
+          el.position &&
           el.position.startup !== null &&
           this.startupData.id === el.position.startup.id
         ) {
