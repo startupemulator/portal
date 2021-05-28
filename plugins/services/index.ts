@@ -66,15 +66,9 @@ import {
 } from "~/plugins/services/positions";
 import { Positions } from "~/models/Positions";
 import { Invites } from "~/models/Invites";
-import {
-  createInvite,
-  deleteInvite,
-  links,
-  deleteLink,
-  createLink,
-  updateLink,
-} from "~/plugins/services/invites";
+import { createInvite, deleteInvite } from "~/plugins/services/invites";
 import { Links } from "~/models/Links";
+import { links } from "~/plugins/services/Links";
 
 export interface Services {
   $positions(id: string): Promise<Partial<Positions>[]>;
@@ -84,21 +78,13 @@ export interface Services {
     startup: string,
     inviter: string
   ): Promise<Partial<Invites>[]>;
-  $links(id: string): Promise<Partial<Links>[]>;
-  $deleteLinks(id: string): Promise<Partial<Links>[]>;
-  $createLinks(title: string, url: string): Promise<Partial<Links>[]>;
-  $updateLink(
-    id: string,
-    title: string,
-    url: string
-  ): Promise<Partial<Links>[]>;
 
-  $deleteInvite(id: string): Promise<Partial<Invites>>;
   $createPosition(
     startup: string,
     technologies: Array<Technology>,
     specialisation: string
   ): Promise<Partial<Positions>[]>;
+
   $deletePositions(id: string): Promise<Partial<Positions>>;
   $updatePosition(
     id: string,
@@ -167,6 +153,10 @@ export interface Services {
   ): Promise<Partial<Technology>[]>;
 
   $myTechnologies(creator: string): Promise<Partial<Technology>[]>;
+
+  $links(id: string): Promise<Partial<Links>[]>;
+
+  $deleteInvite(id: string): Promise<Partial<Invites>>;
 }
 
 const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
@@ -177,10 +167,7 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("createPosition", createPosition(ctx.$strapi));
   inject("deletePositions", deletePositions(ctx.$strapi));
 
-  inject("links", positions(ctx.$strapi));
-  inject("updateLink", updateLink(ctx.$strapi));
-  inject("createLink", createLink(ctx.$strapi));
-  inject("deleteLink", deleteLink(ctx.$strapi));
+  inject("links", links(ctx.$strapi));
 
   inject("createInvite", createInvite(ctx.$strapi));
   inject("deleteInvite", deleteInvite(ctx.$strapi));

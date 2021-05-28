@@ -14,25 +14,25 @@ export function links($strapi: Strapi) {
     return data.links ? data.links[0] : null;
   };
 }
-export function deleteLinks($strapi: Strapi) {
+export function deleteLink($strapi: Strapi) {
   return async (id: string) => {
     const data = await $strapi.graphql({
       query: `mutation {
-        deleteLinks (input: {where: {id: ${id}}}) {
+        deleteLink (input: {where: {id: ${id}}}) {
             link{
               id
             }
     }
   }`,
     });
-    return data.deleteLinks.link ? data.deleteLinks.link : null;
+    return data.deleteLink.link ? data.deleteLink.link : null;
   };
 }
-export function createLinks($strapi: Strapi) {
+export function createLink($strapi: Strapi) {
   return async (title: string, url: string) => {
     const data = await $strapi.graphql({
       query: `mutation {
-        createLinks(input: { data: { 
+        createLink(input: { data: { 
           title: "${title}", url: [${url}]  } }) {
           link {
            id
@@ -42,7 +42,7 @@ export function createLinks($strapi: Strapi) {
         }
       }`,
     });
-    return data.createLinks.link ? data.createLinks.link : null;
+    return data.createLink.link ? data.createLink.link : null;
   };
 }
 export function updateLink($strapi: Strapi) {
