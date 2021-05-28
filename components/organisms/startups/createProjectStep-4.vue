@@ -13,7 +13,7 @@
       :guide-name="item.name"
       :guide-comment="item.comment"
       @removeGuideSources="removeGuideSources(item.id)"
-      @textInput="textInput($event, i)"
+      @textInput="textInput($event, i, item.id)"
     ></div>
     <div class="existing-sources__add-link">
       <U-button
@@ -38,41 +38,83 @@
       v-if="popupPublish"
       @closePopup="publish"
     ></popup-created-start-up>
+    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
+import Spiner from "~/components/molecules/spiner.vue";
 
 import UButton from "~/components/atoms/uButton.vue";
 import CreateGuide from "~/components/molecules/createGuide.vue";
 
 import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartup.vue";
 
-@Component({ components: { UButton, CreateGuide, PopupCreatedStartUp } })
+@Component({
+  components: { UButton, CreateGuide, PopupCreatedStartUp, Spiner },
+})
 export default class extends Vue {
   @Prop() startupData!: Array<any>;
   popupPublish: Boolean = false;
-  guideSourseComponent: Array<any> = [{ id: 1, type: "create-guide" }];
+  guideSourseComponent: Array<any> = [];
+  loading = false;
 
-  addGuideSourse() {
-    this.guideSourseComponent.push({
-      id: this.guideSourseComponent.length + 1,
-      type: "create-guide",
-    });
+  async addGuideSourse() {
+    this.loading = true;
+    const secret = await this.$createSecret("", "", this.startupData.id);
+    if (secret !== null) {
+      this.guideSourseComponent.push({
+        id: secret.id,
+        type: "create-guide",
+        name: secret.title,
+        comment: secret.description,
+      });
+    }
+    try {
+      this.loading = false;
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
+    }
   }
 
-  removeGuideSources(i) {
-    this.guideSourseComponent = this.guideSourseComponent.filter(
-      (item) => item.id !== i
-    );
+  async removeGuideSources(id) {
+    this.loading = true;
+    try {
+      const secret = await this.$deleteSecret(id);
+      if (+secret.id === +id) {
+        this.guideSourseComponent = this.guideSourseComponent.filter(
+          (item) => item.id !== id
+        );
+        this.loading = false;
+      }
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
+    }
   }
 
-  textInput($event, i) {
+  async updateSecret(id, title = "", description = "") {
+    this.loading = true;
+    try {
+      const secret = await this.$updateSecret(id, title, description);
+      if (secret !== null) {
+        this.loading = false;
+      }
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
+    }
+  }
+
+  textInput($event, i, id) {
     switch ($event[1]) {
       case "name":
+        this.updateSecret(id, $event[0], this.guideSourseComponent[i].comment);
         this.guideSourseComponent[i].name = $event[0];
         break;
       case "comment":
+        this.updateSecret(id, this.guideSourseComponent[i].name, $event[0]);
         this.guideSourseComponent[i].comment = $event[0];
         break;
       default:
@@ -81,13 +123,30 @@ export default class extends Vue {
   }
 
   mounted() {
-    if (this.startupData.guide) {
-      this.startupData.guide.forEach((el, i) => {
-        if (el.name) {
-          this.guideSourseComponent[i] = el;
-        }
+    if (this.startupData.secrets && this.startupData.secrets.length !== 0) {
+      this.startupData.secrets.forEach((el) => {
+        const data = {
+          id: el.id,
+          comment: el.description,
+          name: el.title,
+          type: "create-guide",
+        };
+        this.guideSourseComponent.push(data);
       });
     }
+  }
+
+  beforeDestroy() {
+    this.startupData.secrets = [];
+    this.guideSourseComponent.forEach((el) => {
+      const data = {
+        id: el.id,
+        description: el.comment,
+        title: el.name,
+        type: "create-guide",
+      };
+      this.startupData.secrets.push(data);
+    });
   }
 }
 </script>

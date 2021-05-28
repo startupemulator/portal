@@ -29,11 +29,11 @@ export function deleteSecret($strapi: Strapi) {
   };
 }
 export function createSecret($strapi: Strapi) {
-  return async (title: string, description: string) => {
+  return async (title: string, description: string, startupId: string) => {
     const data = await $strapi.graphql({
       query: `mutation {
         createSecret(input: { data: { 
-          title: "${title}", description: "${description}"  } }) {
+          title: "${title}", description: "${description}", startup: "${startupId}"  } }) {
             secret {
            id
            title

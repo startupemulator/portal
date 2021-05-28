@@ -105,15 +105,14 @@ export default class extends Vue {
   }
 
   async addchosenTechnologies(data, i, id) {
-    const updatePostition = await this.$updatePosition(
-      id,
-      data[0].id,
-      data[0].specialisation
-    );
-    console.log(updatePostition);
-    this.specialityComponent[i].technologies = data[0].technologies;
-    this.specialityComponent[i].technologiesId = data[0].id;
-    this.specialityComponent[i].newTechnologies = data[0].newTechnologies;
+    try {
+      await this.$updatePosition(id, data[0].id, data[0].specialisation);
+      this.specialityComponent[i].technologies = data[0].technologies;
+      this.specialityComponent[i].technologiesId = data[0].id;
+      this.specialityComponent[i].newTechnologies = data[0].newTechnologies;
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   goToStepThree() {
@@ -138,7 +137,7 @@ export default class extends Vue {
         choosenSpeciality: data.speciality.trim(),
       };
       this.invitedcolleagues.push(inviteData);
-      console.log(this.invitedcolleagues);
+
       this.invitecolleagues = !this.invitecolleagues;
       enableScrolling();
     }

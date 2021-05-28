@@ -1,6 +1,9 @@
 <template>
   <div class="createProject-content">
-    <U-back v-show="createprodjectSteps.stepOne" :link="'/'"></U-back>
+    <U-back
+      v-show="createprodjectSteps.stepOne"
+      :link="'/profile/projects'"
+    ></U-back>
     <div v-show="!createprodjectSteps.stepOne" class="button-back">
       <button type="button" class="btn-back" @click="goToStepBack">
         <img src="~/assets/img/arrow.svg" alt="arrow" />
@@ -65,10 +68,6 @@ import { Technology } from "~/models/Technology";
 import { Startup } from "~/models/Startup";
 import { Specialisation } from "~/models/Specialisation";
 import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartup.vue";
-// import {
-//   enableScrolling,
-//   disableScrolling,
-// } from "~/assets/jshelper/toggleScroll";
 @Component({
   components: {
     CreateProjectStep1,
@@ -107,65 +106,14 @@ export default class extends Vue {
 
   saveDraft() {
     this.publish("draft");
-    console.log(this.startupData);
   }
 
   async publish(state = "review") {
     try {
       this.loading = true;
-      console.log(state);
       await this.$strapi.update("startups", this.createdStartupId.toString(), {
-        description: this.startupData.description,
         state,
       });
-      // send specialists
-      if (
-        this.startupData.specialists &&
-        !!this.startupData.specialists.some((el) => el.speciality_id)
-      ) {
-        const newPositions = {
-          startup: this.createdStartupId,
-          technologies: [],
-          specialisation: "",
-        };
-        this.startupData.specialists.forEach((el) => {
-          newPositions.technologies = el.technologiesId;
-          newPositions.specialisation = el.speciality_id;
-          this.createSpecialisation(newPositions);
-        });
-        const addedTechnologies = [];
-        this.startupData.specialists.forEach((el) =>
-          el.technologiesId.forEach((item) => addedTechnologies.push(item))
-        );
-        this.addTechnologiesToStartup(addedTechnologies);
-        let newTechnologies: Array<String> = [];
-        this.startupData.specialists.forEach((el) => {
-          newTechnologies = newTechnologies.concat(el.newTechnologies);
-        });
-        newTechnologies.forEach((el) => this.createNewTechnologies(el));
-      }
-      // sent technologies & invites
-      if (
-        this.startupData.coleagues &&
-        this.startupData.coleagues.length !== 0
-      ) {
-        this.startupData.coleagues.forEach((el) => this.newInvate(el));
-      }
-      // send sources
-      if (
-        this.startupData.sources &&
-        !!this.startupData.sources.some((el) => el.link)
-      ) {
-        this.startupData.sources.forEach((el) => {
-          this.addLink(el);
-        });
-      }
-      // send guide
-      if (this.startupData.guide) {
-        this.startupData.guide.forEach((el) => {
-          this.addGuide(el);
-        });
-      }
       if (state === "draft") {
         this.loading = false;
         Toast.show({
@@ -268,15 +216,13 @@ export default class extends Vue {
   }
 
   async newInvate(data) {
-    console.log(data);
     try {
-      const invite = await this.$strapi.create("invites", {
+      await this.$strapi.create("invites", {
         inviter: this.$strapi.user.id.toString(),
         startup: this.createdStartupId.toString(),
         position: data.position,
         email: data.email,
       });
-      console.log(invite);
     } catch (e) {
       console.error(e);
     }
