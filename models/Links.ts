@@ -4,6 +4,6 @@ export interface Links {
   id: string;
   title: string;
   url: string;
-  Startup: Array<Startup>;
+  startup: Array<Startup>;
   published_at: Date;
 }
