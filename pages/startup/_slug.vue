@@ -1,6 +1,6 @@
 <template>
   <div class="startups-page">
-    <!-- <pre style="color: #fff">    {{ applications }}</pre> -->
+    <!-- <pre style="color: #fff">    {{ startup }}</pre> -->
     <Spiner :loading="loading"></Spiner>
     <StartupPage
       :startup="startup"

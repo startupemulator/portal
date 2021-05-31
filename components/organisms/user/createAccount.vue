@@ -163,7 +163,7 @@ export default class CreateAccount extends Vue {
       try {
         const newUser = await this.$strapi.register({
           email: this.email,
-          username: this.email,
+          username: this.name,
           name: this.name,
           password: this.password,
         });

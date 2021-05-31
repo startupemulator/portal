@@ -95,7 +95,7 @@ export function applicationAccept($strapi: Strapi) {
         updateApplication(
           input: {
           where: {id: "${id}" }
-          data: { status: "accepted"}
+          data: { status: accepted}
          }
          ) {
           application {
@@ -114,7 +114,7 @@ export function applicationDecline($strapi: Strapi) {
         updateApplication(
           input: {
           where: {id: "${id}" }
-          data: {status: "declined  ", decline_reason: "${declineReason}"}
+          data: {status: declined, decline_reason: "${declineReason}"}
          }
          ) {
           application {

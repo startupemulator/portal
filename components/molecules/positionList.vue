@@ -19,11 +19,13 @@
 
     <div class="position-list__cards">
       <!-- <pre style="color: #fff"> {{ applications[1] }}</pre> -->
+      <!-- :name="'item.position.applications.user.username'" -->
+
       <position-card
-        v-for="item in applications"
+        v-for="(item, i) in applications"
         v-show="opendPosition"
         :key="item.id"
-        :name="'item.position.applications.user.username'"
+        :name="item.position.applications[i].user.username"
         :uncheck="'item.status' === 'declined' ? true : false"
         :check="'item.status' === 'accepted' ? true : false"
         :access="
@@ -34,9 +36,11 @@
             : false
         "
         :decline-reason="'position.decline_reason'"
-        :experience="'item.user.profile.experience.title'"
-        :technologies="'item.user.profile.technologies'"
-        :position-id="'item.id'"
+        :experience="
+          item.position.applications[i].user.profile.experience.title
+        "
+        :technologies="item.position.applications[i].user.profile.technologies"
+        :position-id="item.id"
         @accept="accept"
         @decline="decline"
       ></position-card>

@@ -224,7 +224,7 @@
         </div>
       </div>
       <div class="startup_block-2">
-        <div v-if="!finished" class="startup__open-position">
+        <div v-if="openPosition.length > 0" class="startup__open-position">
           <h3>Open positions</h3>
           <Open-position-card
             v-for="item in openPosition"
