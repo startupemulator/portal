@@ -10,19 +10,22 @@
       </button>
       <u-title :text="'Delete this startup?'"></u-title>
       <p>
-        Enter the name of your startup <span>Startup #1</span> to confirm
+        Enter the name of your startup
+        <span>{{ moveAwayStartupName | truncate(40, "...") }}</span> to confirm
         deletion.
       </p>
       <form>
         <U-input
           :placeholder="'Enter this startup’s name'"
           :class="'delete-startup__input'"
+          @textInput="textInput"
         ></U-input>
 
         <div class="delete-startup__buttons">
           <U-button
             :button-name="'Yes, Delete'"
             :button-class="'u-button-blue'"
+            @clickOnButton="deleteStartup"
           ></U-button>
           <U-button
             :button-name="'No, Don’t Delete'"
@@ -34,13 +37,25 @@
     </div>
   </div>
 </template>
-<script>
+
+<script lang="ts">
+import { Component, Vue, Prop } from "nuxt-property-decorator";
 import UButton from "../atoms/uButton.vue";
 import UTitle from "../atoms/uTitle.vue";
 import UInput from "../atoms/uInput.vue";
-export default {
-  components: { UTitle, UButton, UInput },
-};
+@Component({ components: { UTitle, UButton, UInput } })
+export default class extends Vue {
+  @Prop() moveAwayStartup: string;
+  @Prop() moveAwayStartupName: string;
+  startupName: string = "";
+  textInput(e) {
+    this.startupName = e;
+  }
+
+  deleteStartup() {
+    this.$emit("deleteStartup", this.startupName, this.moveAwayStartup);
+  }
+}
 </script>
 <style lang="scss" scoped>
 .delete-startup {

@@ -110,6 +110,19 @@ export function startup($strapi: Strapi) {
     return data.startups ? data.startups[0] : null;
   };
 }
+export function startupById($strapi: Strapi) {
+  return async (id: string) => {
+    const data = await $strapi.graphql({
+      query: `query {
+        startups(where: {id: "${id}"}){
+          id
+          title
+        }
+      }`,
+    });
+    return data.startups ? data.startups[0] : null;
+  };
+}
 export function myStartups($strapi: Strapi) {
   return async (owner: string) => {
     const data = await $strapi.graphql({
