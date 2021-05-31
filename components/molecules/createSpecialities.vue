@@ -161,10 +161,11 @@ export default class extends Vue {
   @Prop({ default: "" }) picker: Boolean;
   @Prop({ default: "Select a speciality" }) specialityFromParent!: String;
   @Prop() specialisations: Array<Specialisation>;
+
   data() {
     return {
       openSpeciality: false,
-      chosenSpeciality: this.specialityFromParent,
+      chosenSpeciality: this.specialityFromParent[0],
       popupPickTechnology: false,
       pickedTechnology: [],
       chosenTechnologies: [],
@@ -209,7 +210,7 @@ export default class extends Vue {
         technologies: this.pickedTechnology,
         newTechnologies: this.newTechnologies,
         id: this.pickedTechnologyId,
-        specialisation: this.specialityId,
+        specialisation: this.specialityId || this.specialityFromParent[1],
       },
     ]);
     this.popupPickTechnology = !this.popupPickTechnology;

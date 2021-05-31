@@ -15,7 +15,7 @@
       :name="'Speciality ' + (i + 1)"
       :picker="true"
       :specialisations="specialisations"
-      :speciality-from-parent="item.speciality"
+      :speciality-from-parent="[item.speciality, item.speciality_id]"
       :checked-technologies="item.technologies"
       @removeSpeciality="removeSpeciality(item.id, i)"
       @chosenSpeciality="addSpecialityToSpecialityComponent($event, i, item.id)"
@@ -95,6 +95,7 @@ export default class extends Vue {
   loading = false;
 
   async addSpecialityToSpecialityComponent(data, i, id) {
+    console.log(data, i, id);
     this.loading = true;
     const updatePostition = await this.$updatePosition(id, ["0"], data[0].id);
     if (updatePostition !== null) {
@@ -116,6 +117,7 @@ export default class extends Vue {
   }
 
   goToStepThree() {
+    console.log(this.specialityComponent);
     this.$emit("goToStepThree", [
       this.specialityComponent,
       this.invitedcolleagues,
