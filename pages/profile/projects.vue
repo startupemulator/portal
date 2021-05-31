@@ -29,10 +29,15 @@ export default class extends Vue {
   updateFlag = 0;
   loading = false;
 
-  async asyncData({ $myStartups, $strapi }) {
+  async asyncData({ $myStartups, $startupByAcceptedApplication, $strapi }) {
     const myStartups = await $myStartups($strapi.user.id);
+    const acceptedStartup = await $startupByAcceptedApplication("test");
+    if (acceptedStartup !== null) {
+      acceptedStartup.forEach((el) => myStartups.push(el));
+    }
     return {
       myStartups,
+      acceptedStartup,
     };
   }
 
