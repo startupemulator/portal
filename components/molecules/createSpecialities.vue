@@ -44,11 +44,7 @@
             pickedTechnology.length === 0 ? 'chosen-technology--empty' : ''
           "
         >
-          <Utags
-            v-for="(item, i) in pickedTechnology"
-            :key="i"
-            :title="item.title || item"
-          >
+          <Utags v-for="(item, i) in pickedTechnology" :key="i" :title="item">
           </Utags>
           <button
             v-show="pickedTechnology.length !== 0"
@@ -90,12 +86,11 @@
             <div class="technology-picker">
               <h2>{{ title }}</h2>
 
-              <TechnologyPicker
-                :choosen-technologies="checkedTechnologies"
+              <technology-picker
                 :technologies="technologies"
                 @chosenTechnologi="chosenTechnologi"
                 @addTechnologies="addTechnologies"
-              ></TechnologyPicker>
+              ></technology-picker>
             </div>
           </div>
 
