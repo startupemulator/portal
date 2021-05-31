@@ -165,7 +165,9 @@ export default class extends Vue {
   data() {
     return {
       openSpeciality: false,
-      chosenSpeciality: this.specialityFromParent[0],
+      chosenSpeciality: this.specialityFromParent[0]
+        ? this.specialityFromParent[0]
+        : "Select a speciality",
       popupPickTechnology: false,
       pickedTechnology: [],
       chosenTechnologies: [],

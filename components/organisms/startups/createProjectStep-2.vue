@@ -38,10 +38,8 @@
         :specialisations="specialisations"
         :speciality="specialityComponent"
         :picker="false"
-        :speciality-from-parent="item.choosenSpeciality"
-        @removeSpeciality="
-          removeInvitedcolleagues(item.email, item.choosenSpeciality, item.id)
-        "
+        :speciality-from-parent="[item.choosenSpeciality]"
+        @removeSpeciality="removeInvitedcolleagues(item.id)"
       ></div>
       <button class="invite-colleagues__button" @click="toggleInviteColleagues">
         Invite colleagues
@@ -59,12 +57,12 @@
         @clickOnButton="$emit('saveDraft')"
       ></U-button>
     </div>
-    <invite-colleagues
+    <Invitecolleagues
       v-if="invitecolleagues"
       :specialisations="specialityComponent"
       @closePopupLinkEmail="toggleInviteColleagues"
       @inviteCollegue="inviteCollegue"
-    ></invite-colleagues>
+    ></Invitecolleagues>
     <Spiner :loading="loading"></Spiner>
   </div>
 </template>
@@ -72,7 +70,7 @@
 import { Component, Vue, Prop } from "nuxt-property-decorator";
 import UButton from "~/components/atoms/uButton.vue";
 import CreateSpecialities from "~/components/molecules/createSpecialities.vue";
-import invitecolleagues from "~/components/molecules/inviteColleagues.vue";
+import Invitecolleagues from "~/components/molecules/inviteColleagues.vue";
 import Spiner from "~/components/molecules/spiner.vue";
 
 import { Specialisation } from "~/models/Specialisation";
@@ -82,7 +80,7 @@ import {
 } from "~/assets/jshelper/toggleScroll.js";
 import { Technology } from "~/models/Technology";
 @Component({
-  components: { UButton, CreateSpecialities, invitecolleagues, Spiner },
+  components: { UButton, CreateSpecialities, Invitecolleagues, Spiner },
 })
 export default class extends Vue {
   @Prop() technologies: Array<Technology>;
@@ -95,7 +93,6 @@ export default class extends Vue {
   loading = false;
 
   async addSpecialityToSpecialityComponent(data, i, id) {
-    console.log(data, i, id);
     this.loading = true;
     const updatePostition = await this.$updatePosition(id, ["0"], data[0].id);
     if (updatePostition !== null) {
@@ -127,7 +124,7 @@ export default class extends Vue {
   async inviteCollegue(data) {
     const invite = await this.$createInvite(
       data.email,
-      data.speciality_id,
+      data.position_id,
       this.startupData.id,
       this.startupData.owner.id
     );
@@ -137,10 +134,12 @@ export default class extends Vue {
         type: "create-specialities",
         email: invite.email,
         choosenSpeciality: data.speciality.trim(),
+        position_id: data.position_id,
       };
       this.invitedcolleagues.push(inviteData);
 
       this.invitecolleagues = !this.invitecolleagues;
+
       enableScrolling();
     }
   }
@@ -162,6 +161,11 @@ export default class extends Vue {
       this.specialityComponent = this.specialityComponent.filter(
         (item) => item.id !== this.specialityComponent[i].id
       );
+      this.invitedcolleagues.forEach((el) => {
+        if (+el.position_id === +removedPosition.id) {
+          this.removeInvitedcolleagues(el.id);
+        }
+      });
     }
     this.loading = false;
   }
@@ -180,7 +184,7 @@ export default class extends Vue {
     this.loading = false;
   }
 
-  async removeInvitedcolleagues(email, speciality, id) {
+  async removeInvitedcolleagues(id) {
     this.loading = true;
     const removeInvite = await this.$deleteInvite(id);
     if (id === removeInvite.id) {
