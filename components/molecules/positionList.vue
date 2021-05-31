@@ -4,7 +4,7 @@
       <div class="position-list__header-name">
         <h4>{{ title }}</h4>
 
-        <span>{{ newAplications }}</span>
+        <span v-if="newAplications !== 0">{{ newAplications }}</span>
       </div>
       <div class="position-list__header-button">
         <span>{{ applications.length }}</span>
@@ -26,16 +26,20 @@
         v-show="opendPosition"
         :key="item.id"
         :name="item.position.applications[i].user.username"
-        :uncheck="'item.status' === 'declined' ? true : false"
-        :check="'item.status' === 'accepted' ? true : false"
+        :uncheck="
+          item.position.applications[i].status === 'declined' ? true : false
+        "
+        :check="
+          item.position.applications[i].status === 'accepted' ? true : false
+        "
         :access="
-          'item.status' === 'accepted'
+          item.position.applications[i].status === 'accepted'
             ? true
-            : 'item.status' === 'declined'
+            : item.position.applications[i].status === 'declined'
             ? true
             : false
         "
-        :decline-reason="'position.decline_reason'"
+        :decline-reason="item.position.applications[i].decline_reason"
         :experience="
           item.position.applications[i].user.profile.experience.title
         "

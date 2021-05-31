@@ -11,15 +11,6 @@
       <!-- <pre style="color: #fff">{{ applications }} </pre> -->
     </div>
     <div class="request-to-team__content">
-      <!-- <PositionList 
-        v-for="item in applications"
-        :id="item.id"
-        :key="item.id"
-        :title="item.position.specialisation.title"
-        :position="item"
-        @accept="accept"
-        @decline="decline"
-      ></PositionList> -->
       <PositionList
         v-for="item in startup.positions"
         :id="item.id"

@@ -200,9 +200,6 @@ export default class extends Vue {
     line-height: 32px;
     margin: 0;
     display: flex;
-    .position-card__user-name {
-      width: 75%;
-    }
   }
   .position-card__check {
     margin-left: 8px;
@@ -422,6 +419,7 @@ export default class extends Vue {
 @media (min-width: 1438px) {
   .position-card {
     max-width: 318px;
+    min-width: 318px;
     padding: 32px;
 
     &:not(:nth-child(2n)) {
@@ -525,7 +523,7 @@ export default class extends Vue {
 
       .decline-reason__content {
         position: absolute;
-        bottom: 290px;
+        bottom: 250px;
         right: -8px;
         padding: 16px 16px 16px 16px;
         width: 468px;
