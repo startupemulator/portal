@@ -43,6 +43,7 @@ export default class extends Vue {
 
     const pickedTechnology = [];
     const pickedTechnologyId = [];
+
     this.$refs.technologyList.forEach((el) =>
       el.parentElement.classList.contains("checked")
         ? (pickedTechnology.push(el.parentElement.textContent),
@@ -65,10 +66,15 @@ export default class extends Vue {
   }
 
   mounted() {
+    console.log(this.choosenTechnologies);
     if (this.choosenTechnologies) {
       this.$refs.technologyList.forEach((el) => {
+        console.log(el.id.split("-")[0]);
+        console.log(el.id.split("-")[0]);
         if (
-          this.choosenTechnologies.some((item) => item === el.id.split("-")[0])
+          this.choosenTechnologies.some(
+            (item) => item.id === el.id.split("-")[0]
+          )
         ) {
           el.parentElement.classList.add("checked");
         }
