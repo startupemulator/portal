@@ -329,8 +329,11 @@
       </div>
       <PopupDeleteStartup
         v-show="popupDeleteStartup"
+        :move-away-startup="moveAwayStartup"
+        :move-away-startup-name="moveAwayStartupName"
         @clickOnButton="togglePopupDeleteStartup"
         @closePopupLinkEmail="togglePopupDeleteStartup"
+        @deleteStartup="deleteStartup"
       ></PopupDeleteStartup>
       <GuidePopup v-if="popupGuide" @closePopup="togglePopupGuide"></GuidePopup>
     </div>
@@ -391,7 +394,8 @@ export default class extends Vue {
   @Prop() isOwner: Boolean;
   @Prop() applications: Array<Applications>;
   openPosition = [];
-
+  moveAwayStartup: string = "";
+  moveAwayStartupName: string = "";
   popupCancelApplication = false;
   isDeveloper = false;
   isExpert = false;
@@ -463,6 +467,10 @@ export default class extends Vue {
     this.popupDeleteStartup = !this.popupDeleteStartup;
   }
 
+  deleteStartup(startupName, startupId) {
+    this.$emit("deleteStartup", startupId, startupName);
+  }
+
   togglePopupGuide() {
     this.popupGuide = !this.popupGuide;
   }
@@ -476,6 +484,8 @@ export default class extends Vue {
     this.openPosition = this.startup.positions.filter(
       (position) => position.status === "open"
     );
+    this.moveAwayStartup = this.startup.id;
+    this.moveAwayStartupName = this.startup.title;
   }
 
   async accept(id) {

@@ -1,11 +1,13 @@
 <template>
   <div class="startups-page">
     <!-- <pre style="color: #fff">    {{ applications }}</pre> -->
+    <Spiner :loading="loading"></Spiner>
     <StartupPage
       :startup="startup"
       :feedbacks="feedbacks"
       :applications="applications"
       :is-owner="isOwner"
+      @deleteStartup="deleteStartup"
     ></StartupPage>
   </div>
 </template>
@@ -13,15 +15,19 @@
 import { Component, Vue } from "nuxt-property-decorator";
 import StartupPage from "~/components/organisms/startup/startup.vue";
 import { Startup } from "~/models/Startup";
+import Toast from "~/store/modules/Toast";
+import Spiner from "~/components/molecules/spiner.vue";
 
 @Component({
   components: {
     StartupPage,
+    Spiner,
   },
 })
 export default class TakeStartup extends Vue {
   startup: Startup;
   isOwner = false;
+  loading = false;
 
   async asyncData({ $startup, $feedbacks, $applicationsByStartupId, route }) {
     const startup = await $startup(route.params.slug);
@@ -34,6 +40,34 @@ export default class TakeStartup extends Vue {
   mounted() {
     if (this.$strapi.user && +this.$strapi.user.id === +this.startup.owner.id) {
       this.isOwner = true;
+    }
+  }
+
+  async deleteStartup(id, startupName) {
+    this.loading = true;
+    try {
+      const moveAwayStartup = await this.$startupById(id);
+      if (startupName === moveAwayStartup.title) {
+        const deleteDraft = await this.$deleteDraft(id);
+        if (deleteDraft !== null) {
+          this.myStartups = await this.$myStartups(this.$strapi.user.id);
+          this.loading = false;
+          this.$nuxt.$router.push("/profile/projects");
+        }
+      } else {
+        Toast.show({
+          data: "Fill the startup name correctly.",
+          duration: 3000,
+        });
+        this.loading = false;
+      }
+    } catch (e) {
+      console.error(e);
+      Toast.show({
+        data: e.message,
+        duration: 3000,
+      });
+      this.loading = false;
     }
   }
 }
