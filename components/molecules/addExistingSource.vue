@@ -6,11 +6,11 @@
         <U-input
           :type="'text'"
           :placeholder="'Enter a link name'"
-          :value="linkName"
-          :account-class="$v.linkName.$error ? ' error' : ''"
+          :value="title"
+          :account-class="$v.title.$error ? ' error' : ''"
           @textInput="inputlinkName($event)"
         ></U-input>
-        <p v-show="$v.linkName.$error" class="errorInput">
+        <p v-show="$v.title.$error" class="errorInput">
           Please enter a link name of at least 8 characters
         </p>
         <U-input
@@ -43,7 +43,7 @@ import UInput from "../atoms/uInput.vue";
     link: {
       minLength: url,
     },
-    linkName: {
+    title: {
       required,
       minLength: minLength(8),
     },
@@ -51,9 +51,10 @@ import UInput from "../atoms/uInput.vue";
 })
 export default class extends Vue {
   @Prop() name: String;
-  @Prop() linkName: String;
+  @Prop() linkName!: String;
   @Prop() linkHref!: String;
   link = this.linkHref ? this.linkHref : "";
+  title = this.linkName ? this.linkName : "";
   inputUrl(e) {
     this.link = e;
     this.$v.$touch();
@@ -63,7 +64,7 @@ export default class extends Vue {
   }
 
   inputlinkName(e) {
-    this.linkName = e;
+    this.title = e;
     this.$v.$touch();
     if (!this.$v.$error) {
       this.$emit("textInput", [e, "name"]);
