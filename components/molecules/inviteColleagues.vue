@@ -111,7 +111,7 @@ export default class extends Vue {
       this.$emit("inviteCollegue", {
         email: this.email,
         speciality: this.chosenSpeciality,
-        speciality_id: this.speciality_id,
+        position_id: this.speciality_id,
       });
     }
   }

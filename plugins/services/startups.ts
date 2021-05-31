@@ -110,6 +110,64 @@ export function startup($strapi: Strapi) {
     return data.startups ? data.startups[0] : null;
   };
 }
+export function startupById($strapi: Strapi) {
+  return async (id: string) => {
+    const data = await $strapi.graphql({
+      query: `query {
+        startups(where: {id: "${id}"}){
+          id
+          title
+        }
+      }`,
+    });
+    return data.startups ? data.startups[0] : null;
+  };
+}
+export function startupByAcceptedApplication($strapi: Strapi) {
+  return async (id: string) => {
+    const data = await $strapi.graphql({
+      query: `query {
+        startups(where: {positions:{applications:{status: "accepted"}}}){
+          id
+          title
+          slug
+          description
+          start_date
+          duration
+          state
+          positions {
+            id
+            sort
+            status
+            applications{
+              id
+              status
+            }
+            specialisation {
+              id
+              title
+            }
+            technologies{
+              id
+              title
+            }
+          }
+          owner {
+            id
+            name
+          }
+          technologies {
+            id
+            title
+          }
+          
+        }
+        
+      }`,
+    });
+    return data.startups ? data.startups : null;
+  };
+}
 export function myStartups($strapi: Strapi) {
   return async (owner: string) => {
     const data = await $strapi.graphql({

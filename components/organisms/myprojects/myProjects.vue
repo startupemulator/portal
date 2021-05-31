@@ -32,6 +32,15 @@
         ></Startup-card>
       </div>
     </div>
+
+    <PopupDeleteStartup
+      v-show="popupDeleteStartup"
+      :move-away-startup="moveAwayStartup"
+      :move-away-startup-name="moveAwayStartupName"
+      @clickOnButton="togglePopupDeleteStartup"
+      @closePopupLinkEmail="togglePopupDeleteStartup"
+      @deleteStartup="deleteStartup"
+    ></PopupDeleteStartup>
   </div>
 </template>
 <script lang="ts">
@@ -41,6 +50,7 @@ import UTitle from "~/components/atoms/uTitle.vue";
 import { Startup } from "~/models/Startup";
 import DraftCard from "~/components/molecules/draftCard.vue";
 import StartupCard from "~/components/molecules/startupCard.vue";
+import PopupDeleteStartup from "~/components/molecules/popupDeleteStartup.vue";
 
 @Component({
   components: {
@@ -48,6 +58,7 @@ import StartupCard from "~/components/molecules/startupCard.vue";
     UTabsLong,
     DraftCard,
     StartupCard,
+    PopupDeleteStartup,
   },
 })
 export default class extends Vue {
@@ -56,6 +67,20 @@ export default class extends Vue {
   draft: Array<Startup> = [];
   startup: Array<Startup> = [];
   inProgress: Number = 0;
+  popupDeleteStartup = false;
+  moveAwayStartup: string = "";
+  moveAwayStartupName: string = "";
+  deleteStartup(startupName, startupId) {
+    this.$emit("deleteDraft", startupId, startupName);
+  }
+
+  deleteDraft(id, title) {
+    console.log(id, title);
+    this.popupDeleteStartup = !this.popupDeleteStartup;
+    this.moveAwayStartup = id;
+    this.moveAwayStartupName = title;
+  }
+
   filterCards($event) {
     switch ($event) {
       case 2:
@@ -75,8 +100,8 @@ export default class extends Vue {
     }
   }
 
-  deleteDraft(id) {
-    this.$emit("deleteDraft", id);
+  togglePopupDeleteStartup() {
+    this.popupDeleteStartup = !this.popupDeleteStartup;
   }
 
   mounted() {
