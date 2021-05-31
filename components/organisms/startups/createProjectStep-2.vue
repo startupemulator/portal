@@ -196,7 +196,7 @@ export default class extends Vue {
       this.specialityComponent = [];
       this.startupData.positions.forEach((el) => {
         const technologies = [];
-        el.technologies.forEach((el) => technologies.push(el.title));
+        el.technologies.forEach((el) => technologies.push(el));
         const data = {
           id: el.id,
           type: "create-specialities",
