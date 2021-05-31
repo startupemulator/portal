@@ -127,7 +127,7 @@ export function startupByAcceptedApplication($strapi: Strapi) {
   return async (id: string) => {
     const data = await $strapi.graphql({
       query: `query {
-        startups(where: {positions:{applications:{status: "accepted"}}}){
+        startups(where: {positions:{applications:{user: {id: "${id}"}}}}){
           id
           title
           slug
@@ -142,6 +142,9 @@ export function startupByAcceptedApplication($strapi: Strapi) {
             applications{
               id
               status
+              user{
+                id
+              }
             }
             specialisation {
               id

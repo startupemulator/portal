@@ -31,9 +31,19 @@ export default class extends Vue {
 
   async asyncData({ $myStartups, $startupByAcceptedApplication, $strapi }) {
     const myStartups = await $myStartups($strapi.user.id);
-    const acceptedStartup = await $startupByAcceptedApplication("test");
+    const acceptedStartup = await $startupByAcceptedApplication(
+      $strapi.user.id
+    );
     if (acceptedStartup !== null) {
-      acceptedStartup.forEach((el) => myStartups.push(el));
+      acceptedStartup.forEach((item) => {
+        item.positions.forEach((el) =>
+          el.applications.forEach((el) => {
+            if (el.status === "accepted") {
+              myStartups.push(item);
+            }
+          })
+        );
+      });
     }
     return {
       myStartups,
