@@ -47,6 +47,7 @@ export function applicationsByStartupId($strapi: Strapi) {
         status
         decline_reason
         user {
+          id
           username
           profile{
             id 
@@ -58,7 +59,7 @@ export function applicationsByStartupId($strapi: Strapi) {
               id 
               title
             }
-          }
+          } 
         }
       }
     }
@@ -69,25 +70,25 @@ export function applicationsByStartupId($strapi: Strapi) {
   };
 }
 
-// export function applicationAccept($strapi: Strapi) {
-//   return async (id: string) => {
-//     const data = await $strapi.graphql({
-//       query: `mutation {
-//     updateApplication(
-//       input: {
-//       where: {id: "${id}" }
-//       data: { status: "accepted"}
-//      }
-//      ){
-//      application{
-//         id
-//       }
-//   }
-// }`,
-//     });
-//     return data;
-//   };
-// }
+export function applicationAdvancedAccess($strapi: Strapi) {
+  return async (id: string) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+        updateApplication(
+          input: {
+          where: {id: "${id}" }
+          data: { status: advanced}
+         }
+         ) {
+          application {
+              id
+            }
+        }
+      }`,
+    });
+    return data;
+  };
+}
 export function applicationAccept($strapi: Strapi) {
   return async (id: string) => {
     const data = await $strapi.graphql({
@@ -95,7 +96,7 @@ export function applicationAccept($strapi: Strapi) {
         updateApplication(
           input: {
           where: {id: "${id}" }
-          data: { status: "accepted"}
+          data: { status: accepted}
          }
          ) {
           application {
@@ -114,7 +115,7 @@ export function applicationDecline($strapi: Strapi) {
         updateApplication(
           input: {
           where: {id: "${id}" }
-          data: {status: "declined  ", decline_reason: "${declineReason}"}
+          data: {status: declined, decline_reason: "${declineReason}"}
          }
          ) {
           application {

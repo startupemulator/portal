@@ -11,23 +11,16 @@
       <!-- <pre style="color: #fff">{{ applications }} </pre> -->
     </div>
     <div class="request-to-team__content">
-      <!-- <PositionList 
-        v-for="item in applications"
-        :id="item.id"
-        :key="item.id"
-        :title="item.position.specialisation.title"
-        :position="item"
-        @accept="accept"
-        @decline="decline"
-      ></PositionList> -->
       <PositionList
         v-for="item in startup.positions"
         :id="item.id"
         :key="item.id"
+        :update-key="updateKey"
         :title="item.specialisation.title"
         :position="applications"
         @accept="accept"
         @decline="decline"
+        @advancedAccess="advancedAccess"
       ></PositionList>
     </div>
   </div>
@@ -46,6 +39,7 @@ import { Startup } from "~/models/Startup";
 export default class extends Vue {
   @Prop() applications: Array<Applications>;
   @Prop() startup!: Array<Startup>;
+  @Prop() updateKey: Number;
 
   accept(id) {
     this.$emit("accept", id);
@@ -53,6 +47,10 @@ export default class extends Vue {
 
   decline(id, declinetext) {
     this.$emit("decline", id, declinetext);
+  }
+
+  advancedAccess(id) {
+    this.$emit("advancedAccess", id);
   }
 }
 </script>

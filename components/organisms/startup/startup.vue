@@ -2,11 +2,13 @@
   <div>
     <RequestToTeam
       v-show="requestToTeam"
-      :applications="applications"
-      :startup="startup"
+      :update-key="updateKey"
+      :applications="updatableDataApplications"
+      :startup="updatableDataStartup"
       @clikOnButton="toggleRequestToTeam"
       @accept="accept"
       @decline="decline"
+      @advancedAccess="advancedAccess"
     ></RequestToTeam>
     <!-- <NewFeedBack
       v-show="newFeedBack"
@@ -92,7 +94,8 @@
         <div v-if="isDeveloper" class="applied-startup">
           <div v-if="!isStarted" class="applied-startup__not-started">
             <h4>
-              You applied to this startup as a <span>Back-end Developer</span>
+              You applied to this startup as a
+              <span>{{ developerPosition }}</span>
             </h4>
             <button type="button" @click="togglepopupCancelApplication">
               <span>Cancel Application</span>
@@ -224,7 +227,7 @@
         </div>
       </div>
       <div class="startup_block-2">
-        <div v-if="!finished" class="startup__open-position">
+        <div v-if="openPosition.length > 0" class="startup__open-position">
           <h3>Open positions</h3>
           <Open-position-card
             v-for="item in openPosition"
@@ -337,6 +340,7 @@
       ></PopupDeleteStartup>
       <GuidePopup v-if="popupGuide" @closePopup="togglePopupGuide"></GuidePopup>
     </div>
+    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
@@ -364,6 +368,8 @@ import Sources from "~/components/molecules/sources.vue";
 import CommentExpert from "~/components/molecules/commentForExpert.vue";
 import { Feedbacks } from "~/models/Feedbacks";
 import { Applications } from "~/models/Applications";
+import Toast from "~/store/modules/Toast";
+import Spiner from "~/components/molecules/spiner.vue";
 @Component({
   components: {
     UBack,
@@ -386,18 +392,25 @@ import { Applications } from "~/models/Applications";
     AddTeamFeedBack,
     AddTeamBadge,
     CommentExpert,
+    Spiner,
   },
 })
 export default class extends Vue {
   @Prop() startup!: Array<Startup>;
   @Prop() feedbacks: Array<Feedbacks>;
   @Prop() isOwner: Boolean;
-  @Prop() applications: Array<Applications>;
+  @Prop() applications!: Array<Applications>;
+  @Prop() isDeveloper: Boolean;
+  @Prop() developerPosition: String;
+  @Prop() applicationId: String;
+
+  updatableDataStartup = this.startup;
+  updatableDataApplications = this.applications;
   openPosition = [];
   moveAwayStartup: string = "";
   moveAwayStartupName: string = "";
   popupCancelApplication = false;
-  isDeveloper = false;
+
   isExpert = false;
   isStarted = false;
   popupDeleteStartup = false;
@@ -414,7 +427,8 @@ export default class extends Vue {
   releaseLikns = false;
   addTeamFeedBack = false;
   addTeamBadge = false;
-
+  loading = false;
+  updateKey: Number = 0;
   toggleReleaseLikns() {
     this.releaseLikns = !this.releaseLikns;
   }
@@ -489,20 +503,107 @@ export default class extends Vue {
   }
 
   async accept(id) {
+    this.loading = true;
     try {
-      console.log(id);
       const accept = await this.$applicationAccept(id);
-      console.log(accept);
+      if (accept) {
+        const startup = await this.$startupById(this.startup.id);
+        const { applications } = await this.$applicationsByStartupId(
+          this.startup.id
+        );
+        if (startup !== null) {
+          this.updatableDataStartup = startup;
+        }
+        if (applications !== null) {
+          this.updatableDataApplications = applications;
+        }
+
+        this.loading = false;
+        this.updateKey += 1;
+      } else {
+        Toast.show({
+          data: "Something wrong!",
+          duration: 3000,
+        });
+        this.loading = false;
+      }
     } catch (e) {
       console.error(e);
+      Toast.show({
+        data: e.message,
+        duration: 3000,
+      });
+      this.loading = false;
     }
   }
 
   async decline(id, declinetext) {
+    this.loading = true;
     try {
-      await this.$applicationDecline(id, declinetext);
+      const decline = await this.$applicationDecline(id, declinetext);
+      if (decline) {
+        const startup = await this.$startupById(this.startup.id);
+        const { applications } = await this.$applicationsByStartupId(
+          this.startup.id
+        );
+        if (startup !== null) {
+          this.updatableDataStartup = startup;
+        }
+        if (applications !== null) {
+          this.updatableDataApplications = applications;
+        }
+
+        this.loading = false;
+        this.updateKey += 1;
+      } else {
+        Toast.show({
+          data: "Something wrong!",
+          duration: 3000,
+        });
+        this.loading = false;
+      }
     } catch (e) {
       console.error(e);
+      Toast.show({
+        data: e.message,
+        duration: 3000,
+      });
+      this.loading = false;
+    }
+  }
+
+  async advancedAccess(id) {
+    this.loading = true;
+    try {
+      const advancedAccess = await this.$applicationAdvancedAccess(id);
+      if (advancedAccess) {
+        const startup = await this.$startupById(this.startup.id);
+        const { applications } = await this.$applicationsByStartupId(
+          this.startup.id
+        );
+        if (startup !== null) {
+          this.updatableDataStartup = startup;
+        }
+        if (applications !== null) {
+          this.updatableDataApplications = applications;
+        }
+
+        this.loading = false;
+        this.updateKey += 1;
+      } else {
+        Toast.show({
+          data: "Something wrong!",
+          duration: 3000,
+        });
+        this.loading = false;
+      }
+    } catch (e) {
+      console.error(e);
+      Toast.show({
+        data: e.message,
+        duration: 3000,
+      });
+      this.loading = false;
     }
   }
 }

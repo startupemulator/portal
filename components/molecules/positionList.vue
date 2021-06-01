@@ -4,7 +4,7 @@
       <div class="position-list__header-name">
         <h4>{{ title }}</h4>
 
-        <span>{{ newAplications }}</span>
+        <span v-if="newAplications !== 0">{{ newAplications }}</span>
       </div>
       <div class="position-list__header-button">
         <span>{{ applications.length }}</span>
@@ -18,33 +18,44 @@
     </div>
 
     <div class="position-list__cards">
-      <!-- <pre style="color: #fff"> {{ applications[1] }}</pre> -->
       <position-card
-        v-for="item in applications"
+        v-for="(item, i) in applications"
         v-show="opendPosition"
         :key="item.id"
-        :name="'item.position.applications.user.username'"
-        :uncheck="'item.status' === 'declined' ? true : false"
-        :check="'item.status' === 'accepted' ? true : false"
+        :name="item.position.applications[i].user.username"
+        :uncheck="
+          item.position.applications[i].status === 'declined' ? true : false
+        "
+        :check="
+          item.position.applications[i].status === 'accepted' ? true : false
+        "
+        :advanced="
+          item.position.applications[i].status === 'advanced' ? true : false
+        "
         :access="
-          'item.status' === 'accepted'
+          item.position.applications[i].status === 'accepted'
             ? true
-            : 'item.status' === 'declined'
+            : item.position.applications[i].status === 'declined'
+            ? true
+            : item.position.applications[i].status === 'advanced'
             ? true
             : false
         "
-        :decline-reason="'position.decline_reason'"
-        :experience="'item.user.profile.experience.title'"
-        :technologies="'item.user.profile.technologies'"
-        :position-id="'item.id'"
+        :decline-reason="item.position.applications[i].decline_reason"
+        :experience="
+          item.position.applications[i].user.profile.experience.title
+        "
+        :technologies="item.position.applications[i].user.profile.technologies"
+        :position-id="item.id"
         @accept="accept"
         @decline="decline"
+        @advancedAccess="advancedAccess"
       ></position-card>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from "nuxt-property-decorator";
+import { Component, Prop, Vue, Watch } from "nuxt-property-decorator";
 import PositionCard from "./positionCard.vue";
 
 @Component({
@@ -54,6 +65,7 @@ export default class extends Vue {
   @Prop() title: String;
   @Prop() id: Number;
   @Prop() position: Array<any>;
+  @Prop() updateKey: Number;
   opendPosition = false;
   newAplications: Number = 0;
   applications = [];
@@ -69,11 +81,25 @@ export default class extends Vue {
     this.$emit("decline", id, declinetext);
   }
 
+  advancedAccess(id) {
+    this.$emit("advancedAccess", id);
+  }
+
   mounted() {
     this.applications = this.position.filter(
       (el) => el.position.id === this.id
     );
-    console.log(this.applications[0]);
+
+    this.newAplications = this.applications.filter(
+      (position) => position.status === "waiting"
+    ).length;
+  }
+
+  @Watch("updateKey")
+  update() {
+    this.applications = this.position.filter(
+      (el) => el.position.id === this.id
+    );
     this.newAplications = this.applications.filter(
       (position) => position.status === "waiting"
     ).length;

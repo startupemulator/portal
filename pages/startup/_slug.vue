@@ -1,12 +1,15 @@
 <template>
   <div class="startups-page">
-    <!-- <pre style="color: #fff">    {{ applications }}</pre> -->
+    <!-- <pre style="color: #fff">    {{ startup }}</pre> -->
     <Spiner :loading="loading"></Spiner>
     <StartupPage
       :startup="startup"
       :feedbacks="feedbacks"
       :applications="applications"
       :is-owner="isOwner"
+      :is-developer="isDeveloper"
+      :application-id="applicationId"
+      :developer-position="developerPosition"
       @deleteStartup="deleteStartup"
     ></StartupPage>
   </div>
@@ -27,6 +30,9 @@ import Spiner from "~/components/molecules/spiner.vue";
 export default class TakeStartup extends Vue {
   startup: Startup;
   isOwner = false;
+  isDeveloper = false;
+  developerPosition = "";
+  applicationId = "";
   loading = false;
 
   async asyncData({ $startup, $feedbacks, $applicationsByStartupId, route }) {
@@ -41,6 +47,15 @@ export default class TakeStartup extends Vue {
     if (this.$strapi.user && +this.$strapi.user.id === +this.startup.owner.id) {
       this.isOwner = true;
     }
+    this.applications.forEach((item) => {
+      item.position.applications.forEach((el) => {
+        if (el.status === "accepted" && +this.$strapi.user.id === +el.user.id) {
+          this.applicationId = el.id;
+          this.isDeveloper = true;
+          this.developerPosition = item.position.specialisation.title;
+        }
+      });
+    });
   }
 
   async deleteStartup(id, startupName) {

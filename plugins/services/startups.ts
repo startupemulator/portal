@@ -117,7 +117,70 @@ export function startupById($strapi: Strapi) {
         startups(where: {id: "${id}"}){
           id
           title
+          slug
+          description
+          start_date
+          duration
+          state
+          positions {
+            id
+            sort
+            status
+            applications{
+              id
+
+            }
+            specialisation {
+              id
+              title
+            }
+            technologies{
+              id
+              title
+            }
+          }
+          owner {
+            id
+            name
+            invites{
+              id
+              email
+              position{
+                id
+                startup{
+                  id
+                }
+                specialisation{
+                  id
+                  title
+                }
+              }
+
+            }
+          }
+          technologies {
+            id
+            title
+          }
+          sources{
+            id 
+            title
+            link
+            startups{
+              id
+            }
+          }
+          secrets{
+            id
+            title
+            description
+            startup{
+              id
+            }
+          }
+          
         }
+        
       }`,
     });
     return data.startups ? data.startups[0] : null;
@@ -127,7 +190,7 @@ export function startupByAcceptedApplication($strapi: Strapi) {
   return async (id: string) => {
     const data = await $strapi.graphql({
       query: `query {
-        startups(where: {positions:{applications:{status: "accepted"}}}){
+        startups(where: {positions:{applications:{user: {id: "${id}"}}}}){
           id
           title
           slug
@@ -142,6 +205,9 @@ export function startupByAcceptedApplication($strapi: Strapi) {
             applications{
               id
               status
+              user{
+                id
+              }
             }
             specialisation {
               id
