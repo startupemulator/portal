@@ -458,6 +458,7 @@ export default class extends Vue {
     max-width: 318px;
     min-width: 318px;
     padding: 32px;
+    margin-bottom: 8px;
 
     &:not(:nth-child(2n)) {
       margin-right: 24px;
