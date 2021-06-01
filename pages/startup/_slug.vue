@@ -8,9 +8,10 @@
       :applications="applications"
       :is-owner="isOwner"
       :is-developer="isDeveloper"
-      :application-id="applicationId"
       :developer-position="developerPosition"
+      :estimations="estimations"
       @deleteStartup="deleteStartup"
+      @cancelApplication="cancelApplication"
     ></StartupPage>
   </div>
 </template>
@@ -35,12 +36,44 @@ export default class TakeStartup extends Vue {
   applicationId = "";
   loading = false;
 
-  async asyncData({ $startup, $feedbacks, $applicationsByStartupId, route }) {
+  async asyncData({
+    $startup,
+    $feedbacks,
+    $applicationsByStartupId,
+    route,
+    $estimations,
+  }) {
     const startup = await $startup(route.params.slug);
     const feedbacks = await $feedbacks();
     const { applications } = await $applicationsByStartupId(startup.id);
+    const { estimations } = await $estimations();
 
-    return { startup, feedbacks, applications };
+    return { startup, feedbacks, applications, estimations };
+  }
+
+  async cancelApplication() {
+    this.loading = true;
+
+    try {
+      const application = await this.$cancelApplication(this.applicationId);
+      if (application !== null) {
+        this.$router.push("/profile/projects");
+      } else {
+        Toast.show({
+          data: "Something wrong!",
+          duration: 3000,
+        });
+        this.loading = false;
+      }
+      this.loading = false;
+    } catch (e) {
+      console.error(e);
+      Toast.show({
+        data: e.message,
+        duration: 3000,
+      });
+      this.loading = false;
+    }
   }
 
   mounted() {

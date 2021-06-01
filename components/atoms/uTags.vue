@@ -17,7 +17,7 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 export default class extends Vue {
   @Prop({ default: "title" }) title: string;
   @Prop({ default: "name" }) name: string;
-  @Prop({ default: "1" }) id: string;
+  @Prop({ default: "" }) id: string;
   @Prop({ default: "false" }) checkedClass: string;
   @Prop({ default: "checkbox" }) type: "checkbox" | "radio";
 }
