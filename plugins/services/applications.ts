@@ -47,6 +47,7 @@ export function applicationsByStartupId($strapi: Strapi) {
         status
         decline_reason
         user {
+          id
           username
           profile{
             id 
@@ -58,7 +59,7 @@ export function applicationsByStartupId($strapi: Strapi) {
               id 
               title
             }
-          }
+          } 
         }
       }
     }

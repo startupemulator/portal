@@ -94,7 +94,8 @@
         <div v-if="isDeveloper" class="applied-startup">
           <div v-if="!isStarted" class="applied-startup__not-started">
             <h4>
-              You applied to this startup as a <span>Back-end Developer</span>
+              You applied to this startup as a
+              <span>{{ developerPosition }}</span>
             </h4>
             <button type="button" @click="togglepopupCancelApplication">
               <span>Cancel Application</span>
@@ -399,13 +400,17 @@ export default class extends Vue {
   @Prop() feedbacks: Array<Feedbacks>;
   @Prop() isOwner: Boolean;
   @Prop() applications!: Array<Applications>;
+  @Prop() isDeveloper: Boolean;
+  @Prop() developerPosition: String;
+  @Prop() applicationId: String;
+
   updatableDataStartup = this.startup;
   updatableDataApplications = this.applications;
   openPosition = [];
   moveAwayStartup: string = "";
   moveAwayStartupName: string = "";
   popupCancelApplication = false;
-  isDeveloper = false;
+
   isExpert = false;
   isStarted = false;
   popupDeleteStartup = false;
