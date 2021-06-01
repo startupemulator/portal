@@ -69,25 +69,25 @@ export function applicationsByStartupId($strapi: Strapi) {
   };
 }
 
-// export function applicationAccept($strapi: Strapi) {
-//   return async (id: string) => {
-//     const data = await $strapi.graphql({
-//       query: `mutation {
-//     updateApplication(
-//       input: {
-//       where: {id: "${id}" }
-//       data: { status: "accepted"}
-//      }
-//      ){
-//      application{
-//         id
-//       }
-//   }
-// }`,
-//     });
-//     return data;
-//   };
-// }
+export function applicationAdvancedAccess($strapi: Strapi) {
+  return async (id: string) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+        updateApplication(
+          input: {
+          where: {id: "${id}" }
+          data: { status: advanced}
+         }
+         ) {
+          application {
+              id
+            }
+        }
+      }`,
+    });
+    return data;
+  };
+}
 export function applicationAccept($strapi: Strapi) {
   return async (id: string) => {
     const data = await $strapi.graphql({

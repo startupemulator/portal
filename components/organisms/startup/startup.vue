@@ -8,6 +8,7 @@
       @clikOnButton="toggleRequestToTeam"
       @accept="accept"
       @decline="decline"
+      @advancedAccess="advancedAccess"
     ></RequestToTeam>
     <!-- <NewFeedBack
       v-show="newFeedBack"
@@ -536,6 +537,41 @@ export default class extends Vue {
     try {
       const decline = await this.$applicationDecline(id, declinetext);
       if (decline) {
+        const startup = await this.$startupById(this.startup.id);
+        const { applications } = await this.$applicationsByStartupId(
+          this.startup.id
+        );
+        if (startup !== null) {
+          this.updatableDataStartup = startup;
+        }
+        if (applications !== null) {
+          this.updatableDataApplications = applications;
+        }
+
+        this.loading = false;
+        this.updateKey += 1;
+      } else {
+        Toast.show({
+          data: "Something wrong!",
+          duration: 3000,
+        });
+        this.loading = false;
+      }
+    } catch (e) {
+      console.error(e);
+      Toast.show({
+        data: e.message,
+        duration: 3000,
+      });
+      this.loading = false;
+    }
+  }
+
+  async advancedAccess(id) {
+    this.loading = true;
+    try {
+      const advancedAccess = await this.$applicationAdvancedAccess(id);
+      if (advancedAccess) {
         const startup = await this.$startupById(this.startup.id);
         const { applications } = await this.$applicationsByStartupId(
           this.startup.id

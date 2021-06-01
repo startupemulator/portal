@@ -20,6 +20,7 @@
         :position="applications"
         @accept="accept"
         @decline="decline"
+        @advancedAccess="advancedAccess"
       ></PositionList>
     </div>
   </div>
@@ -46,6 +47,10 @@ export default class extends Vue {
 
   decline(id, declinetext) {
     this.$emit("decline", id, declinetext);
+  }
+
+  advancedAccess(id) {
+    this.$emit("advancedAccess", id);
   }
 }
 </script>

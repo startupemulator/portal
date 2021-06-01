@@ -2,12 +2,14 @@
   <div class="position-card">
     <h5>
       <span class="position-card__user-name"> {{ name }}</span>
-      <span v-show="uncheck || check">
+      <span v-show="uncheck || check || advanced">
         <img
           class="position-card__check"
           :src="
             uncheck
               ? require('~/assets/img/uncheck.svg')
+              : advanced
+              ? require('~/assets/img/check-green.svg')
               : check
               ? require('~/assets/img/check-green.svg')
               : ''
@@ -63,10 +65,10 @@
               </p>
             </li>
             <li class="access-type" @click="clickOnButtonAccses($event)">
-              <span>Advanced access </span>
+              <span>Advanced access</span>
               <p>This team member can edit surce links and a startup’s guide</p>
             </li>
-            <li class="access-type" @click="toggleDeclineCandidate">
+            <li class="access-type" @click="declineApplication">
               <span>Decline</span>
             </li>
           </ul>
@@ -138,6 +140,7 @@ export default class extends Vue {
   @Prop() uncheck: Boolean;
   @Prop() check: Boolean;
   @Prop() access: Boolean;
+  @Prop() advanced: Boolean;
   @Prop() declineReason: string;
   @Prop() experience: string;
   @Prop() technologies: Array<string>;
@@ -157,6 +160,15 @@ export default class extends Vue {
     }
   }
 
+  declineApplication() {
+    if (this.uncheck) {
+      this.accsessList = !this.accsessList;
+    } else {
+      this.toggleDeclineCandidate();
+      this.accsessList = !this.accsessList;
+    }
+  }
+
   toggleAccsessList() {
     this.accsessList = !this.accsessList;
   }
@@ -166,9 +178,21 @@ export default class extends Vue {
   }
 
   clickOnButtonAccses($event) {
-    const checkedAccses = $event.currentTarget.children[0].textContent;
-    this.accsessButtonTitle = checkedAccses;
-    this.accsessList = !this.accsessList;
+    if ($event.currentTarget.children[0].textContent === "Default access") {
+      console.log($event.currentTarget.children[0].textContent);
+      this.$emit("accept", this.positionId);
+      this.accsessList = !this.accsessList;
+    }
+    console.log($event.currentTarget.children[0].textContent);
+    if ($event.currentTarget.children[0].textContent === "Advanced access") {
+      console.log($event.currentTarget.children[0].textContent);
+      this.$emit("advancedAccess", this.positionId);
+      this.accsessList = !this.accsessList;
+    }
+
+    // const checkedAccses = $event.currentTarget.children[0].textContent;
+    // this.accsessButtonTitle = checkedAccses;
+    // this.accsessList = !this.accsessList;
   }
 
   decline() {
@@ -176,16 +200,22 @@ export default class extends Vue {
     this.declineCandidate = !this.declineCandidate;
   }
 
-  mounted() {
+  checkAccess() {
     if (this.uncheck) {
       this.accsessButtonTitle = "Decline";
+    } else if (this.check) {
+      this.accsessButtonTitle = "Default access";
+    } else if (this.advanced) {
+      this.accsessButtonTitle = "Advanced access";
     }
   }
 
+  mounted() {
+    this.checkAccess();
+  }
+
   beforeUpdate() {
-    if (this.uncheck) {
-      this.accsessButtonTitle = "Decline";
-    }
+    this.checkAccess();
   }
 }
 </script>

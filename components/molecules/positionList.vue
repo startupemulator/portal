@@ -29,10 +29,15 @@
         :check="
           item.position.applications[i].status === 'accepted' ? true : false
         "
+        :advanced="
+          item.position.applications[i].status === 'advanced' ? true : false
+        "
         :access="
           item.position.applications[i].status === 'accepted'
             ? true
             : item.position.applications[i].status === 'declined'
+            ? true
+            : item.position.applications[i].status === 'advanced'
             ? true
             : false
         "
@@ -44,6 +49,7 @@
         :position-id="item.id"
         @accept="accept"
         @decline="decline"
+        @advancedAccess="advancedAccess"
       ></position-card>
     </div>
   </div>
@@ -73,6 +79,10 @@ export default class extends Vue {
 
   decline(id, declinetext) {
     this.$emit("decline", id, declinetext);
+  }
+
+  advancedAccess(id) {
+    this.$emit("advancedAccess", id);
   }
 
   mounted() {
