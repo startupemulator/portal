@@ -18,9 +18,6 @@
     </div>
 
     <div class="position-list__cards">
-      <!-- <pre style="color: #fff"> {{ applications[1] }}</pre> -->
-      <!-- :name="'item.position.applications.user.username'" -->
-
       <position-card
         v-for="(item, i) in applications"
         v-show="opendPosition"
@@ -52,7 +49,7 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from "nuxt-property-decorator";
+import { Component, Prop, Vue, Watch } from "nuxt-property-decorator";
 import PositionCard from "./positionCard.vue";
 
 @Component({
@@ -62,6 +59,7 @@ export default class extends Vue {
   @Prop() title: String;
   @Prop() id: Number;
   @Prop() position: Array<any>;
+  @Prop() updateKey: Number;
   opendPosition = false;
   newAplications: Number = 0;
   applications = [];
@@ -81,7 +79,17 @@ export default class extends Vue {
     this.applications = this.position.filter(
       (el) => el.position.id === this.id
     );
-    console.log(this.applications[0]);
+
+    this.newAplications = this.applications.filter(
+      (position) => position.status === "waiting"
+    ).length;
+  }
+
+  @Watch("updateKey")
+  update() {
+    this.applications = this.position.filter(
+      (el) => el.position.id === this.id
+    );
     this.newAplications = this.applications.filter(
       (position) => position.status === "waiting"
     ).length;

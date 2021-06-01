@@ -44,6 +44,7 @@
         :button-class="'u-button-gray'"
         @clickOnButton="toggleDeclineCandidate"
       ></U-button>
+
       <div v-if="access" class="position-card__access">
         <div class="position-card__access-header" @click="toggleAccsessList">
           <span>{{ accsessButtonTitle }}</span>
@@ -141,6 +142,7 @@ export default class extends Vue {
   @Prop() experience: string;
   @Prop() technologies: Array<string>;
   @Prop() positionId: string;
+
   declineReasonMessage = false;
   accsessList = false;
   declineCandidate = false;
@@ -161,7 +163,6 @@ export default class extends Vue {
 
   toggleDeclineCandidate() {
     this.declineCandidate = !this.declineCandidate;
-    this.accsessList = !this.accsessList;
   }
 
   clickOnButtonAccses($event) {
@@ -176,6 +177,12 @@ export default class extends Vue {
   }
 
   mounted() {
+    if (this.uncheck) {
+      this.accsessButtonTitle = "Decline";
+    }
+  }
+
+  beforeUpdate() {
     if (this.uncheck) {
       this.accsessButtonTitle = "Decline";
     }

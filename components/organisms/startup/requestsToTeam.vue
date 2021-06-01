@@ -15,6 +15,7 @@
         v-for="item in startup.positions"
         :id="item.id"
         :key="item.id"
+        :update-key="updateKey"
         :title="item.specialisation.title"
         :position="applications"
         @accept="accept"
@@ -37,6 +38,7 @@ import { Startup } from "~/models/Startup";
 export default class extends Vue {
   @Prop() applications: Array<Applications>;
   @Prop() startup!: Array<Startup>;
+  @Prop() updateKey: Number;
 
   accept(id) {
     this.$emit("accept", id);
