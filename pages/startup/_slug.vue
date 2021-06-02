@@ -10,6 +10,8 @@
       :is-developer="isDeveloper"
       :developer-position="developerPosition"
       :estimations="estimations"
+      :technologies="technologies"
+      :specialisations="specialisations"
       @deleteStartup="deleteStartup"
       @cancelApplication="cancelApplication"
     ></StartupPage>
@@ -42,13 +44,24 @@ export default class TakeStartup extends Vue {
     $applicationsByStartupId,
     route,
     $estimations,
+    $specialisations,
+    $technologies,
   }) {
     const startup = await $startup(route.params.slug);
     const feedbacks = await $feedbacks();
     const { applications } = await $applicationsByStartupId(startup.id);
     const { estimations } = await $estimations();
+    const { specialisations } = await $specialisations();
+    const { technologies } = await $technologies();
 
-    return { startup, feedbacks, applications, estimations };
+    return {
+      startup,
+      feedbacks,
+      applications,
+      estimations,
+      specialisations,
+      technologies,
+    };
   }
 
   async cancelApplication() {

@@ -25,7 +25,16 @@
       @clikOnButton="toggleEditStartupInfo"
       @updateStartup="updateStartup($event)"
     ></EditStartupInfo>
-    <EditTeam v-show="editTeam" @clikOnButton="toggleEditTeam"></EditTeam>
+    <EditTeam
+      v-show="editTeam"
+      :update-key="updateKey"
+      :applications="updatableDataApplications"
+      :startup="updatableDataStartup"
+      :specialisations="specialisations"
+      :technologies="technologies"
+      :startup-id="moveAwayStartup"
+      @clikOnButton="toggleEditTeam"
+    ></EditTeam>
     <EditSources
       v-show="editSources"
       :sources="updatableDataStartup.sources"
@@ -379,6 +388,8 @@ import ProjectParticipant from "~/components/molecules/projectParticipant.vue";
 import Sources from "~/components/molecules/sources.vue";
 import CommentExpert from "~/components/molecules/commentForExpert.vue";
 import { Feedbacks } from "~/models/Feedbacks";
+import { Specialisation } from "~/models/Specialisation";
+import { Technology } from "~/models/Technology";
 import { Applications } from "~/models/Applications";
 import Toast from "~/store/modules/Toast";
 import Spiner from "~/components/molecules/spiner.vue";
@@ -412,11 +423,13 @@ export default class extends Vue {
   @Prop() startup!: Array<Startup>;
   @Prop() feedbacks: Array<Feedbacks>;
   @Prop() isOwner: Boolean;
+
   @Prop() applications!: Array<Applications>;
   @Prop() isDeveloper: Boolean;
   @Prop() developerPosition: String;
   @Prop() estimations: Array<Estimation>;
-
+  @Prop() specialisations: Array<Specialisation>;
+  @Prop() technologies: Array<Technology>;
   updatableDataStartup = this.startup;
   updatableDataApplications = this.applications;
   openPosition = [];
