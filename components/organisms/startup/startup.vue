@@ -28,6 +28,8 @@
     <EditTeam v-show="editTeam" @clikOnButton="toggleEditTeam"></EditTeam>
     <EditSources
       v-show="editSources"
+      :sources="updatableDataStartup.sources"
+      :startup-id="moveAwayStartup"
       @clikOnButton="toggleEditSources"
     ></EditSources>
     <EditGuide v-show="editGuide" @clikOnButton="toggleEditGuide"></EditGuide>
@@ -469,7 +471,6 @@ export default class extends Vue {
 
   toggleEditStartupInfo() {
     this.editStartupInfo = !this.editStartupInfo;
-    console.log(this.editStartupInfo);
   }
 
   toggleNewFeedBack() {
