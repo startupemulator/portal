@@ -322,3 +322,35 @@ export function filterStartup($strapi: Strapi) {
     return data.startups;
   };
 }
+
+export function updateStartupInfo($strapi: Strapi) {
+  return async (
+    id: string,
+    date: string,
+    description: string,
+    duration: string,
+    title: string
+  ) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+        updateStartup (
+          input: {
+          where: {id: "${id}" }
+          data: { 
+            description: "${description}",
+             title: "${title}" ,
+             duration: ${duration},
+             start_date: "${date}",
+            }
+         }
+         ) {
+          startup {
+              id
+            
+            }
+        }
+      }`,
+    });
+    return data.updateStartup ? data.updateStartup.startup : null;
+  };
+}

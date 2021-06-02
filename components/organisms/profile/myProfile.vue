@@ -157,6 +157,7 @@ export default class extends Vue {
     Toast.show({
       data: "Link copied is  -  " + url,
       duration: 3000,
+      success: true,
     });
   }
 

@@ -22,7 +22,7 @@
       v-show="editStartupInfo"
       :startup="updatableDataStartup"
       :estimations="estimations"
-      @cancel="toggleEditStartupInfo"
+      @clikOnButton="toggleEditStartupInfo"
       @updateStartup="updateStartup($event)"
     ></EditStartupInfo>
     <EditTeam v-show="editTeam" @clikOnButton="toggleEditTeam"></EditTeam>
@@ -469,6 +469,7 @@ export default class extends Vue {
 
   toggleEditStartupInfo() {
     this.editStartupInfo = !this.editStartupInfo;
+    console.log(this.editStartupInfo);
   }
 
   toggleNewFeedBack() {
@@ -613,8 +614,32 @@ export default class extends Vue {
     }
   }
 
-  updateStartup(data) {
-    console.log(data);
+  async updateStartup(data) {
+    this.loading = true;
+    try {
+      const updateStartup = await this.$updateStartupInfo(
+        this.startup.id,
+        data.date,
+        data.description,
+        data.duration,
+        data.title
+      );
+      if (+this.startup.id === +updateStartup.id) {
+        Toast.show({
+          data: "Startup data updated!",
+          duration: 3000,
+          success: true,
+        });
+        this.loading = false;
+      }
+    } catch (e) {
+      console.error(e);
+      Toast.show({
+        data: e.message,
+        duration: 3000,
+      });
+      this.loading = false;
+    }
   }
 }
 </script>

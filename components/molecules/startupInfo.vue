@@ -183,7 +183,9 @@ export default class extends Vue {
         title: this.title,
         description: this.description,
         duration: this.duration,
-        date: this.date,
+        date: new Date(
+          this.date.split("  |  ").reverse().join("-")
+        ).toISOString(),
       };
       this.$emit("updateStartup", data);
     }
