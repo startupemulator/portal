@@ -77,10 +77,12 @@ export default class extends Vue {
   }
 
   cancelSources() {
-    this.newsources.forEach((el) => {
+    if (this.newsources.length !== 0) {
       this.loading = true;
-      this.removeExistingSources(el);
-    });
+      this.newsources.forEach((el) => {
+        this.removeExistingSources(el);
+      });
+    }
 
     setTimeout(() => {
       this.loading = false;

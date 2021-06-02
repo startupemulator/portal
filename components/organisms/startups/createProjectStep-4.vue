@@ -61,16 +61,17 @@ export default class extends Vue {
 
   async addGuideSourse() {
     this.loading = true;
-    const secret = await this.$createSecret("", "", this.startupData.id);
-    if (secret !== null) {
-      this.guideSourseComponent.push({
-        id: secret.id,
-        type: "create-guide",
-        name: secret.title,
-        comment: secret.description,
-      });
-    }
     try {
+      const secret = await this.$createSecret("", "", this.startupData.id);
+      if (secret !== null) {
+        this.guideSourseComponent.push({
+          id: secret.id,
+          type: "create-guide",
+          name: secret.title,
+          comment: secret.description,
+        });
+      }
+
       this.loading = false;
     } catch (e) {
       console.error(e);

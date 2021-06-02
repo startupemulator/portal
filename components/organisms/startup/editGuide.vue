@@ -2,7 +2,7 @@
   <div class="edit-guide">
     <div class="edit-guide__header">
       <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
-      <UTitle :text="'Edit '"></UTitle>
+      <UTitle :text="'Edit guide'"></UTitle>
       <p>
         Add any links, comments, an information about messengers, logins and
         passwords, etc. All the information that you need to share with your
@@ -15,7 +15,10 @@
         v-for="(item, i) in guideSourseComponent"
         :key="item.id"
         :name="'Item ' + (i + 1)"
+        :guide-name="item.name"
+        :guide-comment="item.comment"
         @removeGuideSources="removeGuideSources(item.id)"
+        @textInput="textInput($event, i, item.id)"
       ></div>
       <div class="edit-guide__add-link">
         <U-button
@@ -29,49 +32,146 @@
       <U-button
         :button-name="'Save'"
         :button-class="'u-button-blue'"
+        @clickOnButton="saveSources"
       ></U-button>
       <U-button
         :button-name="'Cancel'"
         :button-class="'u-button-gray'"
-        @clickOnButton="$emit('clikOnButton')"
+        @clickOnButton="cancelSources"
       ></U-button>
     </div>
+    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
+import { Component, Vue, Prop } from "nuxt-property-decorator";
 
 import UButton from "~/components/atoms/uButton.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
-
+import Spiner from "~/components/molecules/spiner.vue";
+import Toast from "~/store/modules/Toast";
 import CreateGuide from "~/components/molecules/createGuide.vue";
+import { Secrets } from "~/models/Secrets";
 
 @Component({
-  components: { UButton, UBack, UTitle, CreateGuide },
+  components: { UButton, UBack, UTitle, CreateGuide, Spiner },
 })
 export default class extends Vue {
-  data() {
-    return {
-      popupPublish: false,
-      guideSourseComponent: [
-        { id: 1, type: "create-guide" },
-        { id: 2, type: "create-guide" },
-      ],
-    };
+  @Prop() secrets: Array<Secrets>;
+  @Prop() startupId: string;
+
+  loading = false;
+  newswcrets = [];
+  guideSourseComponent: Array<any> = [];
+  saveSources() {
+    this.loading = true;
+    this.newswcrets = [];
+    setTimeout(() => {
+      this.loading = false;
+      Toast.show({
+        data: "Startup data updated!",
+        duration: 1000,
+        success: true,
+      });
+    }, 900);
   }
 
-  addGuideSourse() {
-    this.guideSourseComponent.push({
-      id: this.guideSourseComponent.length + 1,
-      type: "create-guide",
-    });
+  cancelSources() {
+    this.loading = true;
+    if (this.newswcrets.length !== 0) {
+      this.newswcrets.forEach((el) => {
+        this.removeGuideSources(el);
+      });
+    }
+    setTimeout(() => {
+      this.loading = false;
+      Toast.show({
+        data: "Startup data updated!",
+        duration: 1000,
+        success: true,
+      });
+    }, 900);
   }
 
-  removeGuideSources(i) {
-    this.guideSourseComponent = this.guideSourseComponent.filter(
-      (item) => item.id !== i
-    );
+  async addGuideSourse() {
+    this.loading = true;
+    try {
+      const secret = await this.$createSecret("", "", this.startupId);
+      if (secret !== null) {
+        this.guideSourseComponent.push({
+          id: secret.id,
+          type: "create-guide",
+          name: secret.title,
+          comment: secret.description,
+        });
+      }
+      this.newswcrets.push(secret.id);
+      this.loading = false;
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
+    }
+  }
+
+  async removeGuideSources(id) {
+    this.loading = true;
+    try {
+      const secret = await this.$deleteSecret(id);
+      if (+secret.id === +id) {
+        this.guideSourseComponent = this.guideSourseComponent.filter(
+          (item) => item.id !== id
+        );
+        this.loading = false;
+      }
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
+    }
+  }
+
+  async updateSecret(id, title = "", description = "") {
+    this.loading = true;
+    try {
+      const secret = await this.$updateSecret(id, title, description);
+      if (secret !== null) {
+        this.loading = false;
+      }
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
+    }
+  }
+
+  textInput($event, i, id) {
+    switch ($event[1]) {
+      case "name":
+        this.updateSecret(id, $event[0], this.guideSourseComponent[i].comment);
+        this.guideSourseComponent[i].name = $event[0];
+        break;
+      case "comment":
+        this.updateSecret(id, this.guideSourseComponent[i].name, $event[0]);
+        this.guideSourseComponent[i].comment = $event[0];
+        break;
+      default:
+    }
+    this.$emit("addSomeGiude", this.guideSourseComponent);
+  }
+
+  mounted() {
+    if (this.secrets) {
+      this.guideSourseComponent = [];
+      this.secrets.forEach((el) => {
+        const data = {
+          id: el.id,
+          comment: el.description,
+          name: el.title,
+          type: "create-guide",
+        };
+        this.guideSourseComponent.push(data);
+      });
+    }
+    console.log(this.secrets);
   }
 }
 </script>

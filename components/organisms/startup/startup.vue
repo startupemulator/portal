@@ -32,7 +32,12 @@
       :startup-id="moveAwayStartup"
       @clikOnButton="toggleEditSources"
     ></EditSources>
-    <EditGuide v-show="editGuide" @clikOnButton="toggleEditGuide"></EditGuide>
+    <EditGuide
+      v-show="editGuide"
+      :secrets="updatableDataStartup.secrets"
+      :startup-id="moveAwayStartup"
+      @clikOnButton="toggleEditGuide"
+    ></EditGuide>
     <FinishStartup
       v-show="finishStartup"
       @clikOnButton="toggleFinishStartup"
