@@ -20,11 +20,16 @@
     ></RequestFeedback>
     <EditStartupInfo
       v-show="editStartupInfo"
+      :startup="updatableDataStartup"
+      :estimations="estimations"
       @clikOnButton="toggleEditStartupInfo"
+      @updateStartup="updateStartup($event)"
     ></EditStartupInfo>
     <EditTeam v-show="editTeam" @clikOnButton="toggleEditTeam"></EditTeam>
     <EditSources
       v-show="editSources"
+      :sources="updatableDataStartup.sources"
+      :startup-id="moveAwayStartup"
       @clikOnButton="toggleEditSources"
     ></EditSources>
     <EditGuide v-show="editGuide" @clikOnButton="toggleEditGuide"></EditGuide>
@@ -321,6 +326,7 @@
             <U-button
               :button-name="'Yes, Cancel'"
               :button-class="'u-button-blue'"
+              @clickOnButton="$emit('cancelApplication')"
             ></U-button>
             <U-button
               :button-name="'No, Don’t Cancel'"
@@ -347,6 +353,7 @@
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import FeedBackCard from "../../molecules/feedbackCard.vue";
 import GuidePopup from "../../molecules/popupGuide.vue";
+import { Estimation } from "../../../models/Estimation";
 import RequestToTeam from "./requestsToTeam.vue";
 import newFeedBack from "./newFeedBack.vue";
 import RequestFeedback from "./requestFeedback.vue";
@@ -370,6 +377,7 @@ import { Feedbacks } from "~/models/Feedbacks";
 import { Applications } from "~/models/Applications";
 import Toast from "~/store/modules/Toast";
 import Spiner from "~/components/molecules/spiner.vue";
+
 @Component({
   components: {
     UBack,
@@ -402,7 +410,7 @@ export default class extends Vue {
   @Prop() applications!: Array<Applications>;
   @Prop() isDeveloper: Boolean;
   @Prop() developerPosition: String;
-  @Prop() applicationId: String;
+  @Prop() estimations: Array<Estimation>;
 
   updatableDataStartup = this.startup;
   updatableDataApplications = this.applications;
@@ -594,6 +602,34 @@ export default class extends Vue {
         Toast.show({
           data: "Something wrong!",
           duration: 3000,
+        });
+        this.loading = false;
+      }
+    } catch (e) {
+      console.error(e);
+      Toast.show({
+        data: e.message,
+        duration: 3000,
+      });
+      this.loading = false;
+    }
+  }
+
+  async updateStartup(data) {
+    this.loading = true;
+    try {
+      const updateStartup = await this.$updateStartupInfo(
+        this.startup.id,
+        data.date,
+        data.description,
+        data.duration,
+        data.title
+      );
+      if (+this.startup.id === +updateStartup.id) {
+        Toast.show({
+          data: "Startup data updated!",
+          duration: 3000,
+          success: true,
         });
         this.loading = false;
       }

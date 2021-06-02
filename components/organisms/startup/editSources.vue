@@ -2,9 +2,10 @@
   <div class="edit-sources">
     <div class="edit-sources__header">
       <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
-      <UTitle :text="title"></UTitle>
+      <UTitle :text="'Edit sources'"></UTitle>
       <p>
-        {{ description }}
+        Add links on design, userflows, repositories, etc., which will be used
+        during the project’s development. You can skip this step for now.
       </p>
     </div>
     <div class="edit-sources__content">
@@ -13,7 +14,10 @@
         v-for="(item, i) in existingSourseComponent"
         :key="item.id"
         :name="'Link ' + (i + 1)"
+        :link-name="item.title"
+        :link-href="item.link"
         @removeExistingSources="removeExistingSources(item.id)"
+        @textInput="textInput($event, i, item.id)"
       ></div>
       <div class="existing-sources__add-link">
         <U-button
@@ -27,13 +31,15 @@
       <U-button
         :button-name="'Save'"
         :button-class="'u-button-blue'"
+        @clickOnButton="saveSources"
       ></U-button>
       <U-button
         :button-name="'Cancel'"
         :button-class="'u-button-gray'"
-        @clickOnButton="$emit('clikOnButton')"
+        @clickOnButton="cancelSources"
       ></U-button>
     </div>
+    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
@@ -43,38 +49,129 @@ import AddExistingSourse from "../../molecules/addExistingSource.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
+import { Sources } from "~/models/Sources";
+import Spiner from "~/components/molecules/spiner.vue";
+import Toast from "~/store/modules/Toast";
 
 @Component({
-  components: { UButton, UBack, UTitle, AddExistingSourse },
+  components: { UButton, UBack, UTitle, AddExistingSourse, Spiner },
 })
 export default class extends Vue {
-  @Prop({ default: "Edit sources" }) title: String;
-  @Prop({
-    default: `Add links on design, userflows, repositories, etc., which will be used
-        during the project’s development. You can skip this step for now.`,
-  })
-  description: String;
+  @Prop() sources: Array<Sources>;
+  @Prop() startupId: string;
+  loading = false;
+  newsources = [];
 
-  data() {
-    return {
-      existingSourseComponent: [
-        { id: 1, type: "add-existing-sourse" },
-        { id: 2, type: "add-existing-sourse" },
-      ],
-    };
+  existingSourseComponent: Array<any> = [];
+  saveSources() {
+    this.loading = true;
+    this.newsources = [];
+    setTimeout(() => {
+      this.loading = false;
+      Toast.show({
+        data: "Startup data updated!",
+        duration: 1000,
+        success: true,
+      });
+    }, 900);
   }
 
-  addExistingSourse() {
-    this.existingSourseComponent.push({
-      id: this.existingSourseComponent.length + 1,
-      type: "add-existing-sourse",
+  cancelSources() {
+    this.newsources.forEach((el) => {
+      this.loading = true;
+      this.removeExistingSources(el);
     });
+
+    setTimeout(() => {
+      this.loading = false;
+      Toast.show({
+        data: "Startup data updated!",
+        duration: 1000,
+        success: true,
+      });
+    }, 900);
   }
 
-  removeExistingSources(i) {
-    this.existingSourseComponent = this.existingSourseComponent.filter(
-      (item) => item.id !== i
-    );
+  async addExistingSourse() {
+    this.loading = true;
+    try {
+      const source = await this.$createSource("", "https://", this.startupId);
+      if (source !== null) {
+        this.existingSourseComponent.push({
+          id: source.id,
+          title: source.title,
+          link: source.link.trim(),
+          type: "add-existing-sourse",
+        });
+        this.newsources.push(source.id);
+      }
+      this.loading = false;
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
+    }
+  }
+
+  textInput($event, i, id) {
+    switch ($event[1]) {
+      case "name":
+        this.updateSources(id, $event[0], this.existingSourseComponent[i].link);
+        this.existingSourseComponent[i].title = $event[0];
+        break;
+      case "url":
+        this.updateSources(
+          id,
+          this.existingSourseComponent[i].title,
+          $event[0]
+        );
+        this.existingSourseComponent[i].link = $event[0];
+        break;
+      default:
+    }
+  }
+
+  async updateSources(id, title = "", link = "") {
+    this.loading = true;
+    try {
+      const sources = await this.$updateSource(id, title, link);
+      if (sources !== null) {
+        this.loading = false;
+      }
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
+    }
+  }
+
+  async removeExistingSources(id) {
+    this.loading = true;
+    try {
+      const sources = await this.$deleteSource(id);
+      if (+sources.id === +id) {
+        this.existingSourseComponent = this.existingSourseComponent.filter(
+          (item) => item.id !== id
+        );
+        this.loading = false;
+      }
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
+    }
+  }
+
+  mounted() {
+    if (this.sources) {
+      this.existingSourseComponent = [];
+      this.sources.forEach((el) => {
+        const data = {
+          id: el.id,
+          link: el.link,
+          title: el.title,
+          type: "add-existing-sourse",
+        };
+        this.existingSourseComponent.push(data);
+      });
+    }
   }
 }
 </script>

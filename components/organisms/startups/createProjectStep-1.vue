@@ -17,7 +17,7 @@
       <textarea
         v-model.trim="$v.description.$model"
         placeholder="Describe your idea and main goals of your startup to interest developers to join your team"
-        :class="$v.title.$error ? ' error' : ''"
+        :class="$v.description.$error ? ' error' : ''"
       ></textarea>
       <p v-show="$v.description.$error" class="errorInput">
         Please enter a description name of at least 8 characters
@@ -89,7 +89,7 @@
             v-model="duration"
             type="text"
             placeholder="Or enter the number of days"
-            :class="$v.title.$error ? ' error' : ''"
+            :class="$v.duration.$error ? ' error' : ''"
         /></label>
         <p v-show="$v.duration.$error" class="errorInput">
           Please enter or choose estimation duration
