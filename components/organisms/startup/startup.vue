@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-cloak>
     <RequestToTeam
       v-show="requestToTeam"
       :update-key="updateKey"
@@ -28,7 +28,7 @@
     <EditTeam
       v-show="editTeam"
       :update-key="updateKey"
-      :applications="updatableDataApplications"
+      :staffed-position="staffedPosition"
       :startup="updatableDataStartup"
       :specialisations="specialisations"
       :technologies="technologies"
@@ -433,6 +433,7 @@ export default class extends Vue {
   updatableDataStartup = this.startup;
   updatableDataApplications = this.applications;
   openPosition = [];
+  staffedPosition = [];
   moveAwayStartup: string = "";
   moveAwayStartupName: string = "";
   popupCancelApplication = false;
@@ -521,11 +522,24 @@ export default class extends Vue {
     } else if (this.startup.state === "finished") {
       return (this.finished = true);
     }
+
     this.openPosition = this.startup.positions.filter(
       (position) => position.status === "open"
     );
+
+    // this.staffedPosition = this.updatableDataApplications.filter(
+    //   (position) => position.position.status === "staffed"
+    // );
     this.moveAwayStartup = this.startup.id;
     this.moveAwayStartupName = this.startup.title;
+
+    this.updatableDataApplications.forEach((position) => {
+      if (position.position.status === "staffed") {
+        this.staffedPosition.push(position);
+      }
+    });
+    // console.log(this.updatableDataApplications[2].position.status);
+    // console.log(this.staffedPosition);
   }
 
   async accept(id) {
@@ -537,6 +551,7 @@ export default class extends Vue {
         const { applications } = await this.$applicationsByStartupId(
           this.startup.id
         );
+        // position to staffed
         if (startup !== null) {
           this.updatableDataStartup = startup;
         }

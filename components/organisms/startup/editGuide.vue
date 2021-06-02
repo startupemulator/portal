@@ -171,7 +171,6 @@ export default class extends Vue {
         this.guideSourseComponent.push(data);
       });
     }
-    console.log(this.secrets);
   }
 }
 </script>

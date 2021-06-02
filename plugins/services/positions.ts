@@ -36,7 +36,7 @@ export function createPosition($strapi: Strapi) {
     const data = await $strapi.graphql({
       query: `mutation {
         createPosition(input: { data: { startup: "${startup}",
-        specialisation: "${specialisation}", technologies: [${technologies}]  } }) {
+        specialisation: "${specialisation}", technologies: [${technologies}], status: open  } }) {
           position {
             id
             specialisation{

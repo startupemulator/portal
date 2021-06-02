@@ -1,9 +1,13 @@
 <template>
-  <div class="team-member-card">
+  <div v-cloak class="team-member-card">
     <div class="team-member-card__content">
       <div class="team-member-card__data">
-        <p class="team-member-card__data-email">someone@gmail.com</p>
-        <p class="team-member-card__data-position">UI/UX Designer</p>
+        <p class="team-member-card__data-email">
+          {{ userEmail }}
+        </p>
+        <p class="team-member-card__data-position">
+          {{ specialisation }}
+        </p>
       </div>
       <div
         class="team-member-card__menu-premission"
@@ -31,11 +35,17 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
+import { Component, Vue, Prop } from "nuxt-property-decorator";
+import { Positions } from "~/models/Positions";
+
 @Component({})
 export default class extends Vue {
+  @Prop() position: Array<Positions>;
   premissionMenu = false;
   choosenPremission = "Default access";
+  acepptedAplication = [];
+  userEmail = "";
+  specialisation = "";
   togglePremissionMenu() {
     this.premissionMenu = !this.premissionMenu;
   }
@@ -43,6 +53,22 @@ export default class extends Vue {
   choosePremission($event) {
     this.premissionMenu = !this.premissionMenu;
     this.choosenPremission = $event.target.textContent;
+  }
+
+  mounted() {
+    this.specialisation = this.position.position.specialisation.title;
+    this.userEmail = this.position.position.applications[0].user.email;
+    this.acepptedAplication = this.position.position.applications.filter(
+      (el) => (el.status = "accepted" || "advanced")
+    );
+
+    console.log(this.position.position.applications[0].status);
+    this.choosenPremission =
+      this.position.position.applications[0].status === "accepted"
+        ? "Default access"
+        : this.position.position.applications[0].status === "advanced"
+        ? "Advanced access"
+        : "";
   }
 }
 </script>

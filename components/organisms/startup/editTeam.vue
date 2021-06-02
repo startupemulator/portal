@@ -68,7 +68,11 @@
     </div>
     <div class="edit-team__content">
       <h3>Team</h3>
-      <TeamMemberCard v-for="(item, i) in 3" :key="i"></TeamMemberCard>
+      <TeamMemberCard
+        v-for="item in staffedPosition"
+        :key="item.id"
+        :position="item"
+      ></TeamMemberCard>
       <div class="edit-team__content-buttons">
         <U-button
           :button-name="'Save'"
@@ -98,7 +102,7 @@ import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import TeamMemberCard from "~/components/molecules/teamMemberCard.vue";
 // import AddSpeciality from "~/components/molecules/addSpeciality.vue";
-import { Applications } from "~/models/Applications";
+import { Positions } from "~/models/Positions";
 import { Startup } from "~/models/Startup";
 import Spiner from "~/components/molecules/spiner.vue";
 import CreateSpecialities from "~/components/molecules/createSpecialities.vue";
@@ -121,7 +125,7 @@ import {
   },
 })
 export default class extends Vue {
-  @Prop() applications: Array<Applications>;
+  @Prop() staffedPosition: Array<Positions>;
   @Prop() startup!: Array<Startup>;
   @Prop() startupId: Array<Startup>;
   @Prop() updateKey: Number;
@@ -264,9 +268,9 @@ export default class extends Vue {
         }
       });
     }
-    console.log(this.applications);
+    // console.log(this.staffedPosition);
     console.log(this.startup);
-    console.log(this.technologies);
+    // console.log(this.technologies);
   }
 }
 </script>

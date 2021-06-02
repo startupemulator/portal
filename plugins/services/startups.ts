@@ -52,6 +52,11 @@ export function startup($strapi: Strapi) {
             status
             applications{
               id
+              status
+              user{
+                id
+                email
+              }
 
             }
             specialisation {
@@ -128,6 +133,11 @@ export function startupById($strapi: Strapi) {
             status
             applications{
               id
+              status
+              user{
+                id
+                email
+              }
 
             }
             specialisation {
