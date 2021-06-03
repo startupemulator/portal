@@ -53,11 +53,12 @@
         <U-button
           :button-name="'Save'"
           :button-class="'u-button-blue'"
+          @clickOnButton="save"
         ></U-button>
         <U-button
           :button-name="'Cancel'"
           :button-class="'u-button-gray'"
-          @clickOnButton="$emit('clikOnButton')"
+          @clickOnButton="cancel"
         ></U-button>
       </div>
     </div>
@@ -77,7 +78,7 @@ import UButton from "~/components/atoms/uButton.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import TeamMemberCard from "~/components/molecules/teamMemberCard.vue";
-// import { Positions } from "~/models/Positions";
+import Toast from "~/store/modules/Toast";
 import { Startup } from "~/models/Startup";
 import Spiner from "~/components/molecules/spiner.vue";
 import CreateSpecialities from "~/components/molecules/createSpecialities.vue";
@@ -100,7 +101,6 @@ import {
   },
 })
 export default class extends Vue {
-  // @Prop() staffedPosition: Array<Positions>;
   @Prop() startup!: Array<Startup>;
   @Prop() startupId: Array<Startup>;
   @Prop() updateKey: Number;
@@ -109,6 +109,8 @@ export default class extends Vue {
 
   specialityComponent: Array<any> = [{ id: 0, type: "create-specialities" }];
   invitedcolleagues: Array<any> = [];
+  openPositionCash = [];
+  invitesCach = [];
   invitecolleagues: Boolean = false;
   team = [];
   loading = false;
@@ -119,7 +121,50 @@ export default class extends Vue {
       id: newPosition.id,
       type: "create-specialities",
     });
+    this.openPositionCash.push(newPosition.id);
     this.loading = false;
+  }
+
+  cancel() {
+    this.loading = true;
+    if (this.openPositionCash.length !== 0) {
+      this.openPositionCash.forEach((el) => {
+        this.$deletePositions(el);
+        this.specialityComponent = this.specialityComponent.filter(
+          (item) => item.id !== el
+        );
+      });
+    }
+    if (this.invitesCach.length !== 0) {
+      this.invitesCach.forEach((el) => {
+        this.$deleteInvite(el);
+        this.invitedcolleagues = this.invitedcolleagues.filter(
+          (item) => item.id !== el
+        );
+      });
+    }
+    setTimeout(() => {
+      this.loading = false;
+      Toast.show({
+        data: "Startup data updated!",
+        duration: 1000,
+        success: true,
+      });
+    }, 900);
+  }
+
+  save() {
+    this.loading = true;
+    this.invitesCach = [];
+    this.openPositionCash = [];
+    setTimeout(() => {
+      this.loading = false;
+      Toast.show({
+        data: "Startup data updated!",
+        duration: 1000,
+        success: true,
+      });
+    }, 900);
   }
 
   async removeSpeciality(id, i) {
@@ -183,6 +228,8 @@ export default class extends Vue {
         choosenSpeciality: data.speciality.trim(),
         position_id: data.position_id,
       };
+
+      this.invitesCach.push(invite.id);
       this.invitedcolleagues.push(inviteData);
 
       this.invitecolleagues = !this.invitecolleagues;
@@ -243,20 +290,6 @@ export default class extends Vue {
         }
       });
     }
-
-    //   this.staffedPosition.forEach((position) => {
-    //     position.applications.forEach((el, i) => {
-    //       if (el.status === "accepted" || el.status === "advanced") {
-    //         const team = {
-    //           id: el.id,
-    //           title: position.specialisation.title,
-    //           status: el.status,
-    //           email: el.user.email,
-    //         };
-    //         this.team.push(team);
-    //       }
-    //     });
-    //   });
   }
 }
 </script>

@@ -21,7 +21,6 @@
       v-show="editStartupInfo"
       :startup="updatableDataStartup"
       :estimations="estimations"
-      @clikOnButton="toggleEditStartupInfo"
       @updateStartup="updateStartup($event)"
     ></EditStartupInfo>
     <EditTeam
