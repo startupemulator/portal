@@ -46,6 +46,7 @@ export default class TakeStartup extends Vue {
     $estimations,
     $specialisations,
     $technologies,
+    $startupById,
   }) {
     const startup = await $startup(route.params.slug);
     const feedbacks = await $feedbacks();
@@ -53,7 +54,7 @@ export default class TakeStartup extends Vue {
     const { estimations } = await $estimations();
     const { specialisations } = await $specialisations();
     const { technologies } = await $technologies();
-
+    console.log(startup);
     return {
       startup,
       feedbacks,

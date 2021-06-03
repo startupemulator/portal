@@ -53,9 +53,22 @@ export function startup($strapi: Strapi) {
             applications{
               id
               status
-              user{
+              decline_reason
+              user {
                 id
+                username
                 email
+                profile{
+                  id 
+                  technologies{
+                    id
+                    title
+                  }
+                  experience{
+                    id 
+                    title
+                  }
+                } 
               }
 
             }
@@ -134,9 +147,22 @@ export function startupById($strapi: Strapi) {
             applications{
               id
               status
-              user{
+              decline_reason
+              user {
                 id
+                username
                 email
+                profile{
+                  id 
+                  technologies{
+                    id
+                    title
+                  }
+                  experience{
+                    id 
+                    title
+                  }
+                } 
               }
 
             }

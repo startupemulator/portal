@@ -3,7 +3,6 @@
     <RequestToTeam
       v-show="requestToTeam"
       :update-key="updateKey"
-      :applications="updatableDataApplications"
       :startup="updatableDataStartup"
       @clikOnButton="toggleRequestToTeam"
       @accept="accept"
@@ -517,6 +516,7 @@ export default class extends Vue {
   }
 
   mounted() {
+    console.log(this.startup);
     if (this.startup.state === "in_progress") {
       return (this.isStarted = true);
     } else if (this.startup.state === "finished") {
@@ -532,22 +532,25 @@ export default class extends Vue {
     // );
     this.moveAwayStartup = this.startup.id;
     this.moveAwayStartupName = this.startup.title;
+    // console.log(this.updatableDataStartup.positions);
 
-    this.updatableDataApplications.forEach((position) => {
-      if (position.position.status === "staffed") {
+    // if position staffed in startup...position.application can't chenge status
+    this.updatableDataStartup.positions.forEach((position) => {
+      if (position.status === "staffed" || position.status === "open") {
         this.staffedPosition.push(position);
       }
     });
-    // console.log(this.updatableDataApplications[2].position.status);
-    // console.log(this.staffedPosition);
   }
 
   async accept(id) {
     this.loading = true;
+    console.log(this.startup.id);
     try {
       const accept = await this.$applicationAccept(id);
       if (accept) {
         const startup = await this.$startupById(this.startup.id);
+        console.log(startup);
+
         const { applications } = await this.$applicationsByStartupId(
           this.startup.id
         );

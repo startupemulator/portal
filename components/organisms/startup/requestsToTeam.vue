@@ -1,5 +1,5 @@
 <template>
-  <div class="request-to-team">
+  <div v-cloak class="request-to-team">
     <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
     <div class="request-to-team__header">
       <UTitle :text="'Requests to team'"></UTitle>
@@ -8,7 +8,6 @@
         candidates with the same speciality. Select the most relevant for your
         needs and start the project with your dream team.
       </div>
-      <!-- <pre style="color: #fff">{{ applications }} </pre> -->
     </div>
     <div class="request-to-team__content">
       <PositionList
@@ -17,7 +16,7 @@
         :key="item.id"
         :update-key="updateKey"
         :title="item.specialisation.title"
-        :position="applications"
+        :position="item"
         @accept="accept"
         @decline="decline"
         @advancedAccess="advancedAccess"
@@ -30,15 +29,15 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UTitle from "~/components/atoms/uTitle.vue";
 import PositionList from "~/components/molecules/positionList.vue";
 import UBack from "~/components/atoms/uBack.vue";
-import { Applications } from "~/models/Applications";
+// import { Applications } from "~/models/Applications";
 import { Startup } from "~/models/Startup";
 
 @Component({
   components: { UTitle, PositionList, UBack },
 })
 export default class extends Vue {
-  @Prop() applications: Array<Applications>;
-  @Prop() startup!: Array<Startup>;
+  // @Prop() applications: Array<Applications>;
+  @Prop() startup: Array<Startup>;
   @Prop() updateKey: Number;
 
   accept(id) {

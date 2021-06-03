@@ -1,5 +1,5 @@
 <template>
-  <div class="edit-team createProject-step2">
+  <div v-cloak class="edit-team createProject-step2">
     <div class="edit-team__header">
       <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
       <UTitle :text="'Edit team'"></UTitle>
@@ -69,7 +69,7 @@
     <div class="edit-team__content">
       <h3>Team</h3>
       <TeamMemberCard
-        v-for="item in staffedPosition"
+        v-for="item in team"
         :key="item.id"
         :position="item"
       ></TeamMemberCard>
@@ -101,7 +101,6 @@ import UButton from "~/components/atoms/uButton.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import TeamMemberCard from "~/components/molecules/teamMemberCard.vue";
-// import AddSpeciality from "~/components/molecules/addSpeciality.vue";
 import { Positions } from "~/models/Positions";
 import { Startup } from "~/models/Startup";
 import Spiner from "~/components/molecules/spiner.vue";
@@ -135,6 +134,7 @@ export default class extends Vue {
   specialityComponent: Array<any> = [{ id: 0, type: "create-specialities" }];
   invitedcolleagues: Array<any> = [];
   invitecolleagues: Boolean = false;
+  team = [];
   loading = false;
   async addSpeciality() {
     this.loading = true;
@@ -268,9 +268,20 @@ export default class extends Vue {
         }
       });
     }
-    // console.log(this.staffedPosition);
-    console.log(this.startup);
-    // console.log(this.technologies);
+
+    this.staffedPosition.forEach((position) => {
+      position.applications.forEach((el, i) => {
+        if (el.status === "accepted" || el.status === "advanced") {
+          const team = {
+            id: el.id,
+            title: position.specialisation.title,
+            status: el.status,
+            email: el.user.email,
+          };
+          this.team.push(team);
+        }
+      });
+    });
   }
 }
 </script>

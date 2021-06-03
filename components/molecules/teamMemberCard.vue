@@ -56,18 +56,15 @@ export default class extends Vue {
   }
 
   mounted() {
-    this.specialisation = this.position.position.specialisation.title;
-    this.userEmail = this.position.position.applications[0].user.email;
-    this.acepptedAplication = this.position.position.applications.filter(
-      (el) => (el.status = "accepted" || "advanced")
-    );
-
-    console.log(this.position.position.applications[0].status);
+    this.specialisation = this.position.title;
+    this.userEmail = this.position.email;
     this.choosenPremission =
-      this.position.position.applications[0].status === "accepted"
+      this.position.status === "accepted"
         ? "Default access"
-        : this.position.position.applications[0].status === "advanced"
+        : this.position.status === "advanced"
         ? "Advanced access"
+        : this.position.status === "declined"
+        ? "Declined"
         : "";
   }
 }
