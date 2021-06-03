@@ -1,5 +1,5 @@
 <template>
-  <div v-cloak class="edit-team createProject-step2">
+  <div class="edit-team createProject-step2">
     <div class="edit-team__header">
       <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
       <UTitle :text="'Edit team'"></UTitle>
@@ -34,44 +34,20 @@
           :style="invitedcolleagues.length > 0 ? 'max-width:169px' : ''"
           @clickOnButton="addSpeciality"
         ></U-button>
-
         <U-button
-          v-if="invitedcolleagues.length === 0"
           :button-name="'Invite Collegues'"
           :button-class="'u-button-gray'"
           @clickOnButton="toggleInviteColleagues"
         ></U-button>
       </div>
-
-      <div v-if="invitedcolleagues.length > 0" class="invite-colleagues">
-        <div
-          :is="item.type"
-          v-for="item in invitedcolleagues"
-          :key="item.id"
-          :name="item.email"
-          :specialisations="specialisations"
-          :speciality="specialityComponent"
-          :picker="false"
-          :speciality-from-parent="[item.choosenSpeciality]"
-          @removeSpeciality="removeInvitedcolleagues(item.id)"
-        ></div>
-      </div>
-      <U-button
-        v-if="invitedcolleagues.length > 0"
-        :button-name="'Invite Collegues'"
-        :button-class="'u-button-gray'"
-        :style="
-          invitedcolleagues.length > 0 ? 'max-width:169px; height: 50px' : ''
-        "
-        @clickOnButton="toggleInviteColleagues"
-      ></U-button>
     </div>
     <div class="edit-team__content">
       <h3>Team</h3>
       <TeamMemberCard
-        v-for="item in team"
+        v-for="item in invitedcolleagues"
         :key="item.id"
-        :position="item"
+        :invite="item"
+        @removeInvite="removeInvitedcolleagues"
       ></TeamMemberCard>
       <div class="edit-team__content-buttons">
         <U-button
@@ -101,7 +77,7 @@ import UButton from "~/components/atoms/uButton.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import TeamMemberCard from "~/components/molecules/teamMemberCard.vue";
-import { Positions } from "~/models/Positions";
+// import { Positions } from "~/models/Positions";
 import { Startup } from "~/models/Startup";
 import Spiner from "~/components/molecules/spiner.vue";
 import CreateSpecialities from "~/components/molecules/createSpecialities.vue";
@@ -124,7 +100,7 @@ import {
   },
 })
 export default class extends Vue {
-  @Prop() staffedPosition: Array<Positions>;
+  // @Prop() staffedPosition: Array<Positions>;
   @Prop() startup!: Array<Startup>;
   @Prop() startupId: Array<Startup>;
   @Prop() updateKey: Number;
@@ -203,7 +179,6 @@ export default class extends Vue {
     if (invite !== null) {
       const inviteData = {
         id: invite.id,
-        type: "create-specialities",
         email: invite.email,
         choosenSpeciality: data.speciality.trim(),
         position_id: data.position_id,
@@ -269,19 +244,19 @@ export default class extends Vue {
       });
     }
 
-    this.staffedPosition.forEach((position) => {
-      position.applications.forEach((el, i) => {
-        if (el.status === "accepted" || el.status === "advanced") {
-          const team = {
-            id: el.id,
-            title: position.specialisation.title,
-            status: el.status,
-            email: el.user.email,
-          };
-          this.team.push(team);
-        }
-      });
-    });
+    //   this.staffedPosition.forEach((position) => {
+    //     position.applications.forEach((el, i) => {
+    //       if (el.status === "accepted" || el.status === "advanced") {
+    //         const team = {
+    //           id: el.id,
+    //           title: position.specialisation.title,
+    //           status: el.status,
+    //           email: el.user.email,
+    //         };
+    //         this.team.push(team);
+    //       }
+    //     });
+    //   });
   }
 }
 </script>

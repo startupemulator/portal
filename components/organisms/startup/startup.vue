@@ -33,6 +33,8 @@
       :technologies="technologies"
       :startup-id="moveAwayStartup"
       @clikOnButton="toggleEditTeam"
+      @advancedAccess="advancedAccess"
+      @defaultAccess="accept"
     ></EditTeam>
     <EditSources
       v-show="editSources"
@@ -516,7 +518,6 @@ export default class extends Vue {
   }
 
   mounted() {
-    console.log(this.startup);
     if (this.startup.state === "in_progress") {
       return (this.isStarted = true);
     } else if (this.startup.state === "finished") {
@@ -526,7 +527,7 @@ export default class extends Vue {
     this.openPosition = this.startup.positions.filter(
       (position) => position.status === "open"
     );
-
+    this.updateKey = 1;
     // this.staffedPosition = this.updatableDataApplications.filter(
     //   (position) => position.position.status === "staffed"
     // );
@@ -535,21 +536,29 @@ export default class extends Vue {
     // console.log(this.updatableDataStartup.positions);
 
     // if position staffed in startup...position.application can't chenge status
-    this.updatableDataStartup.positions.forEach((position) => {
-      if (position.status === "staffed" || position.status === "open") {
-        this.staffedPosition.push(position);
-      }
-    });
+    // this.updatableDataStartup.positions.forEach((position) => {
+    //   if (position.status === "staffed" || position.status === "open") {
+    //     this.staffedPosition.push(position);
+    //   }
+    // });
   }
+
+  // @Watch("updateKey")
+  // update() {
+  //   this.staffedPosition = [];
+  //   this.updatableDataStartup.positions.forEach((position) => {
+  //     if (position.status === "staffed" || position.status === "open") {
+  //       this.staffedPosition.push(position);
+  //     }
+  //   });
+  // }
 
   async accept(id) {
     this.loading = true;
-    console.log(this.startup.id);
     try {
       const accept = await this.$applicationAccept(id);
       if (accept) {
         const startup = await this.$startupById(this.startup.id);
-        console.log(startup);
 
         const { applications } = await this.$applicationsByStartupId(
           this.startup.id

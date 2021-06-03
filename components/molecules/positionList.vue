@@ -86,7 +86,6 @@ export default class extends Vue {
 
   @Watch("updateKey")
   update() {
-    console.log(this.position);
     this.applications = this.position.applications;
     this.newAplications = this.applications.filter(
       (position) => position.status === "waiting"

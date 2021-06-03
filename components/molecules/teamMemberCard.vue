@@ -1,12 +1,12 @@
 <template>
-  <div v-cloak class="team-member-card">
+  <div class="team-member-card">
     <div class="team-member-card__content">
       <div class="team-member-card__data">
         <p class="team-member-card__data-email">
-          {{ userEmail }}
+          {{ invite.email }}
         </p>
         <p class="team-member-card__data-position">
-          {{ specialisation }}
+          {{ invite.choosenSpeciality }}
         </p>
       </div>
       <div
@@ -22,16 +22,18 @@
           />
         </div>
         <ul v-show="premissionMenu" class="menu-premission__list">
-          <li class="menu-premission__item" @click="choosePremission">
+          <li class="menu-premission__item" @click="defaultAccess($event)">
             Default access
           </li>
-          <li class="menu-premission__item" @click="choosePremission">
+          <li class="menu-premission__item" @click="advancedAccess($event)">
             Advanced access
           </li>
         </ul>
       </div>
     </div>
-    <img class="close" src="~/assets/img/close.svg" alt="close" />
+    <button class="removeInvite" @click="$emit('removeInvite', invite.id)">
+      <img class="close" src="~/assets/img/close.svg" alt="close" />
+    </button>
   </div>
 </template>
 <script lang="ts">
@@ -40,7 +42,8 @@ import { Positions } from "~/models/Positions";
 
 @Component({})
 export default class extends Vue {
-  @Prop() position: Array<Positions>;
+  @Prop() invite: Array<Positions>;
+
   premissionMenu = false;
   choosenPremission = "Default access";
   acepptedAplication = [];
@@ -50,22 +53,14 @@ export default class extends Vue {
     this.premissionMenu = !this.premissionMenu;
   }
 
-  choosePremission($event) {
+  defaultAccess($event) {
     this.premissionMenu = !this.premissionMenu;
     this.choosenPremission = $event.target.textContent;
   }
 
-  mounted() {
-    this.specialisation = this.position.title;
-    this.userEmail = this.position.email;
-    this.choosenPremission =
-      this.position.status === "accepted"
-        ? "Default access"
-        : this.position.status === "advanced"
-        ? "Advanced access"
-        : this.position.status === "declined"
-        ? "Declined"
-        : "";
+  advancedAccess($event) {
+    this.premissionMenu = !this.premissionMenu;
+    this.choosenPremission = $event.target.textContent;
   }
 }
 </script>
@@ -78,7 +73,9 @@ export default class extends Vue {
   color: #fff;
   box-sizing: border-box;
   margin-bottom: 16px;
-
+  .removeInvite {
+    background-color: transparent;
+  }
   .close {
     cursor: pointer;
   }

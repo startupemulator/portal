@@ -54,7 +54,6 @@ export default class TakeStartup extends Vue {
     const { estimations } = await $estimations();
     const { specialisations } = await $specialisations();
     const { technologies } = await $technologies();
-    console.log(startup);
     return {
       startup,
       feedbacks,
