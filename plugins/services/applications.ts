@@ -49,6 +49,7 @@ export function applicationsByStartupId($strapi: Strapi) {
         user {
           id
           username
+          email
           profile{
             id 
             technologies{

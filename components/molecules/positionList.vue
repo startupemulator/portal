@@ -1,5 +1,5 @@
 <template>
-  <div class="position-list">
+  <div v-cloak class="position-list">
     <div class="position-list__header">
       <div class="position-list__header-name">
         <h4>{{ title }}</h4>
@@ -19,33 +19,25 @@
 
     <div class="position-list__cards">
       <position-card
-        v-for="(item, i) in applications"
+        v-for="item in applications"
         v-show="opendPosition"
         :key="item.id"
-        :name="item.position.applications[i].user.username"
-        :uncheck="
-          item.position.applications[i].status === 'declined' ? true : false
-        "
-        :check="
-          item.position.applications[i].status === 'accepted' ? true : false
-        "
-        :advanced="
-          item.position.applications[i].status === 'advanced' ? true : false
-        "
+        :name="item.user.username"
+        :uncheck="item.status === 'declined'"
+        :check="item.status === 'accepted'"
+        :advanced="item.status === 'advanced'"
         :access="
-          item.position.applications[i].status === 'accepted'
+          item.status === 'accepted'
             ? true
-            : item.position.applications[i].status === 'declined'
+            : item.status === 'declined'
             ? true
-            : item.position.applications[i].status === 'advanced'
+            : item.status === 'advanced'
             ? true
             : false
         "
-        :decline-reason="item.position.applications[i].decline_reason"
-        :experience="
-          item.position.applications[i].user.profile.experience.title
-        "
-        :technologies="item.position.applications[i].user.profile.technologies"
+        :decline-reason="item.decline_reason"
+        :experience="item.user.profile.experience.title"
+        :technologies="item.user.profile.technologies.title"
         :position-id="item.id"
         @accept="accept"
         @decline="decline"
@@ -64,7 +56,7 @@ import PositionCard from "./positionCard.vue";
 export default class extends Vue {
   @Prop() title: String;
   @Prop() id: Number;
-  @Prop() position: Array<any>;
+  @Prop() position!: Array<any>;
   @Prop() updateKey: Number;
   opendPosition = false;
   newAplications: Number = 0;
@@ -86,10 +78,7 @@ export default class extends Vue {
   }
 
   mounted() {
-    this.applications = this.position.filter(
-      (el) => el.position.id === this.id
-    );
-
+    this.applications = this.position.applications;
     this.newAplications = this.applications.filter(
       (position) => position.status === "waiting"
     ).length;
@@ -97,9 +86,7 @@ export default class extends Vue {
 
   @Watch("updateKey")
   update() {
-    this.applications = this.position.filter(
-      (el) => el.position.id === this.id
-    );
+    this.applications = this.position.applications;
     this.newAplications = this.applications.filter(
       (position) => position.status === "waiting"
     ).length;

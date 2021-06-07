@@ -179,13 +179,11 @@ export default class extends Vue {
 
   clickOnButtonAccses($event) {
     if ($event.currentTarget.children[0].textContent === "Default access") {
-      console.log($event.currentTarget.children[0].textContent);
       this.$emit("accept", this.positionId);
       this.accsessList = !this.accsessList;
     }
-    console.log($event.currentTarget.children[0].textContent);
+
     if ($event.currentTarget.children[0].textContent === "Advanced access") {
-      console.log($event.currentTarget.children[0].textContent);
       this.$emit("advancedAccess", this.positionId);
       this.accsessList = !this.accsessList;
     }

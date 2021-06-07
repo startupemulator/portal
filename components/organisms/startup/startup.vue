@@ -1,9 +1,8 @@
 <template>
-  <div>
+  <div v-cloak>
     <RequestToTeam
       v-show="requestToTeam"
       :update-key="updateKey"
-      :applications="updatableDataApplications"
       :startup="updatableDataStartup"
       @clikOnButton="toggleRequestToTeam"
       @accept="accept"
@@ -22,17 +21,32 @@
       v-show="editStartupInfo"
       :startup="updatableDataStartup"
       :estimations="estimations"
-      @clikOnButton="toggleEditStartupInfo"
       @updateStartup="updateStartup($event)"
     ></EditStartupInfo>
-    <EditTeam v-show="editTeam" @clikOnButton="toggleEditTeam"></EditTeam>
+    <EditTeam
+      v-show="editTeam"
+      :update-key="updateKey"
+      :staffed-position="staffedPosition"
+      :startup="updatableDataStartup"
+      :specialisations="specialisations"
+      :technologies="technologies"
+      :startup-id="moveAwayStartup"
+      @clikOnButton="toggleEditTeam"
+      @advancedAccess="advancedAccess"
+      @defaultAccess="accept"
+    ></EditTeam>
     <EditSources
       v-show="editSources"
       :sources="updatableDataStartup.sources"
       :startup-id="moveAwayStartup"
       @clikOnButton="toggleEditSources"
     ></EditSources>
-    <EditGuide v-show="editGuide" @clikOnButton="toggleEditGuide"></EditGuide>
+    <EditGuide
+      v-show="editGuide"
+      :secrets="updatableDataStartup.secrets"
+      :startup-id="moveAwayStartup"
+      @clikOnButton="toggleEditGuide"
+    ></EditGuide>
     <FinishStartup
       v-show="finishStartup"
       @clikOnButton="toggleFinishStartup"
@@ -374,6 +388,8 @@ import ProjectParticipant from "~/components/molecules/projectParticipant.vue";
 import Sources from "~/components/molecules/sources.vue";
 import CommentExpert from "~/components/molecules/commentForExpert.vue";
 import { Feedbacks } from "~/models/Feedbacks";
+import { Specialisation } from "~/models/Specialisation";
+import { Technology } from "~/models/Technology";
 import { Applications } from "~/models/Applications";
 import Toast from "~/store/modules/Toast";
 import Spiner from "~/components/molecules/spiner.vue";
@@ -407,14 +423,17 @@ export default class extends Vue {
   @Prop() startup!: Array<Startup>;
   @Prop() feedbacks: Array<Feedbacks>;
   @Prop() isOwner: Boolean;
+
   @Prop() applications!: Array<Applications>;
   @Prop() isDeveloper: Boolean;
   @Prop() developerPosition: String;
   @Prop() estimations: Array<Estimation>;
-
+  @Prop() specialisations: Array<Specialisation>;
+  @Prop() technologies: Array<Technology>;
   updatableDataStartup = this.startup;
   updatableDataApplications = this.applications;
   openPosition = [];
+  staffedPosition = [];
   moveAwayStartup: string = "";
   moveAwayStartupName: string = "";
   popupCancelApplication = false;
@@ -503,12 +522,35 @@ export default class extends Vue {
     } else if (this.startup.state === "finished") {
       return (this.finished = true);
     }
+
     this.openPosition = this.startup.positions.filter(
       (position) => position.status === "open"
     );
+    this.updateKey = 1;
+    // this.staffedPosition = this.updatableDataApplications.filter(
+    //   (position) => position.position.status === "staffed"
+    // );
     this.moveAwayStartup = this.startup.id;
     this.moveAwayStartupName = this.startup.title;
+    // console.log(this.updatableDataStartup.positions);
+
+    // if position staffed in startup...position.application can't chenge status
+    // this.updatableDataStartup.positions.forEach((position) => {
+    //   if (position.status === "staffed" || position.status === "open") {
+    //     this.staffedPosition.push(position);
+    //   }
+    // });
   }
+
+  // @Watch("updateKey")
+  // update() {
+  //   this.staffedPosition = [];
+  //   this.updatableDataStartup.positions.forEach((position) => {
+  //     if (position.status === "staffed" || position.status === "open") {
+  //       this.staffedPosition.push(position);
+  //     }
+  //   });
+  // }
 
   async accept(id) {
     this.loading = true;
@@ -516,9 +558,11 @@ export default class extends Vue {
       const accept = await this.$applicationAccept(id);
       if (accept) {
         const startup = await this.$startupById(this.startup.id);
+
         const { applications } = await this.$applicationsByStartupId(
           this.startup.id
         );
+        // position to staffed
         if (startup !== null) {
           this.updatableDataStartup = startup;
         }
