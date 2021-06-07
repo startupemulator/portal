@@ -22,6 +22,7 @@
       :startup="updatableDataStartup"
       :estimations="estimations"
       @updateStartup="updateStartup($event)"
+      @clikOnButton="toggleEditStartupInfo"
     ></EditStartupInfo>
     <EditTeam
       v-show="editTeam"
@@ -90,24 +91,28 @@
         <U-back :title="'Startups'" :link="'/startups'"></U-back>
 
         <div class="startup__header">
-          <U-title :text="'Startup #' + startup.id"></U-title>
+          <U-title :text="'Startup #' + updatableDataStartup.id"></U-title>
           <div
             class="startup__header__startup-state"
             :class="isStarted ? 'started' : finished ? 'finished' : ''"
           >
-            {{ startup.state.split("_").join(" ") | capitalize }}
+            {{ updatableDataStartup.state.split("_").join(" ") | capitalize }}
           </div>
         </div>
         <div class="startup-card__started-start-time">
           <div class="started-start-time__start">
             <h3>Start</h3>
             <p>
-              {{ new Date(startup.start_date).toUTCString().substr(4, 12) }}
+              {{
+                new Date(updatableDataStartup.start_date)
+                  .toUTCString()
+                  .substr(4, 12)
+              }}
             </p>
           </div>
           <div class="started-start-time__duration">
             <h3>Duration</h3>
-            <p>{{ startup.duration }} days</p>
+            <p>{{ updatableDataStartup.duration }} days</p>
           </div>
         </div>
         <div v-if="isDeveloper" class="applied-startup">
@@ -146,7 +151,7 @@
         </div>
 
         <p class="startup__description">
-          {{ startup.description }}
+          {{ updatableDataStartup.description }}
         </p>
         <CommentExpert v-if="isExpert"></CommentExpert>
 
@@ -177,7 +182,11 @@
               </button>
             </li>
             <li class="owner-menu__item">
-              <button v-if="!isStarted" type="button">
+              <button
+                v-if="!isStarted"
+                type="button"
+                @click="togglepopupDeleteOrStartStartup('start')"
+              >
                 <span>Start Startup</span>
 
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
@@ -216,7 +225,7 @@
               </button>
             </li>
             <li class="owner-menu__item">
-              <button type="button" @click="togglePopupDeleteStartup">
+              <button type="button" @click="togglepopupDeleteOrStartStartup">
                 <span v-if="!isStarted">Delete Startup</span>
                 <span v-if="isStarted">Finish Startup</span>
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
@@ -252,7 +261,7 @@
             v-for="item in openPosition"
             :key="item.id"
             :position="item"
-            :slug="startup.slug"
+            :slug="updatableDataStartup.slug"
             :is-owner="isOwner"
           ></Open-position-card>
         </div>
@@ -260,8 +269,8 @@
           <h3>Team</h3>
 
           <ProjectParticipant
-            :owner="startup.owner"
-            :technologies="startup.technologies"
+            :owner="updatableDataStartup.owner"
+            :technologies="updatableDataStartup.technologies"
           ></ProjectParticipant>
         </div>
       </div>
@@ -316,7 +325,13 @@
 
         <div class="project-started">
           <h4>Project started</h4>
-          <p>{{ new Date(startup.start_date).toUTCString().substr(4, 18) }}</p>
+          <p>
+            {{
+              new Date(updatableDataStartup.start_date)
+                .toUTCString()
+                .substr(4, 18)
+            }}
+          </p>
         </div>
       </div>
       <div class="position-card__developer__primary-button">
@@ -350,14 +365,16 @@
           </div>
         </div>
       </div>
-      <PopupDeleteStartup
-        v-show="popupDeleteStartup"
+      <PopupDeleteOrStartStartup
+        v-show="popupDeleteOrStartStartup"
         :move-away-startup="moveAwayStartup"
         :move-away-startup-name="moveAwayStartupName"
-        @clickOnButton="togglePopupDeleteStartup"
-        @closePopupLinkEmail="togglePopupDeleteStartup"
+        :is-start-startup="isStartStartup"
+        @clickOnButton="togglepopupDeleteOrStartStartup"
+        @closePopupLinkEmail="togglepopupDeleteOrStartStartup"
         @deleteStartup="deleteStartup"
-      ></PopupDeleteStartup>
+        @startStartup="startStartup('in_progress')"
+      ></PopupDeleteOrStartStartup>
       <GuidePopup v-if="popupGuide" @closePopup="togglePopupGuide"></GuidePopup>
     </div>
     <Spiner :loading="loading"></Spiner>
@@ -383,7 +400,7 @@ import UTitle from "~/components/atoms/uTitle.vue";
 import OpenPositionCard from "~/components/molecules/openPositionCard.vue";
 import { Startup } from "~/models/Startup";
 import UButton from "~/components/atoms/uButton.vue";
-import PopupDeleteStartup from "~/components/molecules/popupDeleteStartup.vue";
+import PopupDeleteOrStartStartup from "~/components/molecules/PopupDeleteOrStartStartup.vue";
 import ProjectParticipant from "~/components/molecules/projectParticipant.vue";
 import Sources from "~/components/molecules/sources.vue";
 import CommentExpert from "~/components/molecules/commentForExpert.vue";
@@ -400,7 +417,7 @@ import Spiner from "~/components/molecules/spiner.vue";
     UButton,
     UTitle,
     OpenPositionCard,
-    PopupDeleteStartup,
+    PopupDeleteOrStartStartup,
     ProjectParticipant,
     FeedBackCard,
     GuidePopup,
@@ -423,7 +440,6 @@ export default class extends Vue {
   @Prop() startup!: Array<Startup>;
   @Prop() feedbacks: Array<Feedbacks>;
   @Prop() isOwner: Boolean;
-
   @Prop() applications!: Array<Applications>;
   @Prop() isDeveloper: Boolean;
   @Prop() developerPosition: String;
@@ -437,10 +453,11 @@ export default class extends Vue {
   moveAwayStartup: string = "";
   moveAwayStartupName: string = "";
   popupCancelApplication = false;
+  isStartStartup = false;
 
   isExpert = false;
   isStarted = false;
-  popupDeleteStartup = false;
+  popupDeleteOrStartStartup = false;
   popupGuide = false;
   finished = false;
   requestToTeam = false;
@@ -504,8 +521,13 @@ export default class extends Vue {
     this.popupCancelApplication = !this.popupCancelApplication;
   }
 
-  togglePopupDeleteStartup() {
-    this.popupDeleteStartup = !this.popupDeleteStartup;
+  togglepopupDeleteOrStartStartup(data) {
+    if (data === "start") {
+      this.isStartStartup = true;
+    } else {
+      this.isStartStartup = false;
+    }
+    this.popupDeleteOrStartStartup = !this.popupDeleteOrStartStartup;
   }
 
   deleteStartup(startupName, startupId) {
@@ -527,30 +549,10 @@ export default class extends Vue {
       (position) => position.status === "open"
     );
     this.updateKey = 1;
-    // this.staffedPosition = this.updatableDataApplications.filter(
-    //   (position) => position.position.status === "staffed"
-    // );
+
     this.moveAwayStartup = this.startup.id;
     this.moveAwayStartupName = this.startup.title;
-    // console.log(this.updatableDataStartup.positions);
-
-    // if position staffed in startup...position.application can't chenge status
-    // this.updatableDataStartup.positions.forEach((position) => {
-    //   if (position.status === "staffed" || position.status === "open") {
-    //     this.staffedPosition.push(position);
-    //   }
-    // });
   }
-
-  // @Watch("updateKey")
-  // update() {
-  //   this.staffedPosition = [];
-  //   this.updatableDataStartup.positions.forEach((position) => {
-  //     if (position.status === "staffed" || position.status === "open") {
-  //       this.staffedPosition.push(position);
-  //     }
-  //   });
-  // }
 
   async accept(id) {
     this.loading = true;
@@ -565,6 +567,19 @@ export default class extends Vue {
         // position to staffed
         if (startup !== null) {
           this.updatableDataStartup = startup;
+          if (this.startup.state === "in_progress") {
+            return (this.isStarted = true);
+          } else if (this.startup.state === "finished") {
+            return (this.finished = true);
+          }
+
+          this.openPosition = this.startup.positions.filter(
+            (position) => position.status === "open"
+          );
+          this.updateKey = 1;
+
+          this.moveAwayStartup = this.startup.id;
+          this.moveAwayStartupName = this.startup.title;
         }
         if (applications !== null) {
           this.updatableDataApplications = applications;
@@ -648,6 +663,39 @@ export default class extends Vue {
           duration: 3000,
         });
         this.loading = false;
+      }
+    } catch (e) {
+      console.error(e);
+      Toast.show({
+        data: e.message,
+        duration: 3000,
+      });
+      this.loading = false;
+    }
+  }
+
+  async startStartup(state) {
+    console.log(state);
+    this.loading = true;
+    try {
+      const updateStartup = await this.$updateStateStartup(
+        this.startup.id,
+        state
+      );
+      if (+this.startup.id === +updateStartup.id) {
+        const startup = await this.$startupById(this.startup.id);
+        if (startup !== null) {
+          this.updatableDataStartup = startup;
+          this.isStarted = true;
+        }
+        Toast.show({
+          data: "Startup started!",
+          duration: 3000,
+          success: true,
+        });
+        this.loading = false;
+        this.status = startup.status;
+        this.popupDeleteOrStartStartup = !this.popupDeleteOrStartStartup;
       }
     } catch (e) {
       console.error(e);

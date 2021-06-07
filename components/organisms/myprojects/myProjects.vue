@@ -50,7 +50,7 @@ import UTitle from "~/components/atoms/uTitle.vue";
 import { Startup } from "~/models/Startup";
 import DraftCard from "~/components/molecules/draftCard.vue";
 import StartupCard from "~/components/molecules/startupCard.vue";
-import PopupDeleteStartup from "~/components/molecules/popupDeleteStartup.vue";
+import PopupDeleteStartup from "~/components/molecules/PopupDeleteOrStartStartup.vue";
 
 @Component({
   components: {

@@ -15,6 +15,7 @@ import {
   startupById,
   startupByAcceptedApplication,
   updateStartupInfo,
+  updateStateStartup,
 } from "~/plugins/services/startups";
 import { Startup } from "~/models/Startup";
 import { challenge, challenges } from "~/plugins/services/challenges";
@@ -178,6 +179,7 @@ export interface Services {
     duration: string,
     title: string
   ): Promise<Partial<Startup>[]>;
+  $updateStateStartup(id: string, state: string): Promise<Partial<Startup>[]>;
 
   $filterStartup(id: Array<string>): Promise<Partial<Startup>>;
   $testimonials(): Promise<Partial<Testimonial>[]>;
@@ -279,6 +281,7 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("deleteDraft", deleteDraft(ctx.$strapi));
   inject("startup", startup(ctx.$strapi));
   inject("updateStartupInfo", updateStartupInfo(ctx.$strapi));
+  inject("updateStateStartup", updateStateStartup(ctx.$strapi));
 
   inject("profile", profile(ctx.$strapi));
   inject("updateProfile", updateProfile(ctx.$strapi));

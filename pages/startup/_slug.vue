@@ -1,6 +1,5 @@
 <template>
   <div class="startups-page">
-    <!-- <pre style="color: #fff">    {{ startup }}</pre> -->
     <Spiner :loading="loading"></Spiner>
     <StartupPage
       :startup="startup"
@@ -13,7 +12,6 @@
       :technologies="technologies"
       :specialisations="specialisations"
       @deleteStartup="deleteStartup"
-      @cancelApplication="cancelApplication"
     ></StartupPage>
   </div>
 </template>
@@ -37,7 +35,6 @@ export default class TakeStartup extends Vue {
   developerPosition = "";
   applicationId = "";
   loading = false;
-
   async asyncData({
     $startup,
     $feedbacks,
@@ -46,7 +43,6 @@ export default class TakeStartup extends Vue {
     $estimations,
     $specialisations,
     $technologies,
-    $startupById,
   }) {
     const startup = await $startup(route.params.slug);
     const feedbacks = await $feedbacks();
@@ -54,6 +50,7 @@ export default class TakeStartup extends Vue {
     const { estimations } = await $estimations();
     const { specialisations } = await $specialisations();
     const { technologies } = await $technologies();
+
     return {
       startup,
       feedbacks,

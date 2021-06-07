@@ -131,7 +131,7 @@ export default {
       }
     }
   }
-  .delete-startup__input .standard-input {
+  .update-startup__input .standard-input {
     padding-left: 24px;
   }
 }
