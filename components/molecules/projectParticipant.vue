@@ -4,7 +4,7 @@
     <div class="specializacion_names">
       <nuxt-link
         class="project-participant__team-button"
-        :to="'/profile/' + owner.name"
+        :to="'/user/' + owner.name"
       >
         <span>{{ owner.name }}</span>
         <img src="~/assets/img/arrow.svg" alt="arrow" />

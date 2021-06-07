@@ -23,9 +23,9 @@
         v-show="opendPosition"
         :key="item.id"
         :name="item.user.username"
-        :uncheck="item.status === 'declined' ? true : false"
-        :check="item.status === 'accepted' ? true : false"
-        :advanced="item.status === 'advanced' ? true : false"
+        :uncheck="item.status === 'declined'"
+        :check="item.status === 'accepted'"
+        :advanced="item.status === 'advanced'"
         :access="
           item.status === 'accepted'
             ? true
