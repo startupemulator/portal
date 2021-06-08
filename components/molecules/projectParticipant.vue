@@ -55,11 +55,13 @@ export default class AppHeader extends Vue {
   mounted() {
     if (this.username.length !== undefined) {
       this.username.forEach((item) =>
-        item.user.profile.technologies.forEach((el) =>
-          this.technologies.push(el)
-        )
+        item.user.profile.technologies.forEach((el) => {
+          this.technologies.push(el);
+        })
       );
-      console.log(this.technologies);
+      this.technologies = this.technologies.filter(
+        (v, i, a) => a.findIndex((t) => t.id === v.id) === i
+      );
     }
   }
 }
