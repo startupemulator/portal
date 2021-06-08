@@ -6,7 +6,7 @@
 
         <p>{{ new Date(feedback.published_at).toUTCString().substr(4, 18) }}</p>
         <div
-          v-if="activity_state"
+          v-if="true"
           class="startup-card__activity-like active-like"
           :class="show_feedback ? 'opend-feedback' : ''"
         >
@@ -79,10 +79,9 @@
             </span>
             <div class="feedbacks_badges">
               <img
-                v-for="badge in feedbackImgUrl"
-                v-show="profileImg"
+                v-for="badge in feedback.badges"
                 :key="badge.id"
-                :src="badge.src"
+                :src="badge.image[0].url"
                 :alt="badge.title"
               />
             </div>
@@ -129,6 +128,7 @@ export default class extends Vue {
 
   // url.image[0].url
   mounted() {
+    // console.log(this.feedback);
     // this.feedback.badges.forEach((url) => {
     //   this.feedbackImgUrl.push({
     //     id: url.id,

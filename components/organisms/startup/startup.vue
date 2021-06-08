@@ -265,6 +265,7 @@
             :position="item"
             :slug="updatableDataStartup.slug"
             :is-owner="isOwner"
+            :is-developer="isDeveloper"
           ></Open-position-card>
         </div>
         <div v-cloak class="startup-card__team">
@@ -375,7 +376,11 @@
         @deleteStartup="deleteStartup"
         @startStartup="startStartup('in_progress')"
       ></PopupDeleteOrStartStartup>
-      <GuidePopup v-if="popupGuide" @closePopup="togglePopupGuide"></GuidePopup>
+      <GuidePopup
+        v-if="popupGuide"
+        :startup="updatableDataStartup"
+        @closePopup="togglePopupGuide"
+      ></GuidePopup>
     </div>
     <Spiner :loading="loading"></Spiner>
   </div>

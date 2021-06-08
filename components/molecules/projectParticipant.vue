@@ -1,7 +1,7 @@
 <template>
   <div class="project-participant">
     <p>{{ position || "Product Owners" }}</p>
-    <div v-if="!isOwner" style="display: flex">
+    <div v-if="!isOwner" style="display: flex; flex-wrap: wrap">
       <div
         v-for="user in username"
         :key="user.name"
