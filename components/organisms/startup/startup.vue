@@ -287,7 +287,7 @@
         </div>
       </div>
       <div v-if="isStarted || finished" class="startup_block-3">
-        <Sources :finished="finished"></Sources>
+        <Sources :finished="finished" :startup="updatableDataStartup"></Sources>
         <div class="startup-card__activity">
           <h3>Activity</h3>
           <!-- Statick -> change to feed-back-card -->
