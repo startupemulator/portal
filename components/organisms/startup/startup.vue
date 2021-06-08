@@ -53,6 +53,7 @@
     <FinishStartup
       v-show="finishStartup"
       @clikOnButton="toggleFinishStartup"
+      @finishStartup="finishThisStartup"
     ></FinishStartup>
     <EditSources
       v-show="releaseLikns"
@@ -227,9 +228,21 @@
               </button>
             </li>
             <li class="owner-menu__item">
-              <button type="button" @click="togglepopupDeleteOrStartStartup">
-                <span v-if="!isStarted">Delete Startup</span>
-                <span v-if="isStarted">Finish Startup</span>
+              <button
+                v-if="!isStarted"
+                type="button"
+                @click="togglepopupDeleteOrStartStartup"
+              >
+                <span>Delete Startup</span>
+
+                <img src="~/assets/img/arrow.svg" alt="arrow" />
+              </button>
+              <button
+                v-if="isStarted"
+                type="button"
+                @click="toggleFinishStartup"
+              >
+                <span>Finish Startup</span>
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
               </button>
             </li>
@@ -683,7 +696,6 @@ export default class extends Vue {
   }
 
   async startStartup(state) {
-    console.log(state);
     this.loading = true;
     try {
       const updateStartup = await this.$updateStateStartup(
@@ -704,6 +716,36 @@ export default class extends Vue {
         this.loading = false;
         this.status = startup.status;
         this.popupDeleteOrStartStartup = !this.popupDeleteOrStartStartup;
+      }
+    } catch (e) {
+      console.error(e);
+      Toast.show({
+        data: e.message,
+        duration: 3000,
+      });
+      this.loading = false;
+    }
+  }
+
+  async finishThisStartup() {
+    this.loading = true;
+    try {
+      const finishStartup = await this.$finishStartup(this.startup.id);
+      if (+this.startup.id === +finishStartup.id) {
+        const startup = await this.$startupById(this.startup.id);
+        if (startup !== null) {
+          this.updatableDataStartup = startup;
+          this.isStarted = false;
+          this.finished = true;
+        }
+        Toast.show({
+          data: "Startup finished!",
+          duration: 3000,
+          success: true,
+        });
+        this.loading = false;
+        this.status = startup.status;
+        this.finishStartup = !this.finishStartup;
       }
     } catch (e) {
       console.error(e);
