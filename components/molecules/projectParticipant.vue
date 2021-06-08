@@ -9,11 +9,10 @@
       >
         <nuxt-link
           class="project-participant__team-button"
-          :to="'/user/' + user.name"
+          :to="'/user/' + user.user.username"
         >
           <!-- <span>{{ user }}</span> -->
           <span>{{ user.user ? user.user.username : "" }}</span>
-
           <img src="~/assets/img/arrow.svg" alt="arrow" />
         </nuxt-link>
       </div>
@@ -22,7 +21,7 @@
       <div class="specializacion_names">
         <nuxt-link
           class="project-participant__team-button"
-          :to="'/user/' + username.name"
+          :to="'/user/' + username.username"
         >
           <span>{{ username.name }}</span>
 
@@ -56,7 +55,7 @@ export default class AppHeader extends Vue {
   @Prop() technology: Array<Technology>;
   @Prop() isOwner: boolean;
   mounted() {
-    console.log(this.username.name);
+    console.log(this.username);
   }
 }
 </script>

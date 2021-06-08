@@ -84,6 +84,7 @@ export function startup($strapi: Strapi) {
           owner {
             id
             name
+            username
             invites{
               id
               email
@@ -178,6 +179,7 @@ export function startupById($strapi: Strapi) {
           owner {
             id
             name
+            username
             invites{
               id
               email
