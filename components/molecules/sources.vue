@@ -2,28 +2,28 @@
   <div class="startup-card__sources">
     <h3>Sources</h3>
     <div class="startup-card__sources--finished">
-      <div class="startup-card__sources-repository">
-        <div
-          v-for="item in startup.sources"
-          :key="item.id"
-          class="startup-card__sources-content"
-        >
-          <div>
-            <h5>{{ item.title }}</h5>
-            <p>{{ item.link }}</p>
-          </div>
-          <a
-            target="_blank"
-            :href="item.link"
-            type="button"
-            class="startup-card__sources-button"
-          >
-            <img src="~/assets/img/sources.svg" alt="sources" />
-          </a>
+      <!-- <div class="startup-card__sources-repository"> -->
+      <div
+        v-for="item in startup.sources"
+        :key="item.id"
+        class="startup-card__sources-content"
+      >
+        <div>
+          <h5>{{ item.title }}</h5>
+          <p>{{ item.link }}</p>
         </div>
+        <a
+          target="_blank"
+          :href="item.link"
+          type="button"
+          class="startup-card__sources-button"
+        >
+          <img src="~/assets/img/sources.svg" alt="sources" />
+        </a>
       </div>
+      <!-- </div> -->
 
-      <div v-if="finished" class="startup-card__sources-design">
+      <!-- <div v-if="finished" class="startup-card__sources-design">
         <div class="startup-card__sources-content">
           <div>
             <h5>{{ link2 }}</h5>
@@ -38,7 +38,7 @@
             <img src="~/assets/img/sources.svg" alt="sources" />
           </a>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -76,15 +76,14 @@ export default class extends Vue {
     padding: 20px 0 20px 24px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     max-width: 403px;
     margin-bottom: 16px;
-    &:last-child {
-      margin-bottom: 0;
-    }
   }
   .startup-card__sources-button {
     background: transparent;
     padding: 0;
+    margin-left: 20px;
   }
   h5 {
     font-weight: normal;
@@ -94,7 +93,6 @@ export default class extends Vue {
   }
   p {
     word-break: break-all;
-    width: 90%;
     margin: 0;
     font-weight: normal;
     font-size: 14px;
@@ -115,9 +113,6 @@ export default class extends Vue {
     .startup-card__sources-content {
       padding: 24px 0 24px 32px;
       margin-bottom: 24px;
-      &:last-child {
-        margin-bottom: 0;
-      }
     }
   }
 
@@ -134,6 +129,7 @@ export default class extends Vue {
   }
   .startup-card__sources--finished {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     .startup-card__sources-content {
       width: 403px;

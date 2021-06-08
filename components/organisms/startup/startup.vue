@@ -247,8 +247,30 @@
               </button>
             </li>
           </ul>
-          <ul v-if="finished" class="owner-menu__list">
+          <!-- <ul v-if="finished" class="owner-menu__list">
             <li class="owner-menu__item">
+              <button type="button" @click="toggleReleaseLikns">
+                <span>Add Release Links </span>
+                <img src="~/assets/img/arrow.svg" alt="arrow" />
+              </button>
+            </li>
+            <li class="owner-menu__item">
+              <button type="button">
+                <span>See on Product Hunt </span>
+                <img src="~/assets/img/arrow.svg" alt="arrow" />
+              </button>
+            </li>
+            <li class="owner-menu__item">
+              <button type="button">
+                <span>Read Study Case </span>
+                <img src="~/assets/img/arrow.svg" alt="arrow" />
+              </button>
+            </li>
+          </ul> -->
+        </div>
+        <div v-if="finished" class="owner-menu">
+          <ul class="owner-menu__list">
+            <li v-if="isOwner" class="owner-menu__item">
               <button type="button" @click="toggleReleaseLikns">
                 <span>Add Release Links </span>
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
@@ -269,8 +291,14 @@
           </ul>
         </div>
       </div>
-      <div class="startup_block-2">
-        <div v-if="openPosition.length > 0" class="startup__open-position">
+      <div
+        class="startup_block-2"
+        :style="finished && isOwner ? 'order:3' : ''"
+      >
+        <div
+          v-if="openPosition.length > 0 && !finished"
+          class="startup__open-position"
+        >
           <h3>Open positions</h3>
           <Open-position-card
             v-for="item in openPosition"
