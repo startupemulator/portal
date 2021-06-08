@@ -13,6 +13,7 @@
         <U-button
           :button-name="'Yes, Finish'"
           :button-class="'u-button-blue'"
+          @clickOnButton="$emit('finishStartup')"
         ></U-button>
         <U-button
           :button-name="'No, Don’t Finish'"

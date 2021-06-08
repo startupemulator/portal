@@ -53,6 +53,7 @@
     <FinishStartup
       v-show="finishStartup"
       @clikOnButton="toggleFinishStartup"
+      @finishStartup="finishThisStartup"
     ></FinishStartup>
     <EditSources
       v-show="releaseLikns"
@@ -227,15 +228,49 @@
               </button>
             </li>
             <li class="owner-menu__item">
-              <button type="button" @click="togglepopupDeleteOrStartStartup">
-                <span v-if="!isStarted">Delete Startup</span>
-                <span v-if="isStarted">Finish Startup</span>
+              <button
+                v-if="!isStarted"
+                type="button"
+                @click="togglepopupDeleteOrStartStartup"
+              >
+                <span>Delete Startup</span>
+
+                <img src="~/assets/img/arrow.svg" alt="arrow" />
+              </button>
+              <button
+                v-if="isStarted"
+                type="button"
+                @click="toggleFinishStartup"
+              >
+                <span>Finish Startup</span>
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
               </button>
             </li>
           </ul>
-          <ul v-if="finished" class="owner-menu__list">
+          <!-- <ul v-if="finished" class="owner-menu__list">
             <li class="owner-menu__item">
+              <button type="button" @click="toggleReleaseLikns">
+                <span>Add Release Links </span>
+                <img src="~/assets/img/arrow.svg" alt="arrow" />
+              </button>
+            </li>
+            <li class="owner-menu__item">
+              <button type="button">
+                <span>See on Product Hunt </span>
+                <img src="~/assets/img/arrow.svg" alt="arrow" />
+              </button>
+            </li>
+            <li class="owner-menu__item">
+              <button type="button">
+                <span>Read Study Case </span>
+                <img src="~/assets/img/arrow.svg" alt="arrow" />
+              </button>
+            </li>
+          </ul> -->
+        </div>
+        <div v-if="finished" class="owner-menu">
+          <ul class="owner-menu__list">
+            <li v-if="isOwner" class="owner-menu__item">
               <button type="button" @click="toggleReleaseLikns">
                 <span>Add Release Links </span>
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
@@ -256,8 +291,14 @@
           </ul>
         </div>
       </div>
-      <div class="startup_block-2">
-        <div v-if="openPosition.length > 0" class="startup__open-position">
+      <div
+        class="startup_block-2"
+        :style="finished && isOwner ? 'order:3' : ''"
+      >
+        <div
+          v-if="openPosition.length > 0 && !finished"
+          class="startup__open-position"
+        >
           <h3>Open positions</h3>
           <Open-position-card
             v-for="item in openPosition"
@@ -265,6 +306,7 @@
             :position="item"
             :slug="updatableDataStartup.slug"
             :is-owner="isOwner"
+            :is-developer="isDeveloper"
           ></Open-position-card>
         </div>
         <div v-cloak class="startup-card__team">
@@ -375,7 +417,11 @@
         @deleteStartup="deleteStartup"
         @startStartup="startStartup('in_progress')"
       ></PopupDeleteOrStartStartup>
-      <GuidePopup v-if="popupGuide" @closePopup="togglePopupGuide"></GuidePopup>
+      <GuidePopup
+        v-if="popupGuide"
+        :startup="updatableDataStartup"
+        @closePopup="togglePopupGuide"
+      ></GuidePopup>
     </div>
     <Spiner :loading="loading"></Spiner>
   </div>
@@ -678,7 +724,6 @@ export default class extends Vue {
   }
 
   async startStartup(state) {
-    console.log(state);
     this.loading = true;
     try {
       const updateStartup = await this.$updateStateStartup(
@@ -699,6 +744,36 @@ export default class extends Vue {
         this.loading = false;
         this.status = startup.status;
         this.popupDeleteOrStartStartup = !this.popupDeleteOrStartStartup;
+      }
+    } catch (e) {
+      console.error(e);
+      Toast.show({
+        data: e.message,
+        duration: 3000,
+      });
+      this.loading = false;
+    }
+  }
+
+  async finishThisStartup() {
+    this.loading = true;
+    try {
+      const finishStartup = await this.$finishStartup(this.startup.id);
+      if (+this.startup.id === +finishStartup.id) {
+        const startup = await this.$startupById(this.startup.id);
+        if (startup !== null) {
+          this.updatableDataStartup = startup;
+          this.isStarted = false;
+          this.finished = true;
+        }
+        Toast.show({
+          data: "Startup finished!",
+          duration: 3000,
+          success: true,
+        });
+        this.loading = false;
+        this.status = startup.status;
+        this.finishStartup = !this.finishStartup;
       }
     } catch (e) {
       console.error(e);

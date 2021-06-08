@@ -13,7 +13,10 @@
           :title="technology.title"
         ></U-tags>
       </div>
-      <div v-if="!isOwner" class="position-card__developer__button">
+      <div
+        v-if="!isOwner && !isDeveloper"
+        class="position-card__developer__button"
+      >
         <U-button
           :button-name="'Apply to Team'"
           :button-class="'u-button-blue'"
@@ -36,6 +39,7 @@ export default class AppHeader extends Vue {
   @Prop() position: Array<any>;
   @Prop() slug: string;
   @Prop() isOwner: string;
+  @Prop() isDeveloper: string;
 }
 </script>
 

@@ -347,6 +347,26 @@ export function updateStateStartup($strapi: Strapi) {
   };
 }
 
+export function finishStartup($strapi: Strapi) {
+  return async (id: string) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+        updateStartup (
+          input: {
+          where: {id: "${id}" }
+          data: {state: finished}
+         }
+         ) {
+          startup{
+            id
+            state 
+            }
+          }
+        }`,
+    });
+    return data.updateStartup ? data.updateStartup.startup : null;
+  };
+}
 export function filterStartup($strapi: Strapi) {
   return async (technologies: Array<string>) => {
     const data = await $strapi.graphql({

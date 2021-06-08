@@ -4,7 +4,7 @@ export function feedbacks($strapi: Strapi) {
   return async () => {
     const data = await $strapi.graphql({
       query: `query {
-        feedbacks {
+        feedbacks(sort: "published_at:desc") {
     id
     description
     is_public

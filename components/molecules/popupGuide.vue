@@ -10,21 +10,44 @@
       </button>
       <u-title :text="'Guide'"></u-title>
 
-      <h4>GitHub</h4>
-      <p>Login: <span>startup</span></p>
-      <p>Password: <span>12345678</span></p>
-      <div class="slack">Slack</div>
-      <a target="_blank" href="startup1.slack.com">startup1.slack.com</a>
+      <div v-for="guide in startup.secrets" :key="guide.id" class="guide">
+        <h4>{{ guide.title }}</h4>
+        <p
+          v-if="
+            guide.description.split(':')[0] !== 'https' &&
+            guide.description.split(':')[0] !== 'http'
+          "
+        >
+          {{ guide.description }}
+        </p>
+        <a v-else target="_blank" :href="guide.description">{{
+          guide.description
+        }}</a>
+      </div>
     </div>
   </div>
 </template>
-<script>
-import UTitle from "../atoms/uTitle.vue";
-export default {
-  components: { UTitle },
-};
-</script>
 
+<script lang="ts">
+import { Component, Prop, Vue } from "nuxt-property-decorator";
+import UTitle from "../atoms/uTitle.vue";
+import { Startup } from "~/models/Startup";
+
+@Component({
+  components: {
+    UTitle,
+  },
+})
+export default class extends Vue {
+  @Prop() startup: Array<Startup>;
+
+  mounted() {
+    console.log(this.startup.secrets[0].description.split(":")[0]);
+
+    console.log(this.startup.secrets[1].description.split(":")[0]);
+  }
+}
+</script>
 <style lang="scss" scoped>
 .guide-popup {
   position: fixed;
@@ -70,7 +93,7 @@ export default {
       font-size: 16px;
       line-height: 22px;
     }
-    .slack {
+    .guide {
       margin-top: 20px;
     }
     a {
@@ -79,7 +102,7 @@ export default {
       line-height: 22px;
       color: #fff !important;
       display: inline-block;
-      margin-top: 16px;
+      word-break: break-all;
     }
   }
 }
@@ -107,7 +130,7 @@ export default {
         font-size: 17px;
         line-height: 24px;
       }
-      .slack {
+      .guide {
         font-weight: 600;
         font-size: 18px;
         line-height: 32px;
