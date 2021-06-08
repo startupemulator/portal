@@ -3,6 +3,7 @@
     <div class="feed-back-card__main-content">
       <div class="feed-back-card__main-content-header">
         <h3>{{ author }} <span>for</span> Startup #1</h3>
+
         <p>{{ new Date(feedback.published_at).toUTCString().substr(4, 18) }}</p>
         <div
           v-if="activity_state"
@@ -128,13 +129,13 @@ export default class extends Vue {
 
   // url.image[0].url
   mounted() {
-    this.feedback.badges.forEach((url) => {
-      this.feedbackImgUrl.push({
-        id: url.id,
-        src: url.image[0].url,
-        title: url.title,
-      });
-    });
+    // this.feedback.badges.forEach((url) => {
+    //   this.feedbackImgUrl.push({
+    //     id: url.id,
+    //     src: url.image[0].url,
+    //     title: url.title,
+    //   });
+    // });
   }
 }
 </script>

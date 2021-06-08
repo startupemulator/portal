@@ -1,9 +1,9 @@
 <template>
-  <div class="delete-startup">
-    <div class="delete-startup__content">
+  <div class="update-startup">
+    <div v-if="!isStartStartup" class="update-startup__content">
       <button
         type="button"
-        class="delete-startup__close"
+        class="update-startup__close"
         @click="$emit('closePopupLinkEmail')"
       >
         <img src="~/assets/img/close.svg" alt="Close" />
@@ -17,18 +17,42 @@
       <form>
         <U-input
           :placeholder="'Enter this startup’s name'"
-          :class="'delete-startup__input'"
+          :class="'update-startup__input'"
           @textInput="textInput"
         ></U-input>
 
-        <div class="delete-startup__buttons">
+        <div class="update-startup__buttons">
           <U-button
             :button-name="'Yes, Delete'"
             :button-class="'u-button-blue'"
-            @clickOnButton="deleteStartup"
+            @clickOnButton="updateStartup"
           ></U-button>
           <U-button
             :button-name="'No, Don’t Delete'"
+            :button-class="'u-button-gray '"
+            @clickOnButton="$emit('clickOnButton')"
+          ></U-button>
+        </div>
+      </form>
+    </div>
+    <div v-else class="update-startup__content" style="height: 200px">
+      <button
+        type="button"
+        class="update-startup__close"
+        @click="$emit('closePopupLinkEmail')"
+      >
+        <img src="~/assets/img/close.svg" alt="Close" />
+      </button>
+      <u-title :text="'Start this startup?'"></u-title>
+      <form>
+        <div class="update-startup__buttons">
+          <U-button
+            :button-name="'Yes, Start'"
+            :button-class="'u-button-blue'"
+            @clickOnButton="$emit('startStartup')"
+          ></U-button>
+          <U-button
+            :button-name="'No, Don’t Start'"
             :button-class="'u-button-gray '"
             @clickOnButton="$emit('clickOnButton')"
           ></U-button>
@@ -47,18 +71,19 @@ import UInput from "../atoms/uInput.vue";
 export default class extends Vue {
   @Prop() moveAwayStartup: string;
   @Prop() moveAwayStartupName: string;
+  @Prop() isStartStartup: boolean;
   startupName: string = "";
   textInput(e) {
     this.startupName = e;
   }
 
-  deleteStartup() {
-    this.$emit("deleteStartup", this.startupName, this.moveAwayStartup);
+  updateStartup() {
+    this.$emit("updateStartup", this.startupName, this.moveAwayStartup);
   }
 }
 </script>
 <style lang="scss" scoped>
-.delete-startup {
+.update-startup {
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -70,7 +95,7 @@ export default class extends Vue {
   justify-content: center;
   z-index: 5;
 
-  .delete-startup__content {
+  .update-startup__content {
     position: relative;
     width: 343px;
     height: 362px;
@@ -82,12 +107,12 @@ export default class extends Vue {
     box-sizing: border-box;
     margin-top: 175px;
 
-    .standart-label.delete-startup__input {
+    .standart-label.update-startup__input {
       margin-top: 8px;
       display: block;
     }
   }
-  .delete-startup__close {
+  .update-startup__close {
     position: absolute;
     right: 10px;
     top: 16px;
@@ -111,7 +136,7 @@ export default class extends Vue {
       font-weight: bold;
     }
   }
-  .delete-startup__buttons {
+  .update-startup__buttons {
     margin-top: 24px;
     button {
       margin-bottom: 16px;
@@ -119,8 +144,8 @@ export default class extends Vue {
   }
 }
 @media (min-width: 1280px) {
-  .delete-startup {
-    .delete-startup__content {
+  .update-startup {
+    .update-startup__content {
       width: 564px;
       height: 360px;
       padding: 0 48px;
@@ -139,7 +164,7 @@ export default class extends Vue {
         font-weight: bold;
       }
     }
-    .delete-startup__buttons {
+    .update-startup__buttons {
       display: flex;
       .u-button-gray {
         margin-left: 24px;

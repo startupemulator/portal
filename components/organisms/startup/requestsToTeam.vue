@@ -29,14 +29,13 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UTitle from "~/components/atoms/uTitle.vue";
 import PositionList from "~/components/molecules/positionList.vue";
 import UBack from "~/components/atoms/uBack.vue";
-// import { Applications } from "~/models/Applications";
+
 import { Startup } from "~/models/Startup";
 
 @Component({
   components: { UTitle, PositionList, UBack },
 })
 export default class extends Vue {
-  // @Prop() applications: Array<Applications>;
   @Prop() startup: Array<Startup>;
   @Prop() updateKey: Number;
 

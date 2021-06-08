@@ -3,12 +3,26 @@
     <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
     <UTitle :text="'Request feedback'"></UTitle>
     <TechnologyPicker
+      :key="loading"
       :title="'Pick technologies you need feedback in'"
+      :technologies="startup.technologies"
       :add-technology="false"
+      :choosen-technologies="pickedTechnology"
+      @chosenTechnologi="chosenTechnologi"
     ></TechnologyPicker>
+    <p v-show="$v.pickedTechnology.$error" class="errorInput">
+      Please pick technologies
+    </p>
     <div class="request-feedback__comment">
       <h4>Comment</h4>
-      <textarea placeholder="Enter your comment to our experts"></textarea>
+      <textarea
+        v-model="comment"
+        placeholder="Enter your comment to our experts"
+        :class="$v.comment.$error ? ' error' : ''"
+      ></textarea>
+      <p v-show="$v.comment.$error" class="errorInput">
+        Please enter a comment of at least 8 characters
+      </p>
     </div>
     <div class="request-feedback--button">
       <UButton
@@ -21,26 +35,77 @@
       v-show="UPopup"
       :title="'You successfully requested feedback from our experts'"
       :text-content="'Experts will receive your request and give feedback about your startup.'"
-      @closePopupLinkSent="toggleUPopup"
+      @closePopupLinkSent="closeUPopup"
     ></UPopup>
+    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
+import { Component, Prop, Vue } from "nuxt-property-decorator";
 
+import { required, minLength } from "vuelidate/lib/validators";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import TechnologyPicker from "~/components/molecules/technologyPicker.vue";
 import UPopup from "~/components/molecules/popupChallengeStarted.vue";
-
+import { Startup } from "~/models/Startup";
+import Toast from "~/store/modules/Toast";
+import Spiner from "~/components/molecules/spiner.vue";
 @Component({
-  components: { UBack, UTitle, TechnologyPicker, UButton, UPopup },
+  components: { UBack, UTitle, TechnologyPicker, UButton, UPopup, Spiner },
+  validations: {
+    comment: {
+      required,
+      minLength: minLength(8),
+    },
+    pickedTechnology: {
+      required,
+    },
+  },
 })
 export default class extends Vue {
+  @Prop() startup: Array<Startup>;
+  pickedTechnology = [];
+  comment = "";
+  loading = false;
   UPopup = false;
-  toggleUPopup() {
+  async toggleUPopup() {
+    console.log(this.startup.id);
+    this.$v.$touch();
+    if (!this.$v.$error) {
+      this.loading = true;
+      try {
+        const askFeedback = await this.$createAskFeedbackForStartup(
+          this.comment,
+          this.pickedTechnology,
+          this.startup.id
+        );
+        console.log(askFeedback);
+        if (askFeedback !== null) {
+          this.loading = false;
+          this.UPopup = !this.UPopup;
+        }
+      } catch (e) {
+        console.error(e);
+        Toast.show({
+          data: e.message,
+          duration: 3000,
+        });
+        this.loading = false;
+      }
+    }
+  }
+
+  closeUPopup() {
+    this.comment = "";
+    this.pickedTechnology = [];
     this.UPopup = !this.UPopup;
+  }
+
+  chosenTechnologi(pickedTechnology, pickedTechnologyId) {
+    this.pickedTechnology = pickedTechnologyId;
+    console.log("ad");
   }
 }
 </script>
@@ -51,6 +116,9 @@ export default class extends Vue {
   margin: 0 auto;
   margin-top: 40px;
   color: #fff;
+  .errorInput {
+    top: 0;
+  }
   .request-feedback__comment {
     h4 {
       font-weight: 500;

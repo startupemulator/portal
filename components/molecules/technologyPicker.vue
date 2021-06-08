@@ -4,7 +4,7 @@
     <form ref="technologyList">
       <u-tags
         v-for="item in technologies"
-        :id="item.id + '-' + Math.floor(Math.random() * 10000)"
+        :id="item.id"
         :key="item.id"
         :title="item.title"
         @pick="pickTechnology($event, item.id, item.title)"
@@ -14,6 +14,7 @@
     </form>
 
     <Add-input
+      v-if="addTechnology"
       :placeholder="'Type a technology to add'"
       :length="12"
       :title="false"
@@ -68,11 +69,7 @@ export default class extends Vue {
   mounted() {
     if (this.choosenTechnologies) {
       this.$refs.technologyList.forEach((el) => {
-        if (
-          this.choosenTechnologies.some(
-            (item) => item.id === el.id.split("-")[0]
-          )
-        ) {
+        if (this.choosenTechnologies.some((item) => item.id === el.id)) {
           el.parentElement.classList.add("checked");
         }
       });

@@ -1,6 +1,6 @@
 <template>
   <div class="startups-page">
-    <!-- <pre style="color: #fff">    {{ startup }}</pre> -->
+    <!-- <pre style="color: #fff">{{ feedbacks }} </pre> -->
     <Spiner :loading="loading"></Spiner>
     <StartupPage
       :startup="startup"
@@ -13,7 +13,6 @@
       :technologies="technologies"
       :specialisations="specialisations"
       @deleteStartup="deleteStartup"
-      @cancelApplication="cancelApplication"
     ></StartupPage>
   </div>
 </template>
@@ -37,23 +36,24 @@ export default class TakeStartup extends Vue {
   developerPosition = "";
   applicationId = "";
   loading = false;
-
   async asyncData({
     $startup,
     $feedbacks,
+    $askFeedbacks,
     $applicationsByStartupId,
     route,
     $estimations,
     $specialisations,
     $technologies,
-    $startupById,
   }) {
     const startup = await $startup(route.params.slug);
     const feedbacks = await $feedbacks();
+    const askFeedbacks = await $askFeedbacks();
     const { applications } = await $applicationsByStartupId(startup.id);
     const { estimations } = await $estimations();
     const { specialisations } = await $specialisations();
     const { technologies } = await $technologies();
+
     return {
       startup,
       feedbacks,
@@ -61,6 +61,7 @@ export default class TakeStartup extends Vue {
       estimations,
       specialisations,
       technologies,
+      askFeedbacks,
     };
   }
 
@@ -93,15 +94,20 @@ export default class TakeStartup extends Vue {
     if (this.$strapi.user && +this.$strapi.user.id === +this.startup.owner.id) {
       this.isOwner = true;
     }
-    this.applications.forEach((item) => {
-      item.position.applications.forEach((el) => {
-        if (el.status === "accepted" && +this.$strapi.user.id === +el.user.id) {
-          this.applicationId = el.id;
-          this.isDeveloper = true;
-          this.developerPosition = item.position.specialisation.title;
-        }
+    if (this.$strapi.user) {
+      this.applications.forEach((item) => {
+        item.position.applications.forEach((el) => {
+          if (
+            el.status === "accepted" &&
+            +this.$strapi.user.id === +el.user.id
+          ) {
+            this.applicationId = el.id;
+            this.isDeveloper = true;
+            this.developerPosition = item.position.specialisation.title;
+          }
+        });
       });
-    });
+    }
   }
 
   async deleteStartup(id, startupName) {

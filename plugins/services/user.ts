@@ -18,9 +18,10 @@ export function getUserBySlug($strapi: Strapi) {
   return async (slug: string) => {
     const data = await $strapi.graphql({
       query: `query {
-  users (where: {name: "${slug}"}) {
+  users (where: {username: "${slug}"}) {
     id
-    username 
+    username
+    name
     
     
     

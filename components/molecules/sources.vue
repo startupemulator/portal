@@ -3,14 +3,18 @@
     <h3>Sources</h3>
     <div class="startup-card__sources--finished">
       <div class="startup-card__sources-repository">
-        <div class="startup-card__sources-content">
+        <div
+          v-for="item in startup.sources"
+          :key="item.id"
+          class="startup-card__sources-content"
+        >
           <div>
-            <h5>{{ titleLink1 }}</h5>
-            <p>{{ link1 }}</p>
+            <h5>{{ item.title }}</h5>
+            <p>{{ item.link }}</p>
           </div>
           <a
             target="_blank"
-            :href="link1"
+            :href="item.link"
             type="button"
             class="startup-card__sources-button"
           >
@@ -40,6 +44,7 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
+import { Startup } from "~/models/Startup";
 @Component({})
 export default class extends Vue {
   @Prop() finished: Boolean;
@@ -47,6 +52,8 @@ export default class extends Vue {
   @Prop({ default: "Repository" }) titleLink1: String;
   @Prop({ default: "Repository" }) link1: String;
   @Prop({ default: "Design" }) link2: String;
+
+  @Prop() startup: Array<Startup>;
 }
 </script>
 <style lang="scss" scoped>
@@ -70,6 +77,10 @@ export default class extends Vue {
     display: flex;
     justify-content: space-between;
     max-width: 403px;
+    margin-bottom: 16px;
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
   .startup-card__sources-button {
     background: transparent;
@@ -82,6 +93,8 @@ export default class extends Vue {
     margin: 0;
   }
   p {
+    word-break: break-all;
+    width: 90%;
     margin: 0;
     font-weight: normal;
     font-size: 14px;
@@ -101,6 +114,10 @@ export default class extends Vue {
     }
     .startup-card__sources-content {
       padding: 24px 0 24px 32px;
+      margin-bottom: 24px;
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 

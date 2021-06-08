@@ -1,23 +1,40 @@
 <template>
   <div class="project-participant">
-    <p>{{ position }}</p>
-    <div class="specializacion_names">
-      <nuxt-link
-        class="project-participant__team-button"
-        :to="'/user/' + owner.name"
+    <p>{{ position || "Product Owners" }}</p>
+    <div v-if="!isOwner" style="display: flex">
+      <div
+        v-for="user in username"
+        :key="user.name"
+        class="specializacion_names"
       >
-        <span>{{ owner.name }}</span>
-        <img src="~/assets/img/arrow.svg" alt="arrow" />
-      </nuxt-link>
+        <nuxt-link
+          class="project-participant__team-button"
+          :to="'/user/' + user.user.username"
+        >
+          <span>{{ user.user ? user.user.username : "" }}</span>
+          <img src="~/assets/img/arrow.svg" alt="arrow" />
+        </nuxt-link>
+      </div>
     </div>
-
     <div class="project-participant_technologies">
       <UTags
-        v-for="(technologi, i) in technology"
-        :key="i"
-        :technologi-id="i"
+        v-for="technology in technologies"
+        :key="technology.id + '-' + Math.floor(Math.random() * 10000)"
+        :technologi-id="technology.id"
         :title="technology.title"
       ></UTags>
+    </div>
+    <div v-if="isOwner">
+      <div class="specializacion_names">
+        <nuxt-link
+          class="project-participant__team-button"
+          :to="'/user/' + username.username"
+        >
+          <span>{{ username.name }}</span>
+
+          <img src="~/assets/img/arrow.svg" alt="arrow" />
+        </nuxt-link>
+      </div>
     </div>
   </div>
 </template>
@@ -26,14 +43,27 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UBack from "~/components/atoms/uBack.vue";
 import UTags from "~/components/atoms/uTags.vue";
 import UButton from "~/components/atoms/uButton.vue";
-import { Technology } from "~/models/Technology";
+
 @Component({
   components: { UBack, UTags, UButton },
 })
 export default class AppHeader extends Vue {
-  @Prop({ default: "Product Owners" }) position: String;
-  @Prop() owner: String;
-  @Prop() technology: Array<Technology>;
+  @Prop() position: String;
+  @Prop() username: Array<any>;
+  @Prop() isOwner: boolean;
+  technologies = [];
+  mounted() {
+    if (this.username.length !== undefined) {
+      this.username.forEach((item) =>
+        item.user.profile.technologies.forEach((el) => {
+          this.technologies.push(el);
+        })
+      );
+      this.technologies = this.technologies.filter(
+        (v, i, a) => a.findIndex((t) => t.id === v.id) === i
+      );
+    }
+  }
 }
 </script>
 
@@ -86,5 +116,10 @@ export default class AppHeader extends Vue {
 }
 .project-participant:last-child {
   border-bottom: 1px solid transparent;
+}
+@media (min-width: 768px) {
+  .project-participant {
+    padding-bottom: 0;
+  }
 }
 </style>
