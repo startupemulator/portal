@@ -9,17 +9,18 @@
         </div>
       </div>
       <FeedBackCard
-        v-for="testimonial in 1"
-        :key="testimonial.id"
-        :comment="testimonial.comment"
-        :author="testimonial.author"
-        :published="testimonial.published_at"
+        v-for="feedback in feedbacks"
+        :key="feedback.id"
+        :comment="feedback.description"
+        :author="feedback.author"
+        :published="feedback.published_at"
+        :feedback="feedback"
         :is_expert="true"
         :u_button_blue="'Publish'"
         :u_button_gray="'Decline'"
       >
       </FeedBackCard>
-      <FeedBackCard
+      <!-- <FeedBackCard
         v-for="testimonial in 1"
         :key="testimonial.id"
         :comment="testimonial.comment"
@@ -31,21 +32,24 @@
         :activity_state="true"
         :show_feedback="false"
       >
-      </FeedBackCard>
+      </FeedBackCard> -->
     </div>
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
-
+import { Component, Prop, Vue } from "nuxt-property-decorator";
 import FeedBackCard from "../../molecules/feedbackCard.vue";
+import { Feedbacks } from "~/models/Feedbacks";
+
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 
 @Component({
   components: { UBack, UTitle, FeedBackCard },
 })
-export default class extends Vue {}
+export default class extends Vue {
+  @Prop() feedbacks: Array<Feedbacks>;
+}
 </script>
 <style lang="scss" scoped>
 .edit-add-realise {

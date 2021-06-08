@@ -29,6 +29,7 @@ import { testimonials } from "~/plugins/services/testimonials";
 import { specialisations } from "~/plugins/services/specialisations";
 import { Specialisation } from "~/models/Specialisation";
 import { Feedbacks } from "~/models/Feedbacks";
+import { AskFeedbacks } from "~/models/AskFeedbacks";
 import {
   myTechnologies,
   technologies,
@@ -53,7 +54,11 @@ import {
   updateUserPassword,
 } from "~/plugins/services/user";
 import { login } from "~/plugins/services/login";
-import { feedbacks } from "~/plugins/services/feedbacks";
+import {
+  feedbacks,
+  askFeedbacks,
+  createAskFeedbackForStartup,
+} from "~/plugins/services/feedbacks";
 import { notifications } from "~/plugins//services/notifications";
 
 import {
@@ -133,6 +138,13 @@ export interface Services {
   $profile(id: string): Promise<Partial<Profile>[]>;
   $users(): Promise<Partial<NotificationUser>[]>;
   $feedbacks(): Promise<Partial<Feedbacks>[]>;
+  $askFeedbacks(): Promise<Partial<AskFeedbacks>[]>;
+  $createAskFeedbackForStartup(
+    comment: string,
+    technologies: [],
+    startup: string
+  ): Promise<Partial<AskFeedbacks>[]>;
+
   $notifications(): Promise<Partial<Notification>[]>;
   $getUserBySlug(slug: string): Promise<Partial<NotificationUser>[]>;
   $login(data: NuxtStrapiLoginData): Promise<NuxtStrapiLoginResult>;
@@ -304,6 +316,12 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("createTechnologies", createTechnologies(ctx.$strapi));
 
   inject("feedbacks", feedbacks(ctx.$strapi));
+  inject("askFeedbacks", askFeedbacks(ctx.$strapi));
+  inject(
+    "createAskFeedbackForStartup",
+    createAskFeedbackForStartup(ctx.$strapi)
+  );
+
   inject("notifications", notifications(ctx.$strapi));
 };
 

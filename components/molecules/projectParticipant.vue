@@ -1,14 +1,34 @@
 <template>
   <div class="project-participant">
-    <p>{{ position }}</p>
-    <div class="specializacion_names">
-      <nuxt-link
-        class="project-participant__team-button"
-        :to="'/user/' + owner.name"
+    <p>{{ position || "Product Owners" }}</p>
+    <div v-if="!isOwner" style="display: flex">
+      <div
+        v-for="user in username"
+        :key="user.name"
+        class="specializacion_names"
       >
-        <span>{{ owner.name }}</span>
-        <img src="~/assets/img/arrow.svg" alt="arrow" />
-      </nuxt-link>
+        <nuxt-link
+          class="project-participant__team-button"
+          :to="'/user/' + user.name"
+        >
+          <!-- <span>{{ user }}</span> -->
+          <span>{{ user.user ? user.user.username : "" }}</span>
+
+          <img src="~/assets/img/arrow.svg" alt="arrow" />
+        </nuxt-link>
+      </div>
+    </div>
+    <div v-if="isOwner">
+      <div class="specializacion_names">
+        <nuxt-link
+          class="project-participant__team-button"
+          :to="'/user/' + username.name"
+        >
+          <span>{{ username.name }}</span>
+
+          <img src="~/assets/img/arrow.svg" alt="arrow" />
+        </nuxt-link>
+      </div>
     </div>
 
     <div class="project-participant_technologies">
@@ -31,9 +51,13 @@ import { Technology } from "~/models/Technology";
   components: { UBack, UTags, UButton },
 })
 export default class AppHeader extends Vue {
-  @Prop({ default: "Product Owners" }) position: String;
-  @Prop() owner: String;
+  @Prop() position: String;
+  @Prop() username: Array<any>;
   @Prop() technology: Array<Technology>;
+  @Prop() isOwner: boolean;
+  mounted() {
+    console.log(this.username.name);
+  }
 }
 </script>
 
@@ -86,5 +110,10 @@ export default class AppHeader extends Vue {
 }
 .project-participant:last-child {
   border-bottom: 1px solid transparent;
+}
+@media (min-width: 768px) {
+  .project-participant {
+    padding-bottom: 0;
+  }
 }
 </style>

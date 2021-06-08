@@ -9,12 +9,14 @@
       @decline="decline"
       @advancedAccess="advancedAccess"
     ></RequestToTeam>
-    <!-- <NewFeedBack
+    <NewFeedBack
       v-show="newFeedBack"
+      :feedbacks="feedbacks"
       @clikOnButton="toggleNewFeedBack"
-    ></NewFeedBack> -->
+    ></NewFeedBack>
     <RequestFeedback
       v-show="requestFeedBack"
+      :startup="updatableDataStartup"
       @clikOnButton="toggleRequestFeedBack"
     ></RequestFeedback>
     <EditStartupInfo
@@ -265,13 +267,23 @@
             :is-owner="isOwner"
           ></Open-position-card>
         </div>
-        <div class="startup-card__team">
+        <div v-cloak class="startup-card__team">
           <h3>Team</h3>
 
           <ProjectParticipant
-            :owner="updatableDataStartup.owner"
+            :username="updatableDataStartup.owner"
             :technologies="updatableDataStartup.technologies"
+            :is-owner="true"
           ></ProjectParticipant>
+          <div v-if="staffedPosition.length > 0" class="team">
+            <ProjectParticipant
+              v-for="item in staffedPosition"
+              :key="item.id"
+              :position="item.specialisation.title"
+              :username="item.applications"
+              :technologies="updatableDataStartup.technologies"
+            ></ProjectParticipant>
+          </div>
         </div>
       </div>
       <div v-if="isStarted || finished" class="startup_block-3">
@@ -301,16 +313,6 @@
               <span class="startup-card__activity-like-count">3</span>
             </div>
           </div>
-          <!-- Statick -> change to feed-back-card (end)-->
-          <!--  <feed-back-card
-            v-for="testimonial in 1"
-            :key="testimonial.id"
-            :comment="testimonial.comment"
-            :author="testimonial.author"
-            :published="testimonial.published_at"
-            :is_expert="isExpert"
-          > 
-          </feed-back-card>-->
           <FeedBackCard
             v-for="feedback in feedbacks"
             :key="feedback.id"
@@ -540,13 +542,16 @@ export default class extends Vue {
 
   mounted() {
     if (this.startup.state === "in_progress") {
-      return (this.isStarted = true);
+      this.isStarted = true;
     } else if (this.startup.state === "finished") {
-      return (this.finished = true);
+      this.finished = true;
     }
 
     this.openPosition = this.startup.positions.filter(
       (position) => position.status === "open"
+    );
+    this.staffedPosition = this.startup.positions.filter(
+      (position) => position.status === "staffed"
     );
     this.updateKey = 1;
 
