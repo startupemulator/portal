@@ -11,11 +11,18 @@
           class="project-participant__team-button"
           :to="'/user/' + user.user.username"
         >
-          <!-- <span>{{ user }}</span> -->
           <span>{{ user.user ? user.user.username : "" }}</span>
           <img src="~/assets/img/arrow.svg" alt="arrow" />
         </nuxt-link>
       </div>
+    </div>
+    <div class="project-participant_technologies">
+      <UTags
+        v-for="technology in technologies"
+        :key="technology.id + '-' + Math.floor(Math.random() * 10000)"
+        :technologi-id="technology.id"
+        :title="technology.title"
+      ></UTags>
     </div>
     <div v-if="isOwner">
       <div class="specializacion_names">
@@ -29,15 +36,6 @@
         </nuxt-link>
       </div>
     </div>
-
-    <div class="project-participant_technologies">
-      <UTags
-        v-for="(technologi, i) in technology"
-        :key="i"
-        :technologi-id="i"
-        :title="technology.title"
-      ></UTags>
-    </div>
   </div>
 </template>
 <script lang="ts">
@@ -45,17 +43,24 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UBack from "~/components/atoms/uBack.vue";
 import UTags from "~/components/atoms/uTags.vue";
 import UButton from "~/components/atoms/uButton.vue";
-import { Technology } from "~/models/Technology";
+
 @Component({
   components: { UBack, UTags, UButton },
 })
 export default class AppHeader extends Vue {
   @Prop() position: String;
   @Prop() username: Array<any>;
-  @Prop() technology: Array<Technology>;
   @Prop() isOwner: boolean;
+  technologies = [];
   mounted() {
-    console.log(this.username);
+    if (this.username.length !== undefined) {
+      this.username.forEach((item) =>
+        item.user.profile.technologies.forEach((el) =>
+          this.technologies.push(el)
+        )
+      );
+      console.log(this.technologies);
+    }
   }
 }
 </script>

@@ -272,7 +272,6 @@
 
           <ProjectParticipant
             :username="updatableDataStartup.owner"
-            :technologies="updatableDataStartup.technologies"
             :is-owner="true"
           ></ProjectParticipant>
           <div v-if="staffedPosition.length > 0" class="team">
@@ -281,7 +280,6 @@
               :key="item.id"
               :position="item.specialisation.title"
               :username="item.applications"
-              :technologies="updatableDataStartup.technologies"
             ></ProjectParticipant>
           </div>
         </div>
