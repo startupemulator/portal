@@ -11,11 +11,15 @@
     ></RequestToTeam>
     <NewFeedBack
       v-show="newFeedBack"
-      :feedbacks="feedbacks"
+      :feedbacks="newFeedbacksData"
+      :user-id="userId"
+      :new-feed-backs="newFeedBacks"
       @clikOnButton="toggleNewFeedBack"
+      @updateFeedbacks="updateFeedbacks"
     ></NewFeedBack>
     <RequestFeedback
       v-show="requestFeedBack"
+      :key="updateKey"
       :startup="updatableDataStartup"
       :user-id="userId"
       @clikOnButton="toggleRequestFeedBack"
@@ -179,7 +183,7 @@
                 <span
                   >New Feedback
                   <div class="owner-menu__item--message">
-                    <span>2</span>
+                    <span>{{ newFeedBacks }} </span>
                   </div></span
                 >
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
@@ -248,26 +252,6 @@
               </button>
             </li>
           </ul>
-          <!-- <ul v-if="finished" class="owner-menu__list">
-            <li class="owner-menu__item">
-              <button type="button" @click="toggleReleaseLikns">
-                <span>Add Release Links </span>
-                <img src="~/assets/img/arrow.svg" alt="arrow" />
-              </button>
-            </li>
-            <li class="owner-menu__item">
-              <button type="button">
-                <span>See on Product Hunt </span>
-                <img src="~/assets/img/arrow.svg" alt="arrow" />
-              </button>
-            </li>
-            <li class="owner-menu__item">
-              <button type="button">
-                <span>Read Study Case </span>
-                <img src="~/assets/img/arrow.svg" alt="arrow" />
-              </button>
-            </li>
-          </ul> -->
         </div>
         <div v-if="finished" class="owner-menu">
           <ul class="owner-menu__list">
@@ -332,7 +316,7 @@
         <div class="startup-card__activity">
           <h3>Activity</h3>
           <!-- Statick -> change to feed-back-card -->
-
+          <!-- 
           <div class="startup-card__activity-content">
             <h4>Full Name <span>makes</span> Merge request</h4>
             <p>6 Sep 2020 00:45</p>
@@ -353,12 +337,14 @@
               </svg>
               <span class="startup-card__activity-like-count">3</span>
             </div>
-          </div>
+          </div> -->
           <FeedBackCard
-            v-for="feedback in feedbacks"
+            v-for="feedback in updatableFeedbacks"
             :key="feedback.id"
             :feedback="feedback"
             :is_expert="isExpert"
+            :user-id="userId"
+            @updateFeedbacks="updateFeedbacks"
           ></FeedBackCard>
         </div>
         <U-button
@@ -485,7 +471,7 @@ import Spiner from "~/components/molecules/spiner.vue";
 })
 export default class extends Vue {
   @Prop() startup!: Array<Startup>;
-  @Prop() feedbacks: Array<Feedbacks>;
+  @Prop() feedbacks!: Array<Feedbacks>;
   @Prop() isOwner: Boolean;
   @Prop() applications!: Array<Applications>;
   @Prop() isDeveloper: Boolean;
@@ -496,12 +482,15 @@ export default class extends Vue {
   @Prop() userId: string;
   updatableDataStartup = this.startup;
   updatableDataApplications = this.applications;
+  updatableFeedbacks = this.feedbacks;
   openPosition = [];
   staffedPosition = [];
   moveAwayStartup: string = "";
   moveAwayStartupName: string = "";
   popupCancelApplication = false;
   isStartStartup = false;
+  newFeedBacks = 0;
+  newFeedbacksData = [];
 
   isExpert = false;
   isStarted = false;
@@ -603,6 +592,15 @@ export default class extends Vue {
 
     this.moveAwayStartup = this.startup.id;
     this.moveAwayStartupName = this.startup.title;
+
+    let count = 0;
+    this.feedbacks.forEach((newRequest) => {
+      if (newRequest.request.is_new === true) {
+        this.newFeedbacksData.push(newRequest);
+        count++;
+      }
+      this.newFeedBacks = count;
+    });
   }
 
   async accept(id) {
@@ -805,6 +803,24 @@ export default class extends Vue {
         });
         this.loading = false;
       }
+    } catch (e) {
+      console.error(e);
+      Toast.show({
+        data: e.message,
+        duration: 3000,
+      });
+      this.loading = false;
+    }
+  }
+
+  async updateFeedbacks() {
+    this.loading = true;
+    try {
+      const feedbacks = await this.$feedbacks();
+      if (feedbacks !== null) {
+        this.updatableFeedbacks = feedbacks;
+      }
+      this.loading = false;
     } catch (e) {
       console.error(e);
       Toast.show({

@@ -56,7 +56,7 @@ import {
 } from "~/plugins/services/user";
 import { login } from "~/plugins/services/login";
 import {
-  feedbacks,
+  feedbacksByStartupID,
   askFeedbacks,
   createAskFeedbackForStartup,
 } from "~/plugins/services/feedbacks";
@@ -101,6 +101,9 @@ import {
   createSecret,
   updateSecret,
 } from "~/plugins/services/Secrets";
+
+import { createLike, deleteLike } from "~/plugins/services/likes";
+import { Like } from "~/models/Like";
 export interface Services {
   $positions(id: string): Promise<Partial<Positions>[]>;
   $createInvite(
@@ -138,7 +141,7 @@ export interface Services {
   $experiences(): Promise<Partial<Experience>[]>;
   $profile(id: string): Promise<Partial<Profile>[]>;
   $users(): Promise<Partial<NotificationUser>[]>;
-  $feedbacks(): Promise<Partial<Feedbacks>[]>;
+  $feedbacksByStartupID(id: string): Promise<Partial<Feedbacks>[]>;
   $askFeedbacks(): Promise<Partial<AskFeedbacks>[]>;
   $createAskFeedbackForStartup(
     creator: string,
@@ -148,6 +151,7 @@ export interface Services {
   ): Promise<Partial<AskFeedbacks>[]>;
 
   $notifications(): Promise<Partial<Notification>[]>;
+
   $getUserBySlug(slug: string): Promise<Partial<NotificationUser>[]>;
   $login(data: NuxtStrapiLoginData): Promise<NuxtStrapiLoginResult>;
   $updateUserPassword(
@@ -244,6 +248,8 @@ export interface Services {
   ): Promise<Partial<Secrets>[]>;
 
   $deleteInvite(id: string): Promise<Partial<Invites>>;
+  $createLike(feedback: string, user: string): Promise<Partial<Like>[]>;
+  $deleteLike(id: string): Promise<Partial<Like>>;
 }
 
 const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
@@ -321,7 +327,7 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("myTechnologies", myTechnologies(ctx.$strapi));
   inject("createTechnologies", createTechnologies(ctx.$strapi));
 
-  inject("feedbacks", feedbacks(ctx.$strapi));
+  inject("feedbacksByStartupID", feedbacksByStartupID(ctx.$strapi));
   inject("askFeedbacks", askFeedbacks(ctx.$strapi));
   inject(
     "createAskFeedbackForStartup",
@@ -329,6 +335,9 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   );
 
   inject("notifications", notifications(ctx.$strapi));
+
+  inject("createLike", createLike(ctx.$strapi));
+  inject("deleteLike", deleteLike(ctx.$strapi));
 };
 
 export default strapiServices;

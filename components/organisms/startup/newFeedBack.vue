@@ -1,11 +1,12 @@
 <template>
   <div class="edit-add-realise">
+    <pre style="color: #fff">{{ feedbacks }} </pre>
     <div class="edit-add-realise__content">
       <div class="edit-add-realise__header">
         <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
         <div class="edit-add-realise__header--title">
           <UTitle :text="'New feedback'"></UTitle>
-          <span>2</span>
+          <span>{{ newFeedBacks }} </span>
         </div>
       </div>
       <FeedBackCard
@@ -13,26 +14,15 @@
         :key="feedback.id"
         :comment="feedback.description"
         :author="feedback.author"
+        :user-id="userId"
         :published="feedback.published_at"
         :feedback="feedback"
         :is_expert="true"
         :u_button_blue="'Publish'"
         :u_button_gray="'Decline'"
+        @updateFeedbacks="updateFeedbacks"
       >
       </FeedBackCard>
-      <!-- <FeedBackCard
-        v-for="testimonial in 1"
-        :key="testimonial.id"
-        :comment="testimonial.comment"
-        :author="testimonial.author"
-        :published="testimonial.published_at"
-        :is_expert="true"
-        :u_button_blue="'Publish'"
-        :u_button_gray="'Decline'"
-        :activity_state="true"
-        :show_feedback="false"
-      >
-      </FeedBackCard> -->
     </div>
   </div>
 </template>
@@ -40,7 +30,6 @@
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import FeedBackCard from "../../molecules/feedbackCard.vue";
 import { Feedbacks } from "~/models/Feedbacks";
-
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 
@@ -49,6 +38,13 @@ import UTitle from "~/components/atoms/uTitle.vue";
 })
 export default class extends Vue {
   @Prop() feedbacks: Array<Feedbacks>;
+  @Prop() userId: string;
+  @Prop() newFeedBacks: string;
+
+  updateFeedbacks(str) {
+    console.log(str);
+    this.$emit("updateFeedbacks");
+  }
 }
 </script>
 <style lang="scss" scoped>

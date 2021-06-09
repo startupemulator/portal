@@ -1,10 +1,10 @@
 import { Strapi } from "@nuxtjs/strapi";
 
-export function feedbacks($strapi: Strapi) {
-  return async () => {
+export function feedbacksByStartupID($strapi: Strapi) {
+  return async (id: string) => {
     const data = await $strapi.graphql({
       query: `query {
-        feedbacks(sort: "published_at:desc") {
+        feedbacks(where: {request: {startup: {id: "${id}"}}} sort: "published_at:desc") {
     id
     description
     is_public
@@ -24,12 +24,32 @@ export function feedbacks($strapi: Strapi) {
         url
       }
     }
+    is_public
+    likes{
+      id
+      user{
+        id
+      }
+    }
+    request {
+      id
+      is_new
+      startup {
+        id
+      }
+      creator{ 
+        id
+        name
+        username
+      }
+    }
   }
 }`,
     });
     return data.feedbacks ? data.feedbacks : null;
   };
 }
+
 export function askFeedbacks($strapi: Strapi) {
   return async () => {
     const data = await $strapi.graphql({

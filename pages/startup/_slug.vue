@@ -40,7 +40,7 @@ export default class TakeStartup extends Vue {
   userId = this.$strapi.user.id;
   async asyncData({
     $startup,
-    $feedbacks,
+    $feedbacksByStartupID,
     $askFeedbacks,
     $applicationsByStartupId,
     route,
@@ -49,7 +49,7 @@ export default class TakeStartup extends Vue {
     $technologies,
   }) {
     const startup = await $startup(route.params.slug);
-    const feedbacks = await $feedbacks();
+    const feedbacks = await $feedbacksByStartupID(startup.id);
     const askFeedbacks = await $askFeedbacks();
     const { applications } = await $applicationsByStartupId(startup.id);
     const { estimations } = await $estimations();
