@@ -141,6 +141,7 @@ export interface Services {
   $feedbacks(): Promise<Partial<Feedbacks>[]>;
   $askFeedbacks(): Promise<Partial<AskFeedbacks>[]>;
   $createAskFeedbackForStartup(
+    creator: string,
     comment: string,
     technologies: [],
     startup: string

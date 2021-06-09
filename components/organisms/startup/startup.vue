@@ -17,6 +17,7 @@
     <RequestFeedback
       v-show="requestFeedBack"
       :startup="updatableDataStartup"
+      :user-id="userId"
       @clikOnButton="toggleRequestFeedBack"
     ></RequestFeedback>
     <EditStartupInfo
@@ -492,6 +493,7 @@ export default class extends Vue {
   @Prop() estimations: Array<Estimation>;
   @Prop() specialisations: Array<Specialisation>;
   @Prop() technologies: Array<Technology>;
+  @Prop() userId: string;
   updatableDataStartup = this.startup;
   updatableDataApplications = this.applications;
   openPosition = [];

@@ -55,11 +55,16 @@ export function askFeedbacks($strapi: Strapi) {
   };
 }
 export function createAskFeedbackForStartup($strapi: Strapi) {
-  return async (comment: string, technologies: [], startup: string) => {
+  return async (
+    creator: string,
+    comment: string,
+    technologies: [],
+    startup: string
+  ) => {
     const data = await $strapi.graphql({
       query: `mutation {
         createRequest(input: { data: { comment: "${comment}",
-         technologies: [${technologies}], startup: "${startup}", is_new: true} }) {
+         technologies: [${technologies}], startup: "${startup}", is_new: true, creator: "${creator}"} }) {
         request {
          id
          is_new

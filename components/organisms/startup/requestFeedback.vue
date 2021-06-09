@@ -66,6 +66,7 @@ import Spiner from "~/components/molecules/spiner.vue";
 })
 export default class extends Vue {
   @Prop() startup: Array<Startup>;
+  @Prop() userId: string;
   pickedTechnology = [];
   comment = "";
   loading = false;
@@ -77,6 +78,7 @@ export default class extends Vue {
       this.loading = true;
       try {
         const askFeedback = await this.$createAskFeedbackForStartup(
+          this.userId,
           this.comment,
           this.pickedTechnology,
           this.startup.id
