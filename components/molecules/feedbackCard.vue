@@ -157,7 +157,6 @@ export default class extends Vue {
       try {
         const like = await this.$createLike(this.feedback.id, this.userId);
         if (like !== null) {
-          console.log(like);
           this.$emit("updateFeedbacks", like);
           this.thisUserlikeId = like.id;
           this.thisUserlike = true;
@@ -175,7 +174,6 @@ export default class extends Vue {
       try {
         const like = await this.$deleteLike(this.thisUserlikeId);
         if (like !== null) {
-          console.log("delete");
           this.$emit("updateFeedbacks", like);
           this.thisUserlikeId = "";
           this.thisUserlike = false;

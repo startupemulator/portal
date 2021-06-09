@@ -339,7 +339,7 @@
             </div>
           </div> -->
           <FeedBackCard
-            v-for="feedback in updatableFeedbacks"
+            v-for="feedback in updatableFeedbacks.slice(0, maxLengthActivity)"
             :key="feedback.id"
             :feedback="feedback"
             :is_expert="isExpert"
@@ -348,8 +348,14 @@
           ></FeedBackCard>
         </div>
         <U-button
-          :button-name="'Show ' + '23' + ' Earlier Actions'"
+          v-if="updatableFeedbacks.length > maxLengthActivity"
+          :button-name="`Show ${
+            updatableFeedbacks.length - maxLengthActivity > 3
+              ? 3
+              : updatableFeedbacks.length - maxLengthActivity
+          } Earlier Actions`"
           :button-class="'u-button-gray button-show-earlier-actions'"
+          @clickOnButton="showMore"
         ></U-button>
 
         <div class="project-started">
@@ -492,6 +498,7 @@ export default class extends Vue {
   newFeedBacks = 0;
   newFeedbacksData = [];
   maxLengthActivity = 3;
+  lengthActivity = 0;
 
   isExpert = false;
   isStarted = false;
@@ -566,6 +573,12 @@ export default class extends Vue {
       this.isStartStartup = false;
     }
     this.popupDeleteOrStartStartup = !this.popupDeleteOrStartStartup;
+  }
+
+  showMore() {
+    if (this.updatableFeedbacks.length > this.maxLengthActivity) {
+      this.maxLengthActivity += 3;
+    }
   }
 
   deleteStartup(startupName, startupId) {
