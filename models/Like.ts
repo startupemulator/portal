@@ -1,7 +1,7 @@
 import { NotificationUser } from "./NotificationUser";
 import { Feedbacks } from "./Feedbacks";
 
-export interface Sources {
+export interface Like {
   id: string;
   challfeedbackenges: Array<Feedbacks>;
   user: Array<NotificationUser>;

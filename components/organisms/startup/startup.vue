@@ -491,6 +491,7 @@ export default class extends Vue {
   isStartStartup = false;
   newFeedBacks = 0;
   newFeedbacksData = [];
+  maxLengthActivity = 3;
 
   isExpert = false;
   isStarted = false;
@@ -816,7 +817,7 @@ export default class extends Vue {
   async updateFeedbacks() {
     this.loading = true;
     try {
-      const feedbacks = await this.$feedbacks();
+      const feedbacks = await this.$feedbacksByStartupID(this.startup.id);
       if (feedbacks !== null) {
         this.updatableFeedbacks = feedbacks;
       }

@@ -57,6 +57,7 @@ import {
 import { login } from "~/plugins/services/login";
 import {
   feedbacksByStartupID,
+  feedbacks,
   askFeedbacks,
   createAskFeedbackForStartup,
 } from "~/plugins/services/feedbacks";
@@ -142,6 +143,7 @@ export interface Services {
   $profile(id: string): Promise<Partial<Profile>[]>;
   $users(): Promise<Partial<NotificationUser>[]>;
   $feedbacksByStartupID(id: string): Promise<Partial<Feedbacks>[]>;
+  $feedbacks(): Promise<Partial<Feedbacks>[]>;
   $askFeedbacks(): Promise<Partial<AskFeedbacks>[]>;
   $createAskFeedbackForStartup(
     creator: string,
@@ -327,6 +329,7 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("myTechnologies", myTechnologies(ctx.$strapi));
   inject("createTechnologies", createTechnologies(ctx.$strapi));
 
+  inject("feedbacks", feedbacks(ctx.$strapi));
   inject("feedbacksByStartupID", feedbacksByStartupID(ctx.$strapi));
   inject("askFeedbacks", askFeedbacks(ctx.$strapi));
   inject(
