@@ -1,6 +1,7 @@
 <template>
   <div class="startups-page">
     <Spiner :loading="loading"></Spiner>
+
     <Startups
       :startups="startupsList"
       :staffed="staffed"
@@ -29,7 +30,7 @@ export default class extends Vue {
   emptyState = false;
   loading = false;
   position = 1;
-  staffed: Number = 0;
+  staffed = 0;
   autorizated = !!this.$strapi.user;
 
   async asyncData({ $technologies, $startups }) {
@@ -59,12 +60,16 @@ export default class extends Vue {
         }
       })
     );
-    this.startupsList = startupListFiltredByPosition;
+
+    this.startupsList = startupListFiltredByPosition.filter(
+      (v, i, a) => a.findIndex((t) => t.id === v.id) === i
+    );
     if (this.startupsList.length === 0) {
       this.emptyState = true;
     } else {
       this.emptyState = false;
     }
+
     setTimeout(() => (this.loading = false), 300);
   }
 

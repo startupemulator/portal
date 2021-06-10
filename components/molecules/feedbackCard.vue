@@ -148,7 +148,6 @@ export default class extends Vue {
   loading = false;
   toggleFeedBack() {
     this.show_feedback = !this.show_feedback;
-    console.log(this.show_feedback);
   }
 
   async like() {
