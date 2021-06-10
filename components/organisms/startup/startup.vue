@@ -509,8 +509,8 @@ export default class extends Vue {
   lengthActivity = 0;
   feedBackTitle = "";
   badgeTitle = "";
-  // isExpert = false;
-  isExpert = true;
+  isExpert = false;
+  // isExpert = true;
 
   isStarted = false;
   popupDeleteOrStartStartup = false;

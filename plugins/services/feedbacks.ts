@@ -31,6 +31,10 @@ export function feedbacksByStartupID($strapi: Strapi) {
         id
       }
     }
+    expert{
+      id
+      username
+    }
     request {
       id
       is_new
@@ -79,6 +83,10 @@ export function feedbacks($strapi: Strapi) {
       user{
         id
       }
+    }
+    expert{
+      id
+      username
     }
     request {
       id
