@@ -114,10 +114,12 @@
         <U-button
           :button-name="'Add Feedback'"
           :button-class="'u-button-blue'"
+          @clickOnButton="addFeedback"
         ></U-button>
         <U-button
           :button-name="'Add Badge'"
           :button-class="'u-button-gray'"
+          @clickOnButton="addbadge"
         ></U-button>
       </div>
     </div>
@@ -126,6 +128,8 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
+import AddTeamFeedBack from "~/components/organisms/startup/addTeamFeedback.vue";
+import AddTeamBadge from "~/components/organisms/startup/addTeamBadge.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import { Feedbacks } from "~/models/Feedbacks";
 import Toast from "~/store/modules/Toast";
@@ -134,6 +138,8 @@ import Spiner from "~/components/molecules/spiner.vue";
   components: {
     UButton,
     Spiner,
+    AddTeamFeedBack,
+    AddTeamBadge,
   },
 })
 export default class extends Vue {
@@ -146,8 +152,19 @@ export default class extends Vue {
   thisUserlike: boolean = false;
   thisUserlikeId: string = "";
   loading = false;
+
   toggleFeedBack() {
     this.show_feedback = !this.show_feedback;
+  }
+
+  addFeedback() {
+    this.$emit("addFeedback", "Add feedback", this.feedback.id);
+    console.log("add feedback");
+  }
+
+  addbadge() {
+    this.$emit("addBadge", "Add badge", this.feedback.id);
+    console.log("add badge");
   }
 
   async like() {

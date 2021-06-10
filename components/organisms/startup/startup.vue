@@ -68,10 +68,12 @@
     ></EditSources>
     <AddTeamFeedBack
       v-show="addTeamFeedBack"
+      :title="feedBackTitle"
       @clikOnButton="toggleAddTeamFeedBack"
     ></AddTeamFeedBack>
     <AddTeamBadge
       v-show="addTeamBadge"
+      :title="badgeTitle"
       @clikOnButton="toggleAddTeamBadge"
     ></AddTeamBadge>
     <div
@@ -147,11 +149,14 @@
         </div>
         <div v-if="isExpert" class="applied-startup">
           <div class="applied-startup__started">
-            <button type="button" @click="toggleAddTeamFeedBack">
+            <button
+              type="button"
+              @click="toggleAddTeamFeedBack('Add team feedback')"
+            >
               <span>Add Team Feedback</span>
               <img src="~/assets/img/arrow.svg" alt="arrow" />
             </button>
-            <button type="button" @click="toggleAddTeamBadge">
+            <button type="button" @click="toggleAddTeamBadge('Add team badge')">
               <span>Add Team Badge</span>
               <img src="~/assets/img/arrow.svg" alt="arrow" />
             </button>
@@ -289,6 +294,7 @@
             v-for="item in openPosition"
             :key="item.id"
             :position="item"
+            :is-expert="isExpert"
             :slug="updatableDataStartup.slug"
             :is-owner="isOwner"
             :is-developer="isDeveloper"
@@ -342,9 +348,11 @@
             v-for="feedback in updatableFeedbacks.slice(0, maxLengthActivity)"
             :key="feedback.id"
             :feedback="feedback"
-            :is_expert="isExpert"
+            :is-expert="isExpert"
             :user-id="userId"
             @updateFeedbacks="updateFeedbacks"
+            @addFeedback="toggleAddTeamFeedBack"
+            @addBadge="toggleAddTeamBadge"
           ></FeedBackCard>
         </div>
         <U-button
@@ -499,8 +507,11 @@ export default class extends Vue {
   newFeedbacksData = [];
   maxLengthActivity = 3;
   lengthActivity = 0;
+  feedBackTitle = "";
+  badgeTitle = "";
+  // isExpert = false;
+  isExpert = true;
 
-  isExpert = false;
   isStarted = false;
   popupDeleteOrStartStartup = false;
   popupGuide = false;
@@ -522,12 +533,16 @@ export default class extends Vue {
     this.releaseLikns = !this.releaseLikns;
   }
 
-  toggleAddTeamBadge() {
-    this.addTeamBadge = !this.addTeamBadge;
+  toggleAddTeamFeedBack(title, feedbackId) {
+    console.log(feedbackId);
+    this.feedBackTitle = title;
+    this.addTeamFeedBack = !this.addTeamFeedBack;
   }
 
-  toggleAddTeamFeedBack() {
-    this.addTeamFeedBack = !this.addTeamFeedBack;
+  toggleAddTeamBadge(title, feedbackId) {
+    console.log(feedbackId);
+    this.badgeTitle = title;
+    this.addTeamBadge = !this.addTeamBadge;
   }
 
   toggleRequestToTeam() {

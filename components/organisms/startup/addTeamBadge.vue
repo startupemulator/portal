@@ -25,7 +25,7 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
+import { Component, Vue, Prop } from "nuxt-property-decorator";
 
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
@@ -36,7 +36,9 @@ import PickBadeg from "~/components/molecules/pickBadge.vue";
 @Component({
   components: { UButton, UTitle, UBack, Criterios, PickBadeg },
 })
-export default class extends Vue {}
+export default class extends Vue {
+  @Prop({ default: "Add badge" }) title: string;
+}
 </script>
 
 <style lang="scss">

@@ -2,7 +2,7 @@
   <div class="add-team-feedback">
     <div class="add-team-feedback__header">
       <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
-      <UTitle :text="'Add team feedback'"></UTitle>
+      <UTitle :text="title"></UTitle>
     </div>
     <div class="add-team-feedback__content">
       <Criterios v-for="(item, i) in 5" :key="i" :i="i"></Criterios>
@@ -26,7 +26,7 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
+import { Component, Prop, Vue } from "nuxt-property-decorator";
 
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
@@ -37,7 +37,9 @@ import PickBadeg from "~/components/molecules/pickBadge.vue";
 @Component({
   components: { UButton, UTitle, UBack, Criterios, PickBadeg },
 })
-export default class extends Vue {}
+export default class extends Vue {
+  @Prop({ default: "Add feedback" }) title: string;
+}
 </script>
 
 <style lang="scss">
