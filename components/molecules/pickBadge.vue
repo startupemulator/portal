@@ -45,6 +45,7 @@ export default class extends Vue {
 </script>
 <style lang="scss" scoped>
 .pick-bage {
+  color: #fff;
   h4 {
     font-weight: 500;
     font-size: 16px;

@@ -14,7 +14,7 @@
         ></U-tags>
       </div>
       <div
-        v-if="!isOwner && !isDeveloper"
+        v-if="!isOwner && !isDeveloper && !isExpert"
         class="position-card__developer__button"
       >
         <U-button
@@ -40,6 +40,7 @@ export default class AppHeader extends Vue {
   @Prop() slug: string;
   @Prop() isOwner: string;
   @Prop() isDeveloper: string;
+  @Prop() isExpert: string;
 }
 </script>
 

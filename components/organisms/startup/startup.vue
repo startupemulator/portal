@@ -11,11 +11,15 @@
     ></RequestToTeam>
     <NewFeedBack
       v-show="newFeedBack"
-      :feedbacks="feedbacks"
+      :feedbacks="newFeedbacksData"
+      :user-id="userId"
+      :new-feed-backs="newFeedBacks"
       @clikOnButton="toggleNewFeedBack"
+      @updateFeedbacks="updateFeedbacks"
     ></NewFeedBack>
     <RequestFeedback
       v-show="requestFeedBack"
+      :key="updateKey"
       :startup="updatableDataStartup"
       :user-id="userId"
       @clikOnButton="toggleRequestFeedBack"
@@ -64,10 +68,12 @@
     ></EditSources>
     <AddTeamFeedBack
       v-show="addTeamFeedBack"
+      :title="feedBackTitle"
       @clikOnButton="toggleAddTeamFeedBack"
     ></AddTeamFeedBack>
     <AddTeamBadge
       v-show="addTeamBadge"
+      :title="badgeTitle"
       @clikOnButton="toggleAddTeamBadge"
     ></AddTeamBadge>
     <div
@@ -143,11 +149,14 @@
         </div>
         <div v-if="isExpert" class="applied-startup">
           <div class="applied-startup__started">
-            <button type="button" @click="toggleAddTeamFeedBack">
+            <button
+              type="button"
+              @click="toggleAddTeamFeedBack('Add team feedback')"
+            >
               <span>Add Team Feedback</span>
               <img src="~/assets/img/arrow.svg" alt="arrow" />
             </button>
-            <button type="button" @click="toggleAddTeamBadge">
+            <button type="button" @click="toggleAddTeamBadge('Add team badge')">
               <span>Add Team Badge</span>
               <img src="~/assets/img/arrow.svg" alt="arrow" />
             </button>
@@ -179,7 +188,7 @@
                 <span
                   >New Feedback
                   <div class="owner-menu__item--message">
-                    <span>2</span>
+                    <span>{{ newFeedBacks }} </span>
                   </div></span
                 >
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
@@ -248,26 +257,6 @@
               </button>
             </li>
           </ul>
-          <!-- <ul v-if="finished" class="owner-menu__list">
-            <li class="owner-menu__item">
-              <button type="button" @click="toggleReleaseLikns">
-                <span>Add Release Links </span>
-                <img src="~/assets/img/arrow.svg" alt="arrow" />
-              </button>
-            </li>
-            <li class="owner-menu__item">
-              <button type="button">
-                <span>See on Product Hunt </span>
-                <img src="~/assets/img/arrow.svg" alt="arrow" />
-              </button>
-            </li>
-            <li class="owner-menu__item">
-              <button type="button">
-                <span>Read Study Case </span>
-                <img src="~/assets/img/arrow.svg" alt="arrow" />
-              </button>
-            </li>
-          </ul> -->
         </div>
         <div v-if="finished" class="owner-menu">
           <ul class="owner-menu__list">
@@ -305,6 +294,7 @@
             v-for="item in openPosition"
             :key="item.id"
             :position="item"
+            :is-expert="isExpert"
             :slug="updatableDataStartup.slug"
             :is-owner="isOwner"
             :is-developer="isDeveloper"
@@ -332,7 +322,7 @@
         <div class="startup-card__activity">
           <h3>Activity</h3>
           <!-- Statick -> change to feed-back-card -->
-
+          <!-- 
           <div class="startup-card__activity-content">
             <h4>Full Name <span>makes</span> Merge request</h4>
             <p>6 Sep 2020 00:45</p>
@@ -353,17 +343,27 @@
               </svg>
               <span class="startup-card__activity-like-count">3</span>
             </div>
-          </div>
+          </div> -->
           <FeedBackCard
-            v-for="feedback in feedbacks"
+            v-for="feedback in updatableFeedbacks.slice(0, maxLengthActivity)"
             :key="feedback.id"
             :feedback="feedback"
-            :is_expert="isExpert"
+            :is-expert="isExpert"
+            :user-id="userId"
+            @updateFeedbacks="updateFeedbacks"
+            @addFeedback="toggleAddTeamFeedBack"
+            @addBadge="toggleAddTeamBadge"
           ></FeedBackCard>
         </div>
         <U-button
-          :button-name="'Show ' + '23' + ' Earlier Actions'"
+          v-if="updatableFeedbacks.length > maxLengthActivity"
+          :button-name="`Show ${
+            updatableFeedbacks.length - maxLengthActivity > 3
+              ? 3
+              : updatableFeedbacks.length - maxLengthActivity
+          } Earlier Actions`"
           :button-class="'u-button-gray button-show-earlier-actions'"
+          @clickOnButton="showMore"
         ></U-button>
 
         <div class="project-started">
@@ -485,7 +485,7 @@ import Spiner from "~/components/molecules/spiner.vue";
 })
 export default class extends Vue {
   @Prop() startup!: Array<Startup>;
-  @Prop() feedbacks: Array<Feedbacks>;
+  @Prop() feedbacks!: Array<Feedbacks>;
   @Prop() isOwner: Boolean;
   @Prop() applications!: Array<Applications>;
   @Prop() isDeveloper: Boolean;
@@ -496,14 +496,22 @@ export default class extends Vue {
   @Prop() userId: string;
   updatableDataStartup = this.startup;
   updatableDataApplications = this.applications;
+  updatableFeedbacks = this.feedbacks;
   openPosition = [];
   staffedPosition = [];
   moveAwayStartup: string = "";
   moveAwayStartupName: string = "";
   popupCancelApplication = false;
   isStartStartup = false;
+  newFeedBacks = 0;
+  newFeedbacksData = [];
+  maxLengthActivity = 3;
+  lengthActivity = 0;
+  feedBackTitle = "";
+  badgeTitle = "";
+  // isExpert = false;
+  isExpert = true;
 
-  isExpert = false;
   isStarted = false;
   popupDeleteOrStartStartup = false;
   popupGuide = false;
@@ -525,12 +533,16 @@ export default class extends Vue {
     this.releaseLikns = !this.releaseLikns;
   }
 
-  toggleAddTeamBadge() {
-    this.addTeamBadge = !this.addTeamBadge;
+  toggleAddTeamFeedBack(title, feedbackId) {
+    console.log(feedbackId);
+    this.feedBackTitle = title;
+    this.addTeamFeedBack = !this.addTeamFeedBack;
   }
 
-  toggleAddTeamFeedBack() {
-    this.addTeamFeedBack = !this.addTeamFeedBack;
+  toggleAddTeamBadge(title, feedbackId) {
+    console.log(feedbackId);
+    this.badgeTitle = title;
+    this.addTeamBadge = !this.addTeamBadge;
   }
 
   toggleRequestToTeam() {
@@ -578,6 +590,12 @@ export default class extends Vue {
     this.popupDeleteOrStartStartup = !this.popupDeleteOrStartStartup;
   }
 
+  showMore() {
+    if (this.updatableFeedbacks.length > this.maxLengthActivity) {
+      this.maxLengthActivity += 3;
+    }
+  }
+
   deleteStartup(startupName, startupId) {
     this.$emit("deleteStartup", startupId, startupName);
   }
@@ -603,6 +621,15 @@ export default class extends Vue {
 
     this.moveAwayStartup = this.startup.id;
     this.moveAwayStartupName = this.startup.title;
+
+    let count = 0;
+    this.feedbacks.forEach((newRequest) => {
+      if (newRequest.request.is_new === true) {
+        this.newFeedbacksData.push(newRequest);
+        count++;
+      }
+      this.newFeedBacks = count;
+    });
   }
 
   async accept(id) {
@@ -805,6 +832,24 @@ export default class extends Vue {
         });
         this.loading = false;
       }
+    } catch (e) {
+      console.error(e);
+      Toast.show({
+        data: e.message,
+        duration: 3000,
+      });
+      this.loading = false;
+    }
+  }
+
+  async updateFeedbacks() {
+    this.loading = true;
+    try {
+      const feedbacks = await this.$feedbacksByStartupID(this.startup.id);
+      if (feedbacks !== null) {
+        this.updatableFeedbacks = feedbacks;
+      }
+      this.loading = false;
     } catch (e) {
       console.error(e);
       Toast.show({
