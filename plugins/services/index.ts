@@ -255,11 +255,7 @@ export interface Services {
 
   $solutions(id: string): Promise<Partial<Solutions>[]>;
   $deleteSolution(id: string): Promise<Partial<Solutions>>;
-  $createSolution(
-    title: string,
-    url: string,
-    request: string
-  ): Promise<Partial<Solutions>[]>;
+  $createSolution(): Promise<Partial<Solutions>[]>;
   $updateSolution(
     id: string,
     title: string,

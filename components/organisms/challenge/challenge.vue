@@ -12,6 +12,7 @@
       :user-id="userId"
       :user-challenges="userChallenges"
       :user-challenge="userChallenge"
+      :profile="profile"
       @clickOnButton="toggleChallengeTask"
       @openParticipantSolution="toggleChallengeTask"
     ></ChallengeTask>
@@ -26,6 +27,7 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 import ChallengeTask from "./challengeTask.vue";
 import ParticipantSolution from "./participantSolution.vue";
 import { Challenge } from "~/models/Challenge";
+import { Profile } from "~/models/Profile";
 import { userChallenges } from "~/models/UserChallenges";
 
 @Component({
@@ -34,6 +36,7 @@ import { userChallenges } from "~/models/UserChallenges";
 export default class extends Vue {
   @Prop() challenge: Array<Challenge>;
   @Prop() userId: string;
+  @Prop() profile: Array<Profile>;
 
   @Prop() userChallenges: Array<userChallenges>;
   @Prop() userChallenge: Array<userChallenges>;

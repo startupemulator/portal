@@ -12,6 +12,8 @@
       v-for="(item, i) in existingSourseComponent"
       :key="item.id"
       :name="'Link ' + (i + 1)"
+      :link="item.link"
+      :title="item.title"
       @removeExistingSources="removeExistingSources(item.id)"
       @textInput="inputLink($event, i, item.id)"
     ></div>
@@ -25,46 +27,69 @@
     <TechnologyPicker
       :title="'Pick technologies you used'"
       :add-technology="true"
+      :technologies="profile.technologies"
+      @chosenTechnologi="chosenTechnologi"
+      @addTechnologies="addTechnologies"
     ></TechnologyPicker>
     <div class="request-feedback__comment">
       <p>Comment</p>
-      <textarea placeholder="Enter your comment to our experts"></textarea>
+      <textarea
+        v-model="commentToExpert"
+        placeholder="Enter your comment to our experts"
+      ></textarea>
     </div>
     <div class="request-feedback__finished-challenge">
-      <input id="finished-challenge" type="checkbox" />
-      <label for="finished-challenge">I’ve finished this challenge</label>
+      <input id="finished-challenge" ref="finishedChallenge" type="checkbox" />
+      <label for="finished-challenge" @click="finishChallenge"
+        >I’ve finished this challenge</label
+      >
     </div>
     <div class="request-feedback__button">
       <U-button
         :button-name="'Submit'"
         :button-class="'u-button-blue'"
+        @clickOnButton="submit"
       ></U-button>
     </div>
+    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
+import { Component, Vue, Prop } from "nuxt-property-decorator";
+import { Profile } from "~/models/Profile";
 
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import AddExistingSourse from "~/components/molecules/addExistingSource.vue";
 import TechnologyPicker from "~/components/molecules/technologyPicker.vue";
+import Spiner from "~/components/molecules/spiner.vue";
 
 @Component({
-  components: { UButton, UTitle, UBack, AddExistingSourse, TechnologyPicker },
+  components: {
+    UButton,
+    UTitle,
+    UBack,
+    AddExistingSourse,
+    TechnologyPicker,
+    Spiner,
+  },
 })
 export default class extends Vue {
-  data() {
-    return {
-      existingSourseComponent: [
-        { id: 1, type: "add-existing-sourse" },
-        { id: 2, type: "add-existing-sourse" },
-      ],
-    };
-  }
+  existingSourseComponent = [
+    { id: 0, type: "add-existing-sourse" },
+    { id: 1, type: "add-existing-sourse" },
+  ];
+
+  commentToExpert = "";
+  addedTechnologies = [];
+  addedNewTechnologies = [];
+  challengeFinished = false;
+  loading = false;
+  @Prop() profile: Array<Profile>;
 
   addExistingSourse() {
+    // this.createSolution();
     this.existingSourseComponent.push({
       id: this.existingSourseComponent.length + 1,
       type: "add-existing-sourse",
@@ -77,23 +102,75 @@ export default class extends Vue {
     );
   }
 
+  chosenTechnologi(name, id) {
+    this.addedTechnologies = id;
+  }
+
+  addTechnologies(data) {
+    this.addedNewTechnologies = data;
+  }
+
   inputLink($event, i, id) {
-    console.log($event, i, id);
     switch ($event[1]) {
       case "name":
-        // this.updateSources(id, $event[0], this.existingSourseComponent[i].link);
+        // this.updateSolution(id, $event[0], this.existingSourseComponent[i].url);
         this.existingSourseComponent[i].title = $event[0];
         break;
       case "url":
-        // this.updateSources(
+        // this.updateSolution(
         //   id,
         //   this.existingSourseComponent[i].title,
         //   $event[0]
         // );
-        this.existingSourseComponent[i].link = $event[0];
+        this.existingSourseComponent[i].url = $event[0];
         break;
       default:
     }
+  }
+
+  async createSolution() {
+    this.loading = true;
+    try {
+      const createSolution = await this.$createSolution();
+      if (createSolution !== null) {
+        this.loading = false;
+      }
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
+    }
+  }
+
+  async updateSolution(id, title, url) {
+    this.loading = true;
+    try {
+      const updateSolution = await this.$updateSolution(id, title, url);
+      if (updateSolution !== null) {
+        this.loading = false;
+      }
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
+    }
+  }
+
+  finishChallenge() {
+    this.challengeFinished = this.$refs.finishedChallenge.checked;
+  }
+
+  submit() {
+    this.finishChallenge();
+
+    if (this.$refs.finishedChallenge.checked) {
+      console.log(this.$refs.finishedChallenge.checked);
+    } else {
+      this.finishChallenge();
+    }
+
+    console.log(this.existingSourseComponent);
+    console.log(this.commentToExpert);
+    console.log(this.addedTechnologies);
+    console.log(this.addedNewTechnologies);
   }
 }
 </script>
@@ -178,10 +255,12 @@ export default class extends Vue {
         border: 2px solid #59667e;
         box-sizing: border-box;
         border-radius: 4px;
+        cursor: pointer;
       }
     }
     input:checked ~ label {
       &::after {
+        cursor: pointer;
         position: absolute;
         left: 0;
         content: "";

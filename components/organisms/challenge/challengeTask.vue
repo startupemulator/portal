@@ -7,7 +7,7 @@
     <!-- <pre style="color: #fff">{{ userChallenges }} </pre> -->
 
     <div
-      v-show="!requestFeedback && !addFeedback"
+      v-if="!requestFeedback && !addFeedback"
       class="challenge-task__content"
     >
       <UBack :link="'/challenges'"></UBack>
@@ -133,6 +133,7 @@
     </div>
     <RequestFeedback
       v-show="requestFeedback"
+      :profile="profile"
       @clikOnButton="toogleRequestFeedback"
     ></RequestFeedback>
     <div v-show="cancelParticipationPopup" class="cancel-participation__popup">
@@ -181,6 +182,7 @@ import AddTeamFeedBack from "~/components/organisms/startup/addTeamFeedback.vue"
 import DifficultyLevel from "~/components/atoms/difficultyLevel.vue";
 import FeedBackCard from "~/components/molecules/feedbackCard.vue";
 import { userChallenges } from "~/models/UserChallenges";
+import { Profile } from "~/models/Profile";
 
 @Component({
   components: {
@@ -206,6 +208,7 @@ export default class extends Vue {
   @Prop() userChallenges: Array<userChallenges>;
   @Prop() userId: string;
   @Prop() userChallenge: Array<userChallenges>;
+  @Prop() profile: Array<Profile>;
 
   requestFeedback = false;
   cancelParticipationPopup = false;
