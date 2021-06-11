@@ -111,6 +111,13 @@ import {
   userChallengesByUserId,
   deleteUserChallenges,
 } from "~/plugins/services/userChallenges";
+import { Solutions } from "~/models/Solution";
+import {
+  solutions,
+  deleteSolution,
+  createSolution,
+  updateSolution,
+} from "~/plugins/services/solution";
 export interface Services {
   $userChallengesById(id: string): Promise<Partial<userChallenges>[]>;
   $userChallengesByUserId(id: string): Promise<Partial<userChallenges>[]>;
@@ -246,6 +253,19 @@ export interface Services {
     link: string
   ): Promise<Partial<Sources>[]>;
 
+  $solutions(id: string): Promise<Partial<Solutions>[]>;
+  $deleteSolution(id: string): Promise<Partial<Solutions>>;
+  $createSolution(
+    title: string,
+    url: string,
+    request: string
+  ): Promise<Partial<Solutions>[]>;
+  $updateSolution(
+    id: string,
+    title: string,
+    url: string
+  ): Promise<Partial<Solutions>[]>;
+
   $secrets(id: string): Promise<Partial<Secrets>[]>;
   $deleteSecret(id: string): Promise<Partial<Secrets>>;
   $createSecret(
@@ -285,6 +305,11 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("deleteSecret", deleteSecret(ctx.$strapi));
   inject("createSecret", createSecret(ctx.$strapi));
   inject("updateSecret", updateSecret(ctx.$strapi));
+
+  inject("solutions", solutions(ctx.$strapi));
+  inject("deleteSolution", deleteSolution(ctx.$strapi));
+  inject("createSolution", createSolution(ctx.$strapi));
+  inject("updateSolution", updateSolution(ctx.$strapi));
 
   inject("sources", sources(ctx.$strapi));
   inject("deleteSource", deleteSource(ctx.$strapi));
