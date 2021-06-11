@@ -3,9 +3,11 @@
     class="challenge-task"
     :style="requestFeedback || addFeedback ? 'margin: 0 auto;' : ''"
   >
-    <pre style="color: #fff"> {{ challenge }}</pre>
+    <!-- <pre style="color: #fff"> {{ challenge }}</pre> -->
+    <!-- <pre style="color: #fff">{{ userChallenges }} </pre> -->
+
     <div
-      v-show="!requestFeedback && !addFeedback"
+      v-if="!requestFeedback && !addFeedback"
       class="challenge-task__content"
     >
       <UBack :link="'/challenges'"></UBack>
@@ -73,13 +75,8 @@
         ></U-button>
       </div>
 
+      <Sources :finished="true" :startup="challenge"></Sources>
       <!-- <Sources
-        :finished="true"
-        :title="'Solution'"
-        :link1="'Link 1'"
-        :link2="'Link 2'"
-      ></Sources>  -->
-      <Sources
         v-for="item in challenge.sources"
         :key="item.id"
         :finished="false"
@@ -87,8 +84,8 @@
         :title-link1="item.title"
         :link1="item.link"
         :link2="'Link 2'"
-      ></Sources>
-      <div class="used-technologies">
+      ></Sources> -->
+      <div v-if="false" class="used-technologies">
         <h3>Used technologies</h3>
         <UTags
           v-for="(item, i) in 9"
@@ -96,15 +93,15 @@
           :title="i < 3 ? 'Javascript' : i < 6 ? 'Java' : 'HTML5'"
         ></UTags>
       </div>
-      <div v-if="true" class="challenge-task__feedBacks">
+      <div v-if="false" class="challenge-task__feedBacks">
         <h3 class="participant-solution__title">Feedback</h3>
-        <FeedBackCard
+        <!-- <FeedBackCard
           :comment="'Some comment and feedback from an expert that belongs to some exact action in this list.'"
         ></FeedBackCard>
         <FeedBackCard
           :profile-img="false"
           :comment="'Some comment and feedback from an expert that belongs to some exact action in this list.'"
-        ></FeedBackCard>
+        ></FeedBackCard> -->
         <U-button
           :button-name="'Show 2 More Feedback'"
           :button-class="'u-button-gray'"
@@ -123,18 +120,20 @@
             </div>
           </div>
         </div>
-
+        <!-- 
         <Sources
           :finished="true"
           class="challenge-task__feedBacks-sources"
-        ></Sources>
+        ></Sources> -->
       </div>
       <Practicipants
+        :user-challenges="userChallenges"
         @clickOnButton="$emit('openParticipantSolution')"
       ></Practicipants>
     </div>
     <RequestFeedback
       v-show="requestFeedback"
+      :profile="profile"
       @clikOnButton="toogleRequestFeedback"
     ></RequestFeedback>
     <div v-show="cancelParticipationPopup" class="cancel-participation__popup">
@@ -151,6 +150,7 @@
           <U-button
             :button-name="'Yes, Cancel'"
             :button-class="'u-button-blue'"
+            @clickOnButton="cancelParticipation"
           ></U-button>
           <U-button
             :button-name="'No, Don’t Cancel'"
@@ -181,6 +181,8 @@ import CommentExpert from "~/components/molecules/commentForExpert.vue";
 import AddTeamFeedBack from "~/components/organisms/startup/addTeamFeedback.vue";
 import DifficultyLevel from "~/components/atoms/difficultyLevel.vue";
 import FeedBackCard from "~/components/molecules/feedbackCard.vue";
+import { userChallenges } from "~/models/UserChallenges";
+import { Profile } from "~/models/Profile";
 
 @Component({
   components: {
@@ -203,6 +205,11 @@ export default class extends Vue {
   @Prop() finished: Boolean;
   @Prop() isDeveloper: Boolean;
   @Prop() isExpert: Boolean;
+  @Prop() userChallenges: Array<userChallenges>;
+  @Prop() userId: string;
+  @Prop() userChallenge: Array<userChallenges>;
+  @Prop() profile: Array<Profile>;
+
   requestFeedback = false;
   cancelParticipationPopup = false;
   commentExpert = false;
@@ -218,6 +225,17 @@ export default class extends Vue {
 
   toogleRequestFeedback() {
     this.requestFeedback = !this.requestFeedback;
+  }
+
+  async cancelParticipation() {
+    try {
+      if (this.userChallenge !== null) {
+        await this.$deleteUserChallenges(this.userChallenge.id);
+        this.$router.push("/challenges");
+      }
+    } catch (e) {
+      console.error(e);
+    }
   }
 }
 </script>

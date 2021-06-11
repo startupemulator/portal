@@ -1,7 +1,10 @@
 <template>
   <div class="participate-challenge">
     <div class="participate-challenge__content">
-      <U-Back link="/challenges"></U-Back>
+      <U-Back
+        :is-button="false"
+        :link="'/challenge/' + challenge.slug"
+      ></U-Back>
       <U-title :text="'Participate in ' + challenge.title"></U-title>
       <Duration-picker
         :title="'Select your expected estimation for this challenge'"
