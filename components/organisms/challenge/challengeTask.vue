@@ -3,7 +3,9 @@
     class="challenge-task"
     :style="requestFeedback || addFeedback ? 'margin: 0 auto;' : ''"
   >
-    <pre style="color: #fff"> {{ challenge }}</pre>
+    <!-- <pre style="color: #fff"> {{ challenge }}</pre> -->
+    <!-- <pre style="color: #fff">{{ userChallenges }} </pre> -->
+
     <div
       v-show="!requestFeedback && !addFeedback"
       class="challenge-task__content"
@@ -83,7 +85,7 @@
         :link1="item.link"
         :link2="'Link 2'"
       ></Sources> -->
-      <div class="used-technologies">
+      <div v-if="false" class="used-technologies">
         <h3>Used technologies</h3>
         <UTags
           v-for="(item, i) in 9"
@@ -91,7 +93,7 @@
           :title="i < 3 ? 'Javascript' : i < 6 ? 'Java' : 'HTML5'"
         ></UTags>
       </div>
-      <div v-if="true" class="challenge-task__feedBacks">
+      <div v-if="false" class="challenge-task__feedBacks">
         <h3 class="participant-solution__title">Feedback</h3>
         <!-- <FeedBackCard
           :comment="'Some comment and feedback from an expert that belongs to some exact action in this list.'"
@@ -125,6 +127,7 @@
         ></Sources> -->
       </div>
       <Practicipants
+        :user-challenges="userChallenges"
         @clickOnButton="$emit('openParticipantSolution')"
       ></Practicipants>
     </div>
@@ -146,6 +149,7 @@
           <U-button
             :button-name="'Yes, Cancel'"
             :button-class="'u-button-blue'"
+            @clickOnButton="cancelParticipation"
           ></U-button>
           <U-button
             :button-name="'No, Don’t Cancel'"
@@ -176,6 +180,7 @@ import CommentExpert from "~/components/molecules/commentForExpert.vue";
 import AddTeamFeedBack from "~/components/organisms/startup/addTeamFeedback.vue";
 import DifficultyLevel from "~/components/atoms/difficultyLevel.vue";
 import FeedBackCard from "~/components/molecules/feedbackCard.vue";
+import { userChallenges } from "~/models/UserChallenges";
 
 @Component({
   components: {
@@ -198,6 +203,10 @@ export default class extends Vue {
   @Prop() finished: Boolean;
   @Prop() isDeveloper: Boolean;
   @Prop() isExpert: Boolean;
+  @Prop() userChallenges: Array<userChallenges>;
+  @Prop() userId: string;
+  @Prop() userChallenge: Array<userChallenges>;
+
   requestFeedback = false;
   cancelParticipationPopup = false;
   commentExpert = false;
@@ -213,6 +222,17 @@ export default class extends Vue {
 
   toogleRequestFeedback() {
     this.requestFeedback = !this.requestFeedback;
+  }
+
+  async cancelParticipation() {
+    try {
+      if (this.userChallenge !== null) {
+        await this.$deleteUserChallenges(this.userChallenge.id);
+        this.$router.push("/challenges");
+      }
+    } catch (e) {
+      console.error(e);
+    }
   }
 }
 </script>

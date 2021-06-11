@@ -16,7 +16,7 @@
         <p>3 months</p>
       </div>
     </div>
-    <Sources
+    <!-- <Sources
       :finished="true"
       :title="'Solution'"
       :link1="'Link 1'"
@@ -29,7 +29,7 @@
     <FeedBackCard
       :profile-img="false"
       :comment="'Some comment and feedback from an expert that belongs to some exact action in this list.'"
-    ></FeedBackCard>
+    ></FeedBackCard> -->
     <U-button
       :button-name="'Show 2 More Feedback'"
       :button-class="'u-button-gray'"

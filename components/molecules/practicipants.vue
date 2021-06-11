@@ -2,12 +2,18 @@
   <div class="practicipants">
     <div class="practicipants-header">
       <h4>Previous participants</h4>
-      <span>2</span>
+      <span>{{ userChallenges.length }} </span>
     </div>
     <ul class="practicipants-list">
-      <li v-for="(item, i) in 6" :key="i" class="practicipants-item">
+      <li
+        v-for="item in userChallenges"
+        :key="item.id"
+        class="practicipants-item"
+      >
         <div class="practicipants-item__data">
-          <span class="practicipants-item__name">Full Name</span>
+          <span class="practicipants-item__name"
+            >{{ item.user.username }}
+          </span>
           <p class="practicipants-item__date">27 Sep 2020</p>
         </div>
 
@@ -24,10 +30,14 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
+import { Component, Vue, Prop } from "nuxt-property-decorator";
 import UButton from "~/components/atoms/uButton.vue";
+import { userChallenges } from "~/models/UserChallenges";
+
 @Component({ components: { UButton } })
-export default class extends Vue {}
+export default class extends Vue {
+  @Prop() userChallenges: Array<userChallenges>;
+}
 </script>
 <style lang="scss" scoped>
 .practicipants {

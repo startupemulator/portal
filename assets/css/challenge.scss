@@ -5,6 +5,9 @@
   margin-top: 40px;
   max-width: 831px;
   padding: 0 16px;
+  .standard-label .standard-input {
+    padding-left: 16px;
+  }
   .challenge-task__header {
     display: flex;
     align-items: center;
@@ -115,6 +118,7 @@
       font-size: 17px;
       line-height: 32px;
       padding: 8px 24px;
+      box-sizing: border-box;
       &:hover {
         text-decoration: underline;
       }
@@ -243,7 +247,9 @@
     padding: 0;
     margin-top: 48px;
     margin-left: 48px;
-
+    .standard-label .standard-input {
+      padding-left: 24px;
+    }
     .challenge-task__header {
       .challenge-task__header__startup-state {
         margin-top: 36px;

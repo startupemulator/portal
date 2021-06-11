@@ -13,6 +13,7 @@
       :key="item.id"
       :name="'Link ' + (i + 1)"
       @removeExistingSources="removeExistingSources(item.id)"
+      @textInput="inputLink($event, i, item.id)"
     ></div>
 
     <U-button
@@ -74,6 +75,25 @@ export default class extends Vue {
     this.existingSourseComponent = this.existingSourseComponent.filter(
       (item) => item.id !== i
     );
+  }
+
+  inputLink($event, i, id) {
+    console.log($event, i, id);
+    switch ($event[1]) {
+      case "name":
+        // this.updateSources(id, $event[0], this.existingSourseComponent[i].link);
+        this.existingSourseComponent[i].title = $event[0];
+        break;
+      case "url":
+        // this.updateSources(
+        //   id,
+        //   this.existingSourseComponent[i].title,
+        //   $event[0]
+        // );
+        this.existingSourseComponent[i].link = $event[0];
+        break;
+      default:
+    }
   }
 }
 </script>
