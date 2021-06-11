@@ -1,5 +1,6 @@
 <template>
   <div class="startups-page">
+    <pre style="color: #fff">{{ userChallenges }} </pre>
     <ChallengePage :challenge="challenge"></ChallengePage>
   </div>
 </template>
@@ -16,9 +17,10 @@ import { Challenge } from "~/models/Challenge";
 export default class TakeChallenge extends Vue {
   challenge: Challenge;
 
-  async asyncData({ $challenge, route }) {
+  async asyncData({ $challenge, route, $userChallengesById }) {
     const challenge = await $challenge(route.params.slug);
-    return { challenge };
+    const userChallenges = await $userChallengesById("3");
+    return { challenge, userChallenges };
   }
 }
 </script>

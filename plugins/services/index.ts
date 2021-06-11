@@ -105,7 +105,10 @@ import {
 
 import { createLike, deleteLike } from "~/plugins/services/likes";
 import { Like } from "~/models/Like";
+import { userChallenges } from "~/models/UserChallenges";
+import { userChallengesById } from "~/plugins/services/userChallenges";
 export interface Services {
+  $userChallengesById(id: string): Promise<Partial<userChallenges>[]>;
   $positions(id: string): Promise<Partial<Positions>[]>;
   $createInvite(
     email: string,
@@ -256,6 +259,8 @@ export interface Services {
 
 const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("estimations", estimations(ctx.$strapi));
+
+  inject("userChallengesById", userChallengesById(ctx.$strapi));
 
   inject("positions", positions(ctx.$strapi));
   inject("updatePosition", updatePosition(ctx.$strapi));

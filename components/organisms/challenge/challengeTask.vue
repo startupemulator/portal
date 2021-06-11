@@ -73,13 +73,8 @@
         ></U-button>
       </div>
 
+      <Sources :finished="true" :startup="challenge"></Sources>
       <!-- <Sources
-        :finished="true"
-        :title="'Solution'"
-        :link1="'Link 1'"
-        :link2="'Link 2'"
-      ></Sources>  -->
-      <Sources
         v-for="item in challenge.sources"
         :key="item.id"
         :finished="false"
@@ -87,7 +82,7 @@
         :title-link1="item.title"
         :link1="item.link"
         :link2="'Link 2'"
-      ></Sources>
+      ></Sources> -->
       <div class="used-technologies">
         <h3>Used technologies</h3>
         <UTags
@@ -98,13 +93,13 @@
       </div>
       <div v-if="true" class="challenge-task__feedBacks">
         <h3 class="participant-solution__title">Feedback</h3>
-        <FeedBackCard
+        <!-- <FeedBackCard
           :comment="'Some comment and feedback from an expert that belongs to some exact action in this list.'"
         ></FeedBackCard>
         <FeedBackCard
           :profile-img="false"
           :comment="'Some comment and feedback from an expert that belongs to some exact action in this list.'"
-        ></FeedBackCard>
+        ></FeedBackCard> -->
         <U-button
           :button-name="'Show 2 More Feedback'"
           :button-class="'u-button-gray'"
@@ -123,11 +118,11 @@
             </div>
           </div>
         </div>
-
+        <!-- 
         <Sources
           :finished="true"
           class="challenge-task__feedBacks-sources"
-        ></Sources>
+        ></Sources> -->
       </div>
       <Practicipants
         @clickOnButton="$emit('openParticipantSolution')"
