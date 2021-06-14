@@ -97,7 +97,6 @@ export default {
       font-style: normal;
       font-weight: normal;
       font-size: 16px;
-      line-height: 32px;
     }
     &:focus {
       border: 2px solid #b5c1d8;
@@ -127,7 +126,6 @@ export default {
       line-height: 32px;
       &::placeholder {
         font-size: 18px;
-        line-height: 32px;
       }
     }
   }

@@ -88,7 +88,7 @@ export default class extends Vue {
 
   userIsAccept = false;
   mounted() {
-    if (this.card.users.length !== 0) {
+    if (this.card.users && this.card.users.length !== 0) {
       this.card.users.forEach((el) => {
         if (+el.user === +this.userId) {
           this.userIsAccept = true;

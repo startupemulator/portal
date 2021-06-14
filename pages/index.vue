@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-cloak>
     <app-get-experience></app-get-experience>
     <app-startups-block
       :cards="startups"
