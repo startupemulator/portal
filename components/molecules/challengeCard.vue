@@ -59,7 +59,7 @@
         ></U-button>
 
         <U-button
-          v-if="card.status !== 'new'"
+          v-if="!userIsAccept"
           :button-name="'Accept'"
           :button-class="'u-button-blue'"
           :is-link="'nuxt-link'"
@@ -84,6 +84,18 @@ import DifficultyLevel from "~/components/atoms/difficultyLevel.vue";
 export default class extends Vue {
   @Prop() i: number;
   @Prop() card: Challenge;
+  @Prop() userId: string;
+
+  userIsAccept = false;
+  mounted() {
+    if (this.card.users.length !== 0) {
+      this.card.users.forEach((el) => {
+        if (+el.user === +this.userId) {
+          this.userIsAccept = true;
+        }
+      });
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>

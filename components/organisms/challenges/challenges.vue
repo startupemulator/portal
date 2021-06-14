@@ -68,6 +68,7 @@
         :key="card.id"
         class="card"
         :card="card"
+        :user-id="userId"
       ></ChallengeCard>
     </div>
     <U-button
@@ -110,6 +111,8 @@ export default class extends Vue {
 
   @Prop() emptyState: Boolean;
   @Prop() autorizated: Boolean;
+  @Prop() userId: string;
+
   private filterList: boolean = false;
   difficultyFilter: Array<any> = [];
   specialityFilter: Array<any> = [];
