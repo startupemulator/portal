@@ -155,3 +155,39 @@ export function createAskFeedbackForStartup($strapi: Strapi) {
     return data.createRequest ? data.createRequest.request : null;
   };
 }
+export function createAskFeedbackForChallenge($strapi: Strapi) {
+  return async (
+    creator: string,
+    comment: string,
+    technologies: [],
+    challenge: string
+  ) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+        createRequest(input: { data: { comment: "${comment}",
+        technologies: [${technologies}], challenge: "${challenge}", is_new: true, creator: "${creator}"} }) {
+        request {
+         id
+         is_new
+    comment
+    technologies{
+      id
+      title
+    }
+    challenge {
+      id
+    }
+    startup {
+      id
+    } 
+        }
+    
+  }
+}`,
+    });
+    return data.createRequest ? data.createRequest.request : null;
+  };
+}
+
+// createRequest(input: { data: { comment: "${comment}",
+// technologies: [${technologies}], challenge: "${challenge}", is_new: true, creator: "${creator}"} }) {

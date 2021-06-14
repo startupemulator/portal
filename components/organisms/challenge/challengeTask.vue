@@ -134,6 +134,7 @@
     <RequestFeedback
       v-show="requestFeedback"
       :profile="profile"
+      :challenge-id="challenge.id"
       @clikOnButton="toogleRequestFeedback"
     ></RequestFeedback>
     <div v-show="cancelParticipationPopup" class="cancel-participation__popup">

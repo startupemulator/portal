@@ -6,6 +6,7 @@
       :specialisations="specialisations"
       :empty-state="emptyState"
       :autorizated="autorizated"
+      :user-id="userId"
       @filterCards="specialtyFilter"
       @difficultyFilter="difficultyFilter"
       @cleanFilter="cleanFilter"
@@ -27,6 +28,7 @@ export default class extends Vue {
   // data loaded here will be added during server rendering
   emptyState = false;
   autorizated = !!this.$strapi.user;
+  userId = this.$strapi.user ? this.$strapi.user.id : "";
   async asyncData({ $strapi }) {
     const challenges = await $strapi.find("challenges");
     const specialisations = await $strapi.find("specialisations");

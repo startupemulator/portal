@@ -29,10 +29,10 @@ export function deleteSolution($strapi: Strapi) {
   };
 }
 export function createSolution($strapi: Strapi) {
-  return async () => {
+  return async (title: string, url: string, request: string) => {
     const data = await $strapi.graphql({
       query: `mutation {
-        createSolution(input: { data: { title: ""} } ) {
+        createSolution(input: { data: { title: "${title}", url: "${url}", request: "${request}"  } } ) {
           solution {
            id
            
