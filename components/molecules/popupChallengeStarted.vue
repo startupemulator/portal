@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     closeSiginUpPopup() {
-      this.$emit("closePopupLinkSent");
+      this.$router.push("/challenges");
     },
   },
 };
