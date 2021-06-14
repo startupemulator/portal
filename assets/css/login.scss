@@ -34,11 +34,13 @@
     display: flex;
     align-items: baseline;
     margin-top: 20px;
+
     span {
       color: $main-text-color;
       font-weight: normal;
       font-size: 17px;
       line-height: 24px;
+      margin-right: 8px;
     }
     .button-back span {
       color: #8c97ac;
