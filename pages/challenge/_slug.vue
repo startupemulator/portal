@@ -38,12 +38,13 @@ export default class TakeChallenge extends Vue {
     if ($strapi.user) {
       profile = await $profile($strapi.user.id);
       userChallenge = await $userChallengesByUserId($strapi.user.id);
+      if (userChallenge !== undefined) {
+        userChallenges = userChallenges.filter(
+          (el) => el.id !== userChallenge.id
+        );
+      }
     }
-    if (userChallenge !== undefined) {
-      userChallenges = userChallenges.filter(
-        (el) => el.id !== userChallenge.id
-      );
-    }
+
     return { challenge, userChallenges, userChallenge, profile };
   }
 }
