@@ -17,7 +17,9 @@
       @removeExistingSources="removeExistingSources(item.id)"
       @textInput="inputLink($event, i, item.id)"
     ></div>
-
+    <p v-show="$v.haveASolution.$error" class="errorInput link">
+      Please add solution link
+    </p>
     <U-button
       :button-name="'Add Link'"
       :button-class="'u-button-blue add-link'"
@@ -31,19 +33,27 @@
       @chosenTechnologi="chosenTechnologi"
       @addTechnologies="addTechnologies"
     ></TechnologyPicker>
+    <p v-show="$v.addedTechnologies.$error" class="errorInput">
+      Please choose a technologies
+    </p>
     <div class="request-feedback__comment">
       <p>Comment</p>
       <textarea
         v-model="commentToExpert"
         placeholder="Enter your comment to our experts"
+        :class="$v.commentToExpert.$error ? 'error' : ''"
       ></textarea>
+      <p v-show="$v.commentToExpert.$error" class="errorInput">
+        Please enter a comment to expert of at least 8 characters
+      </p>
     </div>
-    <div class="request-feedback__finished-challenge">
+    <div class="request-feedback__finished-challenge" @click="finishChallenge">
       <input id="finished-challenge" ref="finishedChallenge" type="checkbox" />
-      <label for="finished-challenge" @click="finishChallenge"
-        >I’ve finished this challenge</label
-      >
+      <label for="finished-challenge">I’ve finished this challenge</label>
     </div>
+    <p v-show="$v.challengeFinished.$error" class="errorInput">
+      Please check I’ve finished this challenge
+    </p>
     <div class="request-feedback__button">
       <U-button
         :button-name="'Submit'"
@@ -56,6 +66,7 @@
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
+import { sameAs, minLength, required } from "vuelidate/lib/validators";
 import { Profile } from "~/models/Profile";
 
 import UBack from "~/components/atoms/uBack.vue";
@@ -64,6 +75,7 @@ import UButton from "~/components/atoms/uButton.vue";
 import AddExistingSourse from "~/components/molecules/addExistingSource.vue";
 import TechnologyPicker from "~/components/molecules/technologyPicker.vue";
 import Spiner from "~/components/molecules/spiner.vue";
+import Toast from "~/store/modules/Toast";
 
 @Component({
   components: {
@@ -74,22 +86,35 @@ import Spiner from "~/components/molecules/spiner.vue";
     TechnologyPicker,
     Spiner,
   },
+  validations: {
+    addedTechnologies: {
+      required,
+    },
+    commentToExpert: {
+      required,
+      minLength: minLength(8),
+    },
+    haveASolution: {
+      sameAs: sameAs(() => true),
+    },
+    challengeFinished: {
+      sameAs: sameAs(() => true),
+    },
+  },
 })
 export default class extends Vue {
-  existingSourseComponent = [
-    { id: 0, type: "add-existing-sourse" },
-    { id: 1, type: "add-existing-sourse" },
-  ];
+  existingSourseComponent = [{ id: 0, type: "add-existing-sourse" }];
 
   commentToExpert = "";
   addedTechnologies = [];
   addedNewTechnologies = [];
   challengeFinished = false;
+  haveASolution = false;
   loading = false;
   @Prop() profile: Array<Profile>;
+  @Prop() challengeId: string;
 
   addExistingSourse() {
-    // this.createSolution();
     this.existingSourseComponent.push({
       id: this.existingSourseComponent.length + 1,
       type: "add-existing-sourse",
@@ -113,44 +138,20 @@ export default class extends Vue {
   inputLink($event, i, id) {
     switch ($event[1]) {
       case "name":
-        // this.updateSolution(id, $event[0], this.existingSourseComponent[i].url);
         this.existingSourseComponent[i].title = $event[0];
         break;
       case "url":
-        // this.updateSolution(
-        //   id,
-        //   this.existingSourseComponent[i].title,
-        //   $event[0]
-        // );
         this.existingSourseComponent[i].url = $event[0];
         break;
       default:
     }
   }
 
-  async createSolution() {
-    this.loading = true;
+  async createSolution(title, url, request) {
     try {
-      const createSolution = await this.$createSolution();
-      if (createSolution !== null) {
-        this.loading = false;
-      }
+      await this.$createSolution(title, url, request);
     } catch (e) {
       console.error(e);
-      this.loading = false;
-    }
-  }
-
-  async updateSolution(id, title, url) {
-    this.loading = true;
-    try {
-      const updateSolution = await this.$updateSolution(id, title, url);
-      if (updateSolution !== null) {
-        this.loading = false;
-      }
-    } catch (e) {
-      console.error(e);
-      this.loading = false;
     }
   }
 
@@ -158,19 +159,49 @@ export default class extends Vue {
     this.challengeFinished = this.$refs.finishedChallenge.checked;
   }
 
-  submit() {
+  async submit() {
     this.finishChallenge();
+    this.existingSourseComponent.forEach((el) => {
+      if (el.url !== undefined && el.title !== undefined) {
+        this.haveASolution = true;
+      } else {
+        this.haveASolution = false;
+      }
+    });
+    this.$v.$touch();
 
-    if (this.$refs.finishedChallenge.checked) {
-      console.log(this.$refs.finishedChallenge.checked);
-    } else {
-      this.finishChallenge();
+    if (!this.$v.$error) {
+      try {
+        this.loading = true;
+        const requestFeedback = await this.$createAskFeedbackForChallenge(
+          this.profile.user.id.toString(),
+          this.commentToExpert,
+          this.addedTechnologies,
+          this.challengeId
+        );
+        if (requestFeedback !== null) {
+          console.log(requestFeedback);
+          this.existingSourseComponent.forEach((el) => {
+            this.createSolution(el.title, el.url, requestFeedback.id);
+          });
+
+          this.loading = false;
+        } else {
+          Toast.show({
+            data: "Something wrong!",
+            duration: 3000,
+          });
+          this.loading = false;
+        }
+      } catch (e) {
+        console.error(e);
+        Toast.show({
+          data: e.message,
+          duration: 3000,
+        });
+        this.loading = false;
+      }
     }
-
-    console.log(this.existingSourseComponent);
-    console.log(this.commentToExpert);
-    console.log(this.addedTechnologies);
-    console.log(this.addedNewTechnologies);
   }
 }
 </script>
@@ -179,6 +210,13 @@ export default class extends Vue {
   width: 343px;
   margin: 0 auto;
   margin-top: 40px;
+  .errorInput {
+    margin-bottom: 0;
+    top: 0;
+    &.link {
+      margin-bottom: 16px;
+    }
+  }
   h2 {
     margin-bottom: 12px;
   }
@@ -238,6 +276,7 @@ export default class extends Vue {
   .request-feedback__finished-challenge {
     position: relative;
     margin-top: 32px;
+
     input {
       display: none;
     }
@@ -246,6 +285,7 @@ export default class extends Vue {
       font-size: 16px;
       line-height: 22px;
       padding-left: 36px;
+      cursor: pointer;
       &::before {
         position: absolute;
         left: 0;

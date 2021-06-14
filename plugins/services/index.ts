@@ -60,6 +60,7 @@ import {
   feedbacks,
   askFeedbacks,
   createAskFeedbackForStartup,
+  createAskFeedbackForChallenge,
 } from "~/plugins/services/feedbacks";
 import { notifications } from "~/plugins//services/notifications";
 
@@ -168,6 +169,12 @@ export interface Services {
     technologies: [],
     startup: string
   ): Promise<Partial<AskFeedbacks>[]>;
+  $createAskFeedbackForChallenge(
+    creator: string,
+    comment: string,
+    technologies: [],
+    challenge: string
+  ): Promise<Partial<AskFeedbacks>[]>;
 
   $notifications(): Promise<Partial<Notification>[]>;
 
@@ -255,7 +262,11 @@ export interface Services {
 
   $solutions(id: string): Promise<Partial<Solutions>[]>;
   $deleteSolution(id: string): Promise<Partial<Solutions>>;
-  $createSolution(): Promise<Partial<Solutions>[]>;
+  $createSolution(
+    title: string,
+    url: string,
+    request: string
+  ): Promise<Partial<Solutions>[]>;
   $updateSolution(
     id: string,
     title: string,
@@ -371,7 +382,10 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
     "createAskFeedbackForStartup",
     createAskFeedbackForStartup(ctx.$strapi)
   );
-
+  inject(
+    "createAskFeedbackForChallenge",
+    createAskFeedbackForChallenge(ctx.$strapi)
+  );
   inject("notifications", notifications(ctx.$strapi));
 
   inject("createLike", createLike(ctx.$strapi));
