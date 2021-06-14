@@ -58,7 +58,6 @@ export default class extends Vue {
   }
 
   mounted() {
-    console.log(this.userChallenge);
     if (this.userChallenge) {
       this.isDeveloper = true;
       this.isStarted = true;

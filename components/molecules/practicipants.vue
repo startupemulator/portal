@@ -2,7 +2,7 @@
   <div class="practicipants">
     <div class="practicipants-header">
       <h4>Previous participants</h4>
-      <span>{{ userChallenges.length }} </span>
+      <span>{{ userChallenges ? userChallenges.length : 0 }} </span>
     </div>
     <ul class="practicipants-list">
       <li
