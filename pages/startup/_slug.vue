@@ -1,6 +1,6 @@
 <template>
   <div class="startups-page">
-    <!-- <pre style="color: #fff">{{ userId }} </pre> -->
+    <!-- <pre style="color: #fff">{{ feedbacks }} </pre> -->
     <Spiner :loading="loading"></Spiner>
     <StartupPage
       :startup="startup"
@@ -37,7 +37,7 @@ export default class TakeStartup extends Vue {
   developerPosition = "";
   applicationId = "";
   loading = false;
-  userId = this.$strapi.user.id;
+  userId = this.$strapi.user ? this.$strapi.user.id : "";
   async asyncData({
     $startup,
     $feedbacksByStartupID,

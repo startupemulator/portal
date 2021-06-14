@@ -169,7 +169,7 @@ export default class extends Vue {
 
   async like() {
     this.loading = true;
-    if (!this.thisUserlike) {
+    if (!this.thisUserlike && !!this.userId) {
       try {
         const like = await this.$createLike(this.feedback.id, this.userId);
         if (like !== null) {
@@ -186,7 +186,7 @@ export default class extends Vue {
         });
         this.loading = false;
       }
-    } else {
+    } else if (this.userId) {
       try {
         const like = await this.$deleteLike(this.thisUserlikeId);
         if (like !== null) {
@@ -203,6 +203,8 @@ export default class extends Vue {
         });
         this.loading = false;
       }
+    } else if (!this.userId) {
+      this.$router.push("/login");
     }
   }
 
