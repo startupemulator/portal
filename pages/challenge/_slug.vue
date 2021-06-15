@@ -6,7 +6,9 @@
       :user-challenges="userChallenges"
       :user-id="userId"
       :user-challenge="userChallenge"
+      :previos-participaints="previosParticipaints"
       :profile="profile"
+      :askfeedbacks="askfeedbacks"
     ></ChallengePage>
   </div>
 </template>
@@ -30,22 +32,31 @@ export default class TakeChallenge extends Vue {
     $userChallengesByUserId,
     $strapi,
     $profile,
+    $askFeedbacksByChallengeId,
   }) {
     const challenge = await $challenge(route.params.slug);
-    let userChallenges = await $userChallengesById(challenge.id);
+    const userChallenges = await $userChallengesById(challenge.id);
+    const askfeedbacks = await $askFeedbacksByChallengeId(challenge.id);
     let profile = [];
     let userChallenge = [];
+    let previosParticipaints = [];
     if ($strapi.user) {
       profile = await $profile($strapi.user.id);
       userChallenge = await $userChallengesByUserId($strapi.user.id);
-      if (userChallenge !== undefined) {
-        userChallenges = userChallenges.filter(
-          (el) => el.id !== userChallenge.id
-        );
-      }
     }
-
-    return { challenge, userChallenges, userChallenge, profile };
+    if (userChallenge !== undefined) {
+      previosParticipaints = userChallenges.filter(
+        (el) => el.id !== userChallenge.id
+      );
+    }
+    return {
+      challenge,
+      userChallenges,
+      userChallenge,
+      profile,
+      previosParticipaints,
+      askfeedbacks,
+    };
   }
 }
 </script>

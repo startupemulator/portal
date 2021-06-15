@@ -3,7 +3,7 @@
     class="challenge-task"
     :style="requestFeedback || addFeedback ? 'margin: 0 auto;' : ''"
   >
-    <!-- <pre style="color: #fff"> {{ challenge }}</pre> -->
+    <pre style="color: #fff"> {{ feedbacks }}</pre>
     <!-- <pre style="color: #fff">{{ userChallenges }} </pre> -->
 
     <div
@@ -93,12 +93,16 @@
           :title="i < 3 ? 'Javascript' : i < 6 ? 'Java' : 'HTML5'"
         ></UTags>
       </div>
-      <div v-if="false" class="challenge-task__feedBacks">
+      <div v-if="true" class="challenge-task__feedBacks">
         <h3 class="participant-solution__title">Feedback</h3>
-        <!-- <FeedBackCard
-          :comment="'Some comment and feedback from an expert that belongs to some exact action in this list.'"
-        ></FeedBackCard>
-        <FeedBackCard
+        <FeedbackCardChallenges
+          v-for="feedback in feedbacks"
+          :key="feedback.id"
+          :feedback="feedback"
+          :is-expert="isExpert"
+          :user-id="userId"
+        ></FeedbackCardChallenges>
+        <!--   <FeedBackCard
           :profile-img="false"
           :comment="'Some comment and feedback from an expert that belongs to some exact action in this list.'"
         ></FeedBackCard> -->
@@ -127,7 +131,7 @@
         ></Sources> -->
       </div>
       <Practicipants
-        :user-challenges="userChallenges"
+        :previos-participaints="previosParticipaints"
         @clickOnButton="$emit('openParticipantSolution')"
       ></Practicipants>
     </div>
@@ -181,9 +185,10 @@ import UTags from "~/components/atoms/uTags.vue";
 import CommentExpert from "~/components/molecules/commentForExpert.vue";
 import AddTeamFeedBack from "~/components/organisms/startup/addTeamFeedback.vue";
 import DifficultyLevel from "~/components/atoms/difficultyLevel.vue";
-import FeedBackCard from "~/components/molecules/feedbackCard.vue";
+import FeedbackCardChallenges from "~/components/molecules/feedbackCardChallenges.vue";
 import { userChallenges } from "~/models/UserChallenges";
 import { Profile } from "~/models/Profile";
+import { Feedbacks } from "~/models/Feedbacks";
 
 @Component({
   components: {
@@ -197,7 +202,7 @@ import { Profile } from "~/models/Profile";
     CommentExpert,
     AddTeamFeedBack,
     DifficultyLevel,
-    FeedBackCard,
+    FeedbackCardChallenges,
   },
 })
 export default class extends Vue {
@@ -210,6 +215,8 @@ export default class extends Vue {
   @Prop() userId: string;
   @Prop() userChallenge: Array<userChallenges>;
   @Prop() profile: Array<Profile>;
+  @Prop() previosParticipaints: Array<userChallenges>;
+  @Prop() feedbacks: Array<Feedbacks>;
 
   requestFeedback = false;
   cancelParticipationPopup = false;

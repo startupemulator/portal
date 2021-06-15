@@ -26,6 +26,7 @@ export function userChallengesByUserId($strapi: Strapi) {
       query: `query {
         userChallenges(where: {user: {id: "${id}"}}) {
            id
+           
            user{
              id
              username
