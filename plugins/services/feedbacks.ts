@@ -188,6 +188,51 @@ export function createAskFeedbackForChallenge($strapi: Strapi) {
     return data.createRequest ? data.createRequest.request : null;
   };
 }
-
-// createRequest(input: { data: { comment: "${comment}",
-// technologies: [${technologies}], challenge: "${challenge}", is_new: true, creator: "${creator}"} }) {
+export function askFeedbacksByChallengeId($strapi: Strapi) {
+  return async (id: string) => {
+    const data = await $strapi.graphql({
+      query: `query {
+        requests (where: {challenge: {id: "${id}"}}) {
+          id
+          comment
+          is_new
+          technologies{
+            id
+            title
+          }
+          challenge {
+            id
+          }
+          creator{
+            id
+            username
+          }
+          feedbacks{
+            id
+            description
+            criterions {
+              id
+              mark
+              direction{
+                id
+                title
+                comment
+              }
+            }
+            badges {
+              id
+            }
+            is_public
+            expert{
+              id
+              username
+              name
+            }
+            published_at
+          }
+        }
+      }`,
+    });
+    return data.requests ? data.requests : null;
+  };
+}

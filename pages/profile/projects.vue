@@ -1,4 +1,4 @@
-<template>
+<template v-cloak>
   <div class="projects">
     <Spiner :loading="loading"></Spiner>
 

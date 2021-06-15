@@ -2,11 +2,11 @@
   <div class="practicipants">
     <div class="practicipants-header">
       <h4>Previous participants</h4>
-      <span>{{ userChallenges ? userChallenges.length : 0 }} </span>
+      <span>{{ previosParticipaints ? previosParticipaints.length : 0 }} </span>
     </div>
     <ul class="practicipants-list">
       <li
-        v-for="item in userChallenges"
+        v-for="item in previosParticipaints"
         :key="item.id"
         class="practicipants-item"
       >
@@ -36,7 +36,7 @@ import { userChallenges } from "~/models/UserChallenges";
 
 @Component({ components: { UButton } })
 export default class extends Vue {
-  @Prop() userChallenges: Array<userChallenges>;
+  @Prop() previosParticipaints: Array<userChallenges>;
 }
 </script>
 <style lang="scss" scoped>
