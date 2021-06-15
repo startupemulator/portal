@@ -71,6 +71,7 @@ export default class extends Vue {
   moveAwayStartup: string = "";
   moveAwayStartupName: string = "";
   deleteStartup(startupName, startupId) {
+    console.log("hi");
     this.$emit("deleteDraft", startupId, startupName);
   }
 
