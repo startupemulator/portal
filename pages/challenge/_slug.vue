@@ -1,6 +1,6 @@
 <template>
-  <div class="startups-page">
-    <!-- <pre style="color: #fff">{{ userChallenge }} </pre> -->
+  <div v-cloak class="startups-page">
+    <!-- <pre style="color: #fff">{{ $strapi.user }} </pre> -->
     <ChallengePage
       :challenge="challenge"
       :user-challenges="userChallenges"
@@ -14,7 +14,6 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-
 import ChallengePage from "~/components/organisms/challenge/challenge.vue";
 import { Challenge } from "~/models/Challenge";
 @Component({
@@ -44,11 +43,19 @@ export default class TakeChallenge extends Vue {
       profile = await $profile($strapi.user.id);
       userChallenge = await $userChallengesByUserId($strapi.user.id);
     }
-    if (userChallenge !== undefined) {
-      previosParticipaints = userChallenges.filter(
-        (el) => el.id !== userChallenge.id
+    if (askfeedbacks !== null && $strapi.user) {
+      previosParticipaints = askfeedbacks.filter(
+        (el) => +el.creator.id !== +$strapi.user.id
       );
+    } else {
+      previosParticipaints = askfeedbacks;
     }
+    if (userChallenge !== undefined) {
+      userChallenge = userChallenge.filter(
+        (el) => el.challenge.id === challenge.id
+      )[0];
+    }
+
     return {
       challenge,
       userChallenges,

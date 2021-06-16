@@ -110,5 +110,10 @@ a.u-button {
     height: 56px;
     font-size: 18px;
   }
+  .challenge-task {
+    .u-button-gray {
+      width: 241px;
+    }
+  }
 }
 </style>

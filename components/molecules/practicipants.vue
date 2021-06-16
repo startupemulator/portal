@@ -12,7 +12,7 @@
       >
         <div class="practicipants-item__data">
           <span class="practicipants-item__name"
-            >{{ item.user.username }}
+            >{{ item.creator.username }}
           </span>
           <p class="practicipants-item__date">27 Sep 2020</p>
         </div>
@@ -21,7 +21,7 @@
           <U-button
             :button-name="'See Solution'"
             :button-class="'u-button-transpend'"
-            @clickOnButton="$emit('clickOnButton')"
+            @clickOnButton="$emit('clickOnButton', item)"
           ></U-button>
           <img src="~/assets/img/arrow.svg" alt="arrow" />
         </div>

@@ -5,7 +5,8 @@
       :is-button="true"
       @clikOnButton="$emit('clikOnButton')"
     ></UBack>
-    <UTitle :text="'Full Name'"></UTitle>
+
+    <UTitle :text="solutionData.creator.username"></UTitle>
     <div class="startup-card__started-start-time">
       <div class="started-start-time__finished">
         <h3>Finished</h3>
@@ -13,43 +14,53 @@
       </div>
       <div class="started-start-time__duration">
         <h3>Duration</h3>
-        <p>3 months</p>
+        <p>{{ solutionData.estimation }} days</p>
       </div>
     </div>
-    <!-- <Sources
-      :finished="true"
-      :title="'Solution'"
-      :link1="'Link 1'"
-      :link2="'Link 2'"
-    ></Sources>
+    <Solutions :solution="solutionData.solutions"></Solutions>
     <h3 class="participant-solution__title">Feedback</h3>
-    <FeedBackCard
-      :comment="'Some comment and feedback from an expert that belongs to some exact action in this list.'"
-    ></FeedBackCard>
-    <FeedBackCard
-      :profile-img="false"
-      :comment="'Some comment and feedback from an expert that belongs to some exact action in this list.'"
-    ></FeedBackCard> -->
+    <FeedbackCardChallenges
+      v-for="feedback in solutionData.feedbacks.slice(0, showMoreTwoFeedbacks)"
+      :key="feedback.id"
+      :feedback="feedback"
+      :is-expert="isExpert"
+      :user-id="userId"
+    ></FeedbackCardChallenges>
+
     <U-button
+      v-if="showMoreTwoFeedbacks < solutionData.feedbacks.length"
       :button-name="'Show 2 More Feedback'"
       :button-class="'u-button-gray'"
+      @clickOnButton="showMoreFeedbacks"
     ></U-button>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
+import { Component, Vue, Prop } from "nuxt-property-decorator";
 
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
-import Sources from "~/components/molecules/sources.vue";
-import FeedBackCard from "~/components/molecules/feedbackCard.vue";
+import Solutions from "~/components/molecules/solutions.vue";
+import FeedbackCardChallenges from "~/components/molecules/feedbackCardChallenges.vue";
+import { Feedbacks } from "~/models/Feedbacks";
+import { Challenge } from "~/models/Challenge";
 
 @Component({
-  components: { UButton, UTitle, UBack, Sources, FeedBackCard },
+  components: { UButton, UTitle, UBack, Solutions, FeedbackCardChallenges },
 })
-export default class extends Vue {}
+export default class extends Vue {
+  @Prop() challenge: Array<Challenge>;
+  @Prop() userId: string;
+  @Prop() isExpert: string;
+  @Prop() solutionData: Array<any>;
+  @Prop() feedbacks: Array<Feedbacks>;
+  showMoreTwoFeedbacks = 2;
+  showMoreFeedbacks() {
+    this.showMoreTwoFeedbacks += 2;
+  }
+}
 </script>
 
 <style lang="scss" scoped>

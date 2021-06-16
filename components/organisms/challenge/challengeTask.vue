@@ -3,9 +3,6 @@
     class="challenge-task"
     :style="requestFeedback || addFeedback ? 'margin: 0 auto;' : ''"
   >
-    <pre style="color: #fff"> {{ feedbacks }}</pre>
-    <!-- <pre style="color: #fff">{{ userChallenges }} </pre> -->
-
     <div
       v-if="!requestFeedback && !addFeedback"
       class="challenge-task__content"
@@ -18,7 +15,7 @@
           class="challenge-task__header__startup-state"
           :class="isStarted ? 'in_progress' : finished ? 'finished' : ''"
         >
-          In progress
+          {{ isStarted ? "In progress" : finished ? "Finished" : "" }}
         </div>
       </div>
 
@@ -38,7 +35,7 @@
         </div>
         <div class="started-start-time__duration">
           <h3>Estimation</h3>
-          <p>3 months</p>
+          <p>{{ userChallenge ? userChallenge.estimation : "0" }} days</p>
         </div>
       </div>
       <ul v-if="isDeveloper" class="challenge-task__header-menu-list">
@@ -58,7 +55,7 @@
       <p>
         {{ challenge.description }}
       </p>
-      <CommentExpert v-if="isExpert"></CommentExpert>
+      <!-- <CommentExpert v-if="isExpert"></CommentExpert> -->
       <div v-if="!isStarted && commentExpert" class="challenge-task__button">
         <U-button
           :button-name="'Add Feedback'"
@@ -66,7 +63,10 @@
           @clickOnButton="toggleAddFeedback"
         ></U-button>
       </div>
-      <div v-if="!isStarted && !commentExpert" class="challenge-task__button">
+      <div
+        v-if="!isStarted && !commentExpert && !finished"
+        class="challenge-task__button"
+      >
         <U-button
           :button-name="'Take Part'"
           :button-class="'u-button-blue '"
@@ -75,16 +75,41 @@
         ></U-button>
       </div>
 
-      <Sources :finished="true" :startup="challenge"></Sources>
-      <!-- <Sources
-        v-for="item in challenge.sources"
-        :key="item.id"
-        :finished="false"
-        :title="'Sources'"
-        :title-link1="item.title"
-        :link1="item.link"
-        :link2="'Link 2'"
-      ></Sources> -->
+      <div v-if="isExpert" class="waiting-feedback">
+        <h3>
+          Waiting for feedback <span> {{ newFeedbacks.length }}</span>
+        </h3>
+        <div
+          v-for="item in newFeedbacks"
+          :key="item.id"
+          class="waiting-feedback__card"
+        >
+          <div class="waiting-feedback__card-content">
+            <div class="waiting-feedback__card-person">
+              <span> {{ item.creator.username }}</span>
+              <p>
+                {{
+                  new Date(item.solutions[0].published_at)
+                    .toUTCString()
+                    .substr(4, 12)
+                }}
+              </p>
+            </div>
+            <button type="button">
+              <img src="~/assets/img/arrow.svg" alt="arrow" />
+            </button>
+          </div>
+        </div>
+      </div>
+      <Sources
+        v-if="!finished"
+        :finished="finished"
+        :startup="challenge"
+      ></Sources>
+      <Solutions
+        v-if="finished"
+        :solution="askfeedbacks[0].solutions"
+      ></Solutions>
       <div v-if="false" class="used-technologies">
         <h3>Used technologies</h3>
         <UTags
@@ -93,46 +118,31 @@
           :title="i < 3 ? 'Javascript' : i < 6 ? 'Java' : 'HTML5'"
         ></UTags>
       </div>
-      <div v-if="true" class="challenge-task__feedBacks">
+      <div
+        v-if="!isExpert && !!userId && feedbacks.length > 0"
+        class="challenge-task__feedBacks"
+      >
         <h3 class="participant-solution__title">Feedback</h3>
         <FeedbackCardChallenges
-          v-for="feedback in feedbacks"
+          v-for="feedback in feedbacks.slice(0, showMoreTwoFeedbacks)"
           :key="feedback.id"
           :feedback="feedback"
           :is-expert="isExpert"
           :user-id="userId"
         ></FeedbackCardChallenges>
-        <!--   <FeedBackCard
-          :profile-img="false"
-          :comment="'Some comment and feedback from an expert that belongs to some exact action in this list.'"
-        ></FeedBackCard> -->
+        <Sources v-if="finished" :startup="challenge"></Sources>
+
         <U-button
+          v-if="showMoreTwoFeedbacks < feedbacks.length"
           :button-name="'Show 2 More Feedback'"
           :button-class="'u-button-gray'"
+          @clickOnButton="showMoreFeedbacks"
         ></U-button>
-        <div v-if="isExpert" class="waiting-feedback">
-          <h3>Waiting for feedback <span>3</span></h3>
-          <div v-for="(item, i) in 2" :key="i" class="waiting-feedback__card">
-            <div class="waiting-feedback__card-content">
-              <div class="waiting-feedback__card-person">
-                <span> {{ i === 1 ? "Name Surname" : "Full Name" }}</span>
-                <p>27 Sep 2020</p>
-              </div>
-              <button type="button">
-                <img src="~/assets/img/arrow.svg" alt="arrow" />
-              </button>
-            </div>
-          </div>
-        </div>
-        <!-- 
-        <Sources
-          :finished="true"
-          class="challenge-task__feedBacks-sources"
-        ></Sources> -->
       </div>
+
       <Practicipants
         :previos-participaints="previosParticipaints"
-        @clickOnButton="$emit('openParticipantSolution')"
+        @clickOnButton="$emit('openParticipantSolution', $event)"
       ></Practicipants>
     </div>
     <RequestFeedback
@@ -180,6 +190,7 @@ import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import Sources from "~/components/molecules/sources.vue";
+import Solutions from "~/components/molecules/solutions.vue";
 import Practicipants from "~/components/molecules/practicipants.vue";
 import UTags from "~/components/atoms/uTags.vue";
 import CommentExpert from "~/components/molecules/commentForExpert.vue";
@@ -189,6 +200,7 @@ import FeedbackCardChallenges from "~/components/molecules/feedbackCardChallenge
 import { userChallenges } from "~/models/UserChallenges";
 import { Profile } from "~/models/Profile";
 import { Feedbacks } from "~/models/Feedbacks";
+import { AskFeedbacks } from "~/models/AskFeedbacks";
 
 @Component({
   components: {
@@ -203,6 +215,7 @@ import { Feedbacks } from "~/models/Feedbacks";
     AddTeamFeedBack,
     DifficultyLevel,
     FeedbackCardChallenges,
+    Solutions,
   },
 })
 export default class extends Vue {
@@ -217,11 +230,16 @@ export default class extends Vue {
   @Prop() profile: Array<Profile>;
   @Prop() previosParticipaints: Array<userChallenges>;
   @Prop() feedbacks: Array<Feedbacks>;
-
+  @Prop() askfeedbacks: Array<AskFeedbacks>;
   requestFeedback = false;
   cancelParticipationPopup = false;
   commentExpert = false;
   addFeedback = false;
+  showMoreTwoFeedbacks = 2;
+  newFeedbacks = [];
+  showMoreFeedbacks() {
+    this.showMoreTwoFeedbacks += 2;
+  }
 
   toggleAddFeedback() {
     this.addFeedback = !this.addFeedback;
@@ -238,11 +256,18 @@ export default class extends Vue {
   async cancelParticipation() {
     try {
       if (this.userChallenge !== null) {
+        console.log(this.userChallenge.id);
         await this.$deleteUserChallenges(this.userChallenge.id);
         this.$router.push("/challenges");
       }
     } catch (e) {
       console.error(e);
+    }
+  }
+
+  mounted() {
+    if (this.askfeedbacks !== null) {
+      this.newFeedbacks = this.askfeedbacks.filter((el) => el.is_new);
     }
   }
 }
