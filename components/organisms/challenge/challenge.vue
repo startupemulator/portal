@@ -12,12 +12,18 @@
       :user-challenge="userChallenge"
       :profile="profile"
       :feedbacks="feedbacks"
+      :askfeedbacks="askfeedbacks"
       :previos-participaints="previosParticipaints"
       @clickOnButton="toggleChallengeTask"
       @openParticipantSolution="toggleChallengeTask"
     ></ChallengeTask>
     <ParticipantSolution
       v-if="participantSolution"
+      :feedbacks="feedbacks"
+      :challenge="challenge"
+      :user-id="userId"
+      :is-expert="isExpert"
+      :solution-data="solutionData"
       @clikOnButton="toggleChallengeTask"
     ></ParticipantSolution>
   </div>
@@ -51,18 +57,24 @@ export default class extends Vue {
   isStarted = false;
   finished = false;
   feedbacks = [];
-
+  solutionData = {};
   toggleParticipantSolution() {
     this.participantSolution = !this.participantSolution;
   }
 
-  toggleChallengeTask() {
+  toggleChallengeTask(data) {
+    this.solutionData = data;
+    console.log(data);
     this.participantSolution = !this.participantSolution;
     this.challengeTask = !this.challengeTask;
   }
 
   mounted() {
-    if (this.userChallenges.some((el) => +el.id === +this.userChallenge.id)) {
+    if (
+      this.userChallenges.some(
+        (el) => +el.user.id === +this.userChallenge.user.id
+      )
+    ) {
       this.isDeveloper = true;
       this.isStarted = true;
     }
@@ -80,6 +92,16 @@ export default class extends Vue {
 
         return 0;
       });
+    }
+    if (
+      this.askfeedbacks !== null &&
+      this.askfeedbacks.some(
+        (el) => +el.creator.id === +this.userChallenge.user.id
+      )
+    ) {
+      this.isDeveloper = false;
+      this.isStarted = false;
+      this.finished = true;
     }
   }
 }

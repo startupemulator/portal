@@ -2,11 +2,14 @@
   <div class="feed-back-card">
     <div class="feed-back-card__main-content">
       <div class="feed-back-card__main-content-header">
-        <!-- <h3><span>Expert's</span> {{ feedback.expert }}</h3> -->
+        <h3>
+          Expert's
+          {{ feedback.expert ? feedback.expert.username : "" }}
+        </h3>
 
         <p>{{ new Date(feedback.published_at).toUTCString().substr(4, 18) }}</p>
       </div>
-      <div v-show="show_feedback" class="feed-back-card__main-content-body">
+      <div v-show="true" class="feed-back-card__main-content-body">
         <img src="~/assets/img/feedback.svg" alt="feedback" />
 
         <div class="feed-back-card__main-content-feedback">
@@ -43,14 +46,14 @@
             <span>
               {{ feedback.description }}
             </span>
-            <!-- <div class="feedbacks_badges">
+            <div class="feedbacks_badges">
               <img
                 v-for="badge in feedback.badges"
                 :key="badge.id"
                 :src="badge.image[0].url"
                 :alt="badge.title"
               />
-            </div> -->
+            </div>
           </div>
         </div>
       </div>

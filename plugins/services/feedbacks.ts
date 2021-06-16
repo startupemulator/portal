@@ -221,6 +221,11 @@ export function askFeedbacksByChallengeId($strapi: Strapi) {
             }
             badges {
               id
+              title
+              image {
+                id
+                url
+              }
             }
             is_public
             expert{
@@ -229,6 +234,11 @@ export function askFeedbacksByChallengeId($strapi: Strapi) {
               name
             }
             published_at
+          }
+          solutions {
+            id
+            title
+            url
           }
         }
       }`,

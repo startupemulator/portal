@@ -1,6 +1,5 @@
 <template>
   <div class="startups-page">
-    <!-- <pre style="color: #fff">{{ userChallenge }} </pre> -->
     <ChallengePage
       :challenge="challenge"
       :user-challenges="userChallenges"
@@ -35,7 +34,7 @@ export default class TakeChallenge extends Vue {
     $askFeedbacksByChallengeId,
   }) {
     const challenge = await $challenge(route.params.slug);
-    const userChallenges = await $userChallengesById(challenge.id);
+    const userChallenges = await $userChallengesById(challenge.id); // все отзывы на челленж
     const askfeedbacks = await $askFeedbacksByChallengeId(challenge.id);
     let profile = [];
     let userChallenge = [];
@@ -48,6 +47,9 @@ export default class TakeChallenge extends Vue {
       previosParticipaints = userChallenges.filter(
         (el) => el.id !== userChallenge.id
       );
+      userChallenge = userChallenge.filter(
+        (el) => el.challenge.id === challenge.id
+      )[0];
     }
     return {
       challenge,

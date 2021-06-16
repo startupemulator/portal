@@ -21,7 +21,7 @@
           <U-button
             :button-name="'See Solution'"
             :button-class="'u-button-transpend'"
-            @clickOnButton="$emit('clickOnButton')"
+            @clickOnButton="$emit('clickOnButton', item)"
           ></U-button>
           <img src="~/assets/img/arrow.svg" alt="arrow" />
         </div>
