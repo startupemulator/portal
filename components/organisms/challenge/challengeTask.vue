@@ -55,7 +55,7 @@
       <p>
         {{ challenge.description }}
       </p>
-      <CommentExpert v-if="isExpert"></CommentExpert>
+      <!-- <CommentExpert v-if="isExpert"></CommentExpert> -->
       <div v-if="!isStarted && commentExpert" class="challenge-task__button">
         <U-button
           :button-name="'Add Feedback'"
@@ -75,6 +75,32 @@
         ></U-button>
       </div>
 
+      <div v-if="isExpert" class="waiting-feedback">
+        <h3>
+          Waiting for feedback <span> {{ newFeedbacks.length }}</span>
+        </h3>
+        <div
+          v-for="item in newFeedbacks"
+          :key="item.id"
+          class="waiting-feedback__card"
+        >
+          <div class="waiting-feedback__card-content">
+            <div class="waiting-feedback__card-person">
+              <span> {{ item.creator.username }}</span>
+              <p>
+                {{
+                  new Date(item.solutions[0].published_at)
+                    .toUTCString()
+                    .substr(4, 12)
+                }}
+              </p>
+            </div>
+            <button type="button">
+              <img src="~/assets/img/arrow.svg" alt="arrow" />
+            </button>
+          </div>
+        </div>
+      </div>
       <Sources
         v-if="!finished"
         :finished="finished"
@@ -93,7 +119,7 @@
         ></UTags>
       </div>
       <div
-        v-if="!!userId && feedbacks.length > 0"
+        v-if="!isExpert && !!userId && feedbacks.length > 0"
         class="challenge-task__feedBacks"
       >
         <h3 class="participant-solution__title">Feedback</h3>
@@ -112,21 +138,8 @@
           :button-class="'u-button-gray'"
           @clickOnButton="showMoreFeedbacks"
         ></U-button>
-        <div v-if="isExpert" class="waiting-feedback">
-          <h3>Waiting for feedback <span>3</span></h3>
-          <div v-for="(item, i) in 2" :key="i" class="waiting-feedback__card">
-            <div class="waiting-feedback__card-content">
-              <div class="waiting-feedback__card-person">
-                <span> {{ i === 1 ? "Name Surname" : "Full Name" }}</span>
-                <p>27 Sep 2020</p>
-              </div>
-              <button type="button">
-                <img src="~/assets/img/arrow.svg" alt="arrow" />
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
+
       <Practicipants
         :previos-participaints="previosParticipaints"
         @clickOnButton="$emit('openParticipantSolution', $event)"
@@ -223,6 +236,7 @@ export default class extends Vue {
   commentExpert = false;
   addFeedback = false;
   showMoreTwoFeedbacks = 2;
+  newFeedbacks = [];
   showMoreFeedbacks() {
     this.showMoreTwoFeedbacks += 2;
   }
@@ -248,6 +262,12 @@ export default class extends Vue {
       }
     } catch (e) {
       console.error(e);
+    }
+  }
+
+  mounted() {
+    if (this.askfeedbacks !== null) {
+      this.newFeedbacks = this.askfeedbacks.filter((el) => el.is_new);
     }
   }
 }

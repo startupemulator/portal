@@ -5,8 +5,8 @@
       :is-button="true"
       @clikOnButton="$emit('clikOnButton')"
     ></UBack>
-    {{ solutionData }}
-    <UTitle :text="solutionData.user.username"></UTitle>
+
+    <UTitle :text="solutionData.creator.username"></UTitle>
     <div class="startup-card__started-start-time">
       <div class="started-start-time__finished">
         <h3>Finished</h3>
@@ -17,17 +17,18 @@
         <p>{{ solutionData.estimation }} days</p>
       </div>
     </div>
-    <Sources :finished="true" :startup="challenge"></Sources>
+    <Solutions :solution="solutionData.solutions"></Solutions>
     <h3 class="participant-solution__title">Feedback</h3>
     <FeedbackCardChallenges
-      v-for="feedback in feedbacks.slice(0, showMoreTwoFeedbacks)"
+      v-for="feedback in solutionData.feedbacks.slice(0, showMoreTwoFeedbacks)"
       :key="feedback.id"
       :feedback="feedback"
       :is-expert="isExpert"
       :user-id="userId"
     ></FeedbackCardChallenges>
+
     <U-button
-      v-if="showMoreTwoFeedbacks < feedbacks.length"
+      v-if="showMoreTwoFeedbacks < solutionData.feedbacks.length"
       :button-name="'Show 2 More Feedback'"
       :button-class="'u-button-gray'"
       @clickOnButton="showMoreFeedbacks"
@@ -41,13 +42,13 @@ import { Component, Vue, Prop } from "nuxt-property-decorator";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
-import Sources from "~/components/molecules/sources.vue";
+import Solutions from "~/components/molecules/solutions.vue";
 import FeedbackCardChallenges from "~/components/molecules/feedbackCardChallenges.vue";
 import { Feedbacks } from "~/models/Feedbacks";
 import { Challenge } from "~/models/Challenge";
 
 @Component({
-  components: { UButton, UTitle, UBack, Sources, FeedbackCardChallenges },
+  components: { UButton, UTitle, UBack, Solutions, FeedbackCardChallenges },
 })
 export default class extends Vue {
   @Prop() challenge: Array<Challenge>;

@@ -239,6 +239,7 @@ export function askFeedbacksByChallengeId($strapi: Strapi) {
             id
             title
             url
+            published_at
           }
         }
       }`,

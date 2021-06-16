@@ -2,6 +2,7 @@
   <div class="challenge-page">
     <ChallengeTask
       v-if="challengeTask"
+      :key="isExpert"
       :is-started="isStarted"
       :finished="finished"
       :is-developer="isDeveloper"
@@ -17,6 +18,7 @@
       @clickOnButton="toggleChallengeTask"
       @openParticipantSolution="toggleChallengeTask"
     ></ChallengeTask>
+
     <ParticipantSolution
       v-if="participantSolution"
       :feedbacks="feedbacks"
@@ -30,8 +32,9 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
-import ChallengeTask from "./challengeTask.vue";
+
 import ParticipantSolution from "./participantSolution.vue";
+import ChallengeTask from "./challengeTask.vue";
 import { Challenge } from "~/models/Challenge";
 import { Profile } from "~/models/Profile";
 import { userChallenges } from "~/models/UserChallenges";
@@ -70,7 +73,9 @@ export default class extends Vue {
   }
 
   mounted() {
+    console.log("challenge");
     if (
+      this.userChallenge !== undefined &&
       this.userChallenges.some(
         (el) => +el.user.id === +this.userChallenge.user.id
       )
@@ -78,6 +83,23 @@ export default class extends Vue {
       this.isDeveloper = true;
       this.isStarted = true;
     }
+    if (
+      this.askfeedbacks !== null &&
+      this.userChallenge !== undefined &&
+      this.askfeedbacks.some(
+        (el) => +el.creator.id === +this.userChallenge.user.id
+      )
+    ) {
+      this.isDeveloper = false;
+      this.isStarted = false;
+      this.finished = true;
+    }
+
+    // this.isExpert = true;
+    // this.isDeveloper = false;
+    // this.isStarted = false;
+    // this.finished = false; // dev, when profile update need hange this
+
     if (this.askfeedbacks !== null) {
       this.askfeedbacks.forEach((el) =>
         el.feedbacks.forEach((item) => this.feedbacks.push(item))
@@ -92,16 +114,6 @@ export default class extends Vue {
 
         return 0;
       });
-    }
-    if (
-      this.askfeedbacks !== null &&
-      this.askfeedbacks.some(
-        (el) => +el.creator.id === +this.userChallenge.user.id
-      )
-    ) {
-      this.isDeveloper = false;
-      this.isStarted = false;
-      this.finished = true;
     }
   }
 }
