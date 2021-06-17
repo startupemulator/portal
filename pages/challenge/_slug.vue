@@ -9,6 +9,8 @@
       :previos-participaints="previosParticipaints"
       :profile="profile"
       :askfeedbacks="askfeedbacks"
+      :directions="directions"
+      :badges="badges"
     ></ChallengePage>
   </div>
 </template>
@@ -32,6 +34,8 @@ export default class TakeChallenge extends Vue {
     $strapi,
     $profile,
     $askFeedbacksByChallengeId,
+    $directions,
+    $badges,
   }) {
     const challenge = await $challenge(route.params.slug);
     const userChallenges = await $userChallengesById(challenge.id);
@@ -39,9 +43,14 @@ export default class TakeChallenge extends Vue {
     let profile = [];
     let userChallenge = [];
     let previosParticipaints = [];
+    let directions = [];
+    let badges = [];
     if ($strapi.user) {
       profile = await $profile($strapi.user.id);
       userChallenge = await $userChallengesByUserId($strapi.user.id);
+      // need do if profile.expert - wait backend
+      directions = await $directions();
+      badges = await $badges();
     }
     if (askfeedbacks !== null && $strapi.user) {
       previosParticipaints = askfeedbacks.filter(
@@ -63,6 +72,8 @@ export default class TakeChallenge extends Vue {
       profile,
       previosParticipaints,
       askfeedbacks,
+      directions,
+      badges,
     };
   }
 }

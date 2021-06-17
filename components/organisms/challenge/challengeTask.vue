@@ -79,6 +79,7 @@
         <h3>
           Waiting for feedback <span> {{ newFeedbacks.length }}</span>
         </h3>
+
         <div
           v-for="item in newFeedbacks"
           :key="item.id"
@@ -87,6 +88,7 @@
           <div class="waiting-feedback__card-content">
             <div class="waiting-feedback__card-person">
               <span> {{ item.creator.username }}</span>
+
               <p>
                 {{
                   new Date(item.solutions[0].published_at)
@@ -95,7 +97,7 @@
                 }}
               </p>
             </div>
-            <button type="button">
+            <button type="button" @click="$emit('participantRequest', item)">
               <img src="~/assets/img/arrow.svg" alt="arrow" />
             </button>
           </div>
@@ -110,14 +112,14 @@
         v-if="finished"
         :solution="askfeedbacks[0].solutions"
       ></Solutions>
-      <div v-if="false" class="used-technologies">
+      <!-- <div v-if="false" class="used-technologies">
         <h3>Used technologies</h3>
         <UTags
           v-for="(item, i) in 9"
           :key="i"
           :title="i < 3 ? 'Javascript' : i < 6 ? 'Java' : 'HTML5'"
         ></UTags>
-      </div>
+      </div> -->
       <div
         v-if="!isExpert && !!userId && feedbacks.length > 0"
         class="challenge-task__feedBacks"
@@ -175,10 +177,10 @@
         </div>
       </div>
     </div>
-    <AddTeamFeedBack
+    <!-- <AddTeamFeedBack
       v-show="addFeedback"
       @clikOnButton="toggleAddFeedback"
-    ></AddTeamFeedBack>
+    ></AddTeamFeedBack> -->
   </div>
 </template>
 <script lang="ts">

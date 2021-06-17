@@ -17,6 +17,7 @@
       :previos-participaints="previosParticipaints"
       @clickOnButton="toggleChallengeTask"
       @openParticipantSolution="toggleChallengeTask"
+      @participantRequest="participantRequest"
     ></ChallengeTask>
 
     <ParticipantSolution
@@ -26,6 +27,9 @@
       :user-id="userId"
       :is-expert="isExpert"
       :solution-data="solutionData"
+      :directions="directions"
+      :badges="badges"
+      :expert-id="profile.user.id"
       @clikOnButton="toggleChallengeTask"
     ></ParticipantSolution>
   </div>
@@ -39,6 +43,8 @@ import { Challenge } from "~/models/Challenge";
 import { Profile } from "~/models/Profile";
 import { userChallenges } from "~/models/UserChallenges";
 import { AskFeedbacks } from "~/models/AskFeedbacks";
+import { Directions } from "~/models/Directions";
+import { Badges } from "~/models/Badges";
 
 @Component({
   components: { ChallengeTask, ParticipantSolution },
@@ -48,10 +54,11 @@ export default class extends Vue {
   @Prop() userId: string;
   @Prop() profile: Array<Profile>;
   @Prop() askfeedbacks: Array<AskFeedbacks>;
-
+  @Prop() directions: Array<Directions>;
   @Prop() userChallenges: Array<userChallenges>;
   @Prop() userChallenge: Array<userChallenges>;
   @Prop() previosParticipaints: Array<userChallenges>;
+  @Prop() badges: Array<Badges>;
 
   challengeTask = true;
   participantSolution = false;
@@ -68,6 +75,13 @@ export default class extends Vue {
   toggleChallengeTask(data) {
     this.solutionData = data;
     console.log(data);
+    this.participantSolution = !this.participantSolution;
+    this.challengeTask = !this.challengeTask;
+  }
+
+  participantRequest(data) {
+    console.log(data);
+    this.solutionData = data;
     this.participantSolution = !this.participantSolution;
     this.challengeTask = !this.challengeTask;
   }
@@ -95,10 +109,10 @@ export default class extends Vue {
       this.finished = true;
     }
 
-    // this.isExpert = true;
-    // this.isDeveloper = false;
-    // this.isStarted = false;
-    // this.finished = false; // dev, when profile update need hange this
+    this.isExpert = true;
+    this.isDeveloper = false;
+    this.isStarted = false;
+    this.finished = false; // dev, when profile update need hange this
 
     if (this.askfeedbacks !== null) {
       this.askfeedbacks.forEach((el) =>

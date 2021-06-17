@@ -88,6 +88,10 @@ a.u-button {
   &:active {
     background-color: $button-color-blue-active;
   }
+  &.add-feedback {
+    margin-top: 24px;
+    margin-bottom: 16px;
+  }
 }
 .u-button-gray {
   border-color: #404c5f;
@@ -105,6 +109,7 @@ a.u-button {
     background-color: $button-color-gray-active;
   }
 }
+
 @media (min-width: 768px) {
   .u-button {
     height: 56px;
@@ -113,6 +118,11 @@ a.u-button {
   .challenge-task {
     .u-button-gray {
       width: 241px;
+    }
+  }
+  .u-button-blue {
+    &.add-feedback {
+      max-width: 238px;
     }
   }
 }

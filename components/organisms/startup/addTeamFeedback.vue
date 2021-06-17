@@ -5,17 +5,30 @@
       <UTitle :text="title"></UTitle>
     </div>
     <div class="add-team-feedback__content">
-      <Criterios v-for="(item, i) in 5" :key="i" :i="i"></Criterios>
+      <!-- <pre style="color: #fff">{{ directions }} </pre> -->
+      <Criterios
+        v-for="(direction, i) in directions"
+        :key="direction.id"
+        :direction="direction"
+        :i="i"
+        @markDirection="markDirection"
+      ></Criterios>
       <div class="add-team-feedback__comment">
         <p>Comment</p>
-        <textarea placeholder="Enter your comment"></textarea>
+        <textarea v-model="comment" placeholder="Enter your comment"></textarea>
       </div>
-      <PickBadeg :title="'Pick a badge (Optional)'"></PickBadeg>
+
+      <PickBadeg
+        :title="'Pick a badge (Optional)'"
+        :badges="badges"
+        @addBadge="addBadge"
+      ></PickBadeg>
     </div>
     <div class="add-team-feedback__buttons">
       <U-button
         :button-name="'Submit'"
         :button-class="'u-button-blue'"
+        @clickOnButton="createFeedback"
       ></U-button>
       <U-button
         :button-name="'Cancel'"
@@ -33,12 +46,66 @@ import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import Criterios from "~/components/molecules/criterios.vue";
 import PickBadeg from "~/components/molecules/pickBadge.vue";
+import { Directions } from "~/models/Directions";
+import { Badges } from "~/models/Badges";
 
 @Component({
   components: { UButton, UTitle, UBack, Criterios, PickBadeg },
 })
 export default class extends Vue {
   @Prop({ default: "Add feedback" }) title: string;
+  @Prop() directions: Array<Directions>;
+  @Prop() badges: Array<Badges>;
+  @Prop() expertId: string;
+  @Prop() requestId: string;
+
+  markedDirection = [];
+  comment = "";
+  badge = "";
+  createdCriterions = [];
+  markDirection(directionId: string, mark: string) {
+    if (this.markedDirection.some((el) => +el.id === +directionId)) {
+      this.markedDirection[
+        this.markedDirection.findIndex((el) => +el.id === +directionId)
+      ].mark = mark;
+    } else {
+      this.markedDirection.push({ id: directionId, mark });
+    }
+    this.markedDirection = this.markedDirection.filter(
+      (el) => el.mark !== "skip"
+    );
+  }
+
+  addBadge(badge) {
+    this.badge = badge.id;
+  }
+
+  async createCriterions(el) {
+    const criterion = await this.$createCriterions(el.mark);
+    this.createdCriterions.push(criterion);
+  }
+
+  async creteFeedBackForChallenge() {
+    const feedBack = await this.$createFeedbackForChallenge(
+      this.expertId,
+      this.comment,
+      this.createdCriterions,
+      this.badge,
+      this.requestId
+    );
+    console.log(feedBack);
+  }
+
+  createFeedback() {
+    if (this.markedDirection.length !== 0) {
+      this.markedDirection.forEach((el) => {
+        this.createCriterions(el.mark);
+      });
+    }
+    // this.creteFeedBackForChallenge();
+
+    // step 3 - создать feedback
+  }
 }
 </script>
 
