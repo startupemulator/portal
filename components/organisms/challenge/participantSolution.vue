@@ -79,10 +79,12 @@
         @clickOnButton="showMoreFeedbacks"
       ></U-button>
     </div>
+
     <AddTeamFeedBack
       v-if="addFeedback"
       :directions="directions"
-      :badges="badges"
+      :expert-id="expertId"
+      :request-id="solutionData.id"
       @clikOnButton="toggleAddFeedback"
     ></AddTeamFeedBack>
   </div>
@@ -118,6 +120,7 @@ export default class extends Vue {
   @Prop() challenge: Array<Challenge>;
   @Prop() userId: string;
   @Prop() isExpert: string;
+  @Prop() expertId: string;
   @Prop() solutionData: Array<any>;
   @Prop() feedbacks: Array<Feedbacks>;
   @Prop() directions: Array<Directions>;

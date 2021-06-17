@@ -79,6 +79,7 @@
         <h3>
           Waiting for feedback <span> {{ newFeedbacks.length }}</span>
         </h3>
+
         <div
           v-for="item in newFeedbacks"
           :key="item.id"
@@ -87,6 +88,7 @@
           <div class="waiting-feedback__card-content">
             <div class="waiting-feedback__card-person">
               <span> {{ item.creator.username }}</span>
+
               <p>
                 {{
                   new Date(item.solutions[0].published_at)

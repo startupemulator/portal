@@ -126,7 +126,11 @@ import { directions } from "~/plugins/services/directions";
 import { Badges } from "~/models/Badges";
 import { badges } from "~/plugins/services/badges";
 
+import { Criterions } from "~/models/Criterions";
+import { createCriterions } from "~/plugins/services/criterions";
+
 export interface Services {
+  $createCriterions(mark: string): Promise<Partial<Criterions>[]>;
   $directions(): Promise<Partial<Directions>[]>;
   $badges(): Promise<Partial<Badges>[]>;
   $userChallengesById(id: string): Promise<Partial<userChallenges>[]>;
@@ -314,6 +318,7 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("badges", badges(ctx.$strapi));
   inject("directions", directions(ctx.$strapi));
   inject("estimations", estimations(ctx.$strapi));
+  inject("createCriterions", createCriterions(ctx.$strapi));
 
   inject("userChallengesById", userChallengesById(ctx.$strapi));
   inject("userChallengesByUserId", userChallengesByUserId(ctx.$strapi));

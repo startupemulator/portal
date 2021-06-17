@@ -29,6 +29,7 @@
       :solution-data="solutionData"
       :directions="directions"
       :badges="badges"
+      :expert-id="profile.user.id"
       @clikOnButton="toggleChallengeTask"
     ></ParticipantSolution>
   </div>

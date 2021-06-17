@@ -39,7 +39,7 @@ export function feedbacksByStartupID($strapi: Strapi) {
       }
       creator{ 
         id
-        name
+        
         username
       }
     }
@@ -88,7 +88,7 @@ export function feedbacks($strapi: Strapi) {
       }
       creator{ 
         id
-        name
+        
         username
       }
     }
@@ -140,7 +140,7 @@ export function createFeedbackForChallenge($strapi: Strapi) {
       }
       creator{ 
         id
-        name
+        
         username
       }
     }
@@ -283,7 +283,7 @@ export function askFeedbacksByChallengeId($strapi: Strapi) {
             expert{
               id
               username
-              name
+              
             }
             published_at
           }

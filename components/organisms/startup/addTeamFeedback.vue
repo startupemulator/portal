@@ -28,6 +28,7 @@
       <U-button
         :button-name="'Submit'"
         :button-class="'u-button-blue'"
+        @clickOnButton="createFeedback"
       ></U-button>
       <U-button
         :button-name="'Cancel'"
@@ -55,10 +56,13 @@ export default class extends Vue {
   @Prop({ default: "Add feedback" }) title: string;
   @Prop() directions: Array<Directions>;
   @Prop() badges: Array<Badges>;
+  @Prop() expertId: string;
+  @Prop() requestId: string;
 
   markedDirection = [];
   comment = "";
   badge = "";
+  createdCriterions = [];
   markDirection(directionId: string, mark: string) {
     if (this.markedDirection.some((el) => +el.id === +directionId)) {
       this.markedDirection[
@@ -74,6 +78,33 @@ export default class extends Vue {
 
   addBadge(badge) {
     this.badge = badge.id;
+  }
+
+  async createCriterions(el) {
+    const criterion = await this.$createCriterions(el.mark);
+    this.createdCriterions.push(criterion);
+  }
+
+  async creteFeedBackForChallenge() {
+    const feedBack = await this.$createFeedbackForChallenge(
+      this.expertId,
+      this.comment,
+      this.createdCriterions,
+      this.badge,
+      this.requestId
+    );
+    console.log(feedBack);
+  }
+
+  createFeedback() {
+    if (this.markedDirection.length !== 0) {
+      this.markedDirection.forEach((el) => {
+        this.createCriterions(el.mark);
+      });
+    }
+    // this.creteFeedBackForChallenge();
+
+    // step 3 - создать feedback
   }
 }
 </script>
