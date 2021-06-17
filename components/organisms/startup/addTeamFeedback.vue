@@ -15,9 +15,14 @@
       ></Criterios>
       <div class="add-team-feedback__comment">
         <p>Comment</p>
-        <textarea placeholder="Enter your comment"></textarea>
+        <textarea v-model="comment" placeholder="Enter your comment"></textarea>
       </div>
-      <PickBadeg :title="'Pick a badge (Optional)'"></PickBadeg>
+
+      <PickBadeg
+        :title="'Pick a badge (Optional)'"
+        :badges="badges"
+        @addBadge="addBadge"
+      ></PickBadeg>
     </div>
     <div class="add-team-feedback__buttons">
       <U-button
@@ -41,6 +46,7 @@ import UButton from "~/components/atoms/uButton.vue";
 import Criterios from "~/components/molecules/criterios.vue";
 import PickBadeg from "~/components/molecules/pickBadge.vue";
 import { Directions } from "~/models/Directions";
+import { Badges } from "~/models/Badges";
 
 @Component({
   components: { UButton, UTitle, UBack, Criterios, PickBadeg },
@@ -48,20 +54,26 @@ import { Directions } from "~/models/Directions";
 export default class extends Vue {
   @Prop({ default: "Add feedback" }) title: string;
   @Prop() directions: Array<Directions>;
+  @Prop() badges: Array<Badges>;
+
   markedDirection = [];
+  comment = "";
+  badge = "";
   markDirection(directionId: string, mark: string) {
-    console.log(this.markedDirection.some((el) => +el.id === +directionId));
     if (this.markedDirection.some((el) => +el.id === +directionId)) {
-      // console.log(
-      //   this.markedDirection.findIndex((el) => +el.id === +directionId)
-      // );
       this.markedDirection[
         this.markedDirection.findIndex((el) => +el.id === +directionId)
       ].mark = mark;
     } else {
       this.markedDirection.push({ id: directionId, mark });
     }
-    console.log(this.markedDirection);
+    this.markedDirection = this.markedDirection.filter(
+      (el) => el.mark !== "skip"
+    );
+  }
+
+  addBadge(badge) {
+    this.badge = badge.id;
   }
 }
 </script>

@@ -123,8 +123,12 @@ import {
 } from "~/plugins/services/solution";
 import { Directions } from "~/models/Directions";
 import { directions } from "~/plugins/services/directions";
+import { Badges } from "~/models/Badges";
+import { badges } from "~/plugins/services/badges";
+
 export interface Services {
   $directions(): Promise<Partial<Directions>[]>;
+  $badges(): Promise<Partial<Badges>[]>;
   $userChallengesById(id: string): Promise<Partial<userChallenges>[]>;
   $userChallengesByUserId(id: string): Promise<Partial<userChallenges>[]>;
   $deleteUserChallenges(id: string): Promise<Partial<userChallenges>[]>;
@@ -307,6 +311,7 @@ export interface Services {
 }
 
 const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
+  inject("badges", badges(ctx.$strapi));
   inject("directions", directions(ctx.$strapi));
   inject("estimations", estimations(ctx.$strapi));
 

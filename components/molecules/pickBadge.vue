@@ -4,16 +4,14 @@
     <div class="pick-bage__content">
       <ul ref="pickBageList" class="pick-bage__conten-list">
         <li
-          v-for="(item, i) in 10"
-          :key="i"
+          v-for="badge in badges"
+          :key="badge.id"
           class="pick-bage__content-item"
-          @click="clickOnBage"
+          @click="clickOnBage($event, badge)"
         >
           <div class="">
-            <img src="~/assets/img/profile-image.svg" alt="boots" />
-            <span>{{
-              i % 2 ? "Boost" : i % 3 ? "Super super boost" : "Super boost"
-            }}</span>
+            <img :src="badge.image[0].url" alt="boots" />
+            <span>{{ badge.title }}</span>
           </div>
         </li>
       </ul>
@@ -23,13 +21,16 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
+import { Badges } from "~/models/Badges";
 
 @Component({
   components: {},
 })
 export default class extends Vue {
   @Prop({ default: "Pick a badge" }) title: String;
-  clickOnBage($event) {
+  @Prop() badges: Array<Badges>;
+
+  clickOnBage($event, badge) {
     const obj = $event.currentTarget;
     if (obj.classList.contains("active")) {
       obj.classList.remove("active");
@@ -40,6 +41,7 @@ export default class extends Vue {
       );
       obj.classList.add("active");
     }
+    this.$emit("addBadge", badge);
   }
 }
 </script>

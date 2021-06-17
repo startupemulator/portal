@@ -28,6 +28,7 @@
       :is-expert="isExpert"
       :solution-data="solutionData"
       :directions="directions"
+      :badges="badges"
       @clikOnButton="toggleChallengeTask"
     ></ParticipantSolution>
   </div>
@@ -42,6 +43,7 @@ import { Profile } from "~/models/Profile";
 import { userChallenges } from "~/models/UserChallenges";
 import { AskFeedbacks } from "~/models/AskFeedbacks";
 import { Directions } from "~/models/Directions";
+import { Badges } from "~/models/Badges";
 
 @Component({
   components: { ChallengeTask, ParticipantSolution },
@@ -55,6 +57,7 @@ export default class extends Vue {
   @Prop() userChallenges: Array<userChallenges>;
   @Prop() userChallenge: Array<userChallenges>;
   @Prop() previosParticipaints: Array<userChallenges>;
+  @Prop() badges: Array<Badges>;
 
   challengeTask = true;
   participantSolution = false;
