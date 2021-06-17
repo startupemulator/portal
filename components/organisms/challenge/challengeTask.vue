@@ -95,7 +95,7 @@
                 }}
               </p>
             </div>
-            <button type="button">
+            <button type="button" @click="$emit('participantRequest', item)">
               <img src="~/assets/img/arrow.svg" alt="arrow" />
             </button>
           </div>

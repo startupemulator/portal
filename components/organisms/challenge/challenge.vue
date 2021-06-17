@@ -17,6 +17,7 @@
       :previos-participaints="previosParticipaints"
       @clickOnButton="toggleChallengeTask"
       @openParticipantSolution="toggleChallengeTask"
+      @participantRequest="participantRequest"
     ></ChallengeTask>
 
     <ParticipantSolution
@@ -72,6 +73,13 @@ export default class extends Vue {
     this.challengeTask = !this.challengeTask;
   }
 
+  participantRequest(data) {
+    console.log(data);
+    this.solutionData = data;
+    this.participantSolution = !this.participantSolution;
+    this.challengeTask = !this.challengeTask;
+  }
+
   mounted() {
     console.log("challenge");
     if (
@@ -95,10 +103,10 @@ export default class extends Vue {
       this.finished = true;
     }
 
-    // this.isExpert = true;
-    // this.isDeveloper = false;
-    // this.isStarted = false;
-    // this.finished = false; // dev, when profile update need hange this
+    this.isExpert = true;
+    this.isDeveloper = false;
+    this.isStarted = false;
+    this.finished = false; // dev, when profile update need hange this
 
     if (this.askfeedbacks !== null) {
       this.askfeedbacks.forEach((el) =>
