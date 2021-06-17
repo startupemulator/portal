@@ -98,6 +98,58 @@ export function feedbacks($strapi: Strapi) {
     return data.feedbacks ? data.feedbacks : null;
   };
 }
+
+export function createFeedbackForChallenge($strapi: Strapi) {
+  return async (
+    expert: string,
+    description: string,
+    criterions: [],
+    badges: [],
+    request: string
+  ) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+        createRequest(input: { data: { description: "${description}",
+        criterions: [${criterions}], badges: [${badges}], request: "${request}", expert: "${expert}",
+        is_public: false} }) {
+        request {
+          id
+    description
+    is_public
+    published_at
+    criterions{
+      id
+      mark
+      direction{
+        id 
+        title
+      }
+    }
+    badges{
+      id
+      title
+      image{
+        url
+      }
+    }
+    request {
+      id
+      is_new
+      startup {
+        id
+      }
+      creator{ 
+        id
+        name
+        username
+      }
+    }
+  }
+}`,
+    });
+    return data.createRequest ? data.createRequest.request : null;
+  };
+}
 export function askFeedbacks($strapi: Strapi) {
   return async () => {
     const data = await $strapi.graphql({

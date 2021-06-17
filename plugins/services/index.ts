@@ -62,6 +62,7 @@ import {
   createAskFeedbackForStartup,
   createAskFeedbackForChallenge,
   askFeedbacksByChallengeId,
+  createFeedbackForChallenge,
 } from "~/plugins/services/feedbacks";
 import { notifications } from "~/plugins//services/notifications";
 
@@ -120,7 +121,10 @@ import {
   createSolution,
   updateSolution,
 } from "~/plugins/services/solution";
+import { Directions } from "~/models/Directions";
+import { directions } from "~/plugins/services/directions";
 export interface Services {
+  $directions(): Promise<Partial<Directions>[]>;
   $userChallengesById(id: string): Promise<Partial<userChallenges>[]>;
   $userChallengesByUserId(id: string): Promise<Partial<userChallenges>[]>;
   $deleteUserChallenges(id: string): Promise<Partial<userChallenges>[]>;
@@ -163,6 +167,13 @@ export interface Services {
   $users(): Promise<Partial<NotificationUser>[]>;
   $feedbacksByStartupID(id: string): Promise<Partial<Feedbacks>[]>;
   $feedbacks(): Promise<Partial<Feedbacks>[]>;
+  $createFeedbackForChallenge(
+    expert: string,
+    description: string,
+    criterions: [],
+    badges: [],
+    request: string
+  ): Promise<Partial<Feedbacks>[]>;
   $askFeedbacks(): Promise<Partial<AskFeedbacks>[]>;
   $askFeedbacksByChallengeId(id: string): Promise<Partial<AskFeedbacks>[]>;
 
@@ -172,6 +183,7 @@ export interface Services {
     technologies: [],
     startup: string
   ): Promise<Partial<AskFeedbacks>[]>;
+
   $createAskFeedbackForChallenge(
     creator: string,
     comment: string,
@@ -295,6 +307,7 @@ export interface Services {
 }
 
 const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
+  inject("directions", directions(ctx.$strapi));
   inject("estimations", estimations(ctx.$strapi));
 
   inject("userChallengesById", userChallengesById(ctx.$strapi));
@@ -387,6 +400,7 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
     "createAskFeedbackForStartup",
     createAskFeedbackForStartup(ctx.$strapi)
   );
+  inject("createFeedbackForChallenge", createFeedbackForChallenge(ctx.$strapi));
   inject(
     "createAskFeedbackForChallenge",
     createAskFeedbackForChallenge(ctx.$strapi)

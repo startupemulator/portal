@@ -1,9 +1,8 @@
 <template>
   <div class="criterios">
-    <h4>Criterion {{ i + 1 }}</h4>
+    <h4>{{ direction.title }}</h4>
     <p>
-      Short description about what equals 1 star and what equals 5 stars within
-      this criteria.
+      {{ direction.comment }}
     </p>
     <div class="criterios_raiting">
       <ul ref="starsList" class="criterios_raiting-stars">
@@ -36,6 +35,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UButton from "../atoms/uButton.vue";
+import { Directions } from "~/models/Directions";
 
 @Component({
   components: {
@@ -44,6 +44,7 @@ import UButton from "../atoms/uButton.vue";
 })
 export default class extends Vue {
   @Prop() i: Number;
+  @Prop() direction: Array<Directions>;
 
   clickOnStar($event: any, i: Number) {
     const stars = this.$refs.starsList.children;
@@ -56,12 +57,14 @@ export default class extends Vue {
         item.children[0].classList.add("active");
       }
     });
+    this.$emit("markDirection", this.direction.id, (i + 1).toString());
   }
 
   clickOnButtonSkip() {
     this.$refs.starsList.children.forEach((item) =>
       item.children[0].classList.remove("active")
     );
+    this.$emit("markDirection", this.direction.id, "skip");
   }
 }
 </script>

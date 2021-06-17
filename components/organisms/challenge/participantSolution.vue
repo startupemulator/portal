@@ -81,6 +81,7 @@
     </div>
     <AddTeamFeedBack
       v-if="addFeedback"
+      :directions="directions"
       @clikOnButton="toggleAddFeedback"
     ></AddTeamFeedBack>
   </div>
@@ -98,6 +99,7 @@ import { Feedbacks } from "~/models/Feedbacks";
 import { Challenge } from "~/models/Challenge";
 import CommentExpert from "~/components/molecules/commentForExpert.vue";
 import AddTeamFeedBack from "~/components/organisms/startup/addTeamFeedback.vue";
+import { Directions } from "~/models/Directions";
 
 @Component({
   components: {
@@ -116,6 +118,8 @@ export default class extends Vue {
   @Prop() isExpert: string;
   @Prop() solutionData: Array<any>;
   @Prop() feedbacks: Array<Feedbacks>;
+  @Prop() directions: Array<Directions>;
+
   showMoreTwoFeedbacks = 2;
   addFeedback = false;
 

@@ -27,6 +27,7 @@
       :user-id="userId"
       :is-expert="isExpert"
       :solution-data="solutionData"
+      :directions="directions"
       @clikOnButton="toggleChallengeTask"
     ></ParticipantSolution>
   </div>
@@ -40,6 +41,7 @@ import { Challenge } from "~/models/Challenge";
 import { Profile } from "~/models/Profile";
 import { userChallenges } from "~/models/UserChallenges";
 import { AskFeedbacks } from "~/models/AskFeedbacks";
+import { Directions } from "~/models/Directions";
 
 @Component({
   components: { ChallengeTask, ParticipantSolution },
@@ -49,7 +51,7 @@ export default class extends Vue {
   @Prop() userId: string;
   @Prop() profile: Array<Profile>;
   @Prop() askfeedbacks: Array<AskFeedbacks>;
-
+  @Prop() directions: Array<Directions>;
   @Prop() userChallenges: Array<userChallenges>;
   @Prop() userChallenge: Array<userChallenges>;
   @Prop() previosParticipaints: Array<userChallenges>;
