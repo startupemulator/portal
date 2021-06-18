@@ -3,7 +3,6 @@
     class="participant-solution"
     :style="addFeedback ? 'margin: 0 auto' : ''"
   >
-    <!-- <pre style="color: #fff">{{ solutionData }} </pre> -->
     <div v-if="!addFeedback">
       <UBack
         :title="'Task Name'"
@@ -37,28 +36,11 @@
       <div v-if="isExpert" class="used-technologies">
         <h3>Used technologies</h3>
         <UTags
-          v-for="(item, i) in 9"
-          :key="i"
-          :title="i < 3 ? 'Javascript' : i < 6 ? 'Java' : 'HTML5'"
+          v-for="item in solutionData.technologies"
+          :key="item.id"
+          :title="item.title"
         ></UTags>
       </div>
-
-      <h3
-        v-if="solutionData.feedbacks.length > 0"
-        class="participant-solution__title"
-      >
-        Feedback
-      </h3>
-      <FeedbackCardChallenges
-        v-for="feedback in solutionData.feedbacks.slice(
-          0,
-          showMoreTwoFeedbacks
-        )"
-        :key="feedback.id"
-        :feedback="feedback"
-        :is-expert="isExpert"
-        :user-id="userId"
-      ></FeedbackCardChallenges>
       <h3
         v-if="feedbacks.length > 0 && isExpert"
         class="participant-solution__title"
@@ -66,7 +48,7 @@
         Feedback
       </h3>
       <FeedbackCardChallenges
-        v-for="feedback in feedbacks.slice(0, showMoreTwoFeedbacks)"
+        v-for="feedback in renewableFeeadback.slice(0, showMoreTwoFeedbacks)"
         :key="feedback.id"
         :feedback="feedback"
         :user-id="userId"
@@ -85,13 +67,17 @@
       :directions="directions"
       :expert-id="expertId"
       :request-id="solutionData.id"
+      :badges="badges"
+      @updateFeedbacks="updateFeedbacks"
       @clikOnButton="toggleAddFeedback"
     ></AddTeamFeedBack>
+    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
+import Spiner from "~/components/molecules/spiner.vue";
 
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
@@ -114,6 +100,7 @@ import { Badges } from "~/models/Badges";
     FeedbackCardChallenges,
     CommentExpert,
     AddTeamFeedBack,
+    Spiner,
   },
 })
 export default class extends Vue {
@@ -122,18 +109,36 @@ export default class extends Vue {
   @Prop() isExpert: string;
   @Prop() expertId: string;
   @Prop() solutionData: Array<any>;
-  @Prop() feedbacks: Array<Feedbacks>;
+  @Prop() feedbacks!: Array<Feedbacks>;
   @Prop() directions: Array<Directions>;
   @Prop() badges: Array<Badges>;
 
   showMoreTwoFeedbacks = 2;
   addFeedback = false;
+  loading = false;
 
+  renewableFeeadback: Array<Feedbacks> = this.feedbacks || [];
   showMoreFeedbacks() {
     this.showMoreTwoFeedbacks += 2;
   }
 
   toggleAddFeedback() {
+    this.addFeedback = !this.addFeedback;
+  }
+
+  async updateFeedbacks() {
+    this.loading = true;
+    try {
+      const feedbacks = await this.$feedbacks();
+      if (feedbacks !== null) {
+        this.renewableFeeadback = feedbacks;
+        this.loading = false;
+      }
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
+    }
+
     this.addFeedback = !this.addFeedback;
   }
 }

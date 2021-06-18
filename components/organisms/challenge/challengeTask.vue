@@ -55,7 +55,6 @@
       <p>
         {{ challenge.description }}
       </p>
-      <!-- <CommentExpert v-if="isExpert"></CommentExpert> -->
       <div v-if="!isStarted && commentExpert" class="challenge-task__button">
         <U-button
           :button-name="'Add Feedback'"
@@ -74,7 +73,6 @@
           :href="'/challenge/accept/' + challenge.slug"
         ></U-button>
       </div>
-
       <div v-if="isExpert" class="waiting-feedback">
         <h3>
           Waiting for feedback <span> {{ newFeedbacks.length }}</span>
@@ -112,14 +110,6 @@
         v-if="finished"
         :solution="askfeedbacks[0].solutions"
       ></Solutions>
-      <!-- <div v-if="false" class="used-technologies">
-        <h3>Used technologies</h3>
-        <UTags
-          v-for="(item, i) in 9"
-          :key="i"
-          :title="i < 3 ? 'Javascript' : i < 6 ? 'Java' : 'HTML5'"
-        ></UTags>
-      </div> -->
       <div
         v-if="!isExpert && !!userId && feedbacks.length > 0"
         class="challenge-task__feedBacks"
@@ -177,10 +167,6 @@
         </div>
       </div>
     </div>
-    <!-- <AddTeamFeedBack
-      v-show="addFeedback"
-      @clikOnButton="toggleAddFeedback"
-    ></AddTeamFeedBack> -->
   </div>
 </template>
 <script lang="ts">
@@ -258,7 +244,6 @@ export default class extends Vue {
   async cancelParticipation() {
     try {
       if (this.userChallenge !== null) {
-        console.log(this.userChallenge.id);
         await this.$deleteUserChallenges(this.userChallenge.id);
         this.$router.push("/challenges");
       }

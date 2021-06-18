@@ -1,6 +1,5 @@
 <template>
   <div v-cloak class="startups-page">
-    <!-- <pre style="color: #fff">{{ $strapi.user }} </pre> -->
     <ChallengePage
       :challenge="challenge"
       :user-challenges="userChallenges"
@@ -48,7 +47,6 @@ export default class TakeChallenge extends Vue {
     if ($strapi.user) {
       profile = await $profile($strapi.user.id);
       userChallenge = await $userChallengesByUserId($strapi.user.id);
-      // need do if profile.expert - wait backend
       directions = await $directions();
       badges = await $badges();
     }

@@ -6,6 +6,8 @@ export function profile($strapi: Strapi) {
       query: `query {
   profiles(where:{user:{id: "${id}"}}) {
       id
+      is_expert
+      slug
     user {
         id
         username
@@ -41,6 +43,8 @@ export function updateProfile($strapi: Strapi) {
           data: { technologies: [${technologies}],  experience: "${experience}"} }) {
           profile {
             id
+            is_expert
+            slug
             user {
                 id
                 username
@@ -71,6 +75,8 @@ export function createProfile($strapi: Strapi) {
           data: { user: "${id}", technologies: [${technologies}]} }) {
           profile {
             id
+            is_expert
+            slug
             user {
                 id
                 username
