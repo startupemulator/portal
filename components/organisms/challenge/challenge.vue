@@ -1,5 +1,6 @@
 <template>
   <div class="challenge-page">
+    <!-- <pre style="color: #fff">{{ profile }} </pre> -->
     <ChallengeTask
       v-if="challengeTask"
       :key="isExpert"
@@ -29,7 +30,7 @@
       :solution-data="solutionData"
       :directions="directions"
       :badges="badges"
-      :expert-id="profile.user.id"
+      :expert-id="profile.length !== 0 ? profile.user.id : null"
       @clikOnButton="toggleChallengeTask"
     ></ParticipantSolution>
   </div>
@@ -106,13 +107,16 @@ export default class extends Vue {
       this.isStarted = false;
       this.finished = true;
     }
-
-    this.isExpert = true;
-    this.isDeveloper = false;
-    this.isStarted = false;
-    this.finished = false; // dev, when profile update need hange this
+    if (this.profile.length !== 0 && this.profile.is_expert === true) {
+      this.isExpert = true;
+      this.isDeveloper = false;
+      this.isStarted = false;
+      this.finished = false;
+    }
+    // dev, when profile update need hange this
 
     if (this.askfeedbacks !== null) {
+      console.log(this.profile.is_expert);
       this.askfeedbacks.forEach((el) =>
         el.feedbacks.forEach((item) => this.feedbacks.push(item))
       );

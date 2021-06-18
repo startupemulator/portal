@@ -74,7 +74,6 @@
           :href="'/challenge/accept/' + challenge.slug"
         ></U-button>
       </div>
-
       <div v-if="isExpert" class="waiting-feedback">
         <h3>
           Waiting for feedback <span> {{ newFeedbacks.length }}</span>
