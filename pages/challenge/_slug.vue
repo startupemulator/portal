@@ -1,6 +1,6 @@
 <template>
   <div v-cloak class="startups-page">
-    <!-- <pre style="color: #fff">{{ $strapi.user }} </pre> -->
+    <!-- <pre style="color: #fff">{{ badges }} </pre> -->
     <ChallengePage
       :challenge="challenge"
       :user-challenges="userChallenges"

@@ -127,13 +127,21 @@ import { Badges } from "~/models/Badges";
 import { badges } from "~/plugins/services/badges";
 
 import { Criterions } from "~/models/Criterions";
-import { createCriterions } from "~/plugins/services/criterions";
+import {
+  createCriterions,
+  updateCriterions,
+  deleteCriterions,
+} from "~/plugins/services/criterions";
 
 export interface Services {
   $createCriterions(
     mark: string,
     direction: string
   ): Promise<Partial<Criterions>[]>;
+  $updateCriterions(id: string, mark: string): Promise<Partial<Criterions>[]>;
+
+  $deleteCriterions(id: string): Promise<Partial<Criterions>>;
+
   $directions(): Promise<Partial<Directions>[]>;
   $badges(): Promise<Partial<Badges>[]>;
   $userChallengesById(id: string): Promise<Partial<userChallenges>[]>;
@@ -182,7 +190,7 @@ export interface Services {
     expert: string,
     description: string,
     criterions: Array<string>,
-    badges: [],
+    badges: Array<string>,
     request: string
   ): Promise<Partial<Feedbacks>[]>;
   $askFeedbacks(): Promise<Partial<AskFeedbacks>[]>;
@@ -321,7 +329,10 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("badges", badges(ctx.$strapi));
   inject("directions", directions(ctx.$strapi));
   inject("estimations", estimations(ctx.$strapi));
+
   inject("createCriterions", createCriterions(ctx.$strapi));
+  inject("updateCriterions", updateCriterions(ctx.$strapi));
+  inject("deleteCriterions", deleteCriterions(ctx.$strapi));
 
   inject("userChallengesById", userChallengesById(ctx.$strapi));
   inject("userChallengesByUserId", userChallengesByUserId(ctx.$strapi));

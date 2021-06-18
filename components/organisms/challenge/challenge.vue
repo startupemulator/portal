@@ -80,14 +80,12 @@ export default class extends Vue {
   }
 
   participantRequest(data) {
-    console.log(data);
     this.solutionData = data;
     this.participantSolution = !this.participantSolution;
     this.challengeTask = !this.challengeTask;
   }
 
   mounted() {
-    console.log("challenge");
     if (
       this.userChallenge !== undefined &&
       this.userChallenges.some(

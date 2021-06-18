@@ -17,7 +17,6 @@
         <p>Comment</p>
         <textarea v-model="comment" placeholder="Enter your comment"></textarea>
       </div>
-
       <PickBadeg
         :title="'Pick a badge (Optional)'"
         :badges="badges"
@@ -36,6 +35,7 @@
         @clickOnButton="$emit('clikOnButton')"
       ></U-button>
     </div>
+    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
@@ -48,9 +48,10 @@ import Criterios from "~/components/molecules/criterios.vue";
 import PickBadeg from "~/components/molecules/pickBadge.vue";
 import { Directions } from "~/models/Directions";
 import { Badges } from "~/models/Badges";
+import Spiner from "~/components/molecules/spiner.vue";
 
 @Component({
-  components: { UButton, UTitle, UBack, Criterios, PickBadeg },
+  components: { UButton, UTitle, UBack, Criterios, PickBadeg, Spiner },
 })
 export default class extends Vue {
   @Prop({ default: "Add feedback" }) title: string;
@@ -58,87 +59,111 @@ export default class extends Vue {
   @Prop() badges: Array<Badges>;
   @Prop() expertId: string;
   @Prop() requestId: string;
-
+  loading = false;
   markedDirection = [];
   comment = "";
   badge = "";
   createdCriterions: Array<string> = [];
   markDirection(directionId: string, mark: string) {
-    if (this.markedDirection.some((el) => +el.id === +directionId)) {
+    if (
+      this.markedDirection.some((el) => +el.id === +directionId) &&
+      mark !== "skip"
+    ) {
       this.markedDirection[
         this.markedDirection.findIndex((el) => +el.id === +directionId)
       ].mark = mark;
-    } else {
+      this.updateCriterions(
+        this.markedDirection[
+          this.markedDirection.findIndex((el) => +el.id === +directionId)
+        ]
+      );
+    } else if (mark !== "skip") {
       this.markedDirection.push({ id: directionId, mark });
+      const criterion = { id: directionId, mark };
+      this.createCriterions(
+        criterion,
+        this.markedDirection.findIndex((el) => +el.id === +directionId)
+      );
     }
-    this.markedDirection = this.markedDirection.filter(
-      (el) => el.mark !== "skip"
-    );
+
+    if (mark === "skip") {
+      this.deleteCriterions(
+        this.markedDirection[
+          this.markedDirection.findIndex((el) => +el.id === +directionId)
+        ]
+      );
+      this.markedDirection.splice(
+        this.markedDirection.findIndex((el) => +el.id === +directionId),
+        1
+      );
+    }
   }
 
   addBadge(badge) {
     this.badge = badge.id;
   }
 
-  async createCriterions(el) {
-    this.createdCriterions = [];
+  async createCriterions(el, id) {
+    this.loading = true;
     try {
       const criterion = await this.$createCriterions(el.mark, el.id);
       if (criterion !== null) {
-        console.log(criterion);
-        this.createdCriterions.push(criterion.id);
-        console.log(this.createdCriterions);
+        this.markedDirection[id].keyId = criterion.id;
+        this.loading = false;
       }
     } catch (e) {
       console.error(e);
-    } finally {
-      console.log("finally");
+      this.loading = false;
     }
   }
 
-  async creteFeedBackForChallenge() {
-    const feedBack = await this.$createFeedbackForChallenge(
-      this.expertId,
-      this.comment,
-      this.createdCriterions,
-      this.badge,
-      this.requestId
-    );
-    console.log(feedBack);
+  async updateCriterions(el) {
+    this.loading = true;
+    try {
+      const criterion = await this.$updateCriterions(el.keyId, el.mark);
+
+      if (criterion !== null) {
+        this.loading = false;
+      }
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
+    }
+  }
+
+  async deleteCriterions(el) {
+    this.loading = true;
+    try {
+      const criterion = await this.$deleteCriterions(el.keyId);
+      if (criterion !== null) {
+        this.loading = false;
+      }
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
+    }
   }
 
   async createFeedback() {
-    // for (const item of this.markedDirection) {
-    //   const criterion = await this.$createCriterions(item.mark, item.id);
-    //   if (criterion !== null) {
-    //     this.createdCriterions.push(criterion.id);
-    //   }
-    //   console.log(this.createdCriterions);
-    // }
-    for (const item of this.markedDirection) {
-      try {
-        const criterion = await this.$createCriterions(item.mark, item.id);
-        if (criterion !== null) {
-          this.createdCriterions.push(criterion.id);
-        }
-      } catch (e) {
-        console.error(e);
-      } finally {
-        console.log(this.createdCriterions);
+    this.markedDirection.forEach((el) => this.createdCriterions.push(el.keyId));
+
+    this.loading = true;
+    try {
+      const criterion = await this.$createFeedbackForChallenge(
+        this.expertId,
+        this.comment,
+        this.createdCriterions,
+        this.badge,
+        this.requestId
+      );
+      if (criterion !== null) {
+        this.loading = false;
+        this.$emit("updateFeedbacks");
       }
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
     }
-
-    // this.creteFeedBackForChallenge();
-
-    // if (this.markedDirection.length !== 0) {
-    //   this.markedDirection.forEach((el) => {
-    //     this.createCriterions(el);
-    //   });
-    // }
-
-    // this.creteFeedBackForChallenge();
-
-    // step 3 - создать feedback
   }
 }
 </script>
