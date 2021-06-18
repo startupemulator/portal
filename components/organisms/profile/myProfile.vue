@@ -151,7 +151,9 @@ export default class extends Vue {
 
   copyBaseUri() {
     this.loading = true;
-    const url = window.location.origin + `/user/${this.$strapi.user.name}`;
+    // const url = window.location.origin + `/user/${this.$strapi.user.name}`;
+    const url = window.location.origin + `/user/${this.userData.slug}`;
+
     copyToClipboard(url);
     setTimeout(() => (this.loading = false), 500);
     Toast.show({

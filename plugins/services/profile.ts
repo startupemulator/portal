@@ -6,6 +6,35 @@ export function profile($strapi: Strapi) {
       query: `query {
   profiles(where:{user:{id: "${id}"}}) {
       id
+      slug
+    user {
+        id
+        username
+        email
+        
+        provider
+      }
+      technologies{
+        id
+        title
+      }
+      experience {
+        id 
+        title
+      }
+  }
+}`,
+    });
+    return data.profiles ? data.profiles[0] : null;
+  };
+}
+export function profileBySlug($strapi: Strapi) {
+  return async (slug: string) => {
+    const data = await $strapi.graphql({
+      query: `query {
+  profiles(where:{slug: "${slug}"}) {
+      id
+      slug
     user {
         id
         username
@@ -41,9 +70,11 @@ export function updateProfile($strapi: Strapi) {
           data: { technologies: [${technologies}],  experience: "${experience}"} }) {
           profile {
             id
+            slug
             user {
                 id
                 username
+                
                 email
               }
               technologies{
@@ -71,6 +102,7 @@ export function createProfile($strapi: Strapi) {
           data: { user: "${id}", technologies: [${technologies}]} }) {
           profile {
             id
+            slug
             user {
                 id
                 username
