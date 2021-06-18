@@ -171,6 +171,10 @@ export default class extends Vue {
     this.$v.$touch();
 
     if (!this.$v.$error) {
+      console.log(this.profile.user.id.toString());
+      console.log(this.commentToExpert);
+      console.log(this.addedTechnologies);
+      console.log(this.challengeId);
       try {
         this.loading = true;
         const requestFeedback = await this.$createAskFeedbackForChallenge(
