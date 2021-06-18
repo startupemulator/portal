@@ -130,7 +130,10 @@ import { Criterions } from "~/models/Criterions";
 import { createCriterions } from "~/plugins/services/criterions";
 
 export interface Services {
-  $createCriterions(mark: string): Promise<Partial<Criterions>[]>;
+  $createCriterions(
+    mark: string,
+    direction: string
+  ): Promise<Partial<Criterions>[]>;
   $directions(): Promise<Partial<Directions>[]>;
   $badges(): Promise<Partial<Badges>[]>;
   $userChallengesById(id: string): Promise<Partial<userChallenges>[]>;
@@ -178,7 +181,7 @@ export interface Services {
   $createFeedbackForChallenge(
     expert: string,
     description: string,
-    criterions: [],
+    criterions: Array<string>,
     badges: [],
     request: string
   ): Promise<Partial<Feedbacks>[]>;

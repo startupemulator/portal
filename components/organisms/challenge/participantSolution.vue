@@ -49,7 +49,7 @@
       >
         Feedback
       </h3>
-      <FeedbackCardChallenges
+      <!-- <FeedbackCardChallenges
         v-for="feedback in solutionData.feedbacks.slice(
           0,
           showMoreTwoFeedbacks
@@ -58,7 +58,7 @@
         :feedback="feedback"
         :is-expert="isExpert"
         :user-id="userId"
-      ></FeedbackCardChallenges>
+      ></FeedbackCardChallenges> -->
       <h3
         v-if="feedbacks.length > 0 && isExpert"
         class="participant-solution__title"

@@ -62,7 +62,7 @@ export default class extends Vue {
   markedDirection = [];
   comment = "";
   badge = "";
-  createdCriterions = [];
+  createdCriterions: Array<string> = [];
   markDirection(directionId: string, mark: string) {
     if (this.markedDirection.some((el) => +el.id === +directionId)) {
       this.markedDirection[
@@ -81,8 +81,19 @@ export default class extends Vue {
   }
 
   async createCriterions(el) {
-    const criterion = await this.$createCriterions(el.mark);
-    this.createdCriterions.push(criterion);
+    this.createdCriterions = [];
+    try {
+      const criterion = await this.$createCriterions(el.mark, el.id);
+      if (criterion !== null) {
+        console.log(criterion);
+        this.createdCriterions.push(criterion.id);
+        console.log(this.createdCriterions);
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      console.log("finally");
+    }
   }
 
   async creteFeedBackForChallenge() {
@@ -96,12 +107,35 @@ export default class extends Vue {
     console.log(feedBack);
   }
 
-  createFeedback() {
-    if (this.markedDirection.length !== 0) {
-      this.markedDirection.forEach((el) => {
-        this.createCriterions(el.mark);
-      });
+  async createFeedback() {
+    // for (const item of this.markedDirection) {
+    //   const criterion = await this.$createCriterions(item.mark, item.id);
+    //   if (criterion !== null) {
+    //     this.createdCriterions.push(criterion.id);
+    //   }
+    //   console.log(this.createdCriterions);
+    // }
+    for (const item of this.markedDirection) {
+      try {
+        const criterion = await this.$createCriterions(item.mark, item.id);
+        if (criterion !== null) {
+          this.createdCriterions.push(criterion.id);
+        }
+      } catch (e) {
+        console.error(e);
+      } finally {
+        console.log(this.createdCriterions);
+      }
     }
+
+    // this.creteFeedBackForChallenge();
+
+    // if (this.markedDirection.length !== 0) {
+    //   this.markedDirection.forEach((el) => {
+    //     this.createCriterions(el);
+    //   });
+    // }
+
     // this.creteFeedBackForChallenge();
 
     // step 3 - создать feedback
