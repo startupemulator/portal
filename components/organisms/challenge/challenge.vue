@@ -1,6 +1,5 @@
 <template>
   <div class="challenge-page">
-    <!-- <pre style="color: #fff">{{ profile }} </pre> -->
     <ChallengeTask
       v-if="challengeTask"
       :key="isExpert"
@@ -75,7 +74,6 @@ export default class extends Vue {
 
   toggleChallengeTask(data) {
     this.solutionData = data;
-    console.log(data);
     this.participantSolution = !this.participantSolution;
     this.challengeTask = !this.challengeTask;
   }
@@ -113,10 +111,7 @@ export default class extends Vue {
       this.isStarted = false;
       this.finished = false;
     }
-    // dev, when profile update need hange this
-
     if (this.askfeedbacks !== null) {
-      console.log(this.profile.is_expert);
       this.askfeedbacks.forEach((el) =>
         el.feedbacks.forEach((item) => this.feedbacks.push(item))
       );

@@ -3,7 +3,6 @@
     class="participant-solution"
     :style="addFeedback ? 'margin: 0 auto' : ''"
   >
-    <!-- <pre style="color: #fff">{{ solutionData }} </pre> -->
     <div v-if="!addFeedback">
       <UBack
         :title="'Task Name'"
@@ -42,22 +41,6 @@
           :title="item.title"
         ></UTags>
       </div>
-      <!-- <h3
-        v-if="solutionData.feedbacks.length > 0"
-        class="participant-solution__title"
-      >
-        Feedback
-      </h3>
-      <FeedbackCardChallenges
-        v-for="feedback in solutionData.feedbacks.slice(
-          0,
-          showMoreTwoFeedbacks
-        )"
-        :key="feedback.id"
-        :feedback="feedback"
-        :is-expert="isExpert"
-        :user-id="userId"
-      ></FeedbackCardChallenges> -->
       <h3
         v-if="feedbacks.length > 0 && isExpert"
         class="participant-solution__title"
