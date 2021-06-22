@@ -6,8 +6,37 @@ export function profile($strapi: Strapi) {
       query: `query {
   profiles(where:{user:{id: "${id}"}}) {
       id
-      is_expert
       slug
+      is_expert
+    user {
+        id
+        username
+        email
+        
+        provider
+      }
+      technologies{
+        id
+        title
+      }
+      experience {
+        id 
+        title
+      }
+  }
+}`,
+    });
+    return data.profiles ? data.profiles[0] : null;
+  };
+}
+export function profileBySlug($strapi: Strapi) {
+  return async (slug: string) => {
+    const data = await $strapi.graphql({
+      query: `query {
+  profiles(where:{slug: "${slug}"}) {
+      id
+      slug
+      is_expert
     user {
         id
         username
@@ -48,6 +77,7 @@ export function updateProfile($strapi: Strapi) {
             user {
                 id
                 username
+                
                 email
               }
               technologies{

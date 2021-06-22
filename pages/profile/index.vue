@@ -41,7 +41,7 @@ export default class extends Vue {
     const startups = await $myStartups($strapi.user.id);
     const { technologies } = await $technologies();
     const profile = await $profile($strapi.user.id);
-    console.log(profile);
+
     const { experiences } = await $experiences();
     let myTechnologies = [];
     let allTechnologies = [];
@@ -53,7 +53,6 @@ export default class extends Vue {
         .concat(myTechnologies);
     } else {
       userHaveProfile = false;
-      console.log(userHaveProfile);
     }
 
     const feedbacks = await $feedbacks();
