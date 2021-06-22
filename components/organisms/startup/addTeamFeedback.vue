@@ -149,7 +149,7 @@ export default class extends Vue {
 
     this.loading = true;
     try {
-      const criterion = await this.$createFeedbackForChallenge(
+      const criterion = await this.$createFeedback(
         this.expertId,
         this.comment,
         this.createdCriterions,
@@ -164,6 +164,11 @@ export default class extends Vue {
       console.error(e);
       this.loading = false;
     }
+  }
+
+  mounted() {
+    console.log(this.expertId);
+    console.log(this.requestId);
   }
 }
 </script>

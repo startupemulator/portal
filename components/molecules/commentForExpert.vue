@@ -7,11 +7,12 @@
           Product Owner’s <span> {{ solutionData.creator.username }} </span>
         </h4>
         <p>
-          {{
+          <!-- {{
             new Date(solutionData.solutions[0].published_at)
               .toUTCString()
               .substr(4, 18)
-          }}
+          }} -->
+          <!-- Need in askFeedback add publiched_at -->
         </p>
       </div>
       <div class="comments-expert__content-description">

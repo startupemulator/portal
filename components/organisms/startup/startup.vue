@@ -69,6 +69,10 @@
     <AddTeamFeedBack
       v-show="addTeamFeedBack"
       :title="feedBackTitle"
+      :badges="badges"
+      :request-id="askFeedbacks.id"
+      :expert-id="userId"
+      :directions="directions"
       @clikOnButton="toggleAddTeamFeedBack"
     ></AddTeamFeedBack>
     <AddTeamBadge
@@ -166,7 +170,10 @@
         <p class="startup__description">
           {{ updatableDataStartup.description }}
         </p>
-        <CommentExpert v-if="isExpert"></CommentExpert>
+        <CommentExpert
+          v-if="isExpert"
+          :solution-data="askFeedbacks"
+        ></CommentExpert>
 
         <div v-if="isOwner" class="owner-menu">
           <ul v-if="!finished" class="owner-menu__list">
@@ -459,7 +466,9 @@ import { Technology } from "~/models/Technology";
 import { Applications } from "~/models/Applications";
 import Toast from "~/store/modules/Toast";
 import Spiner from "~/components/molecules/spiner.vue";
-
+import { AskFeedbacks } from "~/models/AskFeedbacks";
+import { Directions } from "~/models/Directions";
+import { Badges } from "~/models/Badges";
 @Component({
   components: {
     UBack,
@@ -496,6 +505,11 @@ export default class extends Vue {
   @Prop() specialisations: Array<Specialisation>;
   @Prop() technologies: Array<Technology>;
   @Prop() userId: string;
+  @Prop() isExpert: boolean;
+  @Prop() askFeedbacks: Array<AskFeedbacks>;
+  @Prop() badges: Array<Badges>;
+  @Prop() directions: Array<Directions>;
+
   updatableDataStartup = this.startup;
   updatableDataApplications = this.applications;
   updatableFeedbacks = this.feedbacks ? this.feedbacks : [];
@@ -512,8 +526,6 @@ export default class extends Vue {
   lengthActivity = 0;
   feedBackTitle = "";
   badgeTitle = "";
-  // isExpert = false;
-  isExpert = false;
 
   isStarted = false;
   popupDeleteOrStartStartup = false;
@@ -625,8 +637,6 @@ export default class extends Vue {
         this.teamMember.push(item);
       }
     });
-    console.log(this.teamMember);
-
     this.openPosition = this.startup.positions.filter(
       (position) => position.status === "open"
     );

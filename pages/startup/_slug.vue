@@ -1,17 +1,22 @@
 <template>
   <div class="startups-page">
     <Spiner :loading="loading"></Spiner>
+    <!-- <pre style="color: #fff"> {{ askFeedbacks }}</pre> -->
     <StartupPage
       :startup="startup"
       :feedbacks="feedbacks"
       :applications="applications"
       :is-owner="isOwner"
       :is-developer="isDeveloper"
+      :is-expert="isExpert"
       :developer-position="developerPosition"
       :estimations="estimations"
       :technologies="technologies"
       :specialisations="specialisations"
       :user-id="userId"
+      :ask-feedbacks="askFeedbacks"
+      :directions="directions"
+      :badges="badges"
       @deleteStartup="deleteStartup"
       @cancelApplication="cancelApplication"
     ></StartupPage>
@@ -34,6 +39,7 @@ export default class TakeStartup extends Vue {
   startup: Startup;
   isOwner = false;
   isDeveloper = false;
+  isExpert = false;
   developerPosition = "";
   applicationId = "";
   loading = false;
@@ -47,14 +53,24 @@ export default class TakeStartup extends Vue {
     $estimations,
     $specialisations,
     $technologies,
+    $askFeedbacksByStartupId,
+    $strapi,
+    $directions,
+    $badges,
   }) {
     const startup = await $startup(route.params.slug);
     const feedbacks = await $feedbacksByStartupID(startup.id);
-    const askFeedbacks = await $askFeedbacks();
+    const askFeedbacks = await $askFeedbacksByStartupId(startup.id);
     const { applications } = await $applicationsByStartupId(startup.id);
     const { estimations } = await $estimations();
     const { specialisations } = await $specialisations();
     const { technologies } = await $technologies();
+    let directions = [];
+    let badges = [];
+    if ($strapi.user) {
+      directions = await $directions();
+      badges = await $badges();
+    }
 
     return {
       startup,
@@ -64,6 +80,8 @@ export default class TakeStartup extends Vue {
       specialisations,
       technologies,
       askFeedbacks,
+      directions,
+      badges,
     };
   }
 
@@ -99,7 +117,6 @@ export default class TakeStartup extends Vue {
     if (this.$strapi.user) {
       this.applications.forEach((item) => {
         item.position.applications.forEach((el) => {
-          console.log(el);
           if (
             (el.status === "accepted" &&
               +this.$strapi.user.id === +el.user.id) ||
@@ -110,6 +127,17 @@ export default class TakeStartup extends Vue {
             this.developerPosition = item.position.specialisation.title;
           }
         });
+      });
+    }
+    if (
+      this.$strapi.user &&
+      this.$strapi.user.email &&
+      this.startup.owner.invites
+    ) {
+      this.startup.owner.invites.forEach((el) => {
+        if (el.email === this.$strapi.user.email) {
+          this.isExpert = true;
+        }
       });
     }
   }

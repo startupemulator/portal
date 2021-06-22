@@ -62,7 +62,8 @@ import {
   createAskFeedbackForStartup,
   createAskFeedbackForChallenge,
   askFeedbacksByChallengeId,
-  createFeedbackForChallenge,
+  createFeedback,
+  askFeedbacksByStartupId,
 } from "~/plugins/services/feedbacks";
 import { notifications } from "~/plugins//services/notifications";
 
@@ -189,7 +190,7 @@ export interface Services {
   $users(): Promise<Partial<NotificationUser>[]>;
   $feedbacksByStartupID(id: string): Promise<Partial<Feedbacks>[]>;
   $feedbacks(): Promise<Partial<Feedbacks>[]>;
-  $createFeedbackForChallenge(
+  $createFeedback(
     expert: string,
     description: string,
     criterions: Array<string>,
@@ -198,6 +199,7 @@ export interface Services {
   ): Promise<Partial<Feedbacks>[]>;
   $askFeedbacks(): Promise<Partial<AskFeedbacks>[]>;
   $askFeedbacksByChallengeId(id: string): Promise<Partial<AskFeedbacks>[]>;
+  $askFeedbacksByStartupId(id: string): Promise<Partial<AskFeedbacks>[]>;
 
   $createAskFeedbackForStartup(
     creator: string,
@@ -424,12 +426,13 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("feedbacksByStartupID", feedbacksByStartupID(ctx.$strapi));
   inject("askFeedbacks", askFeedbacks(ctx.$strapi));
   inject("askFeedbacksByChallengeId", askFeedbacksByChallengeId(ctx.$strapi));
+  inject("askFeedbacksByStartupId", askFeedbacksByStartupId(ctx.$strapi));
 
   inject(
     "createAskFeedbackForStartup",
     createAskFeedbackForStartup(ctx.$strapi)
   );
-  inject("createFeedbackForChallenge", createFeedbackForChallenge(ctx.$strapi));
+  inject("createFeedback", createFeedback(ctx.$strapi));
   inject(
     "createAskFeedbackForChallenge",
     createAskFeedbackForChallenge(ctx.$strapi)

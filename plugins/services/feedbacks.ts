@@ -107,7 +107,7 @@ export function feedbacks($strapi: Strapi) {
   };
 }
 
-export function createFeedbackForChallenge($strapi: Strapi) {
+export function createFeedback($strapi: Strapi) {
   return async (
     expert: string,
     description: string,
@@ -128,6 +128,7 @@ export function createFeedbackForChallenge($strapi: Strapi) {
     return data.createFeedback ? data.createFeedback.feedback : null;
   };
 }
+
 export function askFeedbacks($strapi: Strapi) {
   return async () => {
     const data = await $strapi.graphql({
@@ -275,5 +276,64 @@ export function askFeedbacksByChallengeId($strapi: Strapi) {
       }`,
     });
     return data.requests ? data.requests : null;
+  };
+}
+export function askFeedbacksByStartupId($strapi: Strapi) {
+  return async (id: string) => {
+    const data = await $strapi.graphql({
+      query: `query {
+        requests (where: {startup: {id: "${id}"}}) {
+          id
+          comment
+          is_new
+          technologies{
+            id
+            title
+          }
+          startup {
+            id
+          }
+          creator{
+            id
+            username
+          }
+          feedbacks{
+            id
+            description
+            criterions {
+              id
+              mark
+              direction{
+                id
+                title
+                comment
+              }
+            }
+            badges {
+              id
+              title
+              image {
+                id
+                url
+              }
+            }
+            is_public
+            expert{
+              id
+              username
+              
+            }
+            published_at
+          }
+          solutions {
+            id
+            title
+            url
+            published_at
+          }
+        }
+      }`,
+    });
+    return data.requests ? data.requests[0] : null;
   };
 }
