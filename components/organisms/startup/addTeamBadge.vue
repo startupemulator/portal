@@ -2,19 +2,20 @@
   <div class="add-team-badge">
     <div class="add-team-badge__header">
       <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
-      <UTitle :text="'Add team badge'"></UTitle>
+      <UTitle :text="title"></UTitle>
     </div>
     <div class="add-team-badge__content">
-      <PickBadeg></PickBadeg>
+      <PickBadeg :badges="badges" @addBadge="addBadge"></PickBadeg>
       <div class="add-team-badge__comment">
         <p>Comment (Optional)</p>
-        <textarea placeholder="Enter your comment"></textarea>
+        <textarea v-model="comment" placeholder="Enter your comment"></textarea>
       </div>
     </div>
     <div class="add-team-badge__buttons">
       <U-button
         :button-name="'Submit'"
         :button-class="'u-button-blue'"
+        @clickOnButton="submitAddBadge"
       ></U-button>
       <U-button
         :button-name="'Cancel'"
@@ -22,6 +23,7 @@
         @clickOnButton="$emit('clikOnButton')"
       ></U-button>
     </div>
+    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
@@ -32,12 +34,47 @@ import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import Criterios from "~/components/molecules/criterios.vue";
 import PickBadeg from "~/components/molecules/pickBadge.vue";
-
+import { Badges } from "~/models/Badges";
 @Component({
   components: { UButton, UTitle, UBack, Criterios, PickBadeg },
 })
 export default class extends Vue {
   @Prop({ default: "Add badge" }) title: string;
+  @Prop() badges: Array<Badges>;
+  @Prop() feedbackId: string;
+  comment = "";
+  chhosenbadge: Array<Badges>;
+  loading = false;
+
+  badgesOnFeedback = [];
+  addBadge(data) {
+    this.chhosenbadge = data;
+  }
+
+  async submitAddBadge() {
+    this.loading = true;
+    try {
+      if (this.feedbackId !== undefined) {
+        const feedback = await this.$feedbackById(this.feedbackId);
+        this.badgesOnFeedback.push(this.chhosenbadge.id);
+        if (feedback !== null) {
+          feedback.badges.forEach((el) => this.badgesOnFeedback.push(el.id));
+          const addBadgetoFeedback = await this.$updateFeedback(
+            this.feedbackId,
+            this.badgesOnFeedback
+          );
+          if (addBadgetoFeedback !== null) {
+            console.log(addBadgetoFeedback);
+          }
+        }
+      }
+      this.loading = false;
+      this.$emit("addedBadge");
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
+    }
+  }
 }
 </script>
 

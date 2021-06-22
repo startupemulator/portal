@@ -32,6 +32,7 @@ export function applicationsByStartupId($strapi: Strapi) {
     status
     comment
     decline_reason
+    
     position{
       id
       status
@@ -123,6 +124,24 @@ export function applicationDecline($strapi: Strapi) {
               id
               comment
               decline_reason
+            }
+        }
+      }`,
+    });
+    return data;
+  };
+}
+export function cancelApplication($strapi: Strapi) {
+  return async (id: string) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+        deleteApplication(
+          input: {
+          where: {id: "${id}" }
+         }
+         ) {
+          application {
+              id
             }
         }
       }`,

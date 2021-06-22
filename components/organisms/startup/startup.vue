@@ -69,12 +69,24 @@
     <AddTeamFeedBack
       v-show="addTeamFeedBack"
       :title="feedBackTitle"
+      :badges="badges"
+      :request-id="askFeedbacks.id"
+      :expert-id="userId"
+      :directions="directions"
       @clikOnButton="toggleAddTeamFeedBack"
     ></AddTeamFeedBack>
     <AddTeamBadge
       v-show="addTeamBadge"
+      :badges="badges"
       :title="badgeTitle"
       @clikOnButton="toggleAddTeamBadge"
+    ></AddTeamBadge>
+    <AddTeamBadge
+      v-show="addFeedBackBadge"
+      :badges="badges"
+      :feedback-id="feedbackIdForAddBadge"
+      @clikOnButton="closeAddFeedBackBadge"
+      @addedBadge="closeAddFeedBackBadge"
     ></AddTeamBadge>
     <div
       v-show="
@@ -88,7 +100,8 @@
         !finishStartup &&
         !releaseLikns &&
         !addTeamFeedBack &&
-        !addTeamBadge
+        !addTeamBadge &&
+        !addFeedBackBadge
       "
       class="startup"
       :class="
@@ -141,7 +154,7 @@
               <span>Show Guide</span>
               <img src="~/assets/img/arrow.svg" alt="arrow" />
             </button>
-            <button type="button">
+            <button type="button" @click="leveProject">
               <span>Leave Project</span>
               <img src="~/assets/img/arrow.svg" alt="arrow" />
             </button>
@@ -166,7 +179,10 @@
         <p class="startup__description">
           {{ updatableDataStartup.description }}
         </p>
-        <CommentExpert v-if="isExpert"></CommentExpert>
+        <CommentExpert
+          v-if="isExpert"
+          :solution-data="askFeedbacks"
+        ></CommentExpert>
 
         <div v-if="isOwner" class="owner-menu">
           <ul v-if="!finished" class="owner-menu__list">
@@ -307,9 +323,9 @@
             :username="updatableDataStartup.owner"
             :is-owner="true"
           ></ProjectParticipant>
-          <div v-if="staffedPosition.length > 0" class="team">
+          <div v-if="teamMember.length > 0" class="team">
             <ProjectParticipant
-              v-for="item in staffedPosition"
+              v-for="item in teamMember"
               :key="item.id"
               :position="item.specialisation.title"
               :username="item.applications"
@@ -353,7 +369,7 @@
             :user-id="userId"
             @updateFeedbacks="updateFeedbacks"
             @addFeedback="toggleAddTeamFeedBack"
-            @addBadge="toggleAddTeamBadge"
+            @addBadge="addFeedbackBadge"
           ></FeedBackCard>
         </div>
 
@@ -459,7 +475,9 @@ import { Technology } from "~/models/Technology";
 import { Applications } from "~/models/Applications";
 import Toast from "~/store/modules/Toast";
 import Spiner from "~/components/molecules/spiner.vue";
-
+import { AskFeedbacks } from "~/models/AskFeedbacks";
+import { Directions } from "~/models/Directions";
+import { Badges } from "~/models/Badges";
 @Component({
   components: {
     UBack,
@@ -496,11 +514,17 @@ export default class extends Vue {
   @Prop() specialisations: Array<Specialisation>;
   @Prop() technologies: Array<Technology>;
   @Prop() userId: string;
+  @Prop() isExpert: boolean;
+  @Prop() askFeedbacks: Array<AskFeedbacks>;
+  @Prop() badges: Array<Badges>;
+  @Prop() directions: Array<Directions>;
+
   updatableDataStartup = this.startup;
   updatableDataApplications = this.applications;
   updatableFeedbacks = this.feedbacks ? this.feedbacks : [];
   openPosition = [];
   staffedPosition = [];
+  teamMember = [];
   moveAwayStartup: string = "";
   moveAwayStartupName: string = "";
   popupCancelApplication = false;
@@ -511,9 +535,7 @@ export default class extends Vue {
   lengthActivity = 0;
   feedBackTitle = "";
   badgeTitle = "";
-  // isExpert = false;
-  isExpert = false;
-
+  feedbackIdForAddBadge = "";
   isStarted = false;
   popupDeleteOrStartStartup = false;
   popupGuide = false;
@@ -529,22 +551,35 @@ export default class extends Vue {
   releaseLikns = false;
   addTeamFeedBack = false;
   addTeamBadge = false;
+  addFeedBackBadge = false;
   loading = false;
   updateKey: Number = 0;
+
   toggleReleaseLikns() {
     this.releaseLikns = !this.releaseLikns;
   }
 
   toggleAddTeamFeedBack(title, feedbackId) {
-    console.log(feedbackId);
     this.feedBackTitle = title;
     this.addTeamFeedBack = !this.addTeamFeedBack;
   }
 
   toggleAddTeamBadge(title, feedbackId) {
-    console.log(feedbackId);
+    // console.log(title);
+    // console.log(feedbackId);
     this.badgeTitle = title;
     this.addTeamBadge = !this.addTeamBadge;
+  }
+
+  addFeedbackBadge(data) {
+    this.feedbackIdForAddBadge = data;
+    this.addFeedBackBadge = !this.addFeedBackBadge;
+    console.log(data);
+  }
+
+  closeAddFeedBackBadge() {
+    this.addFeedBackBadge = !this.addFeedBackBadge;
+    this.updateFeedbacks();
   }
 
   toggleRequestToTeam() {
@@ -606,6 +641,10 @@ export default class extends Vue {
     this.popupGuide = !this.popupGuide;
   }
 
+  leveProject() {
+    console.log("leveProject");
+  }
+
   mounted() {
     if (this.startup.state === "in_progress") {
       this.isStarted = true;
@@ -613,6 +652,15 @@ export default class extends Vue {
       this.finished = true;
     }
 
+    this.startup.positions.forEach((item) => {
+      if (
+        item.applications.some(
+          (el) => el.status === "accepted" || el.status === "advanced"
+        )
+      ) {
+        this.teamMember.push(item);
+      }
+    });
     this.openPosition = this.startup.positions.filter(
       (position) => position.status === "open"
     );

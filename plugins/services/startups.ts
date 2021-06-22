@@ -87,6 +87,7 @@ export function startup($strapi: Strapi) {
             invites{
               id
               email
+              is_expert
               position{
                 id
                 startup{

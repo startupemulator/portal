@@ -5,7 +5,6 @@
       <UTitle :text="title"></UTitle>
     </div>
     <div class="add-team-feedback__content">
-      <!-- <pre style="color: #fff">{{ directions }} </pre> -->
       <Criterios
         v-for="(direction, i) in directions"
         :key="direction.id"
@@ -149,7 +148,7 @@ export default class extends Vue {
 
     this.loading = true;
     try {
-      const criterion = await this.$createFeedbackForChallenge(
+      const criterion = await this.$createFeedback(
         this.expertId,
         this.comment,
         this.createdCriterions,

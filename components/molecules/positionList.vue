@@ -18,7 +18,7 @@
     </div>
 
     <div class="position-list__cards">
-      <position-card
+      <PositionCard
         v-for="item in applications"
         v-show="opendPosition"
         :key="item.id"
@@ -37,12 +37,12 @@
         "
         :decline-reason="item.decline_reason"
         :experience="item.user.profile.experience.title"
-        :technologies="item.user.profile.technologies.title"
+        :technologies="item.user.profile.technologies"
         :position-id="item.id"
         @accept="accept"
         @decline="decline"
         @advancedAccess="advancedAccess"
-      ></position-card>
+      ></PositionCard>
     </div>
   </div>
 </template>

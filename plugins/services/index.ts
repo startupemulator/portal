@@ -63,7 +63,10 @@ import {
   createAskFeedbackForStartup,
   createAskFeedbackForChallenge,
   askFeedbacksByChallengeId,
-  createFeedbackForChallenge,
+  createFeedback,
+  askFeedbacksByStartupId,
+  feedbackById,
+  updateFeedback,
 } from "~/plugins/services/feedbacks";
 import { notifications } from "~/plugins//services/notifications";
 
@@ -73,6 +76,7 @@ import {
   applicationAccept,
   applicationDecline,
   applicationAdvancedAccess,
+  cancelApplication,
 } from "~/plugins/services/applications";
 import {
   positions,
@@ -172,6 +176,8 @@ export interface Services {
   $applications(): Promise<Partial<Applications>[]>;
 
   $applicationsByStartupId(id: string): Promise<Partial<Applications>[]>;
+  $cancelApplication(id: string): Promise<Partial<Applications>[]>;
+
   $applicationAccept(id: string): Promise<Partial<Applications>[]>;
   $applicationAdvancedAccess(id: string): Promise<Partial<Applications>[]>;
 
@@ -189,7 +195,10 @@ export interface Services {
   $users(): Promise<Partial<NotificationUser>[]>;
   $feedbacksByStartupID(id: string): Promise<Partial<Feedbacks>[]>;
   $feedbacks(): Promise<Partial<Feedbacks>[]>;
-  $createFeedbackForChallenge(
+  $feedbackById(id: string): Promise<Partial<Feedbacks>[]>;
+  $updateFeedback(id: string, badges: []): Promise<Partial<Feedbacks>[]>;
+
+  $createFeedback(
     expert: string,
     description: string,
     criterions: Array<string>,
@@ -198,6 +207,7 @@ export interface Services {
   ): Promise<Partial<Feedbacks>[]>;
   $askFeedbacks(): Promise<Partial<AskFeedbacks>[]>;
   $askFeedbacksByChallengeId(id: string): Promise<Partial<AskFeedbacks>[]>;
+  $askFeedbacksByStartupId(id: string): Promise<Partial<AskFeedbacks>[]>;
 
   $createAskFeedbackForStartup(
     creator: string,
@@ -370,6 +380,8 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("deleteInvite", deleteInvite(ctx.$strapi));
 
   inject("applications", applications(ctx.$strapi));
+  inject("cancelApplication", cancelApplication(ctx.$strapi));
+
   inject("applicationsByStartupId", applicationsByStartupId(ctx.$strapi));
   inject("applicationAccept", applicationAccept(ctx.$strapi));
   inject("applicationDecline", applicationDecline(ctx.$strapi));
@@ -421,15 +433,19 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("createTechnologies", createTechnologies(ctx.$strapi));
 
   inject("feedbacks", feedbacks(ctx.$strapi));
+  inject("feedbackById", feedbackById(ctx.$strapi));
+  inject("updateFeedback", updateFeedback(ctx.$strapi));
+
   inject("feedbacksByStartupID", feedbacksByStartupID(ctx.$strapi));
   inject("askFeedbacks", askFeedbacks(ctx.$strapi));
   inject("askFeedbacksByChallengeId", askFeedbacksByChallengeId(ctx.$strapi));
+  inject("askFeedbacksByStartupId", askFeedbacksByStartupId(ctx.$strapi));
 
   inject(
     "createAskFeedbackForStartup",
     createAskFeedbackForStartup(ctx.$strapi)
   );
-  inject("createFeedbackForChallenge", createFeedbackForChallenge(ctx.$strapi));
+  inject("createFeedback", createFeedback(ctx.$strapi));
   inject(
     "createAskFeedbackForChallenge",
     createAskFeedbackForChallenge(ctx.$strapi)

@@ -163,8 +163,7 @@ export default class extends Vue {
   }
 
   addbadge() {
-    this.$emit("addBadge", "Add badge", this.feedback.id);
-    console.log("add badge");
+    this.$emit("addBadge", this.feedback.id);
   }
 
   async like() {
