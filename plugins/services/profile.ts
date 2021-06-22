@@ -74,10 +74,7 @@ export function updateProfile($strapi: Strapi) {
           data: { technologies: [${technologies}],  experience: "${experience}"} }) {
           profile {
             id
-<<<<<<< HEAD
-=======
             is_expert
->>>>>>> main
             slug
             user {
                 id
@@ -110,10 +107,7 @@ export function createProfile($strapi: Strapi) {
           data: { user: "${id}", technologies: [${technologies}]} }) {
           profile {
             id
-<<<<<<< HEAD
-=======
             is_expert
->>>>>>> main
             slug
             user {
                 id
