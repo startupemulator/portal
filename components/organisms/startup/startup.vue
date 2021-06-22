@@ -81,6 +81,13 @@
       :title="badgeTitle"
       @clikOnButton="toggleAddTeamBadge"
     ></AddTeamBadge>
+    <AddTeamBadge
+      v-show="addFeedBackBadge"
+      :badges="badges"
+      :feedback-id="feedbackIdForAddBadge"
+      @clikOnButton="closeAddFeedBackBadge"
+      @addedBadge="closeAddFeedBackBadge"
+    ></AddTeamBadge>
     <div
       v-show="
         !requestToTeam &&
@@ -93,7 +100,8 @@
         !finishStartup &&
         !releaseLikns &&
         !addTeamFeedBack &&
-        !addTeamBadge
+        !addTeamBadge &&
+        !addFeedBackBadge
       "
       class="startup"
       :class="
@@ -361,7 +369,7 @@
             :user-id="userId"
             @updateFeedbacks="updateFeedbacks"
             @addFeedback="toggleAddTeamFeedBack"
-            @addBadge="toggleAddTeamBadge"
+            @addBadge="addFeedbackBadge"
           ></FeedBackCard>
         </div>
 
@@ -527,7 +535,7 @@ export default class extends Vue {
   lengthActivity = 0;
   feedBackTitle = "";
   badgeTitle = "";
-
+  feedbackIdForAddBadge = "";
   isStarted = false;
   popupDeleteOrStartStartup = false;
   popupGuide = false;
@@ -543,8 +551,10 @@ export default class extends Vue {
   releaseLikns = false;
   addTeamFeedBack = false;
   addTeamBadge = false;
+  addFeedBackBadge = false;
   loading = false;
   updateKey: Number = 0;
+
   toggleReleaseLikns() {
     this.releaseLikns = !this.releaseLikns;
   }
@@ -559,6 +569,17 @@ export default class extends Vue {
     // console.log(feedbackId);
     this.badgeTitle = title;
     this.addTeamBadge = !this.addTeamBadge;
+  }
+
+  addFeedbackBadge(data) {
+    this.feedbackIdForAddBadge = data;
+    this.addFeedBackBadge = !this.addFeedBackBadge;
+    console.log(data);
+  }
+
+  closeAddFeedBackBadge() {
+    this.addFeedBackBadge = !this.addFeedBackBadge;
+    this.updateFeedbacks();
   }
 
   toggleRequestToTeam() {

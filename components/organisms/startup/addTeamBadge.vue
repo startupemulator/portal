@@ -2,7 +2,7 @@
   <div class="add-team-badge">
     <div class="add-team-badge__header">
       <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
-      <UTitle :text="'Add team badge'"></UTitle>
+      <UTitle :text="title"></UTitle>
     </div>
     <div class="add-team-badge__content">
       <PickBadeg :badges="badges" @addBadge="addBadge"></PickBadeg>
@@ -23,6 +23,7 @@
         @clickOnButton="$emit('clikOnButton')"
       ></U-button>
     </div>
+    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
@@ -40,16 +41,39 @@ import { Badges } from "~/models/Badges";
 export default class extends Vue {
   @Prop({ default: "Add badge" }) title: string;
   @Prop() badges: Array<Badges>;
+  @Prop() feedbackId: string;
   comment = "";
   chhosenbadge: Array<Badges>;
+  loading = false;
 
+  badgesOnFeedback = [];
   addBadge(data) {
     this.chhosenbadge = data;
   }
 
-  submitAddBadge() {
-    console.log(this.chhosenbadge);
-    console.log(this.comment);
+  async submitAddBadge() {
+    this.loading = true;
+    try {
+      if (this.feedbackId !== undefined) {
+        const feedback = await this.$feedbackById(this.feedbackId);
+        this.badgesOnFeedback.push(this.chhosenbadge.id);
+        if (feedback !== null) {
+          feedback.badges.forEach((el) => this.badgesOnFeedback.push(el.id));
+          const addBadgetoFeedback = await this.$updateFeedback(
+            this.feedbackId,
+            this.badgesOnFeedback
+          );
+          if (addBadgetoFeedback !== null) {
+            console.log(addBadgetoFeedback);
+          }
+        }
+      }
+      this.loading = false;
+      this.$emit("addedBadge");
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
+    }
   }
 }
 </script>
