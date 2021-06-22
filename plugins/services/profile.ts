@@ -6,8 +6,8 @@ export function profile($strapi: Strapi) {
       query: `query {
   profiles(where:{user:{id: "${id}"}}) {
       id
-<<<<<<< HEAD
       slug
+      is_expert
     user {
         id
         username
@@ -35,10 +35,8 @@ export function profileBySlug($strapi: Strapi) {
       query: `query {
   profiles(where:{slug: "${slug}"}) {
       id
-=======
-      is_expert
->>>>>>> main
       slug
+      is_expert
     user {
         id
         username
