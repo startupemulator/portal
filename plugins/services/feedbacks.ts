@@ -103,51 +103,21 @@ export function createFeedbackForChallenge($strapi: Strapi) {
   return async (
     expert: string,
     description: string,
-    criterions: [],
-    badges: [],
+    criterions: Array<string>,
+    badges: Array<string>,
     request: string
   ) => {
     const data = await $strapi.graphql({
       query: `mutation {
-        createRequest(input: { data: { description: "${description}",
-        criterions: [${criterions}], badges: [${badges}], request: "${request}", expert: "${expert}",
-        is_public: false} }) {
-        request {
+        createFeedback(input: { data: { expert: "${expert}", description: "${description}",
+        criterions: [${criterions}], badges: [${badges}], request: "${request}", is_public: false} }) {
+          feedback {
           id
-    description
-    is_public
-    published_at
-    criterions{
-      id
-      mark
-      direction{
-        id 
-        title
-      }
-    }
-    badges{
-      id
-      title
-      image{
-        url
-      }
-    }
-    request {
-      id
-      is_new
-      startup {
-        id
-      }
-      creator{ 
-        id
-        
-        username
-      }
     }
   }
 }`,
     });
-    return data.createRequest ? data.createRequest.request : null;
+    return data.createFeedback ? data.createFeedback.feedback : null;
   };
 }
 export function askFeedbacks($strapi: Strapi) {

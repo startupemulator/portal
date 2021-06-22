@@ -6,6 +6,7 @@ export function profile($strapi: Strapi) {
       query: `query {
   profiles(where:{user:{id: "${id}"}}) {
       id
+<<<<<<< HEAD
       slug
     user {
         id
@@ -34,6 +35,9 @@ export function profileBySlug($strapi: Strapi) {
       query: `query {
   profiles(where:{slug: "${slug}"}) {
       id
+=======
+      is_expert
+>>>>>>> main
       slug
     user {
         id
@@ -70,6 +74,10 @@ export function updateProfile($strapi: Strapi) {
           data: { technologies: [${technologies}],  experience: "${experience}"} }) {
           profile {
             id
+<<<<<<< HEAD
+=======
+            is_expert
+>>>>>>> main
             slug
             user {
                 id
@@ -102,6 +110,10 @@ export function createProfile($strapi: Strapi) {
           data: { user: "${id}", technologies: [${technologies}]} }) {
           profile {
             id
+<<<<<<< HEAD
+=======
+            is_expert
+>>>>>>> main
             slug
             user {
                 id

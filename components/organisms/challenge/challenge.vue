@@ -29,7 +29,7 @@
       :solution-data="solutionData"
       :directions="directions"
       :badges="badges"
-      :expert-id="profile.user.id"
+      :expert-id="profile.length !== 0 ? profile.user.id : null"
       @clikOnButton="toggleChallengeTask"
     ></ParticipantSolution>
   </div>
@@ -74,20 +74,17 @@ export default class extends Vue {
 
   toggleChallengeTask(data) {
     this.solutionData = data;
-    console.log(data);
     this.participantSolution = !this.participantSolution;
     this.challengeTask = !this.challengeTask;
   }
 
   participantRequest(data) {
-    console.log(data);
     this.solutionData = data;
     this.participantSolution = !this.participantSolution;
     this.challengeTask = !this.challengeTask;
   }
 
   mounted() {
-    console.log("challenge");
     if (
       this.userChallenge !== undefined &&
       this.userChallenges.some(
@@ -108,12 +105,12 @@ export default class extends Vue {
       this.isStarted = false;
       this.finished = true;
     }
-
-    this.isExpert = true;
-    this.isDeveloper = false;
-    this.isStarted = false;
-    this.finished = false; // dev, when profile update need hange this
-
+    if (this.profile.length !== 0 && this.profile.is_expert === true) {
+      this.isExpert = true;
+      this.isDeveloper = false;
+      this.isStarted = false;
+      this.finished = false;
+    }
     if (this.askfeedbacks !== null) {
       this.askfeedbacks.forEach((el) =>
         el.feedbacks.forEach((item) => this.feedbacks.push(item))

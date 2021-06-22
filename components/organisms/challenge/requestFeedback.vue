@@ -180,7 +180,6 @@ export default class extends Vue {
           this.challengeId
         );
         if (requestFeedback !== null) {
-          console.log(requestFeedback);
           this.existingSourseComponent.forEach((el) => {
             this.createSolution(el.title, el.url, requestFeedback.id);
           });
