@@ -99,9 +99,11 @@ export default class TakeStartup extends Vue {
     if (this.$strapi.user) {
       this.applications.forEach((item) => {
         item.position.applications.forEach((el) => {
+          console.log(el);
           if (
-            el.status === "accepted" &&
-            +this.$strapi.user.id === +el.user.id
+            (el.status === "accepted" &&
+              +this.$strapi.user.id === +el.user.id) ||
+            (el.status === "advanced" && +this.$strapi.user.id === +el.user.id)
           ) {
             this.applicationId = el.id;
             this.isDeveloper = true;

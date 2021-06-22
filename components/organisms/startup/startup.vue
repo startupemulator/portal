@@ -141,7 +141,7 @@
               <span>Show Guide</span>
               <img src="~/assets/img/arrow.svg" alt="arrow" />
             </button>
-            <button type="button">
+            <button type="button" @click="leveProject">
               <span>Leave Project</span>
               <img src="~/assets/img/arrow.svg" alt="arrow" />
             </button>
@@ -307,9 +307,9 @@
             :username="updatableDataStartup.owner"
             :is-owner="true"
           ></ProjectParticipant>
-          <div v-if="staffedPosition.length > 0" class="team">
+          <div v-if="teamMember.length > 0" class="team">
             <ProjectParticipant
-              v-for="item in staffedPosition"
+              v-for="item in teamMember"
               :key="item.id"
               :position="item.specialisation.title"
               :username="item.applications"
@@ -501,6 +501,7 @@ export default class extends Vue {
   updatableFeedbacks = this.feedbacks ? this.feedbacks : [];
   openPosition = [];
   staffedPosition = [];
+  teamMember = [];
   moveAwayStartup: string = "";
   moveAwayStartupName: string = "";
   popupCancelApplication = false;
@@ -604,12 +605,27 @@ export default class extends Vue {
     this.popupGuide = !this.popupGuide;
   }
 
+  leveProject() {
+    console.log("leveProject");
+  }
+
   mounted() {
     if (this.startup.state === "in_progress") {
       this.isStarted = true;
     } else if (this.startup.state === "finished") {
       this.finished = true;
     }
+
+    this.startup.positions.forEach((item) => {
+      if (
+        item.applications.some(
+          (el) => el.status === "accepted" || el.status === "advanced"
+        )
+      ) {
+        this.teamMember.push(item);
+      }
+    });
+    console.log(this.teamMember);
 
     this.openPosition = this.startup.positions.filter(
       (position) => position.status === "open"

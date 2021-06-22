@@ -4,7 +4,7 @@
     <form ref="technologyList">
       <u-tags
         v-for="item in technologies"
-        :id="item.id"
+        :id="item.id + '-' + Math.floor(Math.random() * 10000)"
         :key="item.id"
         :title="item.title"
         @pick="pickTechnology($event, item.id, item.title)"

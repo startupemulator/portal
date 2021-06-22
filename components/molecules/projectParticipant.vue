@@ -3,7 +3,7 @@
     <p>{{ position || "Product Owners" }}</p>
     <div v-if="!isOwner" style="display: flex; flex-wrap: wrap">
       <div
-        v-for="user in username"
+        v-for="user in acceptedTeamMember"
         :key="user.name"
         class="specializacion_names"
       >
@@ -52,13 +52,17 @@ export default class AppHeader extends Vue {
   @Prop() username: Array<any>;
   @Prop() isOwner: boolean;
   technologies = [];
+  acceptedTeamMember = [];
   mounted() {
     if (this.username.length !== undefined) {
-      this.username.forEach((item) =>
+      this.username.forEach((item) => {
+        if (item.status === "advanced" || item.status === "accepted") {
+          this.acceptedTeamMember.push(item);
+        }
         item.user.profile.technologies.forEach((el) => {
           this.technologies.push(el);
-        })
-      );
+        });
+      });
       this.technologies = this.technologies.filter(
         (v, i, a) => a.findIndex((t) => t.id === v.id) === i
       );
