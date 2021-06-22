@@ -3,22 +3,28 @@
     <U-title :text="'Comments for experts'"></U-title>
     <div class="comments-expert__content">
       <div class="comments-expert__content-header">
-        <h4>Product Owner’s <span> Full Name </span></h4>
-        <p>5 Sep 2020 14:40</p>
+        <h4>
+          Product Owner’s <span> {{ solutionData.creator.username }} </span>
+        </h4>
+        <p>
+          {{
+            new Date(solutionData.solutions[0].published_at)
+              .toUTCString()
+              .substr(4, 18)
+          }}
+        </p>
       </div>
       <div class="comments-expert__content-description">
         <img src="~/assets/img/feedback.svg" alt="feedback" />
         <h5>
-          Some comment and feedback that this expert left with this bage,
-          probably in a few lines. Some comment and feedback that this expert
-          left with this bage, probably in a few lines.
+          {{ solutionData.comment }}
         </h5>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
+import { Component, Prop, Vue } from "nuxt-property-decorator";
 
 import UTitle from "~/components/atoms/uTitle.vue";
 
@@ -27,7 +33,9 @@ import UTitle from "~/components/atoms/uTitle.vue";
     UTitle,
   },
 })
-export default class extends Vue {}
+export default class extends Vue {
+  @Prop() solutionData: Array<any>;
+}
 </script>
 <style lang="scss" scoped>
 .comments-expert {

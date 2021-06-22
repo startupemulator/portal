@@ -13,7 +13,7 @@ export function userChallengesById($strapi: Strapi) {
            estimation
            challenge{
              id
-           }
+           } 
   }
 }`,
     });
@@ -37,7 +37,7 @@ export function userChallengesByUserId($strapi: Strapi) {
   }
 }`,
     });
-    return data.userChallenges ? data.userChallenges[0] : null;
+    return data.userChallenges ? data.userChallenges : null;
   };
 }
 export function deleteUserChallenges($strapi: Strapi) {

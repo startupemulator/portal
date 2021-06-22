@@ -25,7 +25,7 @@
           <U-button
             :button-name="'Yes, Delete'"
             :button-class="'u-button-blue'"
-            @clickOnButton="updateStartup"
+            @clickOnButton="deleteStartup"
           ></U-button>
           <U-button
             :button-name="'No, Don’t Delete'"
@@ -77,8 +77,8 @@ export default class extends Vue {
     this.startupName = e;
   }
 
-  updateStartup() {
-    this.$emit("updateStartup", this.startupName, this.moveAwayStartup);
+  deleteStartup() {
+    this.$emit("deleteStartup", this.startupName, this.moveAwayStartup);
   }
 }
 </script>

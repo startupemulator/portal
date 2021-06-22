@@ -44,7 +44,7 @@ export function challenge($strapi: Strapi) {
     }
     author {
       id
-      name
+      
     }
     sources {
       link

@@ -344,6 +344,7 @@
               <span class="startup-card__activity-like-count">3</span>
             </div>
           </div> -->
+
           <FeedBackCard
             v-for="feedback in updatableFeedbacks.slice(0, maxLengthActivity)"
             :key="feedback.id"
@@ -355,6 +356,7 @@
             @addBadge="toggleAddTeamBadge"
           ></FeedBackCard>
         </div>
+
         <U-button
           v-if="updatableFeedbacks.length > maxLengthActivity"
           :button-name="`Show ${
@@ -496,7 +498,7 @@ export default class extends Vue {
   @Prop() userId: string;
   updatableDataStartup = this.startup;
   updatableDataApplications = this.applications;
-  updatableFeedbacks = this.feedbacks;
+  updatableFeedbacks = this.feedbacks ? this.feedbacks : [];
   openPosition = [];
   staffedPosition = [];
   moveAwayStartup: string = "";
@@ -509,8 +511,8 @@ export default class extends Vue {
   lengthActivity = 0;
   feedBackTitle = "";
   badgeTitle = "";
+  // isExpert = false;
   isExpert = false;
-  // isExpert = true;
 
   isStarted = false;
   popupDeleteOrStartStartup = false;
@@ -623,13 +625,18 @@ export default class extends Vue {
     this.moveAwayStartupName = this.startup.title;
 
     let count = 0;
-    this.feedbacks.forEach((newRequest) => {
-      if (newRequest.request.is_new === true) {
-        this.newFeedbacksData.push(newRequest);
-        count++;
-      }
+
+    if (this.feedbacks !== null) {
+      this.feedbacks.forEach((newRequest) => {
+        if (newRequest.request.is_new === true) {
+          this.newFeedbacksData.push(newRequest);
+          count++;
+        }
+        this.newFeedBacks = count;
+      });
+    } else {
       this.newFeedBacks = count;
-    });
+    }
   }
 
   async accept(id) {

@@ -5,17 +5,29 @@
       <UTitle :text="title"></UTitle>
     </div>
     <div class="add-team-feedback__content">
-      <Criterios v-for="(item, i) in 5" :key="i" :i="i"></Criterios>
+      <!-- <pre style="color: #fff">{{ directions }} </pre> -->
+      <Criterios
+        v-for="(direction, i) in directions"
+        :key="direction.id"
+        :direction="direction"
+        :i="i"
+        @markDirection="markDirection"
+      ></Criterios>
       <div class="add-team-feedback__comment">
         <p>Comment</p>
-        <textarea placeholder="Enter your comment"></textarea>
+        <textarea v-model="comment" placeholder="Enter your comment"></textarea>
       </div>
-      <PickBadeg :title="'Pick a badge (Optional)'"></PickBadeg>
+      <PickBadeg
+        :title="'Pick a badge (Optional)'"
+        :badges="badges"
+        @addBadge="addBadge"
+      ></PickBadeg>
     </div>
     <div class="add-team-feedback__buttons">
       <U-button
         :button-name="'Submit'"
         :button-class="'u-button-blue'"
+        @clickOnButton="createFeedback"
       ></U-button>
       <U-button
         :button-name="'Cancel'"
@@ -23,6 +35,7 @@
         @clickOnButton="$emit('clikOnButton')"
       ></U-button>
     </div>
+    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
@@ -33,12 +46,125 @@ import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import Criterios from "~/components/molecules/criterios.vue";
 import PickBadeg from "~/components/molecules/pickBadge.vue";
+import { Directions } from "~/models/Directions";
+import { Badges } from "~/models/Badges";
+import Spiner from "~/components/molecules/spiner.vue";
 
 @Component({
-  components: { UButton, UTitle, UBack, Criterios, PickBadeg },
+  components: { UButton, UTitle, UBack, Criterios, PickBadeg, Spiner },
 })
 export default class extends Vue {
   @Prop({ default: "Add feedback" }) title: string;
+  @Prop() directions: Array<Directions>;
+  @Prop() badges: Array<Badges>;
+  @Prop() expertId: string;
+  @Prop() requestId: string;
+  loading = false;
+  markedDirection = [];
+  comment = "";
+  badge = "";
+  createdCriterions: Array<string> = [];
+  markDirection(directionId: string, mark: string) {
+    if (
+      this.markedDirection.some((el) => +el.id === +directionId) &&
+      mark !== "skip"
+    ) {
+      this.markedDirection[
+        this.markedDirection.findIndex((el) => +el.id === +directionId)
+      ].mark = mark;
+      this.updateCriterions(
+        this.markedDirection[
+          this.markedDirection.findIndex((el) => +el.id === +directionId)
+        ]
+      );
+    } else if (mark !== "skip") {
+      this.markedDirection.push({ id: directionId, mark });
+      const criterion = { id: directionId, mark };
+      this.createCriterions(
+        criterion,
+        this.markedDirection.findIndex((el) => +el.id === +directionId)
+      );
+    }
+
+    if (mark === "skip") {
+      this.deleteCriterions(
+        this.markedDirection[
+          this.markedDirection.findIndex((el) => +el.id === +directionId)
+        ]
+      );
+      this.markedDirection.splice(
+        this.markedDirection.findIndex((el) => +el.id === +directionId),
+        1
+      );
+    }
+  }
+
+  addBadge(badge) {
+    this.badge = badge.id;
+  }
+
+  async createCriterions(el, id) {
+    this.loading = true;
+    try {
+      const criterion = await this.$createCriterions(el.mark, el.id);
+      if (criterion !== null) {
+        this.markedDirection[id].keyId = criterion.id;
+        this.loading = false;
+      }
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
+    }
+  }
+
+  async updateCriterions(el) {
+    this.loading = true;
+    try {
+      const criterion = await this.$updateCriterions(el.keyId, el.mark);
+
+      if (criterion !== null) {
+        this.loading = false;
+      }
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
+    }
+  }
+
+  async deleteCriterions(el) {
+    this.loading = true;
+    try {
+      const criterion = await this.$deleteCriterions(el.keyId);
+      if (criterion !== null) {
+        this.loading = false;
+      }
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
+    }
+  }
+
+  async createFeedback() {
+    this.markedDirection.forEach((el) => this.createdCriterions.push(el.keyId));
+
+    this.loading = true;
+    try {
+      const criterion = await this.$createFeedbackForChallenge(
+        this.expertId,
+        this.comment,
+        this.createdCriterions,
+        this.badge,
+        this.requestId
+      );
+      if (criterion !== null) {
+        this.loading = false;
+        this.$emit("updateFeedbacks");
+      }
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
+    }
+  }
 }
 </script>
 

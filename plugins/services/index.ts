@@ -60,6 +60,9 @@ import {
   feedbacks,
   askFeedbacks,
   createAskFeedbackForStartup,
+  createAskFeedbackForChallenge,
+  askFeedbacksByChallengeId,
+  createFeedbackForChallenge,
 } from "~/plugins/services/feedbacks";
 import { notifications } from "~/plugins//services/notifications";
 
@@ -118,7 +121,29 @@ import {
   createSolution,
   updateSolution,
 } from "~/plugins/services/solution";
+import { Directions } from "~/models/Directions";
+import { directions } from "~/plugins/services/directions";
+import { Badges } from "~/models/Badges";
+import { badges } from "~/plugins/services/badges";
+
+import { Criterions } from "~/models/Criterions";
+import {
+  createCriterions,
+  updateCriterions,
+  deleteCriterions,
+} from "~/plugins/services/criterions";
+
 export interface Services {
+  $createCriterions(
+    mark: string,
+    direction: string
+  ): Promise<Partial<Criterions>[]>;
+  $updateCriterions(id: string, mark: string): Promise<Partial<Criterions>[]>;
+
+  $deleteCriterions(id: string): Promise<Partial<Criterions>>;
+
+  $directions(): Promise<Partial<Directions>[]>;
+  $badges(): Promise<Partial<Badges>[]>;
   $userChallengesById(id: string): Promise<Partial<userChallenges>[]>;
   $userChallengesByUserId(id: string): Promise<Partial<userChallenges>[]>;
   $deleteUserChallenges(id: string): Promise<Partial<userChallenges>[]>;
@@ -161,12 +186,28 @@ export interface Services {
   $users(): Promise<Partial<NotificationUser>[]>;
   $feedbacksByStartupID(id: string): Promise<Partial<Feedbacks>[]>;
   $feedbacks(): Promise<Partial<Feedbacks>[]>;
+  $createFeedbackForChallenge(
+    expert: string,
+    description: string,
+    criterions: Array<string>,
+    badges: Array<string>,
+    request: string
+  ): Promise<Partial<Feedbacks>[]>;
   $askFeedbacks(): Promise<Partial<AskFeedbacks>[]>;
+  $askFeedbacksByChallengeId(id: string): Promise<Partial<AskFeedbacks>[]>;
+
   $createAskFeedbackForStartup(
     creator: string,
     comment: string,
     technologies: [],
     startup: string
+  ): Promise<Partial<AskFeedbacks>[]>;
+
+  $createAskFeedbackForChallenge(
+    creator: string,
+    comment: string,
+    technologies: [],
+    challenge: string
   ): Promise<Partial<AskFeedbacks>[]>;
 
   $notifications(): Promise<Partial<Notification>[]>;
@@ -255,7 +296,11 @@ export interface Services {
 
   $solutions(id: string): Promise<Partial<Solutions>[]>;
   $deleteSolution(id: string): Promise<Partial<Solutions>>;
-  $createSolution(): Promise<Partial<Solutions>[]>;
+  $createSolution(
+    title: string,
+    url: string,
+    request: string
+  ): Promise<Partial<Solutions>[]>;
   $updateSolution(
     id: string,
     title: string,
@@ -281,7 +326,13 @@ export interface Services {
 }
 
 const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
+  inject("badges", badges(ctx.$strapi));
+  inject("directions", directions(ctx.$strapi));
   inject("estimations", estimations(ctx.$strapi));
+
+  inject("createCriterions", createCriterions(ctx.$strapi));
+  inject("updateCriterions", updateCriterions(ctx.$strapi));
+  inject("deleteCriterions", deleteCriterions(ctx.$strapi));
 
   inject("userChallengesById", userChallengesById(ctx.$strapi));
   inject("userChallengesByUserId", userChallengesByUserId(ctx.$strapi));
@@ -367,11 +418,17 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("feedbacks", feedbacks(ctx.$strapi));
   inject("feedbacksByStartupID", feedbacksByStartupID(ctx.$strapi));
   inject("askFeedbacks", askFeedbacks(ctx.$strapi));
+  inject("askFeedbacksByChallengeId", askFeedbacksByChallengeId(ctx.$strapi));
+
   inject(
     "createAskFeedbackForStartup",
     createAskFeedbackForStartup(ctx.$strapi)
   );
-
+  inject("createFeedbackForChallenge", createFeedbackForChallenge(ctx.$strapi));
+  inject(
+    "createAskFeedbackForChallenge",
+    createAskFeedbackForChallenge(ctx.$strapi)
+  );
   inject("notifications", notifications(ctx.$strapi));
 
   inject("createLike", createLike(ctx.$strapi));

@@ -47,10 +47,10 @@
           <li
             v-show="!isLogined"
             class="nav-item nav-item-pricing"
-            :class="{ 'nav-item__active': currentRoute === '/landing#pricing' }"
+            :class="{ 'nav-item__active': currentRoute === '/#pricing' }"
             @click="scrollToPricing"
           >
-            <nuxt-link to="/landing#pricing">
+            <nuxt-link to="/#pricing">
               <svg
                 width="24"
                 height="24"
@@ -247,7 +247,7 @@ export default class AppHeader extends Vue {
 
   scrollToPricing() {
     console.log(this.currentRoute);
-    if (this.currentRoute === "/landing#pricing") {
+    if (this.currentRoute === "/#pricing") {
       goToPricing();
     }
   }

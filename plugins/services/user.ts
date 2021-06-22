@@ -21,7 +21,7 @@ export function getUserBySlug($strapi: Strapi) {
   users (where: {username: "${slug}"}) {
     id
     username
-    name
+    
     
     
     

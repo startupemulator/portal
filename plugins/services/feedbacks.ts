@@ -43,7 +43,7 @@ export function feedbacksByStartupID($strapi: Strapi) {
       }
       creator{ 
         id
-        name
+        
         username
       }
     }
@@ -96,7 +96,7 @@ export function feedbacks($strapi: Strapi) {
       }
       creator{ 
         id
-        name
+        
         username
       }
     }
@@ -104,6 +104,28 @@ export function feedbacks($strapi: Strapi) {
 }`,
     });
     return data.feedbacks ? data.feedbacks : null;
+  };
+}
+
+export function createFeedbackForChallenge($strapi: Strapi) {
+  return async (
+    expert: string,
+    description: string,
+    criterions: Array<string>,
+    badges: Array<string>,
+    request: string
+  ) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+        createFeedback(input: { data: { expert: "${expert}", description: "${description}",
+        criterions: [${criterions}], badges: [${badges}], request: "${request}", is_public: false} }) {
+          feedback {
+          id
+    }
+  }
+}`,
+    });
+    return data.createFeedback ? data.createFeedback.feedback : null;
   };
 }
 export function askFeedbacks($strapi: Strapi) {
@@ -161,5 +183,97 @@ export function createAskFeedbackForStartup($strapi: Strapi) {
 }`,
     });
     return data.createRequest ? data.createRequest.request : null;
+  };
+}
+export function createAskFeedbackForChallenge($strapi: Strapi) {
+  return async (
+    creator: string,
+    comment: string,
+    technologies: [],
+    challenge: string
+  ) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+        createRequest(input: { data: { comment: "${comment}",
+        technologies: [${technologies}], challenge: "${challenge}", is_new: true, creator: "${creator}"} }) {
+        request {
+         id
+         is_new
+    comment
+    technologies{
+      id
+      title
+    }
+    challenge {
+      id
+    }
+    startup {
+      id
+    } 
+        }
+    
+  }
+}`,
+    });
+    return data.createRequest ? data.createRequest.request : null;
+  };
+}
+export function askFeedbacksByChallengeId($strapi: Strapi) {
+  return async (id: string) => {
+    const data = await $strapi.graphql({
+      query: `query {
+        requests (where: {challenge: {id: "${id}"}}) {
+          id
+          comment
+          is_new
+          technologies{
+            id
+            title
+          }
+          challenge {
+            id
+          }
+          creator{
+            id
+            username
+          }
+          feedbacks{
+            id
+            description
+            criterions {
+              id
+              mark
+              direction{
+                id
+                title
+                comment
+              }
+            }
+            badges {
+              id
+              title
+              image {
+                id
+                url
+              }
+            }
+            is_public
+            expert{
+              id
+              username
+              
+            }
+            published_at
+          }
+          solutions {
+            id
+            title
+            url
+            published_at
+          }
+        }
+      }`,
+    });
+    return data.requests ? data.requests : null;
   };
 }

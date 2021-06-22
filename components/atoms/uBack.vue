@@ -1,10 +1,10 @@
 <template>
   <div class="button-back">
     <nuxt-link v-if="!isButton" :to="link">
-      <button type="button" class="btn-back">
+      <div type="button" class="btn-back">
         <img v-if="img" src="~/assets/img/arrow.svg" alt="arrow" />
         <span>{{ title }}</span>
-      </button>
+      </div>
     </nuxt-link>
     <button
       v-if="isButton"
