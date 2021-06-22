@@ -5,16 +5,17 @@
       <UTitle :text="'Add team badge'"></UTitle>
     </div>
     <div class="add-team-badge__content">
-      <PickBadeg></PickBadeg>
+      <PickBadeg :badges="badges" @addBadge="addBadge"></PickBadeg>
       <div class="add-team-badge__comment">
         <p>Comment (Optional)</p>
-        <textarea placeholder="Enter your comment"></textarea>
+        <textarea v-model="comment" placeholder="Enter your comment"></textarea>
       </div>
     </div>
     <div class="add-team-badge__buttons">
       <U-button
         :button-name="'Submit'"
         :button-class="'u-button-blue'"
+        @clickOnButton="submitAddBadge"
       ></U-button>
       <U-button
         :button-name="'Cancel'"
@@ -32,12 +33,24 @@ import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import Criterios from "~/components/molecules/criterios.vue";
 import PickBadeg from "~/components/molecules/pickBadge.vue";
-
+import { Badges } from "~/models/Badges";
 @Component({
   components: { UButton, UTitle, UBack, Criterios, PickBadeg },
 })
 export default class extends Vue {
   @Prop({ default: "Add badge" }) title: string;
+  @Prop() badges: Array<Badges>;
+  comment = "";
+  chhosenbadge: Array<Badges>;
+
+  addBadge(data) {
+    this.chhosenbadge = data;
+  }
+
+  submitAddBadge() {
+    console.log(this.chhosenbadge);
+    console.log(this.comment);
+  }
 }
 </script>
 

@@ -5,7 +5,6 @@
       <UTitle :text="title"></UTitle>
     </div>
     <div class="add-team-feedback__content">
-      <!-- <pre style="color: #fff">{{ directions }} </pre> -->
       <Criterios
         v-for="(direction, i) in directions"
         :key="direction.id"
@@ -164,11 +163,6 @@ export default class extends Vue {
       console.error(e);
       this.loading = false;
     }
-  }
-
-  mounted() {
-    console.log(this.expertId);
-    console.log(this.requestId);
   }
 }
 </script>

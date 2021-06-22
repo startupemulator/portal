@@ -77,6 +77,7 @@
     ></AddTeamFeedBack>
     <AddTeamBadge
       v-show="addTeamBadge"
+      :badges="badges"
       :title="badgeTitle"
       @clikOnButton="toggleAddTeamBadge"
     ></AddTeamBadge>
@@ -554,6 +555,8 @@ export default class extends Vue {
   }
 
   toggleAddTeamBadge(title, feedbackId) {
+    // console.log(title);
+    // console.log(feedbackId);
     this.badgeTitle = title;
     this.addTeamBadge = !this.addTeamBadge;
   }
