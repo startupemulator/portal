@@ -72,6 +72,7 @@ import {
   applicationAccept,
   applicationDecline,
   applicationAdvancedAccess,
+  cancelApplication,
 } from "~/plugins/services/applications";
 import {
   positions,
@@ -171,6 +172,8 @@ export interface Services {
   $applications(): Promise<Partial<Applications>[]>;
 
   $applicationsByStartupId(id: string): Promise<Partial<Applications>[]>;
+  $cancelApplication(id: string): Promise<Partial<Applications>[]>;
+
   $applicationAccept(id: string): Promise<Partial<Applications>[]>;
   $applicationAdvancedAccess(id: string): Promise<Partial<Applications>[]>;
 
@@ -367,6 +370,8 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("deleteInvite", deleteInvite(ctx.$strapi));
 
   inject("applications", applications(ctx.$strapi));
+  inject("cancelApplication", cancelApplication(ctx.$strapi));
+
   inject("applicationsByStartupId", applicationsByStartupId(ctx.$strapi));
   inject("applicationAccept", applicationAccept(ctx.$strapi));
   inject("applicationDecline", applicationDecline(ctx.$strapi));

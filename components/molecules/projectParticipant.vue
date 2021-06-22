@@ -30,7 +30,7 @@
           class="project-participant__team-button"
           :to="'/user/' + username.username"
         >
-          <span>{{ username.name }}</span>
+          <span>{{ username.username }}</span>
 
           <img src="~/assets/img/arrow.svg" alt="arrow" />
         </nuxt-link>

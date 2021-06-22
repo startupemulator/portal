@@ -536,13 +536,11 @@ export default class extends Vue {
   }
 
   toggleAddTeamFeedBack(title, feedbackId) {
-    console.log(feedbackId);
     this.feedBackTitle = title;
     this.addTeamFeedBack = !this.addTeamFeedBack;
   }
 
   toggleAddTeamBadge(title, feedbackId) {
-    console.log(feedbackId);
     this.badgeTitle = title;
     this.addTeamBadge = !this.addTeamBadge;
   }

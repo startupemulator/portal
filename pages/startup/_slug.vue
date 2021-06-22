@@ -1,6 +1,5 @@
 <template>
   <div class="startups-page">
-    <!-- <pre style="color: #fff">{{ feedbacks }} </pre> -->
     <Spiner :loading="loading"></Spiner>
     <StartupPage
       :startup="startup"
@@ -14,6 +13,7 @@
       :specialisations="specialisations"
       :user-id="userId"
       @deleteStartup="deleteStartup"
+      @cancelApplication="cancelApplication"
     ></StartupPage>
   </div>
 </template>

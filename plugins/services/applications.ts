@@ -130,3 +130,21 @@ export function applicationDecline($strapi: Strapi) {
     return data;
   };
 }
+export function cancelApplication($strapi: Strapi) {
+  return async (id: string) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+        deleteApplication(
+          input: {
+          where: {id: "${id}" }
+         }
+         ) {
+          application {
+              id
+            }
+        }
+      }`,
+    });
+    return data;
+  };
+}
