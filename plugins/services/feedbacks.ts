@@ -364,7 +364,7 @@ export function askFeedbacksByChallengeId($strapi: Strapi) {
         }
       }`,
     });
-    return data.requests ? data.requests : null;
+    return data || null;
   };
 }
 export function askFeedbacksByStartupId($strapi: Strapi) {
@@ -423,6 +423,6 @@ export function askFeedbacksByStartupId($strapi: Strapi) {
         }
       }`,
     });
-    return data.requests ? data.requests[0] : null;
+    return data.requests[0] ? data.requests[0] : null;
   };
 }

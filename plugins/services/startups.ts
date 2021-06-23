@@ -17,6 +17,10 @@ export function startups($strapi: Strapi) {
             state
             owner {
               id
+              profile{
+                name
+                slug
+              }
             }
             technologies {
               id
@@ -184,6 +188,10 @@ export function startupById($strapi: Strapi) {
           }
           owner {
             id
+            profile{
+              name
+              slug
+            }
             
             username
             invites{
@@ -264,6 +272,10 @@ export function startupByAcceptedApplication($strapi: Strapi) {
           }
           owner {
             id
+            profile{
+              name
+              slug
+            }
             
           }
           technologies {
@@ -305,6 +317,10 @@ export function myStartups($strapi: Strapi) {
           }
           owner {
             id
+            profile{
+              name
+              slug
+            }
             
           }
           technologies {
@@ -387,6 +403,10 @@ export function filterStartup($strapi: Strapi) {
             state
             owner {
               id
+              profile{
+                name
+                slug
+              }
               
             }
             technologies {

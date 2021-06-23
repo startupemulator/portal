@@ -40,12 +40,6 @@ import { Startup } from "~/models/Startup";
 })
 export default class extends Vue {
   @Prop() startup: Array<Startup>;
-
-  mounted() {
-    console.log(this.startup.secrets[0].description.split(":")[0]);
-
-    console.log(this.startup.secrets[1].description.split(":")[0]);
-  }
 }
 </script>
 <style lang="scss" scoped>

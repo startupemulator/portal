@@ -74,11 +74,12 @@
       v-show="addTeamFeedBack"
       :title="feedBackTitle"
       :badges="badges"
-      :request-id="askFeedbacks.id"
+      :request-id="askFeedbacks ? askFeedbacks.id : null"
       :expert-id="userId"
       :directions="directions"
       @clikOnButton="toggleAddTeamFeedBack"
     ></AddTeamFeedBack>
+    <!-- askFeedbacks.id -->
     <AddTeamBadge
       v-show="addTeamBadge"
       :badges="badges"
@@ -184,7 +185,7 @@
           {{ updatableDataStartup.description }}
         </p>
         <CommentExpert
-          v-if="isExpert"
+          v-if="isExpert && askFeedbacks !== null"
           :solution-data="askFeedbacks"
         ></CommentExpert>
 
@@ -683,7 +684,6 @@ export default class extends Vue {
 
   feedbackFilterByPublickFlag(feedbacks) {
     this.updatableFeedbacks = feedbacks.filter((el) => el.is_public);
-    console.log(this.updatableFeedbacks);
   }
 
   feedbackFilterByPrivateFlag(feedbacks) {
@@ -692,6 +692,7 @@ export default class extends Vue {
 
   async accept(id) {
     this.loading = true;
+
     try {
       const accept = await this.$applicationAccept(id);
       if (accept) {
@@ -701,6 +702,7 @@ export default class extends Vue {
           this.startup.id
         );
         // position to staffed
+
         if (startup !== null) {
           this.updatableDataStartup = startup;
           if (this.startup.state === "in_progress") {
@@ -717,6 +719,7 @@ export default class extends Vue {
           this.moveAwayStartup = this.startup.id;
           this.moveAwayStartupName = this.startup.title;
         }
+
         if (applications !== null) {
           this.updatableDataApplications = applications;
         }
