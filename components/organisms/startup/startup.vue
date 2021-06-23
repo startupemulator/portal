@@ -11,6 +11,7 @@
     ></RequestToTeam>
     <NewFeedBack
       v-show="newFeedBack"
+      :key="updateKey + Math.floor(Math.random() * 10000)"
       :feedbacks="newFeedbacksData"
       :user-id="userId"
       :is-expert="isExpert"
@@ -18,6 +19,7 @@
       :new-feed-backs="newFeedbacksData.length"
       @clikOnButton="toggleNewFeedBack"
       @updateFeedbacks="updateFeedbacks"
+      @publickFeedback="updateFeedbacks"
     ></NewFeedBack>
     <RequestFeedback
       v-show="requestFeedBack"
@@ -310,7 +312,7 @@
           <h3>Open positions</h3>
           <Open-position-card
             v-for="item in openPosition"
-            :key="item.id"
+            :key="item.id + Math.floor(Math.random() * 10000)"
             :position="item"
             :is-expert="isExpert"
             :slug="updatableDataStartup.slug"
@@ -328,7 +330,7 @@
           <div v-if="teamMember.length > 0" class="team">
             <ProjectParticipant
               v-for="item in teamMember"
-              :key="item.id"
+              :key="item.id + Math.floor(Math.random() * 10000)"
               :position="item.specialisation.title"
               :username="item.applications"
             ></ProjectParticipant>
@@ -365,7 +367,7 @@
 
           <FeedBackCard
             v-for="feedback in updatableFeedbacks.slice(0, maxLengthActivity)"
-            :key="feedback.id"
+            :key="feedback.id + Math.floor(Math.random() * 10000)"
             :feedback="feedback"
             :is-expert="isExpert"
             :user-id="userId"
@@ -681,6 +683,7 @@ export default class extends Vue {
 
   feedbackFilterByPublickFlag(feedbacks) {
     this.updatableFeedbacks = feedbacks.filter((el) => el.is_public);
+    console.log(this.updatableFeedbacks);
   }
 
   feedbackFilterByPrivateFlag(feedbacks) {
@@ -903,6 +906,7 @@ export default class extends Vue {
       const feedbacks = await this.$feedbacksByStartupID(this.startup.id);
       if (feedbacks !== null) {
         this.feedbackFilterByPublickFlag(feedbacks);
+        this.feedbackFilterByPrivateFlag(feedbacks);
       }
       this.loading = false;
     } catch (e) {

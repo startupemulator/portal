@@ -67,6 +67,7 @@ import {
   askFeedbacksByStartupId,
   feedbackById,
   updateFeedback,
+  publicFeedback,
 } from "~/plugins/services/feedbacks";
 import { notifications } from "~/plugins//services/notifications";
 
@@ -197,6 +198,7 @@ export interface Services {
   $feedbacks(): Promise<Partial<Feedbacks>[]>;
   $feedbackById(id: string): Promise<Partial<Feedbacks>[]>;
   $updateFeedback(id: string, badges: []): Promise<Partial<Feedbacks>[]>;
+  $publicFeedback(id: string): Promise<Partial<Feedbacks>[]>;
 
   $createFeedback(
     expert: string,
@@ -435,6 +437,7 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("feedbacks", feedbacks(ctx.$strapi));
   inject("feedbackById", feedbackById(ctx.$strapi));
   inject("updateFeedback", updateFeedback(ctx.$strapi));
+  inject("publicFeedback", publicFeedback(ctx.$strapi));
 
   inject("feedbacksByStartupID", feedbacksByStartupID(ctx.$strapi));
   inject("askFeedbacks", askFeedbacks(ctx.$strapi));

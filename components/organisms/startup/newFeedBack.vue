@@ -8,9 +8,10 @@
           <span>{{ newFeedBacks }} </span>
         </div>
       </div>
+
       <FeedBackCard
         v-for="feedback in feedbacks"
-        :key="feedback.id"
+        :key="feedback.published_at"
         :comment="feedback.description"
         :author="feedback.author"
         :user-id="userId"
@@ -21,6 +22,7 @@
         :u_button_blue="'Publish'"
         :u_button_gray="'Decline'"
         @updateFeedbacks="updateFeedbacks"
+        @publickFeedback="$emit('publickFeedback')"
       >
       </FeedBackCard>
     </div>
