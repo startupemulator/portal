@@ -21,24 +21,18 @@ import Profile from "~/components/organisms/profile/profile.vue";
   },
 })
 export default class extends Vue {
-  async asyncData({
-    $myStartups,
-    $getUserBySlug,
-    $profile,
-    $feedbacks,
-    route,
-  }) {
-    const user = await $getUserBySlug(route.params.slug);
+  async asyncData({ $myStartups, $feedbacks, $profileBySlug, route }) {
+    const profile = await $profileBySlug(route.params.slug);
+    const user = profile.user;
     const startups = await $myStartups(user.id);
     const feedbacks = await $feedbacks();
-    const profile = await $profile(user.id);
     const myTechnologies = profile.technologies;
     return {
-      user,
       startups,
       myTechnologies,
       profile,
       feedbacks,
+      user,
     };
   }
 }

@@ -42,6 +42,7 @@ import {
   profile,
   updateProfile,
   createProfile,
+  profileBySlug,
 } from "~/plugins/services/profile";
 import { NotificationUser } from "~/models/NotificationUser";
 import { Notification } from "~/models/Notification";
@@ -189,6 +190,8 @@ export interface Services {
   $specialisations(): Promise<Partial<Specialisation>[]>;
   $experiences(): Promise<Partial<Experience>[]>;
   $profile(id: string): Promise<Partial<Profile>[]>;
+  $profileBySlug(slug: string): Promise<Partial<Profile>[]>;
+
   $users(): Promise<Partial<NotificationUser>[]>;
   $feedbacksByStartupID(id: string): Promise<Partial<Feedbacks>[]>;
   $feedbacks(): Promise<Partial<Feedbacks>[]>;
@@ -408,6 +411,8 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("updateStateStartup", updateStateStartup(ctx.$strapi));
 
   inject("profile", profile(ctx.$strapi));
+  inject("profileBySlug", profileBySlug(ctx.$strapi));
+
   inject("updateProfile", updateProfile(ctx.$strapi));
   inject("createProfile", createProfile(ctx.$strapi));
 
