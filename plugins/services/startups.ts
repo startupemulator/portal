@@ -58,7 +58,9 @@ export function startup($strapi: Strapi) {
                 username
                 email
                 profile{
-                  id 
+                  id
+                  name
+                  slug 
                   technologies{
                     id
                     title
@@ -82,6 +84,10 @@ export function startup($strapi: Strapi) {
           }
           owner {
             id
+            profile{
+              name
+              slug
+            }
             
             username
             invites{
