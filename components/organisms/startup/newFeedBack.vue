@@ -1,6 +1,5 @@
 <template>
   <div class="edit-add-realise">
-    <pre style="color: #fff">{{ feedbacks }} </pre>
     <div class="edit-add-realise__content">
       <div class="edit-add-realise__header">
         <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
@@ -17,7 +16,8 @@
         :user-id="userId"
         :published="feedback.published_at"
         :feedback="feedback"
-        :is_expert="true"
+        :is-expert="isExpert"
+        :is-owner="isOwner"
         :u_button_blue="'Publish'"
         :u_button_gray="'Decline'"
         @updateFeedbacks="updateFeedbacks"
@@ -40,7 +40,8 @@ export default class extends Vue {
   @Prop() feedbacks: Array<Feedbacks>;
   @Prop() userId: string;
   @Prop() newFeedBacks: string;
-
+  @Prop() isExpert: boolean;
+  @Prop() isOwner: boolean;
   updateFeedbacks(str) {
     console.log(str);
     this.$emit("updateFeedbacks");

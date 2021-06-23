@@ -122,6 +122,16 @@
           @clickOnButton="addbadge"
         ></U-button>
       </div>
+      <div v-if="isOwner" class="feed-back-card__expert-buttons">
+        <U-button
+          :button-name="'Publish'"
+          :button-class="'u-button-blue'"
+        ></U-button>
+        <U-button
+          :button-name="'Decline'"
+          :button-class="'u-button-gray'"
+        ></U-button>
+      </div>
     </div>
     <Spiner :loading="loading"></Spiner>
   </div>
@@ -147,6 +157,7 @@ export default class extends Vue {
   @Prop({ default: false }) isExpert: Boolean;
   @Prop() userId: string;
   @Prop() feedback: Array<Feedbacks>;
+  @Prop() isOwner: boolean;
 
   show_feedback: boolean = false;
   thisUserlike: boolean = false;

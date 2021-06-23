@@ -13,6 +13,8 @@
       v-show="newFeedBack"
       :feedbacks="newFeedbacksData"
       :user-id="userId"
+      :is-expert="isExpert"
+      :is-owner="isOwner"
       :new-feed-backs="newFeedBacks"
       @clikOnButton="toggleNewFeedBack"
       @updateFeedbacks="updateFeedbacks"
