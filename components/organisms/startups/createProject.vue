@@ -96,6 +96,7 @@ export default class extends Vue {
   loading = false;
   startupData: Array<Startup> = this.draftStartup;
   popupPublish = false;
+  tehnologies: Array<string> = [];
   get progressSpets() {
     return {
       "progress-bar__stepTwo": this.createprodjectSteps.stepTwo,
@@ -108,12 +109,32 @@ export default class extends Vue {
     this.publish("draft");
   }
 
+  checkTechnologies() {
+    if (this.startupData.specialists !== undefined) {
+      this.startupData.specialists.forEach((specialist) => {
+        if (specialist.technologiesId) {
+          specialist.technologiesId.forEach((el) => {
+            this.tehnologies.push(el);
+          });
+        } else if (specialist.technologies) {
+          specialist.technologies.forEach((el) => {
+            this.tehnologies.push(el.id);
+          });
+        }
+      });
+    }
+  }
+
   async publish(state = "review") {
+    this.loading = true;
     try {
-      this.loading = true;
-      await this.$strapi.update("startups", this.createdStartupId.toString(), {
+      const startupId: string = this.createdStartupId.toString();
+      await this.$strapi.update("startups", startupId, {
         state,
       });
+
+      await this.$addTechnologiesStartup(startupId, this.tehnologies);
+
       if (state === "draft") {
         this.loading = false;
         Toast.show({
@@ -176,6 +197,8 @@ export default class extends Vue {
     this.startupData.coleagues = [];
     secodStepData[0].forEach((el) => this.startupData.specialists.push(el));
     secodStepData[1].forEach((el) => this.startupData.coleagues.push(el));
+
+    this.checkTechnologies();
   }
 
   goToStepFour(thirdStepData) {

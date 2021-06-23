@@ -389,6 +389,28 @@ export function finishStartup($strapi: Strapi) {
     return data.updateStartup ? data.updateStartup.startup : null;
   };
 }
+export function addTechnologiesStartup($strapi: Strapi) {
+  return async (id: string, technologies: Array<string>) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+        updateStartup (
+          input: {
+          where: {id: "${id}" }
+          data: {technologies: [${technologies}]}
+         }
+         ) {
+          startup{
+            id
+            technologies{
+              id
+            }
+            }
+          }
+        }`,
+    });
+    return data.updateStartup ? data.updateStartup.startup : null;
+  };
+}
 export function filterStartup($strapi: Strapi) {
   return async (technologies: Array<string>) => {
     const data = await $strapi.graphql({
