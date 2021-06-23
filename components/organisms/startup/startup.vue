@@ -11,11 +11,15 @@
     ></RequestToTeam>
     <NewFeedBack
       v-show="newFeedBack"
+      :key="updateKey + Math.floor(Math.random() * 10000)"
       :feedbacks="newFeedbacksData"
       :user-id="userId"
-      :new-feed-backs="newFeedBacks"
+      :is-expert="isExpert"
+      :is-owner="isOwner"
+      :new-feed-backs="newFeedbacksData.length"
       @clikOnButton="toggleNewFeedBack"
       @updateFeedbacks="updateFeedbacks"
+      @publickFeedback="updateFeedbacks"
     ></NewFeedBack>
     <RequestFeedback
       v-show="requestFeedBack"
@@ -70,11 +74,12 @@
       v-show="addTeamFeedBack"
       :title="feedBackTitle"
       :badges="badges"
-      :request-id="askFeedbacks.id"
+      :request-id="askFeedbacks ? askFeedbacks.id : null"
       :expert-id="userId"
       :directions="directions"
       @clikOnButton="toggleAddTeamFeedBack"
     ></AddTeamFeedBack>
+    <!-- askFeedbacks.id -->
     <AddTeamBadge
       v-show="addTeamBadge"
       :badges="badges"
@@ -180,7 +185,7 @@
           {{ updatableDataStartup.description }}
         </p>
         <CommentExpert
-          v-if="isExpert"
+          v-if="isExpert && askFeedbacks !== null"
           :solution-data="askFeedbacks"
         ></CommentExpert>
 
@@ -204,7 +209,7 @@
                 <span
                   >New Feedback
                   <div class="owner-menu__item--message">
-                    <span>{{ newFeedBacks }} </span>
+                    <span>{{ newFeedbacksData.length }} </span>
                   </div></span
                 >
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
@@ -308,7 +313,7 @@
           <h3>Open positions</h3>
           <Open-position-card
             v-for="item in openPosition"
-            :key="item.id"
+            :key="item.id + Math.floor(Math.random() * 10000)"
             :position="item"
             :is-expert="isExpert"
             :slug="updatableDataStartup.slug"
@@ -326,7 +331,7 @@
           <div v-if="teamMember.length > 0" class="team">
             <ProjectParticipant
               v-for="item in teamMember"
-              :key="item.id"
+              :key="item.id + Math.floor(Math.random() * 10000)"
               :position="item.specialisation.title"
               :username="item.applications"
             ></ProjectParticipant>
@@ -363,7 +368,7 @@
 
           <FeedBackCard
             v-for="feedback in updatableFeedbacks.slice(0, maxLengthActivity)"
-            :key="feedback.id"
+            :key="feedback.id + Math.floor(Math.random() * 10000)"
             :feedback="feedback"
             :is-expert="isExpert"
             :user-id="userId"
@@ -521,7 +526,7 @@ export default class extends Vue {
 
   updatableDataStartup = this.startup;
   updatableDataApplications = this.applications;
-  updatableFeedbacks = this.feedbacks ? this.feedbacks : [];
+  updatableFeedbacks = [];
   openPosition = [];
   staffedPosition = [];
   teamMember = [];
@@ -529,7 +534,6 @@ export default class extends Vue {
   moveAwayStartupName: string = "";
   popupCancelApplication = false;
   isStartStartup = false;
-  newFeedBacks = 0;
   newFeedbacksData = [];
   maxLengthActivity = 3;
   lengthActivity = 0;
@@ -672,23 +676,23 @@ export default class extends Vue {
     this.moveAwayStartup = this.startup.id;
     this.moveAwayStartupName = this.startup.title;
 
-    let count = 0;
-
     if (this.feedbacks !== null) {
-      this.feedbacks.forEach((newRequest) => {
-        if (newRequest.request.is_new === true) {
-          this.newFeedbacksData.push(newRequest);
-          count++;
-        }
-        this.newFeedBacks = count;
-      });
-    } else {
-      this.newFeedBacks = count;
+      this.feedbackFilterByPublickFlag(this.feedbacks);
+      this.feedbackFilterByPrivateFlag(this.feedbacks);
     }
+  }
+
+  feedbackFilterByPublickFlag(feedbacks) {
+    this.updatableFeedbacks = feedbacks.filter((el) => el.is_public);
+  }
+
+  feedbackFilterByPrivateFlag(feedbacks) {
+    this.newFeedbacksData = feedbacks.filter((el) => !el.is_public);
   }
 
   async accept(id) {
     this.loading = true;
+
     try {
       const accept = await this.$applicationAccept(id);
       if (accept) {
@@ -698,6 +702,7 @@ export default class extends Vue {
           this.startup.id
         );
         // position to staffed
+
         if (startup !== null) {
           this.updatableDataStartup = startup;
           if (this.startup.state === "in_progress") {
@@ -714,6 +719,7 @@ export default class extends Vue {
           this.moveAwayStartup = this.startup.id;
           this.moveAwayStartupName = this.startup.title;
         }
+
         if (applications !== null) {
           this.updatableDataApplications = applications;
         }
@@ -902,7 +908,8 @@ export default class extends Vue {
     try {
       const feedbacks = await this.$feedbacksByStartupID(this.startup.id);
       if (feedbacks !== null) {
-        this.updatableFeedbacks = feedbacks;
+        this.feedbackFilterByPublickFlag(feedbacks);
+        this.feedbackFilterByPrivateFlag(feedbacks);
       }
       this.loading = false;
     } catch (e) {

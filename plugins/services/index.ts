@@ -17,6 +17,7 @@ import {
   updateStartupInfo,
   updateStateStartup,
   finishStartup,
+  addTechnologiesStartup,
 } from "~/plugins/services/startups";
 import { Startup } from "~/models/Startup";
 import { challenge, challenges } from "~/plugins/services/challenges";
@@ -67,6 +68,7 @@ import {
   askFeedbacksByStartupId,
   feedbackById,
   updateFeedback,
+  publicFeedback,
 } from "~/plugins/services/feedbacks";
 import { notifications } from "~/plugins//services/notifications";
 
@@ -197,6 +199,7 @@ export interface Services {
   $feedbacks(): Promise<Partial<Feedbacks>[]>;
   $feedbackById(id: string): Promise<Partial<Feedbacks>[]>;
   $updateFeedback(id: string, badges: []): Promise<Partial<Feedbacks>[]>;
+  $publicFeedback(id: string): Promise<Partial<Feedbacks>[]>;
 
   $createFeedback(
     expert: string,
@@ -257,6 +260,11 @@ export interface Services {
   $challenge(slug: string): Promise<Partial<Challenge>>;
 
   $startups(states: string[]): Promise<Partial<Startup>[]>;
+  $addTechnologiesStartup(
+    id: string[],
+    technologies: Array<string>
+  ): Promise<Partial<Startup>[]>;
+
   $myStartups(states: string[]): Promise<Partial<Startup>[]>;
   $deleteDraft(states: string[]): Promise<Partial<Startup>>;
 
@@ -394,6 +402,8 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("challenge", challenge(ctx.$strapi));
 
   inject("startups", startups(ctx.$strapi));
+  inject("addTechnologiesStartup", addTechnologiesStartup(ctx.$strapi));
+
   inject("startupById", startupById(ctx.$strapi));
   inject("filterStartup", filterStartup(ctx.$strapi));
 
@@ -435,6 +445,7 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("feedbacks", feedbacks(ctx.$strapi));
   inject("feedbackById", feedbackById(ctx.$strapi));
   inject("updateFeedback", updateFeedback(ctx.$strapi));
+  inject("publicFeedback", publicFeedback(ctx.$strapi));
 
   inject("feedbacksByStartupID", feedbacksByStartupID(ctx.$strapi));
   inject("askFeedbacks", askFeedbacks(ctx.$strapi));

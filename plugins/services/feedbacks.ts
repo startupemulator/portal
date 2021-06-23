@@ -200,6 +200,23 @@ export function updateFeedback($strapi: Strapi) {
     return data.updateFeedback ? data.updateFeedback.feedback : null;
   };
 }
+export function publicFeedback($strapi: Strapi) {
+  return async (id: string) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+        updateFeedback(
+          input:{
+          where: {id: "${id}"}
+            data: { is_public: true } }) {
+          feedback {
+          id
+    }
+  }
+}`,
+    });
+    return data.updateFeedback ? data.updateFeedback.feedback : null;
+  };
+}
 
 export function askFeedbacks($strapi: Strapi) {
   return async () => {
@@ -347,7 +364,7 @@ export function askFeedbacksByChallengeId($strapi: Strapi) {
         }
       }`,
     });
-    return data.requests ? data.requests : null;
+    return data || null;
   };
 }
 export function askFeedbacksByStartupId($strapi: Strapi) {
@@ -406,6 +423,6 @@ export function askFeedbacksByStartupId($strapi: Strapi) {
         }
       }`,
     });
-    return data.requests ? data.requests[0] : null;
+    return data.requests[0] ? data.requests[0] : null;
   };
 }

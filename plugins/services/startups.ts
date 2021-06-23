@@ -17,6 +17,10 @@ export function startups($strapi: Strapi) {
             state
             owner {
               id
+              profile{
+                name
+                slug
+              }
             }
             technologies {
               id
@@ -58,7 +62,9 @@ export function startup($strapi: Strapi) {
                 username
                 email
                 profile{
-                  id 
+                  id
+                  name
+                  slug 
                   technologies{
                     id
                     title
@@ -82,6 +88,10 @@ export function startup($strapi: Strapi) {
           }
           owner {
             id
+            profile{
+              name
+              slug
+            }
             
             username
             invites{
@@ -178,6 +188,10 @@ export function startupById($strapi: Strapi) {
           }
           owner {
             id
+            profile{
+              name
+              slug
+            }
             
             username
             invites{
@@ -258,6 +272,10 @@ export function startupByAcceptedApplication($strapi: Strapi) {
           }
           owner {
             id
+            profile{
+              name
+              slug
+            }
             
           }
           technologies {
@@ -299,6 +317,10 @@ export function myStartups($strapi: Strapi) {
           }
           owner {
             id
+            profile{
+              name
+              slug
+            }
             
           }
           technologies {
@@ -367,6 +389,28 @@ export function finishStartup($strapi: Strapi) {
     return data.updateStartup ? data.updateStartup.startup : null;
   };
 }
+export function addTechnologiesStartup($strapi: Strapi) {
+  return async (id: string, technologies: Array<string>) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+        updateStartup (
+          input: {
+          where: {id: "${id}" }
+          data: {technologies: [${technologies}]}
+         }
+         ) {
+          startup{
+            id
+            technologies{
+              id
+            }
+            }
+          }
+        }`,
+    });
+    return data.updateStartup ? data.updateStartup.startup : null;
+  };
+}
 export function filterStartup($strapi: Strapi) {
   return async (technologies: Array<string>) => {
     const data = await $strapi.graphql({
@@ -381,6 +425,10 @@ export function filterStartup($strapi: Strapi) {
             state
             owner {
               id
+              profile{
+                name
+                slug
+              }
               
             }
             technologies {

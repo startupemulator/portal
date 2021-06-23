@@ -9,7 +9,7 @@
       >
         <nuxt-link
           class="project-participant__team-button"
-          :to="'/user/' + user.user.username"
+          :to="'/user/' + user.user.profile.slug"
         >
           <span>{{ user.user ? user.user.username : "" }}</span>
           <img src="~/assets/img/arrow.svg" alt="arrow" />
@@ -28,7 +28,7 @@
       <div class="specializacion_names">
         <nuxt-link
           class="project-participant__team-button"
-          :to="'/user/' + username.username"
+          :to="'/user/' + username.profile.slug"
         >
           <span>{{ username.username }}</span>
 
