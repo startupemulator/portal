@@ -15,7 +15,7 @@
       :user-id="userId"
       :is-expert="isExpert"
       :is-owner="isOwner"
-      :new-feed-backs="newFeedBacks"
+      :new-feed-backs="newFeedbacksData.length"
       @clikOnButton="toggleNewFeedBack"
       @updateFeedbacks="updateFeedbacks"
     ></NewFeedBack>
@@ -206,7 +206,7 @@
                 <span
                   >New Feedback
                   <div class="owner-menu__item--message">
-                    <span>{{ newFeedBacks }} </span>
+                    <span>{{ newFeedbacksData.length }} </span>
                   </div></span
                 >
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
@@ -523,7 +523,7 @@ export default class extends Vue {
 
   updatableDataStartup = this.startup;
   updatableDataApplications = this.applications;
-  updatableFeedbacks = this.feedbacks ? this.feedbacks : [];
+  updatableFeedbacks = [];
   openPosition = [];
   staffedPosition = [];
   teamMember = [];
@@ -531,7 +531,6 @@ export default class extends Vue {
   moveAwayStartupName: string = "";
   popupCancelApplication = false;
   isStartStartup = false;
-  newFeedBacks = 0;
   newFeedbacksData = [];
   maxLengthActivity = 3;
   lengthActivity = 0;
@@ -674,19 +673,18 @@ export default class extends Vue {
     this.moveAwayStartup = this.startup.id;
     this.moveAwayStartupName = this.startup.title;
 
-    let count = 0;
-
     if (this.feedbacks !== null) {
-      this.feedbacks.forEach((newRequest) => {
-        if (newRequest.request.is_new === true) {
-          this.newFeedbacksData.push(newRequest);
-          count++;
-        }
-        this.newFeedBacks = count;
-      });
-    } else {
-      this.newFeedBacks = count;
+      this.feedbackFilterByPublickFlag(this.feedbacks);
+      this.feedbackFilterByPrivateFlag(this.feedbacks);
     }
+  }
+
+  feedbackFilterByPublickFlag(feedbacks) {
+    this.updatableFeedbacks = feedbacks.filter((el) => el.is_public);
+  }
+
+  feedbackFilterByPrivateFlag(feedbacks) {
+    this.newFeedbacksData = feedbacks.filter((el) => !el.is_public);
   }
 
   async accept(id) {
@@ -904,7 +902,7 @@ export default class extends Vue {
     try {
       const feedbacks = await this.$feedbacksByStartupID(this.startup.id);
       if (feedbacks !== null) {
-        this.updatableFeedbacks = feedbacks;
+        this.feedbackFilterByPublickFlag(feedbacks);
       }
       this.loading = false;
     } catch (e) {
