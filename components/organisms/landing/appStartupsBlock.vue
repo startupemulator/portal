@@ -41,6 +41,7 @@
             :key="card.id"
             :card="card"
             :technology="technology"
+            :user-id="userId"
           ></startup-card>
         </div>
       </transition-group>
@@ -62,6 +63,7 @@ import StartupCard from "~/components/molecules/startupCard.vue";
 export default class AppStartupsBlock extends Vue {
   @Prop() cards: Array<Startup>;
   @Prop() technology: Array<Technology>;
+  @Prop() userId: string;
 }
 </script>
 <style lang="scss" scoped>

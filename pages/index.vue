@@ -4,11 +4,13 @@
     <app-startups-block
       :cards="startups"
       :technology="technologies"
+      :user-id="userId"
       @slideRigth="slideRigth"
       @slideLeft="slideLeft"
     ></app-startups-block>
     <app-challenges-block
       :cards="challenges"
+      :user-id="userId"
       @slideRigth="slideRigth"
       @slideLeft="slideLeft"
     ></app-challenges-block>
@@ -58,6 +60,7 @@ export default class extends Vue {
   testimonials: Array<Testimonial> = [];
   technology: Array<Technology> = [];
   isLogined = !!this.$strapi.user;
+  userId: Number = this.$strapi.user ? this.$strapi.user.id : null;
 
   // data loaded here will be added during server rendering
   async asyncData({ $technologies, $startups, $challenges, $testimonials }) {

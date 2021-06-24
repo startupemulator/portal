@@ -8,32 +8,45 @@ export function startups($strapi: Strapi) {
           startups (where: {state_in:[${states
             .map((i) => `"${i}"`)
             .join(",")}]}){
-            id
-            title
-            slug
-            description
-            start_date
-            duration
-            state
-            owner {
               id
-              profile{
-                name
-                slug
+          title
+          slug
+          description
+          start_date
+          duration
+          state
+          positions {
+            id
+            sort
+            status
+            applications{
+              id
+              status
+              user{
+                id
               }
             }
-            technologies {
+            specialisation {
               id
               title
             }
-            positions{
+            technologies{
               id
-              status
-             
+              title
             }
+          }
+          owner {
+            id
             
           }
-        }`,
+          technologies {
+            id
+            title
+          }
+          
+        }
+        
+      }`,
     });
   };
 }

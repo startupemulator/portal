@@ -43,6 +43,7 @@
             :key="card.id"
             :card="card"
             :technology="technologies"
+            :user-id="userId"
           ></Startup-card>
         </div>
       </div>
@@ -85,6 +86,7 @@ export default class extends Vue {
   @Prop() emptyState: Boolean;
   @Prop() staffed: Number;
   @Prop() autorizated: Boolean;
+  @Prop() userId: string;
   private filterList: boolean = false;
   pickedTechnologies: Array<string> = [];
 

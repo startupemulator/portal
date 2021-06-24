@@ -59,7 +59,9 @@
           :button-name="'Details'"
           :button-class="'u-button-gray'"
           :style="
-            card.state === 'finished' || !!(+card.owner.id === +userId)
+            card.state === 'finished' ||
+            !!(+card.owner.id === +userId) ||
+            userAccepted
               ? 'width:100%'
               : ''
           "
@@ -68,7 +70,11 @@
         ></U-button>
 
         <U-button
-          v-if="!(+card.owner.id === +userId) && !(card.state === 'finished')"
+          v-if="
+            !(+card.owner.id === +userId) &&
+            !(card.state === 'finished') &&
+            !userAccepted
+          "
           :href="'/startup/apply/' + card.slug"
           :button-name="'Apply'"
           :is-link="'nuxt-link'"
@@ -92,6 +98,23 @@ export default class StartupCard extends Vue {
   @Prop() card: Startup;
   @Prop() technology: Technology;
   @Prop() userId: Number;
+  userAccepted = false;
+  mounted() {
+    if (this.card.positions.length !== 0) {
+      this.card.positions.forEach((item) => {
+        if (item.applications) {
+          item.applications.forEach((el) => {
+            if (
+              +el.user.id === +this.userId &&
+              (el.status === "accepted" || el.status === "advanced")
+            ) {
+              this.userAccepted = true;
+            }
+          });
+        }
+      });
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
