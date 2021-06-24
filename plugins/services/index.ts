@@ -17,6 +17,7 @@ import {
   updateStartupInfo,
   updateStateStartup,
   finishStartup,
+  addTechnologiesStartup,
 } from "~/plugins/services/startups";
 import { Startup } from "~/models/Startup";
 import { challenge, challenges } from "~/plugins/services/challenges";
@@ -259,6 +260,11 @@ export interface Services {
   $challenge(slug: string): Promise<Partial<Challenge>>;
 
   $startups(states: string[]): Promise<Partial<Startup>[]>;
+  $addTechnologiesStartup(
+    id: string[],
+    technologies: Array<string>
+  ): Promise<Partial<Startup>[]>;
+
   $myStartups(states: string[]): Promise<Partial<Startup>[]>;
   $deleteDraft(states: string[]): Promise<Partial<Startup>>;
 
@@ -396,6 +402,8 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("challenge", challenge(ctx.$strapi));
 
   inject("startups", startups(ctx.$strapi));
+  inject("addTechnologiesStartup", addTechnologiesStartup(ctx.$strapi));
+
   inject("startupById", startupById(ctx.$strapi));
   inject("filterStartup", filterStartup(ctx.$strapi));
 

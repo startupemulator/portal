@@ -114,7 +114,6 @@ export default class extends Vue {
   }
 
   goToStepThree() {
-    console.log(this.specialityComponent);
     this.$emit("goToStepThree", [
       this.specialityComponent,
       this.invitedcolleagues,

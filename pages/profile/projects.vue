@@ -27,6 +27,7 @@ import myProjects from "~/components/organisms/myprojects/myProjects.vue";
 export default class extends Vue {
   userId: Number = this.$strapi.user.id;
   updateFlag = 0;
+
   loading = false;
 
   async asyncData({ $myStartups, $startupByAcceptedApplication, $strapi }) {
@@ -38,7 +39,10 @@ export default class extends Vue {
       acceptedStartup.forEach((item) => {
         item.positions.forEach((el) =>
           el.applications.forEach((el) => {
-            if (el.status === "accepted") {
+            if (
+              +el.user.id === +$strapi.user.id &&
+              (el.status === "accepted" || el.status === "advanced")
+            ) {
               myStartups.push(item);
             }
           })
