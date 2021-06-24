@@ -33,7 +33,7 @@ export default class extends Vue {
   position = 1;
   staffed = 0;
   autorizated = !!this.$strapi.user;
-  userId: Number = this.$strapi.user.id;
+  userId: Number = this.$strapi.user ? this.$strapi.user.id : null;
 
   async asyncData({ $technologies, $startups }) {
     const { startups } = await $startups();

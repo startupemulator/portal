@@ -59,7 +59,7 @@ export default class extends Vue {
   testimonials: Array<Testimonial> = [];
   technology: Array<Technology> = [];
   isLogined = !!this.$strapi.user;
-  userId: Number = this.$strapi.user.id;
+  userId: Number = this.$strapi.user ? this.$strapi.user.id : null;
 
   // data loaded here will be added during server rendering
   async asyncData({ $technologies, $startups, $challenges, $testimonials }) {

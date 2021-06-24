@@ -82,9 +82,6 @@
         ></U-button>
       </div>
     </div>
-    <pre style="color: #fff"
-      >{{ card.owner.id }} {{ userId }} {{ userAccepted }} </pre
-    >
   </div>
 </template>
 
