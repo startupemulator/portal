@@ -21,14 +21,11 @@
           :card="card"
           @clickOnButton="deleteDraft"
         ></Draft-card>
-
         <Startup-card
           v-for="card in startup"
           :key="card.id"
           :card="card"
           :user-id="userId"
-          :button_apply="false"
-          :button_details="true"
         ></Startup-card>
       </div>
     </div>
@@ -70,6 +67,7 @@ export default class extends Vue {
   popupDeleteStartup = false;
   moveAwayStartup: string = "";
   moveAwayStartupName: string = "";
+
   deleteStartup(startupName, startupId) {
     console.log("hi");
     this.$emit("deleteDraft", startupId, startupName);

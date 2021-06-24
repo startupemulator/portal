@@ -7,6 +7,7 @@
       :staffed="staffed"
       :technologies="technologies"
       :empty-state="emptyState"
+      :user-id="userId"
       :autorizated="autorizated"
       @pickedTechnologies="filterStartupsList"
       @cleanFilter="cleanFilter"
@@ -32,6 +33,7 @@ export default class extends Vue {
   position = 1;
   staffed = 0;
   autorizated = !!this.$strapi.user;
+  userId: Number = this.$strapi.user.id;
 
   async asyncData({ $technologies, $startups }) {
     const { startups } = await $startups();
