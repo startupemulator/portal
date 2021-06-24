@@ -21,6 +21,13 @@ export function challenges($strapi: Strapi) {
             id
             title
           }
+          users {
+            id
+            user {
+              id
+            }
+            
+          }
         }
       }`,
     });

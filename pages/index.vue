@@ -10,6 +10,7 @@
     ></app-startups-block>
     <app-challenges-block
       :cards="challenges"
+      :user-id="userId"
       @slideRigth="slideRigth"
       @slideLeft="slideLeft"
     ></app-challenges-block>

@@ -41,6 +41,7 @@
           v-for="card in cards"
           :key="card.id"
           :card="card"
+          :user-id="userId"
         ></ChallengeCard>
       </transition-group>
     </div>
@@ -59,6 +60,7 @@ import ChallengeCard from "~/components/molecules/challengeCard.vue";
 })
 export default class AppChallengesBlock extends Vue {
   @Prop() cards: Array<Challenge>;
+  @Prop() userId: string;
 }
 </script>
 <style lang="scss" scoped>
