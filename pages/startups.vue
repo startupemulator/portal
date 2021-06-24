@@ -53,13 +53,19 @@ export default class extends Vue {
     const positionStatus = data === 0 ? "open" : "staffed";
 
     const startupListFiltredByPosition = [];
-    this.stateForFilterStartupsByPositions.forEach((item) =>
-      item.positions.forEach((el) => {
-        if (el.status === positionStatus) {
-          startupListFiltredByPosition.push(item);
-        }
-      })
-    );
+    this.stateForFilterStartupsByPositions.forEach((item) => {
+      if (
+        positionStatus === "open" &&
+        item.positions.some((el) => el.status === positionStatus)
+      ) {
+        startupListFiltredByPosition.push(item);
+      } else if (
+        positionStatus === "staffed" &&
+        item.positions.every((el) => el.status === positionStatus)
+      ) {
+        startupListFiltredByPosition.push(item);
+      }
+    });
 
     this.startupsList = startupListFiltredByPosition.filter(
       (v, i, a) => a.findIndex((t) => t.id === v.id) === i
@@ -69,7 +75,7 @@ export default class extends Vue {
     } else {
       this.emptyState = false;
     }
-
+    console.log(this.startupsList);
     setTimeout(() => (this.loading = false), 300);
   }
 
@@ -90,8 +96,10 @@ export default class extends Vue {
     if (technologies.length > 0) {
       const newData = await this.$filterStartup(technologies);
 
-      this.startupsList = newData;
-      this.stateForFilterStartupsByPositions = newData;
+      this.startupsList = newData.filter((el) => el.state !== "review");
+      this.stateForFilterStartupsByPositions = newData.filter(
+        (el) => el.state !== "review"
+      );
       if (this.stateForFilterStartupsByPositions.length === 0) {
         this.emptyState = true;
       } else {
