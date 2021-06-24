@@ -75,7 +75,7 @@ export default class extends Vue {
     } else {
       this.emptyState = false;
     }
-    console.log(this.startupsList);
+
     setTimeout(() => (this.loading = false), 300);
   }
 
