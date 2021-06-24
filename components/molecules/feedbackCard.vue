@@ -69,15 +69,15 @@
           <h4 v-if="activity_state">Expert’s Full Name</h4>
           <ul class="main-content-feedback__criterions">
             <li
-              v-for="(criterion, i) in feedback.criterions"
-              :key="i"
+              v-for="criterion in feedback.criterions"
+              :key="criterion.id"
               class="main-content-feedback__criterion"
             >
               <ul class="criterion-stars">
                 <li class="criterion-star">
                   <svg
                     v-for="(item, j) in 5"
-                    :key="j"
+                    :key="j + Math.floor(Math.random() * 10000)"
                     :class="criterion.mark > j ? 'active' : ''"
                     width="16"
                     height="16"
@@ -102,7 +102,7 @@
             <div class="feedbacks_badges">
               <img
                 v-for="badge in feedback.badges"
-                :key="badge.id"
+                :key="badge.id + Math.floor(Math.random() * 10000)"
                 :src="badge.image[0].url"
                 :alt="badge.title"
               />
@@ -120,6 +120,18 @@
           :button-name="'Add Badge'"
           :button-class="'u-button-gray'"
           @clickOnButton="addbadge"
+        ></U-button>
+      </div>
+      <div v-if="isOwner" class="feed-back-card__expert-buttons">
+        <U-button
+          :button-name="'Publish'"
+          :button-class="'u-button-blue'"
+          @clickOnButton="publish(feedback.id)"
+        ></U-button>
+        <U-button
+          :button-name="'Decline'"
+          :button-class="'u-button-gray'"
+          @clickOnButton="decline"
         ></U-button>
       </div>
     </div>
@@ -147,6 +159,7 @@ export default class extends Vue {
   @Prop({ default: false }) isExpert: Boolean;
   @Prop() userId: string;
   @Prop() feedback: Array<Feedbacks>;
+  @Prop() isOwner: boolean;
 
   show_feedback: boolean = false;
   thisUserlike: boolean = false;
@@ -164,6 +177,26 @@ export default class extends Vue {
 
   addbadge() {
     this.$emit("addBadge", this.feedback.id);
+  }
+
+  async publish(id) {
+    console.log(id);
+    this.loading = true;
+    try {
+      const publishFeedback = await this.$publicFeedback(id);
+      if (publishFeedback !== null) {
+        this.$emit("publickFeedback");
+        this.loading = false;
+      }
+      this.loading = false;
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
+    }
+  }
+
+  decline() {
+    console.log("decline");
   }
 
   async like() {

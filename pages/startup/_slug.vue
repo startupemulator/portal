@@ -47,7 +47,6 @@ export default class TakeStartup extends Vue {
   async asyncData({
     $startup,
     $feedbacksByStartupID,
-    $askFeedbacks,
     $applicationsByStartupId,
     route,
     $estimations,
@@ -65,6 +64,7 @@ export default class TakeStartup extends Vue {
     const { estimations } = await $estimations();
     const { specialisations } = await $specialisations();
     const { technologies } = await $technologies();
+
     let directions = [];
     let badges = [];
     if ($strapi.user) {
