@@ -116,7 +116,7 @@ export default class extends Vue {
   }
 
   mounted() {
-    if (this.$router.currentRoute.fullPath === "/landing#pricing") {
+    if (this.$router.currentRoute.fullPath === "/#pricing") {
       goToPricing();
     }
   }
