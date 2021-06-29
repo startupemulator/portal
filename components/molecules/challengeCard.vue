@@ -2,7 +2,7 @@
   <div class="challenge-card">
     <div class="challenge-card__header">
       <div
-        v-show="card.status !== null"
+        v-show="card.status !== null && !isExpert"
         class="challenge-card__header-startup-state"
       >
         <span
@@ -15,6 +15,13 @@
           "
           >{{ card.status }}</span
         >
+      </div>
+      <div
+        v-if="isExpert && feedbackAsk !== 0"
+        class="challenge-card__header-startup-state"
+      >
+        <span class="feedback">Waiting for feedback </span>
+        <span class="feedback-count">{{ feedbackAsk }}</span>
       </div>
       <div class="challenge-card__header-title">
         <h4 v-if="$device.isMobile">
@@ -77,6 +84,7 @@ import UButton from "../atoms/uButton.vue";
 import { Challenge } from "../../models/Challenge";
 import UTags from "~/components/atoms/uTags.vue";
 import DifficultyLevel from "~/components/atoms/difficultyLevel.vue";
+import { AskFeedbacks } from "~/models/AskFeedbacks";
 
 @Component({
   components: { UButton, UTags, DifficultyLevel },
@@ -85,8 +93,11 @@ export default class extends Vue {
   @Prop() i: number;
   @Prop() card: Challenge;
   @Prop() userId: string;
+  @Prop() isExpert: Boolean;
+  @Prop() feedBackForChallenges: Array<AskFeedbacks>;
 
   userIsAccept = false;
+  feedbackAsk = 0;
   mounted() {
     if (this.card.users && this.card.users.length !== 0) {
       this.card.users.forEach((el) => {
@@ -94,6 +105,11 @@ export default class extends Vue {
           this.userIsAccept = true;
         }
       });
+    }
+    if (this.isExpert) {
+      this.feedbackAsk = this.feedBackForChallenges.filter(
+        (el) => +el.challenge.id === +this.card.id
+      ).length;
     }
   }
 }
@@ -115,13 +131,14 @@ export default class extends Vue {
       background: #283040;
       box-shadow: inset 2px -2px 8px rgba(28, 35, 48, 0.25);
       border-radius: 0 12px 0 12px;
-      display: inline-block;
       padding: 8px;
       margin-left: auto;
       position: relative;
       top: -16px;
       right: -24px;
       margin-bottom: -16px;
+      display: flex;
+      align-items: center;
 
       span {
         font-weight: 500;
@@ -143,6 +160,26 @@ export default class extends Vue {
           background: #f0663b;
           box-shadow: -4px 0 6px 1px rgba(240, 102, 59, 0.25),
             4px 0 6px 1px rgba(240, 102, 59, 0.25);
+        }
+        &.feedback {
+          background: #19adc7;
+          box-shadow: 0 -2px 8px rgba(25, 173, 199, 0.3),
+            0 2px 8px rgba(25, 173, 199, 0.3),
+            inset 0 -2px 4px 1px rgba(22, 135, 155, 0.15),
+            inset 0 1px 4px rgba(255, 255, 255, 0.15);
+        }
+        &.feedback-count {
+          background: #eaf42c;
+          color: #4e5a71;
+          margin-left: 8px;
+          padding: 0;
+          width: 24px;
+          height: 24px;
+          text-align: center;
+          box-shadow: 0 -2px 8px rgba(234, 244, 44, 0.3),
+            0 2px 8px rgba(234, 244, 44, 0.3),
+            inset 0 -2px 4px 1px rgba(117, 122, 14, 0.15),
+            inset 0 1px 4px rgba(255, 255, 255, 0.15);
         }
       }
     }

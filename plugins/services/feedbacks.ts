@@ -367,6 +367,7 @@ export function askFeedbacksByChallengeId($strapi: Strapi) {
     return data.requests ? data.requests : null;
   };
 }
+
 export function askFeedbacksByStartupId($strapi: Strapi) {
   return async (id: string) => {
     const data = await $strapi.graphql({
@@ -434,6 +435,28 @@ export function askFeedbacksForStartup($strapi: Strapi) {
     id
     startup {
       id
+    }
+  }
+}`,
+    });
+    return data.requests ? data.requests : null;
+  };
+}
+export function askFeedbacksForChallenges($strapi: Strapi) {
+  return async () => {
+    const data = await $strapi.graphql({
+      query: `query {
+        requests (where: {challenge_gt: "0"}){
+    id
+    challenge {
+      id
+    }
+    feedbacks{
+      id
+      description
+      expert{
+        id
+      }
     }
   }
 }`,

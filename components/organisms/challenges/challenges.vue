@@ -69,6 +69,8 @@
         class="card"
         :card="card"
         :user-id="userId"
+        :is-expert="isExpert"
+        :feed-back-for-challenges="feedBackForChallenges"
       ></ChallengeCard>
     </div>
     <U-button
@@ -89,6 +91,7 @@ import UTitle from "~/components/atoms/uTitle.vue";
 import UTags from "~/components/atoms/uTags.vue";
 import { Challenge } from "~/models/Challenge";
 import { Specialisation } from "~/models/Specialisation";
+import { AskFeedbacks } from "~/models/AskFeedbacks";
 import UButton from "~/components/atoms/uButton.vue";
 import EmptyState from "~/components/molecules/emptyState.vue";
 
@@ -106,6 +109,8 @@ export default class extends Vue {
   @Prop()
   challenges: Array<Challenge>;
 
+  @Prop() feedBackForChallenges: Array<AskFeedbacks>;
+  @Prop() isExpert: Boolean;
   @Prop()
   specialisations: Array<Specialisation>;
 
@@ -117,6 +122,7 @@ export default class extends Vue {
   difficultyFilter: Array<any> = [];
   specialityFilter: Array<any> = [];
   lengthCardList = 4;
+
   showMoreCards() {
     this.lengthCardList = this.lengthCardList + 1;
   }
