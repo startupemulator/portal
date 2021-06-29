@@ -423,7 +423,7 @@ export function askFeedbacksByStartupId($strapi: Strapi) {
         }
       }`,
     });
-    return data.requests[0] ? data.requests[0] : null;
+    return data.requests[0] ? data.requests : null;
   };
 }
 export function askFeedbacksForStartup($strapi: Strapi) {
