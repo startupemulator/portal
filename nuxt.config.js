@@ -91,4 +91,7 @@ export default {
   build: {
     // analyze: true,
   },
+  loading: {
+    color: "white",
+  },
 };
