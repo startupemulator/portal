@@ -246,7 +246,6 @@ export default class AppHeader extends Vue {
   }
 
   scrollToPricing() {
-    console.log(this.currentRoute);
     if (this.currentRoute === "/#pricing") {
       goToPricing();
     }
