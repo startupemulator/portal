@@ -1,4 +1,4 @@
-<template>
+<template v-cloak>
   <div class="startup-card" :class="i > 3 ? 'startup-card_animation' : ''">
     {{ card.technologies.title }}
     <div v-show="!!card.state" class="startup-card__started">
@@ -17,7 +17,7 @@
         >
           {{ card.state.split("_").join(" ") | capitalize }}
         </div>
-
+        {{ card.id }}
         <div
           v-if="+card.owner.id === +userId"
           class="startup-card__started-title owner"

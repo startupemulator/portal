@@ -1,14 +1,14 @@
 <template>
-  <div class="startups-page">
+  <div v-cloak class="startups-page">
     <Spiner :loading="loading"></Spiner>
 
     <Startups
       :startups="startupsList"
-      :staffed="staffed"
       :technologies="technologies"
       :empty-state="emptyState"
       :user-id="userId"
       :autorizated="autorizated"
+      :waiting-feedback="waitingFeedback"
       @pickedTechnologies="filterStartupsList"
       @cleanFilter="cleanFilter"
       @filterByPosition="filterByPosition"
@@ -31,21 +31,25 @@ export default class extends Vue {
   emptyState = false;
   loading = false;
   position = 1;
-  staffed = 0;
+
   autorizated = !!this.$strapi.user;
   userId: Number = this.$strapi.user ? this.$strapi.user.id : null;
 
-  async asyncData({ $technologies, $startups }) {
+  async asyncData({ $technologies, $startups, $askFeedbacksForStartup }) {
     const { startups } = await $startups();
     const { technologies } = await $technologies();
     const startupsList = await startups;
     const stateForFilterStartupsByPositions = await startups;
-
+    let waitingFeedback = await $askFeedbacksForStartup();
+    waitingFeedback = waitingFeedback.filter(
+      (v, i, a) => a.findIndex((t) => t.startup.id === v.startup.id) === i
+    );
     return {
       startupsList,
       technologies,
       stateForFilterStartupsByPositions,
       startups,
+      waitingFeedback,
     };
   }
 
@@ -55,13 +59,24 @@ export default class extends Vue {
     const positionStatus = data === 0 ? "open" : "staffed";
 
     const startupListFiltredByPosition = [];
-    this.stateForFilterStartupsByPositions.forEach((item) =>
-      item.positions.forEach((el) => {
-        if (el.status === positionStatus) {
-          startupListFiltredByPosition.push(item);
-        }
-      })
-    );
+    this.stateForFilterStartupsByPositions.forEach((item) => {
+      if (
+        positionStatus === "open" &&
+        item.positions.some((el) => el.status === positionStatus)
+      ) {
+        startupListFiltredByPosition.push(item);
+      } else if (
+        positionStatus === "staffed" &&
+        item.positions.every((el) => el.status === positionStatus)
+      ) {
+        console.log(item.id);
+        // this.waitingFeedback = this.waitingFeedback.forEach((request) => {
+        //   console.log(request.startup.id);
+        //   console.log(item.id);
+        // });
+        startupListFiltredByPosition.push(item);
+      }
+    });
 
     this.startupsList = startupListFiltredByPosition.filter(
       (v, i, a) => a.findIndex((t) => t.id === v.id) === i
@@ -92,8 +107,10 @@ export default class extends Vue {
     if (technologies.length > 0) {
       const newData = await this.$filterStartup(technologies);
 
-      this.startupsList = newData;
-      this.stateForFilterStartupsByPositions = newData;
+      this.startupsList = newData.filter((el) => el.state !== "review");
+      this.stateForFilterStartupsByPositions = newData.filter(
+        (el) => el.state !== "review"
+      );
       if (this.stateForFilterStartupsByPositions.length === 0) {
         this.emptyState = true;
       } else {
@@ -113,7 +130,6 @@ export default class extends Vue {
 
   mounted() {
     this.filterByPosition(this.position);
-    this.staffed = this.startupsList.length;
   }
 }
 </script>
