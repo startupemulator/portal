@@ -1,5 +1,6 @@
 <template>
   <div v-cloak class="start-ups">
+    <pre style="color: #fff">{{ waitingFeedback }}</pre>
     <div class="start-ups__content">
       <div class="start-ups__header">
         <U-title :text="'Startups'"></U-title>
@@ -31,7 +32,7 @@
         </div>
         <div class="start-ups__header-state-button">
           <U-Tabs
-            :staffed="staffed"
+            :staffed="waitingFeedback.length"
             @activateButton="$emit('filterByPosition', $event)"
           ></U-Tabs>
         </div>
@@ -69,6 +70,7 @@ import UTags from "~/components/atoms/uTags.vue";
 import UTabs from "~/components/atoms/uTabs.vue";
 import StartupCard from "~/components/molecules/startupCard.vue";
 import EmptyState from "~/components/molecules/emptyState.vue";
+import { AskFeedbacks } from "~/models/AskFeedbacks";
 @Component({
   components: {
     UTitle,
@@ -84,9 +86,10 @@ export default class extends Vue {
   @Prop() startups: Array<Startup>;
   @Prop() technologies: Array<Technology>;
   @Prop() emptyState: Boolean;
-  @Prop() staffed: Number;
+
   @Prop() autorizated: Boolean;
   @Prop() userId: string;
+  @Prop() waitingFeedback: Array<AskFeedbacks>;
   private filterList: boolean = false;
   pickedTechnologies: Array<string> = [];
 

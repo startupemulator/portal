@@ -1,14 +1,14 @@
 <template>
-  <div class="startups-page">
+  <div v-cloak class="startups-page">
     <Spiner :loading="loading"></Spiner>
 
     <Startups
       :startups="startupsList"
-      :staffed="staffed"
       :technologies="technologies"
       :empty-state="emptyState"
       :user-id="userId"
       :autorizated="autorizated"
+      :waiting-feedback="waitingFeedback"
       @pickedTechnologies="filterStartupsList"
       @cleanFilter="cleanFilter"
       @filterByPosition="filterByPosition"
@@ -31,21 +31,25 @@ export default class extends Vue {
   emptyState = false;
   loading = false;
   position = 1;
-  staffed = 0;
+
   autorizated = !!this.$strapi.user;
   userId: Number = this.$strapi.user ? this.$strapi.user.id : null;
 
-  async asyncData({ $technologies, $startups }) {
+  async asyncData({ $technologies, $startups, $askFeedbacksForStartup }) {
     const { startups } = await $startups();
     const { technologies } = await $technologies();
     const startupsList = await startups;
     const stateForFilterStartupsByPositions = await startups;
-
+    let waitingFeedback = await $askFeedbacksForStartup();
+    waitingFeedback = waitingFeedback.filter(
+      (v, i, a) => a.findIndex((t) => t.startup.id === v.startup.id) === i
+    );
     return {
       startupsList,
       technologies,
       stateForFilterStartupsByPositions,
       startups,
+      waitingFeedback,
     };
   }
 
@@ -65,6 +69,11 @@ export default class extends Vue {
         positionStatus === "staffed" &&
         item.positions.every((el) => el.status === positionStatus)
       ) {
+        console.log(item.id);
+        // this.waitingFeedback = this.waitingFeedback.forEach((request) => {
+        //   console.log(request.startup.id);
+        //   console.log(item.id);
+        // });
         startupListFiltredByPosition.push(item);
       }
     });
@@ -121,7 +130,6 @@ export default class extends Vue {
 
   mounted() {
     this.filterByPosition(this.position);
-    this.staffed = this.startupsList.length;
   }
 }
 </script>
