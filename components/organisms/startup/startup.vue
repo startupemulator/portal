@@ -79,7 +79,7 @@
       :directions="directions"
       @clikOnButton="toggleAddTeamFeedBack"
     ></AddTeamFeedBack>
-    <!-- askFeedbacks.id -->
+
     <AddTeamBadge
       v-show="addTeamBadge"
       :badges="badges"
@@ -184,9 +184,10 @@
         <p class="startup__description">
           {{ updatableDataStartup.description }}
         </p>
+
         <CommentExpert
           v-if="isExpert && askFeedbacks !== null"
-          :solution-data="askFeedbacks"
+          :solution-data="askFeedbacks[0]"
         ></CommentExpert>
 
         <div v-if="isOwner" class="owner-menu">

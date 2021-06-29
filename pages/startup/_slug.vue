@@ -1,7 +1,6 @@
 <template>
   <div class="startups-page">
     <Spiner :loading="loading"></Spiner>
-    <!-- <pre style="color: #fff"> {{ askFeedbacks }}</pre> -->
     <StartupPage
       :startup="startup"
       :feedbacks="feedbacks"
