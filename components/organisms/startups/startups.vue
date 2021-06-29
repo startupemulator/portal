@@ -31,8 +31,7 @@
         </div>
         <div class="start-ups__header-state-button">
           <U-Tabs
-            :staffed="waitingFeedback.length"
-            :is-expert="isExpert"
+            :staffed="isExpert ? waitingFeedback.length : 0"
             @activateButton="$emit('filterByPosition', $event)"
           ></U-Tabs>
         </div>

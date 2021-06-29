@@ -10,7 +10,7 @@
         >
           {{ button.title }}
           <div
-            v-if="isExpert"
+            v-if="staffed !== 0"
             :class="
               button.message
                 ? 'startup-card__started--messege'
@@ -28,10 +28,6 @@
 export default {
   props: {
     longTabs: {
-      type: Boolean,
-      default: false,
-    },
-    isExpert: {
       type: Boolean,
       default: false,
     },
