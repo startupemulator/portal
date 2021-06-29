@@ -92,6 +92,6 @@ export default {
     // analyze: true,
   },
   loading: {
-    color: 'white'
+    color: "white",
   },
 };
