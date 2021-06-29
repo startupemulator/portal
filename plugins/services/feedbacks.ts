@@ -426,3 +426,18 @@ export function askFeedbacksByStartupId($strapi: Strapi) {
     return data.requests[0] ? data.requests[0] : null;
   };
 }
+export function askFeedbacksForStartup($strapi: Strapi) {
+  return async () => {
+    const data = await $strapi.graphql({
+      query: `query {
+        requests (where: {startup_gt: "0"}){
+    id
+    startup {
+      id
+    }
+  }
+}`,
+    });
+    return data.requests ? data.requests : null;
+  };
+}
