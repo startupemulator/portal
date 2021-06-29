@@ -1,6 +1,5 @@
 <template>
   <div v-cloak class="start-ups">
-    <pre style="color: #fff">{{ waitingFeedback }}</pre>
     <div class="start-ups__content">
       <div class="start-ups__header">
         <U-title :text="'Startups'"></U-title>
@@ -33,6 +32,7 @@
         <div class="start-ups__header-state-button">
           <U-Tabs
             :staffed="waitingFeedback.length"
+            :is-expert="isExpert"
             @activateButton="$emit('filterByPosition', $event)"
           ></U-Tabs>
         </div>
@@ -45,6 +45,7 @@
             :card="card"
             :technology="technologies"
             :user-id="userId"
+            :waiting-feedback="waitingFeedback"
           ></Startup-card>
         </div>
       </div>
@@ -86,7 +87,7 @@ export default class extends Vue {
   @Prop() startups: Array<Startup>;
   @Prop() technologies: Array<Technology>;
   @Prop() emptyState: Boolean;
-
+  @Prop() isExpert: Boolean;
   @Prop() autorizated: Boolean;
   @Prop() userId: string;
   @Prop() waitingFeedback: Array<AskFeedbacks>;

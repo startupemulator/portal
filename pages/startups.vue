@@ -3,10 +3,12 @@
     <Spiner :loading="loading"></Spiner>
 
     <Startups
+      :key="updatableKey"
       :startups="startupsList"
       :technologies="technologies"
       :empty-state="emptyState"
       :user-id="userId"
+      :is-expert="isExpert"
       :autorizated="autorizated"
       :waiting-feedback="waitingFeedback"
       @pickedTechnologies="filterStartupsList"
@@ -31,15 +33,27 @@ export default class extends Vue {
   emptyState = false;
   loading = false;
   position = 1;
-
+  isExpert = false;
+  updatableKey = 1;
   autorizated = !!this.$strapi.user;
   userId: Number = this.$strapi.user ? this.$strapi.user.id : null;
 
-  async asyncData({ $technologies, $startups, $askFeedbacksForStartup }) {
+  async asyncData({
+    $technologies,
+    $startups,
+    $profile,
+    $askFeedbacksForStartup,
+    $strapi,
+  }) {
     const { startups } = await $startups();
     const { technologies } = await $technologies();
+
     const startupsList = await startups;
     const stateForFilterStartupsByPositions = await startups;
+    let userProfile = [];
+    if ($strapi.user) {
+      userProfile = await $profile($strapi.user.id);
+    }
     let waitingFeedback = await $askFeedbacksForStartup();
     waitingFeedback = waitingFeedback.filter(
       (v, i, a) => a.findIndex((t) => t.startup.id === v.startup.id) === i
@@ -50,6 +64,7 @@ export default class extends Vue {
       stateForFilterStartupsByPositions,
       startups,
       waitingFeedback,
+      userProfile,
     };
   }
 
@@ -69,15 +84,9 @@ export default class extends Vue {
         positionStatus === "staffed" &&
         item.positions.every((el) => el.status === positionStatus)
       ) {
-        console.log(item.id);
-        // this.waitingFeedback = this.waitingFeedback.forEach((request) => {
-        //   console.log(request.startup.id);
-        //   console.log(item.id);
-        // });
         startupListFiltredByPosition.push(item);
       }
     });
-
     this.startupsList = startupListFiltredByPosition.filter(
       (v, i, a) => a.findIndex((t) => t.id === v.id) === i
     );
@@ -130,6 +139,19 @@ export default class extends Vue {
 
   mounted() {
     this.filterByPosition(this.position);
+    if (this.userProfile.is_expert !== undefined) {
+      this.isExpert = this.userProfile.is_expert;
+    }
+    if (this.isExpert) {
+      const stateWaitingForFeedback = [];
+      this.startupsList.forEach((el) => {
+        if (this.waitingFeedback.some((item) => item.startup.id === el.id)) {
+          stateWaitingForFeedback.push(el);
+        }
+      });
+      this.waitingFeedback = stateWaitingForFeedback;
+    }
+    this.updatableKey += 1;
   }
 }
 </script>
