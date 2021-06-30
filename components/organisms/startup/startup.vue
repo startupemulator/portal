@@ -67,6 +67,7 @@
     <AddReleseLinks
       v-show="releaseLikns"
       :startup-id="startup.id"
+      :releases="releases"
       @clikOnButton="toggleReleaseLikns"
     ></AddReleseLinks>
     <AddTeamFeedBack
@@ -189,8 +190,8 @@
           :solution-data="askFeedbacks[0]"
         ></CommentExpert>
 
-        <div v-if="isOwner" class="owner-menu">
-          <ul v-if="!finished" class="owner-menu__list">
+        <div v-if="isOwner && !finished" class="owner-menu">
+          <ul class="owner-menu__list">
             <li class="owner-menu__item">
               <button
                 v-if="!isStarted"
@@ -287,16 +288,17 @@
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
               </button>
             </li>
-            <li class="owner-menu__item">
+            <li
+              v-for="link in releases"
+              :key="link.id + link.title"
+              class="owner-menu__item"
+            >
               <button type="button">
-                <span>See on Product Hunt </span>
-                <img src="~/assets/img/arrow.svg" alt="arrow" />
-              </button>
-            </li>
-            <li class="owner-menu__item">
-              <button type="button">
-                <span>Read Study Case </span>
-                <img src="~/assets/img/arrow.svg" alt="arrow" />
+                <a :href="link.url" target="_blank">
+                  <span>{{ link.title }} </span>
+
+                  <img src="~/assets/img/arrow.svg" alt="arrow"
+                /></a>
               </button>
             </li>
           </ul>
@@ -484,6 +486,7 @@ import Spiner from "~/components/molecules/spiner.vue";
 import { AskFeedbacks } from "~/models/AskFeedbacks";
 import { Directions } from "~/models/Directions";
 import { Badges } from "~/models/Badges";
+import { Releases } from "~/models/Releases";
 @Component({
   components: {
     UBack,
@@ -525,6 +528,7 @@ export default class extends Vue {
   @Prop() askFeedbacks: Array<AskFeedbacks>;
   @Prop() badges: Array<Badges>;
   @Prop() directions: Array<Directions>;
+  @Prop() releases: Array<Releases>;
 
   updatableDataStartup = this.startup;
   updatableDataApplications = this.applications;

@@ -12,15 +12,15 @@
         :key="item.id"
         :name="'Link ' + (i + 1)"
         :link-name="item.title"
-        :link-href="item.link"
-        @removeExistingSources="removeExistingSources(item.id)"
+        :link-href="item.url"
+        @removeExistingSources="removeExistingReleases(item.id)"
         @textInput="textInput($event, i, item.id)"
       ></div>
       <div class="existing-sources__add-link">
         <U-button
           :button-name="'Add Link'"
           :button-class="'u-button-blue'"
-          @clickOnButton="addExistingSourse"
+          @clickOnButton="addExistingReleases"
         ></U-button>
       </div>
     </div>
@@ -28,12 +28,12 @@
       <U-button
         :button-name="'Save'"
         :button-class="'u-button-blue'"
-        @clickOnButton="saveSources"
+        @clickOnButton="saveReleases"
       ></U-button>
       <U-button
         :button-name="'Cancel'"
         :button-class="'u-button-gray'"
-        @clickOnButton="cancelSources"
+        @clickOnButton="cancelReleases"
       ></U-button>
     </div>
     <Spiner :loading="loading"></Spiner>
@@ -46,7 +46,7 @@ import AddExistingSourse from "../../molecules/addExistingSource.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
-import { Sources } from "~/models/Sources";
+import { Releases } from "~/models/Releases";
 import Spiner from "~/components/molecules/spiner.vue";
 import Toast from "~/store/modules/Toast";
 
@@ -54,29 +54,29 @@ import Toast from "~/store/modules/Toast";
   components: { UButton, UBack, UTitle, AddExistingSourse, Spiner },
 })
 export default class extends Vue {
-  @Prop() sources: Array<Sources>;
+  @Prop() releases: Array<Releases>;
   @Prop() startupId: string;
   loading = false;
-  newsources = [];
+  newsReleases = [];
 
   existingSourseComponent: Array<any> = [];
-  saveSources() {
+  saveReleases() {
     this.loading = true;
-    this.newsources = [];
+    this.newsReleases = [];
     setTimeout(() => {
       this.loading = false;
       Toast.show({
-        data: "Startup data updated!",
+        data: "Releases updated!",
         duration: 1000,
         success: true,
       });
     }, 900);
   }
 
-  cancelSources() {
-    if (this.newsources.length !== 0) {
+  cancelReleases() {
+    if (this.newsReleases.length !== 0) {
       this.loading = true;
-      this.newsources.forEach((el) => {
+      this.newsReleases.forEach((el) => {
         this.removeExistingSources(el);
       });
     }
@@ -84,25 +84,25 @@ export default class extends Vue {
     setTimeout(() => {
       this.loading = false;
       Toast.show({
-        data: "Startup data updated!",
+        data: "Releases removed!",
         duration: 1000,
         success: true,
       });
     }, 900);
   }
 
-  async addExistingSourse() {
+  async addExistingReleases() {
     this.loading = true;
     try {
-      const source = await this.$createSource("", "https://", this.startupId);
-      if (source !== null) {
+      const release = await this.$createRelease("", "https://", this.startupId);
+      if (release !== null) {
         this.existingSourseComponent.push({
-          id: source.id,
-          title: source.title,
-          link: source.link.trim(),
+          id: release.id,
+          title: release.title,
+          url: release.url.trim(),
           type: "add-existing-sourse",
         });
-        this.newsources.push(source.id);
+        this.newsReleases.push(release.id);
       }
       this.loading = false;
     } catch (e) {
@@ -114,26 +114,26 @@ export default class extends Vue {
   textInput($event, i, id) {
     switch ($event[1]) {
       case "name":
-        this.updateSources(id, $event[0], this.existingSourseComponent[i].link);
+        this.updateReleases(id, $event[0], this.existingSourseComponent[i].url);
         this.existingSourseComponent[i].title = $event[0];
         break;
       case "url":
-        this.updateSources(
+        this.updateReleases(
           id,
           this.existingSourseComponent[i].title,
           $event[0]
         );
-        this.existingSourseComponent[i].link = $event[0];
+        this.existingSourseComponent[i].url = $event[0];
         break;
       default:
     }
   }
 
-  async updateSources(id, title = "", link = "") {
+  async updateReleases(id, title = "", url = "") {
     this.loading = true;
     try {
-      const sources = await this.$updateSource(id, title, link);
-      if (sources !== null) {
+      const release = await this.$updateRelease(id, title, url);
+      if (release !== null) {
         this.loading = false;
       }
     } catch (e) {
@@ -142,11 +142,12 @@ export default class extends Vue {
     }
   }
 
-  async removeExistingSources(id) {
+  async removeExistingReleases(id) {
     this.loading = true;
     try {
-      const sources = await this.$deleteSource(id);
-      if (+sources.id === +id) {
+      const release = await this.$deleteRelease(id);
+
+      if (+release.id === +id) {
         this.existingSourseComponent = this.existingSourseComponent.filter(
           (item) => item.id !== id
         );
@@ -159,12 +160,12 @@ export default class extends Vue {
   }
 
   mounted() {
-    if (this.sources) {
+    if (this.releases) {
       this.existingSourseComponent = [];
-      this.sources.forEach((el) => {
+      this.releases.forEach((el) => {
         const data = {
           id: el.id,
-          link: el.link,
+          url: el.url,
           title: el.title,
           type: "add-existing-sourse",
         };

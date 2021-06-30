@@ -104,7 +104,7 @@ import {
   deleteRelease,
   createRelease,
   updateRelease,
-} from "~/plugins/services/Releases";
+} from "~/plugins/services/releases";
 import { Releases } from "~/models/Releases";
 import { Sources } from "~/models/Sources";
 import { Secrets } from "~/models/Secrets";
@@ -317,7 +317,11 @@ export interface Services {
 
   $releases(id: string): Promise<Partial<Releases>[]>;
   $deleteRelease(id: string): Promise<Partial<Releases>>;
-  $createRelease(title: string, url: string): Promise<Partial<Releases>[]>;
+  $createRelease(
+    title: string,
+    url: string,
+    startupId: string
+  ): Promise<Partial<Releases>[]>;
   $updateRelease(
     id: string,
     title: string,

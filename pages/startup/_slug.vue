@@ -16,6 +16,7 @@
       :ask-feedbacks="askFeedbacks"
       :directions="directions"
       :badges="badges"
+      :releases="releases"
       @deleteStartup="deleteStartup"
       @cancelApplication="cancelApplication"
     ></StartupPage>
@@ -55,6 +56,7 @@ export default class TakeStartup extends Vue {
     $strapi,
     $directions,
     $badges,
+    $releases,
   }) {
     const startup = await $startup(route.params.slug);
     const feedbacks = await $feedbacksByStartupID(startup.id);
@@ -63,7 +65,11 @@ export default class TakeStartup extends Vue {
     const { estimations } = await $estimations();
     const { specialisations } = await $specialisations();
     const { technologies } = await $technologies();
-
+    let releases = [];
+    if (startup.state === "finished") {
+      releases = await $releases(startup.id);
+      console.log(releases);
+    }
     let directions = [];
     let badges = [];
     if ($strapi.user) {
@@ -81,6 +87,7 @@ export default class TakeStartup extends Vue {
       askFeedbacks,
       directions,
       badges,
+      releases,
     };
   }
 
