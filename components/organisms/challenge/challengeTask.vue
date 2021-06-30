@@ -88,11 +88,11 @@
               <span> {{ item.creator.username }}</span>
 
               <p>
-                {{
+                <!-- {{
                   new Date(item.solutions[0].published_at)
                     .toUTCString()
                     .substr(4, 12)
-                }}
+                }} -->
               </p>
             </div>
             <button type="button" @click="$emit('participantRequest', item)">
@@ -254,7 +254,12 @@ export default class extends Vue {
 
   mounted() {
     if (this.askfeedbacks !== null) {
-      this.newFeedbacks = this.askfeedbacks.filter((el) => el.is_new);
+      this.newFeedbacks = this.askfeedbacks.filter(
+        (el) =>
+          el.is_new &&
+          +el.creator.id !== +this.userId &&
+          !el.feedbacks.some((item) => +item.expert.id === +this.userId)
+      );
     }
   }
 }

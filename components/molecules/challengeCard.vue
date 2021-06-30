@@ -110,7 +110,8 @@ export default class extends Vue {
       this.feedbackAsk = this.feedBackForChallenges.filter(
         (el) =>
           +el.challenge.id === +this.card.id &&
-          el.feedbacks.some((item) => !(+item.expert.id === +this.userId))
+          +el.creator.id !== +this.userId &&
+          !el.feedbacks.some((item) => +item.expert.id === +this.userId)
       ).length;
     }
   }
