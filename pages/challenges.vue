@@ -1,7 +1,7 @@
 <template>
   <div class="startups-page">
     <Spiner :loading="loading"></Spiner>
-    <pre style="color: #fff">{{ feedBackForChallenges }} </pre>
+    <!-- <pre style="color: #fff">{{ feedBackForChallenges }} </pre> -->
     <Challenges
       :challenges="challengesList"
       :specialisations="specialisations"
@@ -48,6 +48,9 @@ export default class extends Vue {
       if (profile !== null && profile.is_expert) {
         isExpert = profile.is_expert;
         feedBackForChallenges = await $askFeedbacksForChallenges();
+        // feedBackForChallenges = feedBackForChallenges.filter((feedback) =>
+        //   feedback.feedbacks.some((el) => el.expert.id !== profile.id)
+        // );
       }
     }
     return {

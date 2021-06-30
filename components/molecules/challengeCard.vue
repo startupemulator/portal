@@ -108,7 +108,9 @@ export default class extends Vue {
     }
     if (this.isExpert) {
       this.feedbackAsk = this.feedBackForChallenges.filter(
-        (el) => +el.challenge.id === +this.card.id
+        (el) =>
+          +el.challenge.id === +this.card.id &&
+          el.feedbacks.some((item) => !(+item.expert.id === +this.userId))
       ).length;
     }
   }
