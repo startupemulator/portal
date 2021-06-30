@@ -19,6 +19,7 @@
       :releases="releases"
       @deleteStartup="deleteStartup"
       @cancelApplication="cancelApplication"
+      @leaveProject="leaveProject"
     ></StartupPage>
   </div>
 </template>
@@ -68,7 +69,6 @@ export default class TakeStartup extends Vue {
     let releases = [];
     if (startup.state === "finished") {
       releases = await $releases(startup.id);
-      console.log(releases);
     }
     let directions = [];
     let badges = [];
@@ -106,6 +106,37 @@ export default class TakeStartup extends Vue {
         this.loading = false;
       }
       this.loading = false;
+    } catch (e) {
+      console.error(e);
+      Toast.show({
+        data: e.message,
+        duration: 3000,
+      });
+      this.loading = false;
+    }
+  }
+
+  async leaveProject() {
+    this.loading = true;
+    console.log("leave project");
+    let applicationId = 0;
+    this.applications.forEach((item) => {
+      item.position.applications.forEach((el) => {
+        if (
+          (el.status === "accepted" && +this.$strapi.user.id === +el.user.id) ||
+          (el.status === "advanced" && +this.$strapi.user.id === +el.user.id)
+        ) {
+          applicationId = el.id;
+        }
+      });
+    });
+    try {
+      const leaveProject = await this.$cancelApplication(
+        applicationId.toString()
+      );
+      if (leaveProject !== null) {
+        this.$router.push("/profile/projects");
+      }
     } catch (e) {
       console.error(e);
       Toast.show({

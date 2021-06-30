@@ -45,7 +45,6 @@ export default class extends Vue {
   @Prop() isExpert: boolean;
   @Prop() isOwner: boolean;
   updateFeedbacks(str) {
-    console.log(str);
     this.$emit("updateFeedbacks");
   }
 }

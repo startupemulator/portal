@@ -575,8 +575,6 @@ export default class extends Vue {
   }
 
   toggleAddTeamBadge(title, feedbackId) {
-    // console.log(title);
-    // console.log(feedbackId);
     this.badgeTitle = title;
     this.addTeamBadge = !this.addTeamBadge;
   }
@@ -584,7 +582,6 @@ export default class extends Vue {
   addFeedbackBadge(data) {
     this.feedbackIdForAddBadge = data;
     this.addFeedBackBadge = !this.addFeedBackBadge;
-    console.log(data);
   }
 
   closeAddFeedBackBadge() {
@@ -652,7 +649,7 @@ export default class extends Vue {
   }
 
   leveProject() {
-    console.log("leveProject");
+    this.$emit("leaveProject");
   }
 
   mounted() {
