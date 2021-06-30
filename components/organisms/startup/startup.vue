@@ -64,12 +64,11 @@
       @clikOnButton="toggleFinishStartup"
       @finishStartup="finishThisStartup"
     ></FinishStartup>
-    <EditSources
+    <AddReleseLinks
       v-show="releaseLikns"
-      :title="'Add release links'"
-      :description="'Add links on your published product, a case, an article, etc.'"
+      :startup-id="startup.id"
       @clikOnButton="toggleReleaseLikns"
-    ></EditSources>
+    ></AddReleseLinks>
     <AddTeamFeedBack
       v-show="addTeamFeedBack"
       :title="feedBackTitle"
@@ -462,6 +461,7 @@ import RequestFeedback from "./requestFeedback.vue";
 import EditStartupInfo from "./editStartupInfo.vue";
 import EditTeam from "./editTeam.vue";
 import EditSources from "./editSources.vue";
+import AddReleseLinks from "./addReleseLinks.vue";
 import EditGuide from "./editGuide.vue";
 import FinishStartup from "./finishStartup.vue";
 import AddTeamFeedBack from "./addTeamFeedback.vue";
@@ -501,6 +501,7 @@ import { Badges } from "~/models/Badges";
     EditStartupInfo,
     EditTeam,
     EditSources,
+    AddReleseLinks,
     EditGuide,
     FinishStartup,
     AddTeamFeedBack,
