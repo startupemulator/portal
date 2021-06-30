@@ -67,7 +67,7 @@
         class="challenge-task__button"
       >
         <U-button
-          :button-name="'Take Part'"
+          :button-name="'Accept'"
           :button-class="'u-button-blue '"
           :is-link="'nuxt-link'"
           :href="'/challenge/accept/' + challenge.slug"
