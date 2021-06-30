@@ -23,7 +23,7 @@ import Profile from "~/components/organisms/profile/profile.vue";
 export default class extends Vue {
   async asyncData({ $myStartups, $feedbacks, $profileBySlug, route }) {
     const profile = await $profileBySlug(route.params.slug);
-    console.log(profile);
+
     const user = profile.user;
     const startups = await $myStartups(user.id);
     const feedbacks = await $feedbacks();

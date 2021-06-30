@@ -72,7 +72,6 @@ export default class extends Vue {
   loading = false;
   UPopup = false;
   async toggleUPopup() {
-    console.log(this.startup.id);
     this.$v.$touch();
     if (!this.$v.$error) {
       this.loading = true;
@@ -83,7 +82,7 @@ export default class extends Vue {
           this.pickedTechnology,
           this.startup.id
         );
-        console.log(askFeedback);
+
         if (askFeedback !== null) {
           this.loading = false;
           this.UPopup = !this.UPopup;
@@ -107,7 +106,6 @@ export default class extends Vue {
 
   chosenTechnologi(pickedTechnology, pickedTechnologyId) {
     this.pickedTechnology = pickedTechnologyId;
-    console.log("ad");
   }
 }
 </script>

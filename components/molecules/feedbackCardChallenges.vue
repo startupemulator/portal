@@ -106,12 +106,10 @@ export default class extends Vue {
 
   addFeedback() {
     this.$emit("addFeedback", "Add feedback", this.feedback.id);
-    console.log("add feedback");
   }
 
   addbadge() {
     this.$emit("addBadge", "Add badge", this.feedback.id);
-    console.log("add badge");
   }
 
   async like() {

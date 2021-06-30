@@ -124,7 +124,7 @@ export default class extends Vue {
           identifier: this.email,
           password: this.password,
         });
-        console.log(user);
+
         if (user) {
           this.$nuxt.$router.push("/profile/projects");
         }

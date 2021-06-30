@@ -64,12 +64,12 @@
       @clikOnButton="toggleFinishStartup"
       @finishStartup="finishThisStartup"
     ></FinishStartup>
-    <EditSources
+    <AddReleseLinks
       v-show="releaseLikns"
-      :title="'Add release links'"
-      :description="'Add links on your published product, a case, an article, etc.'"
+      :startup-id="startup.id"
+      :releases="releases"
       @clikOnButton="toggleReleaseLikns"
-    ></EditSources>
+    ></AddReleseLinks>
     <AddTeamFeedBack
       v-show="addTeamFeedBack"
       :title="feedBackTitle"
@@ -190,8 +190,8 @@
           :solution-data="askFeedbacks[0]"
         ></CommentExpert>
 
-        <div v-if="isOwner" class="owner-menu">
-          <ul v-if="!finished" class="owner-menu__list">
+        <div v-if="isOwner && !finished" class="owner-menu">
+          <ul class="owner-menu__list">
             <li class="owner-menu__item">
               <button
                 v-if="!isStarted"
@@ -288,16 +288,17 @@
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
               </button>
             </li>
-            <li class="owner-menu__item">
+            <li
+              v-for="link in releases"
+              :key="link.id + link.title"
+              class="owner-menu__item"
+            >
               <button type="button">
-                <span>See on Product Hunt </span>
-                <img src="~/assets/img/arrow.svg" alt="arrow" />
-              </button>
-            </li>
-            <li class="owner-menu__item">
-              <button type="button">
-                <span>Read Study Case </span>
-                <img src="~/assets/img/arrow.svg" alt="arrow" />
+                <a :href="link.url" target="_blank">
+                  <span>{{ link.title }} </span>
+
+                  <img src="~/assets/img/arrow.svg" alt="arrow"
+                /></a>
               </button>
             </li>
           </ul>
@@ -462,6 +463,7 @@ import RequestFeedback from "./requestFeedback.vue";
 import EditStartupInfo from "./editStartupInfo.vue";
 import EditTeam from "./editTeam.vue";
 import EditSources from "./editSources.vue";
+import AddReleseLinks from "./addReleseLinks.vue";
 import EditGuide from "./editGuide.vue";
 import FinishStartup from "./finishStartup.vue";
 import AddTeamFeedBack from "./addTeamFeedback.vue";
@@ -484,6 +486,7 @@ import Spiner from "~/components/molecules/spiner.vue";
 import { AskFeedbacks } from "~/models/AskFeedbacks";
 import { Directions } from "~/models/Directions";
 import { Badges } from "~/models/Badges";
+import { Releases } from "~/models/Releases";
 @Component({
   components: {
     UBack,
@@ -501,6 +504,7 @@ import { Badges } from "~/models/Badges";
     EditStartupInfo,
     EditTeam,
     EditSources,
+    AddReleseLinks,
     EditGuide,
     FinishStartup,
     AddTeamFeedBack,
@@ -524,6 +528,7 @@ export default class extends Vue {
   @Prop() askFeedbacks: Array<AskFeedbacks>;
   @Prop() badges: Array<Badges>;
   @Prop() directions: Array<Directions>;
+  @Prop() releases: Array<Releases>;
 
   updatableDataStartup = this.startup;
   updatableDataApplications = this.applications;
@@ -570,8 +575,6 @@ export default class extends Vue {
   }
 
   toggleAddTeamBadge(title, feedbackId) {
-    // console.log(title);
-    // console.log(feedbackId);
     this.badgeTitle = title;
     this.addTeamBadge = !this.addTeamBadge;
   }
@@ -579,7 +582,6 @@ export default class extends Vue {
   addFeedbackBadge(data) {
     this.feedbackIdForAddBadge = data;
     this.addFeedBackBadge = !this.addFeedBackBadge;
-    console.log(data);
   }
 
   closeAddFeedBackBadge() {
@@ -647,7 +649,7 @@ export default class extends Vue {
   }
 
   leveProject() {
-    console.log("leveProject");
+    this.$emit("leaveProject");
   }
 
   mounted() {

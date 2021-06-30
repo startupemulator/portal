@@ -146,6 +146,6 @@ export function cancelApplication($strapi: Strapi) {
         }
       }`,
     });
-    return data;
+    return data || null;
   };
 }
