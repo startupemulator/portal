@@ -69,12 +69,10 @@ export default class extends Vue {
   moveAwayStartupName: string = "";
 
   deleteStartup(startupName, startupId) {
-    console.log("hi");
     this.$emit("deleteDraft", startupId, startupName);
   }
 
   deleteDraft(id, title) {
-    console.log(id, title);
     this.popupDeleteStartup = !this.popupDeleteStartup;
     this.moveAwayStartup = id;
     this.moveAwayStartupName = title;

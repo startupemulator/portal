@@ -43,7 +43,7 @@ export default class TakeChallenge extends Vue {
         challenge: this.challenge.id,
         estimation: duration,
       };
-      console.log(data);
+
       const sentRequest = await this.$strapi.create("user-challenges", data);
       if (sentRequest !== null) {
         this.loading = false;

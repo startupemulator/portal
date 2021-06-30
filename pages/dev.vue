@@ -137,11 +137,6 @@ export default class extends Vue {
       title: "Home page",
     };
   }
-
-  // async mounted() {
-  //   const startups = await this.$startups();
-  //   console.log(startups);
-  // }
 }
 </script>
 

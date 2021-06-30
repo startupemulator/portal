@@ -172,7 +172,6 @@ export default class extends Vue {
 
   addFeedback() {
     this.$emit("addFeedback", "Add feedback", this.feedback.id);
-    console.log("add feedback");
   }
 
   addbadge() {
@@ -180,7 +179,6 @@ export default class extends Vue {
   }
 
   async publish(id) {
-    console.log(id);
     this.loading = true;
     try {
       const publishFeedback = await this.$publicFeedback(id);
