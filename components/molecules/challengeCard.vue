@@ -1,11 +1,9 @@
 <template>
   <div class="challenge-card">
     <div class="challenge-card__header">
-      <div
-        v-show="card.status !== null && !isExpert"
-        class="challenge-card__header-startup-state"
-      >
+      <div v-show="!isExpert" class="challenge-card__header-startup-state">
         <span
+          v-show="card.status !== null"
           :class="
             card.status === 'in_progress'
               ? 'started'
@@ -15,6 +13,16 @@
           "
           >{{ card.status }}</span
         >
+        <!-- <span
+          :class="
+            !userIsAccept === 'in_progress'
+              ? 'started'
+              : userIsAccept === 'finished'
+              ? 'finished'
+              : ''
+          "
+          >{{ !userIsAccept ? "" : "finished" }}</span
+        > -->
       </div>
       <div
         v-if="isExpert && feedbackAsk !== 0"

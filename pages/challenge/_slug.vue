@@ -74,5 +74,13 @@ export default class TakeChallenge extends Vue {
       badges,
     };
   }
+
+  mounted() {
+    document.title = this.challenge.description;
+  }
+
+  beforeDestroy() {
+    document.title = "StartupEmulator - training platform for developers";
+  }
 }
 </script>

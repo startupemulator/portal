@@ -1,7 +1,6 @@
 <template>
   <div class="startups-page">
     <Spiner :loading="loading"></Spiner>
-    <!-- <pre style="color: #fff">{{ feedBackForChallenges }} </pre> -->
     <Challenges
       :challenges="challengesList"
       :specialisations="specialisations"
@@ -28,7 +27,6 @@ import Challenges from "~/components/organisms/challenges/challenges.vue";
   },
 })
 export default class extends Vue {
-  // data loaded here will be added during server rendering
   emptyState = false;
   autorizated = !!this.$strapi.user;
   userId = this.$strapi.user ? this.$strapi.user.id : "";
@@ -48,9 +46,6 @@ export default class extends Vue {
       if (profile !== null && profile.is_expert) {
         isExpert = profile.is_expert;
         feedBackForChallenges = await $askFeedbacksForChallenges();
-        // feedBackForChallenges = feedBackForChallenges.filter((feedback) =>
-        //   feedback.feedbacks.some((el) => el.expert.id !== profile.id)
-        // );
       }
     }
     return {

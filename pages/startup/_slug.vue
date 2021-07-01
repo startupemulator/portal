@@ -148,6 +148,7 @@ export default class TakeStartup extends Vue {
   }
 
   mounted() {
+    document.title = this.startup.title;
     if (this.$strapi.user && +this.$strapi.user.id === +this.startup.owner.id) {
       this.isOwner = true;
     }
@@ -177,6 +178,10 @@ export default class TakeStartup extends Vue {
         }
       });
     }
+  }
+
+  beforeDestroy() {
+    document.title = "StartupEmulator - training platform for developers";
   }
 
   async deleteStartup(id, startupName) {
