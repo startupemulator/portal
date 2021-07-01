@@ -8,12 +8,12 @@
       @slideRigth="slideRigth"
       @slideLeft="slideLeft"
     ></app-startups-block>
-    <app-challenges-block
+    <!--  <app-challenges-block
       :cards="challenges"
       :user-id="userId"
       @slideRigth="slideRigth"
       @slideLeft="slideLeft"
-    ></app-challenges-block>
+    ></app-challenges-block> -->
     <app-team-develop :is-logined="isLogined"></app-team-develop>
     <app-take-part></app-take-part>
     <Pricing></Pricing>

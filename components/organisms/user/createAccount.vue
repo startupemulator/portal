@@ -161,22 +161,10 @@ export default class CreateAccount extends Vue {
     this.$v.$touch();
     if (!this.$v.$error) {
       try {
-        const newUser = await this.$strapi.register({
-          email: this.email,
-          username: this.name,
-          name: this.name,
-          password: this.password,
-        });
-        // const newUser = await this.$createUser(
-        //   this.email,
-        //   this.name,
-        //   this.password
-        // );
+        await this.$createUser(this.email, this.name, this.password);
 
-        if (newUser !== null) {
-          this.error = "";
-          this.$nuxt.$router.push("/becomeAnExpert");
-        }
+        this.error = "";
+        this.$nuxt.$router.push("/");
       } catch (e) {
         Toast.show({
           data: e.message,
