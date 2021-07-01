@@ -42,6 +42,8 @@
           :key="card.id"
           :card="card"
           :user-id="userId"
+          :user-challenges="userChallenges"
+          :feed-back-for-challenges="feedBackForChallenges"
         ></ChallengeCard>
       </transition-group>
     </div>
@@ -52,6 +54,8 @@
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import { Challenge } from "~/models/Challenge";
 import ChallengeCard from "~/components/molecules/challengeCard.vue";
+import { userChallenges } from "~/models/UserChallenges";
+import { AskFeedbacks } from "~/models/AskFeedbacks";
 
 @Component({
   components: {
@@ -61,6 +65,9 @@ import ChallengeCard from "~/components/molecules/challengeCard.vue";
 export default class AppChallengesBlock extends Vue {
   @Prop() cards: Array<Challenge>;
   @Prop() userId: string;
+  @Prop() userChallenges: Array<userChallenges>;
+
+  @Prop() feedBackForChallenges: Array<AskFeedbacks>;
 }
 </script>
 <style lang="scss" scoped>
