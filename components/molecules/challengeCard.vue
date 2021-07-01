@@ -78,6 +78,7 @@
           :id="'specialisations'"
           :title="'+' + (card.specialisations.length - 2)"
           class="modificate-challenge-slider"
+          @pick="$router.push('/challenge/' + card.slug)"
         ></UTags>
       </div>
       <DifficultyLevel :card="card"></DifficultyLevel>
