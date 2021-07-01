@@ -33,7 +33,7 @@ export function getUserBySlug($strapi: Strapi) {
 }
 export function createUser($strapi: Strapi) {
   return async (email: string, name: string, password: String) => {
-    const data = await $strapi.graphql({
+    await $strapi.graphql({
       query: `mutation {
         register(input: { username: "${name}", email: "${email}",  password: "${password}" }) {
           jwt
@@ -44,7 +44,6 @@ export function createUser($strapi: Strapi) {
         }
       }`,
     });
-    return data;
   };
 }
 

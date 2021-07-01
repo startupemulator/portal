@@ -2,6 +2,10 @@
   <div class="startups-page">
     <Spiner :loading="loading"></Spiner>
     <!-- <pre style="color: #fff">{{ feedBackForChallenges }} </pre> -->
+
+    <!-- <pre style="color: #fff">{{ feedBackForChallenges[1] }} </pre> -->
+    <!-- <pre style="color: #fff">{{ userChallenges }} </pre> -->
+
     <Challenges
       :challenges="challengesList"
       :specialisations="specialisations"
@@ -9,6 +13,7 @@
       :autorizated="autorizated"
       :user-id="userId"
       :is-expert="isExpert"
+      :user-challenges="userChallenges"
       :feed-back-for-challenges="feedBackForChallenges"
       @filterCards="specialtyFilter"
       @difficultyFilter="difficultyFilter"
@@ -28,29 +33,31 @@ import Challenges from "~/components/organisms/challenges/challenges.vue";
   },
 })
 export default class extends Vue {
-  // data loaded here will be added during server rendering
   emptyState = false;
   autorizated = !!this.$strapi.user;
   userId = this.$strapi.user ? this.$strapi.user.id : "";
-
   difficultyLevel: Array<any> = [];
   pickedSpecialty: Array<any> = [];
   loading = false;
-  async asyncData({ $strapi, $profile, $askFeedbacksForChallenges }) {
+  async asyncData({
+    $strapi,
+    $profile,
+    $askFeedbacksForChallenges,
+    $userChallengesByUserId,
+  }) {
     const challenges = await $strapi.find("challenges");
     const specialisations = await $strapi.find("specialisations");
     const challengesList = await challenges;
     let profile = [];
     let feedBackForChallenges = [];
+    let userChallenges = [];
     let isExpert = false;
     if ($strapi.user) {
       profile = await $profile($strapi.user.id);
-      if (profile !== null && profile.is_expert) {
+      if (profile !== null) {
         isExpert = profile.is_expert;
         feedBackForChallenges = await $askFeedbacksForChallenges();
-        // feedBackForChallenges = feedBackForChallenges.filter((feedback) =>
-        //   feedback.feedbacks.some((el) => el.expert.id !== profile.id)
-        // );
+        userChallenges = await $userChallengesByUserId($strapi.user.id);
       }
     }
     return {
@@ -60,6 +67,7 @@ export default class extends Vue {
       profile,
       feedBackForChallenges,
       isExpert,
+      userChallenges,
     };
   }
 

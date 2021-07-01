@@ -45,6 +45,7 @@ export default class TakeStartup extends Vue {
   applicationId = "";
   loading = false;
   userId = this.$strapi.user ? this.$strapi.user.id : "";
+  title: string;
   async asyncData({
     $startup,
     $feedbacksByStartupID,
@@ -66,6 +67,7 @@ export default class TakeStartup extends Vue {
     const { estimations } = await $estimations();
     const { specialisations } = await $specialisations();
     const { technologies } = await $technologies();
+    const title = startup.description;
     let releases = [];
     if (startup.state === "finished") {
       releases = await $releases(startup.id);
@@ -88,6 +90,7 @@ export default class TakeStartup extends Vue {
       directions,
       badges,
       releases,
+      title,
     };
   }
 
@@ -148,6 +151,7 @@ export default class TakeStartup extends Vue {
   }
 
   mounted() {
+    document.title = this.startup.title;
     if (this.$strapi.user && +this.$strapi.user.id === +this.startup.owner.id) {
       this.isOwner = true;
     }
@@ -179,6 +183,10 @@ export default class TakeStartup extends Vue {
     }
   }
 
+  beforeDestroy() {
+    document.title = "StartupEmulator - training platform for developers";
+  }
+
   async deleteStartup(id, startupName) {
     this.loading = true;
     try {
@@ -205,6 +213,12 @@ export default class TakeStartup extends Vue {
       });
       this.loading = false;
     }
+  }
+
+  head() {
+    return {
+      title: this.title,
+    };
   }
 }
 </script>

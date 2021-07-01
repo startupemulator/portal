@@ -1,30 +1,39 @@
 <template>
   <div v-cloak class="startups-page">
     <ChallengePage
-      :challenge="challenge"
+      :key="updateKey"
+      :challenge="updatableChallenge"
       :user-challenges="userChallenges"
       :user-id="userId"
       :user-challenge="userChallenge"
       :previos-participaints="previosParticipaints"
       :profile="profile"
-      :askfeedbacks="askfeedbacks"
+      :askfeedbacks="updatableaskfeedbacks"
       :directions="directions"
       :badges="badges"
+      @requestIsSend="requestIsSend"
     ></ChallengePage>
+    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 import ChallengePage from "~/components/organisms/challenge/challenge.vue";
-import { Challenge } from "~/models/Challenge";
+import Spiner from "~/components/molecules/spiner.vue";
+import { scrollToHeader } from "~/assets/jshelper/scrollToHeader.js";
 @Component({
   components: {
     ChallengePage,
+    Spiner,
   },
 })
 export default class TakeChallenge extends Vue {
-  challenge: Challenge;
+  challenge!: Array<any>;
   userId: string = this.$strapi.user ? this.$strapi.user.id : "";
+  title: string;
+  updateKey = 0;
+  loading = false;
+
   async asyncData({
     $challenge,
     route,
@@ -39,6 +48,9 @@ export default class TakeChallenge extends Vue {
     const challenge = await $challenge(route.params.slug);
     const userChallenges = await $userChallengesById(challenge.id);
     const askfeedbacks = await $askFeedbacksByChallengeId(challenge.id);
+    const updatableChallenge = challenge;
+    const updatableaskfeedbacks = askfeedbacks;
+    const title = challenge.title;
     let profile = [];
     let userChallenge = [];
     let previosParticipaints = [];
@@ -64,14 +76,48 @@ export default class TakeChallenge extends Vue {
     }
 
     return {
-      challenge,
       userChallenges,
       userChallenge,
       profile,
       previosParticipaints,
-      askfeedbacks,
+      updatableaskfeedbacks,
       directions,
       badges,
+      updatableChallenge,
+      title,
+      challenge,
+    };
+  }
+
+  async requestIsSend() {
+    this.loading = true;
+    try {
+      this.updatableChallenge = await this.$challenge(this.$route.params.slug);
+      this.updatableaskfeedbacks = await this.$askFeedbacksByChallengeId(
+        this.updatableChallenge.id
+      );
+      if (this.updatableaskfeedbacks !== null && this.$strapi.user) {
+        this.previosParticipaints = this.updatableaskfeedbacks.filter(
+          (el) => +el.creator.id !== +this.$strapi.user.id
+        );
+      } else {
+        this.previosParticipaints = this.askfeedbacks;
+      }
+      if (this.updatableChallenge !== null) {
+        console.log(this.updatableChallenge);
+        this.updateKey += 1;
+        scrollToHeader();
+      }
+      this.loading = false;
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
+    }
+  }
+
+  head() {
+    return {
+      title: this.title,
     };
   }
 }

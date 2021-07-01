@@ -1,5 +1,5 @@
 <template>
-  <label :for="id" class="tags-item" :class="checkedClass">
+  <label :for="id" class="tags-item">
     {{ title }}
     <input
       :id="id"
@@ -18,7 +18,6 @@ export default class extends Vue {
   @Prop({ default: "title" }) title: string;
   @Prop({ default: "name" }) name: string;
   @Prop({ default: "" }) id: string;
-  @Prop({ default: "false" }) checkedClass: string;
   @Prop({ default: "checkbox" }) type: "checkbox" | "radio";
 }
 </script>

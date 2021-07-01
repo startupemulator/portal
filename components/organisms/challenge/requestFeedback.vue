@@ -125,6 +125,7 @@ export default class extends Vue {
     this.existingSourseComponent = this.existingSourseComponent.filter(
       (item) => item.id !== i
     );
+    this.haveASolution = true;
   }
 
   chosenTechnologi(name, id) {
@@ -185,6 +186,7 @@ export default class extends Vue {
           });
 
           this.loading = false;
+          this.$emit("submit");
         } else {
           Toast.show({
             data: "Something wrong!",
