@@ -45,19 +45,26 @@ export default class extends Vue {
     },
     {
       id: 3,
-      title: "Pending",
+      title: "Review",
       active: false,
       message: false,
       messageLength: 0,
     },
     {
       id: 4,
+      title: "Pending",
+      active: false,
+      message: false,
+      messageLength: 0,
+    },
+    {
+      id: 5,
       title: "In progress",
       active: false,
       message: true,
     },
     {
-      id: 5,
+      id: 6,
       title: "Finished",
       active: false,
       message: false,
@@ -102,7 +109,7 @@ export default class extends Vue {
     width: 443px;
     transition: 0.2s;
     &.move {
-      left: -35px;
+      left: -100px;
     }
   }
 }
@@ -168,10 +175,10 @@ export default class extends Vue {
 @media (min-width: 768px) {
   .u-tab {
     margin-top: 48px;
-    max-width: 498px;
+    max-width: 585px;
     .mobile-owned {
       left: 0;
-      width: 498px;
+      width: 585px;
       transition: 0.2s;
       &.move {
         left: 0;

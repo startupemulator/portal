@@ -2,7 +2,7 @@
   <div class="challenge-card">
     <div class="challenge-card__header">
       <div
-        v-show="!isExpert && card.status !== null && userIsAccept"
+        v-show="!isExpert && card.status !== null"
         class="challenge-card__header-startup-state"
       >
         <span
@@ -21,13 +21,14 @@
               ? 'started ml-8'
               : userFinishedChallenge
               ? 'finished ml-8'
-              : ''
+              : 'display-none'
           "
           >{{
             userAccepted ? "started" : userFinishedChallenge ? "finished" : ""
           }}</span
         >
       </div>
+
       <div
         v-show="!isExpert && card.status === null && userIsAccept"
         class="challenge-card__header-startup-state"
@@ -75,10 +76,10 @@
         ></UTags>
         <UTags
           v-show="card.specialisations.length > 2"
-          :id="'specialisations'"
+          :id="card.id + 'countSpecialisations'"
           :title="'+' + (card.specialisations.length - 2)"
           class="modificate-challenge-slider"
-          @pick="$router.push('/challenge/' + card.slug)"
+          @pick="$router.push(`/challenge/${card.slug}`)"
         ></UTags>
       </div>
       <DifficultyLevel :card="card"></DifficultyLevel>
@@ -133,7 +134,6 @@ export default class extends Vue {
     if (this.card.users && this.card.users.length !== 0) {
       this.card.users.forEach((el) => {
         if (+el.user === +this.userId || +el.user.id === +this.userId) {
-          console.log(el);
           this.userIsAccept = true;
         }
       });
@@ -147,6 +147,7 @@ export default class extends Vue {
       ).length;
     }
     if (
+      this.userChallenges &&
       this.userChallenges.length !== 0 &&
       this.userChallenges.some((el) => +el.challenge.id === +this.card.id) &&
       !this.feedBackForChallenges.some(
@@ -237,6 +238,9 @@ export default class extends Vue {
         }
         &.ml-8 {
           margin-left: 8px;
+        }
+        &.display-none {
+          display: none;
         }
       }
     }

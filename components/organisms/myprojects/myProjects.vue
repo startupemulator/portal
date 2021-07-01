@@ -81,15 +81,20 @@ export default class extends Vue {
   filterCards($event) {
     switch ($event) {
       case 2:
-        this.startup = this.startups.filter((el) => el.state !== "draft");
+        this.startup = this.startups.filter(
+          (el) => el.state !== "draft" && +el.owner.id === +this.userId
+        );
         break;
       case 3:
-        this.startup = this.startups.filter((el) => el.state === "not_started");
+        this.startup = this.startups.filter((el) => el.state === "review");
         break;
       case 4:
-        this.startup = this.startups.filter((el) => el.state === "in_progress");
+        this.startup = this.startups.filter((el) => el.state === "not_started");
         break;
       case 5:
+        this.startup = this.startups.filter((el) => el.state === "in_progress");
+        break;
+      case 6:
         this.startup = this.startups.filter((el) => el.state === "finished");
         break;
       default:
@@ -103,7 +108,9 @@ export default class extends Vue {
 
   mounted() {
     this.draft = this.startups.filter((el) => el.state === "draft");
-    this.startup = this.startups.filter((el) => el.state !== "draft");
+    this.startup = this.startups.filter(
+      (el) => el.state !== "draft" && +el.owner.id === +this.userId
+    );
     this.inProgress = this.startups.filter(
       (el) => el.state === "in_progress"
     ).length;

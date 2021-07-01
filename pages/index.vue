@@ -8,12 +8,14 @@
       @slideRigth="slideRigth"
       @slideLeft="slideLeft"
     ></app-startups-block>
-    <!--  <app-challenges-block
+    <app-challenges-block
       :cards="challenges"
       :user-id="userId"
+      :user-challenges="userChallenges"
+      :feed-back-for-challenges="feedBackForChallenges"
       @slideRigth="slideRigth"
       @slideLeft="slideLeft"
-    ></app-challenges-block> -->
+    ></app-challenges-block>
     <app-team-develop :is-logined="isLogined"></app-team-develop>
     <app-take-part></app-take-part>
     <Pricing></Pricing>
@@ -63,16 +65,32 @@ export default class extends Vue {
   userId: Number = this.$strapi.user ? this.$strapi.user.id : null;
 
   // data loaded here will be added during server rendering
-  async asyncData({ $technologies, $startups, $challenges, $testimonials }) {
+  async asyncData({
+    $technologies,
+    $startups,
+    $challenges,
+    $testimonials,
+    $askFeedbacksForChallenges,
+    $userChallengesByUserId,
+    $strapi,
+  }) {
     const { startups } = await $startups();
     const { challenges } = await $challenges();
     const { testimonials } = await $testimonials();
     const { technologies } = await $technologies();
+    let feedBackForChallenges = [];
+    let userChallenges = [];
+    if ($strapi.user) {
+      feedBackForChallenges = await $askFeedbacksForChallenges();
+      userChallenges = await $userChallengesByUserId($strapi.user.id);
+    }
     return {
       startups,
       challenges,
       testimonials,
       technologies,
+      feedBackForChallenges,
+      userChallenges,
     };
   }
 
