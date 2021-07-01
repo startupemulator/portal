@@ -161,6 +161,7 @@ export default class extends Vue {
 
   async submit() {
     this.finishChallenge();
+    console.log(this.existingSourseComponent);
     this.existingSourseComponent.forEach((el) => {
       if (el.url !== undefined && el.title !== undefined) {
         this.haveASolution = true;
@@ -185,6 +186,7 @@ export default class extends Vue {
           });
 
           this.loading = false;
+          this.$emit("submit");
         } else {
           Toast.show({
             data: "Something wrong!",

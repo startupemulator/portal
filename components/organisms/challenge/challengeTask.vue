@@ -142,6 +142,7 @@
       :profile="profile"
       :challenge-id="challenge.id"
       @clikOnButton="toogleRequestFeedback"
+      @submit="requestIsSend"
     ></RequestFeedback>
     <div v-show="cancelParticipationPopup" class="cancel-participation__popup">
       <div class="cancel-participation__popup__content">
@@ -239,6 +240,10 @@ export default class extends Vue {
 
   toogleRequestFeedback() {
     this.requestFeedback = !this.requestFeedback;
+  }
+
+  requestIsSend() {
+    this.$emit("requestIsSend");
   }
 
   async cancelParticipation() {

@@ -18,6 +18,7 @@
       @clickOnButton="toggleChallengeTask"
       @openParticipantSolution="toggleChallengeTask"
       @participantRequest="participantRequest"
+      @requestIsSend="$emit('requestIsSend')"
     ></ChallengeTask>
 
     <ParticipantSolution
@@ -85,6 +86,7 @@ export default class extends Vue {
   }
 
   mounted() {
+    console.log("mounted");
     if (
       this.userChallenge !== undefined &&
       this.userChallenges.some(
