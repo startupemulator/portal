@@ -25,7 +25,7 @@
       practical tasks; open access to current ratings.
     </p>
     <U-button
-      :button-name="'Take Part'"
+      :button-name="'Accept'"
       :button-class="'u-button-blue challenge-task--button'"
     ></U-button>
     <Sources :finished="true"></Sources>

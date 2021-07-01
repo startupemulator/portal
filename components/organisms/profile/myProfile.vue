@@ -53,7 +53,9 @@
 
       <div class="profile-projects__experience">
         <h3>Experience</h3>
-        <div class="experience-work">{{ userExperience.title }}</div>
+        <div class="experience-work">
+          {{ userExperience ? userExperience.title : "Zero" }}
+        </div>
         <ul class="experience_list">
           <li v-for="item in myTechnologies" :key="item.id">
             <U-tags
