@@ -81,7 +81,6 @@
           class="modificate-challenge-slider"
           @pick="$router.push(`/challenge/${card.slug}`)"
         ></UTags>
-        {{ `/challenge/${card.slug}` }}
       </div>
       <DifficultyLevel :card="card"></DifficultyLevel>
 
