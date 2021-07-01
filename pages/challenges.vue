@@ -1,11 +1,6 @@
 <template>
   <div class="startups-page">
     <Spiner :loading="loading"></Spiner>
-    <!-- <pre style="color: #fff">{{ feedBackForChallenges }} </pre> -->
-
-    <!-- <pre style="color: #fff">{{ feedBackForChallenges[1] }} </pre> -->
-    <!-- <pre style="color: #fff">{{ userChallenges }} </pre> -->
-
     <Challenges
       :challenges="challengesList"
       :specialisations="specialisations"

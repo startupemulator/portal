@@ -76,11 +76,12 @@
         ></UTags>
         <UTags
           v-show="card.specialisations.length > 2"
-          :id="'specialisations'"
+          :id="card.id + 'countSpecialisations'"
           :title="'+' + (card.specialisations.length - 2)"
           class="modificate-challenge-slider"
-          @pick="$router.push('/challenge/' + card.slug)"
+          @pick="$router.push(`/challenge/${card.slug}`)"
         ></UTags>
+        {{ `/challenge/${card.slug}` }}
       </div>
       <DifficultyLevel :card="card"></DifficultyLevel>
 
@@ -134,7 +135,6 @@ export default class extends Vue {
     if (this.card.users && this.card.users.length !== 0) {
       this.card.users.forEach((el) => {
         if (+el.user === +this.userId || +el.user.id === +this.userId) {
-          console.log(el);
           this.userIsAccept = true;
         }
       });
