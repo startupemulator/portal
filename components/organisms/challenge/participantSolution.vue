@@ -90,6 +90,7 @@ import CommentExpert from "~/components/molecules/commentForExpert.vue";
 import AddTeamFeedBack from "~/components/organisms/startup/addTeamFeedback.vue";
 import { Directions } from "~/models/Directions";
 import { Badges } from "~/models/Badges";
+import { scrollToHeader } from "~/assets/jshelper/scrollToHeader.js";
 
 @Component({
   components: {
@@ -140,6 +141,10 @@ export default class extends Vue {
     }
 
     this.addFeedback = !this.addFeedback;
+  }
+
+  mounted() {
+    scrollToHeader();
   }
 }
 </script>

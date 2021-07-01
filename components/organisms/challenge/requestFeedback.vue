@@ -125,6 +125,7 @@ export default class extends Vue {
     this.existingSourseComponent = this.existingSourseComponent.filter(
       (item) => item.id !== i
     );
+    this.haveASolution = true;
   }
 
   chosenTechnologi(name, id) {
@@ -161,7 +162,6 @@ export default class extends Vue {
 
   async submit() {
     this.finishChallenge();
-    console.log(this.existingSourseComponent);
     this.existingSourseComponent.forEach((el) => {
       if (el.url !== undefined && el.title !== undefined) {
         this.haveASolution = true;
