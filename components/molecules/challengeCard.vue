@@ -1,29 +1,47 @@
 <template>
   <div class="challenge-card">
     <div class="challenge-card__header">
-      <div v-show="!isExpert" class="challenge-card__header-startup-state">
+      <div
+        v-show="!isExpert && card.status !== null && userIsAccept"
+        class="challenge-card__header-startup-state"
+      >
         <span
-          v-show="card.status !== null"
           :class="
-            card.status === 'in_progress'
+            card.status === 'in_progress '
               ? 'started'
-              : card.status === 'finished'
+              : card.status === 'finished '
               ? 'finished'
               : ''
           "
           >{{ card.status }}</span
         >
-        <!-- <span
+        <span
           :class="
-            !userIsAccept === 'in_progress'
-              ? 'started'
-              : userIsAccept === 'finished'
-              ? 'finished'
+            userAccepted
+              ? 'started ml-8'
+              : userFinishedChallenge
+              ? 'finished ml-8'
               : ''
           "
-          >{{ !userIsAccept ? "" : "finished" }}</span
-        > -->
+          >{{
+            userAccepted ? "started" : userFinishedChallenge ? "finished" : ""
+          }}</span
+        >
       </div>
+      <div
+        v-show="!isExpert && card.status === null && userIsAccept"
+        class="challenge-card__header-startup-state"
+      >
+        <span
+          :class="
+            userAccepted ? 'started' : userFinishedChallenge ? 'finished' : ''
+          "
+          >{{
+            userAccepted ? "started" : userFinishedChallenge ? "finished" : ""
+          }}</span
+        >
+      </div>
+
       <div
         v-if="isExpert && feedbackAsk !== 0"
         class="challenge-card__header-startup-state"
@@ -93,6 +111,7 @@ import { Challenge } from "../../models/Challenge";
 import UTags from "~/components/atoms/uTags.vue";
 import DifficultyLevel from "~/components/atoms/difficultyLevel.vue";
 import { AskFeedbacks } from "~/models/AskFeedbacks";
+import { userChallenges } from "~/models/UserChallenges";
 
 @Component({
   components: { UButton, UTags, DifficultyLevel },
@@ -103,13 +122,17 @@ export default class extends Vue {
   @Prop() userId: string;
   @Prop() isExpert: Boolean;
   @Prop() feedBackForChallenges: Array<AskFeedbacks>;
+  @Prop() userChallenges: Array<userChallenges>;
 
   userIsAccept = false;
   feedbackAsk = 0;
+  userAccepted = false;
+  userFinishedChallenge = false;
   mounted() {
     if (this.card.users && this.card.users.length !== 0) {
       this.card.users.forEach((el) => {
         if (+el.user === +this.userId || +el.user.id === +this.userId) {
+          console.log(el);
           this.userIsAccept = true;
         }
       });
@@ -121,6 +144,25 @@ export default class extends Vue {
           +el.creator.id !== +this.userId &&
           !el.feedbacks.some((item) => +item.expert.id === +this.userId)
       ).length;
+    }
+    if (
+      this.userChallenges.length !== 0 &&
+      this.userChallenges.some((el) => +el.challenge.id === +this.card.id) &&
+      !this.feedBackForChallenges.some(
+        (el) =>
+          +el.challenge.id === +this.card.id && +el.creator.id === +this.userId
+      )
+    ) {
+      this.userAccepted = true;
+    }
+    if (
+      this.feedBackForChallenges &&
+      this.feedBackForChallenges.some(
+        (el) =>
+          +el.challenge.id === +this.card.id && +el.creator.id === +this.userId
+      )
+    ) {
+      this.userFinishedChallenge = true;
     }
   }
 }
@@ -191,6 +233,9 @@ export default class extends Vue {
             0 2px 8px rgba(234, 244, 44, 0.3),
             inset 0 -2px 4px 1px rgba(117, 122, 14, 0.15),
             inset 0 1px 4px rgba(255, 255, 255, 0.15);
+        }
+        &.ml-8 {
+          margin-left: 8px;
         }
       }
     }

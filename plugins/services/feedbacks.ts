@@ -450,6 +450,7 @@ export function askFeedbacksForChallenges($strapi: Strapi) {
     id
     challenge {
       id
+      title
     }
     creator{
       id

@@ -70,6 +70,7 @@
         :card="card"
         :user-id="userId"
         :is-expert="isExpert"
+        :user-challenges="userChallenges"
         :feed-back-for-challenges="feedBackForChallenges"
       ></ChallengeCard>
     </div>
@@ -92,6 +93,7 @@ import UTags from "~/components/atoms/uTags.vue";
 import { Challenge } from "~/models/Challenge";
 import { Specialisation } from "~/models/Specialisation";
 import { AskFeedbacks } from "~/models/AskFeedbacks";
+import { userChallenges } from "~/models/UserChallenges";
 import UButton from "~/components/atoms/uButton.vue";
 import EmptyState from "~/components/molecules/emptyState.vue";
 
@@ -108,6 +110,8 @@ import EmptyState from "~/components/molecules/emptyState.vue";
 export default class extends Vue {
   @Prop()
   challenges: Array<Challenge>;
+
+  @Prop() userChallenges: Array<userChallenges>;
 
   @Prop() feedBackForChallenges: Array<AskFeedbacks>;
   @Prop() isExpert: Boolean;
