@@ -364,17 +364,18 @@ export function deleteDraft($strapi: Strapi) {
   };
 }
 export function updateStateStartup($strapi: Strapi) {
-  return async (id: string, state: string) => {
+  return async (id: string, state: string, date: string) => {
     const data = await $strapi.graphql({
       query: `mutation {
         updateStartup (
           input: {
           where: {id: "${id}" }
-          data: {state: ${state}}
+          data: {state: ${state}, start_date:"${date}"}
          }
          ) {
           startup{
-            id  
+            id 
+            start_date
             }
           }
         }`,

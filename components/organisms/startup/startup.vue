@@ -46,6 +46,7 @@
       @clikOnButton="toggleEditTeam"
       @advancedAccess="advancedAccess"
       @defaultAccess="accept"
+      @saveEditTeam="saveEditTeam"
     ></EditTeam>
     <EditSources
       v-show="editSources"
@@ -192,7 +193,7 @@
 
         <div v-if="isOwner && !finished" class="owner-menu">
           <ul class="owner-menu__list">
-            <li class="owner-menu__item">
+            <li v-if="!review" class="owner-menu__item">
               <button
                 v-if="!isStarted"
                 type="button"
@@ -216,7 +217,7 @@
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
               </button>
             </li>
-            <li class="owner-menu__item">
+            <li v-if="!review" class="owner-menu__item">
               <button
                 v-if="!isStarted"
                 type="button"
@@ -551,6 +552,7 @@ export default class extends Vue {
   popupDeleteOrStartStartup = false;
   popupGuide = false;
   finished = false;
+  review = false;
   requestToTeam = false;
   newFeedBack = false;
   requestFeedBack = false;
@@ -658,6 +660,8 @@ export default class extends Vue {
       this.isStarted = true;
     } else if (this.startup.state === "finished") {
       this.finished = true;
+    } else if (this.startup.state === "review") {
+      this.review = true;
     }
 
     this.startup.positions.forEach((item) => {
@@ -819,12 +823,15 @@ export default class extends Vue {
 
   async startStartup(state) {
     this.loading = true;
+    const date = new Date().toISOString();
     try {
       const updateStartup = await this.$updateStateStartup(
         this.startup.id,
-        state
+        state,
+        date
       );
       if (+this.startup.id === +updateStartup.id) {
+        console.log(updateStartup);
         const startup = await this.$startupById(this.startup.id);
         if (startup !== null) {
           this.updatableDataStartup = startup;
@@ -908,6 +915,28 @@ export default class extends Vue {
         duration: 3000,
       });
       this.loading = false;
+    }
+  }
+
+  async saveEditTeam() {
+    try {
+      const startup = await this.$startupById(this.startup.id);
+      if (startup !== null) {
+        this.updatableDataStartup = startup;
+        this.openPosition = this.updatableDataStartup.positions.filter(
+          (position) => position.status === "open"
+        );
+        this.staffedPosition = this.updatableDataStartup.positions.filter(
+          (position) => position.status === "staffed"
+        );
+
+        this.toggleEditTeam();
+        scrollToHeader();
+      }
+    } catch (e) {
+      console.error(e);
+      this.toggleEditTeam();
+      scrollToHeader();
     }
   }
 

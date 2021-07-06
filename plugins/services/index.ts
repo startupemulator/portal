@@ -293,7 +293,11 @@ export interface Services {
   ): Promise<Partial<Startup>[]>;
   $finishStartup(id: string): Promise<Partial<Startup>[]>;
 
-  $updateStateStartup(id: string, state: string): Promise<Partial<Startup>[]>;
+  $updateStateStartup(
+    id: string,
+    state: string,
+    date: string
+  ): Promise<Partial<Startup>[]>;
 
   $filterStartup(id: Array<string>): Promise<Partial<Startup>>;
   $testimonials(): Promise<Partial<Testimonial>[]>;
