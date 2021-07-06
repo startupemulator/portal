@@ -192,7 +192,7 @@
 
         <div v-if="isOwner && !finished" class="owner-menu">
           <ul class="owner-menu__list">
-            <li class="owner-menu__item">
+            <li v-if="!review" class="owner-menu__item">
               <button
                 v-if="!isStarted"
                 type="button"
@@ -216,7 +216,7 @@
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
               </button>
             </li>
-            <li class="owner-menu__item">
+            <li v-if="!review" class="owner-menu__item">
               <button
                 v-if="!isStarted"
                 type="button"
@@ -551,6 +551,7 @@ export default class extends Vue {
   popupDeleteOrStartStartup = false;
   popupGuide = false;
   finished = false;
+  review = false;
   requestToTeam = false;
   newFeedBack = false;
   requestFeedBack = false;
@@ -658,7 +659,10 @@ export default class extends Vue {
       this.isStarted = true;
     } else if (this.startup.state === "finished") {
       this.finished = true;
+    } else if (this.startup.state === "review") {
+      this.review = true;
     }
+    console.log(this.startup.state);
 
     this.startup.positions.forEach((item) => {
       if (
