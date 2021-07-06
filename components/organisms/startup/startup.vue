@@ -819,12 +819,15 @@ export default class extends Vue {
 
   async startStartup(state) {
     this.loading = true;
+    const date = new Date().toISOString();
     try {
       const updateStartup = await this.$updateStateStartup(
         this.startup.id,
-        state
+        state,
+        date
       );
       if (+this.startup.id === +updateStartup.id) {
+        console.log(updateStartup);
         const startup = await this.$startupById(this.startup.id);
         if (startup !== null) {
           this.updatableDataStartup = startup;
