@@ -97,6 +97,7 @@ export function startup($strapi: Strapi) {
             technologies{
               id
               title
+              is_public
             }
           }
           owner {
@@ -483,10 +484,95 @@ export function updateStartupInfo($strapi: Strapi) {
          }
          ) {
           startup {
+            id
+          title
+          slug
+          description
+          start_date
+          duration
+          state
+          positions {
+            id
+            sort
+            status
+            applications{
               id
-            
+              status
+              decline_reason
+              user {
+                id
+                username
+                email
+                profile{
+                  id 
+                  technologies{
+                    id
+                    title
+                  }
+                  experience{
+                    id 
+                    title
+                  }
+                } 
+              }
+
             }
+            specialisation {
+              id
+              title
+            }
+            technologies{
+              id
+              title
+            }
+          }
+          owner {
+            id
+            profile{
+              name
+              slug
+            }
+            
+            username
+            invites{
+              id
+              email
+              position{
+                id
+                startup{
+                  id
+                }
+                specialisation{
+                  id
+                  title
+                }
+              }
+
+            }
+          }
+          technologies {
+            id
+            title
+          }
+          sources{
+            id 
+            title
+            link
+            startups{
+              id
+            }
+          }
+          secrets{
+            id
+            title
+            description
+            startup{
+              id
+            }
+          }
+          
         }
+      } 
       }`,
     });
     return data.updateStartup ? data.updateStartup.startup : null;

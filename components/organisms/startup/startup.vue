@@ -11,7 +11,7 @@
     ></RequestToTeam>
     <NewFeedBack
       v-show="newFeedBack"
-      :key="updateKey + Math.floor(Math.random() * 10000)"
+      :key="updateKey + 'new-feedback'"
       :feedbacks="newFeedbacksData"
       :user-id="userId"
       :is-expert="isExpert"
@@ -315,7 +315,7 @@
           <h3>Open positions</h3>
           <Open-position-card
             v-for="item in openPosition"
-            :key="item.id + Math.floor(Math.random() * 10000)"
+            :key="item.id + 'open-position'"
             :position="item"
             :is-expert="isExpert"
             :slug="updatableDataStartup.slug"
@@ -333,7 +333,7 @@
           <div v-if="teamMember.length > 0" class="team">
             <ProjectParticipant
               v-for="item in teamMember"
-              :key="item.id + Math.floor(Math.random() * 10000)"
+              :key="item.id + 'project-participant'"
               :position="item.specialisation.title"
               :username="item.applications"
             ></ProjectParticipant>
@@ -370,7 +370,7 @@
 
           <FeedBackCard
             v-for="feedback in updatableFeedbacks.slice(0, maxLengthActivity)"
-            :key="feedback.id + Math.floor(Math.random() * 10000)"
+            :key="feedback.id + 'feedback'"
             :feedback="feedback"
             :is-expert="isExpert"
             :user-id="userId"
@@ -487,6 +487,7 @@ import { AskFeedbacks } from "~/models/AskFeedbacks";
 import { Directions } from "~/models/Directions";
 import { Badges } from "~/models/Badges";
 import { Releases } from "~/models/Releases";
+import { scrollToHeader } from "~/assets/jshelper/scrollToHeader.js";
 @Component({
   components: {
     UBack,
@@ -894,7 +895,11 @@ export default class extends Vue {
           duration: 3000,
           success: true,
         });
+        this.updatableDataStartup = updateStartup;
         this.loading = false;
+        this.toggleEditStartupInfo();
+
+        scrollToHeader();
       }
     } catch (e) {
       console.error(e);

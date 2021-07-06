@@ -4,7 +4,7 @@
     <form ref="technologyList">
       <u-tags
         v-for="item in technologies"
-        :id="item.id + '-used_technology'"
+        :id="`${item.id}-used_technology-${unique}`"
         :key="item.id"
         :title="item.title"
         @pick="pickTechnology($event, item.id, item.title)"
@@ -35,6 +35,7 @@ export default class extends Vue {
   @Prop({ default: true }) addTechnology: Boolean;
   @Prop() technologies: Array<Technology>;
   @Prop() choosenTechnologies: Array<any>;
+  @Prop() unique: string;
   chosenTechnology: Array<any>;
   pickTechnology(item, id) {
     const pickeTechnology = item.target.parentNode.classList;

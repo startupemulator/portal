@@ -93,6 +93,7 @@
               <TechnologyPicker
                 :choosen-technologies="checkedTechnologies"
                 :technologies="technologies"
+                :unique="name"
                 @chosenTechnologi="chosenTechnologi"
                 @addTechnologies="addTechnologies"
               ></TechnologyPicker>
