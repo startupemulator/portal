@@ -4,7 +4,7 @@
     <form ref="technologyList">
       <u-tags
         v-for="item in technologies"
-        :id="`${item.id}-used_technology-${unique}`"
+        :id="`${item.id}-used_technology-${uniqueId}`"
         :key="item.id"
         :title="item.title"
         @pick="pickTechnology($event, item.id, item.title)"
