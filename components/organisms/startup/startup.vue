@@ -53,6 +53,7 @@
       :sources="updatableDataStartup.sources"
       :startup-id="moveAwayStartup"
       @clikOnButton="toggleEditSources"
+      @saveSources="saveSources"
     ></EditSources>
     <EditGuide
       v-show="editGuide"
@@ -936,6 +937,21 @@ export default class extends Vue {
     } catch (e) {
       console.error(e);
       this.toggleEditTeam();
+      scrollToHeader();
+    }
+  }
+
+  async saveSources() {
+    try {
+      const startup = await this.$startupById(this.startup.id);
+      if (startup !== null) {
+        this.updatableDataStartup = startup;
+        this.toggleEditSources();
+        scrollToHeader();
+      }
+    } catch (e) {
+      console.error(e);
+      this.toggleEditSources();
       scrollToHeader();
     }
   }
