@@ -37,7 +37,6 @@ export default class extends Vue {
 
   @Watch("duration")
   changeDuration() {
-    // this.addData = [];
     this.addData.push({ id: this.addData.length, name: this.duration });
   }
 

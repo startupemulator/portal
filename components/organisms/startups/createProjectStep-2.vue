@@ -105,7 +105,6 @@ export default class extends Vue {
 
   async addchosenTechnologies(data, i, id) {
     try {
-      console.log(data);
       await this.$updatePosition(id, data[0].id, data[0].specialisation);
       this.specialityComponent[i].technologies = data[0].technologies;
       this.specialityComponent[i].technologiesId = data[0].id;

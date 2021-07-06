@@ -224,58 +224,7 @@ export default class extends Vue {
       this.newTechnologies.map((el) => el.id)
     );
     this.savespecialization();
-
     this.closeTechnologiPicker();
-    // if (
-    //   this.newTechnologies.length === 0 &&
-    //   this.pickedTechnologyId.length === 0
-    // ) {
-    //   this.closeTechnologiPicker();
-    // } else {
-    //   console.log();
-    //   console.log(this.newTechnologies);
-    //   console.log(this.pickedTechnologyId);
-    // }
-    // else if (
-    //   this.newTechnologies.length !== 0 &&
-    //   this.pickedTechnologyId.length !== 0
-    // ) {
-    //   this.pickedTechnologyId = this.pickedTechnologyId.concat(
-    //     this.newTechnologies.map((el) => el.id)
-    //   );
-    //   // this.pickedTechnology = обновляй это
-    //   console.log(this.newTechnologies);
-    //   this.pickedTechnology = this.chosenTechnologies.concat(
-    //     this.newTechnologies.map((el) => el.title)
-    //   );
-    //   this.savespecialization();
-    //   this.closeTechnologiPicker();
-    //   console.log("и то и то изменилось");
-    // }
-    // else if (this.newTechnologies.length !== 0) {
-    //   this.pickedTechnologyId = this.pickedTechnology
-    //     .filter((el) => el.is_public)
-    //     .concat(this.newTechnologies)
-    //     .map((el) => el.id);
-    //   this.savespecialization();
-    //   this.closeTechnologiPicker();
-    //   console.log("новые технологии изменилось");
-    //   this.cahngeViewtechnologies();
-    // } else if (this.pickedTechnologyId.length !== 0) {
-    // this.pickedTechnology = обновляй это
-    //   this.pickedTechnologyId.concat(this.newTechnologies.map((el) => el.id));
-    //   this.savespecialization();
-    //   this.closeTechnologiPicker();
-
-    //   console.log("обычные технологии изменилось");
-    //   this.cahngeViewtechnologies();
-    // }
-  }
-
-  cahngeViewtechnologies() {
-    this.pickedTechnology = this.chosenTechnologies.concat(
-      this.newTechnologies.map((el) => el.title)
-    );
   }
 
   closeTechnologiPicker() {
