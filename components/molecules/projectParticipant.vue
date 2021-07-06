@@ -19,7 +19,7 @@
     <div class="project-participant_technologies">
       <UTags
         v-for="technology in technologies"
-        :key="technology.id + '-' + Math.floor(Math.random() * 10000)"
+        :key="technology.id + '-' + 'participant-technologies'"
         :technologi-id="technology.id"
         :title="technology.title"
       ></UTags>

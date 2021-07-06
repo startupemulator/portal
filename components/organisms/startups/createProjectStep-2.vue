@@ -14,6 +14,7 @@
       :class="'speciality-content'"
       :name="'Speciality ' + (i + 1)"
       :picker="true"
+      :creator="startupData.owner.id"
       :specialisations="specialisations"
       :speciality-from-parent="[item.speciality, item.speciality_id]"
       :checked-technologies="item.technologies"
