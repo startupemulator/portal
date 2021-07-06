@@ -4,7 +4,7 @@
     <form ref="technologyList">
       <u-tags
         v-for="item in technologies"
-        :id="item.id + '-used_technology'"
+        :id="item.id + '-' + uniqueId"
         :key="item.id"
         :title="item.title"
         @pick="pickTechnology($event, item.id, item.title)"
@@ -17,8 +17,10 @@
       v-if="addTechnology"
       :placeholder="'Type a technology to add'"
       :length="12"
+      :before-created-technologies="choosenTechnologies"
       :title="false"
       @add="$emit('addTechnologies', $event)"
+      @removeTechnology="$emit('removeTechnology', $event)"
     ></Add-input>
   </div>
 </template>
@@ -35,6 +37,8 @@ export default class extends Vue {
   @Prop({ default: true }) addTechnology: Boolean;
   @Prop() technologies: Array<Technology>;
   @Prop() choosenTechnologies: Array<any>;
+  @Prop() uniqueId: string;
+  beforeCreatedTechnologies: Array<Technology> = [];
   chosenTechnology: Array<any>;
   pickTechnology(item, id) {
     const pickeTechnology = item.target.parentNode.classList;
@@ -69,7 +73,11 @@ export default class extends Vue {
   mounted() {
     if (this.choosenTechnologies) {
       this.$refs.technologyList.forEach((el) => {
-        if (this.choosenTechnologies.some((item) => item.id === el.id)) {
+        if (
+          this.choosenTechnologies.some(
+            (item) => item.id === el.id.split("-")[0]
+          )
+        ) {
           el.parentElement.classList.add("checked");
         }
       });

@@ -95,15 +95,16 @@
         </div>
       </div>
     </form>
-    <popup-email-link
+    <PopupEmailLink
       v-if="popupEmailLink"
       @closePopupLinkEmail="showPopupEmailLink"
       @openPopupLinkSent="showPopupLinkSent"
-    ></popup-email-link>
-    <signing-up-link-sent
+    ></PopupEmailLink>
+    <SigningUpLinkSent
       v-if="popupSignUpLink"
       @closePopupLinkSent="showPopupLinkSent"
-    ></signing-up-link-sent>
+    ></SigningUpLinkSent>
+    <ConfirmEmail v-if="popupConfirmEmail"></ConfirmEmail>
   </div>
 </template>
 <script lang="ts">
@@ -117,6 +118,7 @@ import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UInput from "~/components/atoms/uInput.vue";
 import UButton from "~/components/atoms/uButton.vue";
+import ConfirmEmail from "~/components/molecules/popupConfirmEmail.vue";
 import {
   disableScrolling,
   enableScrolling,
@@ -146,6 +148,7 @@ import {
     PopupEmailLink,
     SigningUpLinkSent,
     SystemAlert,
+    ConfirmEmail,
   },
 })
 export default class CreateAccount extends Vue {
@@ -156,6 +159,7 @@ export default class CreateAccount extends Vue {
   error = "";
   popupEmailLink = false;
   popupSignUpLink = false;
+  popupConfirmEmail = false;
 
   async register() {
     this.$v.$touch();
@@ -164,7 +168,7 @@ export default class CreateAccount extends Vue {
         await this.$createUser(this.email, this.name, this.password);
 
         this.error = "";
-        this.$nuxt.$router.push("/");
+        this.popupConfirmEmail = true;
       } catch (e) {
         Toast.show({
           data: e.message,

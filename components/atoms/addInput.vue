@@ -22,20 +22,22 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "nuxt-property-decorator";
-
+import { Technology } from "~/models/Technology";
 @Component({})
 export default class extends Vue {
   @Prop() placeholder: String;
   @Prop({ default: 9999 }) length: Number;
   @Prop() duration!: String;
   @Prop({ default: true }) title: Boolean;
+  @Prop() beforeCreatedTechnologies!: Array<Technology>;
   addData: Array<any> = [];
+
   inputedtext: String = "";
   focused: Boolean = false;
 
   @Watch("duration")
   changeDuration() {
-    this.addData = [];
+    // this.addData = [];
     this.addData.push({ id: this.addData.length, name: this.duration });
   }
 
@@ -47,9 +49,10 @@ export default class extends Vue {
       this.addData.length < this.length
     ) {
       this.addData.push({ id: this.addData.length, name: srt });
+
       this.inputedtext = "";
 
-      this.$emit("add", this.addData);
+      this.$emit("add", srt);
     }
   }
 
@@ -63,12 +66,21 @@ export default class extends Vue {
         this.addData.splice(i, 1);
       }
     });
-    this.$emit("add", this.addData);
+    this.$emit("removeTechnology", this.addData);
   }
 
   mounted() {
     if (this.duration) {
       this.addData.push({ id: this.addData.length, name: this.duration });
+    }
+
+    if (this.beforeCreatedTechnologies) {
+      const createdTechnologies = this.beforeCreatedTechnologies.filter(
+        (el) => !el.is_public
+      );
+      createdTechnologies.forEach((el) =>
+        this.addData.push({ id: el.id, name: el.title })
+      );
     }
   }
 }

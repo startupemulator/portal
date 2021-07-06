@@ -93,8 +93,10 @@
               <TechnologyPicker
                 :choosen-technologies="checkedTechnologies"
                 :technologies="technologies"
+                :unique-id="name"
                 @chosenTechnologi="chosenTechnologi"
                 @addTechnologies="addTechnologies"
+                @removeTechnology="removeTechnology"
               ></TechnologyPicker>
             </div>
           </div>
@@ -161,7 +163,7 @@ export default class extends Vue {
   @Prop({ default: "" }) picker: Boolean;
   @Prop({ default: "Select a speciality" }) specialityFromParent!: String;
   @Prop() specialisations: Array<Specialisation>;
-
+  @Prop() creator: number;
   data() {
     return {
       openSpeciality: false,
@@ -182,8 +184,22 @@ export default class extends Vue {
     this.chosenTechnologies = chosenTechnologies;
   }
 
-  addTechnologies(data) {
-    this.newTechnologies = data.map((el) => el.name);
+  async addTechnologies(technology) {
+    try {
+      const newTechnology = await this.$createTechnologies(
+        this.creator,
+        technology
+      );
+      if (newTechnology !== null) {
+        this.newTechnologies.push(newTechnology);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  removeTechnology(data) {
+    this.newTechnologies = data;
   }
 
   chosespeciality(e, id) {
@@ -201,22 +217,81 @@ export default class extends Vue {
   }
 
   savePopupPickTechnologies() {
-    this.pickedTechnology = this.chosenTechnologies;
+    this.pickedTechnology = this.chosenTechnologies.concat(
+      this.newTechnologies.map((el) => (el.title ? el.title : el.name))
+    );
+    this.pickedTechnologyId = this.pickedTechnologyId.concat(
+      this.newTechnologies.map((el) => el.id)
+    );
+    this.savespecialization();
 
-    this.newTechnologies.forEach((el) => {
-      this.pickedTechnology.push(el);
-    });
+    this.closeTechnologiPicker();
+    // if (
+    //   this.newTechnologies.length === 0 &&
+    //   this.pickedTechnologyId.length === 0
+    // ) {
+    //   this.closeTechnologiPicker();
+    // } else {
+    //   console.log();
+    //   console.log(this.newTechnologies);
+    //   console.log(this.pickedTechnologyId);
+    // }
+    // else if (
+    //   this.newTechnologies.length !== 0 &&
+    //   this.pickedTechnologyId.length !== 0
+    // ) {
+    //   this.pickedTechnologyId = this.pickedTechnologyId.concat(
+    //     this.newTechnologies.map((el) => el.id)
+    //   );
+    //   // this.pickedTechnology = обновляй это
+    //   console.log(this.newTechnologies);
+    //   this.pickedTechnology = this.chosenTechnologies.concat(
+    //     this.newTechnologies.map((el) => el.title)
+    //   );
+    //   this.savespecialization();
+    //   this.closeTechnologiPicker();
+    //   console.log("и то и то изменилось");
+    // }
+    // else if (this.newTechnologies.length !== 0) {
+    //   this.pickedTechnologyId = this.pickedTechnology
+    //     .filter((el) => el.is_public)
+    //     .concat(this.newTechnologies)
+    //     .map((el) => el.id);
+    //   this.savespecialization();
+    //   this.closeTechnologiPicker();
+    //   console.log("новые технологии изменилось");
+    //   this.cahngeViewtechnologies();
+    // } else if (this.pickedTechnologyId.length !== 0) {
+    // this.pickedTechnology = обновляй это
+    //   this.pickedTechnologyId.concat(this.newTechnologies.map((el) => el.id));
+    //   this.savespecialization();
+    //   this.closeTechnologiPicker();
 
+    //   console.log("обычные технологии изменилось");
+    //   this.cahngeViewtechnologies();
+    // }
+  }
+
+  cahngeViewtechnologies() {
+    this.pickedTechnology = this.chosenTechnologies.concat(
+      this.newTechnologies.map((el) => el.title)
+    );
+  }
+
+  closeTechnologiPicker() {
+    this.popupPickTechnology = !this.popupPickTechnology;
+    this.popupPickTechnology ? disableScrolling() : enableScrolling();
+  }
+
+  savespecialization() {
     this.$emit("chosenTechnologies", [
       {
-        technologies: this.pickedTechnology,
+        technologies: this.pickedTechnology.map((el) => el.title),
         newTechnologies: this.newTechnologies,
         id: this.pickedTechnologyId,
         specialisation: this.specialityId || this.specialityFromParent[1],
       },
     ]);
-    this.popupPickTechnology = !this.popupPickTechnology;
-    this.popupPickTechnology ? disableScrolling() : enableScrolling();
   }
 
   mychosentechnology(pickedTechnology) {
@@ -232,6 +307,16 @@ export default class extends Vue {
   mounted() {
     if (this.checkedTechnologies) {
       this.pickedTechnology = this.checkedTechnologies;
+      this.newTechnologies = this.checkedTechnologies.filter(
+        (el) => !el.is_public
+      );
+      this.chosenTechnologies = this.checkedTechnologies
+        .filter((el) => el.is_public)
+        .map((el) => el.title);
+
+      this.pickedTechnologyId = this.checkedTechnologies
+        .filter((el) => el.is_public)
+        .map((el) => el.id);
     }
   }
 }

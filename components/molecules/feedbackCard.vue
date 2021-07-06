@@ -77,7 +77,7 @@
                 <li class="criterion-star">
                   <svg
                     v-for="(item, j) in 5"
-                    :key="j + Math.floor(Math.random() * 10000)"
+                    :key="j + 'criterion-star'"
                     :class="criterion.mark > j ? 'active' : ''"
                     width="16"
                     height="16"
@@ -102,7 +102,7 @@
             <div class="feedbacks_badges">
               <img
                 v-for="badge in feedback.badges"
-                :key="badge.id + Math.floor(Math.random() * 10000)"
+                :key="badge.id + 'badges'"
                 :src="badge.image[0].url"
                 :alt="badge.title"
               />
