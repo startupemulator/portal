@@ -40,6 +40,7 @@ export function createTechnologies($strapi: Strapi) {
           }
         ) {
             technology {
+              id
               creator_id
               title
             }
@@ -47,6 +48,6 @@ export function createTechnologies($strapi: Strapi) {
   }
 }`,
     });
-    return data.technologies ? data.technologies : null;
+    return data.createTechnology ? data.createTechnology.technology : null;
   };
 }

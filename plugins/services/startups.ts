@@ -97,6 +97,7 @@ export function startup($strapi: Strapi) {
             technologies{
               id
               title
+              is_public
             }
           }
           owner {
