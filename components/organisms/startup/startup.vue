@@ -53,6 +53,7 @@
       :sources="updatableDataStartup.sources"
       :startup-id="moveAwayStartup"
       @clikOnButton="toggleEditSources"
+      @saveSources="saveSources"
     ></EditSources>
     <EditGuide
       v-show="editGuide"
@@ -202,7 +203,11 @@
                 <span
                   >Requests to Team
                   <div class="owner-menu__item--message">
-                    <span>{{ applications.length }}</span>
+                    <span>{{
+                      updatableDataApplications.filter(
+                        (el) => el.status === "waiting"
+                      ).length
+                    }}</span>
                   </div></span
                 >
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
@@ -334,7 +339,7 @@
           <div v-if="teamMember.length > 0" class="team">
             <ProjectParticipant
               v-for="item in teamMember"
-              :key="item.id + 'project-participant'"
+              :key="item.id + 'project-participant' + updateKey"
               :position="item.specialisation.title"
               :username="item.applications"
             ></ProjectParticipant>
@@ -718,6 +723,8 @@ export default class extends Vue {
           } else if (this.startup.state === "finished") {
             return (this.finished = true);
           }
+          this.changeTeam(startup);
+          console.log(this.teamMember);
 
           this.openPosition = this.startup.positions.filter(
             (position) => position.status === "open"
@@ -762,11 +769,13 @@ export default class extends Vue {
         );
         if (startup !== null) {
           this.updatableDataStartup = startup;
+          this.changeTeam(startup);
+
+          console.log(this.teamMember);
         }
         if (applications !== null) {
           this.updatableDataApplications = applications;
         }
-
         this.loading = false;
         this.updateKey += 1;
       } else {
@@ -797,6 +806,9 @@ export default class extends Vue {
         );
         if (startup !== null) {
           this.updatableDataStartup = startup;
+          this.changeTeam(startup);
+
+          console.log(this.teamMember);
         }
         if (applications !== null) {
           this.updatableDataApplications = applications;
@@ -819,6 +831,19 @@ export default class extends Vue {
       });
       this.loading = false;
     }
+  }
+
+  changeTeam(startup) {
+    this.teamMember = [];
+    startup.positions.forEach((item) => {
+      if (
+        item.applications.some(
+          (el) => el.status === "accepted" || el.status === "advanced"
+        )
+      ) {
+        this.teamMember.push(item);
+      }
+    });
   }
 
   async startStartup(state) {
@@ -936,6 +961,21 @@ export default class extends Vue {
     } catch (e) {
       console.error(e);
       this.toggleEditTeam();
+      scrollToHeader();
+    }
+  }
+
+  async saveSources() {
+    try {
+      const startup = await this.$startupById(this.startup.id);
+      if (startup !== null) {
+        this.updatableDataStartup = startup;
+        this.toggleEditSources();
+        scrollToHeader();
+      }
+    } catch (e) {
+      console.error(e);
+      this.toggleEditSources();
       scrollToHeader();
     }
   }
