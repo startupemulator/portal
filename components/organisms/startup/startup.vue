@@ -487,6 +487,7 @@ import { AskFeedbacks } from "~/models/AskFeedbacks";
 import { Directions } from "~/models/Directions";
 import { Badges } from "~/models/Badges";
 import { Releases } from "~/models/Releases";
+import { scrollToHeader } from "~/assets/jshelper/scrollToHeader.js";
 @Component({
   components: {
     UBack,
@@ -894,7 +895,11 @@ export default class extends Vue {
           duration: 3000,
           success: true,
         });
+        this.updatableDataStartup = updateStartup;
         this.loading = false;
+        this.toggleEditStartupInfo();
+
+        scrollToHeader();
       }
     } catch (e) {
       console.error(e);
