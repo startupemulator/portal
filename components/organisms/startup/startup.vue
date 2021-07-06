@@ -46,6 +46,7 @@
       @clikOnButton="toggleEditTeam"
       @advancedAccess="advancedAccess"
       @defaultAccess="accept"
+      @saveEditTeam="saveEditTeam"
     ></EditTeam>
     <EditSources
       v-show="editSources"
@@ -662,7 +663,6 @@ export default class extends Vue {
     } else if (this.startup.state === "review") {
       this.review = true;
     }
-    console.log(this.startup.state);
 
     this.startup.positions.forEach((item) => {
       if (
@@ -915,6 +915,28 @@ export default class extends Vue {
         duration: 3000,
       });
       this.loading = false;
+    }
+  }
+
+  async saveEditTeam() {
+    try {
+      const startup = await this.$startupById(this.startup.id);
+      if (startup !== null) {
+        this.updatableDataStartup = startup;
+        this.openPosition = this.updatableDataStartup.positions.filter(
+          (position) => position.status === "open"
+        );
+        this.staffedPosition = this.updatableDataStartup.positions.filter(
+          (position) => position.status === "staffed"
+        );
+
+        this.toggleEditTeam();
+        scrollToHeader();
+      }
+    } catch (e) {
+      console.error(e);
+      this.toggleEditTeam();
+      scrollToHeader();
     }
   }
 
