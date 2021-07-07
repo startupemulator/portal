@@ -669,6 +669,7 @@ export default class extends Vue {
 
   saveGuide() {
     this.toggleEditGuide();
+    scrollToHeader();
   }
 
   leveProject() {
@@ -960,6 +961,7 @@ export default class extends Vue {
 
   cancelEditStartupInfo() {
     this.toggleEditStartupInfo();
+    scrollToHeader();
   }
 
   async saveEditTeam() {
@@ -986,6 +988,7 @@ export default class extends Vue {
 
   cancelEditTeam() {
     this.toggleEditTeam();
+    scrollToHeader();
   }
 
   async saveSources() {
@@ -1005,6 +1008,7 @@ export default class extends Vue {
 
   cancelSources() {
     this.toggleEditSources();
+    scrollToHeader();
   }
 
   async updateFeedbacks() {
