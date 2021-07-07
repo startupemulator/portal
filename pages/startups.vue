@@ -1,7 +1,7 @@
 <template>
   <div v-cloak class="startups-page">
     <Spiner :loading="loading"></Spiner>
-
+    <!-- <pre style="color: #fff">{{ startupsList }} </pre> -->
     <Startups
       :key="updatableKey"
       :startups="startupsList"
@@ -55,8 +55,12 @@ export default class extends Vue {
       userProfile = await $profile($strapi.user.id);
     }
     let waitingFeedback = await $askFeedbacksForStartup();
+
     waitingFeedback = waitingFeedback.filter(
-      (v, i, a) => a.findIndex((t) => t.startup.id === v.startup.id) === i
+      (v, i, a) =>
+        a.findIndex(
+          (t) => t.startup.id === v.startup.id && t.startup.state !== "finished"
+        ) === i
     );
     return {
       startupsList,
@@ -76,13 +80,15 @@ export default class extends Vue {
     const startupListFiltredByPosition = [];
     this.stateForFilterStartupsByPositions.forEach((item) => {
       if (
+        item.state !== "finished" &&
         positionStatus === "open" &&
         item.positions.some((el) => el.status === positionStatus)
       ) {
         startupListFiltredByPosition.push(item);
       } else if (
-        positionStatus === "staffed" &&
-        item.positions.every((el) => el.status === positionStatus)
+        (item.state === "finished" && positionStatus === "staffed") ||
+        (positionStatus === "staffed" &&
+          item.positions.every((el) => el.status === positionStatus))
       ) {
         startupListFiltredByPosition.push(item);
       }

@@ -4,7 +4,7 @@
     <div v-show="!!card.state" class="startup-card__started">
       <div class="startup-card__started-state">
         <div
-          v-if="askFeedbacks == 0"
+          v-if="askFeedbacks === 0"
           class="startup-card__started-title"
           :class="
             card.state === 'in_progress'
@@ -19,7 +19,7 @@
           {{ card.state.split("_").join(" ") | capitalize }}
         </div>
         <div
-          v-if="+card.owner.id === +userId && askFeedbacks == 0"
+          v-if="+card.owner.id === +userId && askFeedbacks === 0"
           class="startup-card__started-title owner"
         >
           Owner
@@ -132,6 +132,7 @@ export default class StartupCard extends Vue {
   }
 
   mounted() {
+    console.log(this.waitingFeedback.some((el) => +el.id === +this.card.id));
     if (this.waitingFeedback.some((el) => +el.id === +this.card.id)) {
       this.checkAskFeedBack();
     }
