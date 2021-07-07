@@ -75,12 +75,14 @@
       :startup-id="startup.id"
       :releases="releases"
       @clikOnButton="toggleReleaseLikns"
+      @saveReleaseLinks="saveReleaseLinks"
     ></AddReleseLinks>
     <AddTeamFeedBack
       v-show="addTeamFeedBack"
+      :key="updateKey + 'addFeedback'"
       :title="feedBackTitle"
       :badges="badges"
-      :request-id="askFeedbacks ? askFeedbacks.id : null"
+      :request-id="askFeedbacks ? askFeedbacks[0].id : null"
       :expert-id="userId"
       :directions="directions"
       @clikOnButton="toggleAddTeamFeedBack"
@@ -149,7 +151,7 @@
             <p>{{ updatableDataStartup.duration }} days</p>
           </div>
         </div>
-        <div v-if="isDeveloper" class="applied-startup">
+        <div v-if="isDeveloper && !finished" class="applied-startup">
           <div v-if="!isStarted" class="applied-startup__not-started">
             <h4>
               You applied to this startup as a
@@ -290,7 +292,10 @@
             </li>
           </ul>
         </div>
-        <div v-if="finished" class="owner-menu">
+        <div
+          v-if="finished && (releases.length !== 0 || isOwner)"
+          class="owner-menu"
+        >
           <ul class="owner-menu__list">
             <li v-if="isOwner" class="owner-menu__item">
               <button type="button" @click="toggleReleaseLikns">
@@ -590,6 +595,13 @@ export default class extends Vue {
 
   toggleReleaseLikns() {
     this.releaseLikns = !this.releaseLikns;
+    scrollToHeader();
+  }
+
+  saveReleaseLinks() {
+    this.releaseLikns = !this.releaseLikns;
+    scrollToHeader();
+    this.$emit("saveReleaseLinks");
   }
 
   togglepopupLeaveProject() {
@@ -599,6 +611,8 @@ export default class extends Vue {
   toggleAddTeamFeedBack(title, feedbackId) {
     this.feedBackTitle = title;
     this.addTeamFeedBack = !this.addTeamFeedBack;
+    this.updateKey += 1;
+    scrollToHeader();
   }
 
   toggleAddTeamBadge(title, feedbackId) {
@@ -1032,6 +1046,7 @@ export default class extends Vue {
         this.feedbackFilterByPublickFlag(feedbacks);
         this.feedbackFilterByPrivateFlag(feedbacks);
       }
+
       this.loading = false;
     } catch (e) {
       console.error(e);
