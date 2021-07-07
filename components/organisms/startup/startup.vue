@@ -75,6 +75,7 @@
       :startup-id="startup.id"
       :releases="releases"
       @clikOnButton="toggleReleaseLikns"
+      @saveReleaseLinks="saveReleaseLinks"
     ></AddReleseLinks>
     <AddTeamFeedBack
       v-show="addTeamFeedBack"
@@ -150,7 +151,7 @@
             <p>{{ updatableDataStartup.duration }} days</p>
           </div>
         </div>
-        <div v-if="isDeveloper" class="applied-startup">
+        <div v-if="isDeveloper && !finished" class="applied-startup">
           <div v-if="!isStarted" class="applied-startup__not-started">
             <h4>
               You applied to this startup as a
@@ -291,7 +292,10 @@
             </li>
           </ul>
         </div>
-        <div v-if="finished" class="owner-menu">
+        <div
+          v-if="finished && (releases.length !== 0 || isOwner)"
+          class="owner-menu"
+        >
           <ul class="owner-menu__list">
             <li v-if="isOwner" class="owner-menu__item">
               <button type="button" @click="toggleReleaseLikns">
@@ -591,6 +595,12 @@ export default class extends Vue {
 
   toggleReleaseLikns() {
     this.releaseLikns = !this.releaseLikns;
+    scrollToHeader();
+  }
+
+  saveReleaseLinks() {
+    this.releaseLikns = !this.releaseLikns;
+    this.$emit("saveReleaseLinks");
   }
 
   togglepopupLeaveProject() {

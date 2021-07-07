@@ -71,13 +71,15 @@ export default class extends Vue {
         success: true,
       });
     }, 900);
+    this.$emit("saveReleaseLinks");
   }
 
   cancelReleases() {
+    this.$emit("clikOnButton");
     if (this.newsReleases.length !== 0) {
       this.loading = true;
       this.newsReleases.forEach((el) => {
-        this.removeExistingSources(el);
+        this.removeExistingReleases(el);
       });
     }
 
@@ -88,7 +90,7 @@ export default class extends Vue {
         duration: 1000,
         success: true,
       });
-    }, 900);
+    }, 100);
   }
 
   async addExistingReleases() {
@@ -112,6 +114,7 @@ export default class extends Vue {
   }
 
   textInput($event, i, id) {
+    console.log("efwe");
     switch ($event[1]) {
       case "name":
         this.updateReleases(id, $event[0], this.existingSourseComponent[i].url);

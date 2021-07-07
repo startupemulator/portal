@@ -21,6 +21,7 @@
       @deleteStartup="deleteStartup"
       @cancelApplication="cancelApplication"
       @leaveProject="leaveProject"
+      @saveReleaseLinks="updateReleaseLinks"
     ></StartupPage>
   </div>
 </template>
@@ -93,6 +94,17 @@ export default class TakeStartup extends Vue {
       releases,
       title,
     };
+  }
+
+  async updateReleaseLinks() {
+    try {
+      const releases = await this.$releases(this.startup.id);
+      if (releases !== null) {
+        this.releases = releases;
+      }
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   async cancelApplication() {
