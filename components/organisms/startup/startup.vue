@@ -600,6 +600,7 @@ export default class extends Vue {
 
   saveReleaseLinks() {
     this.releaseLikns = !this.releaseLikns;
+    scrollToHeader();
     this.$emit("saveReleaseLinks");
   }
 
