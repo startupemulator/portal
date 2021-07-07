@@ -75,6 +75,7 @@ export default class extends Vue {
         success: true,
       });
     }, 900);
+    this.$emit("saveGuide");
   }
 
   cancelSources() {
@@ -92,6 +93,7 @@ export default class extends Vue {
         success: true,
       });
     }, 900);
+    this.$emit("saveGuide");
   }
 
   async addGuideSourse() {

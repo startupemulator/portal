@@ -34,6 +34,7 @@
       :estimations="estimations"
       @updateStartup="updateStartup($event)"
       @clikOnButton="toggleEditStartupInfo"
+      @cancelEditStartupInfo="cancelEditStartupInfo"
     ></EditStartupInfo>
     <EditTeam
       v-show="editTeam"
@@ -47,6 +48,7 @@
       @advancedAccess="advancedAccess"
       @defaultAccess="accept"
       @saveEditTeam="saveEditTeam"
+      @cancelEditTeam="cancelEditTeam"
     ></EditTeam>
     <EditSources
       v-show="editSources"
@@ -54,12 +56,14 @@
       :startup-id="moveAwayStartup"
       @clikOnButton="toggleEditSources"
       @saveSources="saveSources"
+      @cancelSources="cancelSources"
     ></EditSources>
     <EditGuide
       v-show="editGuide"
       :secrets="updatableDataStartup.secrets"
       :startup-id="moveAwayStartup"
       @clikOnButton="toggleEditGuide"
+      @saveGuide="saveGuide"
     ></EditGuide>
     <FinishStartup
       v-show="finishStartup"
@@ -161,7 +165,7 @@
               <span>Show Guide</span>
               <img src="~/assets/img/arrow.svg" alt="arrow" />
             </button>
-            <button type="button" @click="leveProject">
+            <button type="button" @click="togglepopupLeaveProject">
               <span>Leave Project</span>
               <img src="~/assets/img/arrow.svg" alt="arrow" />
             </button>
@@ -336,7 +340,10 @@
             :username="updatableDataStartup.owner"
             :is-owner="true"
           ></ProjectParticipant>
-          <div v-if="teamMember.length > 0" class="team">
+          <div
+            v-if="teamMember.length > 0 && (isStarted || finished)"
+            class="team"
+          >
             <ProjectParticipant
               v-for="item in teamMember"
               :key="item.id + 'project-participant' + updateKey"
@@ -455,6 +462,11 @@
         @closePopup="togglePopupGuide"
       ></GuidePopup>
     </div>
+    <PopupLeaveProject
+      v-if="popupLeaveProject"
+      @closePopupLeaveproject="togglepopupLeaveProject"
+      @leveProject="leveProject"
+    ></PopupLeaveProject>
     <Spiner :loading="loading"></Spiner>
   </div>
 </template>
@@ -494,6 +506,7 @@ import { Directions } from "~/models/Directions";
 import { Badges } from "~/models/Badges";
 import { Releases } from "~/models/Releases";
 import { scrollToHeader } from "~/assets/jshelper/scrollToHeader.js";
+import PopupLeaveProject from "~/components/molecules/popupLeaveProject.vue";
 @Component({
   components: {
     UBack,
@@ -518,6 +531,7 @@ import { scrollToHeader } from "~/assets/jshelper/scrollToHeader.js";
     AddTeamBadge,
     CommentExpert,
     Spiner,
+    PopupLeaveProject,
   },
 })
 export default class extends Vue {
@@ -555,6 +569,7 @@ export default class extends Vue {
   feedbackIdForAddBadge = "";
   isStarted = false;
   popupDeleteOrStartStartup = false;
+  popupLeaveProject = false;
   popupGuide = false;
   finished = false;
   review = false;
@@ -575,6 +590,10 @@ export default class extends Vue {
 
   toggleReleaseLikns() {
     this.releaseLikns = !this.releaseLikns;
+  }
+
+  togglepopupLeaveProject() {
+    this.popupLeaveProject = !this.popupLeaveProject;
   }
 
   toggleAddTeamFeedBack(title, feedbackId) {
@@ -656,8 +675,18 @@ export default class extends Vue {
     this.popupGuide = !this.popupGuide;
   }
 
+  saveSourses() {
+    this.toggleEditGuide();
+  }
+
+  saveGuide() {
+    this.toggleEditGuide();
+    scrollToHeader();
+  }
+
   leveProject() {
     this.$emit("leaveProject");
+    this.$router.push("/startups");
   }
 
   mounted() {
@@ -943,6 +972,11 @@ export default class extends Vue {
     }
   }
 
+  cancelEditStartupInfo() {
+    this.toggleEditStartupInfo();
+    scrollToHeader();
+  }
+
   async saveEditTeam() {
     try {
       const startup = await this.$startupById(this.startup.id);
@@ -965,6 +999,11 @@ export default class extends Vue {
     }
   }
 
+  cancelEditTeam() {
+    this.toggleEditTeam();
+    scrollToHeader();
+  }
+
   async saveSources() {
     try {
       const startup = await this.$startupById(this.startup.id);
@@ -978,6 +1017,11 @@ export default class extends Vue {
       this.toggleEditSources();
       scrollToHeader();
     }
+  }
+
+  cancelSources() {
+    this.toggleEditSources();
+    scrollToHeader();
   }
 
   async updateFeedbacks() {
