@@ -336,7 +336,10 @@
             :username="updatableDataStartup.owner"
             :is-owner="true"
           ></ProjectParticipant>
-          <div v-if="teamMember.length > 0" class="team">
+          <div
+            v-if="teamMember.length > 0 && (isStarted || finished)"
+            class="team"
+          >
             <ProjectParticipant
               v-for="item in teamMember"
               :key="item.id + 'project-participant' + updateKey"
