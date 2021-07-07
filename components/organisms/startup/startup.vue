@@ -656,6 +656,10 @@ export default class extends Vue {
     this.popupGuide = !this.popupGuide;
   }
 
+  saveSourses() {
+    this.toggleEditGuide();
+  }
+
   leveProject() {
     this.$emit("leaveProject");
   }
