@@ -165,7 +165,7 @@
               <span>Show Guide</span>
               <img src="~/assets/img/arrow.svg" alt="arrow" />
             </button>
-            <button type="button" @click="leveProject">
+            <button type="button" @click="togglepopupLeaveProject">
               <span>Leave Project</span>
               <img src="~/assets/img/arrow.svg" alt="arrow" />
             </button>
@@ -462,6 +462,11 @@
         @closePopup="togglePopupGuide"
       ></GuidePopup>
     </div>
+    <PopupLeaveProject
+      v-if="popupLeaveProject"
+      @closePopupLeaveproject="togglepopupLeaveProject"
+      @leveProject="leveProject"
+    ></PopupLeaveProject>
     <Spiner :loading="loading"></Spiner>
   </div>
 </template>
@@ -501,6 +506,7 @@ import { Directions } from "~/models/Directions";
 import { Badges } from "~/models/Badges";
 import { Releases } from "~/models/Releases";
 import { scrollToHeader } from "~/assets/jshelper/scrollToHeader.js";
+import PopupLeaveProject from "~/components/molecules/popupLeaveProject.vue";
 @Component({
   components: {
     UBack,
@@ -525,6 +531,7 @@ import { scrollToHeader } from "~/assets/jshelper/scrollToHeader.js";
     AddTeamBadge,
     CommentExpert,
     Spiner,
+    PopupLeaveProject,
   },
 })
 export default class extends Vue {
@@ -562,6 +569,7 @@ export default class extends Vue {
   feedbackIdForAddBadge = "";
   isStarted = false;
   popupDeleteOrStartStartup = false;
+  popupLeaveProject = false;
   popupGuide = false;
   finished = false;
   review = false;
@@ -582,6 +590,10 @@ export default class extends Vue {
 
   toggleReleaseLikns() {
     this.releaseLikns = !this.releaseLikns;
+  }
+
+  togglepopupLeaveProject() {
+    this.popupLeaveProject = !this.popupLeaveProject;
   }
 
   toggleAddTeamFeedBack(title, feedbackId) {
@@ -674,6 +686,7 @@ export default class extends Vue {
 
   leveProject() {
     this.$emit("leaveProject");
+    this.$router.push("/startups");
   }
 
   mounted() {
