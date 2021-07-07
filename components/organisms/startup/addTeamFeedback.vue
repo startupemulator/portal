@@ -12,10 +12,19 @@
         :i="i"
         @markDirection="markDirection"
       ></Criterios>
+      <p v-show="$v.markedDirection.$error" class="errorInput">
+        Please choose mininum 1 criterions
+      </p>
       <div class="add-team-feedback__comment">
         <p>Comment</p>
-        <textarea v-model="comment" placeholder="Enter your comment"></textarea>
+        <textarea
+          v-model.trim="$v.comment.$model"
+          placeholder="Enter your comment"
+        ></textarea>
       </div>
+      <p v-show="$v.comment.$error" class="errorInput comment-error">
+        Please enter a comment of at least 10 characters
+      </p>
       <PickBadeg
         :title="'Pick a badge (Optional)'"
         :badges="badges"
@@ -40,6 +49,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 
+import { minLength, required } from "vuelidate/lib/validators";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
@@ -51,6 +61,16 @@ import Spiner from "~/components/molecules/spiner.vue";
 
 @Component({
   components: { UButton, UTitle, UBack, Criterios, PickBadeg, Spiner },
+  validations: {
+    markedDirection: {
+      required,
+      minLength: minLength(1),
+    },
+    comment: {
+      required,
+      minLength: minLength(10),
+    },
+  },
 })
 export default class extends Vue {
   @Prop({ default: "Add feedback" }) title: string;
@@ -104,6 +124,7 @@ export default class extends Vue {
 
   async createCriterions(el, id) {
     this.loading = true;
+
     try {
       const criterion = await this.$createCriterions(el.mark, el.id);
       if (criterion !== null) {
@@ -144,24 +165,30 @@ export default class extends Vue {
   }
 
   async createFeedback() {
-    this.markedDirection.forEach((el) => this.createdCriterions.push(el.keyId));
-
-    this.loading = true;
-    try {
-      const criterion = await this.$createFeedback(
-        this.expertId,
-        this.comment,
-        this.createdCriterions,
-        this.badge,
-        this.requestId
+    this.$v.$touch();
+    if (!this.$v.$error) {
+      this.markedDirection.forEach((el) =>
+        this.createdCriterions.push(el.keyId)
       );
-      if (criterion !== null) {
+
+      this.loading = true;
+
+      try {
+        const createFeedback = await this.$createFeedback(
+          this.expertId,
+          this.comment,
+          this.createdCriterions,
+          this.badge,
+          this.requestId
+        );
+        if (createFeedback !== null) {
+          this.loading = false;
+          this.$emit("clikOnButton");
+        }
+      } catch (e) {
+        console.error(e);
         this.loading = false;
-        this.$emit("updateFeedbacks");
       }
-    } catch (e) {
-      console.error(e);
-      this.loading = false;
     }
   }
 }
@@ -221,6 +248,9 @@ export default class extends Vue {
     .u-button-gray {
       margin-left: 16px;
     }
+  }
+  .errorInput.comment-error {
+    top: 0;
   }
 }
 @media (min-width: 768px) {

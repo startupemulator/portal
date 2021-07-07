@@ -1,6 +1,7 @@
 <template>
   <div class="startups-page">
     <Spiner :loading="loading"></Spiner>
+
     <StartupPage
       :startup="startup"
       :feedbacks="feedbacks"

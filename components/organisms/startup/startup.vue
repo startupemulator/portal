@@ -78,9 +78,10 @@
     ></AddReleseLinks>
     <AddTeamFeedBack
       v-show="addTeamFeedBack"
+      :key="updateKey + 'addFeedback'"
       :title="feedBackTitle"
       :badges="badges"
-      :request-id="askFeedbacks ? askFeedbacks.id : null"
+      :request-id="askFeedbacks ? askFeedbacks[0].id : null"
       :expert-id="userId"
       :directions="directions"
       @clikOnButton="toggleAddTeamFeedBack"
@@ -599,6 +600,8 @@ export default class extends Vue {
   toggleAddTeamFeedBack(title, feedbackId) {
     this.feedBackTitle = title;
     this.addTeamFeedBack = !this.addTeamFeedBack;
+    this.updateKey += 1;
+    scrollToHeader();
   }
 
   toggleAddTeamBadge(title, feedbackId) {
@@ -1032,6 +1035,7 @@ export default class extends Vue {
         this.feedbackFilterByPublickFlag(feedbacks);
         this.feedbackFilterByPrivateFlag(feedbacks);
       }
+
       this.loading = false;
     } catch (e) {
       console.error(e);
