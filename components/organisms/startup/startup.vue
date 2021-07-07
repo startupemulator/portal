@@ -34,6 +34,7 @@
       :estimations="estimations"
       @updateStartup="updateStartup($event)"
       @clikOnButton="toggleEditStartupInfo"
+      @cancelEditStartupInfo="cancelEditStartupInfo"
     ></EditStartupInfo>
     <EditTeam
       v-show="editTeam"
@@ -47,6 +48,7 @@
       @advancedAccess="advancedAccess"
       @defaultAccess="accept"
       @saveEditTeam="saveEditTeam"
+      @cancelEditTeam="cancelEditTeam"
     ></EditTeam>
     <EditSources
       v-show="editSources"
@@ -54,6 +56,7 @@
       :startup-id="moveAwayStartup"
       @clikOnButton="toggleEditSources"
       @saveSources="saveSources"
+      @cancelSources="cancelSources"
     ></EditSources>
     <EditGuide
       v-show="editGuide"
@@ -955,6 +958,10 @@ export default class extends Vue {
     }
   }
 
+  cancelEditStartupInfo() {
+    this.toggleEditStartupInfo();
+  }
+
   async saveEditTeam() {
     try {
       const startup = await this.$startupById(this.startup.id);
@@ -977,6 +984,10 @@ export default class extends Vue {
     }
   }
 
+  cancelEditTeam() {
+    this.toggleEditTeam();
+  }
+
   async saveSources() {
     try {
       const startup = await this.$startupById(this.startup.id);
@@ -990,6 +1001,10 @@ export default class extends Vue {
       this.toggleEditSources();
       scrollToHeader();
     }
+  }
+
+  cancelSources() {
+    this.toggleEditSources();
   }
 
   async updateFeedbacks() {

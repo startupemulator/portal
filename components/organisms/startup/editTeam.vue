@@ -128,6 +128,7 @@ export default class extends Vue {
 
   cancel() {
     this.loading = true;
+    this.$emit("cancelEditTeam");
     if (this.openPositionCash.length !== 0) {
       this.openPositionCash.forEach((el) => {
         this.$deletePositions(el);

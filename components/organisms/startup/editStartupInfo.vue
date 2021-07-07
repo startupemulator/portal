@@ -6,7 +6,7 @@
     <StartupInfo
       :startup="startup"
       :estimations="estimations"
-      @cancel="$emit('cancel')"
+      @cancel="$emit('cancelEditStartupInfo')"
       @updateStartup="updateStartup"
     ></StartupInfo>
   </div>
