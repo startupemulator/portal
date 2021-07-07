@@ -75,7 +75,7 @@ export default class extends Vue {
         success: true,
       });
     }, 900);
-    this.$emit("saveSources");
+    this.$emit("saveGuide");
   }
 
   cancelSources() {

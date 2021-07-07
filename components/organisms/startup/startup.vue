@@ -60,6 +60,7 @@
       :secrets="updatableDataStartup.secrets"
       :startup-id="moveAwayStartup"
       @clikOnButton="toggleEditGuide"
+      @saveGuide="saveGuide"
     ></EditGuide>
     <FinishStartup
       v-show="finishStartup"
@@ -660,6 +661,10 @@ export default class extends Vue {
   }
 
   saveSourses() {
+    this.toggleEditGuide();
+  }
+
+  saveGuide() {
     this.toggleEditGuide();
   }
 
