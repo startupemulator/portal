@@ -192,11 +192,12 @@
         <p class="startup__description">
           {{ updatableDataStartup.description }}
         </p>
-
-        <CommentExpert
-          v-if="isExpert && askFeedbacks !== null"
-          :solution-data="askFeedbacks[0]"
-        ></CommentExpert>
+        <div>
+          <CommentExpert
+            v-if="isExpert && askFeedbacks !== null"
+            :solution-data="askFeedbacks"
+          ></CommentExpert>
+        </div>
 
         <div v-if="isOwner && !finished" class="owner-menu">
           <ul class="owner-menu__list">

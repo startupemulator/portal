@@ -1,14 +1,16 @@
 <template>
   <div class="comments-expert">
     <U-title :text="'Comments for experts'"></U-title>
-    <div class="comments-expert__content">
+    <div
+      v-for="comment in solutionData"
+      :key="comment.id"
+      class="comments-expert__content"
+    >
       <div class="comments-expert__content-header">
         <h4>
           Product Owner’s
           <span>
-            {{
-              solutionData.creator ? solutionData.creator.username : "Anonymous"
-            }}
+            {{ comment.creator ? comment.creator.username : "Anonymous" }}
           </span>
         </h4>
         <p>
@@ -23,7 +25,7 @@
       <div class="comments-expert__content-description">
         <img src="~/assets/img/feedback.svg" alt="feedback" />
         <h5>
-          {{ solutionData.comment }}
+          {{ comment.comment }}
         </h5>
       </div>
     </div>
@@ -58,6 +60,7 @@ export default class extends Vue {
     border-radius: 12px;
     padding: 20px 0 16px 0;
     box-sizing: border-box;
+    margin-bottom: 26px;
   }
   .comments-expert__content-header {
     padding: 0 24px 16px 24px;

@@ -1,7 +1,6 @@
 <template>
   <div v-cloak class="startups-page">
     <Spiner :loading="loading"></Spiner>
-    <!-- <pre style="color: #fff">{{ waitingFeedback }} </pre> -->
     <Startups
       :key="updatableKey"
       :startups="startupsList"
@@ -153,6 +152,7 @@ export default class extends Vue {
     }
 
     this.updatableKey += 1;
+    this.checkAskFeedBacks();
   }
 
   checkAskFeedBacks() {
