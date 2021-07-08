@@ -173,7 +173,9 @@
             </button>
           </div>
         </div>
-        <div v-if="isExpert" class="applied-startup">
+        {{ isOwner }}
+        {{ isExpert }}
+        <div v-if="isExpert && !isOwner" class="applied-startup">
           <div class="applied-startup__started">
             <button
               type="button"
