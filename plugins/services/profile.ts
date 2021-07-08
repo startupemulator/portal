@@ -18,6 +18,7 @@ export function profile($strapi: Strapi) {
       technologies{
         id
         title
+        is_public
       }
       experience {
         id 
@@ -83,6 +84,7 @@ export function updateProfile($strapi: Strapi) {
               technologies{
                 id
                 title
+                is_public
               }
               experience {
                 id 

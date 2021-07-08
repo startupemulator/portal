@@ -33,6 +33,7 @@
         :choosen-technologies="choosenTechnologies"
         @chosenTechnologi="chosenTechnologi"
         @addTechnologies="addTechnologies"
+        @removeTechnology="removeTechnology"
       ></TechnologyPicker>
       <div class="edit-profile__buttons">
         <u-button
@@ -96,6 +97,10 @@ export default class extends Vue {
     }
   }
 
+  removeTechnology(data) {
+    this.$emit("removeTechnology", data);
+  }
+
   clickOnDuration(data) {
     this.profileUpdateData.experiences = data;
   }
@@ -106,6 +111,7 @@ export default class extends Vue {
 
   addTechnologies(data) {
     this.profileUpdateData.newTechnologies = data;
+    this.$emit("addTechnologies", data);
   }
 
   textInput(data) {
@@ -115,7 +121,15 @@ export default class extends Vue {
 
   mounted() {
     this.updateKey += 1;
-    this.myTechnologies.forEach((el) => this.choosenTechnologies.push(el.id));
+    this.profileUpdateData.technologies = [];
+    this.myTechnologies.forEach((el) => {
+      this.profileUpdateData.technologies.push(el.id);
+      this.choosenTechnologies.push({
+        id: el.id,
+        title: el.title,
+        is_public: el.is_public,
+      });
+    });
   }
 }
 </script>

@@ -57,7 +57,7 @@
           {{ userExperience ? userExperience.title : "Zero" }}
         </div>
         <ul class="experience_list">
-          <li v-for="item in myTechnologies" :key="item.id">
+          <li v-for="item in updatablemyTechnologies" :key="item.id">
             <U-tags
               :id="item.id"
               :title="item.title"
@@ -75,10 +75,12 @@
       :user-data="userData.user"
       :experiences="experiences"
       :user-experience="userExperience"
-      :technologies="technologies"
-      :my-technologies="myTechnologies"
+      :technologies="publickTechnologies"
+      :my-technologies="updatablemyTechnologies"
       @clickOnButton="toggleEditProfile"
       @saveProfileUpdateData="saveProfileUpdateData"
+      @addTechnologies="addTechnologies"
+      @removeTechnology="removeTechnology"
     ></EditProfile>
     <ChangePassword
       v-if="changePassword"
@@ -106,6 +108,7 @@ import { Experience } from "~/models/Experience";
 import Spiner from "~/components/molecules/spiner.vue";
 import { copyToClipboard } from "~/assets/jshelper/copyToClipBoard";
 import { Feedbacks } from "~/models/Feedbacks";
+import { scrollToHeader } from "~/assets/jshelper/scrollToHeader";
 
 @Component({
   components: {
@@ -124,14 +127,17 @@ import { Feedbacks } from "~/models/Feedbacks";
 export default class extends Vue {
   @Prop() startups: Array<Startup>;
   @Prop() technologies: Array<Technology>;
+  @Prop() publickTechnologies: Array<Technology>;
   @Prop() feedbacks: Array<Feedbacks>;
   @Prop() userData: Array<any>;
   @Prop() userExperience: String;
   @Prop() experiences: Array<Experience>;
-  @Prop() myTechnologies: Array<Technology>;
+  @Prop() myTechnologies!: Array<Technology>;
+  updatablemyTechnologies = this.myTechnologies;
   private opendPopup: boolean = false;
   private editProfile: boolean = false;
   private changePassword: boolean = false;
+  createdTechnologies = [];
   loading = false;
 
   logOut() {
@@ -145,17 +151,17 @@ export default class extends Vue {
 
   toggleEditProfile() {
     this.editProfile = !this.editProfile;
+    scrollToHeader();
   }
 
   toggleChangePassword() {
     this.changePassword = !this.changePassword;
+    scrollToHeader();
   }
 
   copyBaseUri() {
     this.loading = true;
-    // const url = window.location.origin + `/user/${this.$strapi.user.name}`;
     const url = window.location.origin + `/user/${this.userData.slug}`;
-
     copyToClipboard(url);
     setTimeout(() => (this.loading = false), 500);
     Toast.show({
@@ -165,32 +171,47 @@ export default class extends Vue {
     });
   }
 
+  removeTechnology(createdTechnologies) {
+    this.createdTechnologies = createdTechnologies;
+  }
+
+  async addTechnologies(technology) {
+    try {
+      const newTechnology = await this.$createTechnologies(
+        this.userData.user.id,
+        technology
+      );
+      if (newTechnology !== null) {
+        this.createdTechnologies.push(newTechnology);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   async saveProfileUpdateData(data) {
     this.loading = true;
-    if (!data.technologies) {
-      data.technologies = [];
-      this.myTechnologies.forEach((el) => data.technologies.push(el.id));
+    console.log(this.createdTechnologies);
+    console.log(data);
+    if (this.createdTechnologies.length !== 0) {
+      this.createdTechnologies.forEach((el) => data.technologies.push(el.id));
     }
+    console.log(data);
     try {
       const result = await this.$updateProfile(
         this.userData.id,
         data.technologies,
         data.experiences.id
       );
+
       const updateUserName = await this.$updateUser(data.userId, data.userName);
-
-      if (data.newTechnologies) {
-        const newTechnologies = [];
-        data.newTechnologies.forEach((element) => {
-          newTechnologies.push(element.name);
-          this.$createTechnologies(data.userId, element.name);
-        });
-      }
-
       if (result !== null && updateUserName !== null) {
+        console.log(result);
+        this.updatablemyTechnologies = result.technologies;
+        console.log(this.updatablemyTechnologies);
         this.$emit("updateData");
       }
-
+      scrollToHeader();
       this.loading = false;
     } catch (e) {
       Toast.show({
