@@ -4,7 +4,12 @@
     <div class="comments-expert__content">
       <div class="comments-expert__content-header">
         <h4>
-          Product Owner’s <span> {{ solutionData.creator.username }} </span>
+          Product Owner’s
+          <span>
+            {{
+              solutionData.creator ? solutionData.creator.username : "Anonymous"
+            }}
+          </span>
         </h4>
         <p>
           <!-- {{

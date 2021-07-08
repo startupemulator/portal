@@ -132,7 +132,6 @@ export default class StartupCard extends Vue {
   }
 
   mounted() {
-    console.log(this.waitingFeedback.some((el) => +el.id === +this.card.id));
     if (this.waitingFeedback.some((el) => +el.id === +this.card.id)) {
       this.checkAskFeedBack();
     }
