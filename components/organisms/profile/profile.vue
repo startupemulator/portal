@@ -4,7 +4,11 @@
       <u-back :link="'/'"></u-back>
       <U-title :text="user.name || user.username"> </U-title>
     </div>
-    <Regular-user v-if="true" :startups="startups"></Regular-user>
+    <Regular-user
+      v-if="true"
+      :startups="startups"
+      :user-id="user.id"
+    ></Regular-user>
     <Expert-user v-if="false" :feedbacks="feedbacks"> </Expert-user>
     <div class="profile-projects__experience">
       <h3>Experience</h3>
