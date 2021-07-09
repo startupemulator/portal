@@ -114,7 +114,6 @@ export default class extends Vue {
   }
 
   textInput($event, i, id) {
-    console.log("efwe");
     switch ($event[1]) {
       case "name":
         this.updateReleases(id, $event[0], this.existingSourseComponent[i].url);

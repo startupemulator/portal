@@ -768,7 +768,6 @@ export default class extends Vue {
             return (this.finished = true);
           }
           this.changeTeam(startup);
-          console.log(this.teamMember);
 
           this.openPosition = this.startup.positions.filter(
             (position) => position.status === "open"
@@ -814,8 +813,6 @@ export default class extends Vue {
         if (startup !== null) {
           this.updatableDataStartup = startup;
           this.changeTeam(startup);
-
-          console.log(this.teamMember);
         }
         if (applications !== null) {
           this.updatableDataApplications = applications;
@@ -851,8 +848,6 @@ export default class extends Vue {
         if (startup !== null) {
           this.updatableDataStartup = startup;
           this.changeTeam(startup);
-
-          console.log(this.teamMember);
         }
         if (applications !== null) {
           this.updatableDataApplications = applications;
@@ -900,7 +895,6 @@ export default class extends Vue {
         date
       );
       if (+this.startup.id === +updateStartup.id) {
-        console.log(updateStartup);
         const startup = await this.$startupById(this.startup.id);
         if (startup !== null) {
           this.updatableDataStartup = startup;

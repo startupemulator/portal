@@ -104,7 +104,6 @@ export default class TakeChallenge extends Vue {
         this.previosParticipaints = this.askfeedbacks;
       }
       if (this.updatableChallenge !== null) {
-        console.log(this.updatableChallenge);
         this.updateKey += 1;
         scrollToHeader();
       }

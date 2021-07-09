@@ -59,13 +59,7 @@ export default class extends Vue {
         this.badgesOnFeedback.push(this.chhosenbadge.id);
         if (feedback !== null) {
           feedback.badges.forEach((el) => this.badgesOnFeedback.push(el.id));
-          const addBadgetoFeedback = await this.$updateFeedback(
-            this.feedbackId,
-            this.badgesOnFeedback
-          );
-          if (addBadgetoFeedback !== null) {
-            console.log(addBadgetoFeedback);
-          }
+          await this.$updateFeedback(this.feedbackId, this.badgesOnFeedback);
         }
       }
       this.loading = false;

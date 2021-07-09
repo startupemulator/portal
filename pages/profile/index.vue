@@ -5,6 +5,7 @@
       :key="updatePageAfterSendNewDataInProfile"
       :startups="startups"
       :technologies="allTechnologies"
+      :publick-technologies="technologies"
       :my-technologies="myTechnologies"
       :feedbacks="feedbacks"
       :user-data="profile"
