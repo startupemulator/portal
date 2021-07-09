@@ -86,7 +86,6 @@ export default class extends Vue {
   }
 
   mounted() {
-    console.log("mounted");
     if (
       this.userChallenge !== undefined &&
       this.userChallenges.some(

@@ -123,7 +123,10 @@ export default class extends Vue {
     this.updateKey += 1;
     this.profileUpdateData.technologies = [];
     this.myTechnologies.forEach((el) => {
-      this.profileUpdateData.technologies.push(el.id);
+      if (el.is_public) {
+        this.profileUpdateData.technologies.push(el.id);
+      }
+
       this.choosenTechnologies.push({
         id: el.id,
         title: el.title,

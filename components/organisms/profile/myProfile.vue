@@ -191,12 +191,15 @@ export default class extends Vue {
 
   async saveProfileUpdateData(data) {
     this.loading = true;
-    console.log(this.createdTechnologies);
-    console.log(data);
     if (this.createdTechnologies.length !== 0) {
       this.createdTechnologies.forEach((el) => data.technologies.push(el.id));
+    } else {
+      this.createdTechnologies.forEach((el) => {
+        if (!el.is_public) {
+          data.technologies.push(el.id);
+        }
+      });
     }
-    console.log(data);
     try {
       const result = await this.$updateProfile(
         this.userData.id,
@@ -206,9 +209,8 @@ export default class extends Vue {
 
       const updateUserName = await this.$updateUser(data.userId, data.userName);
       if (result !== null && updateUserName !== null) {
-        console.log(result);
         this.updatablemyTechnologies = result.technologies;
-        console.log(this.updatablemyTechnologies);
+
         this.$emit("updateData");
       }
       scrollToHeader();

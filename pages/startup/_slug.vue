@@ -140,7 +140,7 @@ export default class TakeStartup extends Vue {
 
   async leaveProject() {
     this.loading = true;
-    console.log("leave project");
+
     let applicationId = 0;
     this.applications.forEach((item) => {
       item.position.applications.forEach((el) => {
