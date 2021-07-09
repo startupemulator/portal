@@ -159,7 +159,7 @@ export default class extends Vue {
   @Prop({ default: false }) isExpert: Boolean;
   @Prop() userId: string;
   @Prop() feedback: Array<Feedbacks>;
-  @Prop() isOwner: boolean;
+  @Prop({ default: false }) isOwner: boolean;
 
   show_feedback: boolean = false;
   thisUserlike: boolean = false;

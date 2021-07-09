@@ -4,12 +4,19 @@
       <u-back :link="'/'"></u-back>
       <U-title :text="user.name || user.username"> </U-title>
     </div>
+
     <Regular-user
-      v-if="true"
+      v-if="!isExpert"
       :startups="startups"
-      :user-id="user.id"
+      :user-id="userId"
     ></Regular-user>
-    <Expert-user v-if="false" :feedbacks="feedbacks"> </Expert-user>
+    <Expert-user
+      v-if="isExpert"
+      :feedbacks="feedbacks"
+      :user-id="userId"
+      :is-expert="isExpert"
+    >
+    </Expert-user>
     <div class="profile-projects__experience">
       <h3>Experience</h3>
       <div class="experience-work">{{ profile.experience.title }}</div>
@@ -56,5 +63,7 @@ export default class extends Vue {
   @Prop() user: Array<NotificationUser>;
   @Prop() profile: Array<Profile>;
   @Prop() feedbacks: Array<Feedbacks>;
+  @Prop() userId: string;
+  @Prop() isExpert: string;
 }
 </script>
