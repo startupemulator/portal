@@ -435,6 +435,7 @@ export function askFeedbacksForStartup($strapi: Strapi) {
     id
     startup {
       id
+      state
     }
   }
 }`,

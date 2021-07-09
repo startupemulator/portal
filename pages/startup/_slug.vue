@@ -61,6 +61,7 @@ export default class TakeStartup extends Vue {
     $directions,
     $badges,
     $releases,
+    $profile,
   }) {
     const startup = await $startup(route.params.slug);
     const feedbacks = await $feedbacksByStartupID(startup.id);
@@ -71,6 +72,10 @@ export default class TakeStartup extends Vue {
     const { technologies } = await $technologies();
     const title = startup.description;
     let releases = [];
+    let userProfile = [];
+    if ($strapi.user) {
+      userProfile = await $profile($strapi.user.id);
+    }
     if (startup.state === "finished") {
       releases = await $releases(startup.id);
     }
@@ -93,6 +98,7 @@ export default class TakeStartup extends Vue {
       badges,
       releases,
       title,
+      userProfile,
     };
   }
 
@@ -188,6 +194,7 @@ export default class TakeStartup extends Vue {
       this.$strapi.user.email &&
       this.startup.owner.invites
     ) {
+      this.isExpert = this.userProfile.is_expert;
       this.startup.owner.invites.forEach((el) => {
         if (el.email === this.$strapi.user.email) {
           this.isExpert = true;

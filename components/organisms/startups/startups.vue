@@ -44,7 +44,7 @@
             :card="card"
             :technology="technologies"
             :user-id="userId"
-            :waiting-feedback="waitingFeedback"
+            :waiting-feedback="card.state !== 'finished' ? waitingFeedback : []"
           ></Startup-card>
         </div>
       </div>

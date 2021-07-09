@@ -1,7 +1,6 @@
 <template>
   <div v-cloak class="startups-page">
     <Spiner :loading="loading"></Spiner>
-
     <Startups
       :key="updatableKey"
       :startups="startupsList"
@@ -54,9 +53,13 @@ export default class extends Vue {
     if ($strapi.user) {
       userProfile = await $profile($strapi.user.id);
     }
-    let waitingFeedback = await $askFeedbacksForStartup();
-    waitingFeedback = waitingFeedback.filter(
-      (v, i, a) => a.findIndex((t) => t.startup.id === v.startup.id) === i
+    const waitingFeedbackState = await $askFeedbacksForStartup();
+
+    const waitingFeedback = waitingFeedbackState.filter(
+      (v, i, a) =>
+        a.findIndex(
+          (t) => t.startup.id === v.startup.id && t.startup.state !== "finished"
+        ) === i
     );
     return {
       startupsList,
@@ -65,6 +68,7 @@ export default class extends Vue {
       startups,
       waitingFeedback,
       userProfile,
+      waitingFeedbackState,
     };
   }
 
@@ -76,13 +80,15 @@ export default class extends Vue {
     const startupListFiltredByPosition = [];
     this.stateForFilterStartupsByPositions.forEach((item) => {
       if (
+        item.state !== "finished" &&
         positionStatus === "open" &&
         item.positions.some((el) => el.status === positionStatus)
       ) {
         startupListFiltredByPosition.push(item);
       } else if (
-        positionStatus === "staffed" &&
-        item.positions.every((el) => el.status === positionStatus)
+        (item.state === "finished" && positionStatus === "staffed") ||
+        (positionStatus === "staffed" &&
+          item.positions.every((el) => el.status === positionStatus))
       ) {
         startupListFiltredByPosition.push(item);
       }
@@ -90,6 +96,7 @@ export default class extends Vue {
     this.startupsList = startupListFiltredByPosition.filter(
       (v, i, a) => a.findIndex((t) => t.id === v.id) === i
     );
+    this.checkAskFeedBacks();
     if (this.startupsList.length === 0) {
       this.emptyState = true;
     } else {
@@ -133,6 +140,7 @@ export default class extends Vue {
       this.startupsList = startups;
       this.stateForFilterStartupsByPositions = startups;
       this.filterByPosition(this.position);
+
       this.loading = false;
     }
   }
@@ -142,16 +150,24 @@ export default class extends Vue {
     if (this.userProfile.is_expert !== undefined) {
       this.isExpert = this.userProfile.is_expert;
     }
+
+    this.updatableKey += 1;
+    this.checkAskFeedBacks();
+  }
+
+  checkAskFeedBacks() {
     if (this.isExpert) {
       const stateWaitingForFeedback = [];
+
       this.startupsList.forEach((el) => {
-        if (this.waitingFeedback.some((item) => item.startup.id === el.id)) {
+        if (
+          this.waitingFeedbackState.some((item) => item.startup.id === el.id)
+        ) {
           stateWaitingForFeedback.push(el);
         }
       });
       this.waitingFeedback = stateWaitingForFeedback;
     }
-    this.updatableKey += 1;
   }
 }
 </script>
