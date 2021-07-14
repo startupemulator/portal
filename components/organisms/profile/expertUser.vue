@@ -29,7 +29,9 @@ import { Feedbacks } from "~/models/Feedbacks";
 export default class extends Vue {
   @Prop() feedbacks: Array<Feedbacks>;
   @Prop() isExpert: Boolean;
+  @Prop() isOwner: Boolean;
   @Prop() userId: string;
+
   feedbacksCount = this.feedbacks.length;
 }
 </script>
