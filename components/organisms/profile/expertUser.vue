@@ -11,6 +11,9 @@
         v-for="feedback in feedbacks"
         :key="feedback.id"
         :feedback="feedback"
+        :is-expert="isExpert"
+        :user-id="userId"
+        :is-expert-profile="true"
       ></FeedBackCard>
     </div>
   </div>
@@ -24,7 +27,11 @@ import { Feedbacks } from "~/models/Feedbacks";
   components: { FeedBackCard },
 })
 export default class extends Vue {
-  @Prop() feedbacks!: Array<Feedbacks>;
+  @Prop() feedbacks: Array<Feedbacks>;
+  @Prop() isExpert: Boolean;
+  @Prop() isOwner: Boolean;
+  @Prop() userId: string;
+
   feedbacksCount = this.feedbacks.length;
 }
 </script>

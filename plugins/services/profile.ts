@@ -47,6 +47,7 @@ export function profileBySlug($strapi: Strapi) {
       technologies{
         id
         title
+        is_public
       }
       experience {
         id 

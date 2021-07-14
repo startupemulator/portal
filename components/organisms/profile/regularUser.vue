@@ -27,6 +27,7 @@
           v-for="card in startups"
           :key="card.id"
           :card="card"
+          :user-id="userId"
           :button_apply="false"
           :button_details="true"
         ></Startup-card>
@@ -49,5 +50,6 @@ import StartupCard from "~/components/molecules/startupCard.vue";
 })
 export default class extends Vue {
   @Prop() startups: Array<Startup>;
+  @Prop() userId: string;
 }
 </script>

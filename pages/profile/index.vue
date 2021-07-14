@@ -15,6 +15,12 @@
     ></MyProfile>
     <div v-else class="confim-your-email">
       <h2>Please confirm your email</h2>
+      <UButton
+        v-if="$strapi.user"
+        button-class="u-button-gray"
+        button-name="Log Out"
+        @clickOnButton="$strapi.logout()"
+      ></UButton>
     </div>
   </div>
 </template>
@@ -22,10 +28,12 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "nuxt-property-decorator";
 import MyProfile from "~/components/organisms/profile/myProfile.vue";
+import UButton from "~/components/atoms/uButton.vue";
 
 @Component({
   components: {
     MyProfile,
+    UButton,
   },
   middleware: ["deny-unauthenticated"],
 })
@@ -84,10 +92,14 @@ export default class extends Vue {
 .profile {
   .confim-your-email {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     height: calc(100vh - 310px);
     h2 {
       font-size: 17px;
+    }
+    .u-button-gray {
+      width: 250px;
     }
   }
 }

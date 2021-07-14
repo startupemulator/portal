@@ -2,16 +2,20 @@
   <div class="feed-back-card">
     <div class="feed-back-card__main-content">
       <div class="feed-back-card__main-content-header">
-        <h3>
-          {{ feedback.request.creator.name }} <span>for</span> Startup #
+        <h3 v-if="!isExpertProfile">
+          {{ feedback.request.creator.username }} <span>for</span> Startup #
           {{ feedback.request.startup.id }}
+        </h3>
+        <h3 v-if="isExpertProfile">
+          {{ feedback.request.creator.username }} <span>makes</span>
+          {{ feedback.description }}
         </h3>
 
         <p>{{ new Date(feedback.published_at).toUTCString().substr(4, 18) }}</p>
         <div
-          v-if="true"
+          v-if="!isExpertProfile"
           class="startup-card__activity-like active-like"
-          :class="show_feedback ? 'opend-feedback' : ''"
+          :class="showFeedback ? 'opend-feedback' : ''"
         >
           <svg
             v-if="thisUserlike"
@@ -49,6 +53,7 @@
           </span>
 
           <button
+            v-if="!isExpertProfile"
             type="button"
             class="startup-card__activity-like-button"
             @click="toggleFeedBack"
@@ -57,12 +62,12 @@
             <img
               src="~/assets/img/arrow.svg"
               alt="arrow"
-              :style="show_feedback ? 'transform: rotate(-90deg)' : ''"
+              :style="showFeedback ? 'transform: rotate(-90deg)' : ''"
             />
           </button>
         </div>
       </div>
-      <div v-show="show_feedback" class="feed-back-card__main-content-body">
+      <div v-show="showFeedback" class="feed-back-card__main-content-body">
         <img src="~/assets/img/feedback.svg" alt="feedback" />
 
         <div class="feed-back-card__main-content-feedback">
@@ -110,7 +115,10 @@
           </div>
         </div>
       </div>
-      <div v-if="isExpert" class="feed-back-card__expert-buttons">
+      <div
+        v-if="isExpert && !isExpertProfile"
+        class="feed-back-card__expert-buttons"
+      >
         <U-button
           :button-name="'Add Feedback'"
           :button-class="'u-button-blue'"
@@ -159,15 +167,15 @@ export default class extends Vue {
   @Prop({ default: false }) isExpert: Boolean;
   @Prop() userId: string;
   @Prop() feedback: Array<Feedbacks>;
-  @Prop() isOwner: boolean;
-
-  show_feedback: boolean = false;
+  @Prop({ default: false }) isOwner: boolean;
+  @Prop({ default: false }) isExpertProfile: boolean;
+  showFeedback: boolean = false;
   thisUserlike: boolean = false;
   thisUserlikeId: string = "";
   loading = false;
 
   toggleFeedBack() {
-    this.show_feedback = !this.show_feedback;
+    this.showFeedback = !this.showFeedback;
   }
 
   addFeedback() {
@@ -258,6 +266,9 @@ export default class extends Vue {
           this.thisUserlikeId = like.id;
         }
       });
+    }
+    if (this.isExpertProfile) {
+      this.showFeedback = !this.showFeedback;
     }
   }
 }
