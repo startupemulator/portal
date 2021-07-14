@@ -8,6 +8,7 @@
       :profile="profile"
       :feedbacks="feedbacks"
       :user-id="userId"
+      :is-owner="isOwner"
     ></Profile>
   </div>
 </template>
@@ -43,12 +44,16 @@ export default class extends Vue {
     );
     let userId = 0;
     let isExpert = false;
+    let isOwner = false;
+    if (profile !== null) {
+      isExpert = profile.is_expert;
+    }
     if ($strapi.user) {
       userId = $strapi.user.id;
-      const profile = await $profile(userId);
-
-      if (profile !== null) {
-        isExpert = profile.is_expert;
+      const myprofile = await $profile(userId);
+      if (myprofile.slug === route.params.slug) {
+        console.log("owner");
+        isOwner = true;
       }
     }
     const feedbacks = await $feedbacks();
@@ -61,6 +66,7 @@ export default class extends Vue {
       user,
       userId,
       isExpert,
+      isOwner,
     };
   }
 }

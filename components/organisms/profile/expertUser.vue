@@ -13,6 +13,7 @@
         :feedback="feedback"
         :is-expert="isExpert"
         :user-id="userId"
+        :is-expert-profile="true"
       ></FeedBackCard>
     </div>
   </div>

@@ -1,8 +1,45 @@
 <template>
-  <div class="profile-content">
-    <div class="profile-header">
-      <u-back :link="'/'"></u-back>
-      <U-title :text="user.name || user.username"> </U-title>
+  <div class="profile-content my-profile profile-content-expert">
+    <u-back :link="'/'"></u-back>
+    <div class="my-profile__content">
+      <div class="profile-header">
+        <U-title v-if="!isOwner" :text="user.name || user.username"> </U-title>
+        <U-title v-if="isOwner" :text="'Profile'"> </U-title>
+
+        <div class="profile-header__menu">
+          <ul>
+            <li>
+              <button type="button" @click="toggleEditProfile">
+                Edit Profile
+                <img src="~/assets/img/arrow.svg" alt="arrow" />
+              </button>
+            </li>
+            <li>
+              <button type="button" @click="toggleChangePassword">
+                Change Password
+                <img src="~/assets/img/arrow.svg" alt="arrow" />
+              </button>
+            </li>
+            <li>
+              <button type="button" @click="logOut">
+                Log Out <img src="~/assets/img/logout.svg" alt="logout" />
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div class="profile-header__account-data">
+          <div>
+            <span>Full name</span>
+            <p>
+              {{ user.username }}
+            </p>
+          </div>
+          <div>
+            <span class="account-data__email">Email</span>
+            <p>{{ user.email }}</p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <Regular-user
@@ -15,6 +52,7 @@
       :feedbacks="feedbacks"
       :user-id="userId"
       :is-expert="isExpert"
+      :is-owner="isOwner"
     >
     </Expert-user>
     <div class="profile-projects__experience">
@@ -65,5 +103,6 @@ export default class extends Vue {
   @Prop() feedbacks: Array<Feedbacks>;
   @Prop() userId: string;
   @Prop() isExpert: string;
+  @Prop() isOwner: boolean;
 }
 </script>
