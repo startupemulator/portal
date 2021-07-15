@@ -23,7 +23,7 @@
                 </nuxt-link>
               </li>
               <li class="super-admin-menu-link">
-                <nuxt-link to="/startup/create" class="super-admin-menu_btn">
+                <nuxt-link to="/challenge/create" class="super-admin-menu_btn">
                   <span>Create Challenge</span>
                 </nuxt-link>
               </li>
