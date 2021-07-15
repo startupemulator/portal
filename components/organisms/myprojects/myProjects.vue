@@ -3,9 +3,33 @@
     <div class="my-projects__header">
       <div class="my-projects__header-add-project">
         <U-title :text="'My projects'"></U-title>
-        <nuxt-link to="/startup/create" class="my-projects_btn">
+        <nuxt-link
+          v-if="!isSuperAdmin"
+          to="/startup/create"
+          class="user-menu my-projects_btn"
+        >
           <img src="~/assets/img/+.svg" alt="" /> <span>Create Startup</span>
         </nuxt-link>
+        <div v-if="isSuperAdmin" class="super-admin-menu">
+          <div class="super-admin-menu__content">
+            <div class="super-admin-menu__title">
+              <img src="~/assets/img/+.svg" alt="" />
+              <span>Create Project</span>
+            </div>
+            <ul class="super-admin-menu-links">
+              <li class="super-admin-menu-link">
+                <nuxt-link to="/startup/create" class="super-admin-menu_btn">
+                  <span>Create Startup</span>
+                </nuxt-link>
+              </li>
+              <li class="super-admin-menu-link">
+                <nuxt-link to="/startup/create" class="super-admin-menu_btn">
+                  <span>Create Challenge</span>
+                </nuxt-link>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
       <U-Tabs-Long
         :owned="true"
@@ -61,6 +85,7 @@ import PopupDeleteStartup from "~/components/molecules/PopupDeleteOrStartStartup
 export default class extends Vue {
   @Prop() startups!: Array<Startup>;
   @Prop() userId: Number;
+  @Prop() isSuperAdmin: boolean;
   draft: Array<Startup> = [];
   startup: Array<Startup> = [];
   inProgress: Number = 0;

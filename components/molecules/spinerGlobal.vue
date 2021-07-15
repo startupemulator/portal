@@ -16,6 +16,7 @@ export default class extends Vue {
   start() {
     this.loading = true;
   }
+
   finish() {
     this.loading = false;
   }
