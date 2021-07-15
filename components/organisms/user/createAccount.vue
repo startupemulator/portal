@@ -166,10 +166,10 @@ export default class CreateAccount extends Vue {
     if (!this.$v.$error) {
       try {
         await this.$createUser(this.email, this.name, this.password);
-
         this.error = "";
         this.popupConfirmEmail = true;
       } catch (e) {
+        console.error(e);
         Toast.show({
           data: e.message,
           duration: 3000,

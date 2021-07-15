@@ -44,6 +44,7 @@ import {
   updateProfile,
   createProfile,
   profileBySlug,
+  createNewProfile,
 } from "~/plugins/services/profile";
 import { NotificationUser } from "~/models/NotificationUser";
 import { Notification } from "~/models/Notification";
@@ -55,6 +56,7 @@ import {
   users,
   getUserBySlug,
   updateUserPassword,
+  getUserByEmail,
 } from "~/plugins/services/user";
 import { login } from "~/plugins/services/login";
 import {
@@ -205,6 +207,7 @@ export interface Services {
   $profileBySlug(slug: string): Promise<Partial<Profile>[]>;
 
   $users(): Promise<Partial<NotificationUser>[]>;
+
   $feedbacksByStartupID(id: string): Promise<Partial<Feedbacks>[]>;
   $feedbacks(): Promise<Partial<Feedbacks>[]>;
 
@@ -242,6 +245,8 @@ export interface Services {
   $notifications(): Promise<Partial<Notification>[]>;
 
   $getUserBySlug(slug: string): Promise<Partial<NotificationUser>[]>;
+  $getUserByEmail(email: string): Promise<Partial<NotificationUser>[]>;
+
   $login(data: NuxtStrapiLoginData): Promise<NuxtStrapiLoginResult>;
   $updateUserPassword(
     id: string,
@@ -260,6 +265,11 @@ export interface Services {
     id: string,
     technologies: Array<string>
   ): Promise<Partial<Profile>[]>;
+  $createNewProfile(
+    userName: string,
+    userId: string
+  ): Promise<Partial<Profile>[]>;
+
   $updateProfile(
     id: string,
     technologies: Array<string>,
@@ -460,10 +470,12 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
 
   inject("updateProfile", updateProfile(ctx.$strapi));
   inject("createProfile", createProfile(ctx.$strapi));
+  inject("createNewProfile", createNewProfile(ctx.$strapi));
 
   inject("updateUser", updateUser(ctx.$strapi));
   inject("users", users(ctx.$strapi));
   inject("getUserBySlug", getUserBySlug(ctx.$strapi));
+  inject("getUserByEmail", getUserByEmail(ctx.$strapi));
 
   inject("createUser", createUser(ctx.$strapi));
 
