@@ -91,5 +91,5 @@ export default {
   build: {
     // analyze: true,
   },
-  loading: "~/components/molecules/spinerGlobal.vue"
+  loading: "~/components/molecules/spinerGlobal.vue",
 };
