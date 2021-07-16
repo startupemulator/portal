@@ -63,11 +63,6 @@
           </li>
           <li><nuxt-link to="/startup">Startup</nuxt-link></li>
           <li><nuxt-link to="/challenge">Challenge</nuxt-link></li>
-          <li>
-            <nuxt-link to="/myProjectsCreateChallenges"
-              >myProjectsCreateChallenges</nuxt-link
-            >
-          </li>
         </ul>
       </div>
       <div style="width: 49%">

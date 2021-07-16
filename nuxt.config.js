@@ -91,7 +91,5 @@ export default {
   build: {
     // analyze: true,
   },
-  loading: {
-    color: "white",
-  },
+  loading: "~/components/molecules/spinerGlobal.vue",
 };

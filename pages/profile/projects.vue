@@ -6,6 +6,7 @@
       :key="updateFlag"
       :startups="myStartups"
       :user-id="userId"
+      :is-super-admin="isSuperAdmin"
       @deleteDraft="deleteDraft"
     ></MyProjects>
   </div>
@@ -27,7 +28,7 @@ import myProjects from "~/components/organisms/myprojects/myProjects.vue";
 export default class extends Vue {
   userId: Number = this.$strapi.user.id;
   updateFlag = 0;
-
+  isSuperAdmin = true;
   loading = false;
 
   async asyncData({ $myStartups, $startupByAcceptedApplication, $strapi }) {

@@ -124,6 +124,28 @@ export function createProfile($strapi: Strapi) {
         }
       }`,
     });
-    return data.createProfile.profile;
+    return data.createProfile;
+  };
+}
+
+export function createNewProfile($strapi: Strapi) {
+  return async (userName: string, userId: string) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+            createProfile(input: { data: {user: "${userId}", name:"${userName}", experience:"1"  } }) {
+                profile {
+                id
+                user{
+                  id
+                }
+                name
+                experience{
+                  id
+                }
+              }
+            }
+          }`,
+    });
+    return data.createProfile ? data.createProfile.profile : null;
   };
 }

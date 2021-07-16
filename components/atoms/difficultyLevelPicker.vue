@@ -7,7 +7,7 @@
         :key="i + 'difficulty'"
         ref="difficultyLevelItem"
         class="difficulty-level-item"
-        @click="checkDifficultyLevel"
+        @click="checkDifficultyLevel($event, i + 1)"
       >
         {{ i + 1 }}
       </li>
@@ -19,7 +19,7 @@ import { Component, Vue } from "nuxt-property-decorator";
 
 @Component({})
 export default class extends Vue {
-  checkDifficultyLevel($event) {
+  checkDifficultyLevel($event, id) {
     const obj = $event.target.classList;
     this.$refs.difficultyLevelItem.forEach((element) => {
       element.classList.remove("checked");
@@ -27,6 +27,7 @@ export default class extends Vue {
     obj.contains("checked")
       ? $event.target.classList.remove("checked")
       : $event.target.classList.add("checked");
+    this.$emit("difficultyLevelId", id);
   }
 }
 </script>

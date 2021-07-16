@@ -63,3 +63,28 @@ export function challenge($strapi: Strapi) {
     return data.challenges ? data.challenges[0] : null;
   };
 }
+export function createChallenge($strapi: Strapi) {
+  return async (
+    title: string,
+    description: string,
+    difficulty: string,
+    specialisations: Array<string>,
+    sources: Array<string>
+  ) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+        createChallenge(input: { data: { 
+          title: "${title}", description: "${description}", difficulty: ${difficulty},
+          specialisations: [${specialisations}], sources: [${sources}] } }) {
+            challenge {
+              id
+              slug
+            }
+          }
+        }`,
+    });
+    return data.createChallenge.challenge
+      ? data.createChallenge.challenge
+      : null;
+  };
+}
