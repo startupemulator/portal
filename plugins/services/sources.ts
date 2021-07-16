@@ -45,6 +45,23 @@ export function createSource($strapi: Strapi) {
     return data.createSource.source ? data.createSource.source : null;
   };
 }
+export function createSourceForChallenge($strapi: Strapi) {
+  return async (title: string, link: string) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+        createSource(input: { data: { 
+          title: "${title}", link: "${link} " } }) {
+            source {
+           id
+           title
+           link
+          }
+        }
+      }`,
+    });
+    return data.createSource.source ? data.createSource.source : null;
+  };
+}
 export function updateSource($strapi: Strapi) {
   return async (id: string, title: string, link: string) => {
     const data = await $strapi.graphql({

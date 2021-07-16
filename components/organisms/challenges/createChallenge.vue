@@ -6,38 +6,62 @@
       <div class="create-project__super-admin__progress-bar--progress"></div>
     </div>
     <p>Challenge name</p>
-    <UInput :placeholder="'Enter the challenge name'"></UInput>
+    <input
+      v-model.trim="$v.challengeName.$model"
+      type="text"
+      placeholder="Enter the challenge name"
+      :class="$v.challengeName.$error ? ' error ' : ''"
+    />
+
+    <p v-show="$v.challengeName.$error" class="errorInput mt">
+      Please enter a startup name of at least 8 characters
+    </p>
     <p>Description</p>
     <textarea
-      placeholder="Provide a full description of the task
-
-
-"
+      v-model.trim="$v.challengeDescription.$model"
+      :class="$v.challengeDescription.$error ? ' error' : ''"
+      placeholder="Provide a full description of the task"
     ></textarea>
-    <DifficultyLevelPicker></DifficultyLevelPicker>
+    <p v-show="$v.challengeDescription.$error" class="errorInput">
+      Please enter a description name of at least 8 characters
+    </p>
+    <DifficultyLevelPicker
+      @difficultyLevelId="difficultyLevelId"
+    ></DifficultyLevelPicker>
+    <p v-show="$v.difficultyLevel.$error" class="errorInput">
+      Please choose difficulty level
+    </p>
     <p>Pick specialization this task is for</p>
-    <Utags
-      v-for="(item, i) in 4"
-      :key="i"
-      :title="'Full Stack Developer'"
-    ></Utags>
 
+    <SpecializationPicker
+      :specialisations="specialisations"
+      @pickSpecialisation="pickedSpecialisation"
+    ></SpecializationPicker>
+    <p v-show="$v.specialisation.$error" class="errorInput">
+      Please choose specialisations
+    </p>
     <div
       :is="item.type"
       v-for="(item, i) in existingSourseComponent"
       :key="item.id"
       :name="'Source Link ' + (i + 1)"
       @removeExistingSources="removeExistingSources(item.id)"
+      @textInput="textInput($event, i, item.id)"
     ></div>
+
     <U-button
       :button-name="'Add Link'"
       :button-class="'u-button-blue add-link'"
       @clickOnButton="addExistingSourse"
     ></U-button>
+    <p v-show="$v.existingSourseComponent.$error" class="errorInput mt">
+      Please add source link
+    </p>
     <div class="create-project__super-admin_button">
       <U-button
         :button-name="'Publish'"
         :button-class="'u-button-blue'"
+        @clickOnButton="publishChallenge"
       ></U-button>
       <U-button
         :button-name="'Save Draft'"
@@ -45,18 +69,23 @@
         @clickOnButton="$emit('clikOnButton')"
       ></U-button>
     </div>
+    <Spiner></Spiner>
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
+import { Component, Vue, Prop } from "nuxt-property-decorator";
 
+import { required, minLength } from "vuelidate/lib/validators";
+import Toast from "../../../store/modules/Toast";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import UInput from "~/components/atoms/uInput.vue";
-import Utags from "~/components/atoms/uTags.vue";
+import Spiner from "~/components/molecules/spiner.vue";
 import DifficultyLevelPicker from "~/components/atoms/difficultyLevelPicker.vue";
 import AddExistingSourse from "~/components/molecules/addExistingSource.vue";
+import { Specialisation } from "~/models/Specialisation";
+import SpecializationPicker from "~/components/molecules/specializationPicker.vue";
 
 @Component({
   components: {
@@ -64,21 +93,46 @@ import AddExistingSourse from "~/components/molecules/addExistingSource.vue";
     UTitle,
     UBack,
     UInput,
-    Utags,
+    Spiner,
     AddExistingSourse,
     DifficultyLevelPicker,
+    SpecializationPicker,
+  },
+  validations: {
+    challengeName: {
+      required,
+      minLength: minLength(8),
+    },
+    challengeDescription: {
+      minLength: minLength(10),
+      required,
+    },
+    difficultyLevel: {
+      required,
+    },
+    specialisation: {
+      required,
+    },
+    existingSourseComponent: {
+      required,
+    },
   },
 })
 export default class extends Vue {
-  data() {
-    return {
-      existingSourseComponent: [
-        { id: 1, type: "add-existing-sourse" },
-        { id: 2, type: "add-existing-sourse" },
-      ],
-    };
-  }
+  @Prop() specialisations: Array<Specialisation>;
+  loading = false;
 
+  existingSourseComponent = [
+    { id: 1, type: "add-existing-sourse" },
+    { id: 2, type: "add-existing-sourse" },
+  ];
+
+  createdSources = [];
+
+  challengeName = "";
+  challengeDescription = "";
+  difficultyLevel = "";
+  specialisation = [];
   addExistingSourse() {
     this.existingSourseComponent.push({
       id: this.existingSourseComponent.length + 1,
@@ -91,6 +145,96 @@ export default class extends Vue {
       (item) => item.id !== i
     );
   }
+
+  inputedChallengeName(data) {
+    this.challengeName = data;
+  }
+
+  difficultyLevelId(data) {
+    this.difficultyLevel = data.toString();
+  }
+
+  pickedSpecialisation(data) {
+    if (this.specialisation.some((el) => el === data.id)) {
+      this.specialisation.splice(
+        this.specialisation.findIndex((el) => el === data.id),
+        1
+      );
+    } else {
+      this.specialisation.push(data.id);
+    }
+  }
+
+  textInput($event, i, id) {
+    switch ($event[1]) {
+      case "name":
+        this.existingSourseComponent[i].title = $event[0];
+        break;
+      case "url":
+        this.existingSourseComponent[i].link = $event[0];
+        break;
+      default:
+    }
+  }
+
+  async createSources() {
+    for (const item of this.existingSourseComponent) {
+      try {
+        const createdSource = await this.$createSourceForChallenge(
+          item.title,
+          item.link
+        );
+        if (createdSource !== null) {
+          this.createdSources.push(createdSource.id);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    this.createNewChallenge();
+  }
+
+  async createNewChallenge() {
+    this.$v.$touch();
+    if (!this.$v.$error) {
+      try {
+        const newChallenge = await this.$createChallenge(
+          this.challengeName,
+          this.challengeDescription,
+          this.difficultyLevel,
+          this.specialisation,
+          this.createdSources
+        );
+        if (newChallenge !== null) {
+          this.$router.push("/challenge/" + newChallenge.slug);
+        }
+      } catch (e) {
+        console.error(e);
+        Toast.show({
+          data: "Something wrong.",
+          duration: 3000,
+        });
+      }
+    }
+  }
+
+  async publishChallenge() {
+    this.$v.$touch();
+    if (!this.$v.$error) {
+      this.loading = true;
+      try {
+        await this.createSources();
+        this.loading = false;
+      } catch (e) {
+        console.error(e);
+        this.loading = false;
+        Toast.show({
+          data: "Something wrong.",
+          duration: 3000,
+        });
+      }
+    }
+  }
 }
 </script>
 <style lang="scss">
@@ -99,6 +243,12 @@ export default class extends Vue {
   max-width: 660px;
   margin: 0 auto;
   margin-top: 40px;
+  .errorInput {
+    top: 0;
+    &.mt {
+      top: 16px;
+    }
+  }
   p {
     font-weight: 500;
     font-size: 16px;

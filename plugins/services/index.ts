@@ -20,7 +20,11 @@ import {
   addTechnologiesStartup,
 } from "~/plugins/services/startups";
 import { Startup } from "~/models/Startup";
-import { challenge, challenges } from "~/plugins/services/challenges";
+import {
+  challenge,
+  challenges,
+  createChallenge,
+} from "~/plugins/services/challenges";
 import { Challenge } from "~/models/Challenge";
 import { estimations } from "~/plugins/services/estimations";
 import { experiences } from "~/plugins/services/experiences";
@@ -116,6 +120,7 @@ import {
   deleteSource,
   createSource,
   updateSource,
+  createSourceForChallenge,
 } from "~/plugins/services/Sources";
 
 import {
@@ -279,6 +284,13 @@ export interface Services {
     difficulty: number[],
     specialisations: number[]
   ): Promise<Partial<Challenge>[]>;
+  $createChallenge(
+    title: string,
+    description: string,
+    difficulty: string,
+    specialisations: Array<string>,
+    sources: Array<string>
+  ): Promise<Partial<Challenge>[]>;
 
   $challenge(slug: string): Promise<Partial<Challenge>>;
 
@@ -349,6 +361,11 @@ export interface Services {
     link: string,
     startupId: string
   ): Promise<Partial<Sources>[]>;
+  $createSourceForChallenge(
+    title: string,
+    link: string
+  ): Promise<Partial<Sources>[]>;
+
   $updateSource(
     id: string,
     title: string,
@@ -427,6 +444,8 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("sources", sources(ctx.$strapi));
   inject("deleteSource", deleteSource(ctx.$strapi));
   inject("createSource", createSource(ctx.$strapi));
+  inject("createSourceForChallenge", createSourceForChallenge(ctx.$strapi));
+
   inject("updateSource", updateSource(ctx.$strapi));
 
   inject("createInvite", createInvite(ctx.$strapi));
@@ -444,6 +463,8 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("experiences", experiences(ctx.$strapi));
 
   inject("challenges", challenges(ctx.$strapi));
+  inject("createChallenge", createChallenge(ctx.$strapi));
+
   inject("challenge", challenge(ctx.$strapi));
 
   inject("startups", startups(ctx.$strapi));
