@@ -15,6 +15,7 @@
       :feedbacks="feedbacks"
       :askfeedbacks="askfeedbacks"
       :previos-participaints="previosParticipaints"
+      :is-super-admin="isSuperAdmin"
       @clickOnButton="toggleChallengeTask"
       @openParticipantSolution="toggleChallengeTask"
       @participantRequest="participantRequest"
@@ -53,6 +54,7 @@ import { Badges } from "~/models/Badges";
 export default class extends Vue {
   @Prop() challenge: Array<Challenge>;
   @Prop() userId: string;
+  @Prop() isSuperAdmin: boolean;
   @Prop() profile: Array<Profile>;
   @Prop() askfeedbacks: Array<AskFeedbacks>;
   @Prop() directions: Array<Directions>;
