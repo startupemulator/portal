@@ -36,12 +36,14 @@
     </p>
     <p>Pick specialization this task is for</p>
 
-    <SpecializationPicker
+    <!-- <SpecializationPicker
       :key="updateKey + 'specialisations'"
       :specialisations="specialisations"
-      :choosen-specialisation="specialisation"
+      :choosen-specialisation="challenge.specialisations"
       @pickSpecialisation="pickedSpecialisation"
-    ></SpecializationPicker>
+    ></SpecializationPicker> -->
+    <pre style="color: #fff">{{ challenge }} </pre>
+
     <p v-show="$v.specialisation.$error" class="errorInput">
       Please choose specialisations
     </p>
@@ -170,6 +172,7 @@ export default class extends Vue {
     } else {
       this.specialisation.push(data.id);
     }
+    console.log(this.specialisation);
   }
 
   textInput($event, i, id) {
@@ -252,9 +255,9 @@ export default class extends Vue {
       this.challengeName = this.challenge.title;
       this.challengeDescription = this.challenge.description;
       this.difficultyLevel = this.challenge.difficulty.toString();
-      this.challenge.specialisations.forEach((el) => {
-        this.specialisation.push(el.id);
-      });
+      // this.challenge.specialisations.forEach((el) => {
+      //   this.specialisation.push(el.id);
+      // });
     }
     // console.log(this.challengeName);
     // console.log(this.challengeDescription);
