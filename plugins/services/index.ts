@@ -78,7 +78,11 @@ import {
   askFeedbacksForStartup,
   askFeedbacksForChallenges,
 } from "~/plugins/services/feedbacks";
-import { notifications } from "~/plugins//services/notifications";
+import {
+  notifications,
+  userNotifications,
+  markReadNotification,
+} from "~/plugins//services/notifications";
 
 import {
   applications,
@@ -156,7 +160,7 @@ import {
   updateCriterions,
   deleteCriterions,
 } from "~/plugins/services/criterions";
-
+import { UserNotification } from "~/models/UserNotifications";
 export interface Services {
   $createCriterions(
     mark: string,
@@ -248,6 +252,10 @@ export interface Services {
   ): Promise<Partial<AskFeedbacks>[]>;
 
   $notifications(): Promise<Partial<Notification>[]>;
+  $userNotifications(userId: string): Promise<Partial<UserNotification>[]>;
+  $markReadNotification(
+    notificationId: string
+  ): Promise<Partial<UserNotification>[]>;
 
   $getUserBySlug(slug: string): Promise<Partial<NotificationUser>[]>;
   $getUserByEmail(email: string): Promise<Partial<NotificationUser>[]>;
@@ -533,6 +541,8 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
     createAskFeedbackForChallenge(ctx.$strapi)
   );
   inject("notifications", notifications(ctx.$strapi));
+  inject("userNotifications", userNotifications(ctx.$strapi));
+  inject("markReadNotification", markReadNotification(ctx.$strapi));
 
   inject("createLike", createLike(ctx.$strapi));
   inject("deleteLike", deleteLike(ctx.$strapi));

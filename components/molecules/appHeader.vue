@@ -195,7 +195,7 @@
                       : 'tartup-card__started--disable'
                   "
                 >
-                  <span>99</span>
+                  <span>{{ newNotificationCount }}</span>
                 </div>
                 Notifications</nuxt-link
               >
@@ -220,7 +220,12 @@
         ></U-button>
       </div>
     </div>
-    <Notifications-popup v-show="notification"></Notifications-popup>
+    <Notifications-popup
+      v-show="notification"
+      :notifications="notifications"
+      :is-expert="isExpert"
+      @markAllNotifications="$emit('markAllNotifications')"
+    ></Notifications-popup>
     <!-- <pre style="color: #fff">{{ technologies }} sdrg</pre> -->
   </header>
 </template>
@@ -230,6 +235,7 @@ import UButton from "../atoms/uButton.vue";
 import ULogo from "../atoms/uLogo.vue";
 import NotificationsPopup from "./popupNotifications.vue";
 import { goToPricing } from "~/assets/jshelper/scrollToPricing";
+import { Notification } from "~/models/Notification";
 
 @Component({
   components: { UButton, ULogo, NotificationsPopup },
@@ -238,9 +244,11 @@ export default class AppHeader extends Vue {
   @Prop() currentRoute: string;
   @Prop() isLogined: Boolean;
   @Prop() user: string;
+  @Prop() notifications: Array<Notification>;
+  @Prop() isExpert: boolean;
 
   notification: Boolean = false;
-
+  newNotificationCount: number = 0;
   toggleNotification() {
     this.notification = !this.notification;
   }
@@ -249,6 +257,22 @@ export default class AppHeader extends Vue {
     if (this.currentRoute === "/#pricing") {
       goToPricing();
     }
+  }
+
+  checkNewNotificationsCount() {
+    if (this.notifications !== null) {
+      this.newNotificationCount = this.notifications.filter(
+        (el) => el.viewed === false
+      ).length;
+    }
+  }
+
+  updated() {
+    this.checkNewNotificationsCount();
+  }
+
+  mounted() {
+    this.checkNewNotificationsCount();
   }
 }
 </script>
