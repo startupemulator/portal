@@ -18,6 +18,7 @@ export default {
   target: "server", // default is 'server'
   router: {
     base: "/",
+    props: true,
   },
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ["@assets/css/main.scss"],

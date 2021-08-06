@@ -71,6 +71,7 @@ export default class extends Vue {
         this.loading = false;
       }
     }
+    this.loading = false;
   }
 
   @Watch("$route", { immediate: true, deep: true })
@@ -102,6 +103,7 @@ export default class extends Vue {
       }
     } catch (e) {
       console.error(e);
+      setTimeout(this.checkNewNotifications, 30000);
     }
   }
 

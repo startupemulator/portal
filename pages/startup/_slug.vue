@@ -201,6 +201,7 @@ export default class TakeStartup extends Vue {
         }
       });
     }
+    console.log(this.$route);
   }
 
   beforeDestroy() {

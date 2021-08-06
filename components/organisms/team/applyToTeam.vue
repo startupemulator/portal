@@ -106,6 +106,8 @@ export default class extends Vue {
       }
 
       if (newRequest !== null) {
+        console.log("create new notification");
+        this.createNewNotification(this.newRequest.comment);
         this.loading = false;
         this.popupApplied = !this.popupApplied;
       }
@@ -115,6 +117,27 @@ export default class extends Vue {
         data: "Something wrong.",
         duration: 3000,
       });
+      console.error(e);
+    }
+  }
+
+  async createNewNotification(comment: string) {
+    try {
+      const link = `/startup/${this.startup.slug}`;
+      const newNotification = await this.$createNotificationForStartup(
+        this.userId,
+        comment,
+        link,
+        "default",
+        this.startup.id
+      );
+      if (newNotification !== null) {
+        await this.$createUserNotification(
+          this.startup.owner.id,
+          newNotification.id
+        );
+      }
+    } catch (e) {
       console.error(e);
     }
   }

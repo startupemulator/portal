@@ -56,7 +56,15 @@
                 }}
               </div>
             </div>
-            <img src="~/assets/img/arrow.svg" />
+
+            <nuxt-link
+              :to="{
+                path: notification.notification.link,
+                params: { props: 'notifications' },
+              }"
+            >
+              <img src="~/assets/img/arrow.svg" />
+            </nuxt-link>
           </li>
         </ul>
       </div>
@@ -99,7 +107,14 @@
                 }}
               </div>
             </div>
-            <img src="~/assets/img/arrow.svg" />
+            <nuxt-link
+              :to="{
+                path: notification.notification.link,
+                params: { props: 'notifications' },
+              }"
+            >
+              <img src="~/assets/img/arrow.svg" />
+            </nuxt-link>
           </li>
         </ul>
       </div>
