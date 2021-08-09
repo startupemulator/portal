@@ -56,15 +56,16 @@
                 }}
               </div>
             </div>
-
-            <nuxt-link
-              :to="{
-                path: notification.notification.link,
-                params: { props: 'notifications' },
-              }"
-            >
-              <img src="~/assets/img/arrow.svg" />
-            </nuxt-link>
+            <div @click="readNotification(notification.id)">
+              <nuxt-link
+                :to="{
+                  path: notification.notification.link,
+                  params: { props: 'notifications' },
+                }"
+              >
+                <img src="~/assets/img/arrow.svg" />
+              </nuxt-link>
+            </div>
           </li>
         </ul>
       </div>
@@ -139,7 +140,6 @@ export default class extends Vue {
   firstClickOnNotification = true;
   isLogined = !!this.$strapi.user;
   clickOnDocumet(e) {
-    console.log("hi");
     const el = document.querySelector(".notification-popup");
     if (
       !this.firstClickOnNotification &&
@@ -153,13 +153,15 @@ export default class extends Vue {
     this.firstClickOnNotification = false;
   }
 
+  readNotification(id) {
+    this.$emit("markNotificationIsReaded", id);
+  }
+
   mounted() {
-    console.log("mounted");
     document.addEventListener("click", this.clickOnDocumet);
   }
 
   beforeDestroy() {
-    console.log("beforeDestroy");
     document.removeEventListener("click", this.clickOnDocumet);
   }
 }

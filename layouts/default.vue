@@ -9,6 +9,7 @@
       :is-expert="isExpert"
       :new-notification-count="newNotificationCount"
       @markAllNotifications="markAllNotifications"
+      @markNotificationIsReaded="markNotificationIsReaded"
     ></AppHeader>
 
     <Nuxt />
@@ -48,6 +49,21 @@ export default class extends Vue {
     const profile = await this.$profile(this.$strapi.user.id);
     if (profile !== null && profile.is_expert !== false) {
       this.isExpert = true;
+    }
+  }
+
+  async markNotificationIsReaded(id) {
+    try {
+      await this.$markReadNotification(id);
+      const updateNotifications = await this.$userNotifications(
+        this.$strapi.user.id
+      );
+      if (updateNotifications !== null) {
+        this.notifications = updateNotifications;
+      }
+      this.checkNotificationCount();
+    } catch (e) {
+      console.error(e);
     }
   }
 
