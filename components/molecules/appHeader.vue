@@ -188,6 +188,7 @@
                   />
                 </svg>
                 <div
+                  v-show="newNotificationCount !== 0"
                   class="notification-message"
                   :class="
                     true
@@ -246,9 +247,10 @@ export default class AppHeader extends Vue {
   @Prop() user: string;
   @Prop() notifications: Array<Notification>;
   @Prop() isExpert: boolean;
+  @Prop() newNotificationCount: number;
 
   notification = false;
-  newNotificationCount: number = 0;
+
   toggleNotification() {
     this.notification = !this.notification;
   }
@@ -257,27 +259,6 @@ export default class AppHeader extends Vue {
     if (this.currentRoute === "/#pricing") {
       goToPricing();
     }
-  }
-
-  checkNewNotificationsCount() {
-    if (this.notifications !== null) {
-      this.newNotificationCount = this.notifications.filter(
-        (el) => el.viewed === false
-      ).length;
-    }
-  }
-
-  updated() {
-    this.checkNewNotificationsCount();
-    if (this.notifications !== null) {
-      console.log(
-        this.notifications.filter((el) => el.viewed === false).length
-      );
-    }
-  }
-
-  mounted() {
-    this.checkNewNotificationsCount();
   }
 }
 </script>

@@ -7,6 +7,7 @@
       :user="user"
       :notifications="notifications"
       :is-expert="isExpert"
+      :new-notification-count="newNotificationCount"
       @markAllNotifications="markAllNotifications"
     ></AppHeader>
 
@@ -40,6 +41,7 @@ export default class extends Vue {
   notifications: Array<Notification> = [];
   isExpert = false;
   loading = false;
+  newNotificationCount: number = 0;
 
   async downloadNotifications() {
     this.notifications = await this.$userNotifications(this.$strapi.user.id);
@@ -71,6 +73,8 @@ export default class extends Vue {
         this.loading = false;
       }
     }
+    this.checkNotificationCount();
+
     this.loading = false;
   }
 
@@ -86,7 +90,6 @@ export default class extends Vue {
     if (this.isLogined) {
       this.downloadNotifications();
       this.checkNewNotifications();
-      console.log("watch");
     }
   }
 
@@ -105,6 +108,7 @@ export default class extends Vue {
           newNotifications.filter((el) => el.viewed === false).length !== 0
         ) {
           this.notifications = newNotifications;
+          this.checkNotificationCount();
           setTimeout(this.checkNewNotifications, 30000);
         }
       } catch (e) {
@@ -114,6 +118,12 @@ export default class extends Vue {
     } else {
       setTimeout(this.checkNewNotifications, 30000);
     }
+  }
+
+  checkNotificationCount() {
+    this.newNotificationCount = this.notifications.filter(
+      (el) => el.viewed === false
+    ).length;
   }
 }
 </script>
