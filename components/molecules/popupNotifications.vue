@@ -58,10 +58,8 @@
             </div>
             <div @click="readNotification(notification.id)">
               <nuxt-link
-                :to="{
-                  path: notification.notification.link,
-                  params: { props: 'notifications' },
-                }"
+                :to="{ path: notification.notification.link }"
+                :notification="true"
               >
                 <img src="~/assets/img/arrow.svg" />
               </nuxt-link>
@@ -110,8 +108,11 @@
             </div>
             <nuxt-link
               :to="{
-                path: notification.notification.link,
-                params: { props: 'notifications' },
+                name: 'startup-slug',
+                params: {
+                  slug: notification.notification.link,
+                  notification: 'request',
+                },
               }"
             >
               <img src="~/assets/img/arrow.svg" />

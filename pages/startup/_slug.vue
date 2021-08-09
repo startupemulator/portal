@@ -1,7 +1,6 @@
 <template>
   <div class="startups-page">
     <Spiner :loading="loading"></Spiner>
-
     <StartupPage
       :startup="startup"
       :feedbacks="feedbacks"
@@ -18,6 +17,7 @@
       :directions="directions"
       :badges="badges"
       :releases="releases"
+      :notification="notification"
       @deleteStartup="deleteStartup"
       @cancelApplication="cancelApplication"
       @leaveProject="leaveProject"
@@ -48,6 +48,10 @@ export default class TakeStartup extends Vue {
   loading = false;
   userId = this.$strapi.user ? this.$strapi.user.id : "";
   title: string;
+  notification: string = this.$route.params.notification
+    ? this.$route.params.notification
+    : "empty";
+
   async asyncData({
     $startup,
     $feedbacksByStartupID,
@@ -201,7 +205,6 @@ export default class TakeStartup extends Vue {
         }
       });
     }
-    console.log(this.$route);
   }
 
   beforeDestroy() {
