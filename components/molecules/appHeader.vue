@@ -221,7 +221,7 @@
       </div>
     </div>
     <Notifications-popup
-      v-show="notification"
+      v-if="notification"
       :notifications="notifications"
       :is-expert="isExpert"
       @markAllNotifications="$emit('markAllNotifications')"
@@ -247,7 +247,7 @@ export default class AppHeader extends Vue {
   @Prop() notifications: Array<Notification>;
   @Prop() isExpert: boolean;
 
-  notification: Boolean = false;
+  notification = false;
   newNotificationCount: number = 0;
   toggleNotification() {
     this.notification = !this.notification;
@@ -269,6 +269,11 @@ export default class AppHeader extends Vue {
 
   updated() {
     this.checkNewNotificationsCount();
+    if (this.notifications !== null) {
+      console.log(
+        this.notifications.filter((el) => el.viewed === false).length
+      );
+    }
   }
 
   mounted() {

@@ -1,6 +1,7 @@
 <template>
   <div>
     <AppHeader
+      :key="isLogined"
       :current-route="currentRoute"
       :is-logined="isLogined"
       :user="user"
@@ -39,13 +40,12 @@ export default class extends Vue {
   notifications: Array<Notification> = [];
   isExpert = false;
   loading = false;
-  async fetch() {
-    if (this.$strapi.user) {
-      this.notifications = await this.$userNotifications(this.$strapi.user.id);
-      const profile = await this.$profile(this.$strapi.user.id);
-      if (profile !== null && profile.is_expert !== false) {
-        this.isExpert = true;
-      }
+
+  async downloadNotifications() {
+    this.notifications = await this.$userNotifications(this.$strapi.user.id);
+    const profile = await this.$profile(this.$strapi.user.id);
+    if (profile !== null && profile.is_expert !== false) {
+      this.isExpert = true;
     }
   }
 
@@ -83,6 +83,11 @@ export default class extends Vue {
   onLogin() {
     this.isLogined = !!this.$strapi.user;
     this.user = this.$strapi.user ? this.$strapi.user.name : "";
+    if (this.isLogined) {
+      this.downloadNotifications();
+      this.checkNewNotifications();
+      console.log("watch");
+    }
   }
 
   get state() {
@@ -90,25 +95,25 @@ export default class extends Vue {
   }
 
   async checkNewNotifications() {
-    try {
-      const newNotifications = await this.$userNotifications(
-        this.$strapi.user.id
-      );
-      if (
-        newNotifications !== null &&
-        newNotifications.filter((el) => el.viewed === false).length !== 0
-      ) {
-        this.notifications = newNotifications;
+    if (this.$strapi.user !== null) {
+      try {
+        const newNotifications = await this.$userNotifications(
+          this.$strapi.user.id
+        );
+        if (
+          newNotifications !== null &&
+          newNotifications.filter((el) => el.viewed === false).length !== 0
+        ) {
+          this.notifications = newNotifications;
+          setTimeout(this.checkNewNotifications, 30000);
+        }
+      } catch (e) {
+        console.error(e);
         setTimeout(this.checkNewNotifications, 30000);
       }
-    } catch (e) {
-      console.error(e);
+    } else {
       setTimeout(this.checkNewNotifications, 30000);
     }
-  }
-
-  mounted() {
-    this.checkNewNotifications();
   }
 }
 </script>
