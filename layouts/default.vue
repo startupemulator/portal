@@ -23,7 +23,7 @@ import { Component, Watch, Vue } from "nuxt-property-decorator";
 import AppFooter from "~/components/molecules/appFooter.vue";
 import AppHeader from "~/components/molecules/appHeader.vue";
 import Toast from "~/components/molecules/toast.vue";
-import Notification from "~/models/Notification";
+import { Notification } from "~/models/Notification";
 import Spiner from "~/components/molecules/spiner.vue";
 
 @Component({
@@ -124,6 +124,10 @@ export default class extends Vue {
     this.newNotificationCount = this.notifications.filter(
       (el) => el.viewed === false
     ).length;
+  }
+
+  closeNotificationsIfOpen() {
+    console.log("is work");
   }
 }
 </script>

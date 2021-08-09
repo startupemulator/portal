@@ -136,8 +136,32 @@ import { Notification } from "~/models/Notification";
 export default class extends Vue {
   @Prop() notifications: Array<Notification>;
   @Prop() isExpert: boolean;
-
+  firstClickOnNotification = true;
   isLogined = !!this.$strapi.user;
+  clickOnDocumet(e) {
+    console.log("hi");
+    const el = document.querySelector(".notification-popup");
+    if (
+      !this.firstClickOnNotification &&
+      !(
+        e.target.classList.contains("notification-popup") ||
+        el.contains(e.target)
+      )
+    ) {
+      this.$emit("closeNotificationPopup");
+    }
+    this.firstClickOnNotification = false;
+  }
+
+  mounted() {
+    console.log("mounted");
+    document.addEventListener("click", this.clickOnDocumet);
+  }
+
+  beforeDestroy() {
+    console.log("beforeDestroy");
+    document.removeEventListener("click", this.clickOnDocumet);
+  }
 }
 </script>
 <style lang="scss" scoped>

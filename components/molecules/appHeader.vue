@@ -226,6 +226,7 @@
       :notifications="notifications"
       :is-expert="isExpert"
       @markAllNotifications="$emit('markAllNotifications')"
+      @closeNotificationPopup="toggleNotification"
     ></Notifications-popup>
     <!-- <pre style="color: #fff">{{ technologies }} sdrg</pre> -->
   </header>
