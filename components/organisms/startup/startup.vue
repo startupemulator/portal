@@ -730,19 +730,39 @@ export default class extends Vue {
     this.newFeedbacksData = feedbacks.filter((el) => !el.is_public);
   }
 
+  async createNotification(recipients) {
+    const comment = "Accepted new member";
+    const link = this.startup.slug;
+    try {
+      const newNotification = await this.$createNotificationForStartup(
+        this.userId,
+        comment,
+        link,
+        "default",
+        this.startup.id
+      );
+      if (newNotification !== null) {
+        for (const recipient of recipients) {
+          await this.$createUserNotification(
+            recipient.user.id,
+            newNotification.id
+          );
+        }
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   async accept(id) {
     this.loading = true;
-
     try {
       const accept = await this.$applicationAccept(id);
       if (accept) {
         const startup = await this.$startupById(this.startup.id);
-
         const { applications } = await this.$applicationsByStartupId(
           this.startup.id
         );
-        // position to staffed
-
         if (startup !== null) {
           this.updatableDataStartup = startup;
           if (this.startup.state === "in_progress") {
@@ -756,15 +776,17 @@ export default class extends Vue {
             (position) => position.status === "open"
           );
           this.updateKey = 1;
-
           this.moveAwayStartup = this.startup.id;
           this.moveAwayStartupName = this.startup.title;
         }
-
         if (applications !== null) {
           this.updatableDataApplications = applications;
-        }
+          const recipients = applications.filter(
+            (el) => el.status === "accepted" || el.status === "advanced"
+          );
 
+          this.createNotification(recipients);
+        }
         this.loading = false;
         this.updateKey += 1;
       } else {

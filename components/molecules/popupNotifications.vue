@@ -58,8 +58,13 @@
             </div>
             <div @click="readNotification(notification.id)">
               <nuxt-link
-                :to="{ path: notification.notification.link }"
-                :notification="true"
+                :to="{
+                  name: 'startup-slug',
+                  params: {
+                    slug: notification.notification.link,
+                    notification: 'request',
+                  },
+                }"
               >
                 <img src="~/assets/img/arrow.svg" />
               </nuxt-link>

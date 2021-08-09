@@ -32,7 +32,9 @@ export function applicationsByStartupId($strapi: Strapi) {
     status
     comment
     decline_reason
-    
+    user {
+      id
+    }
     position{
       id
       status
