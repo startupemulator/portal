@@ -30,6 +30,20 @@ export function profile($strapi: Strapi) {
     return data.profiles ? data.profiles[0] : null;
   };
 }
+export function expertProfiles($strapi: Strapi) {
+  return async () => {
+    const data = await $strapi.graphql({
+      query: `query {
+  profiles(where: {is_expert: true}) {
+    user {
+        id
+      }
+  }
+}`,
+    });
+    return data.profiles ? data.profiles : null;
+  };
+}
 export function profileBySlug($strapi: Strapi) {
   return async (slug: string) => {
     const data = await $strapi.graphql({

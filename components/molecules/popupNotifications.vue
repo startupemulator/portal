@@ -56,13 +56,19 @@
                 }}
               </div>
             </div>
+
             <div @click="readNotification(notification.id)">
               <nuxt-link
                 :to="{
                   name: 'startup-slug',
                   params: {
                     slug: notification.notification.link,
-                    notification: 'request',
+                    notification:
+                      notification.notification.type === 'default'
+                        ? 'request'
+                        : notification.notification.type === 'feedback'
+                        ? notification.notification.type
+                        : '',
                   },
                 }"
               >
@@ -116,7 +122,12 @@
                 name: 'startup-slug',
                 params: {
                   slug: notification.notification.link,
-                  notification: 'request',
+                  notification:
+                    notification.notification.type === 'default'
+                      ? 'request'
+                      : notification.notification.type === 'feedback'
+                      ? notification.notification.type
+                      : '',
                 },
               }"
             >

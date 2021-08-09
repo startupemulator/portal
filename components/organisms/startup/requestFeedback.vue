@@ -86,6 +86,7 @@ export default class extends Vue {
         if (askFeedback !== null) {
           this.loading = false;
           this.UPopup = !this.UPopup;
+          this.$emit("createFedbackNotification");
         }
       } catch (e) {
         console.error(e);

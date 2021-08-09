@@ -28,6 +28,7 @@
       :startup="updatableDataStartup"
       :user-id="userId"
       @clikOnButton="toggleRequestFeedBack"
+      @createFedbackNotification="createFedbackNotification"
     ></RequestFeedback>
     <EditStartupInfo
       v-show="editStartupInfo"
@@ -730,15 +731,20 @@ export default class extends Vue {
     this.newFeedbacksData = feedbacks.filter((el) => !el.is_public);
   }
 
-  async createNotification(recipients) {
-    const comment = "Accepted new member";
+  async createNotification(recipients, flag) {
+    const comment =
+      flag === "accept"
+        ? "Accepted new member"
+        : flag === "requestFeedback"
+        ? "Request feedback"
+        : "";
     const link = this.startup.slug;
     try {
       const newNotification = await this.$createNotificationForStartup(
         this.userId,
         comment,
         link,
-        "default",
+        "feedback",
         this.startup.id
       );
       if (newNotification !== null) {
@@ -748,6 +754,17 @@ export default class extends Vue {
             newNotification.id
           );
         }
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async createFedbackNotification() {
+    try {
+      const experts = await this.$expertProfiles();
+      if (experts !== null) {
+        this.createNotification(experts, "requestFeedback");
       }
     } catch (e) {
       console.error(e);
@@ -785,7 +802,7 @@ export default class extends Vue {
             (el) => el.status === "accepted" || el.status === "advanced"
           );
 
-          this.createNotification(recipients);
+          this.createNotification(recipients, "accept");
         }
         this.loading = false;
         this.updateKey += 1;
