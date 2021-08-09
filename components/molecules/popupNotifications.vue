@@ -3,7 +3,7 @@
     <div class="notification-popup__header">
       <h3>Notifications</h3>
     </div>
-    <div class="notification-popup__expert-notification">
+    <div v-if="isExpert" class="notification-popup__expert-notification">
       <U-button
         :button-name="'My projects'"
         :button-class="'u-button-transpend expert-button expert-button-projects'"
@@ -16,7 +16,7 @@
     <div class="notification-popup__message new-popup__message">
       <div class="new-message__header">
         <span>New</span>
-        <button type="button">
+        <button type="button" @click="$emit('markAllNotifications')">
           <img src="~/assets/img/check.svg" alt="mark as read" /><span
             >Mark all as read</span
           >
@@ -24,27 +24,51 @@
       </div>
       <div class="new-message__content">
         <ul class="new-message__content-list">
-          <li class="new-message__content-item">
+          <li
+            v-for="notification in notifications.filter(
+              (el) => el.viewed === false
+            )"
+            :key="notification.id"
+            class="new-message__content-item"
+          >
             <div class="content-item-description">
-              <span>Full Name</span>
-              <p>left feedback for</p>
-              <span>Startup #1</span>
+              <span>{{ notification.notification.creator.username }}</span>
+              <p>
+                left
+                {{
+                  notification.notification.type !== "default"
+                    ? notification.notification.type
+                    : "somthing ???"
+                }}
+                for
+              </p>
+              <span v-if="notification.notification.startup !== null"
+                >Startup #{{ notification.notification.startup.id }}</span
+              >
+              <span v-if="notification.notification.challenge !== null"
+                >Challenge #{{ notification.notification.challenge.id }}</span
+              >
               <div class="content-item-description__date">
-                23 Sep 2020 00:45
+                {{
+                  new Date(notification.published_at)
+                    .toUTCString()
+                    .substr(4, 18)
+                }}
               </div>
             </div>
-            <img src="~/assets/img/arrow.svg" />
-          </li>
-          <li class="new-message__content-item">
-            <div class="content-item-description">
-              <span>Full Name</span>
-              <p>requested a feedback for</p>
-              <span>Task Name</span>
-              <div class="content-item-description__date">
-                23 Sep 2020 00:45
-              </div>
+            <div @click="readNotification(notification.id)">
+              <nuxt-link
+                :to="{
+                  name: 'startup-slug',
+                  params: {
+                    slug: notification.notification.link,
+                    notification: 'request',
+                  },
+                }"
+              >
+                <img src="~/assets/img/arrow.svg" />
+              </nuxt-link>
             </div>
-            <img src="~/assets/img/arrow.svg" />
           </li>
         </ul>
       </div>
@@ -55,27 +79,49 @@
       </div>
       <div class="new-message__content">
         <ul class="new-message__content-list">
-          <li class="new-message__content-item">
+          <li
+            v-for="notification in notifications.filter(
+              (el) => el.viewed === true
+            )"
+            :key="notification.id"
+            class="new-message__content-item"
+          >
             <div class="content-item-description">
-              <span>Full Name</span>
-              <p>left feedback for</p>
-              <span>Startup #1</span>
+              <span>{{ notification.notification.creator.username }}</span>
+              <p>
+                left
+                {{
+                  notification.notification.type !== "default"
+                    ? notification.notification.type
+                    : "somthing ???"
+                }}
+                for
+              </p>
+              <span v-if="notification.notification.startup !== null"
+                >Startup #{{ notification.notification.startup.id }}</span
+              >
+              <span v-if="notification.notification.challenge !== null"
+                >Challenge #{{ notification.notification.challenge.id }}</span
+              >
               <div class="content-item-description__date">
-                23 Sep 2020 00:45
+                {{
+                  new Date(notification.published_at)
+                    .toUTCString()
+                    .substr(4, 18)
+                }}
               </div>
             </div>
-            <img src="~/assets/img/arrow.svg" />
-          </li>
-          <li class="new-message__content-item">
-            <div class="content-item-description">
-              <span>Full Name</span>
-              <p>left feedback for</p>
-              <span>Startup #1</span>
-              <div class="content-item-description__date">
-                23 Sep 2020 00:45
-              </div>
-            </div>
-            <img src="~/assets/img/arrow.svg" />
+            <nuxt-link
+              :to="{
+                name: 'startup-slug',
+                params: {
+                  slug: notification.notification.link,
+                  notification: 'request',
+                },
+              }"
+            >
+              <img src="~/assets/img/arrow.svg" />
+            </nuxt-link>
           </li>
         </ul>
       </div>
@@ -87,14 +133,43 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
+import { Component, Vue, Prop } from "nuxt-property-decorator";
 import UButton from "../atoms/uButton.vue";
+import { Notification } from "~/models/Notification";
 
 @Component({
   components: { UButton },
 })
 export default class extends Vue {
+  @Prop() notifications: Array<Notification>;
+  @Prop() isExpert: boolean;
+  firstClickOnNotification = true;
   isLogined = !!this.$strapi.user;
+  clickOnDocumet(e) {
+    const el = document.querySelector(".notification-popup");
+    if (
+      !this.firstClickOnNotification &&
+      !(
+        e.target.classList.contains("notification-popup") ||
+        el.contains(e.target)
+      )
+    ) {
+      this.$emit("closeNotificationPopup");
+    }
+    this.firstClickOnNotification = false;
+  }
+
+  readNotification(id) {
+    this.$emit("markNotificationIsReaded", id);
+  }
+
+  mounted() {
+    document.addEventListener("click", this.clickOnDocumet);
+  }
+
+  beforeDestroy() {
+    document.removeEventListener("click", this.clickOnDocumet);
+  }
 }
 </script>
 <style lang="scss" scoped>

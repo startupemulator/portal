@@ -8,8 +8,18 @@
       class="challenge-task__content"
     >
       <UBack :link="'/challenges'"></UBack>
+
       <div class="challenge-task__header">
         <UTitle :text="challenge.title"></UTitle>
+
+        <div v-if="isSuperAdmin" class="applied-startup">
+          <div class="applied-startup__not-started">
+            <button type="button" @click="editChallenge">
+              <span>Edit Challenge</span>
+              <img src="~/assets/img/arrow.svg" alt="arrow" />
+            </button>
+          </div>
+        </div>
         <div
           v-if="isStarted || finished"
           class="challenge-task__header__startup-state"
@@ -211,6 +221,7 @@ export default class extends Vue {
   @Prop() challenge: Array<Challenge>;
   @Prop() isStarted: Boolean;
   @Prop() finished: Boolean;
+  @Prop() isSuperAdmin: Boolean;
   @Prop() isDeveloper: Boolean;
   @Prop() isExpert: Boolean;
   @Prop() userChallenges: Array<userChallenges>;
@@ -236,6 +247,10 @@ export default class extends Vue {
 
   toggleCancelParticipationPopup() {
     this.cancelParticipationPopup = !this.cancelParticipationPopup;
+  }
+
+  editChallenge() {
+    this.$router.push("/challenge/edit/" + this.challenge.slug);
   }
 
   toogleRequestFeedback() {

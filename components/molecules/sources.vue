@@ -90,6 +90,7 @@ export default class extends Vue {
     font-size: 16px;
     line-height: 24px;
     margin: 0;
+    word-break: break-all;
   }
   p {
     word-break: break-all;

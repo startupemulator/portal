@@ -1,6 +1,7 @@
 <template>
   <div class="create-project__super-admin">
-    <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
+    <pre style="color: #fff">{{ challenge }} </pre>
+    <UBack :link="'/profile/projects'"></UBack>
     <UTitle :text="'Create a challenge'"></UTitle>
     <div class="create-project__super-admin-progress-bar">
       <div class="create-project__super-admin__progress-bar--progress"></div>
@@ -26,6 +27,8 @@
       Please enter a description name of at least 8 characters
     </p>
     <DifficultyLevelPicker
+      :key="updateKey + 'difficultyLevel'"
+      :checked-difficalty-level="difficultyLevel"
       @difficultyLevelId="difficultyLevelId"
     ></DifficultyLevelPicker>
     <p v-show="$v.difficultyLevel.$error" class="errorInput">
@@ -33,10 +36,14 @@
     </p>
     <p>Pick specialization this task is for</p>
 
-    <SpecializationPicker
+    <!-- <SpecializationPicker
+      :key="updateKey + 'specialisations'"
       :specialisations="specialisations"
+      :choosen-specialisation="challenge.specialisations"
       @pickSpecialisation="pickedSpecialisation"
-    ></SpecializationPicker>
+    ></SpecializationPicker> -->
+    <pre style="color: #fff">{{ challenge }} </pre>
+
     <p v-show="$v.specialisation.$error" class="errorInput">
       Please choose specialisations
     </p>
@@ -66,7 +73,7 @@
       <U-button
         :button-name="'Save Draft'"
         :button-class="'u-button-gray'"
-        @clickOnButton="$emit('clikOnButton')"
+        @clickOnButton="saveDraft"
       ></U-button>
     </div>
     <Spiner></Spiner>
@@ -85,6 +92,7 @@ import Spiner from "~/components/molecules/spiner.vue";
 import DifficultyLevelPicker from "~/components/atoms/difficultyLevelPicker.vue";
 import AddExistingSourse from "~/components/molecules/addExistingSource.vue";
 import { Specialisation } from "~/models/Specialisation";
+import { Challenge } from "~/models/Challenge";
 import SpecializationPicker from "~/components/molecules/specializationPicker.vue";
 
 @Component({
@@ -120,6 +128,7 @@ import SpecializationPicker from "~/components/molecules/specializationPicker.vu
 })
 export default class extends Vue {
   @Prop() specialisations: Array<Specialisation>;
+  @Prop() challenge: Array<Challenge>;
   loading = false;
 
   existingSourseComponent = [
@@ -128,10 +137,10 @@ export default class extends Vue {
   ];
 
   createdSources = [];
-
+  updateKey = 1;
   challengeName = "";
   challengeDescription = "";
-  difficultyLevel = "";
+  difficultyLevel = " ";
   specialisation = [];
   addExistingSourse() {
     this.existingSourseComponent.push({
@@ -163,6 +172,7 @@ export default class extends Vue {
     } else {
       this.specialisation.push(data.id);
     }
+    console.log(this.specialisation);
   }
 
   textInput($event, i, id) {
@@ -234,6 +244,26 @@ export default class extends Vue {
         });
       }
     }
+  }
+
+  saveDraft() {
+    console.log("do somthing");
+  }
+
+  mounted() {
+    if (this.challenge) {
+      this.challengeName = this.challenge.title;
+      this.challengeDescription = this.challenge.description;
+      this.difficultyLevel = this.challenge.difficulty.toString();
+      // this.challenge.specialisations.forEach((el) => {
+      //   this.specialisation.push(el.id);
+      // });
+    }
+    // console.log(this.challengeName);
+    // console.log(this.challengeDescription);
+    // console.log(this.difficultyLevel);
+    this.updateKey += 1;
+    console.log(this.updateKey);
   }
 }
 </script>

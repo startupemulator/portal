@@ -188,6 +188,7 @@
                   />
                 </svg>
                 <div
+                  v-show="newNotificationCount !== 0"
                   class="notification-message"
                   :class="
                     true
@@ -195,7 +196,7 @@
                       : 'tartup-card__started--disable'
                   "
                 >
-                  <span>99</span>
+                  <span>{{ newNotificationCount }}</span>
                 </div>
                 Notifications</nuxt-link
               >
@@ -220,8 +221,14 @@
         ></U-button>
       </div>
     </div>
-    <Notifications-popup v-show="notification"></Notifications-popup>
-    <!-- <pre style="color: #fff">{{ technologies }} sdrg</pre> -->
+    <Notifications-popup
+      v-if="notification"
+      :notifications="notifications"
+      :is-expert="isExpert"
+      @markAllNotifications="$emit('markAllNotifications')"
+      @closeNotificationPopup="toggleNotification"
+      @markNotificationIsReaded="$emit('markNotificationIsReaded', $event)"
+    ></Notifications-popup>
   </header>
 </template>
 <script lang="ts">
@@ -230,6 +237,7 @@ import UButton from "../atoms/uButton.vue";
 import ULogo from "../atoms/uLogo.vue";
 import NotificationsPopup from "./popupNotifications.vue";
 import { goToPricing } from "~/assets/jshelper/scrollToPricing";
+import { Notification } from "~/models/Notification";
 
 @Component({
   components: { UButton, ULogo, NotificationsPopup },
@@ -238,8 +246,11 @@ export default class AppHeader extends Vue {
   @Prop() currentRoute: string;
   @Prop() isLogined: Boolean;
   @Prop() user: string;
+  @Prop() notifications: Array<Notification>;
+  @Prop() isExpert: boolean;
+  @Prop() newNotificationCount: number;
 
-  notification: Boolean = false;
+  notification = false;
 
   toggleNotification() {
     this.notification = !this.notification;

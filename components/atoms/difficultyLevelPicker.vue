@@ -15,10 +15,11 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
+import { Component, Vue, Prop } from "nuxt-property-decorator";
 
 @Component({})
 export default class extends Vue {
+  @Prop() checkedDifficaltyLevel: string;
   checkDifficultyLevel($event, id) {
     const obj = $event.target.classList;
     this.$refs.difficultyLevelItem.forEach((element) => {
@@ -28,6 +29,14 @@ export default class extends Vue {
       ? $event.target.classList.remove("checked")
       : $event.target.classList.add("checked");
     this.$emit("difficultyLevelId", id);
+  }
+
+  mounted() {
+    if (this.checkedDifficaltyLevel !== " ") {
+      this.$refs.difficultyLevelItem[
+        +this.checkedDifficaltyLevel - 1
+      ].classList.add("checked");
+    }
   }
 }
 </script>

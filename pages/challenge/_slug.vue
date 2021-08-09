@@ -11,6 +11,7 @@
       :askfeedbacks="updatableaskfeedbacks"
       :directions="directions"
       :badges="badges"
+      :is-super-admin="isSuperAdmin"
       @requestIsSend="requestIsSend"
     ></ChallengePage>
     <Spiner :loading="loading"></Spiner>
@@ -33,6 +34,7 @@ export default class TakeChallenge extends Vue {
   title: string;
   updateKey = 0;
   loading = false;
+  isSuperAdmin = true;
 
   async asyncData({
     $challenge,
@@ -56,6 +58,7 @@ export default class TakeChallenge extends Vue {
     let previosParticipaints = [];
     let directions = [];
     let badges = [];
+
     if ($strapi.user) {
       profile = await $profile($strapi.user.id);
       userChallenge = await $userChallengesByUserId($strapi.user.id);

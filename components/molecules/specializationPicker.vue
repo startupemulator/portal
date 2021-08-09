@@ -1,7 +1,7 @@
 <template>
   <div class="technology-picker">
     <h2>{{ title }}</h2>
-    <form ref="specialisations">
+    <!-- <form ref="specialisations">
       <uTags
         v-for="specialisation in specialisations"
         :id="specialisation.id"
@@ -13,7 +13,7 @@
         @pick="pickSpecialisation(specialisation.id)"
       >
       </uTags>
-    </form>
+    </form> -->
   </div>
 </template>
 <script lang="ts">
@@ -27,13 +27,13 @@ import { Specialisation } from "~/models/Specialisation";
 export default class extends Vue {
   @Prop({ default: " " }) title: String;
   @Prop() specialisations: Array<Specialisation>;
+  @Prop() choosenSpecialisation: Array<Specialisation>;
 
   pickSpecialisation(i) {
     this.specialisations.forEach((el) => {
       if (i === el.id) {
         this.$refs.specialisations.children.forEach((element, i) => {
-          // element.classList.remove("checked");
-          if (i + 1 === +el.id) {
+          if (+i + 1 === +el.id) {
             element.classList.toggle("checked");
           }
         });
@@ -41,6 +41,16 @@ export default class extends Vue {
         this.$emit("pickSpecialisation", el);
       }
     });
+  }
+
+  mounted() {
+    // console.log(this.choosenSpecialisation !== []);
+    // if (this.choosenSpecialisation !== []) {
+    //   this.choosenSpecialisation.forEach((el) => {
+    //     console.log(el);
+    //     this.pickSpecialisation(el.id);
+    //   });
+    // }
   }
 }
 </script>

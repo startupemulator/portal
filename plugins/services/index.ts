@@ -78,7 +78,14 @@ import {
   askFeedbacksForStartup,
   askFeedbacksForChallenges,
 } from "~/plugins/services/feedbacks";
-import { notifications } from "~/plugins//services/notifications";
+import {
+  createNotification,
+  createNotificationForStartup,
+  createNotificationForChallenge,
+  userNotifications,
+  markReadNotification,
+  createUserNotification,
+} from "~/plugins//services/notifications";
 
 import {
   applications,
@@ -156,7 +163,7 @@ import {
   updateCriterions,
   deleteCriterions,
 } from "~/plugins/services/criterions";
-
+import { UserNotification } from "~/models/UserNotifications";
 export interface Services {
   $createCriterions(
     mark: string,
@@ -247,7 +254,36 @@ export interface Services {
     challenge: string
   ): Promise<Partial<AskFeedbacks>[]>;
 
-  $notifications(): Promise<Partial<Notification>[]>;
+  $createNotification(
+    creatorId: string,
+    message: string,
+    link: string,
+    type: string
+  ): Promise<Partial<Notification>[]>;
+  $createUserNotification(
+    userId: string,
+    notificationId: string
+  ): Promise<Partial<Notification>[]>;
+
+  $createNotificationForStartup(
+    creatorId: string,
+    message: string,
+    link: string,
+    type: string,
+    startup: string
+  ): Promise<Partial<Notification>[]>;
+  $createNotificationForChallenge(
+    creatorId: string,
+    message: string,
+    link: string,
+    type: string,
+    challenge: string
+  ): Promise<Partial<Notification>[]>;
+
+  $userNotifications(userId: string): Promise<Partial<UserNotification>[]>;
+  $markReadNotification(
+    notificationId: string
+  ): Promise<Partial<UserNotification>[]>;
 
   $getUserBySlug(slug: string): Promise<Partial<NotificationUser>[]>;
   $getUserByEmail(email: string): Promise<Partial<NotificationUser>[]>;
@@ -532,7 +568,18 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
     "createAskFeedbackForChallenge",
     createAskFeedbackForChallenge(ctx.$strapi)
   );
-  inject("notifications", notifications(ctx.$strapi));
+  inject("createNotification", createNotification(ctx.$strapi));
+  inject("createUserNotification", createUserNotification(ctx.$strapi));
+  inject(
+    "createNotificationForStartup",
+    createNotificationForStartup(ctx.$strapi)
+  );
+  inject(
+    "createNotificationForChallenge",
+    createNotificationForChallenge(ctx.$strapi)
+  );
+  inject("userNotifications", userNotifications(ctx.$strapi));
+  inject("markReadNotification", markReadNotification(ctx.$strapi));
 
   inject("createLike", createLike(ctx.$strapi));
   inject("deleteLike", deleteLike(ctx.$strapi));
