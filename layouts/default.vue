@@ -141,9 +141,5 @@ export default class extends Vue {
       (el) => el.viewed === false
     ).length;
   }
-
-  closeNotificationsIfOpen() {
-    console.log("is work");
-  }
 }
 </script>

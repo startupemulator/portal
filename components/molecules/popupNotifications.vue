@@ -117,22 +117,24 @@
                 }}
               </div>
             </div>
-            <nuxt-link
-              :to="{
-                name: 'startup-slug',
-                params: {
-                  slug: notification.notification.link,
-                  notification:
-                    notification.notification.type === 'default'
-                      ? 'request'
-                      : notification.notification.type === 'feedback'
-                      ? notification.notification.type
-                      : '',
-                },
-              }"
-            >
-              <img src="~/assets/img/arrow.svg" />
-            </nuxt-link>
+            <div @click="closeNotifications">
+              <nuxt-link
+                :to="{
+                  name: 'startup-slug',
+                  params: {
+                    slug: notification.notification.link,
+                    notification:
+                      notification.notification.type === 'default'
+                        ? 'request'
+                        : notification.notification.type === 'feedback'
+                        ? notification.notification.type
+                        : '',
+                  },
+                }"
+              >
+                <img src="~/assets/img/arrow.svg" />
+              </nuxt-link>
+            </div>
           </li>
         </ul>
       </div>
@@ -168,6 +170,10 @@ export default class extends Vue {
       this.$emit("closeNotificationPopup");
     }
     this.firstClickOnNotification = false;
+  }
+
+  closeNotifications() {
+    this.$emit("closeNotifications");
   }
 
   readNotification(id) {
