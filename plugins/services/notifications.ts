@@ -51,7 +51,6 @@ export function createNotificationForStartup($strapi: Strapi) {
   }
 }`,
     });
-    // return data;
     return data.createNotification
       ? data.createNotification.notification
       : null;
@@ -114,7 +113,7 @@ export function userNotifications($strapi: Strapi) {
   return async (userId: string) => {
     const data = await $strapi.graphql({
       query: `query {
-        userNotifications(where:{user:{id: "${userId}"}}) {
+        userNotifications(sort: "created_at:desc", where:{user:{id: "${userId}"}}) {
     id
     viewed
     notified_at
