@@ -25,9 +25,9 @@
       <div class="new-message__content">
         <ul class="new-message__content-list">
           <li
-            v-for="notification in notifications.filter(
-              (el) => el.viewed === false
-            )"
+            v-for="notification in notifications
+              .filter((el) => el.viewed === false)
+              .splice(0, lengthNewNotifications)"
             :key="notification.id"
             class="new-message__content-item"
           >
@@ -78,6 +78,17 @@
           </li>
         </ul>
       </div>
+      <button
+        v-show="
+          notifications.filter((el) => el.viewed === false).length >
+          lengthNewNotifications
+        "
+        class="showMoreNewNotifications"
+        type="button"
+        @click="showMoreNewNotifications"
+      >
+        <span>Show more</span>
+      </button>
     </div>
     <div class="notification-popup__message earlier__message">
       <div class="new-message__header">
@@ -86,9 +97,9 @@
       <div class="new-message__content">
         <ul class="new-message__content-list">
           <li
-            v-for="notification in notifications.filter(
-              (el) => el.viewed === true
-            )"
+            v-for="notification in notifications
+              .filter((el) => el.viewed === true)
+              .splice(0, lengthEarlierNotifications)"
             :key="notification.id"
             class="new-message__content-item"
           >
@@ -138,6 +149,17 @@
           </li>
         </ul>
       </div>
+      <button
+        v-show="
+          notifications.filter((el) => el.viewed === true).length >
+          lengthEarlierNotifications
+        "
+        class="showMoreNewNotifications"
+        type="button"
+        @click="showMoreEarlierNotifications"
+      >
+        <span>Show more</span>
+      </button>
     </div>
     <U-button
       :button-name="'Show 20 More Notifications'"
@@ -158,6 +180,17 @@ export default class extends Vue {
   @Prop() isExpert: boolean;
   firstClickOnNotification = true;
   isLogined = !!this.$strapi.user;
+  lengthNewNotifications = 5;
+  lengthEarlierNotifications = 5;
+
+  showMoreNewNotifications() {
+    this.lengthNewNotifications = this.lengthNewNotifications + 5;
+  }
+
+  showMoreEarlierNotifications() {
+    this.lengthEarlierNotifications = this.lengthEarlierNotifications + 5;
+  }
+
   clickOnDocumet(e) {
     const el = document.querySelector(".notification-popup");
     if (
@@ -213,6 +246,17 @@ export default class extends Vue {
       line-height: 40px;
       margin-bottom: 30px;
     }
+  }
+  .showMoreNewNotifications {
+    background: transparent;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 0;
+    margin-left: auto;
+    color: #8c97ac;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 32px;
   }
   .notification-popup__message {
     padding-bottom: 24px;
