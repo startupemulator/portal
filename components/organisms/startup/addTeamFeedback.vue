@@ -184,6 +184,7 @@ export default class extends Vue {
         if (createFeedback !== null) {
           this.loading = false;
           this.$emit("clikOnButton");
+          this.$emit("teamNotificationFeedback");
         }
       } catch (e) {
         console.error(e);

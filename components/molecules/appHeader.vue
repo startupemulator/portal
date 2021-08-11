@@ -225,9 +225,10 @@
       v-if="notification"
       :notifications="notifications"
       :is-expert="isExpert"
-      @markAllNotifications="$emit('markAllNotifications')"
+      @markAllNotifications="markAllNotifications"
       @closeNotificationPopup="toggleNotification"
-      @markNotificationIsReaded="$emit('markNotificationIsReaded', $event)"
+      @closeNotifications="closeNotifications"
+      @markNotificationIsReaded="markNotificationIsReaded($event)"
     ></Notifications-popup>
   </header>
 </template>
@@ -254,6 +255,20 @@ export default class AppHeader extends Vue {
 
   toggleNotification() {
     this.notification = !this.notification;
+  }
+
+  closeNotifications() {
+    this.toggleNotification();
+  }
+
+  markNotificationIsReaded(data) {
+    this.$emit("markNotificationIsReaded", data);
+    this.toggleNotification();
+  }
+
+  markAllNotifications() {
+    this.$emit("markAllNotifications");
+    this.toggleNotification();
   }
 
   scrollToPricing() {

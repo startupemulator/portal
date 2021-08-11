@@ -25,9 +25,85 @@
       <div class="new-message__content">
         <ul class="new-message__content-list">
           <li
-            v-for="notification in notifications.filter(
-              (el) => el.viewed === false
-            )"
+            v-for="notification in notifications
+              .filter((el) => el.viewed === false)
+              .splice(0, lengthNewNotifications)"
+            :key="notification.id"
+            class="new-message__content-item"
+          >
+            <div class="content-item-description">
+              <span>{{ notification.notification.creator.username }}</span>
+              <p>
+                left
+                {{
+                  notification.notification.type !== "default"
+                    ? notification.notification.type
+                    : "somthing ???"
+                }}
+                for
+              </p>
+              <span v-if="notification.notification.startup !== null"
+                >Startup #{{ notification.notification.startup.id }}</span
+              >
+              <span v-if="notification.notification.challenge !== null"
+                >Challenge #{{ notification.notification.challenge.id }}</span
+              >
+              <div class="content-item-description__date">
+                {{
+                  new Date(notification.published_at)
+                    .toUTCString()
+                    .substr(4, 18)
+                }}
+              </div>
+            </div>
+            <div @click="readNotification(notification.id)">
+              <nuxt-link
+                :to="{
+                  name:
+                    notification.notification.startup !== null
+                      ? 'startup-slug'
+                      : notification.notification.challenge !== null
+                      ? 'challenge-slug'
+                      : '',
+                  params: {
+                    slug: notification.notification.link,
+                    notification:
+                      notification.notification.type === 'default'
+                        ? 'request'
+                        : notification.notification.type === 'feedback'
+                        ? notification.notification.type
+                        : '',
+                  },
+                }"
+              >
+                <img src="~/assets/img/arrow.svg" />
+              </nuxt-link>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <button
+        v-show="
+          notifications.filter((el) => el.viewed === false).length >
+          lengthNewNotifications
+        "
+        class="showMoreNewNotifications"
+        type="button"
+        @click="showMoreNewNotifications"
+      >
+        <span>Show more</span>
+      </button>
+    </div>
+    <div class="notification-popup__message earlier__message">
+      <div class="new-message__header">
+        <span>Earlier</span>
+      </div>
+      <div class="new-message__content">
+        <ul class="new-message__content-list">
+          <li
+            v-for="notification in notifications
+              .filter((el) => el.viewed === true)
+              .splice(0, lengthEarlierNotifications)"
             :key="notification.id"
             class="new-message__content-item"
           >
@@ -57,10 +133,15 @@
               </div>
             </div>
 
-            <div @click="readNotification(notification.id)">
+            <div @click="closeNotifications">
               <nuxt-link
                 :to="{
-                  name: 'startup-slug',
+                  name:
+                    notification.notification.startup !== null
+                      ? 'startup-slug'
+                      : notification.notification.challenge !== null
+                      ? 'challenge-slug'
+                      : '',
                   params: {
                     slug: notification.notification.link,
                     notification:
@@ -78,64 +159,17 @@
           </li>
         </ul>
       </div>
-    </div>
-    <div class="notification-popup__message earlier__message">
-      <div class="new-message__header">
-        <span>Earlier</span>
-      </div>
-      <div class="new-message__content">
-        <ul class="new-message__content-list">
-          <li
-            v-for="notification in notifications.filter(
-              (el) => el.viewed === true
-            )"
-            :key="notification.id"
-            class="new-message__content-item"
-          >
-            <div class="content-item-description">
-              <span>{{ notification.notification.creator.username }}</span>
-              <p>
-                left
-                {{
-                  notification.notification.type !== "default"
-                    ? notification.notification.type
-                    : "somthing ???"
-                }}
-                for
-              </p>
-              <span v-if="notification.notification.startup !== null"
-                >Startup #{{ notification.notification.startup.id }}</span
-              >
-              <span v-if="notification.notification.challenge !== null"
-                >Challenge #{{ notification.notification.challenge.id }}</span
-              >
-              <div class="content-item-description__date">
-                {{
-                  new Date(notification.published_at)
-                    .toUTCString()
-                    .substr(4, 18)
-                }}
-              </div>
-            </div>
-            <nuxt-link
-              :to="{
-                name: 'startup-slug',
-                params: {
-                  slug: notification.notification.link,
-                  notification:
-                    notification.notification.type === 'default'
-                      ? 'request'
-                      : notification.notification.type === 'feedback'
-                      ? notification.notification.type
-                      : '',
-                },
-              }"
-            >
-              <img src="~/assets/img/arrow.svg" />
-            </nuxt-link>
-          </li>
-        </ul>
-      </div>
+      <button
+        v-show="
+          notifications.filter((el) => el.viewed === true).length >
+          lengthEarlierNotifications
+        "
+        class="showMoreNewNotifications"
+        type="button"
+        @click="showMoreEarlierNotifications"
+      >
+        <span>Show more</span>
+      </button>
     </div>
     <U-button
       :button-name="'Show 20 More Notifications'"
@@ -156,6 +190,17 @@ export default class extends Vue {
   @Prop() isExpert: boolean;
   firstClickOnNotification = true;
   isLogined = !!this.$strapi.user;
+  lengthNewNotifications = 5;
+  lengthEarlierNotifications = 5;
+
+  showMoreNewNotifications() {
+    this.lengthNewNotifications = this.lengthNewNotifications + 5;
+  }
+
+  showMoreEarlierNotifications() {
+    this.lengthEarlierNotifications = this.lengthEarlierNotifications + 5;
+  }
+
   clickOnDocumet(e) {
     const el = document.querySelector(".notification-popup");
     if (
@@ -168,6 +213,10 @@ export default class extends Vue {
       this.$emit("closeNotificationPopup");
     }
     this.firstClickOnNotification = false;
+  }
+
+  closeNotifications() {
+    this.$emit("closeNotifications");
   }
 
   readNotification(id) {
@@ -195,6 +244,7 @@ export default class extends Vue {
   color: #fff;
   border-radius: 12px;
   box-sizing: border-box;
+  border: 1px solid #59667e;
   ul {
     margin: 0;
     padding: 0;
@@ -206,6 +256,17 @@ export default class extends Vue {
       line-height: 40px;
       margin-bottom: 30px;
     }
+  }
+  .showMoreNewNotifications {
+    background: transparent;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 0;
+    margin-left: auto;
+    color: #8c97ac;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 32px;
   }
   .notification-popup__message {
     padding-bottom: 24px;

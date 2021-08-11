@@ -109,11 +109,47 @@ export default class TakeChallenge extends Vue {
       if (this.updatableChallenge !== null) {
         this.updateKey += 1;
         scrollToHeader();
+        this.requestFeedbackNotification();
       }
       this.loading = false;
     } catch (e) {
       console.error(e);
       this.loading = false;
+    }
+  }
+
+  async requestFeedbackNotification() {
+    try {
+      const recipiensts = await this.$expertProfiles();
+      if (recipiensts !== null) {
+        this.createNotification(recipiensts);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async createNotification(recipiensts) {
+    const comment = "Requested feedback for challenge";
+    const link = this.challenge.slug;
+    try {
+      const newNotification = await this.$createNotificationForChallenge(
+        this.userId,
+        comment,
+        link,
+        "feedback",
+        this.challenge.id
+      );
+      if (newNotification !== null) {
+        for (const recipienst of recipiensts) {
+          await this.$createUserNotification(
+            recipienst.user.id,
+            newNotification.id
+          );
+        }
+      }
+    } catch (e) {
+      console.error(e);
     }
   }
 

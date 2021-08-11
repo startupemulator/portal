@@ -88,6 +88,7 @@
       :expert-id="userId"
       :directions="directions"
       @clikOnButton="toggleAddTeamFeedBack"
+      @teamNotificationFeedback="teamNotificationFeedback"
     ></AddTeamFeedBack>
 
     <AddTeamBadge
@@ -716,9 +717,8 @@ export default class extends Vue {
       this.feedbackFilterByPublickFlag(this.feedbacks);
       this.feedbackFilterByPrivateFlag(this.feedbacks);
     }
-    console.log(this.notification);
+
     if (this.notification === "request") {
-      console.log("request");
       this.requestToTeam = !this.requestToTeam;
     }
   }
@@ -731,12 +731,24 @@ export default class extends Vue {
     this.newFeedbacksData = feedbacks.filter((el) => !el.is_public);
   }
 
+  teamNotificationFeedback() {
+    const recipients = this.updatableDataApplications.filter(
+      (el) => el.status === "accepted" || el.status === "advanced"
+    );
+
+    recipients.push({ user: { id: this.startup.owner.id } });
+    console.log(recipients);
+    this.createNotification(recipients, "teamFeedback");
+  }
+
   async createNotification(recipients, flag) {
     const comment =
       flag === "accept"
         ? "Accepted new member"
         : flag === "requestFeedback"
         ? "Request feedback"
+        : flag === "teamFeedback"
+        ? "Expert left team feedback"
         : "";
     const link = this.startup.slug;
     try {
