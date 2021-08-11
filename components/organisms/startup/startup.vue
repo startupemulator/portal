@@ -735,20 +735,22 @@ export default class extends Vue {
     const recipients = this.updatableDataApplications.filter(
       (el) => el.status === "accepted" || el.status === "advanced"
     );
-
     recipients.push({ user: { id: this.startup.owner.id } });
-    console.log(recipients);
     this.createNotification(recipients, "teamFeedback");
   }
 
   async createNotification(recipients, flag) {
     const comment =
       flag === "accept"
-        ? "Accepted new member"
+        ? "accepted new member"
         : flag === "requestFeedback"
-        ? "Request feedback"
+        ? "requested feedback"
         : flag === "teamFeedback"
-        ? "Expert left team feedback"
+        ? "left team feedback"
+        : flag === "advanced"
+        ? "change users premission"
+        : flag === "decline"
+        ? "change users premission"
         : "";
     const link = this.startup.slug;
     try {
@@ -810,7 +812,7 @@ export default class extends Vue {
         }
         if (applications !== null) {
           this.updatableDataApplications = applications;
-          const recipients = applications.filter(
+          const recipients = this.updatableDataApplications.filter(
             (el) => el.status === "accepted" || el.status === "advanced"
           );
 
@@ -850,6 +852,10 @@ export default class extends Vue {
         }
         if (applications !== null) {
           this.updatableDataApplications = applications;
+          const recipients = this.updatableDataApplications.filter(
+            (el) => el.status === "accepted" || el.status === "advanced"
+          );
+          this.createNotification(recipients, "decline");
         }
         this.loading = false;
         this.updateKey += 1;
@@ -885,6 +891,10 @@ export default class extends Vue {
         }
         if (applications !== null) {
           this.updatableDataApplications = applications;
+          const recipients = this.updatableDataApplications.filter(
+            (el) => el.status === "accepted" || el.status === "advanced"
+          );
+          this.createNotification(recipients, "advanced");
         }
 
         this.loading = false;

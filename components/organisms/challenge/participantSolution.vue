@@ -130,7 +130,7 @@ export default class extends Vue {
 
   async teamNotificationFeedback() {
     const recipient = this.solutionData.creator.id;
-    const comment = "Expert add feedback to challenge";
+    const comment = "add feedback";
     const link = this.challenge.slug;
     try {
       const newNotification = await this.$createNotificationForChallenge(

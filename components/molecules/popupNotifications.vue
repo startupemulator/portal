@@ -34,12 +34,13 @@
             <div class="content-item-description">
               <span>{{ notification.notification.creator.username }}</span>
               <p>
-                left
+                <!-- left
                 {{
                   notification.notification.type !== "default"
                     ? notification.notification.type
                     : "somthing ???"
-                }}
+                }} -->
+                {{ notification.notification.message }}
                 for
               </p>
               <span v-if="notification.notification.startup !== null"
@@ -110,12 +111,13 @@
             <div class="content-item-description">
               <span>{{ notification.notification.creator.username }}</span>
               <p>
-                left
-                {{
+                <!-- left -->
+                <!-- {{
                   notification.notification.type !== "default"
                     ? notification.notification.type
                     : "somthing ???"
-                }}
+                }} -->
+                {{ notification.notification.message }}
                 for
               </p>
               <span v-if="notification.notification.startup !== null"
@@ -132,7 +134,7 @@
                 }}
               </div>
             </div>
-
+            <!-- <pre style="color: #fff">{{ notification }} </pre> -->
             <div @click="closeNotifications">
               <nuxt-link
                 :to="{
