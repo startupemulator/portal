@@ -56,11 +56,17 @@
                 }}
               </div>
             </div>
+            <pre style="color: #fff">{{ notification }} </pre>
 
             <div @click="readNotification(notification.id)">
               <nuxt-link
                 :to="{
-                  name: 'startup-slug',
+                  name:
+                    notification.notification.startup !== null
+                      ? 'startup-slug'
+                      : notification.notification.challenge !== null
+                      ? 'challenge-slug'
+                      : '',
                   params: {
                     slug: notification.notification.link,
                     notification:
@@ -128,6 +134,7 @@
                 }}
               </div>
             </div>
+            <pre style="color: #fff">{{ notification }} </pre>
             <div @click="closeNotifications">
               <nuxt-link
                 :to="{

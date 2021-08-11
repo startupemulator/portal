@@ -72,7 +72,7 @@ export function createNotificationForChallenge($strapi: Strapi) {
             creator: "${creatorId}"
             message: "${message}"
             link: "${link}"
-            type: "${type}"
+            type: ${type}
             challenge: "${challenge}"
           }
         }) {
@@ -82,7 +82,9 @@ export function createNotificationForChallenge($strapi: Strapi) {
   }
 }`,
     });
-    return data.notification ? data.notification : null;
+    return data.createNotification
+      ? data.createNotification.notification
+      : null;
   };
 }
 
