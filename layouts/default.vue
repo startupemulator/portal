@@ -103,6 +103,7 @@ export default class extends Vue {
   onLogin() {
     this.isLogined = !!this.$strapi.user;
     this.user = this.$strapi.user ? this.$strapi.user.name : "";
+
     if (this.isLogined) {
       this.downloadNotifications();
       this.checkNewNotifications();
@@ -125,14 +126,15 @@ export default class extends Vue {
         ) {
           this.notifications = newNotifications;
           this.checkNotificationCount();
+
+          setTimeout(this.checkNewNotifications, 30000);
+        } else {
           setTimeout(this.checkNewNotifications, 30000);
         }
       } catch (e) {
         console.error(e);
         setTimeout(this.checkNewNotifications, 30000);
       }
-    } else {
-      setTimeout(this.checkNewNotifications, 30000);
     }
   }
 

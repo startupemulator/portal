@@ -453,7 +453,6 @@
       @leveProject="leveProject"
     ></PopupLeaveProject>
     <Spiner :loading="loading"></Spiner>
-    <pre style="color: #fff">{{ updatableDataApplications }} </pre>
   </div>
 </template>
 <script lang="ts">
