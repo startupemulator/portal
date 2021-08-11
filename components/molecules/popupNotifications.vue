@@ -201,6 +201,7 @@ export default class extends Vue {
   color: #fff;
   border-radius: 12px;
   box-sizing: border-box;
+  border: 1px solid #59667e;
   ul {
     margin: 0;
     padding: 0;
