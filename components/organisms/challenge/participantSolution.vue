@@ -70,6 +70,7 @@
       :badges="badges"
       @updateFeedbacks="updateFeedbacks"
       @clikOnButton="toggleAddFeedback"
+      @teamNotificationFeedback="teamNotificationFeedback"
     ></AddTeamFeedBack>
     <Spiner :loading="loading"></Spiner>
   </div>
@@ -125,6 +126,26 @@ export default class extends Vue {
 
   toggleAddFeedback() {
     this.addFeedback = !this.addFeedback;
+  }
+
+  async teamNotificationFeedback() {
+    const recipient = this.solutionData.creator.id;
+    const comment = "Expert add feedback to challenge";
+    const link = this.challenge.slug;
+    try {
+      const newNotification = await this.$createNotificationForChallenge(
+        this.userId,
+        comment,
+        link,
+        "feedback",
+        this.challenge.id
+      );
+      if (newNotification !== null) {
+        await this.$createUserNotification(recipient, newNotification.id);
+      }
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   async updateFeedbacks() {
