@@ -4,7 +4,7 @@
       <button
         type="button"
         class="sign-up-link__close"
-        @click="$emit('closePopupLinkSent')"
+        @click="redirectToStartups"
       >
         <img src="~/assets/img/close.svg" alt="Close" />
       </button>
@@ -31,7 +31,11 @@ import UTitle from "../atoms/uTitle.vue";
     UTitle,
   },
 })
-export default class extends Vue {}
+export default class extends Vue {
+  redirectToStartups() {
+    this.$router.push("/startups");
+  }
+}
 </script>
 <style scoped>
 .signing-up-link-sent .signing-up-link-sent__content {
