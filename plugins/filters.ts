@@ -12,6 +12,7 @@ Vue.filter("formatDate", (value: string) => {
 Vue.filter("formatDateWithTime", (value: string) => {
   const date = new Date(value);
   return date.toLocaleString(["en-US"], {
+    hour12: false,
     month: "short",
     day: "2-digit",
     year: "numeric",

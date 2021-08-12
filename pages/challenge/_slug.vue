@@ -130,7 +130,7 @@ export default class TakeChallenge extends Vue {
   }
 
   async createNotification(recipiensts) {
-    const comment = "Requested feedback for challenge";
+    const comment = "Requested feedback";
     const link = this.challenge.slug;
     try {
       const newNotification = await this.$createNotificationForChallenge(
