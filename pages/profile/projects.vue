@@ -28,14 +28,23 @@ import myProjects from "~/components/organisms/myprojects/myProjects.vue";
 export default class extends Vue {
   userId: Number = this.$strapi.user.id;
   updateFlag = 0;
-  isSuperAdmin = true;
   loading = false;
 
-  async asyncData({ $myStartups, $startupByAcceptedApplication, $strapi }) {
+  async asyncData({
+    $myStartups,
+    $startupByAcceptedApplication,
+    $profile,
+    $strapi,
+  }) {
     const myStartups = await $myStartups($strapi.user.id);
+    const userProfile = await $profile($strapi.user.id);
     const acceptedStartup = await $startupByAcceptedApplication(
       $strapi.user.id
     );
+    let isSuperAdmin = false;
+    if (userProfile !== null && userProfile.gardenkeeper !== null) {
+      isSuperAdmin = userProfile.gardenkeeper;
+    }
     if (acceptedStartup !== null) {
       acceptedStartup.forEach((item) => {
         item.positions.forEach((el) =>
@@ -53,6 +62,7 @@ export default class extends Vue {
     return {
       myStartups,
       acceptedStartup,
+      isSuperAdmin,
     };
   }
 

@@ -8,6 +8,7 @@ export function profile($strapi: Strapi) {
       id
       slug
       is_expert
+      gardenkeeper
     user {
         id
         username
