@@ -1,7 +1,7 @@
 <template>
   <div class="technology-picker">
     <h2>{{ title }}</h2>
-    <!-- <form ref="specialisations">
+    <form ref="specialisations">
       <uTags
         v-for="specialisation in specialisations"
         :id="specialisation.id"
@@ -13,7 +13,7 @@
         @pick="pickSpecialisation(specialisation.id)"
       >
       </uTags>
-    </form> -->
+    </form>
   </div>
 </template>
 <script lang="ts">
@@ -44,13 +44,11 @@ export default class extends Vue {
   }
 
   mounted() {
-    // console.log(this.choosenSpecialisation !== []);
-    // if (this.choosenSpecialisation !== []) {
-    //   this.choosenSpecialisation.forEach((el) => {
-    //     console.log(el);
-    //     this.pickSpecialisation(el.id);
-    //   });
-    // }
+    if (this.choosenSpecialisation !== null) {
+      this.choosenSpecialisation.forEach((el) => {
+        this.pickSpecialisation(el.id);
+      });
+    }
   }
 }
 </script>

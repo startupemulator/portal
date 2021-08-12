@@ -2,10 +2,9 @@
   <div class="create-project__super-admin">
     <pre style="color: #fff">{{ challenge }} </pre>
     <UBack :link="'/profile/projects'"></UBack>
-    <UTitle :text="'Create a challenge'"></UTitle>
-    <div class="create-project__super-admin-progress-bar">
-      <div class="create-project__super-admin__progress-bar--progress"></div>
-    </div>
+    <UTitle
+      :text="challenge === null ? 'Create a challenge' : 'Edit a challenge'"
+    ></UTitle>
     <p>Challenge name</p>
     <input
       v-model.trim="$v.challengeName.$model"
@@ -36,14 +35,14 @@
     </p>
     <p>Pick specialization this task is for</p>
 
-    <!-- <SpecializationPicker
+    <SpecializationPicker
       :key="updateKey + 'specialisations'"
       :specialisations="specialisations"
-      :choosen-specialisation="challenge.specialisations"
+      :choosen-specialisation="
+        challenge !== null ? challenge.specialisations : null
+      "
       @pickSpecialisation="pickedSpecialisation"
-    ></SpecializationPicker> -->
-    <pre style="color: #fff">{{ challenge }} </pre>
-
+    ></SpecializationPicker>
     <p v-show="$v.specialisation.$error" class="errorInput">
       Please choose specialisations
     </p>
@@ -52,6 +51,8 @@
       v-for="(item, i) in existingSourseComponent"
       :key="item.id"
       :name="'Source Link ' + (i + 1)"
+      :link-name="item.title"
+      :link-href="item.link"
       @removeExistingSources="removeExistingSources(item.id)"
       @textInput="textInput($event, i, item.id)"
     ></div>
@@ -128,13 +129,10 @@ import SpecializationPicker from "~/components/molecules/specializationPicker.vu
 })
 export default class extends Vue {
   @Prop() specialisations: Array<Specialisation>;
-  @Prop() challenge: Array<Challenge>;
+  @Prop({ default: null }) challenge: Array<Challenge>;
   loading = false;
 
-  existingSourseComponent = [
-    { id: 1, type: "add-existing-sourse" },
-    { id: 2, type: "add-existing-sourse" },
-  ];
+  existingSourseComponent = [{ id: `1`, type: "add-existing-sourse" }];
 
   createdSources = [];
   updateKey = 1;
@@ -166,13 +164,11 @@ export default class extends Vue {
   pickedSpecialisation(data) {
     if (this.specialisation.some((el) => el === data.id)) {
       this.specialisation.splice(
-        this.specialisation.findIndex((el) => el === data.id),
-        1
+        this.specialisation.findIndex((el) => el === data.id)
       );
     } else {
       this.specialisation.push(data.id);
     }
-    console.log(this.specialisation);
   }
 
   textInput($event, i, id) {
@@ -255,15 +251,17 @@ export default class extends Vue {
       this.challengeName = this.challenge.title;
       this.challengeDescription = this.challenge.description;
       this.difficultyLevel = this.challenge.difficulty.toString();
-      // this.challenge.specialisations.forEach((el) => {
-      //   this.specialisation.push(el.id);
-      // });
+      this.existingSourseComponent = [];
+      this.challenge.sources.forEach((el) => {
+        this.existingSourseComponent.push({
+          id: el.id,
+          type: "add-existing-sourse",
+          link: el.link.trim(),
+          title: el.title,
+        });
+      });
     }
-    // console.log(this.challengeName);
-    // console.log(this.challengeDescription);
-    // console.log(this.difficultyLevel);
     this.updateKey += 1;
-    console.log(this.updateKey);
   }
 }
 </script>

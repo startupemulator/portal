@@ -54,6 +54,7 @@ export function challenge($strapi: Strapi) {
       
     }
     sources {
+      id
       link
       title
     }
