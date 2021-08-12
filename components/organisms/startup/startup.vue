@@ -1,6 +1,5 @@
 <template>
   <div>
-    <pre style="color: #fff">{{ notification }} </pre>
     <RequestToTeam
       v-show="requestToTeam"
       :update-key="updateKey"

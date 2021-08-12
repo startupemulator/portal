@@ -34,12 +34,6 @@
             <div class="content-item-description">
               <span>{{ notification.notification.creator.username }}</span>
               <p>
-                <!-- left
-                {{
-                  notification.notification.type !== "default"
-                    ? notification.notification.type
-                    : "somthing ???"
-                }} -->
                 {{ notification.notification.message }}
                 for
               </p>
@@ -50,11 +44,7 @@
                 >Challenge #{{ notification.notification.challenge.id }}</span
               >
               <div class="content-item-description__date">
-                {{
-                  new Date(notification.published_at)
-                    .toUTCString()
-                    .substr(4, 18)
-                }}
+                {{ notification.published_at | formatDateWithTime }}
               </div>
             </div>
             <div @click="readNotification(notification.id)">
@@ -111,12 +101,6 @@
             <div class="content-item-description">
               <span>{{ notification.notification.creator.username }}</span>
               <p>
-                <!-- left -->
-                <!-- {{
-                  notification.notification.type !== "default"
-                    ? notification.notification.type
-                    : "somthing ???"
-                }} -->
                 {{ notification.notification.message }}
                 for
               </p>
@@ -127,14 +111,10 @@
                 >Challenge #{{ notification.notification.challenge.id }}</span
               >
               <div class="content-item-description__date">
-                {{
-                  new Date(notification.published_at)
-                    .toUTCString()
-                    .substr(4, 18)
-                }}
+                {{ notification.published_at | formatDateWithTime }}
               </div>
             </div>
-            <!-- <pre style="color: #fff">{{ notification }} </pre> -->
+
             <div @click="closeNotifications">
               <nuxt-link
                 :to="{
