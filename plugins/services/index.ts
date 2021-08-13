@@ -24,6 +24,7 @@ import {
   challenge,
   challenges,
   createChallenge,
+  updateChallenge,
 } from "~/plugins/services/challenges";
 import { Challenge } from "~/models/Challenge";
 import { estimations } from "~/plugins/services/estimations";
@@ -330,6 +331,14 @@ export interface Services {
     specialisations: Array<string>,
     sources: Array<string>
   ): Promise<Partial<Challenge>[]>;
+  $updateChallenge(
+    id: string,
+    title: string,
+    description: string,
+    difficulty: string,
+    specialisations: Array<string>,
+    sources: Array<string>
+  ): Promise<Partial<Challenge>[]>;
 
   $challenge(slug: string): Promise<Partial<Challenge>>;
 
@@ -503,6 +512,7 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
 
   inject("challenges", challenges(ctx.$strapi));
   inject("createChallenge", createChallenge(ctx.$strapi));
+  inject("updateChallenge", updateChallenge(ctx.$strapi));
 
   inject("challenge", challenge(ctx.$strapi));
 

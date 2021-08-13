@@ -134,9 +134,11 @@ export function userNotifications($strapi: Strapi) {
       type
       startup{
         id
+        slug
       }
       challenge{
         id
+        slug
       }
     }  
   }

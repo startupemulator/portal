@@ -254,13 +254,15 @@
   }
   .owner-menu__item {
     padding: 8px 0;
-    button {
+    button,
+    a {
       width: 100%;
       background: transparent;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 0;
+
       a {
         display: flex;
         width: 100%;
@@ -274,6 +276,7 @@
         font-weight: 500;
         font-size: 17px;
         line-height: 32px;
+        color: #fff;
       }
       .owner-menu__item--message {
         box-shadow: 0 -2px 8px rgba(234, 244, 44, 0.3),

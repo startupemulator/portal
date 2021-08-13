@@ -1,6 +1,6 @@
 <template>
   <div v-cloak class="request-to-team">
-    <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
+    <UBack :is-button="false" :link="'/startup/' + startup.slug"></UBack>
     <div class="request-to-team__header">
       <UTitle :text="'Requests to team'"></UTitle>
       <div class="request-to-team__header-description">

@@ -118,21 +118,13 @@
             <div @click="closeNotifications">
               <nuxt-link
                 :to="{
-                  name:
+                  path:
                     notification.notification.startup !== null
-                      ? 'startup-slug'
+                      ? '/startup/requestsToTeam/' +
+                        notification.notification.startup.slug
                       : notification.notification.challenge !== null
-                      ? 'challenge-slug'
+                      ? '/challenge/' + notification.notification.challenge.slug
                       : '',
-                  params: {
-                    slug: notification.notification.link,
-                    notification:
-                      notification.notification.type === 'default'
-                        ? 'request'
-                        : notification.notification.type === 'feedback'
-                        ? notification.notification.type
-                        : '',
-                  },
                 }"
               >
                 <img src="~/assets/img/arrow.svg" />

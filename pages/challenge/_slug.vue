@@ -34,7 +34,6 @@ export default class TakeChallenge extends Vue {
   title: string;
   updateKey = 0;
   loading = false;
-  isSuperAdmin = true;
 
   async asyncData({
     $challenge,
@@ -50,6 +49,7 @@ export default class TakeChallenge extends Vue {
     const challenge = await $challenge(route.params.slug);
     const userChallenges = await $userChallengesById(challenge.id);
     const askfeedbacks = await $askFeedbacksByChallengeId(challenge.id);
+
     const updatableChallenge = challenge;
     const updatableaskfeedbacks = askfeedbacks;
     const title = challenge.title;
@@ -58,9 +58,12 @@ export default class TakeChallenge extends Vue {
     let previosParticipaints = [];
     let directions = [];
     let badges = [];
-
+    let isSuperAdmin = false;
     if ($strapi.user) {
       profile = await $profile($strapi.user.id);
+      if (profile !== null && profile.gardenkeeper !== null) {
+        isSuperAdmin = profile.gardenkeeper;
+      }
       userChallenge = await $userChallengesByUserId($strapi.user.id);
       directions = await $directions();
       badges = await $badges();
@@ -89,6 +92,7 @@ export default class TakeChallenge extends Vue {
       updatableChallenge,
       title,
       challenge,
+      isSuperAdmin,
     };
   }
 
