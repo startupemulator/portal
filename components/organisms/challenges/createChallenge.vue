@@ -1,6 +1,5 @@
 <template>
   <div class="create-project__super-admin">
-    <pre style="color: #fff">{{ challenge }} </pre>
     <UBack :link="'/profile/projects'"></UBack>
     <UTitle
       :text="challenge === null ? 'Create a challenge' : 'Edit a challenge'"
@@ -36,7 +35,6 @@
     <p>Pick specialization this task is for</p>
 
     <SpecializationPicker
-      :key="updateKey + 'specialisations'"
       :specialisations="specialisations"
       :choosen-specialisation="
         challenge !== null ? challenge.specialisations : null
@@ -110,7 +108,7 @@ import SpecializationPicker from "~/components/molecules/specializationPicker.vu
   validations: {
     challengeName: {
       required,
-      minLength: minLength(8),
+      minLength: minLength(4),
     },
     challengeDescription: {
       minLength: minLength(10),
@@ -164,7 +162,8 @@ export default class extends Vue {
   pickedSpecialisation(data) {
     if (this.specialisation.some((el) => el === data.id)) {
       this.specialisation.splice(
-        this.specialisation.findIndex((el) => el === data.id)
+        this.specialisation.findIndex((el) => el === data.id),
+        1
       );
     } else {
       this.specialisation.push(data.id);
@@ -185,16 +184,18 @@ export default class extends Vue {
 
   async createSources() {
     for (const item of this.existingSourseComponent) {
-      try {
-        const createdSource = await this.$createSourceForChallenge(
-          item.title,
-          item.link
-        );
-        if (createdSource !== null) {
-          this.createdSources.push(createdSource.id);
+      if (item.title !== undefined && item.link !== undefined) {
+        try {
+          const createdSource = await this.$createSourceForChallenge(
+            item.title,
+            item.link
+          );
+          if (createdSource !== null) {
+            this.createdSources.push(createdSource.id);
+          }
+        } catch (e) {
+          console.error(e);
         }
-      } catch (e) {
-        console.error(e);
       }
     }
     this.createNewChallenge();
@@ -203,23 +204,45 @@ export default class extends Vue {
   async createNewChallenge() {
     this.$v.$touch();
     if (!this.$v.$error) {
-      try {
-        const newChallenge = await this.$createChallenge(
-          this.challengeName,
-          this.challengeDescription,
-          this.difficultyLevel,
-          this.specialisation,
-          this.createdSources
-        );
-        if (newChallenge !== null) {
-          this.$router.push("/challenge/" + newChallenge.slug);
+      if (this.challenge !== null) {
+        try {
+          const updateChallenge = await this.$updateChallenge(
+            this.challenge.id,
+            this.challengeName,
+            this.challengeDescription,
+            this.difficultyLevel,
+            this.specialisation,
+            this.createdSources
+          );
+          if (updateChallenge !== null) {
+            this.$router.push("/challenge/" + updateChallenge.slug);
+          }
+        } catch (e) {
+          console.error(e);
+          Toast.show({
+            data: "Something wrong.",
+            duration: 3000,
+          });
         }
-      } catch (e) {
-        console.error(e);
-        Toast.show({
-          data: "Something wrong.",
-          duration: 3000,
-        });
+      } else {
+        try {
+          const newChallenge = await this.$createChallenge(
+            this.challengeName,
+            this.challengeDescription,
+            this.difficultyLevel,
+            this.specialisation,
+            this.createdSources
+          );
+          if (newChallenge !== null) {
+            this.$router.push("/challenge/" + newChallenge.slug);
+          }
+        } catch (e) {
+          console.error(e);
+          Toast.show({
+            data: "Something wrong.",
+            duration: 3000,
+          });
+        }
       }
     }
   }
@@ -248,9 +271,12 @@ export default class extends Vue {
 
   mounted() {
     if (this.challenge) {
+      console.log(this.difficultyLevel);
+      this.difficultyLevel = this.challenge.difficulty.toString();
+      this.updateKey += 1;
       this.challengeName = this.challenge.title;
       this.challengeDescription = this.challenge.description;
-      this.difficultyLevel = this.challenge.difficulty.toString();
+
       this.existingSourseComponent = [];
       this.challenge.sources.forEach((el) => {
         this.existingSourseComponent.push({
@@ -261,7 +287,7 @@ export default class extends Vue {
         });
       });
     }
-    this.updateKey += 1;
+    console.log(this.difficultyLevel);
   }
 }
 </script>
