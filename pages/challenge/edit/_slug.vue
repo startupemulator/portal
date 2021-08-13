@@ -16,10 +16,10 @@ import CreateChallenge from "~/components/organisms/challenges/createChallenge.v
   components: {
     CreateChallenge,
   },
-  middleware: ["deny-unauthenticated"],
+  middleware: ["access-garden-keeper"],
 })
 export default class extends Vue {
-  async asyncData({ $specialisations, route, $challenge }) {
+  async asyncData({ $specialisations, route, $challenge, $profile, $strapi }) {
     const { specialisations } = await $specialisations();
     const challenge = await $challenge(route.params.slug);
     return {

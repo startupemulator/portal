@@ -271,7 +271,6 @@ export default class extends Vue {
 
   mounted() {
     if (this.challenge) {
-      console.log(this.difficultyLevel);
       this.difficultyLevel = this.challenge.difficulty.toString();
       this.updateKey += 1;
       this.challengeName = this.challenge.title;
@@ -287,7 +286,6 @@ export default class extends Vue {
         });
       });
     }
-    console.log(this.difficultyLevel);
   }
 }
 </script>

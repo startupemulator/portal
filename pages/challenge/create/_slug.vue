@@ -13,7 +13,7 @@ import CreateChallenge from "~/components/organisms/challenges/createChallenge.v
   components: {
     CreateChallenge,
   },
-  middleware: ["deny-unauthenticated"],
+  middleware: ["access-garden-keeper"],
 })
 export default class extends Vue {
   async asyncData({ $specialisations }) {
