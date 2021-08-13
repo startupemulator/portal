@@ -204,7 +204,23 @@
         <div v-if="isOwner && !finished" class="owner-menu">
           <ul class="owner-menu__list">
             <li v-if="!review" class="owner-menu__item">
-              <button
+              <nuxt-link
+                v-if="!isStarted"
+                :to="'/startup/requestsToTeam/' + startup.slug"
+              >
+                <span
+                  >Requests to Team
+                  <div class="owner-menu__item--message">
+                    <span>{{
+                      updatableDataApplications.filter(
+                        (el) => el.status === "waiting"
+                      ).length
+                    }}</span>
+                  </div></span
+                >
+                <img src="~/assets/img/arrow.svg" alt="arrow" />
+              </nuxt-link>
+              <!-- <button
                 v-if="!isStarted"
                 type="button"
                 @click="toggleRequestToTeam"
@@ -220,7 +236,7 @@
                   </div></span
                 >
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
-              </button>
+              </button> -->
               <button v-if="isStarted" type="button" @click="toggleNewFeedBack">
                 <span
                   >New Feedback

@@ -100,8 +100,65 @@ export default class TakeStartup extends Vue {
     }
   }
 
-  decline() {}
-  advancedAccess() {}
+  async decline(id, declinetext) {
+    this.loading = true;
+    try {
+      const decline = await this.$applicationDecline(id, declinetext);
+      if (decline) {
+        const startup = await this.$startupById(this.startup.id);
+        const { applications } = await this.$applicationsByStartupId(
+          this.startup.id
+        );
+        this.startup = startup;
+        const recipients = applications.filter(
+          (el) => el.status === "accepted" || el.status === "advanced"
+        );
+        this.createNotification(recipients, "decline");
+        this.loading = false;
+        this.updateKey += 1;
+      } else {
+        Toast.show({
+          data: "Something wrong!",
+          duration: 3000,
+        });
+        this.loading = false;
+      }
+    } catch (e) {
+      console.error(e);
+      Toast.show({
+        data: e.message,
+        duration: 3000,
+      });
+      this.loading = false;
+    }
+  }
+
+  async advancedAccess(id) {
+    this.loading = true;
+    try {
+      const advancedAccess = await this.$applicationAdvancedAccess(id);
+      if (advancedAccess !== null) {
+        const startup = await this.$startupById(this.startup.id);
+        const { applications } = await this.$applicationsByStartupId(
+          this.startup.id
+        );
+        if (startup !== null) {
+          this.startup = startup;
+        }
+        if (applications !== null) {
+          const recipient = applications.filter(
+            (el) => el.status === "accepted" || el.status === "advanced"
+          );
+          this.createNotification(recipient, "advanced");
+        }
+      }
+      this.loading = false;
+      this.updateKey += 1;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   beforeDestroy() {
     document.title = "StartupEmulator - training platform for developers";
   }
