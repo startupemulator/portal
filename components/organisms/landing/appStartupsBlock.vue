@@ -39,6 +39,7 @@
         <div v-for="card in cards" :key="card.id" class="card-move">
           <startup-card
             :key="card.id"
+            v-touch:swipe="touchHandler"
             :card="card"
             :technology="technology"
             :user-id="userId"
@@ -51,6 +52,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
+
 import { Startup } from "~/models/Startup";
 import { Technology } from "~/models/Technology";
 import StartupCard from "~/components/molecules/startupCard.vue";
@@ -64,6 +66,14 @@ export default class AppStartupsBlock extends Vue {
   @Prop() cards: Array<Startup>;
   @Prop() technology: Array<Technology>;
   @Prop() userId: string;
+
+  touchHandler(data) {
+    if (data === "left") {
+      this.$emit("slideLeft", "startups");
+    } else if (data === "right") {
+      this.$emit("slideRigth", "startups");
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>

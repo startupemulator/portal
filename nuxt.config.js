@@ -27,6 +27,7 @@ export default {
     { src: "~/plugins/Vuelidate.ts" },
     { src: "~/plugins/filters.ts" },
     { src: "~/plugins/services/index.ts" },
+    { src: "~plugins/vue-touch" },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -62,7 +63,7 @@ export default {
     "@nuxtjs/strapi",
     "@nuxtjs/proxy",
     "@nuxtjs/toast",
-    'nuxt-device-detect',
+    "nuxt-device-detect",
     // "nuxt-helmet",
   ],
   toast: {
