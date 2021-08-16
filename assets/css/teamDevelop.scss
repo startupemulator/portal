@@ -33,12 +33,10 @@
     line-height: 22px;
     margin-top: 10px;
     height: 110px;
-    overflow: hidden;
+    // overflow: hidden;
     text-overflow: ellipsis;
   }
-  button {
-    border-radius: 12px;
-    padding: 8px 115px;
+  a {
     margin-top: 25px;
   }
 }

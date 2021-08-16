@@ -1,6 +1,6 @@
 .top-startups {
   color: $main-text-color;
-  width: 343px;
+  // width: 343px;
   margin-left: 16px;
   .top-startups__title {
     font-weight: bold;
@@ -12,7 +12,7 @@
   .top-startups-content {
     display: flex;
     overflow: hidden;
-    width: 100vw;
+    max-width: 100vw;
   }
 }
 .top-startup {
@@ -20,7 +20,7 @@
   margin-top: 24px;
   display: flex;
   flex-direction: column;
-  width: 327px;
+  max-width: 327px;
   margin-right: 16px;
 
   .top-startup-content {
@@ -75,6 +75,7 @@
   box-sizing: border-box;
   border-radius: 12px;
   min-height: 246px;
+  min-width: 276px;
   margin-top: 24px;
   display: flex;
   flex-direction: column;

@@ -10,7 +10,14 @@
         Looking for a team
         <div class="">to develop your idea?</div>
       </h2>
-      <h3>
+
+      <h3 v-if="$device.isMobile">
+        {{
+          "There is a description of this projects, where a product owner should describe his idea, main there is a description of this projects, where a product owner should describe his idea."
+            | truncate(176, "...")
+        }}
+      </h3>
+      <h3 v-else>
         There is a description of this projects, where a product owner should
         describe his idea, main there is a description of this projects, where a
         product owner should describe his idea.

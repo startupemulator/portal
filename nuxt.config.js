@@ -62,6 +62,7 @@ export default {
     "@nuxtjs/strapi",
     "@nuxtjs/proxy",
     "@nuxtjs/toast",
+    'nuxt-device-detect',
     // "nuxt-helmet",
   ],
   toast: {
