@@ -38,8 +38,10 @@
       <transition-group name="card" tag="div" class="transition__startup-card">
         <div v-for="card in cards" :key="card.id" class="card-move">
           <startup-card
+            :id="card.id"
             :key="card.id"
-            v-touch:swipe="touchHandler"
+            v-touch:swipe="$device.isMobile ? touchHandler : ''"
+            v-touch-class="$device.isMobile ? 'active' : ''"
             :card="card"
             :technology="technology"
             :user-id="userId"
@@ -74,11 +76,19 @@ export default class AppStartupsBlock extends Vue {
       this.$emit("slideRigth", "startups");
     }
   }
+  // touchHandler(data, event) {
+  //   console.log(data, event.currentTarget);
+  // }
 }
 </script>
 <style lang="scss" scoped>
 .card-move {
-  transition: 1.2s;
+  transition: 0.2s;
   transform: scale(1);
+  position: relative;
+  .active {
+    transform: scale3d(0.8, 0.8, 0.8);
+    transition: 0.2s;
+  }
 }
 </style>

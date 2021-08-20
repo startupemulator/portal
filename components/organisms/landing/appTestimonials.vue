@@ -25,25 +25,33 @@
       tag="div"
       name="flip-list"
     >
-      <div v-for="(card, i) in cards" :key="card.id" class="testimonial-block">
-        <h3>
-          {{ card.comment | truncate(175, "...") }}
-          <U-button
-            v-if="card.comment.length > 175"
-            :button-name="' Show all'"
-            :button-class="'u-button-transpend'"
-            @clickOnButton="toggleTestominalPopup(i)"
-          ></U-button>
-        </h3>
+      <div
+        v-for="(card, i) in cards"
+        :key="card.id"
+        v-touch:swipe="$device.isMobile ? touchHandler : ''"
+        v-touch-class="$device.isMobile ? 'active' : ''"
+        class="testimonial-block"
+      >
+        <div>
+          <h3>
+            {{ card.comment | truncate(175, "...") }}
+            <U-button
+              v-if="card.comment.length > 175"
+              :button-name="' Show all'"
+              :button-class="'u-button-transpend'"
+              @clickOnButton="toggleTestominalPopup(i)"
+            ></U-button>
+          </h3>
 
-        <p class="testimonial-block__full-name">{{ card.author }}</p>
-        <p class="testimonial-block__position">{{ card.title }}</p>
-        <img
-          v-if="card.photo[0]"
-          class="testimonial-block__img"
-          :src="card.photo[0].url"
-          alt="testimonial"
-        />
+          <p class="testimonial-block__full-name">{{ card.author }}</p>
+          <p class="testimonial-block__position">{{ card.title }}</p>
+          <img
+            v-if="card.photo[0]"
+            class="testimonial-block__img"
+            :src="card.photo[0].url"
+            alt="testimonial"
+          />
+        </div>
       </div>
     </transition-group>
     <div v-if="testominalPopup" class="testimonials-popup popup">
@@ -93,10 +101,35 @@ export default class extends Vue {
     this.testominalPopup ? enableScrolling() : disableScrolling();
     this.testominalPopup = !this.testominalPopup;
   }
+
+  touchHandler(data) {
+    if (data === "left") {
+      this.$emit("slideLeft", "testimonials");
+    } else if (data === "right") {
+      this.$emit("slideRigth", "testimonials");
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
-.flip-list-move {
-  transition: transform 1s;
+.testimonial-block {
+  transition: 0.2s;
+  transform: scale(1);
+  position: relative;
+  &.active {
+    transform: scale3d(0.8, 0.8, 0.8);
+    transition: 0.2s;
+  }
+  @media (min-width: 768px) {
+    .testimonial-block {
+      transition: 0.2s;
+      transform: scale(1);
+      position: relative;
+      &.active {
+        transform: scale3d(1.8, 1.8, 1.8);
+        transition: 0.2s;
+      }
+    }
+  }
 }
 </style>

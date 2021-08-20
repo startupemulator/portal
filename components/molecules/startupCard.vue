@@ -38,7 +38,9 @@
       </div>
     </div>
     <div class="startup-card-content">
-      <h2 class="startup-card__started-name">{{ card.title }}</h2>
+      <h2 class="startup-card__started-name">
+        {{ card.title | truncate(35, "...") }}
+      </h2>
       <h3 class="startup-card__started-text">
         {{ card.description | truncate(70, "...") }}
       </h3>

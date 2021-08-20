@@ -119,6 +119,9 @@
 @media (min-width: 768px) {
   .get-experience .get-experience-content .get-experience-content-mobile {
     max-width: 90%;
+    .experience-content__second-mobile-image img {
+      left: 0;
+    }
   }
 }
 

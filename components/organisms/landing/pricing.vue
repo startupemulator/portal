@@ -206,9 +206,10 @@ export default class extends Vue {}
     height: 40px;
   }
 }
-@media (min-width: 1280px) {
+@media (min-width: 1024px) {
   .pricing {
-    width: auto;
+    width: 1024px;
+    margin-top: 170px;
 
     .pricing__cards {
       display: flex;
@@ -224,7 +225,7 @@ export default class extends Vue {}
     padding: 0;
     width: 1344px;
     box-sizing: border-box;
-    margin-top: 170px;
+
     h4 {
       font-weight: 800;
       font-size: 69px;
