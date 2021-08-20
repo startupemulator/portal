@@ -19,22 +19,24 @@
         <p v-show="$v.email.$error" class="errorInput">
           Please enter an email address
         </p>
-        <U-input
-          :placeholder="'Enter your password'"
-          :type="'password'"
-          :value="password"
-          :account-class="
-            $v.password.$error
-              ? 'create-account__password error'
-              : 'create-account__password'
-          "
-          :img="require('~/assets/img/password.svg')"
-          :btn-show-password="true"
-          @textInput="checkPassword"
-        ></U-input>
-        <p v-show="$v.password.$error" class="errorInput">
-          Please enter a password of at least 8 characters
-        </p>
+        <div>
+          <U-input
+            :placeholder="'Enter your password'"
+            :type="'password'"
+            :value="password"
+            :account-class="
+              $v.password.$error
+                ? 'create-account__password error'
+                : 'create-account__password'
+            "
+            :img="require('~/assets/img/password.svg')"
+            :btn-show-password="true"
+            @textInput="checkPassword"
+          ></U-input>
+          <p v-show="$v.password.$error" class="errorInput">
+            Please enter a password of at least 8 characters
+          </p>
+        </div>
 
         <U-button
           :button-name="'Log in'"
