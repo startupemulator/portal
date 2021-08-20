@@ -134,13 +134,14 @@
   .top-startups {
     margin: 0 auto;
     .top-startups-content {
-      max-width: 97vw;
+      max-width: 95vw;
     }
     .top-startups__title {
       margin-left: 48px;
       font-weight: 800;
       font-size: 69px;
       line-height: 80px;
+      margin-right: 24px;
     }
   }
   .top-startup,
@@ -167,10 +168,12 @@
       font-size: 69px;
       line-height: 80px;
       letter-spacing: 0.4px;
+      margin-right: 0;
     }
     .top-startups-content {
       margin-left: 0;
       margin-right: 0;
+      max-width: 97vw;
     }
     .top-startup__buttons {
       flex-direction: row;

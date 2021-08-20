@@ -293,6 +293,7 @@ export default class extends Vue {
 .startup-block.challenges .challenge-card {
   margin-right: 16px;
   width: 327px;
+  min-width: 327px;
 
   .modificate-challenge-slider {
     margin-bottom: 12px;
@@ -354,6 +355,7 @@ export default class extends Vue {
   }
   .startup-block.challenges .challenge-card {
     width: 318px;
+    min-width: 318px;
     margin-right: 24px;
     min-height: 484px;
   }

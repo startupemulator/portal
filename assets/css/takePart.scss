@@ -133,18 +133,7 @@
   }
 }
 
-@media (min-width: 1366px) {
-  .take-part {
-    .take-part__technologies-img {
-      top: 10%;
-      right: 0%;
-      width: 50%;
-      height: auto;
-    }
-  }
-}
-
-@media (min-width: 1440px) {
+@media (min-width: 1365px) {
   .take-part {
     max-width: 1344px;
     padding-bottom: 150px;
@@ -169,12 +158,12 @@
       font-size: 69px;
       line-height: 80px;
       margin-top: 160px;
-      margin-left: 0;
+      // margin-left: 0;
     }
     .take-part__technologies {
       width: 564px;
       height: 160px;
-      margin-left: 0;
+      // margin-left: 0;
       margin-top: 70px;
       &:last-child {
         height: 160px;
@@ -195,5 +184,10 @@
       font-size: 17px;
       line-height: 24px;
     }
+  }
+}
+@media (min-width: 1440px) {
+  .take-part {
+    max-width: 1440px;
   }
 }

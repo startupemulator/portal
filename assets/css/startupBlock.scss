@@ -71,7 +71,7 @@
     .transition__startup-card {
       display: flex;
       overflow: hidden;
-      max-width: 1390px;
+      max-width: 1368px;
     }
   }
   .startup-card {
@@ -379,9 +379,10 @@
   }
   .startup-block.challenges {
     margin-left: 48px;
-    .startup-block-content__desktop-buttons {
-      margin-right: 48px;
-    }
+    margin-top: 160px;
+    // .startup-block-content__desktop-buttons {
+    //   margin-right: 48px;
+    // }
   }
   .testimonials {
     .startup-block-content__desktop-buttons {
@@ -438,26 +439,50 @@
     }
   }
   .startup-block.challenges .startup-block-content {
-    margin: 0 48px;
+    margin: 0 24px;
   }
   .startup-block.challenges .startup-block__startup-cards {
     margin-top: 70px;
     margin-left: 24px;
   }
+
+  .startup-block.challenges {
+    margin-left: 24px;
+    .startup-block-content__desktop-buttons {
+      margin-right: 24px;
+    }
+  }
 }
 @media (min-width: 1344px) {
   .startup-block.challenges {
+    max-width: 1440px;
     margin: 0 auto;
     margin-top: 160px;
+
     .startup-block-content__desktop-buttons {
       margin-right: 0;
     }
+  }
+  .startup-block.challenges .startup-block-content {
+    margin: 0 48px;
+  }
+  .startup-block.challenges .startup-block__startup-cards {
+    margin-top: 55px;
+    margin-left: 48px;
   }
   .testimonials {
     .desktop-buttons__slider {
       margin: 0;
       position: relative;
       bottom: 16px;
+      margin-right: 48px;
+    }
+  }
+}
+@media (min-width: 1400px) {
+  .testimonials {
+    .desktop-buttons__slider {
+      margin-right: 0;
     }
   }
 }

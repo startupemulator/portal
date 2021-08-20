@@ -33,7 +33,7 @@
     line-height: 22px;
     margin-top: 10px;
     height: 110px;
-    // overflow: hidden;
+    overflow: hidden;
     text-overflow: ellipsis;
   }
   a {
@@ -68,8 +68,6 @@
       margin-top: 0;
       width: 496px;
       height: 284px;
-      // width: 596px;
-      // height: 384px;
     }
 
     button {
@@ -81,6 +79,7 @@
 @media (min-width: 1300px) {
   .team-develop {
     min-height: 452px;
+    margin-top: 75px;
     img {
       width: 596px;
       height: 384px;
@@ -117,8 +116,10 @@
   .team-develop {
     max-width: 1344px;
     margin: 0 auto;
-    margin-top: 82px;
-
+    margin-top: 75px;
+    a {
+      margin-top: 13px;
+    }
     h2 {
       font-size: 56px;
     }
