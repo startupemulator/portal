@@ -75,7 +75,7 @@ export default {
     position: absolute;
     border: none;
     background-color: transparent;
-    left: 290px;
+    right: 35px;
     top: 0;
   }
   .standard-input {
@@ -117,7 +117,7 @@ export default {
       left: 24px;
     }
     .btnShowPassword {
-      left: 590px;
+      right: 55px;
     }
     .standard-input {
       height: 56px;

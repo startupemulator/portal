@@ -52,7 +52,7 @@
       </div>
       <div class="challenge-card__header-title">
         <h4 v-if="$device.isMobile">
-          {{ card.title | truncate(43, "...") }}
+          {{ card.title | truncate(35, "...") }}
         </h4>
         <h4 v-else>
           {{ card.title | truncate(15, "...") }}
@@ -83,7 +83,6 @@
         ></UTags>
       </div>
       <DifficultyLevel :card="card"></DifficultyLevel>
-
       <div class="challenge-card__content_buttons">
         <U-button
           :button-name="'Details'"
@@ -178,6 +177,9 @@ export default class extends Vue {
   box-sizing: border-box;
   width: 343px;
   color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   .challenge-card__header {
     display: flex;
     flex-direction: column;
@@ -252,6 +254,8 @@ export default class extends Vue {
         font-size: 26px;
         line-height: 32px;
         color: #fff;
+        height: 64px;
+        overflow: hidden;
       }
     }
   }
@@ -262,6 +266,7 @@ export default class extends Vue {
       line-height: 22px;
       margin-top: 8px;
       margin-bottom: 0;
+      height: 80px;
     }
     .challenge-card__content-specialisation {
       margin-top: 16px;
@@ -288,6 +293,8 @@ export default class extends Vue {
 .startup-block.challenges .challenge-card {
   margin-right: 16px;
   width: 327px;
+  min-width: 327px;
+
   .modificate-challenge-slider {
     margin-bottom: 12px;
     margin-top: -6px;
@@ -311,6 +318,7 @@ export default class extends Vue {
       .challenge-card__header-title {
         h4 {
           margin-top: 0;
+          height: auto;
           font-size: 35px;
           line-height: 40px;
         }
@@ -347,6 +355,7 @@ export default class extends Vue {
   }
   .startup-block.challenges .challenge-card {
     width: 318px;
+    min-width: 318px;
     margin-right: 24px;
     min-height: 484px;
   }

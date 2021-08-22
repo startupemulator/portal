@@ -8,7 +8,7 @@
         <U-input
           :placeholder="'Enter your full name'"
           :type="'text'"
-          :value="name"
+          :value="name.trim()"
           :account-class="
             $v.name.$error
               ? 'create-account__password error'
@@ -36,38 +36,42 @@
         <p v-show="$v.email.$error" class="errorInput">
           Please enter an email address
         </p>
-        <U-input
-          :placeholder="'Set a password'"
-          :type="'password'"
-          :value="password"
-          :account-class="
-            $v.password.$error
-              ? 'create-account__password error'
-              : 'create-account__password'
-          "
-          :img="require('~/assets/img/password.svg')"
-          :btn-show-password="true"
-          @textInput="checkPassword"
-        ></U-input>
-        <p v-show="$v.password.$error" class="errorInput">
-          Please enter a password of at least 6 characters
-        </p>
-        <U-input
-          :placeholder="'Repeat a password'"
-          :value="repeatPassword"
-          :type="'password'"
-          :account-class="
-            $v.repeatPassword.$error
-              ? 'create-account__password error'
-              : 'create-account__password'
-          "
-          :img="require('~/assets/img/password.svg')"
-          :btn-show-password="true"
-          @textInput="checkRepeatPassword"
-        ></U-input>
-        <p v-show="$v.repeatPassword.$error" class="errorInput">
-          Both passwords should be the same
-        </p>
+        <div>
+          <U-input
+            :placeholder="'Set a password'"
+            :type="'password'"
+            :value="password"
+            :account-class="
+              $v.password.$error
+                ? 'create-account__password error'
+                : 'create-account__password'
+            "
+            :img="require('~/assets/img/password.svg')"
+            :btn-show-password="true"
+            @textInput="checkPassword"
+          ></U-input>
+          <p v-show="$v.password.$error" class="errorInput">
+            Please enter a password of at least 6 characters
+          </p>
+        </div>
+        <div>
+          <U-input
+            :placeholder="'Repeat a password'"
+            :value="repeatPassword"
+            :type="'password'"
+            :account-class="
+              $v.repeatPassword.$error
+                ? 'create-account__password error'
+                : 'create-account__password'
+            "
+            :img="require('~/assets/img/password.svg')"
+            :btn-show-password="true"
+            @textInput="checkRepeatPassword"
+          ></U-input>
+          <p v-show="$v.repeatPassword.$error" class="errorInput">
+            Both passwords should be the same
+          </p>
+        </div>
         <div>
           <U-button
             :button-name="'Sign Up'"
@@ -127,6 +131,7 @@ import {
   validations: {
     name: {
       required,
+      minLength: minLength(4),
     },
     email: {
       required,
@@ -228,7 +233,7 @@ export default class CreateAccount extends Vue {
   }
 
   checkName(textValue: string) {
-    this.name = textValue;
+    this.name = textValue.trim();
     this.$v.name.$touch();
   }
 }

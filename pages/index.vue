@@ -64,7 +64,6 @@ export default class extends Vue {
   isLogined = !!this.$strapi.user;
   userId: Number = this.$strapi.user ? this.$strapi.user.id : null;
 
-  // data loaded here will be added during server rendering
   async asyncData({
     $technologies,
     $startups,

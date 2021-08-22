@@ -40,6 +40,8 @@
         <ChallengeCard
           v-for="card in cards"
           :key="card.id"
+          v-touch:swipe="$device.isMobile ? touchHandler : ''"
+          v-touch-class="$device.isMobile ? 'active' : ''"
           :card="card"
           :user-id="userId"
           :user-challenges="userChallenges"
@@ -68,10 +70,24 @@ export default class AppChallengesBlock extends Vue {
   @Prop() userChallenges: Array<userChallenges>;
 
   @Prop() feedBackForChallenges: Array<AskFeedbacks>;
+
+  touchHandler(data) {
+    if (data === "left") {
+      this.$emit("slideLeft", "challenges");
+    } else if (data === "right") {
+      this.$emit("slideRigth", "challenges");
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
-.flip-list-move {
-  transition: transform 1s;
+.challenge-card {
+  transition: 0.2s;
+  transform: scale(1);
+  position: relative;
+  .active {
+    transform: scale3d(0.8, 0.8, 0.8);
+    transition: 0.2s;
+  }
 }
 </style>

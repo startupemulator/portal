@@ -207,15 +207,15 @@
 
       <div v-if="!isLogined" class="main-header-buttons">
         <U-button
-          button-name="Log in"
-          :button-class="['u-button-blue', 'create-account__log-in']"
+          button-name="Log In"
+          :button-class="['u-button-gray', 'create-account__log-in']"
           :is-link="'nuxt-link'"
           :href="'/login'"
         ></U-button>
 
         <U-button
           :button-name="'Sign Up'"
-          :button-class="'u-button-gray'"
+          :button-class="'u-button-blue'"
           :is-link="'nuxt-link'"
           :href="'/createAccount'"
         ></U-button>

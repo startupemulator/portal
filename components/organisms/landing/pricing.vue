@@ -206,13 +206,33 @@ export default class extends Vue {}
     height: 40px;
   }
 }
-@media (min-width: 1280px) {
+@media (min-width: 767px) {
   .pricing {
-    width: auto;
+    width: 768px;
+    h4 {
+      margin-left: 48px;
+      font-weight: 800;
+      font-size: 69px;
+      line-height: 80px;
+      margin-top: 170px;
+    }
+    .pricing__cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+    }
+  }
+}
+@media (min-width: 1024px) {
+  .pricing {
+    width: 1024px;
 
     .pricing__cards {
       display: flex;
       justify-content: center;
+      gap: 0;
+
       .pricing__card {
         margin-right: 24px;
       }
@@ -224,7 +244,7 @@ export default class extends Vue {}
     padding: 0;
     width: 1344px;
     box-sizing: border-box;
-    margin-top: 170px;
+
     h4 {
       font-weight: 800;
       font-size: 69px;
@@ -232,8 +252,10 @@ export default class extends Vue {}
     }
     .pricing__cards {
       display: flex;
+      justify-content: center;
       margin-top: 94px;
-      margin-left: 20px;
+      // margin-left: 20px;
+      flex-wrap: nowrap;
       .pricing__card {
         padding: 56px;
         margin-bottom: 0;
