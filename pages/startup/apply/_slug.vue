@@ -8,6 +8,7 @@
       :user-id="userId"
       :experience="profile.experience.id"
       :profile-id="profile.id"
+      :profile="profile"
     ></BecomeToExpert>
   </div>
 </template>

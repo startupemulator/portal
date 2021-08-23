@@ -10,9 +10,10 @@
     <TechnologyPicker
       :title="'Pick technologies you have an experience with'"
       :technologies="technologies"
-      :choosen-technologies="newRequest.technologies"
+      :choosen-technologies="userTechnologies"
       @chosenTechnologi="chosenTechnology"
       @addTechnologies="$emit('addTechnologies', $event)"
+      @removeTechnology="$emit('removeTechnology', $event)"
     ></TechnologyPicker>
     <div class="apply-to-team__button">
       <U-button
@@ -44,9 +45,10 @@ export default class extends Vue {
   @Prop() technologies: Array<Technology>;
   @Prop() experiences: Array<Experience>;
   @Prop() newRequest: Array<any>;
+  @Prop() userTechnologies: Array<Technology>;
 
   chosenTechnology(data, id) {
-    this.$emit("chosenTechnology", id);
+    this.$emit("chosenTechnology", data, id);
   }
 }
 </script>
