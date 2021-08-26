@@ -11,6 +11,8 @@
       :feedbacks="feedbacks"
       :user-id="userId"
       :is-owner="isOwner"
+      :my-startup-feedbacks="myStartupFeedbacks"
+      :my-challenge-feedbacks="myChallengeFeedbacks"
       @updateData="updateData"
     ></Profile>
   </div>
@@ -57,11 +59,23 @@ export default class extends Vue {
       userId = $strapi.user.id;
       const myprofile = await $profile(userId);
       if (myprofile.slug === route.params.slug) {
-        console.log("owner");
         isOwner = true;
       }
     }
     const feedbacks = await $feedbacks();
+    let myStartupFeedbacks;
+    let myChallengeFeedbacks;
+    if (feedbacks !== null) {
+      // need find user by slug
+      myStartupFeedbacks = feedbacks.filter(
+        (el) =>
+          +el.request.creator.id === +user.id && el.request.startup !== null
+      );
+      myChallengeFeedbacks = feedbacks.filter(
+        (el) =>
+          +el.request.creator.id === +user.id && el.request.challenge !== null
+      );
+    }
     const myTechnologies = profile.technologies;
     const { experiences } = await $experiences();
     const { technologies } = await $technologies();
@@ -77,6 +91,8 @@ export default class extends Vue {
       isOwner,
       experiences,
       technologies,
+      myStartupFeedbacks,
+      myChallengeFeedbacks,
     };
   }
 

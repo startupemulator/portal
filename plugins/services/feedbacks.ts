@@ -94,6 +94,9 @@ export function feedbacks($strapi: Strapi) {
       startup {
         id
       }
+      challenge {
+        id
+      }
       creator{ 
         id
         

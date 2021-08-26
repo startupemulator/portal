@@ -10,37 +10,43 @@
       </button>
       <img
         class="content__profile-image"
-        src="~/assets/img/profile-image.svg"
+        :src="badge.image[0].url"
         alt="profile-image"
       />
-      <h2>Super boost</h2>
-      <p>Startup #1</p>
+      <h2>{{ badge.title }}</h2>
+      <p v-if="achivementsData.request.startup !== null">
+        Startup #{{ achivementsData.request.startup.id }}
+      </p>
+      <p v-if="achivementsData.request.challenge !== null">
+        Challenge #{{ achivementsData.request.challenge.id }}
+      </p>
       <div class="badge-popup__content-data">
         <div class="badge-popup__content-date">
           <span>Date</span>
-          <div>29 Nov 2020</div>
+          <div>{{ achivementsData.published_at | formatDate }}</div>
         </div>
         <div class="badge-popup__content-form">
           <span>From</span>
-          <div>Expert’s Full Name</div>
+          <div>{{ achivementsData.expert.username }}</div>
         </div>
       </div>
       <div class="badge-popup__content-message">
         <img src="~/assets/img/feedback.svg" alt="feedback" />
-        <span
-          >Some comment and feedback that this expert left with this bage,
-          probably in a few lines. Some comment and feedback that this expert
-          left with this bage, probably in a few lines.</span
-        >
+        <span>{{ achivementsData.description }} </span>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
+import { Component, Vue, Prop } from "nuxt-property-decorator";
+import { Feedbacks } from "~/models/Feedbacks";
+import { Badges } from "~/models/Badges";
 
 @Component({})
-export default class extends Vue {}
+export default class extends Vue {
+  @Prop() achivementsData: Array<Feedbacks>;
+  @Prop() badge: Array<Badges>;
+}
 </script>
 <style lang="scss" scoped>
 .badge-popup {

@@ -9,8 +9,11 @@
       :my-technologies="myTechnologies"
       :feedbacks="feedbacks"
       :user-data="profile"
+      :is-expert="isExpert"
       :user-experience="profile.experience"
       :experiences="experiences"
+      :my-startup-feedbacks="myStartupFeedbacks"
+      :my-challenge-feedbacks="myChallengeFeedbacks"
       @updateData="updateData"
     ></MyProfile>
     <div v-else class="confim-your-email">
@@ -50,7 +53,10 @@ export default class extends Vue {
     const startups = await $myStartups($strapi.user.id);
     const { technologies } = await $technologies();
     const profile = await $profile($strapi.user.id);
-
+    let isExpert = false;
+    if (profile !== null) {
+      isExpert = profile.is_expert;
+    }
     const { experiences } = await $experiences();
     let myTechnologies = [];
     let allTechnologies = [];
@@ -65,6 +71,20 @@ export default class extends Vue {
     }
 
     const feedbacks = await $feedbacks();
+    let myStartupFeedbacks;
+    let myChallengeFeedbacks;
+    if (feedbacks !== null) {
+      myStartupFeedbacks = feedbacks.filter(
+        (el) =>
+          +el.request.creator.id === +$strapi.user.id &&
+          el.request.startup !== null
+      );
+      myChallengeFeedbacks = feedbacks.filter(
+        (el) =>
+          +el.request.creator.id === +$strapi.user.id &&
+          el.request.challenge !== null
+      );
+    }
     return {
       startups,
       profile,
@@ -74,6 +94,9 @@ export default class extends Vue {
       technologies,
       feedbacks,
       userHaveProfile,
+      myStartupFeedbacks,
+      myChallengeFeedbacks,
+      isExpert,
     };
   }
 

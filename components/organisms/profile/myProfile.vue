@@ -44,30 +44,39 @@
           </div>
         </div>
       </div>
-      <My-profile-regular-user
-        v-if="userData.provider !== 'expert'"
-        @togglePopup="togglePopup"
-      ></My-profile-regular-user>
-      <Expert-user v-if="userData.provider === 'expert'" :feedbacks="feedbacks">
-      </Expert-user>
+      <div :class="isExpert ? 'reverse-data' : ''">
+        <My-profile-regular-user
+          v-if="!isExpert"
+          :my-startup-feedbacks="myStartupFeedbacks"
+          :my-challenge-feedbacks="myChallengeFeedbacks"
+          @togglePopup="togglePopup"
+        ></My-profile-regular-user>
 
-      <div class="profile-projects__experience">
-        <h3>Experience</h3>
-        <div class="experience-work">
-          {{ userExperience ? userExperience.title : "Zero" }}
+        <Expert-user v-if="isExpert" :feedbacks="feedbacks"> </Expert-user>
+
+        <div class="profile-projects__experience">
+          <h3>Experience</h3>
+          <div class="experience-work">
+            {{ userExperience ? userExperience.title : "Zero" }}
+          </div>
+          <ul class="experience_list">
+            <li v-for="item in updatablemyTechnologies" :key="item.id">
+              <U-tags
+                :id="item.id"
+                :title="item.title"
+                :name="item.title"
+                :type="'checkbox'"
+              ></U-tags>
+            </li>
+          </ul>
         </div>
-        <ul class="experience_list">
-          <li v-for="item in updatablemyTechnologies" :key="item.id">
-            <U-tags
-              :id="item.id"
-              :title="item.title"
-              :name="item.title"
-              :type="'checkbox'"
-            ></U-tags>
-          </li>
-        </ul>
       </div>
-      <badge-popup v-if="opendPopup" @closePopup="togglePopup"></badge-popup>
+      <BadgePopup
+        v-if="opendPopup"
+        :achivements-data="achivementsData"
+        :badge="badge"
+        @closePopup="closePopup"
+      ></BadgePopup>
     </div>
 
     <EditProfile
@@ -95,7 +104,7 @@ import Toast from "../../../store/modules/Toast";
 
 import MyProfileRegularUser from "./myProfileRegularUser.vue";
 import ExpertUser from "./expertUser.vue";
-import badgePopup from "~/components/molecules/popupBadge.vue";
+import BadgePopup from "~/components/molecules/popupBadge.vue";
 import EditProfile from "~/components/organisms/profile/editProfile.vue";
 import ChangePassword from "~/components/organisms/profile/changePassword.vue";
 import { Startup } from "~/models/Startup";
@@ -109,14 +118,14 @@ import Spiner from "~/components/molecules/spiner.vue";
 import { copyToClipboard } from "~/assets/jshelper/copyToClipBoard";
 import { Feedbacks } from "~/models/Feedbacks";
 import { scrollToHeader } from "~/assets/jshelper/scrollToHeader";
-
+import { Badges } from "~/models/Badges";
 @Component({
   components: {
     UTitle,
     StartupCard,
     UTags,
     UButton,
-    badgePopup,
+    BadgePopup,
     EditProfile,
     ChangePassword,
     MyProfileRegularUser,
@@ -129,6 +138,9 @@ export default class extends Vue {
   @Prop() technologies: Array<Technology>;
   @Prop() publickTechnologies: Array<Technology>;
   @Prop() feedbacks: Array<Feedbacks>;
+  @Prop() myStartupFeedbacks: Array<Feedbacks>;
+  @Prop() myChallengeFeedbacks: Array<Feedbacks>;
+  @Prop() isExpert: boolean;
   @Prop() userData: Array<any>;
   @Prop() userExperience: String;
   @Prop() experiences: Array<Experience>;
@@ -139,13 +151,21 @@ export default class extends Vue {
   private changePassword: boolean = false;
   createdTechnologies = [];
   loading = false;
-
+  achivementsData = {};
+  badge: Array<Badges> = [];
   logOut() {
     this.$strapi.logout();
     this.$nuxt.$router.push("/");
   }
 
-  togglePopup() {
+  togglePopup(feedback, badge) {
+    this.badge = badge;
+    this.achivementsData = feedback;
+
+    this.opendPopup = !this.opendPopup;
+  }
+
+  closePopup() {
     this.opendPopup = !this.opendPopup;
   }
 
