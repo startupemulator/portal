@@ -7,7 +7,6 @@
       :is-button="true"
       @clikOnButton="applyToTeamGoStep1"
     ></U-back>
-    <!-- <pre style="color: #fff">{{ userTechnologies }} </pre> -->
     <ApplyToTeamStep1
       v-if="applyToTeamStep1"
       :experiences="experiences"
@@ -118,13 +117,6 @@ export default class extends Vue {
         "applications",
         this.newRequest
       );
-
-      // this is create new technologies
-      // if (this.newRequest.newTechnologies) {
-      //   this.newRequest.newTechnologies.forEach((el) =>
-      //     this.createNewTechnologies(el.name)
-      //   );
-      // }
       if (this.userCreatedTechnologies !== null) {
         for (const technology of this.userCreatedTechnologies) {
           if (!technology.id) {
