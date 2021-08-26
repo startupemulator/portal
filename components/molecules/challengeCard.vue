@@ -310,9 +310,9 @@ export default class extends Vue {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    &:not(:nth-child(4n)) {
-      margin-right: 24px;
-    }
+    // &:not(:nth-child(4n)) {
+    //   margin-right: 24px;
+    // }
 
     .challenge-card__header {
       .challenge-card__header-title {
