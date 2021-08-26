@@ -44,30 +44,32 @@
           </div>
         </div>
       </div>
-      <My-profile-regular-user
-        v-if="userData.provider !== 'expert'"
-        :my-startup-feedbacks="myStartupFeedbacks"
-        :my-challenge-feedbacks="myChallengeFeedbacks"
-        @togglePopup="togglePopup"
-      ></My-profile-regular-user>
-      <Expert-user v-if="userData.provider === 'expert'" :feedbacks="feedbacks">
-      </Expert-user>
+      <div :class="isExpert ? 'reverse-data' : ''">
+        <My-profile-regular-user
+          v-if="!isExpert"
+          :my-startup-feedbacks="myStartupFeedbacks"
+          :my-challenge-feedbacks="myChallengeFeedbacks"
+          @togglePopup="togglePopup"
+        ></My-profile-regular-user>
 
-      <div class="profile-projects__experience">
-        <h3>Experience</h3>
-        <div class="experience-work">
-          {{ userExperience ? userExperience.title : "Zero" }}
+        <Expert-user v-if="isExpert" :feedbacks="feedbacks"> </Expert-user>
+
+        <div class="profile-projects__experience">
+          <h3>Experience</h3>
+          <div class="experience-work">
+            {{ userExperience ? userExperience.title : "Zero" }}
+          </div>
+          <ul class="experience_list">
+            <li v-for="item in updatablemyTechnologies" :key="item.id">
+              <U-tags
+                :id="item.id"
+                :title="item.title"
+                :name="item.title"
+                :type="'checkbox'"
+              ></U-tags>
+            </li>
+          </ul>
         </div>
-        <ul class="experience_list">
-          <li v-for="item in updatablemyTechnologies" :key="item.id">
-            <U-tags
-              :id="item.id"
-              :title="item.title"
-              :name="item.title"
-              :type="'checkbox'"
-            ></U-tags>
-          </li>
-        </ul>
       </div>
       <BadgePopup
         v-if="opendPopup"
@@ -138,7 +140,7 @@ export default class extends Vue {
   @Prop() feedbacks: Array<Feedbacks>;
   @Prop() myStartupFeedbacks: Array<Feedbacks>;
   @Prop() myChallengeFeedbacks: Array<Feedbacks>;
-
+  @Prop() isExpert: boolean;
   @Prop() userData: Array<any>;
   @Prop() userExperience: String;
   @Prop() experiences: Array<Experience>;
