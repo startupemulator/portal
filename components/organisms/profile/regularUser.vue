@@ -2,15 +2,42 @@
   <div class="regular-user">
     <div class="profile__personal-achivements">
       <h3>Challenges achivements</h3>
-      <div class="arhivements-image">
-        <img src="~/assets/img/profile-image.svg" alt="profile-imag" />
+      <div class="team-achivements__content">
+        <div
+          v-for="feedback in myChallengeFeedbacks"
+          :key="feedback.id + 'startup'"
+          class="arhivements-image"
+        >
+          <span v-if="feedback.badges.length !== 0">
+            <img
+              v-for="badge in feedback.badges"
+              :key="badge.id + 'badge'"
+              :src="badge.image[0].url"
+              alt="profile-imag"
+              @click="togglePopup(feedback, badge)"
+            />
+          </span>
+        </div>
       </div>
     </div>
     <div class="profile__team-achivements">
       <h3>Startups achivements</h3>
-      <div class="arhivements-image">
-        <img src="~/assets/img/profile-image.svg" alt="profile-imag" />
-        <img src="~/assets/img/profile-image.svg" alt="profile-imag" />
+      <div class="team-achivements__content">
+        <div
+          v-for="feedback in myStartupFeedbacks"
+          :key="feedback.id + 'startup'"
+          class="arhivements-image"
+        >
+          <span v-if="feedback.badges.length !== 0">
+            <img
+              v-for="badge in feedback.badges"
+              :key="badge.id + 'badge'"
+              :src="badge.image[0].url"
+              alt="profile-imag"
+              @click="togglePopup(feedback, badge)"
+            />
+          </span>
+        </div>
       </div>
     </div>
     <div class="profile-projects">
@@ -43,6 +70,8 @@
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import { Startup } from "~/models/Startup";
 import StartupCard from "~/components/molecules/startupCard.vue";
+import { Feedbacks } from "~/models/Feedbacks";
+
 @Component({
   components: {
     StartupCard,
@@ -51,5 +80,11 @@ import StartupCard from "~/components/molecules/startupCard.vue";
 export default class extends Vue {
   @Prop() startups: Array<Startup>;
   @Prop() userId: string;
+  @Prop() myStartupFeedbacks: Array<Feedbacks>;
+  @Prop() myChallengeFeedbacks: Array<Feedbacks>;
+
+  togglePopup(feedback, badge) {
+    this.$emit("togglePopup", feedback, badge);
+  }
 }
 </script>

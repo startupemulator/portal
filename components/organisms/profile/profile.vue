@@ -1,6 +1,5 @@
 <template>
   <div class="profile-content my-profile profile-content-expert">
-    <!-- <pre style="color: #fff">{{ profile.technologies }} </pre> -->
     <div v-if="!changePassword & !editProfile">
       <u-back :link="'/'"></u-back>
       <div class="my-profile__content">
@@ -49,6 +48,9 @@
         v-if="!isExpert"
         :startups="startups"
         :user-id="userId"
+        :my-startup-feedbacks="myStartupFeedbacks"
+        :my-challenge-feedbacks="myChallengeFeedbacks"
+        @togglePopup="togglePopup"
       ></Regular-user>
       <Expert-user
         v-if="isExpert"
@@ -71,6 +73,12 @@
             ></U-tags>
           </li>
         </ul>
+        <BadgePopup
+          v-if="opendPopup"
+          :achivements-data="achivementsData"
+          :badge="badge"
+          @closePopup="closePopup"
+        ></BadgePopup>
       </div>
     </div>
     <EditProfile
@@ -112,6 +120,8 @@ import { scrollToHeader } from "~/assets/jshelper/scrollToHeader";
 import EditProfile from "~/components/organisms/profile/editProfile.vue";
 import { Experience } from "~/models/Experience";
 import Spiner from "~/components/molecules/spiner.vue";
+import { Badges } from "~/models/Badges";
+import BadgePopup from "~/components/molecules/popupBadge.vue";
 
 @Component({
   components: {
@@ -124,6 +134,7 @@ import Spiner from "~/components/molecules/spiner.vue";
     ChangePassword,
     EditProfile,
     Spiner,
+    BadgePopup,
   },
 })
 export default class extends Vue {
@@ -137,10 +148,15 @@ export default class extends Vue {
   @Prop() isOwner: boolean;
   @Prop() experiences: Array<Experience>;
   @Prop() publickTechnologies: Array<Technology>;
+  @Prop() myStartupFeedbacks: Array<Feedbacks>;
+  @Prop() myChallengeFeedbacks: Array<Feedbacks>;
   changePassword: boolean = false;
   editProfile: boolean = false;
   createdTechnologies = [];
   loading = false;
+  achivementsData = {};
+  badge: Array<Badges> = [];
+  opendPopup: boolean = false;
   logOut() {
     this.$strapi.logout();
     this.$nuxt.$router.push("/");
@@ -149,6 +165,17 @@ export default class extends Vue {
   toggleChangePassword() {
     this.changePassword = !this.changePassword;
     scrollToHeader();
+  }
+
+  togglePopup(feedback, badge) {
+    this.badge = badge;
+    this.achivementsData = feedback;
+
+    this.opendPopup = !this.opendPopup;
+  }
+
+  closePopup() {
+    this.opendPopup = !this.opendPopup;
   }
 
   toggleEditProfile() {
