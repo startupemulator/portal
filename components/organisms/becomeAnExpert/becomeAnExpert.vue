@@ -102,7 +102,7 @@ export default class extends Vue {
           });
         }
         this.loading = false;
-        this.$nuxt.$router.push("/myProjects");
+        this.$nuxt.$router.push("/profile/projects");
       } catch (e) {
         this.loading = false;
         Toast.show({

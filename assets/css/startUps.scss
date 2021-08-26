@@ -133,6 +133,7 @@
     }
     .transition__startup-card {
       display: flex;
+      justify-content: center;
       flex-wrap: wrap;
 
       .startup-block__startup-card,
@@ -145,6 +146,11 @@
   .startups-page .u-button-gray__show-more,
   .challenges-page .u-button-gray__show-more {
     display: none;
+  }
+}
+@media (min-width: 1370px) {
+  .start-ups_cards-content .transition__startup-card {
+    justify-content: flex-start;
   }
 }
 @media (min-width: 1439px) {

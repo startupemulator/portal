@@ -74,12 +74,14 @@
         :feed-back-for-challenges="feedBackForChallenges"
       ></ChallengeCard>
     </div>
-    <U-button
-      v-if="$device.isMobile && challenges.length > lengthCardList"
-      :button-name="'Show More'"
-      :button-class="'u-button-gray more-cards'"
-      @clickOnButton="showMoreCards"
-    ></U-button>
+    <div class="button-more-cards">
+      <U-button
+        v-if="$device.isMobile && challenges.length > lengthCardList"
+        :button-name="'Show More'"
+        :button-class="'u-button-gray more-cards'"
+        @clickOnButton="showMoreCards"
+      ></U-button>
+    </div>
     <EmptyState v-if="emptyState" @clickOnButton="cleanFilter"></EmptyState>
     <AppTeamDevelop v-if="!autorizated"></AppTeamDevelop>
   </div>
@@ -217,17 +219,23 @@ export default class extends Vue {
     }
   }
   .challenges__cards {
-    .card {
-      margin-bottom: 16px;
-    }
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+  }
+  .button-more-cards {
+    display: flex;
+    justify-content: center;
   }
   .u-button-gray.more-cards {
     max-width: 343px;
+    margin-top: 16px;
   }
   .team-develop {
     background: transparent;
     margin-top: 0;
-    margin-left: 0;
+    // margin-left: 0;
     img {
       width: 343px;
       height: 192.88px;
@@ -304,9 +312,10 @@ export default class extends Vue {
     .challenges__cards {
       display: flex;
       flex-wrap: wrap;
-      .card {
-        margin-bottom: 24px;
-      }
+      gap: 24px;
+      // .card {
+      // margin-bottom: 24px;
+      // }
     }
     .team-develop {
       justify-content: space-between;
@@ -318,6 +327,7 @@ export default class extends Vue {
       .team-develop__text-block {
         margin-top: 36px;
         h2 {
+          width: 100%;
           font-weight: bold;
           font-size: 56px;
           line-height: 64px;
@@ -333,6 +343,11 @@ export default class extends Vue {
         }
       }
     }
+  }
+}
+@media (min-width: 1365px) {
+  .challenges .challenges__cards {
+    justify-content: flex-start;
   }
 }
 </style>

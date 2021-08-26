@@ -174,6 +174,7 @@ export default class extends Vue {
 }
 @media (min-width: 768px) {
   .u-tab {
+    margin: 0 auto;
     margin-top: 48px;
     max-width: 585px;
     .mobile-owned {
@@ -198,6 +199,12 @@ export default class extends Vue {
     button.active-button {
       padding: 8px 24px;
     }
+  }
+}
+@media (min-width: 1280px) {
+  .u-tab {
+    margin: 0;
+    margin-top: 48px;
   }
 }
 </style>

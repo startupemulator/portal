@@ -48,8 +48,10 @@ li {
   backdrop-filter: blur(16px);
   width: 100vw;
   z-index: 10;
-  display: flex;
-  justify-content: center;
+  display: inline-block;
+
+  // display: flex;
+  // justify-content: center;
   // padding-top: 238px;
   // padding-bottom: 238px;
   overflow-x: hidden;
