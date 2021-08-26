@@ -96,7 +96,7 @@ export default class extends Vue {
     this.startupsList = startupListFiltredByPosition.filter(
       (v, i, a) => a.findIndex((t) => t.id === v.id) === i
     );
-    this.checkAskFeedBacks();
+    // this.checkAskFeedBacks();
     if (this.startupsList.length === 0) {
       this.emptyState = true;
     } else {
@@ -161,7 +161,9 @@ export default class extends Vue {
 
       this.startupsList.forEach((el) => {
         if (
-          this.waitingFeedbackState.some((item) => item.startup.id === el.id)
+          this.waitingFeedbackState.some(
+            (item) => item.startup.id === el.id && el.state !== "finished"
+          )
         ) {
           stateWaitingForFeedback.push(el);
         }
