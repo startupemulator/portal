@@ -20,13 +20,17 @@
       flex-direction: column;
     }
     h2 {
-      margin-bottom: 36px;
+      margin-bottom: 8px;
+      // margin-bottom: 36px;
     }
     img {
       cursor: pointer;
     }
   }
-
+  .team-achivements__content {
+    display: flex;
+    flex-wrap: wrap;
+  }
   h3 {
     font-weight: bold;
     font-size: 26px;

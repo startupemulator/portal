@@ -1,13 +1,13 @@
 <template>
   <div class="regular-user">
     <div class="profile__personal-achivements">
-      <h3>Personal achivements</h3>
+      <h3>Challenges achivements</h3>
       <div class="arhivements-image">
         <img src="~/assets/img/profile-image.svg" alt="profile-imag" />
       </div>
     </div>
     <div class="profile__team-achivements">
-      <h3>Team achivements</h3>
+      <h3>Startups achivements</h3>
       <div class="arhivements-image">
         <img src="~/assets/img/profile-image.svg" alt="profile-imag" />
         <img src="~/assets/img/profile-image.svg" alt="profile-imag" />

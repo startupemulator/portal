@@ -9,7 +9,7 @@
           </U-title>
           <U-title v-if="isOwner" :text="'Profile'"> </U-title>
 
-          <div class="profile-header__menu">
+          <div v-if="isOwner" class="profile-header__menu">
             <ul>
               <li>
                 <button type="button" @click="toggleEditProfile">
@@ -30,7 +30,7 @@
               </li>
             </ul>
           </div>
-          <div class="profile-header__account-data">
+          <div v-if="isOwner" class="profile-header__account-data">
             <div>
               <span>Full name</span>
               <p>
