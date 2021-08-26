@@ -343,6 +343,9 @@
       display: flex;
       flex-wrap: wrap;
       margin-top: 24px;
+      &.my-profile__content--publick {
+        margin-bottom: 40px;
+      }
       .profile-header__menu {
         width: 318px;
         margin-top: 24px;

@@ -3,7 +3,10 @@
     <div v-if="!changePassword & !editProfile">
       <u-back :link="'/'"></u-back>
       <div class="my-profile__content">
-        <div class="profile-header">
+        <div
+          class="profile-header"
+          :class="!isOwner ? 'my-profile__content--publick' : ''"
+        >
           <U-title v-if="!isOwner" :text="user.name || user.username">
           </U-title>
           <U-title v-if="isOwner" :text="'Profile'"> </U-title>
