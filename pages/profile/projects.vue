@@ -48,20 +48,7 @@ export default class extends Vue {
           const newFeedbacksByStartupID = await $newFeedbacksByStartupID(
             startup.id
           );
-          console.log(newFeedbacksByStartupID.length);
           startup.newFeedbacks = newFeedbacksByStartupID.length;
-          // const feedback = await $feedbacksByStartupID(startup.id);
-          // if (feedback !== null && feedback.length !== 0) {
-          //   feedback.forEach((el) => {
-          //     if (!el.is_public) {
-          //       myStartups.forEach((item) => {
-          //         if (+item.id === +el.request.startup.id) {
-          //           ++item.newFeedbacks;
-          //         }
-          //       });
-          //     }
-          //   });
-          // }
         }
       }
     }

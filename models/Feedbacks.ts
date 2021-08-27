@@ -6,6 +6,6 @@ export interface Feedbacks {
   description: string;
   criterions: Array<Criterions>;
   badges: Array<Badges>;
-  is_public: false;
+  is_public: boolean;
   published_at: string;
 }
