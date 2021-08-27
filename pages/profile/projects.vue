@@ -1,7 +1,6 @@
 <template v-cloak>
   <div class="projects">
     <Spiner :loading="loading"></Spiner>
-
     <MyProjects
       :key="updateFlag"
       :startups="myStartups"
@@ -35,12 +34,33 @@ export default class extends Vue {
     $startupByAcceptedApplication,
     $profile,
     $strapi,
+    $feedbacksByStartupID,
   }) {
     const myStartups = await $myStartups($strapi.user.id);
     const userProfile = await $profile($strapi.user.id);
     const acceptedStartup = await $startupByAcceptedApplication(
       $strapi.user.id
     );
+    if (myStartups !== null) {
+      for (const startup of myStartups) {
+        if (startup.state === "in_progress") {
+          startup.newFeedbacks = 0;
+          const feedback = await $feedbacksByStartupID(startup.id);
+          if (feedback !== null && feedback.length !== 0) {
+            feedback.forEach((el) => {
+              if (!el.is_public) {
+                myStartups.forEach((item) => {
+                  if (+item.id === +el.request.startup.id) {
+                    ++item.newFeedbacks;
+                  }
+                });
+              }
+            });
+          }
+        }
+      }
+    }
+
     let isSuperAdmin = false;
     if (userProfile !== null && userProfile.gardenkeeper !== null) {
       isSuperAdmin = userProfile.gardenkeeper;
@@ -59,6 +79,7 @@ export default class extends Vue {
         );
       });
     }
+
     return {
       myStartups,
       acceptedStartup,
