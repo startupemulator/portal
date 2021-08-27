@@ -30,10 +30,10 @@
           </div>
         </div>
         <div
-          v-if="askFeedbacks !== 0"
+          v-if="card.newFeedbacks && card.newFeedbacks !== 0"
           class="startup-card__started-title askFeedbacks"
         >
-          {{ askFeedbacks }}
+          {{ card.newFeedbacks }}
         </div>
       </div>
     </div>
