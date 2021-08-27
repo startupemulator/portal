@@ -220,23 +220,6 @@
                 >
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
               </nuxt-link>
-              <!-- <button
-                v-if="!isStarted"
-                type="button"
-                @click="toggleRequestToTeam"
-              >
-                <span
-                  >Requests to Team
-                  <div class="owner-menu__item--message">
-                    <span>{{
-                      updatableDataApplications.filter(
-                        (el) => el.status === "waiting"
-                      ).length
-                    }}</span>
-                  </div></span
-                >
-                <img src="~/assets/img/arrow.svg" alt="arrow" />
-              </button> -->
               <button v-if="isStarted" type="button" @click="toggleNewFeedBack">
                 <span
                   >New Feedback
@@ -415,7 +398,10 @@
           </p>
         </div>
       </div>
-      <div class="position-card__developer__primary-button">
+      <div
+        v-if="!isOwner && !isDeveloper && !isExpert"
+        class="position-card__developer__primary-button"
+      >
         <U-button
           :button-name="'Apply to Teams'"
           :button-class="'u-button-blue'"

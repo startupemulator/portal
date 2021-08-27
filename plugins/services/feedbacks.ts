@@ -1,5 +1,5 @@
 import { Strapi } from "@nuxtjs/strapi";
-
+import { Feedbacks } from "~/models/Feedbacks";
 export function feedbacksByStartupID($strapi: Strapi) {
   return async (id: string) => {
     const data = await $strapi.graphql({
@@ -51,6 +51,27 @@ export function feedbacksByStartupID($strapi: Strapi) {
 }`,
     });
     return data.feedbacks ? data.feedbacks : null;
+  };
+}
+export function newFeedbacksByStartupID($strapi: Strapi) {
+  return async (id: string) => {
+    const data = await $strapi.graphql({
+      query: `query {
+        feedbacks(where: {request: {startup: {id: "${id}"}}} sort: "published_at:desc") {
+    id
+    is_public
+    request {
+      id
+      startup {
+        id
+      }
+    }
+  }
+}`,
+    });
+    return data.feedbacks
+      ? data.feedbacks.filter((el: Array<Feedbacks>) => !el.is_public)
+      : null;
   };
 }
 export function feedbacks($strapi: Strapi) {
