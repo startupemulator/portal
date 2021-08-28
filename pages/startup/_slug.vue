@@ -200,11 +200,11 @@ export default class TakeStartup extends Vue {
       this.startup.owner.invites
     ) {
       this.isExpert = this.userProfile.is_expert;
-      this.startup.owner.invites.forEach((el) => {
-        if (el.email === this.$strapi.user.email) {
-          this.isExpert = true;
-        }
-      });
+      // this.startup.owner.invites.forEach((el) => {
+      //   if (el.email === this.$strapi.user.email) {
+      //     this.isExpert = true;
+      //   }
+      // });
     }
   }
 
