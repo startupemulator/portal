@@ -174,7 +174,6 @@ export default class TakeStartup extends Vue {
   }
 
   mounted() {
-    console.log(this.$route.params.notification);
     document.title = this.startup.title;
     if (this.$strapi.user && +this.$strapi.user.id === +this.startup.owner.id) {
       this.isOwner = true;

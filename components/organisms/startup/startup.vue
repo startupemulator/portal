@@ -203,11 +203,8 @@
 
         <div v-if="isOwner && !finished" class="owner-menu">
           <ul class="owner-menu__list">
-            <li v-if="!review" class="owner-menu__item">
-              <nuxt-link
-                v-if="!isStarted"
-                :to="'/startup/requestsToTeam/' + startup.slug"
-              >
+            <li v-if="!review && !finished" class="owner-menu__item">
+              <nuxt-link :to="'/startup/requestsToTeam/' + startup.slug">
                 <span
                   >Requests to Team
                   <div class="owner-menu__item--message">
@@ -220,9 +217,11 @@
                 >
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
               </nuxt-link>
-              <button v-if="isStarted" type="button" @click="toggleNewFeedBack">
+            </li>
+            <li v-if="!review && isStarted" class="owner-menu__item">
+              <button type="button" @click="toggleNewFeedBack">
                 <span
-                  >New Feedback
+                  >Expert Feedback
                   <div class="owner-menu__item--message">
                     <span>{{ newFeedbacksData.length }} </span>
                   </div></span
