@@ -169,6 +169,7 @@ export default class extends Vue {
         }
       });
       this.waitingFeedback = stateWaitingForFeedback;
+      console.log(this.waitingFeedback);
     }
   }
 }
