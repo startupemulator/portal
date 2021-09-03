@@ -44,12 +44,20 @@
     </div>
     <div class="edit-team__content">
       <h3>Team</h3>
-      <TeamMemberCard
-        v-for="item in invitedcolleagues"
-        :key="item.id"
-        :invite="item"
-        @removeInvite="removeInvitedcolleagues"
-      ></TeamMemberCard>
+      <div v-for="items in myTeam" :key="items.id">
+        <TeamMemberCard
+          v-for="item in items.applications.filter(
+            (el) => el.status === 'accepted' || el.status === 'advanced'
+          )"
+          :key="item.id"
+          :specialisation="items.specialisation.title"
+          :user-name="item.user.username"
+          :application-id="item.id"
+          @chagePremission="chagePremission"
+          @removeUserMember="removeUserMember"
+        ></TeamMemberCard>
+      </div>
+
       <div class="edit-team__content-buttons">
         <U-button
           :button-name="'Save'"
@@ -63,12 +71,12 @@
         ></U-button>
       </div>
     </div>
-    <Invitecolleagues
+    <!-- <Invitecolleagues
       v-if="invitecolleagues"
       :specialisations="specialityComponent"
       @closePopupLinkEmail="toggleInviteColleagues"
       @inviteCollegue="inviteCollegue"
-    ></Invitecolleagues>
+    ></Invitecolleagues> -->
     <Spiner :loading="loading"></Spiner>
   </div>
 </template>
@@ -86,6 +94,7 @@ import CreateSpecialities from "~/components/molecules/createSpecialities.vue";
 import { Specialisation } from "~/models/Specialisation";
 import { Technology } from "~/models/Technology";
 import Invitecolleagues from "~/components/molecules/inviteColleagues.vue";
+import { Positions } from "~/models/Positions";
 import {
   enableScrolling,
   disableScrolling,
@@ -107,13 +116,15 @@ export default class extends Vue {
   @Prop() updateKey: Number;
   @Prop() specialisations: Array<Specialisation>;
   @Prop() technologies: Array<Technology>;
-
+  @Prop() teamMember: Array<Positions>;
+  myTeam = [];
+  deleteApplicationCash = [];
   specialityComponent: Array<any> = [{ id: 0, type: "create-specialities" }];
   invitedcolleagues: Array<any> = [];
   openPositionCash = [];
   invitesCach = [];
   invitecolleagues: Boolean = false;
-  team = [];
+
   loading = false;
   async addSpeciality() {
     this.loading = true;
@@ -178,9 +189,9 @@ export default class extends Vue {
         (item) => item.id !== this.specialityComponent[i].id
       );
       this.invitedcolleagues.forEach((el) => {
-        if (+el.position_id === +removedPosition.id) {
-          this.removeInvitedcolleagues(el.id);
-        }
+        // if (+el.position_id === +removedPosition.id) {
+        //   this.removeUserMember(el.id);
+        // }
       });
     }
     this.loading = false;
@@ -241,15 +252,33 @@ export default class extends Vue {
     }
   }
 
-  async removeInvitedcolleagues(id) {
-    this.loading = true;
-    const removeInvite = await this.$deleteInvite(id);
-    if (id === removeInvite.id) {
-      this.invitedcolleagues = this.invitedcolleagues.filter(
-        (item) => item.id !== removeInvite.id
+  chagePremission(premission) {
+    // this.team.forEach((el) => {
+    //   el.applications.forEach((item) => {
+    //     if (+item.id === +premission[0]) {
+    //       item.status = premission[1].trim();
+    //       console.log(item.status);
+    //     }
+    //   });
+    // });
+    // console.log(this.team);
+  }
+
+  removeUserMember(id) {
+    // this.myTeam.forEach((item) => {
+    //   item.applications.forEach((element, i) => {
+    //     if (+element.id === +id) {
+    //       item.applications.splice(i, 1);
+    //       console.log(element, i);
+    //     }
+    //   });
+    // });
+    this.teamMember.forEach((item, i) => {
+      this.myTeam[i].applications = item.applications.filter(
+        (el) => +el.id !== +id
       );
-    }
-    this.loading = false;
+    });
+    console.log(this.myTeam);
   }
 
   mounted() {
@@ -271,28 +300,30 @@ export default class extends Vue {
         this.specialityComponent.push(data);
       });
     }
+    this.myTeam = this.teamMember;
+    console.log("mounted");
 
-    if (this.startup.specialists) {
-      this.specialityComponent = this.startup.specialists;
-    } else if (this.startup.owner.invites) {
-      this.invitedcolleagues = [];
+    //   if (this.startup.specialists) {
+    //     this.specialityComponent = this.startup.specialists;
+    //   } else if (this.startup.owner.invites) {
+    //     this.invitedcolleagues = [];
 
-      this.startup.owner.invites.forEach((el) => {
-        if (
-          el.position &&
-          el.position.startup !== null &&
-          this.startup.id === el.position.startup.id
-        ) {
-          const data = {
-            id: el.id,
-            type: "create-specialities",
-            email: el.email,
-            choosenSpeciality: el.position.specialisation.title,
-          };
-          this.invitedcolleagues.push(data);
-        }
-      });
-    }
+    //     this.startup.owner.invites.forEach((el) => {
+    //       if (
+    //         el.position &&
+    //         el.position.startup !== null &&
+    //         this.startup.id === el.position.startup.id
+    //       ) {
+    //         const data = {
+    //           id: el.id,
+    //           type: "create-specialities",
+    //           email: el.email,
+    //           choosenSpeciality: el.position.specialisation.title,
+    //         };
+    //         this.invitedcolleagues.push(data);
+    //       }
+    //     });
+    //   }
   }
 }
 </script>

@@ -38,18 +38,20 @@
       @cancelEditStartupInfo="cancelEditStartupInfo"
     ></EditStartupInfo>
     <EditTeam
-      v-show="editTeam"
+      v-if="editTeam"
       :update-key="updateKey"
       :staffed-position="staffedPosition"
       :startup="updatableDataStartup"
       :specialisations="specialisations"
       :technologies="technologies"
       :startup-id="moveAwayStartup"
+      :team-member="teamMember"
       @clikOnButton="toggleEditTeam"
       @advancedAccess="advancedAccess"
       @defaultAccess="accept"
       @saveEditTeam="saveEditTeam"
       @cancelEditTeam="cancelEditTeam"
+      @changeTeam="changeTeam"
     ></EditTeam>
     <EditSources
       v-show="editSources"
@@ -916,17 +918,11 @@ export default class extends Vue {
     }
   }
 
-  changeTeam(startup) {
-    this.teamMember = [];
-    startup.positions.forEach((item) => {
-      if (
-        item.applications.some(
-          (el) => el.status === "accepted" || el.status === "advanced"
-        )
-      ) {
-        this.teamMember.push(item);
-      }
+  changeTeam(id) {
+    this.teamMember.forEach((item) => {
+      item.applications = item.applications.filter((el) => el.id !== id);
     });
+    this.updateKey += 1;
   }
 
   async startStartup(state) {
@@ -1055,6 +1051,17 @@ export default class extends Vue {
   cancelEditTeam() {
     this.toggleEditTeam();
     scrollToHeader();
+    // this.startup.positions.forEach((item) => {
+    //   if (
+    //     item.applications.some(
+    //       (el) => el.status === "accepted" || el.status === "advanced"
+    //     )
+    //   ) {
+    //     this.teamMember = [];
+    //     this.teamMember.push(item);
+    //   }
+    // });
+    // console.log(this.teamMember);
   }
 
   async saveSources() {

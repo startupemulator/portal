@@ -3,10 +3,10 @@
     <div class="team-member-card__content">
       <div class="team-member-card__data">
         <p class="team-member-card__data-email">
-          {{ invite.email }}
+          {{ userName }}
         </p>
         <p class="team-member-card__data-position">
-          {{ invite.choosenSpeciality }}
+          {{ specialisation }}
         </p>
       </div>
       <div
@@ -31,24 +31,26 @@
         </ul>
       </div>
     </div>
-    <button class="removeInvite" @click="$emit('removeInvite', invite.id)">
+    <button
+      class="removeInvite"
+      @click="$emit('removeUserMember', applicationId)"
+    >
       <img class="close" src="~/assets/img/close.svg" alt="close" />
     </button>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
-import { Positions } from "~/models/Positions";
 
 @Component({})
 export default class extends Vue {
-  @Prop() invite: Array<Positions>;
+  @Prop() applicationId: string;
+  @Prop() userName: string;
+  @Prop() specialisation: string;
 
   premissionMenu = false;
   choosenPremission = "Default access";
-  acepptedAplication = [];
-  userEmail = "";
-  specialisation = "";
+
   togglePremissionMenu() {
     this.premissionMenu = !this.premissionMenu;
   }
@@ -56,11 +58,13 @@ export default class extends Vue {
   defaultAccess($event) {
     this.premissionMenu = !this.premissionMenu;
     this.choosenPremission = $event.target.textContent;
+    this.$emit("chagePremission", [this.applicationId, this.choosenPremission]);
   }
 
   advancedAccess($event) {
     this.premissionMenu = !this.premissionMenu;
     this.choosenPremission = $event.target.textContent;
+    this.$emit("chagePremission", [this.applicationId, this.choosenPremission]);
   }
 }
 </script>
