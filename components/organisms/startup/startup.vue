@@ -52,6 +52,7 @@
       @saveEditTeam="saveEditTeam"
       @cancelEditTeam="cancelEditTeam"
       @changeTeam="changeTeam"
+      @removeUserMember="removeUserMember"
     ></EditTeam>
     <EditSources
       v-show="editSources"
@@ -575,6 +576,8 @@ export default class extends Vue {
   addFeedBackBadge = false;
   loading = false;
   updateKey: Number = 0;
+  startupPositions = [];
+  deleteApplicationCash = [];
 
   toggleReleaseLikns() {
     this.releaseLikns = !this.releaseLikns;
@@ -704,6 +707,8 @@ export default class extends Vue {
         this.teamMember.push(item);
       }
     });
+    this.startupPositions = this.teamMember;
+
     this.openPosition = this.startup.positions.filter(
       (position) => position.status === "open"
     );
@@ -925,6 +930,12 @@ export default class extends Vue {
     this.updateKey += 1;
   }
 
+  removeUserMember(id) {
+    this.deleteApplicationCash.push(id);
+
+    this.changeTeam(id);
+  }
+
   async startStartup(state) {
     this.loading = true;
     const date = new Date().toISOString();
@@ -1028,6 +1039,11 @@ export default class extends Vue {
 
   async saveEditTeam() {
     try {
+      if (this.deleteApplicationCash.length !== 0) {
+        for (const applicationId of this.deleteApplicationCash) {
+          await this.$cancelApplication(applicationId);
+        }
+      }
       const startup = await this.$startupById(this.startup.id);
       if (startup !== null) {
         this.updatableDataStartup = startup;
@@ -1048,20 +1064,26 @@ export default class extends Vue {
     }
   }
 
-  cancelEditTeam() {
+  async cancelEditTeam() {
     this.toggleEditTeam();
     scrollToHeader();
-    // this.startup.positions.forEach((item) => {
-    //   if (
-    //     item.applications.some(
-    //       (el) => el.status === "accepted" || el.status === "advanced"
-    //     )
-    //   ) {
-    //     this.teamMember = [];
-    //     this.teamMember.push(item);
-    //   }
-    // });
-    // console.log(this.teamMember);
+    try {
+      const startup = await this.$startupById(this.startup.id);
+      if (startup !== null) {
+        this.teamMember = [];
+        startup.positions.forEach((item) => {
+          if (
+            item.applications.some(
+              (el) => el.status === "accepted" || el.status === "advanced"
+            )
+          ) {
+            this.teamMember.push(item);
+          }
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   async saveSources() {

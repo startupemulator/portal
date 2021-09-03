@@ -44,7 +44,7 @@
     </div>
     <div class="edit-team__content">
       <h3>Team</h3>
-      <div v-for="items in myTeam" :key="items.id">
+      <div v-for="items in teamMember" :key="items.id">
         <TeamMemberCard
           v-for="item in items.applications.filter(
             (el) => el.status === 'accepted' || el.status === 'advanced'
@@ -54,7 +54,7 @@
           :user-name="item.user.username"
           :application-id="item.id"
           @chagePremission="chagePremission"
-          @removeUserMember="removeUserMember"
+          @removeUserMember="$emit('removeUserMember', $event)"
         ></TeamMemberCard>
       </div>
 
@@ -117,8 +117,7 @@ export default class extends Vue {
   @Prop() specialisations: Array<Specialisation>;
   @Prop() technologies: Array<Technology>;
   @Prop() teamMember: Array<Positions>;
-  myTeam = [];
-  deleteApplicationCash = [];
+
   specialityComponent: Array<any> = [{ id: 0, type: "create-specialities" }];
   invitedcolleagues: Array<any> = [];
   openPositionCash = [];
@@ -189,9 +188,9 @@ export default class extends Vue {
         (item) => item.id !== this.specialityComponent[i].id
       );
       this.invitedcolleagues.forEach((el) => {
-        // if (+el.position_id === +removedPosition.id) {
-        //   this.removeUserMember(el.id);
-        // }
+        if (+el.position_id === +removedPosition.id) {
+          this.removeUserMember(el.id);
+        }
       });
     }
     this.loading = false;
@@ -264,23 +263,6 @@ export default class extends Vue {
     // console.log(this.team);
   }
 
-  removeUserMember(id) {
-    // this.myTeam.forEach((item) => {
-    //   item.applications.forEach((element, i) => {
-    //     if (+element.id === +id) {
-    //       item.applications.splice(i, 1);
-    //       console.log(element, i);
-    //     }
-    //   });
-    // });
-    this.teamMember.forEach((item, i) => {
-      this.myTeam[i].applications = item.applications.filter(
-        (el) => +el.id !== +id
-      );
-    });
-    console.log(this.myTeam);
-  }
-
   mounted() {
     if (this.startup.coleagues) {
       this.invitedcolleagues = this.startup.coleagues;
@@ -300,8 +282,6 @@ export default class extends Vue {
         this.specialityComponent.push(data);
       });
     }
-    this.myTeam = this.teamMember;
-    console.log("mounted");
 
     //   if (this.startup.specialists) {
     //     this.specialityComponent = this.startup.specialists;
