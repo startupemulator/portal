@@ -34,10 +34,10 @@ export default class extends Vue {
     $startupByAcceptedApplication,
     $profile,
     $strapi,
-    $feedbacksByStartupID,
     $newFeedbacksByStartupID,
   }) {
-    const myStartups = await $myStartups($strapi.user.id);
+    let myStartups = await $myStartups($strapi.user.id);
+
     const userProfile = await $profile($strapi.user.id);
     const acceptedStartup = await $startupByAcceptedApplication(
       $strapi.user.id
@@ -70,6 +70,10 @@ export default class extends Vue {
           })
         );
       });
+      myStartups = myStartups.filter(
+        (el, i, startups) =>
+          startups.findIndex((item) => item.id === el.id) === i
+      );
     }
 
     return {
