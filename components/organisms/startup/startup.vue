@@ -47,8 +47,7 @@
       :startup-id="moveAwayStartup"
       :team-member="teamMember"
       @clikOnButton="toggleEditTeam"
-      @advancedAccess="advancedAccess"
-      @defaultAccess="accept"
+      @chagePremission="chagePremission"
       @saveEditTeam="saveEditTeam"
       @cancelEditTeam="cancelEditTeam"
       @changeTeam="changeTeam"
@@ -576,9 +575,9 @@ export default class extends Vue {
   addFeedBackBadge = false;
   loading = false;
   updateKey: Number = 0;
-  startupPositions = [];
-  deleteApplicationCash = [];
 
+  deleteApplicationCash = [];
+  changedPremissionOnTeam = [];
   toggleReleaseLikns() {
     this.releaseLikns = !this.releaseLikns;
     scrollToHeader();
@@ -707,7 +706,6 @@ export default class extends Vue {
         this.teamMember.push(item);
       }
     });
-    this.startupPositions = this.teamMember;
 
     this.openPosition = this.startup.positions.filter(
       (position) => position.status === "open"
@@ -789,6 +787,18 @@ export default class extends Vue {
       }
     } catch (e) {
       console.error(e);
+    }
+  }
+
+  chagePremission(premission) {
+    if (this.changedPremissionOnTeam.some((el) => el[0] === premission[0])) {
+      this.changedPremissionOnTeam.forEach((item) => {
+        if (item[0] === premission[0]) {
+          item[1] = premission[1];
+        }
+      });
+    } else {
+      this.changedPremissionOnTeam.push(premission);
     }
   }
 
@@ -1044,6 +1054,15 @@ export default class extends Vue {
           await this.$cancelApplication(applicationId);
         }
       }
+      if (this.changedPremissionOnTeam.length !== 0) {
+        for (const premission of this.changedPremissionOnTeam) {
+          if (premission[1] === "Advanced access") {
+            await this.$applicationAdvancedAccess(premission[0]);
+          } else {
+            await this.$applicationAccept(premission[0]);
+          }
+        }
+      }
       const startup = await this.$startupById(this.startup.id);
       if (startup !== null) {
         this.updatableDataStartup = startup;
@@ -1053,7 +1072,16 @@ export default class extends Vue {
         this.staffedPosition = this.updatableDataStartup.positions.filter(
           (position) => position.status === "staffed"
         );
-
+        this.teamMember = [];
+        startup.positions.forEach((item) => {
+          if (
+            item.applications.some(
+              (el) => el.status === "accepted" || el.status === "advanced"
+            )
+          ) {
+            this.teamMember.push(item);
+          }
+        });
         this.toggleEditTeam();
         scrollToHeader();
       }

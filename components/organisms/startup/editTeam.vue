@@ -53,6 +53,7 @@
           :specialisation="items.specialisation.title"
           :user-name="item.user.username"
           :application-id="item.id"
+          :premission="item.status"
           @chagePremission="chagePremission"
           @removeUserMember="$emit('removeUserMember', $event)"
         ></TeamMemberCard>
@@ -252,15 +253,7 @@ export default class extends Vue {
   }
 
   chagePremission(premission) {
-    // this.team.forEach((el) => {
-    //   el.applications.forEach((item) => {
-    //     if (+item.id === +premission[0]) {
-    //       item.status = premission[1].trim();
-    //       console.log(item.status);
-    //     }
-    //   });
-    // });
-    // console.log(this.team);
+    this.$emit("chagePremission", premission);
   }
 
   mounted() {

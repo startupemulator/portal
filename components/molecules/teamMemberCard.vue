@@ -14,7 +14,11 @@
         :class="premissionMenu ? 'active' : ''"
       >
         <div class="menu-premission__header" @click="togglePremissionMenu">
-          <span>{{ choosenPremission }}</span>
+          <span>{{
+            choosenPremission === "accepted"
+              ? "Default access"
+              : "Advanced access"
+          }}</span>
           <img
             src="~/assets/img/arrow.svg"
             alt="arrow"
@@ -47,9 +51,10 @@ export default class extends Vue {
   @Prop() applicationId: string;
   @Prop() userName: string;
   @Prop() specialisation: string;
+  @Prop() premission!: string;
+  choosenPremission = this.premission;
 
   premissionMenu = false;
-  choosenPremission = "Default access";
 
   togglePremissionMenu() {
     this.premissionMenu = !this.premissionMenu;
@@ -57,14 +62,20 @@ export default class extends Vue {
 
   defaultAccess($event) {
     this.premissionMenu = !this.premissionMenu;
-    this.choosenPremission = $event.target.textContent;
-    this.$emit("chagePremission", [this.applicationId, this.choosenPremission]);
+    this.choosenPremission = "accepted";
+    this.$emit("chagePremission", [
+      this.applicationId,
+      $event.target.textContent.trim(),
+    ]);
   }
 
   advancedAccess($event) {
     this.premissionMenu = !this.premissionMenu;
     this.choosenPremission = $event.target.textContent;
-    this.$emit("chagePremission", [this.applicationId, this.choosenPremission]);
+    this.$emit("chagePremission", [
+      this.applicationId,
+      $event.target.textContent.trim(),
+    ]);
   }
 }
 </script>
