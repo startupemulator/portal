@@ -38,18 +38,20 @@
       @cancelEditStartupInfo="cancelEditStartupInfo"
     ></EditStartupInfo>
     <EditTeam
-      v-show="editTeam"
+      v-if="editTeam"
       :update-key="updateKey"
       :staffed-position="staffedPosition"
       :startup="updatableDataStartup"
       :specialisations="specialisations"
       :technologies="technologies"
       :startup-id="moveAwayStartup"
+      :team-member="teamMember"
       @clikOnButton="toggleEditTeam"
-      @advancedAccess="advancedAccess"
-      @defaultAccess="accept"
+      @chagePremission="chagePremission"
       @saveEditTeam="saveEditTeam"
       @cancelEditTeam="cancelEditTeam"
+      @changeTeam="changeTeam"
+      @removeUserMember="removeUserMember"
     ></EditTeam>
     <EditSources
       v-show="editSources"
@@ -203,11 +205,8 @@
 
         <div v-if="isOwner && !finished" class="owner-menu">
           <ul class="owner-menu__list">
-            <li v-if="!review" class="owner-menu__item">
-              <nuxt-link
-                v-if="!isStarted"
-                :to="'/startup/requestsToTeam/' + startup.slug"
-              >
+            <li v-if="!review && !finished" class="owner-menu__item">
+              <nuxt-link :to="'/startup/requestsToTeam/' + startup.slug">
                 <span
                   >Requests to Team
                   <div class="owner-menu__item--message">
@@ -220,9 +219,11 @@
                 >
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
               </nuxt-link>
-              <button v-if="isStarted" type="button" @click="toggleNewFeedBack">
+            </li>
+            <li v-if="!review && isStarted" class="owner-menu__item">
+              <button type="button" @click="toggleNewFeedBack">
                 <span
-                  >New Feedback
+                  >Expert Feedback
                   <div class="owner-menu__item--message">
                     <span>{{ newFeedbacksData.length }} </span>
                   </div></span
@@ -575,6 +576,8 @@ export default class extends Vue {
   loading = false;
   updateKey: Number = 0;
 
+  deleteApplicationCash = [];
+  changedPremissionOnTeam = [];
   toggleReleaseLikns() {
     this.releaseLikns = !this.releaseLikns;
     scrollToHeader();
@@ -703,6 +706,7 @@ export default class extends Vue {
         this.teamMember.push(item);
       }
     });
+
     this.openPosition = this.startup.positions.filter(
       (position) => position.status === "open"
     );
@@ -783,6 +787,18 @@ export default class extends Vue {
       }
     } catch (e) {
       console.error(e);
+    }
+  }
+
+  chagePremission(premission) {
+    if (this.changedPremissionOnTeam.some((el) => el[0] === premission[0])) {
+      this.changedPremissionOnTeam.forEach((item) => {
+        if (item[0] === premission[0]) {
+          item[1] = premission[1];
+        }
+      });
+    } else {
+      this.changedPremissionOnTeam.push(premission);
     }
   }
 
@@ -917,17 +933,17 @@ export default class extends Vue {
     }
   }
 
-  changeTeam(startup) {
-    this.teamMember = [];
-    startup.positions.forEach((item) => {
-      if (
-        item.applications.some(
-          (el) => el.status === "accepted" || el.status === "advanced"
-        )
-      ) {
-        this.teamMember.push(item);
-      }
+  changeTeam(id) {
+    this.teamMember.forEach((item) => {
+      item.applications = item.applications.filter((el) => el.id !== id);
     });
+    this.updateKey += 1;
+  }
+
+  removeUserMember(id) {
+    this.deleteApplicationCash.push(id);
+
+    this.changeTeam(id);
   }
 
   async startStartup(state) {
@@ -1033,6 +1049,20 @@ export default class extends Vue {
 
   async saveEditTeam() {
     try {
+      if (this.deleteApplicationCash.length !== 0) {
+        for (const applicationId of this.deleteApplicationCash) {
+          await this.$cancelApplication(applicationId);
+        }
+      }
+      if (this.changedPremissionOnTeam.length !== 0) {
+        for (const premission of this.changedPremissionOnTeam) {
+          if (premission[1] === "Advanced access") {
+            await this.$applicationAdvancedAccess(premission[0]);
+          } else {
+            await this.$applicationAccept(premission[0]);
+          }
+        }
+      }
       const startup = await this.$startupById(this.startup.id);
       if (startup !== null) {
         this.updatableDataStartup = startup;
@@ -1042,7 +1072,16 @@ export default class extends Vue {
         this.staffedPosition = this.updatableDataStartup.positions.filter(
           (position) => position.status === "staffed"
         );
-
+        this.teamMember = [];
+        startup.positions.forEach((item) => {
+          if (
+            item.applications.some(
+              (el) => el.status === "accepted" || el.status === "advanced"
+            )
+          ) {
+            this.teamMember.push(item);
+          }
+        });
         this.toggleEditTeam();
         scrollToHeader();
       }
@@ -1053,9 +1092,26 @@ export default class extends Vue {
     }
   }
 
-  cancelEditTeam() {
+  async cancelEditTeam() {
     this.toggleEditTeam();
     scrollToHeader();
+    try {
+      const startup = await this.$startupById(this.startup.id);
+      if (startup !== null) {
+        this.teamMember = [];
+        startup.positions.forEach((item) => {
+          if (
+            item.applications.some(
+              (el) => el.status === "accepted" || el.status === "advanced"
+            )
+          ) {
+            this.teamMember.push(item);
+          }
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   async saveSources() {

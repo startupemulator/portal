@@ -147,13 +147,15 @@ export function createNewProfile($strapi: Strapi) {
   return async (userName: string, userId: string) => {
     const data = await $strapi.graphql({
       query: `mutation {
-            createProfile(input: { data: {user: "${userId}", name:"${userName}", experience:"1"  } }) {
+            createProfile(input: { 
+              data: {
+                user: "${userId}", name:"${userName}", experience:"1", is_expert: false  } }) {
                 profile {
                 id
+                name
                 user{
                   id
                 }
-                name
                 experience{
                   id
                 }

@@ -29,11 +29,14 @@
             Waiting for feedback
           </div>
         </div>
+
         <div
-          v-if="card.newFeedbacks && card.newFeedbacks !== 0"
+          v-if="
+            (card.newFeedbacks && card.newFeedbacks !== 0) || askFeedbacks !== 0
+          "
           class="startup-card__started-title askFeedbacks"
         >
-          {{ card.newFeedbacks }}
+          {{ card.newFeedbacks || askFeedbacks }}
         </div>
       </div>
     </div>
