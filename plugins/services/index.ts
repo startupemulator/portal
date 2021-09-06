@@ -103,6 +103,7 @@ import {
   createPosition,
   deletePositions,
   updatePosition,
+  updateStatusPosition,
 } from "~/plugins/services/positions";
 import { Positions } from "~/models/Positions";
 import { Invites } from "~/models/Invites";
@@ -202,6 +203,11 @@ export interface Services {
     technologies: Array<Technology>,
     specialisation: string
   ): Promise<Partial<Positions>[]>;
+  $updateStatusPosition(
+    id: string,
+    status: string
+  ): Promise<Partial<Positions>[]>;
+
   $applications(): Promise<Partial<Applications>[]>;
 
   $applicationsByStartupId(id: string): Promise<Partial<Applications>[]>;
@@ -469,6 +475,8 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
 
   inject("positions", positions(ctx.$strapi));
   inject("updatePosition", updatePosition(ctx.$strapi));
+  inject("updateStatusPosition", updateStatusPosition(ctx.$strapi));
+
   inject("createPosition", createPosition(ctx.$strapi));
   inject("deletePositions", deletePositions(ctx.$strapi));
 

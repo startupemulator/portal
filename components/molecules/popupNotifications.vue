@@ -7,10 +7,12 @@
       <U-button
         :button-name="'My projects'"
         :button-class="'u-button-transpend expert-button expert-button-projects'"
+        @clickOnButton="goToMyProjects"
       ></U-button>
       <U-button
         :button-name="'Waiting for feedback'"
         :button-class="'u-button-transpend expert-button'"
+        @clickOnButton="goToStartups"
       ></U-button>
     </div>
     <div class="notification-popup__message new-popup__message">
@@ -170,6 +172,14 @@ export default class extends Vue {
   isLogined = !!this.$strapi.user;
   lengthNewNotifications = 5;
   lengthEarlierNotifications = 5;
+
+  goToMyProjects() {
+    this.$router.push("/profile/projects");
+  }
+
+  goToStartups() {
+    this.$router.push("/startups");
+  }
 
   showMoreNewNotifications() {
     this.lengthNewNotifications = this.lengthNewNotifications + 5;

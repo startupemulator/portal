@@ -1,7 +1,20 @@
 <template>
-  <div class="">
+  <div>
     <div class="specialityOne">
-      <p>{{ name }}</p>
+      <div class="specialityOne__header">
+        <p>{{ name }}</p>
+        <div v-if="isEditTeam" class="position-status">
+          <span :class="isOpenPosition ? 'active' : ''" @click="openPosition"
+            >open</span
+          >
+          <span
+            :class="isStaffedPosition ? 'active' : ''"
+            @click="staffedPosition"
+            >staffed</span
+          >
+        </div>
+      </div>
+
       <div class="specialityOne__list">
         <div
           class="specialityOne__item"
@@ -164,6 +177,9 @@ export default class extends Vue {
   @Prop({ default: "Select a speciality" }) specialityFromParent!: String;
   @Prop() specialisations: Array<Specialisation>;
   @Prop() creator: number;
+  @Prop() status: string;
+  @Prop() isEditTeam: boolean;
+  @Prop() positionId: string;
   data() {
     return {
       openSpeciality: false,
@@ -176,6 +192,8 @@ export default class extends Vue {
       pickedTechnologyId: [],
       newTechnologies: [],
       specialityId: "",
+      isOpenPosition: this.status === "open",
+      isStaffedPosition: this.status === "staffed",
     };
   }
 
@@ -253,6 +271,18 @@ export default class extends Vue {
     this.popupPickTechnology = !this.popupPickTechnology;
   }
 
+  openPosition() {
+    this.isOpenPosition = true;
+    this.isStaffedPosition = false;
+    this.$emit("changeStatusPosition", this.positionId, "open");
+  }
+
+  staffedPosition() {
+    this.isOpenPosition = false;
+    this.isStaffedPosition = true;
+    this.$emit("changeStatusPosition", this.positionId, "staffed");
+  }
+
   mounted() {
     if (this.checkedTechnologies) {
       this.pickedTechnology = this.checkedTechnologies;
@@ -288,6 +318,30 @@ export default class extends Vue {
 }
 .specialityOne {
   color: #fff;
+  .specialityOne__header {
+    display: flex;
+  }
+  .position-status {
+    display: flex;
+    border: 1px solid #b5c1d8;
+    border-radius: 12px;
+    height: 36px;
+    width: 140px;
+    justify-content: space-between;
+    margin-left: 16px;
+
+    span {
+      padding: 10px;
+      border-radius: 12px;
+      height: 16px;
+      cursor: pointer;
+      font-size: 14px;
+
+      &.active {
+        background: #2e384a;
+      }
+    }
+  }
 }
 .specialityOne__list {
   position: relative;

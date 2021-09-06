@@ -1047,7 +1047,7 @@ export default class extends Vue {
     scrollToHeader();
   }
 
-  async saveEditTeam() {
+  async saveEditTeam(positions) {
     try {
       if (this.deleteApplicationCash.length !== 0) {
         for (const applicationId of this.deleteApplicationCash) {
@@ -1063,6 +1063,19 @@ export default class extends Vue {
           }
         }
       }
+      if (positions.length !== 0) {
+        let i = 0;
+        for (const position of this.updatableDataStartup.positions) {
+          if (
+            +position.id === +positions[i].id &&
+            position.status !== positions[i].status
+          ) {
+            await this.$updateStatusPosition(position.id, positions[i].status);
+          }
+          i++;
+        }
+      }
+
       const startup = await this.$startupById(this.startup.id);
       if (startup !== null) {
         this.updatableDataStartup = startup;
