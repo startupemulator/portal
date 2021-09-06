@@ -225,6 +225,7 @@
       v-if="notification"
       :notifications="notifications"
       :is-expert="isExpert"
+      :notification-loading="notificationLoading"
       @markAllNotifications="markAllNotifications"
       @closeNotificationPopup="toggleNotification"
       @closeNotifications="closeNotifications"
@@ -250,6 +251,7 @@ export default class AppHeader extends Vue {
   @Prop() notifications: Array<Notification>;
   @Prop() isExpert: boolean;
   @Prop() newNotificationCount: number;
+  @Prop() notificationLoading: boolean;
 
   notification = false;
 
@@ -268,7 +270,6 @@ export default class AppHeader extends Vue {
 
   markAllNotifications() {
     this.$emit("markAllNotifications");
-    this.toggleNotification();
   }
 
   scrollToPricing() {
