@@ -92,7 +92,7 @@ export function updatePosition($strapi: Strapi) {
   };
 }
 export function updateStatusPosition($strapi: Strapi) {
-  return async (id: string, status) => {
+  return async (id: string, status: string) => {
     const data = await $strapi.graphql({
       query: `mutation {
         updatePosition(
