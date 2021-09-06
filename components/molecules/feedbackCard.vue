@@ -136,11 +136,11 @@
           :button-class="'u-button-blue'"
           @clickOnButton="publish(feedback.id)"
         ></U-button>
-        <U-button
+        <!-- <U-button
           :button-name="'Decline'"
           :button-class="'u-button-gray'"
           @clickOnButton="decline"
-        ></U-button>
+        ></U-button> -->
       </div>
     </div>
     <Spiner :loading="loading"></Spiner>
@@ -441,7 +441,7 @@ export default class extends Vue {
       padding-right: 32px;
       margin-top: 24px;
       .u-button {
-        max-width: 371px;
+        max-width: 596px;
         max-height: 48px;
         font-weight: bold;
         font-size: 17px;

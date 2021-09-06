@@ -7,16 +7,18 @@
       <U-button
         :button-name="'My projects'"
         :button-class="'u-button-transpend expert-button expert-button-projects'"
+        @clickOnButton="goToMyProjects"
       ></U-button>
       <U-button
         :button-name="'Waiting for feedback'"
         :button-class="'u-button-transpend expert-button'"
+        @clickOnButton="goToStartups"
       ></U-button>
     </div>
     <div class="notification-popup__message new-popup__message">
       <div class="new-message__header">
         <span>New</span>
-        <button type="button" @click="$emit('markAllNotifications')">
+        <button type="button" @click="markAllNotifications">
           <img src="~/assets/img/check.svg" alt="mark as read" /><span
             >Mark all as read</span
           >
@@ -149,23 +151,35 @@
       :button-name="'Show 20 More Notifications'"
       :button-class="'u-button-gray notification-button'"
     ></U-button>
+    <Spiner :loading="notificationLoading"></Spiner>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
 import UButton from "../atoms/uButton.vue";
 import { Notification } from "~/models/Notification";
+import Spiner from "~/components/molecules/spiner.vue";
 
 @Component({
-  components: { UButton },
+  components: { UButton, Spiner },
 })
 export default class extends Vue {
   @Prop() notifications: Array<Notification>;
   @Prop() isExpert: boolean;
+  @Prop() notificationLoading: boolean;
+
   firstClickOnNotification = true;
   isLogined = !!this.$strapi.user;
   lengthNewNotifications = 5;
   lengthEarlierNotifications = 5;
+
+  goToMyProjects() {
+    this.$router.push("/profile/projects");
+  }
+
+  goToStartups() {
+    this.$router.push("/startups");
+  }
 
   showMoreNewNotifications() {
     this.lengthNewNotifications = this.lengthNewNotifications + 5;
@@ -197,6 +211,10 @@ export default class extends Vue {
     this.$emit("markNotificationIsReaded", id);
   }
 
+  markAllNotifications() {
+    this.$emit("markAllNotifications");
+  }
+
   mounted() {
     document.addEventListener("click", this.clickOnDocumet);
   }
@@ -219,6 +237,10 @@ export default class extends Vue {
   border-radius: 12px;
   box-sizing: border-box;
   border: 1px solid #59667e;
+  .loader {
+    position: static;
+    height: auto;
+  }
   ul {
     margin: 0;
     padding: 0;

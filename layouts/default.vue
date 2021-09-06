@@ -8,6 +8,7 @@
       :notifications="notifications"
       :is-expert="isExpert"
       :new-notification-count="newNotificationCount"
+      :notification-loading="notificationLoading"
       @markAllNotifications="markAllNotifications"
       @markNotificationIsReaded="markNotificationIsReaded"
     ></AppHeader>
@@ -42,6 +43,7 @@ export default class extends Vue {
   notifications: Array<Notification> = [];
   isExpert = false;
   loading = false;
+  notificationLoading = false;
   newNotificationCount: number = 0;
 
   async downloadNotifications() {
@@ -68,7 +70,7 @@ export default class extends Vue {
   }
 
   async markAllNotifications() {
-    this.loading = true;
+    this.notificationLoading = true;
     const notViewvedNotifications = this.notifications.filter(
       (el) => el.viewed === false
     );
@@ -83,15 +85,15 @@ export default class extends Vue {
         if (updateNotifications !== null) {
           this.notifications = updateNotifications;
         }
-        this.loading = false;
+        this.notificationLoading = false;
       } catch (e) {
         console.error(e);
-        this.loading = false;
+        this.notificationLoading = false;
       }
     }
     this.checkNotificationCount();
 
-    this.loading = false;
+    this.notificationLoading = false;
   }
 
   @Watch("$route", { immediate: true, deep: true })

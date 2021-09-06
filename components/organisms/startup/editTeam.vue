@@ -18,9 +18,13 @@
           :name="'Speciality ' + (i + 1)"
           :picker="true"
           :creator="startup.owner.id"
+          :status="item.status"
           :specialisations="specialisations"
           :speciality-from-parent="[item.speciality, item.speciality_id]"
           :checked-technologies="item.technologies"
+          :is-edit-team="true"
+          :position-id="item.id"
+          @changeStatusPosition="changeStatusPosition"
           @removeSpeciality="removeSpeciality(item.id, i)"
           @chosenSpeciality="
             addSpecialityToSpecialityComponent($event, i, item.id)
@@ -178,7 +182,15 @@ export default class extends Vue {
         success: true,
       });
     }, 900);
-    this.$emit("saveEditTeam");
+    this.$emit("saveEditTeam", this.specialityComponent);
+  }
+
+  changeStatusPosition(id, status) {
+    this.specialityComponent.forEach((el) => {
+      if (+el.id === +id) {
+        el.status = status;
+      }
+    });
   }
 
   async removeSpeciality(id, i) {
@@ -270,6 +282,7 @@ export default class extends Vue {
           speciality: el.specialisation.title,
           speciality_id: el.specialisation.id,
           technologies,
+          status: el.status,
         };
 
         this.specialityComponent.push(data);

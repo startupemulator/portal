@@ -91,3 +91,22 @@ export function updatePosition($strapi: Strapi) {
     return data.updatePosition.position ? data.updatePosition.position : null;
   };
 }
+export function updateStatusPosition($strapi: Strapi) {
+  return async (id: string, status: string) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+        updatePosition(
+            input: {
+             where: {id: "${id}"}
+             data: { status: ${status}  }
+             }
+             ) {
+          position {
+            id            
+          }
+        }
+      }`,
+    });
+    return data.updatePosition.position ? data.updatePosition.position : null;
+  };
+}
