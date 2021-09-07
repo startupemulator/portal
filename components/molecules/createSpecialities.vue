@@ -323,7 +323,7 @@ export default class extends Vue {
   }
   .position-status {
     display: flex;
-    border: 1px solid #b5c1d8;
+    border: 1px solid #59667e;
     border-radius: 12px;
     height: 36px;
     width: 140px;
@@ -336,9 +336,11 @@ export default class extends Vue {
       height: 16px;
       cursor: pointer;
       font-size: 14px;
-
+      color: #b5c1d8;
+      transition: 0.4s;
       &.active {
         background: #2e384a;
+        transition: 0.4s;
       }
     }
   }
