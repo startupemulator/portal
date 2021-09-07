@@ -76,12 +76,12 @@
         ></U-button>
       </div>
     </div>
-    <!-- <Invitecolleagues
+    <Invitecolleagues
       v-if="invitecolleagues"
       :specialisations="specialityComponent"
       @closePopupLinkEmail="toggleInviteColleagues"
       @inviteCollegue="inviteCollegue"
-    ></Invitecolleagues> -->
+    ></Invitecolleagues>
     <Spiner :loading="loading"></Spiner>
   </div>
 </template>
@@ -289,27 +289,27 @@ export default class extends Vue {
       });
     }
 
-    //   if (this.startup.specialists) {
-    //     this.specialityComponent = this.startup.specialists;
-    //   } else if (this.startup.owner.invites) {
-    //     this.invitedcolleagues = [];
+    // if (this.startup.specialists) {
+    //   this.specialityComponent = this.startup.specialists;
+    // } else if (this.startup.owner.invites) {
+    //   this.invitedcolleagues = [];
 
-    //     this.startup.owner.invites.forEach((el) => {
-    //       if (
-    //         el.position &&
-    //         el.position.startup !== null &&
-    //         this.startup.id === el.position.startup.id
-    //       ) {
-    //         const data = {
-    //           id: el.id,
-    //           type: "create-specialities",
-    //           email: el.email,
-    //           choosenSpeciality: el.position.specialisation.title,
-    //         };
-    //         this.invitedcolleagues.push(data);
-    //       }
-    //     });
-    //   }
+    //   this.startup.owner.invites.forEach((el) => {
+    //     if (
+    //       el.position &&
+    //       el.position.startup !== null &&
+    //       this.startup.id === el.position.startup.id
+    //     ) {
+    //       const data = {
+    //         id: el.id,
+    //         type: "create-specialities",
+    //         email: el.email,
+    //         choosenSpeciality: el.position.specialisation.title,
+    //       };
+    //       this.invitedcolleagues.push(data);
+    //     }
+    //   });
+    // }
   }
 }
 </script>
