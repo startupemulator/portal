@@ -199,23 +199,6 @@ export default class extends Vue {
     });
   }
 
-  // async removeSpeciality(id, i) {
-  //   this.loading = true;
-  //   console.log("removeSpecialyty");
-  //   // real detele if click save?
-  //   const removedPosition = await this.$deletePositions(id);
-  //   if (removedPosition.id === id) {
-  //     this.specialityComponent = this.specialityComponent.filter(
-  //       (item) => item.id !== this.specialityComponent[i].id
-  //     );
-  //     this.invitedcolleagues.forEach((el) => {
-  //       if (+el.position_id === +removedPosition.id) {
-  //         this.removeUserMember(el.id);
-  //       }
-  //     });
-  //   }
-  //   this.loading = false;
-  // }
   removeSpeciality(id, i) {
     this.loading = true;
     this.positionForRemove.push(id);
@@ -223,13 +206,6 @@ export default class extends Vue {
     this.specialityComponent = this.specialityComponent.filter(
       (item) => item.id !== this.specialityComponent[i].id
     );
-
-    // this.invitedcolleagues.forEach((el) => {
-    //   if (+el.position_id === +removedPosition.id) {
-    //     this.removeUserMember(el.id);
-    //   }
-    // });
-
     this.loading = false;
   }
 
