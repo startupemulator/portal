@@ -134,15 +134,7 @@ export default class extends Vue {
           newNotifications.filter((el) => el.viewed === false).length !== 0
         ) {
           this.notifications = newNotifications;
-          if (this.notificationByMyProjects) {
-            this.notifications = this.notifications.filter(
-              (el) => el.notification.type !== "feedback"
-            );
-          } else if (this.notificationByFeedback) {
-            this.notifications = this.notifications.filter(
-              (el) => el.notification.type === "feedback"
-            );
-          }
+          this.notificationFilter(this.notifications);
           this.checkNotificationCount();
 
           setTimeout(this.checkNewNotifications, 30000);
@@ -153,6 +145,18 @@ export default class extends Vue {
         console.error(e);
         setTimeout(this.checkNewNotifications, 30000);
       }
+    }
+  }
+
+  notificationFilter(notifications) {
+    if (this.notificationByMyProjects) {
+      this.notifications = notifications.filter(
+        (el) => el.notification.type !== "feedback"
+      );
+    } else if (this.notificationByFeedback) {
+      this.notifications = notifications.filter(
+        (el) => el.notification.type === "feedback"
+      );
     }
   }
 
@@ -175,9 +179,7 @@ export default class extends Vue {
       this.notificationLoading = false;
     }
 
-    this.notifications = this.notifications.filter(
-      (el) => el.notification.type !== "feedback"
-    );
+    this.notificationFilter(this.notifications);
   }
 
   async filterNotificationByFeedback() {
@@ -192,9 +194,7 @@ export default class extends Vue {
       console.error(e);
       this.notificationLoading = false;
     }
-    this.notifications = this.notifications.filter(
-      (el) => el.notification.type === "feedback"
-    );
+    this.notificationFilter(this.notifications);
   }
 }
 </script>
