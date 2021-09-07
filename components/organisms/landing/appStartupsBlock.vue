@@ -37,7 +37,7 @@
     <div class="startup-block__startup-cards">
       <transition-group name="card" tag="div" class="transition__startup-card">
         <div v-for="card in cards" :key="card.id" class="card-move">
-          <startup-card
+          <Startup-card
             :id="card.id"
             :key="card.id"
             v-touch:swipe="$device.isMobile ? touchHandler : ''"
@@ -45,7 +45,8 @@
             :card="card"
             :technology="technology"
             :user-id="userId"
-          ></startup-card>
+            :waiting-feedback="card.state !== 'finished' ? waitingFeedback : []"
+          ></Startup-card>
         </div>
       </transition-group>
     </div>
@@ -58,6 +59,7 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 import { Startup } from "~/models/Startup";
 import { Technology } from "~/models/Technology";
 import StartupCard from "~/components/molecules/startupCard.vue";
+import { AskFeedbacks } from "~/models/AskFeedbacks";
 
 @Component({
   components: {
@@ -68,6 +70,7 @@ export default class AppStartupsBlock extends Vue {
   @Prop() cards: Array<Startup>;
   @Prop() technology: Array<Technology>;
   @Prop() userId: string;
+  @Prop() waitingFeedback: Array<AskFeedbacks>;
 
   touchHandler(data) {
     if (data === "left") {

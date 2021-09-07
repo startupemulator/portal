@@ -5,6 +5,7 @@
       :cards="startups"
       :technology="technologies"
       :user-id="userId"
+      :waiting-feedback="waitingFeedback"
       @slideRigth="slideRigth"
       @slideLeft="slideLeft"
     ></app-startups-block>
@@ -72,6 +73,8 @@ export default class extends Vue {
     $askFeedbacksForChallenges,
     $userChallengesByUserId,
     $strapi,
+    $profile,
+    $askFeedbacksForStartup,
   }) {
     const { startups } = await $startups();
     const { challenges } = await $challenges();
@@ -79,9 +82,38 @@ export default class extends Vue {
     const { technologies } = await $technologies();
     let feedBackForChallenges = [];
     let userChallenges = [];
+    let isExpert = false;
+    let waitingFeedback = [];
     if ($strapi.user) {
       feedBackForChallenges = await $askFeedbacksForChallenges();
       userChallenges = await $userChallengesByUserId($strapi.user.id);
+      const userProfile = await $profile($strapi.user.id);
+      isExpert = userProfile.is_expert;
+    }
+    let waitingFeedbackState;
+    if (isExpert) {
+      waitingFeedbackState = await $askFeedbacksForStartup();
+      waitingFeedback = waitingFeedbackState.filter(
+        (v, i, a) =>
+          a.findIndex(
+            (t) =>
+              t.startup.id === v.startup.id && t.startup.state !== "finished"
+          ) === i
+      );
+      if (isExpert) {
+        const stateWaitingForFeedback = [];
+
+        startups.forEach((el) => {
+          if (
+            waitingFeedbackState.some(
+              (item) => item.startup.id === el.id && el.state !== "finished"
+            )
+          ) {
+            stateWaitingForFeedback.push(el);
+          }
+        });
+        waitingFeedback = stateWaitingForFeedback;
+      }
     }
     return {
       startups,
@@ -90,6 +122,9 @@ export default class extends Vue {
       technologies,
       feedBackForChallenges,
       userChallenges,
+      isExpert,
+      waitingFeedback,
+      waitingFeedbackState,
     };
   }
 
