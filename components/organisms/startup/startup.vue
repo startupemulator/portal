@@ -20,6 +20,7 @@
       @clikOnButton="toggleNewFeedBack"
       @updateFeedbacks="updateFeedbacks"
       @publickFeedback="updateFeedbacks"
+      @requestFeedback="requestFeedback"
     ></NewFeedBack>
     <RequestFeedback
       v-show="requestFeedBack"
@@ -742,6 +743,11 @@ export default class extends Vue {
     );
     recipients.push({ user: { id: this.startup.owner.id } });
     this.createNotification(recipients, "teamFeedback");
+  }
+
+  requestFeedback() {
+    this.toggleNewFeedBack();
+    this.toggleRequestFeedBack();
   }
 
   async createNotification(recipients, flag) {
