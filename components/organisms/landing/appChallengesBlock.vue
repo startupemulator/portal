@@ -44,6 +44,7 @@
           v-touch-class="$device.isMobile ? 'active' : ''"
           :card="card"
           :user-id="userId"
+          :is-expert="isExpert"
           :user-challenges="userChallenges"
           :feed-back-for-challenges="feedBackForChallenges"
         ></ChallengeCard>
@@ -68,7 +69,7 @@ export default class AppChallengesBlock extends Vue {
   @Prop() cards: Array<Challenge>;
   @Prop() userId: string;
   @Prop() userChallenges: Array<userChallenges>;
-
+  @Prop() isExpert: Boolean;
   @Prop() feedBackForChallenges: Array<AskFeedbacks>;
 
   touchHandler(data) {

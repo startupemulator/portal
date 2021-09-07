@@ -14,6 +14,7 @@
       :user-id="userId"
       :user-challenges="userChallenges"
       :feed-back-for-challenges="feedBackForChallenges"
+      :is-expert="isExpert"
       @slideRigth="slideRigth"
       @slideLeft="slideLeft"
     ></app-challenges-block>
