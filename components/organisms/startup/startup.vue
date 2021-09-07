@@ -1066,12 +1066,13 @@ export default class extends Vue {
       }
       if (positions.length !== 0) {
         let i = 0;
-        for (const position of this.updatableDataStartup.positions) {
+        for (const position of positions) {
           if (
-            +position.id === +positions[i].id &&
-            position.status !== positions[i].status
+            !!this.updatableDataStartup.positions[i] &&
+            +position.id === +this.updatableDataStartup.positions[i].id &&
+            position.status !== this.updatableDataStartup.positions[i].status
           ) {
-            await this.$updateStatusPosition(position.id, positions[i].status);
+            await this.$updateStatusPosition(position.id, position.status);
           }
           i++;
         }
