@@ -230,6 +230,8 @@
       @closeNotificationPopup="toggleNotification"
       @closeNotifications="closeNotifications"
       @markNotificationIsReaded="markNotificationIsReaded($event)"
+      @filterNotificationByMyProjects="$emit('filterNotificationByMyProjects')"
+      @filterNotificationByFeedback="$emit('filterNotificationByFeedback')"
     ></Notifications-popup>
   </header>
 </template>

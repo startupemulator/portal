@@ -11,6 +11,8 @@
       :notification-loading="notificationLoading"
       @markAllNotifications="markAllNotifications"
       @markNotificationIsReaded="markNotificationIsReaded"
+      @filterNotificationByMyProjects="filterNotificationByMyProjects"
+      @filterNotificationByFeedback="filterNotificationByFeedback"
     ></AppHeader>
 
     <Nuxt />
@@ -45,12 +47,17 @@ export default class extends Vue {
   loading = false;
   notificationLoading = false;
   newNotificationCount: number = 0;
-
+  notificationByMyProjects = false;
+  notificationByFeedback = false;
   async downloadNotifications() {
-    this.notifications = await this.$userNotifications(this.$strapi.user.id);
-    const profile = await this.$profile(this.$strapi.user.id);
-    if (profile !== null && profile.is_expert !== false) {
-      this.isExpert = true;
+    try {
+      this.notifications = await this.$userNotifications(this.$strapi.user.id);
+      const profile = await this.$profile(this.$strapi.user.id);
+      if (profile !== null && profile.is_expert !== false) {
+        this.isExpert = true;
+      }
+    } catch (e) {
+      console.error(e);
     }
   }
 
@@ -127,6 +134,15 @@ export default class extends Vue {
           newNotifications.filter((el) => el.viewed === false).length !== 0
         ) {
           this.notifications = newNotifications;
+          if (this.notificationByMyProjects) {
+            this.notifications = this.notifications.filter(
+              (el) => el.notification.type !== "feedback"
+            );
+          } else if (this.notificationByFeedback) {
+            this.notifications = this.notifications.filter(
+              (el) => el.notification.type === "feedback"
+            );
+          }
           this.checkNotificationCount();
 
           setTimeout(this.checkNewNotifications, 30000);
@@ -144,6 +160,41 @@ export default class extends Vue {
     this.newNotificationCount = this.notifications.filter(
       (el) => el.viewed === false
     ).length;
+  }
+
+  async filterNotificationByMyProjects() {
+    this.notificationByMyProjects = true;
+    this.notificationByFeedback = false;
+    // flags for auto update
+    this.notificationLoading = true;
+    try {
+      this.notifications = await this.$userNotifications(this.$strapi.user.id);
+      this.notificationLoading = false;
+    } catch (e) {
+      console.error(e);
+      this.notificationLoading = false;
+    }
+
+    this.notifications = this.notifications.filter(
+      (el) => el.notification.type !== "feedback"
+    );
+  }
+
+  async filterNotificationByFeedback() {
+    this.notificationByMyProjects = false;
+    this.notificationByFeedback = true;
+    // flags for auto update
+    this.notificationLoading = true;
+    try {
+      this.notifications = await this.$userNotifications(this.$strapi.user.id);
+      this.notificationLoading = false;
+    } catch (e) {
+      console.error(e);
+      this.notificationLoading = false;
+    }
+    this.notifications = this.notifications.filter(
+      (el) => el.notification.type === "feedback"
+    );
   }
 }
 </script>

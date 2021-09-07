@@ -783,6 +783,7 @@ export default class extends Vue {
     try {
       const experts = await this.$expertProfiles();
       if (experts !== null) {
+        console.log(experts);
         this.createNotification(experts, "requestFeedback");
       }
     } catch (e) {
