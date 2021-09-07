@@ -7,12 +7,12 @@
       <U-button
         :button-name="'My projects'"
         :button-class="'u-button-transpend expert-button expert-button-projects'"
-        @clickOnButton="goToMyProjects"
+        @clickOnButton="filterNotificationByMyProjects"
       ></U-button>
       <U-button
         :button-name="'Waiting for feedback'"
         :button-class="'u-button-transpend expert-button'"
-        @clickOnButton="goToStartups"
+        @clickOnButton="filterNotificationByFeedback"
       ></U-button>
     </div>
     <div class="notification-popup__message new-popup__message">
@@ -173,12 +173,12 @@ export default class extends Vue {
   lengthNewNotifications = 5;
   lengthEarlierNotifications = 5;
 
-  goToMyProjects() {
-    this.$router.push("/profile/projects");
+  filterNotificationByMyProjects() {
+    this.$emit("filterNotificationByMyProjects");
   }
 
-  goToStartups() {
-    this.$router.push("/startups");
+  filterNotificationByFeedback() {
+    this.$emit("filterNotificationByFeedback");
   }
 
   showMoreNewNotifications() {
