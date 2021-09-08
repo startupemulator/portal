@@ -126,6 +126,7 @@ export default class extends Vue {
   specialityComponent: Array<any> = [{ id: 0, type: "create-specialities" }];
   invitedcolleagues: Array<any> = [];
   openPositionCash = [];
+  positionForRemove = [];
   invitesCach = [];
   invitecolleagues: Boolean = false;
 
@@ -170,10 +171,15 @@ export default class extends Vue {
     }, 900);
   }
 
-  save() {
+  async save() {
     this.loading = true;
     this.invitesCach = [];
     this.openPositionCash = [];
+    if (this.positionForRemove.length !== 0) {
+      for (const position of this.positionForRemove) {
+        await this.deletePositions(position);
+      }
+    }
     setTimeout(() => {
       this.loading = false;
       Toast.show({
@@ -193,20 +199,18 @@ export default class extends Vue {
     });
   }
 
-  async removeSpeciality(id, i) {
+  removeSpeciality(id, i) {
     this.loading = true;
-    const removedPosition = await this.$deletePositions(id);
-    if (removedPosition.id === id) {
-      this.specialityComponent = this.specialityComponent.filter(
-        (item) => item.id !== this.specialityComponent[i].id
-      );
-      this.invitedcolleagues.forEach((el) => {
-        if (+el.position_id === +removedPosition.id) {
-          this.removeUserMember(el.id);
-        }
-      });
-    }
+    this.positionForRemove.push(id);
+    console.log(this.positionForRemove);
+    this.specialityComponent = this.specialityComponent.filter(
+      (item) => item.id !== this.specialityComponent[i].id
+    );
     this.loading = false;
+  }
+
+  async deletePositions(positionId) {
+    await this.$deletePositions(positionId);
   }
 
   async addSpecialityToSpecialityComponent(data, i, id) {
@@ -358,6 +362,7 @@ export default class extends Vue {
     box-sizing: border-box;
     width: 100%;
     display: flex;
+    z-index: 4;
     .u-button-gray {
       margin-left: 16px;
     }

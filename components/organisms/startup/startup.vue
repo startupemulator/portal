@@ -12,14 +12,14 @@
     <NewFeedBack
       v-show="newFeedBack"
       :key="updateKey + 'new-feedback'"
-      :feedbacks="newFeedbacksData"
+      :feedbacks="feedbacksData"
       :user-id="userId"
       :is-expert="isExpert"
       :is-owner="isOwner"
-      :new-feed-backs="newFeedbacksData.length"
+      :new-feed-backs="feedbacksData.length"
       @clikOnButton="toggleNewFeedBack"
       @updateFeedbacks="updateFeedbacks"
-      @publickFeedback="updateFeedbacks"
+      @requestFeedback="requestFeedback"
     ></NewFeedBack>
     <RequestFeedback
       v-show="requestFeedBack"
@@ -225,7 +225,7 @@
                 <span
                   >Expert Feedback
                   <div class="owner-menu__item--message">
-                    <span>{{ newFeedbacksData.length }} </span>
+                    <span>{{ feedbacksData.length }} </span>
                   </div></span
                 >
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
@@ -365,6 +365,16 @@
         <Sources :finished="finished" :startup="updatableDataStartup"></Sources>
         <div class="startup-card__activity">
           <h3>Activity</h3>
+          <div v-if="finished" class="project-started">
+            <h4>Project finished</h4>
+            <p>
+              {{
+                new Date(updatableDataStartup.start_date)
+                  .toUTCString()
+                  .substr(4, 18)
+              }}
+            </p>
+          </div>
           <FeedBackCard
             v-for="feedback in updatableFeedbacks.slice(0, maxLengthActivity)"
             :key="feedback.id + 'feedback'"
@@ -549,7 +559,7 @@ export default class extends Vue {
   moveAwayStartupName: string = "";
   popupCancelApplication = false;
   isStartStartup = false;
-  newFeedbacksData = [];
+  feedbacksData = [];
   maxLengthActivity = 3;
   lengthActivity = 0;
   feedBackTitle = "";
@@ -732,8 +742,11 @@ export default class extends Vue {
     this.updatableFeedbacks = feedbacks.filter((el) => el.is_public);
   }
 
+  // feedbackFilterByPrivateFlag(feedbacks) {
+  //   this.newFeedbacksData = feedbacks.filter((el) => !el.is_public);
+  // }
   feedbackFilterByPrivateFlag(feedbacks) {
-    this.newFeedbacksData = feedbacks.filter((el) => !el.is_public);
+    this.feedbacksData = feedbacks;
   }
 
   teamNotificationFeedback() {
@@ -742,6 +755,11 @@ export default class extends Vue {
     );
     recipients.push({ user: { id: this.startup.owner.id } });
     this.createNotification(recipients, "teamFeedback");
+  }
+
+  requestFeedback() {
+    this.toggleNewFeedBack();
+    this.toggleRequestFeedBack();
   }
 
   async createNotification(recipients, flag) {
@@ -1066,12 +1084,13 @@ export default class extends Vue {
       }
       if (positions.length !== 0) {
         let i = 0;
-        for (const position of this.updatableDataStartup.positions) {
+        for (const position of positions) {
           if (
-            +position.id === +positions[i].id &&
-            position.status !== positions[i].status
+            !!this.updatableDataStartup.positions[i] &&
+            +position.id === +this.updatableDataStartup.positions[i].id &&
+            position.status !== this.updatableDataStartup.positions[i].status
           ) {
-            await this.$updateStatusPosition(position.id, positions[i].status);
+            await this.$updateStatusPosition(position.id, position.status);
           }
           i++;
         }

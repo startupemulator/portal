@@ -13,7 +13,7 @@
       :link-name="item.title"
       :link-href="item.link"
       @removeExistingSources="removeExistingSources(item.id)"
-      @textInput="textInput($event, i, item.id)"
+      @updateSourses="updateSourses($event, i, item.id)"
     ></div>
     <div class="existing-sources__add-link">
       <U-button
@@ -56,34 +56,18 @@ export default class extends Vue {
 
   existingSourseComponent: Array<any> = [];
 
-  async updateSources(id, title = "", link = "") {
+  async updateSourses(data, i, id) {
     this.loading = true;
     try {
-      const sources = await this.$updateSource(id, title, link);
+      const sources = await this.$updateSource(id, data[0], data[1]);
       if (sources !== null) {
         this.loading = false;
+        this.existingSourseComponent[i].title = data[1];
+        this.existingSourseComponent[i].link = data[1];
       }
     } catch (e) {
       console.error(e);
       this.loading = false;
-    }
-  }
-
-  textInput($event, i, id) {
-    switch ($event[1]) {
-      case "name":
-        this.updateSources(id, $event[0], this.existingSourseComponent[i].link);
-        this.existingSourseComponent[i].title = $event[0];
-        break;
-      case "url":
-        this.updateSources(
-          id,
-          this.existingSourseComponent[i].title,
-          $event[0]
-        );
-        this.existingSourseComponent[i].link = $event[0];
-        break;
-      default:
     }
   }
 

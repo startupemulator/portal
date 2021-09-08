@@ -1,4 +1,4 @@
-<template v-cloak>
+<template>
   <div class="startup-card" :class="i > 3 ? 'startup-card_animation' : ''">
     {{ card.technologies.title }}
     <div v-show="!!card.state" class="startup-card__started">
@@ -40,6 +40,7 @@
         </div>
       </div>
     </div>
+
     <div class="startup-card-content">
       <h2 class="startup-card__started-name">
         {{ card.title | truncate(35, "...") }}
