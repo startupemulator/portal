@@ -56,18 +56,31 @@ export default class extends Vue {
   link = this.linkHref ? this.linkHref : "";
   title = this.linkName ? this.linkName : "";
   inputUrl(e) {
-    this.link = e;
+    this.link = e.trim();
     this.$v.$touch();
-    if (!this.$v.$error) {
-      this.$emit("textInput", [e, "url"]);
-    }
+    this.emitSourses();
+
+    // if (!this.$v.$error) {
+    //   this.$emit("textInput", [e, "url"]);
+    // }
   }
 
   inputlinkName(e) {
-    this.title = e;
+    this.title = e.trim();
     this.$v.$touch();
+    this.emitSourses();
+    // if (!this.$v.$error) {
+    //   this.$emit("textInput", [e, "name"]);
+    // }
+  }
+
+  emitSourses() {
     if (!this.$v.$error) {
-      this.$emit("textInput", [e, "name"]);
+      console.log(this.link);
+      console.log(this.title);
+      // this.$emit("textInput", [this.link, "url"]);
+      // this.$emit("textInput", [this.title, "name"]);
+      this.$emit("updateSourses", [this.title, this.link]);
     }
   }
 }

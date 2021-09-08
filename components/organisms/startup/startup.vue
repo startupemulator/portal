@@ -365,6 +365,16 @@
         <Sources :finished="finished" :startup="updatableDataStartup"></Sources>
         <div class="startup-card__activity">
           <h3>Activity</h3>
+          <div v-if="finished" class="project-started">
+            <h4>Project finished</h4>
+            <p>
+              {{
+                new Date(updatableDataStartup.start_date)
+                  .toUTCString()
+                  .substr(4, 18)
+              }}
+            </p>
+          </div>
           <FeedBackCard
             v-for="feedback in updatableFeedbacks.slice(0, maxLengthActivity)"
             :key="feedback.id + 'feedback'"
