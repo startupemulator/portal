@@ -202,7 +202,7 @@ export function createFeedback($strapi: Strapi) {
           feedback {
           id
     }
-  }
+  } 
 }`,
     });
     return data.createFeedback ? data.createFeedback.feedback : null;
@@ -233,6 +233,23 @@ export function publicFeedback($strapi: Strapi) {
           input:{
           where: {id: "${id}"}
             data: { is_public: true } }) {
+          feedback {
+          id
+    }
+  }
+}`,
+    });
+    return data.updateFeedback ? data.updateFeedback.feedback : null;
+  };
+}
+export function unPublicFeedback($strapi: Strapi) {
+  return async (id: string) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+        updateFeedback(
+          input:{
+          where: {id: "${id}"}
+            data: { is_public: false } }) {
           feedback {
           id
     }

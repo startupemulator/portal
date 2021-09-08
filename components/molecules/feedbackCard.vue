@@ -71,7 +71,20 @@
         <img src="~/assets/img/feedback.svg" alt="feedback" />
 
         <div class="feed-back-card__main-content-feedback">
-          <h4 v-if="activity_state">Expert’s Full Name</h4>
+          <div
+            v-if="!expertFeedback"
+            class="feed-back-card__main-content-feedback__header"
+          >
+            <h4>Expert’s {{ feedback.request.creator.username }}</h4>
+            <div class="feedback__header--delete">
+              <img src="~/assets/img/close.svg" alt="ok" />
+              <U-button
+                :button-name="'Delete Feedback'"
+                :button-class="'u-button-transpend'"
+                @clickOnButton="deleteFeedback(feedback.id)"
+              ></U-button>
+            </div>
+          </div>
           <ul class="main-content-feedback__criterions">
             <li
               v-for="criterion in feedback.criterions"
@@ -130,17 +143,44 @@
           @clickOnButton="addbadge"
         ></U-button>
       </div>
+      <div
+        v-show="showFeedback"
+        class="feed-back-card__expert-buttons mobile-dellete-button"
+      >
+        <div class="feedback__header--delete">
+          <img src="~/assets/img/close.svg" alt="ok" />
+          <U-button
+            :button-name="'Delete Feedback'"
+            :button-class="'u-button-transpend'"
+            @clickOnButton="deleteFeedback(feedback.id)"
+          ></U-button>
+        </div>
+      </div>
       <div v-if="isOwner" class="feed-back-card__expert-buttons">
         <U-button
-          :button-name="'Publish'"
+          v-if="!feedback.is_public"
+          :button-name="'Publish On Startup Page'"
           :button-class="'u-button-blue'"
           @clickOnButton="publish(feedback.id)"
         ></U-button>
-        <!-- <U-button
-          :button-name="'Decline'"
-          :button-class="'u-button-gray'"
-          @clickOnButton="decline"
-        ></U-button> -->
+      </div>
+
+      <div
+        v-if="feedback.is_public && expertFeedback"
+        class="feed-back-card__published"
+      >
+        <div class="feedback-published">
+          <img src="~/assets/img/check-green.svg" alt="ok" />
+          <span>Published on startup page</span>
+        </div>
+        <div class="feedback-unpublish">
+          <img src="~/assets/img/close.svg" alt="ok" />
+          <U-button
+            :button-name="'Delete From Startup Page'"
+            :button-class="'u-button-transpend'"
+            @clickOnButton="deleteFromStartupPage(feedback.id)"
+          ></U-button>
+        </div>
       </div>
     </div>
     <Spiner :loading="loading"></Spiner>
@@ -163,12 +203,12 @@ import Spiner from "~/components/molecules/spiner.vue";
   },
 })
 export default class extends Vue {
-  @Prop({ default: false }) activity_state: Boolean;
   @Prop({ default: false }) isExpert: Boolean;
   @Prop() userId: string;
   @Prop() feedback: Array<Feedbacks>;
   @Prop({ default: false }) isOwner: boolean;
   @Prop({ default: false }) isExpertProfile: boolean;
+  @Prop() expertFeedback: boolean;
   showFeedback: boolean = false;
   thisUserlike: boolean = false;
   thisUserlikeId: string = "";
@@ -191,7 +231,7 @@ export default class extends Vue {
     try {
       const publishFeedback = await this.$publicFeedback(id);
       if (publishFeedback !== null) {
-        this.$emit("publickFeedback");
+        this.$emit("updateFeedbacks");
         this.loading = false;
       }
       this.loading = false;
@@ -201,8 +241,23 @@ export default class extends Vue {
     }
   }
 
-  decline() {
-    console.log("decline");
+  async deleteFromStartupPage(id) {
+    this.loading = true;
+    try {
+      const unPublickFeedback = await this.$unPublicFeedback(id);
+      if (unPublickFeedback !== null) {
+        this.$emit("updateFeedbacks");
+        this.loading = false;
+      }
+      this.loading = false;
+    } catch (e) {
+      console.error(e);
+      this.loading = false;
+    }
+  }
+
+  async deleteFeedback(id) {
+    await console.log("delete", id);
   }
 
   async like() {
@@ -275,7 +330,7 @@ export default class extends Vue {
 </script>
 <style lang="scss" scoped>
 .feed-back-card {
-  width: 343px;
+  width: auto;
   padding: 20px 0 16px 0;
   background: #2e384a;
   border-radius: 12px;
@@ -396,6 +451,18 @@ export default class extends Vue {
       }
     }
   }
+  .feedback-published,
+  .feedback-unpublish {
+    display: flex;
+    margin-left: 26px;
+    span {
+      margin-left: 10px;
+    }
+
+    .u-button-transpend {
+      width: 235px;
+    }
+  }
   .feed-back-card__expert-buttons {
     padding: 16px 0 0 0;
     margin-top: 16px;
@@ -403,7 +470,7 @@ export default class extends Vue {
     display: flex;
     justify-content: center;
     .u-button {
-      max-width: 143px;
+      max-width: 295px;
     }
     .u-button-gray {
       margin-left: 9px;
@@ -413,6 +480,27 @@ export default class extends Vue {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
+  }
+  .feed-back-card__main-content-feedback__header {
+    display: none;
+  }
+  .mobile-dellete-button {
+    justify-content: flex-start;
+    padding-left: 24px;
+    .feedback__header--delete {
+      display: flex;
+      align-items: center;
+
+      img {
+        margin-top: 2px;
+        margin-right: 10px;
+      }
+      .u-button-transpend {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 32px;
+      }
+    }
   }
 }
 @media (min-width: 768px) {
@@ -458,6 +546,7 @@ export default class extends Vue {
       }
       .feed-back-card__main-content-feedback {
         margin-left: 20px;
+        width: 100%;
 
         .main-content-feedback__criterion {
           margin-bottom: 4px;
@@ -472,6 +561,49 @@ export default class extends Vue {
           }
         }
       }
+    }
+    .feed-back-card__published {
+      display: flex;
+      justify-content: space-between;
+    }
+    .feedback-unpublish {
+      margin-right: 26px;
+      justify-content: flex-end;
+    }
+    .feedback-published,
+    .feedback-unpublish {
+      width: 100%;
+      align-items: center;
+
+      .u-button-transpend {
+        width: 75%;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 32px;
+      }
+    }
+    .feed-back-card__main-content-feedback__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      .feedback__header--delete {
+        display: flex;
+        align-items: center;
+        margin-top: -15px;
+        img {
+          margin-top: 2px;
+          margin-right: 10px;
+        }
+        .u-button-transpend {
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 32px;
+        }
+      }
+    }
+    .mobile-dellete-button {
+      display: none;
     }
   }
 }

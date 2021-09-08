@@ -12,14 +12,13 @@
     <NewFeedBack
       v-show="newFeedBack"
       :key="updateKey + 'new-feedback'"
-      :feedbacks="newFeedbacksData"
+      :feedbacks="feedbacksData"
       :user-id="userId"
       :is-expert="isExpert"
       :is-owner="isOwner"
-      :new-feed-backs="newFeedbacksData.length"
+      :new-feed-backs="feedbacksData.length"
       @clikOnButton="toggleNewFeedBack"
       @updateFeedbacks="updateFeedbacks"
-      @publickFeedback="updateFeedbacks"
       @requestFeedback="requestFeedback"
     ></NewFeedBack>
     <RequestFeedback
@@ -226,7 +225,7 @@
                 <span
                   >Expert Feedback
                   <div class="owner-menu__item--message">
-                    <span>{{ newFeedbacksData.length }} </span>
+                    <span>{{ feedbacksData.length }} </span>
                   </div></span
                 >
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
@@ -550,7 +549,7 @@ export default class extends Vue {
   moveAwayStartupName: string = "";
   popupCancelApplication = false;
   isStartStartup = false;
-  newFeedbacksData = [];
+  feedbacksData = [];
   maxLengthActivity = 3;
   lengthActivity = 0;
   feedBackTitle = "";
@@ -733,8 +732,11 @@ export default class extends Vue {
     this.updatableFeedbacks = feedbacks.filter((el) => el.is_public);
   }
 
+  // feedbackFilterByPrivateFlag(feedbacks) {
+  //   this.newFeedbacksData = feedbacks.filter((el) => !el.is_public);
+  // }
   feedbackFilterByPrivateFlag(feedbacks) {
-    this.newFeedbacksData = feedbacks.filter((el) => !el.is_public);
+    this.feedbacksData = feedbacks;
   }
 
   teamNotificationFeedback() {

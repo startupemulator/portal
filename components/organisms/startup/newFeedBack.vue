@@ -31,6 +31,7 @@
         :feedback="feedback"
         :is-expert="isExpert"
         :is-owner="isOwner"
+        :expert-feedback="true"
         :u_button_blue="'Publish'"
         :u_button_gray="'Decline'"
         @updateFeedbacks="updateFeedbacks"
@@ -52,6 +53,7 @@ import Ubutton from "~/components/atoms/uButton.vue";
 })
 export default class extends Vue {
   @Prop() feedbacks: Array<Feedbacks>;
+
   @Prop() userId: string;
   @Prop() newFeedBacks: string;
   @Prop() isExpert: boolean;
