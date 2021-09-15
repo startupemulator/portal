@@ -18,6 +18,11 @@
             />
           </span>
         </div>
+        <div v-if="myChallengeFeedbacks.length === 0" class="no_achivements">
+          <div class="no_achivements__content">
+            <p>There is no any challenges achievements yet</p>
+          </div>
+        </div>
       </div>
     </div>
     <div class="profile__team-achivements">
@@ -38,6 +43,12 @@
             />
           </span>
         </div>
+
+        <div v-if="myStartupFeedbacks.length === 0" class="no_achivements">
+          <div class="no_achivements__content">
+            <p>There is no any startups achievements yet</p>
+          </div>
+        </div>
       </div>
     </div>
     <div class="profile-projects">
@@ -45,6 +56,11 @@
         <h3>Projects</h3>
         <div class="profile-projects__header-project-quantity">
           <span>{{ startups.length }}</span>
+        </div>
+      </div>
+      <div v-if="startups.length === 0" class="no_projects">
+        <div class="no_achivements__content">
+          <p>There is no any projects yet</p>
         </div>
       </div>
     </div>

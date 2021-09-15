@@ -1,7 +1,7 @@
 <template>
   <div class="my-profile-regular-user">
     <div class="profile__personal-achivements">
-      <h3>Challenges achivements</h3>
+      <h3>Challenges achievements</h3>
       <div class="team-achivements__content">
         <div
           v-for="feedback in myChallengeFeedbacks"
@@ -18,11 +18,17 @@
             />
           </span>
         </div>
+
+        <div v-if="myChallengeFeedbacks.length === 0" class="no_achivements">
+          <div class="no_achivements__content">
+            <p>There is no any challenges achievements yet</p>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="profile__team-achivements">
-      <h3>Startups achivements</h3>
+      <h3>Startups achievements</h3>
       <div class="team-achivements__content">
         <div
           v-for="feedback in myStartupFeedbacks"
@@ -38,6 +44,11 @@
               @click="togglePopup(feedback, badge)"
             />
           </span>
+        </div>
+        <div v-if="myStartupFeedbacks.length === 0" class="no_achivements">
+          <div class="no_achivements__content">
+            <p>There is no any startups achievements yet</p>
+          </div>
         </div>
       </div>
     </div>

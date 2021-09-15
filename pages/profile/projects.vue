@@ -1,6 +1,7 @@
 <template v-cloak>
-  <div class="projects">
+  <div class="projects" :class="myStartups.length === 0 ? 'full-screen' : ''">
     <Spiner :loading="loading"></Spiner>
+
     <MyProjects
       :key="updateFlag"
       :startups="myStartups"

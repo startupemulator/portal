@@ -94,7 +94,7 @@
           ></U-button>
         </div>
         <div class="account__go-to-sign-up">
-          <span>Don’t have an account?</span>
+          <span>Already have an account?</span>
           <U-Back link="/login" :img="false" :title="'Log in'"></U-Back>
         </div>
       </div>

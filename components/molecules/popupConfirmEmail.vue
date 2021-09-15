@@ -40,6 +40,7 @@ export default class extends Vue {
 <style scoped>
 .signing-up-link-sent .signing-up-link-sent__content {
   height: 250px;
+  margin: 0 auto;
   margin-top: 175px;
 }
 .signing-up-link-sent p {

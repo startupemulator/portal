@@ -233,6 +233,17 @@
     }
   }
 }
+.no_achivements__content {
+  border: 2px dashed #8c97ac;
+  box-sizing: border-box;
+  border-radius: 12px;
+  padding: 20px;
+  color: #fff;
+}
+.no_projects {
+  max-width: 360px;
+  margin-top: 16px;
+}
 @media (min-width: 768px) {
   .profile-content {
     width: 690px;
@@ -338,6 +349,7 @@
       width: 800px;
       align-items: baseline;
       margin-top: -100px;
+      margin-bottom: 56px;
       div {
         margin-right: 24px;
       }

@@ -93,9 +93,15 @@
   }
 }
 @media (min-width: 768px) {
+  .projects {
+    &.full-screen {
+      min-height: calc(100vh - 306px);
+    }
+  }
   .my-projects {
     width: auto;
     max-width: 1368px;
+
     .my-projects__header {
       display: flex;
       flex-wrap: wrap;
@@ -223,6 +229,13 @@
         top: 48px;
         z-index: 2;
       }
+    }
+  }
+}
+@media (min-width: 1440px) {
+  .projects {
+    &.full-screen {
+      min-height: calc(100vh - 306px);
     }
   }
 }
