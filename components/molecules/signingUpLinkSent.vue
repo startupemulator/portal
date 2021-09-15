@@ -30,6 +30,7 @@ export default {};
     border-radius: 12px;
     padding: 0 24px;
     box-sizing: border-box;
+    margin: 0 auto;
     margin-top: 262px;
   }
   .successfully-sent {
