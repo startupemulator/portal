@@ -98,3 +98,20 @@ export function updateUserPassword($strapi: Strapi) {
     return data.updateUser ? data.updateUser.user : null;
   };
 }
+
+export function emailConfirmation($strapi: Strapi) {
+  return async (token: string) => {
+    const data = await $strapi.graphql({
+      query: `mutation  {
+        emailConfirmation(confirmation: "${token}"){
+          jwt
+          user{
+            id
+            username
+          }
+        }
+}`,
+    });
+    return data.emailConfirmation ? data.emailConfirmation : null;
+  };
+}

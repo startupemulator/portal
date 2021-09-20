@@ -1,0 +1,212 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body style="margin: 0;  background: #ECF0F7">
+    <style>
+        body {
+            background: #ECF0F7;
+        }
+
+        @media (min-width:768px) {
+            .logo {
+                width: 48px;
+                height: 48px;
+            }
+
+            .company-name {
+
+                font-size: 20px !important;
+                line-height: 32px !important;
+                padding-top: 5px;
+
+            }
+
+            .header {
+                padding-top: 5px;
+                padding-bottom: 32px !important;
+
+            }
+
+            .first-block-title {
+                padding-top: 48px !important;
+                font-size: 35px !important;
+                line-height: 40px !important;
+                padding-left: 48px !important;
+                padding-right: 48px !important;
+            }
+
+            .first-block-description {
+                font-size: 17px !important;
+                line-height: 24px !important;
+                padding-left: 48px !important;
+                padding-right: 104px !important;
+            }
+
+            .primary-button,
+            .secondary-button {
+                padding-bottom: 40px !important;
+
+            }
+
+            .second-block-description {
+                font-size: 17px !important;
+                line-height: 24px !important;
+                padding-left: 48px !important;
+                padding-right: 104px !important;
+
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #1C232F !important;
+            }
+
+            .first-block-title {
+                background: #2E384A !important;
+                color: #ffffff !important;
+            }
+
+            .first-block-description {
+                background: #2E384A !important;
+                color: #ffffff !important;
+            }
+
+            .primary-button,
+            .secondary-button {
+                background: #2E384A !important;
+                color: #ffffff !important;
+            }
+
+            .second-block-description {
+                background: #2E384A !important;
+                color: #ffffff !important;
+            }
+        }
+    </style>
+
+    <table align="center">
+        <tbody>
+            <tr>
+                <td style="color:#ffffff; ">
+                    <table align="center" cellspacing="0" cellpadding="0" border="0"
+                        style="width:100%; max-width:960px; border:0;">
+                        <tbody>
+                            <tr>
+                                <td width="40" class="header" height="40" valign="middle"
+                                    style="padding-bottom:24px;padding-right:10px;padding-left:10px;text-align:right; font-family: Inter, Helvetica, sans-serif;font-size:17px; font-weight: 600; line-height:32px; color:#5E56F0; ">
+                                    <img class="logo"
+                                        src="https://plum.startupemulator.com/_nuxt/00d50d69db6fd4f9fd3b6f2719b4d604.svg"
+                                        width="40" height="40" alt style="padding-top:24px">
+                                </td>
+                                <td class="company-name"
+                                    style="text-align:left; font-family: Inter, Helvetica, sans-serif;font-size:17px; font-weight: 600; line-height:32px; color:#5E56F0;">
+                                    Startup Emulator</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table align="center" cellspacing="0" cellpadding="0" border="0"
+        style="width:100%; max-width:600px; border:0; background:#FFFFFF; border-top-left-radius: 12px; border-top-right-radius: 12px;  ">
+        <tbody>
+            <tr>
+                <td class="first-block-title"
+                    style="padding-right:50px;padding-left:32px; padding-top:32px;  background:#ffffff ; border-top-left-radius: 12px; border-top-right-radius: 12px; width: 100%; color:#232B39; font-family: Inter, Helvetica, sans-serif; font-weight: 600; font-size: 23px; line-height: 28px;">
+                    Thank you for registering!</td>
+            </tr>
+            <tr>
+                <td class="first-block-description"
+                    style="padding-top:24px; color:#232B39;padding-bottom:24px; background:#FFFFFF ;  padding-left:32px; padding-right:32px; font-family: Inter, Helvetica, sans-serif; font-weight: 300; font-size: 16px; line-height: 22px;">
+                    You have to confirm your email address. Please click on the link below..</td>
+            </tr>
+        </tbody>
+    </table>
+    <table align="center" cellspacing="0" cellpadding="0" border="0" style="width:100%; max-width:600px; border:0; ">
+        <tbody>
+            <tr>
+                <td class="primary-button" style="background:#FFFFFF; padding-bottom: 32px;">
+                    <table cellspacing="0" cellpadding="0" align="center" style="width: 100%; padding: 0 32px 0 32px; ">
+                        <tbody>
+                            <tr>
+                                <td align="center" bgcolor="#4B4AC8"
+                                    style="border-radius: 12px; color: #ffffff; padding: 8px 2px 8px 2px;"><a
+                                        href="https://plum.startupemulator.com/auth/confirmation?<%= CODE %>" style="font-family: Inter, Helvetica, sans-serif;width:100%; font-size:17px; font-weight:bold; color:#ffffff; text-decoration: none; text-align:center; text-decoration:none; line-height: 32px;
+                display: block"><span style="color:#ffffff;">Confirm email</span></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table align="center" cellspacing="0" cellpadding="0" border="0"
+        style="width:100%; max-width:365px; border:0; padding-top:32px">
+        <tbody>
+            <tr>
+                <td align="center">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><img src="https://plum.startupemulator.com/_nuxt/abc61a46a63078a2830e432f6521db39.svg"
+                                        alt></td>
+                                <td><span
+                                        style="font-family: Inter, Helvetica, sans-serif;width:100%; font-size:14px; font-weight:600; color:#8C97AC; line-height: 32px;">Telegram</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td align="center">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><img src="https://cdn-se.fra1.digitaloceanspaces.com/f0914e2f26b57c591849e020b71b5f7d.svg"
+                                        alt></td>
+                                <td><span
+                                        style="font-family: Inter, Helvetica, sans-serif;width:100%; font-size:14px; font-weight:600; color:#8C97AC; line-height: 32px;">Facebook</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td align="center">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><img src="https://plum.startupemulator.com/_nuxt/406b677d8fc761ed48d01cf5fc74cade.svg"
+                                        alt></td>
+                                <td><span
+                                        style="font-family: Inter, Helvetica, sans-serif;width:100%; font-size:14px; font-weight:600; color:#8C97AC; line-height: 32px;">Twitter</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table align="center" cellspacing="0" cellpadding="0" border="0"
+        style="width:100%; max-width:960px; border:0; padding-top:24px; padding-bottom:24px">
+        <tbody>
+            <tr>
+                <td align="center"><span
+                        style="font-family: Inter, Helvetica, sans-serif;width:100%; font-size:14px; font-weight:600; color:#8C97AC; line-height: 32px;">(c)
+                        2021 Startup Emulator</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+
+</html>

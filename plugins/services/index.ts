@@ -63,6 +63,7 @@ import {
   getUserBySlug,
   updateUserPassword,
   getUserByEmail,
+  emailConfirmation,
 } from "~/plugins/services/user";
 import { login } from "~/plugins/services/login";
 import {
@@ -317,6 +318,8 @@ export interface Services {
     id: string,
     username: string
   ): Promise<Partial<NotificationUser>[]>;
+  $emailConfirmation(token: string): Promise<Partial<NotificationUser>[]>;
+
   $createProfile(
     id: string,
     technologies: Array<string>
@@ -558,6 +561,7 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("createNewProfile", createNewProfile(ctx.$strapi));
 
   inject("updateUser", updateUser(ctx.$strapi));
+  inject("emailConfirmation", emailConfirmation(ctx.$strapi));
   inject("users", users(ctx.$strapi));
   inject("getUserBySlug", getUserBySlug(ctx.$strapi));
   inject("getUserByEmail", getUserByEmail(ctx.$strapi));
