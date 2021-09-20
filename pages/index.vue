@@ -1,5 +1,5 @@
 <template>
-  <div v-cloak>
+  <div>
     <app-get-experience></app-get-experience>
     <app-startups-block
       :cards="startups"
@@ -64,7 +64,6 @@ export default class extends Vue {
   testimonials: Array<Testimonial> = [];
   technology: Array<Technology> = [];
   isLogined = !!this.$strapi.user;
-  userId: Number = this.$strapi.user ? this.$strapi.user.id : null;
 
   async asyncData({
     $technologies,
@@ -76,6 +75,9 @@ export default class extends Vue {
     $strapi,
     $profile,
     $askFeedbacksForStartup,
+    route,
+    $emailConfirmation,
+    $createNewProfile,
   }) {
     const { startups } = await $startups();
     const { challenges } = await $challenges();
@@ -85,11 +87,30 @@ export default class extends Vue {
     let userChallenges = [];
     let isExpert = false;
     let waitingFeedback = [];
+    let confirmEmail = {};
+
+    if (Object.keys(route.query)[0]) {
+      confirmEmail = await $emailConfirmation(Object.keys(route.query)[0]);
+      if (confirmEmail !== null && Object.keys(confirmEmail).length !== 0) {
+        $strapi.setToken(confirmEmail.jwt);
+        await $strapi.setUser(confirmEmail.user.id);
+        await $createNewProfile(
+          confirmEmail.user.username,
+          confirmEmail.user.id
+        );
+      }
+    }
+    let userId = null;
     if ($strapi.user) {
       feedBackForChallenges = await $askFeedbacksForChallenges();
       userChallenges = await $userChallengesByUserId($strapi.user.id);
       const userProfile = await $profile($strapi.user.id);
-      isExpert = userProfile.is_expert;
+
+      if (userProfile !== null) {
+        isExpert = userProfile.is_expert;
+      }
+
+      userId = $strapi.user ? $strapi.user.id : null;
     }
     let waitingFeedbackState;
     if (isExpert) {
@@ -116,6 +137,7 @@ export default class extends Vue {
         waitingFeedback = stateWaitingForFeedback;
       }
     }
+
     return {
       startups,
       challenges,
@@ -126,6 +148,8 @@ export default class extends Vue {
       isExpert,
       waitingFeedback,
       waitingFeedbackState,
+      confirmEmail,
+      userId,
     };
   }
 
