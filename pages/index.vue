@@ -78,6 +78,8 @@ export default class extends Vue {
     route,
     $emailConfirmation,
     $createNewProfile,
+    $loginPasswordless,
+    $profileByUserId,
   }) {
     const { startups } = await $startups();
     const { challenges } = await $challenges();
@@ -87,29 +89,41 @@ export default class extends Vue {
     let userChallenges = [];
     let isExpert = false;
     let waitingFeedback = [];
-    let confirmEmail = {};
-
     if (Object.keys(route.query)[0]) {
-      confirmEmail = await $emailConfirmation(Object.keys(route.query)[0]);
-      if (confirmEmail !== null && Object.keys(confirmEmail).length !== 0) {
-        $strapi.setToken(confirmEmail.jwt);
-        await $strapi.setUser(confirmEmail.user.id);
+      const confirmEmail = await $emailConfirmation(route.query.confirmEmail);
+      if (confirmEmail) {
+        await $strapi.setUser(confirmEmail.user);
+        await $strapi.setToken(confirmEmail.jwt);
         await $createNewProfile(
           confirmEmail.user.username,
           confirmEmail.user.id
         );
+      } else {
+        const loginPasswordLess = await $loginPasswordless(
+          route.query.loginToken
+        );
+        if (loginPasswordLess !== null) {
+          await $strapi.setUser(loginPasswordLess.user);
+          await $strapi.setToken(loginPasswordLess.jwt);
+          const profile = await $profileByUserId(loginPasswordLess.user.id);
+          if (profile.length === 0) {
+            const profile = await $createNewProfile(
+              loginPasswordLess.user.username,
+              loginPasswordLess.user.id
+            );
+          }
+        }
       }
     }
+
     let userId = null;
     if ($strapi.user) {
       feedBackForChallenges = await $askFeedbacksForChallenges();
       userChallenges = await $userChallengesByUserId($strapi.user.id);
       const userProfile = await $profile($strapi.user.id);
-
       if (userProfile !== null) {
         isExpert = userProfile.is_expert;
       }
-
       userId = $strapi.user ? $strapi.user.id : null;
     }
     let waitingFeedbackState;
@@ -148,7 +162,6 @@ export default class extends Vue {
       isExpert,
       waitingFeedback,
       waitingFeedbackState,
-      confirmEmail,
       userId,
     };
   }

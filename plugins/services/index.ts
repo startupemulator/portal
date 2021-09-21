@@ -46,6 +46,7 @@ import { Technology } from "~/models/Technology";
 import { Profile } from "~/models/Profile";
 import {
   profile,
+  profileByUserId,
   updateProfile,
   createProfile,
   profileBySlug,
@@ -65,7 +66,11 @@ import {
   getUserByEmail,
   emailConfirmation,
 } from "~/plugins/services/user";
-import { login } from "~/plugins/services/login";
+import {
+  login,
+  sendLoginLink,
+  loginPasswordless,
+} from "~/plugins/services/login";
 import {
   feedbacksByStartupID,
   newFeedbacksByStartupID,
@@ -227,6 +232,8 @@ export interface Services {
   $specialisations(): Promise<Partial<Specialisation>[]>;
   $experiences(): Promise<Partial<Experience>[]>;
   $profile(id: string): Promise<Partial<Profile>[]>;
+  $profileByUserId(id: string): Promise<Partial<Profile>[]>;
+
   $expertProfiles(): Promise<Partial<Profile>[]>;
 
   $profileBySlug(slug: string): Promise<Partial<Profile>[]>;
@@ -305,6 +312,11 @@ export interface Services {
   $getUserByEmail(email: string): Promise<Partial<NotificationUser>[]>;
 
   $login(data: NuxtStrapiLoginData): Promise<NuxtStrapiLoginResult>;
+  $sendLoginLink(email: NuxtStrapiLoginData): Promise<NuxtStrapiLoginResult>;
+  $loginPasswordless(
+    token: NuxtStrapiLoginData
+  ): Promise<NuxtStrapiLoginResult>;
+
   $updateUserPassword(
     id: string,
     password: string
@@ -552,6 +564,8 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("updateStateStartup", updateStateStartup(ctx.$strapi));
 
   inject("profile", profile(ctx.$strapi));
+  inject("profileByUserId", profileByUserId(ctx.$strapi));
+
   inject("expertProfiles", expertProfiles(ctx.$strapi));
 
   inject("profileBySlug", profileBySlug(ctx.$strapi));
@@ -571,6 +585,8 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("updateUserPassword", updateUserPassword(ctx.$strapi));
 
   inject("login", login(ctx.$strapi));
+  inject("sendLoginLink", sendLoginLink(ctx.$strapi));
+  inject("loginPasswordless", loginPasswordless(ctx.$strapi));
 
   inject("testimonials", testimonials(ctx.$strapi));
 

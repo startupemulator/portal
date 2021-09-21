@@ -17,46 +17,61 @@
         <U-input
           :placeholder="'Enter your email'"
           :type="'email'"
+          :value="email"
           :account-class="
-            validInput ? 'create-account__email error' : 'create-account__email'
+            $v.email.$error
+              ? 'create-account__email error'
+              : 'create-account__email'
           "
           :img="require('~/assets/img/email.svg')"
           @textInput="checkEmail"
         ></U-input>
-        {{ emailToLink }}
-        <div @click="$emit('openPopupLinkSent')">
+        <p v-show="$v.email.$error" class="errorInput">
+          Please enter an email address
+        </p>
+
+        <div>
           <U-button
             :button-name="'Log in'"
             :button-class="'u-button-blue create-account__log-in'"
+            @clickOnButton="sendLink"
           ></U-button>
         </div>
       </form>
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
+import { Component, Vue } from "nuxt-property-decorator";
+import { email, required } from "vuelidate/lib/validators";
 import UButton from "../atoms/uButton.vue";
 import UTitle from "../atoms/uTitle.vue";
 import UInput from "../atoms/uInput.vue";
-export default {
-  components: { UTitle, UButton, UInput },
-  data() {
-    return {
-      validInput: false,
-      emailPattern: /^([\w-]+@([\w-]+\.)+[\w-]{2,4})?$/,
-    };
-  },
-  methods: {
-    checkEmail(textValue) {
-      if (this.emailPattern.test(textValue)) {
-        this.validInput = false;
-      } else {
-        this.validInput = true;
-      }
+
+@Component({
+  validations: {
+    email: {
+      required,
+      email,
     },
   },
-};
+  components: { UButton, UTitle, UInput },
+})
+export default class extends Vue {
+  email: string = " ";
+  sendLink() {
+    if (!this.$v.$error) {
+      this.$emit("sendLink", this.email);
+    }
+  }
+
+  checkEmail(email) {
+    this.email = email;
+    this.$v.$touch();
+  }
+}
 </script>
+
 <style lang="scss" scoped>
 .sign-up-link {
   .sign-up-link__content {

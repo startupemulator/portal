@@ -17,3 +17,35 @@ export function login($strapi: Strapi) {
     return data;
   };
 }
+
+export function sendLoginLink($strapi: Strapi) {
+  return async (email: string) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+        sendLoginLink(email: "${email}"){
+          sent
+          email
+        }
+      }`,
+    });
+    return data ? data.sendLoginLink : null;
+  };
+}
+export function loginPasswordless($strapi: Strapi) {
+  return async (token: string) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+        loginPasswordless(loginToken: "${token}"){
+          jwt
+          user {
+            id
+            username
+            confirmed
+            email
+            }
+        }
+      }`,
+    });
+    return data ? data.loginPasswordless : null;
+  };
+}
