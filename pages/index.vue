@@ -107,7 +107,7 @@ export default class extends Vue {
           await $strapi.setToken(loginPasswordLess.jwt);
           const profile = await $profileByUserId(loginPasswordLess.user.id);
           if (profile.length === 0) {
-            const profile = await $createNewProfile(
+            await $createNewProfile(
               loginPasswordLess.user.username,
               loginPasswordLess.user.id
             );
