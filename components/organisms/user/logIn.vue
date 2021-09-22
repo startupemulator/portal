@@ -179,7 +179,7 @@ export default class extends Vue {
   async sendLoginLink(email) {
     try {
       const result = await this.$sendLoginLink(email);
-      console.log(result);
+
       if (result !== null) {
         this.showPopupLinkSent();
       }

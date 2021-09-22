@@ -240,7 +240,6 @@ export default class CreateAccount extends Vue {
   async sendLoginLink(email) {
     try {
       const result = await this.$sendLoginLink(email);
-      console.log(result);
       if (result !== null) {
         this.showPopupLinkSent();
       }

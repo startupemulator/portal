@@ -89,30 +89,34 @@ export default class extends Vue {
     let userChallenges = [];
     let isExpert = false;
     let waitingFeedback = [];
-    if (Object.keys(route.query)[0]) {
+    if (route.query.confirmEmail && route.query.confirmEmail.length > 20) {
       const confirmEmail = await $emailConfirmation(route.query.confirmEmail);
       if (confirmEmail) {
-        await $strapi.setUser(confirmEmail.user);
-        await $strapi.setToken(confirmEmail.jwt);
-        await $createNewProfile(
-          confirmEmail.user.username,
-          confirmEmail.user.id
-        );
-      } else {
-        const loginPasswordLess = await $loginPasswordless(
-          route.query.loginToken
-        );
-        if (loginPasswordLess !== null) {
-          await $strapi.setUser(loginPasswordLess.user);
-          await $strapi.setToken(loginPasswordLess.jwt);
-          const profile = await $profileByUserId(loginPasswordLess.user.id);
-          if (profile.length === 0) {
-            await $createNewProfile(
-              loginPasswordLess.user.username,
-              loginPasswordLess.user.id
-            );
-          }
-        }
+        await loginUserWithJWT(confirmEmail);
+        await createProfile(confirmEmail.user);
+      }
+    }
+
+    if (route.query.loginToken && route.query.loginToken.length > 20) {
+      const loginPasswordLess = await $loginPasswordless(
+        route.query.loginToken
+      );
+      if (loginPasswordLess !== null) {
+        await loginUserWithJWT(loginPasswordLess);
+        await createProfile(loginPasswordLess.user);
+      }
+    }
+
+    async function loginUserWithJWT(jwtUser) {
+      const { user, jwt } = jwtUser;
+      await $strapi.setUser(user);
+      await $strapi.setToken(jwt);
+    }
+
+    async function createProfile(user) {
+      const profile = await $profileByUserId(user.id);
+      if (profile.length === 0) {
+        await $createNewProfile(user.username, user.id);
       }
     }
 
