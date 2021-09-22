@@ -89,7 +89,7 @@ export default class extends Vue {
     let userChallenges = [];
     let isExpert = false;
     let waitingFeedback = [];
-    if (route.query.confirmEmail && route.query.confirmEmail.length > 20) {
+    if (route.query.confirmEmail && route.query.confirmEmail.length > 40) {
       const confirmEmail = await $emailConfirmation(route.query.confirmEmail);
       if (confirmEmail) {
         await loginUserWithJWT(confirmEmail);
@@ -97,7 +97,7 @@ export default class extends Vue {
       }
     }
 
-    if (route.query.loginToken && route.query.loginToken.length > 20) {
+    if (route.query.loginToken && route.query.loginToken.length > 40) {
       const loginPasswordLess = await $loginPasswordless(
         route.query.loginToken
       );
