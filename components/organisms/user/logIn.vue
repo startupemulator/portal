@@ -71,6 +71,7 @@
       v-if="popupEmailLink"
       @closePopupLinkEmail="showPopupEmailLink"
       @openPopupLinkSent="showPopupLinkSent"
+      @sendLink="sendLoginLink"
     ></popup-email-link>
     <signing-up-link-sent
       v-if="popupSignUpLink"
@@ -173,6 +174,22 @@ export default class extends Vue {
   checkPassword(textValue: string) {
     this.password = textValue;
     this.$v.password.$touch();
+  }
+
+  async sendLoginLink(email) {
+    try {
+      const result = await this.$sendLoginLink(email);
+
+      if (result !== null) {
+        this.showPopupLinkSent();
+      }
+    } catch (e) {
+      console.error(e);
+      Toast.show({
+        data: "Some thing wrong, try later.",
+        duration: 3000,
+      });
+    }
   }
 }
 </script>

@@ -78,6 +78,8 @@ export default class extends Vue {
     route,
     $emailConfirmation,
     $createNewProfile,
+    $loginPasswordless,
+    $profileByUserId,
   }) {
     const { startups } = await $startups();
     const { challenges } = await $challenges();
@@ -87,29 +89,45 @@ export default class extends Vue {
     let userChallenges = [];
     let isExpert = false;
     let waitingFeedback = [];
-    let confirmEmail = {};
-
-    if (Object.keys(route.query)[0]) {
-      confirmEmail = await $emailConfirmation(Object.keys(route.query)[0]);
-      if (confirmEmail !== null && Object.keys(confirmEmail).length !== 0) {
-        $strapi.setToken(confirmEmail.jwt);
-        await $strapi.setUser(confirmEmail.user.id);
-        await $createNewProfile(
-          confirmEmail.user.username,
-          confirmEmail.user.id
-        );
+    if (route.query.confirmEmail && route.query.confirmEmail.length > 20) {
+      const confirmEmail = await $emailConfirmation(route.query.confirmEmail);
+      if (confirmEmail) {
+        await loginUserWithJWT(confirmEmail);
+        await createProfile(confirmEmail.user);
       }
     }
+
+    if (route.query.loginToken && route.query.loginToken.length > 20) {
+      const loginPasswordLess = await $loginPasswordless(
+        route.query.loginToken
+      );
+      if (loginPasswordLess !== null) {
+        await loginUserWithJWT(loginPasswordLess);
+        await createProfile(loginPasswordLess.user);
+      }
+    }
+
+    async function loginUserWithJWT(jwtUser) {
+      const { user, jwt } = jwtUser;
+      await $strapi.setUser(user);
+      await $strapi.setToken(jwt);
+    }
+
+    async function createProfile(user) {
+      const profile = await $profileByUserId(user.id);
+      if (profile.length === 0) {
+        await $createNewProfile(user.username, user.id);
+      }
+    }
+
     let userId = null;
     if ($strapi.user) {
       feedBackForChallenges = await $askFeedbacksForChallenges();
       userChallenges = await $userChallengesByUserId($strapi.user.id);
       const userProfile = await $profile($strapi.user.id);
-
       if (userProfile !== null) {
         isExpert = userProfile.is_expert;
       }
-
       userId = $strapi.user ? $strapi.user.id : null;
     }
     let waitingFeedbackState;
@@ -148,7 +166,6 @@ export default class extends Vue {
       isExpert,
       waitingFeedback,
       waitingFeedbackState,
-      confirmEmail,
       userId,
     };
   }

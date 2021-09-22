@@ -102,7 +102,7 @@
     <PopupEmailLink
       v-if="popupEmailLink"
       @closePopupLinkEmail="showPopupEmailLink"
-      @openPopupLinkSent="showPopupLinkSent"
+      @sendLink="sendLoginLink"
     ></PopupEmailLink>
     <SigningUpLinkSent
       v-if="popupSignUpLink"
@@ -235,6 +235,21 @@ export default class CreateAccount extends Vue {
   checkName(textValue: string) {
     this.name = textValue.trim();
     this.$v.name.$touch();
+  }
+
+  async sendLoginLink(email) {
+    try {
+      const result = await this.$sendLoginLink(email);
+      if (result !== null) {
+        this.showPopupLinkSent();
+      }
+    } catch (e) {
+      console.error(e);
+      Toast.show({
+        data: "Some thing wrong, try later.",
+        duration: 3000,
+      });
+    }
   }
 }
 </script>
