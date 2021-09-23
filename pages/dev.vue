@@ -6,7 +6,9 @@
         <h2>Pages List</h2>
         <h1 v-if="$strapi.user">
           Current user:
-          {{ $strapi.user.name ? $strapi.user.name : $strapi.user.username }}
+          {{
+            $strapi.user.name ? $strapi.user.name : $strapi.user.profile.name
+          }}
         </h1>
         <hr />
 

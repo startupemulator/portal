@@ -27,7 +27,7 @@
         </div>
         <div class="badge-popup__content-form">
           <span>From</span>
-          <div>{{ achivementsData.expert.username }}</div>
+          <div>{{ achivementsData.expert.profile.name }}</div>
         </div>
       </div>
       <div class="badge-popup__content-message">

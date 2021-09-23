@@ -11,8 +11,10 @@ export function applications($strapi: Strapi) {
     decline_reason
     user{
       id
-      username
       email
+      profile{
+        name
+      }
     }
     position{
       id
@@ -51,10 +53,10 @@ export function applicationsByStartupId($strapi: Strapi) {
         decline_reason
         user {
           id
-          username
           email
           profile{
             id 
+            name
             technologies{
               id
               title

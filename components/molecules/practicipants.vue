@@ -12,7 +12,7 @@
       >
         <div class="practicipants-item__data">
           <span class="practicipants-item__name"
-            >{{ item.creator.username }}
+            >{{ item.creator.profile.name }}
           </span>
           <p class="practicipants-item__date">27 Sep 2020</p>
         </div>

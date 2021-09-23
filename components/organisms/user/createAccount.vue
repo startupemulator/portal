@@ -170,11 +170,7 @@ export default class CreateAccount extends Vue {
     this.$v.$touch();
     if (!this.$v.$error) {
       try {
-        const newUser = await this.$createUser(
-          this.email,
-          this.name,
-          this.password
-        );
+        const newUser = await this.$createUser(this.email, this.password);
         if (newUser !== null) {
           this.error = "";
           this.popupConfirmEmail = true;

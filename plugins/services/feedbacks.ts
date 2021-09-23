@@ -34,7 +34,9 @@ export function feedbacksByStartupID($strapi: Strapi) {
     }
     expert{
       id
-      username
+      profile{
+        name
+      }
     }
     request {
       id
@@ -44,8 +46,9 @@ export function feedbacksByStartupID($strapi: Strapi) {
       }
       creator{ 
         id
-        
-        username
+        profile{
+          name
+        }
       }
     }
   }
@@ -108,7 +111,9 @@ export function feedbacks($strapi: Strapi) {
     }
     expert{
       id
-      username
+      profile{
+        name
+      }
     }
     request {
       id
@@ -121,8 +126,9 @@ export function feedbacks($strapi: Strapi) {
       }
       creator{ 
         id
-        
-        username
+        profile{
+          name
+        }
       }
     }
   }
@@ -165,7 +171,9 @@ export function feedbackById($strapi: Strapi) {
     }
     expert{
       id
-      username
+      profile{
+        name
+      }
     }
     request {
       id
@@ -175,8 +183,9 @@ export function feedbackById($strapi: Strapi) {
       }
       creator{ 
         id
-        
-        username
+        profile{
+          name
+        }
       
     }
   }
@@ -367,7 +376,9 @@ export function askFeedbacksByChallengeId($strapi: Strapi) {
           }
           creator{
             id
-            username
+            profile{
+              name
+            }
           }
           feedbacks{
             id
@@ -392,7 +403,9 @@ export function askFeedbacksByChallengeId($strapi: Strapi) {
             is_public
             expert{
               id
-              username
+              profile{
+                name
+              }
               
             }
             published_at
@@ -427,7 +440,9 @@ export function askFeedbacksByStartupId($strapi: Strapi) {
           }
           creator{
             id
-            username
+            profile{
+              name
+            }
           }
           feedbacks{
             id
@@ -452,7 +467,9 @@ export function askFeedbacksByStartupId($strapi: Strapi) {
             is_public
             expert{
               id
-              username
+              profile{
+                name
+              }
               
             }
             published_at

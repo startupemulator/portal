@@ -61,7 +61,6 @@ import {
   updateUser,
   createUser,
   users,
-  getUserBySlug,
   updateUserPassword,
   getUserByEmail,
   emailConfirmation,
@@ -308,7 +307,6 @@ export interface Services {
     notificationId: string
   ): Promise<Partial<UserNotification>[]>;
 
-  $getUserBySlug(slug: string): Promise<Partial<NotificationUser>[]>;
   $getUserByEmail(email: string): Promise<Partial<NotificationUser>[]>;
 
   $login(data: NuxtStrapiLoginData): Promise<NuxtStrapiLoginResult>;
@@ -323,23 +321,16 @@ export interface Services {
   ): Promise<Partial<NotificationUser>[]>;
   $createUser(
     email: string,
-    name: string,
     password: String
   ): Promise<Partial<NotificationUser>[]>;
-  $updateUser(
-    id: string,
-    username: string
-  ): Promise<Partial<NotificationUser>[]>;
+  $updateUser(id: string, name: string): Promise<Partial<NotificationUser>[]>;
   $emailConfirmation(token: string): Promise<Partial<NotificationUser>[]>;
 
   $createProfile(
     id: string,
     technologies: Array<string>
   ): Promise<Partial<Profile>[]>;
-  $createNewProfile(
-    userName: string,
-    userId: string
-  ): Promise<Partial<Profile>[]>;
+  $createNewProfile(name: string, userId: string): Promise<Partial<Profile>[]>;
 
   $updateProfile(
     id: string,
@@ -577,7 +568,6 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("updateUser", updateUser(ctx.$strapi));
   inject("emailConfirmation", emailConfirmation(ctx.$strapi));
   inject("users", users(ctx.$strapi));
-  inject("getUserBySlug", getUserBySlug(ctx.$strapi));
   inject("getUserByEmail", getUserByEmail(ctx.$strapi));
 
   inject("createUser", createUser(ctx.$strapi));

@@ -7,7 +7,7 @@
           class="profile-header"
           :class="!isOwner ? 'my-profile__content--publick' : ''"
         >
-          <U-title v-if="!isOwner" :text="user.name || user.username">
+          <U-title v-if="!isOwner" :text="user.name || user.profile.name">
           </U-title>
           <U-title v-if="isOwner" :text="'Profile'"> </U-title>
 
@@ -36,7 +36,7 @@
             <div>
               <span>Full name</span>
               <p>
-                {{ user.username }}
+                {{ user.profile.name }}
               </p>
             </div>
             <div>

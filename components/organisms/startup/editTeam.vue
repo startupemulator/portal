@@ -55,7 +55,7 @@
           )"
           :key="item.id"
           :specialisation="items.specialisation.title"
-          :user-name="item.user.username"
+          :user-name="item.user.profile.name"
           :application-id="item.id"
           :premission="item.status"
           @chagePremission="chagePremission"

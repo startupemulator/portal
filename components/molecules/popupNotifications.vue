@@ -34,7 +34,7 @@
             class="new-message__content-item"
           >
             <div class="content-item-description">
-              <span>{{ notification.notification.creator.username }}</span>
+              <span>{{ notification.notification.creator.profile.name }}</span>
               <p>
                 {{ notification.notification.message }}
                 for
@@ -101,7 +101,7 @@
             class="new-message__content-item"
           >
             <div class="content-item-description">
-              <span>{{ notification.notification.creator.username }}</span>
+              <span>{{ notification.notification.creator.profile.name }}</span>
               <p>
                 {{ notification.notification.message }}
                 for

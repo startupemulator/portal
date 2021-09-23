@@ -25,6 +25,9 @@ export function challenges($strapi: Strapi) {
             id
             user {
               id
+              profile{
+                name
+              }
             }
             
           }

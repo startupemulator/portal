@@ -8,8 +8,10 @@ export function login($strapi: Strapi) {
           jwt
           user {
             id
-            username
             email
+            profile{
+              name
+            }
           }
         }
       }`,
@@ -39,7 +41,6 @@ export function loginPasswordless($strapi: Strapi) {
           jwt
           user {
             id
-            username
             confirmed
             email
             }

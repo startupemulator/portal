@@ -6,25 +6,11 @@ export function users($strapi: Strapi) {
       query: `query {
   users {
     id
-    username
     email  
   }
 }`,
     });
     return data.users;
-  };
-}
-export function getUserBySlug($strapi: Strapi) {
-  return async (slug: string) => {
-    const data = await $strapi.graphql({
-      query: `query {
-  users (where: {username: "${slug}"}) {
-    id
-    username
-  }
-}`,
-    });
-    return data.users ? data.users[0] : null;
   };
 }
 export function getUserByEmail($strapi: Strapi) {
@@ -33,7 +19,7 @@ export function getUserByEmail($strapi: Strapi) {
       query: `query {
   users (where: {email: "${email}"}) {
     id
-    username
+    
   }
 }`,
     });
@@ -41,14 +27,13 @@ export function getUserByEmail($strapi: Strapi) {
   };
 }
 export function createUser($strapi: Strapi) {
-  return async (email: string, name: string, password: String) => {
+  return async (email: string, password: String) => {
     const data = await $strapi.graphql({
       query: `mutation {
-        register(input: { username: "${name}", email: "${email}",  password: "${password}" }) {
+        register(input: { email: "${email}",  password: "${password}" }) {
           jwt
           user {
             id
-            username
             email
           }
         }
@@ -89,7 +74,6 @@ export function updateUserPassword($strapi: Strapi) {
          }
          ) {
             user {
-              username
               email
             }
         }
@@ -107,7 +91,6 @@ export function emailConfirmation($strapi: Strapi) {
           jwt
           user{
             id
-            username
           }
         }
 }`,

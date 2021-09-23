@@ -6,7 +6,7 @@
         <U-title :text="'Profile'"> </U-title>
         <div class="profile-header__menu">
           <ul>
-            <li v-if="userData.provider !== 'expert'">
+            <li>
               <button type="button" @click="copyBaseUri">
                 Copy Link On My Profile
                 <img src="~/assets/img/copy.svg" alt="copy" />
@@ -35,7 +35,7 @@
           <div>
             <span>Full name</span>
             <p>
-              {{ userData.user.username }}
+              {{ userData.user.profile.name }}
             </p>
           </div>
           <div>

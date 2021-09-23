@@ -87,7 +87,7 @@ export default class extends Vue {
   choosenTechnologies = [];
   profileUpdateData = {};
   updateKey = 0;
-  userName = this.userData.username;
+  userName = this.userData.profile.name;
   saveProfileUpdateData() {
     this.$v.$touch();
     this.profileUpdateData.userName = this.userName;
