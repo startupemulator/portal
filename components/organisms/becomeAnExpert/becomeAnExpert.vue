@@ -90,8 +90,6 @@ export default class extends Vue {
     if (!this.$v.$error) {
       this.loading = true;
       try {
-        await this.$updateUser(this.userId, this.fullName);
-
         const findProfile = await this.$profile(this.userId);
         if (findProfile === undefined) {
           await this.$createProfile(this.userId, this.choosenTechnology);
@@ -101,6 +99,7 @@ export default class extends Vue {
             this.$createTechnologies(this.userId, el.name);
           });
         }
+        await this.$updateProfileName(findProfile.id, this.fullName);
         this.loading = false;
         this.$nuxt.$router.push("/profile/projects");
       } catch (e) {

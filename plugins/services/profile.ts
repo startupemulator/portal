@@ -38,8 +38,10 @@ export function profileByUserId($strapi: Strapi) {
       query: `query {
   profiles(where:{user:{id: "${id}"}}) {
       id
+      name
     user {
-        id 
+        id
+        
     }
   }
 }`,
@@ -142,7 +144,8 @@ export function updateProfileName($strapi: Strapi) {
           where: {id: "${id}" }
           data: { name: "${name}"} }) {
           profile {
-            id   
+            id
+            name
           }
         }
       }`,
