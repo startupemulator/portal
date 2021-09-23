@@ -36,6 +36,7 @@ export function feedbacksByStartupID($strapi: Strapi) {
       id
       profile{
         name
+        slug
       }
     }
     request {
@@ -48,6 +49,7 @@ export function feedbacksByStartupID($strapi: Strapi) {
         id
         profile{
           name
+          slug
         }
       }
     }
@@ -113,6 +115,7 @@ export function feedbacks($strapi: Strapi) {
       id
       profile{
         name
+        slug
       }
     }
     request {
@@ -128,6 +131,7 @@ export function feedbacks($strapi: Strapi) {
         id
         profile{
           name
+          slug
         }
       }
     }
@@ -173,6 +177,7 @@ export function feedbackById($strapi: Strapi) {
       id
       profile{
         name
+        slug
       }
     }
     request {
@@ -185,6 +190,7 @@ export function feedbackById($strapi: Strapi) {
         id
         profile{
           name
+          slug
         }
       
     }
@@ -378,6 +384,7 @@ export function askFeedbacksByChallengeId($strapi: Strapi) {
             id
             profile{
               name
+              slug
             }
           }
           feedbacks{
@@ -405,6 +412,7 @@ export function askFeedbacksByChallengeId($strapi: Strapi) {
               id
               profile{
                 name
+                slug
               }
               
             }
@@ -442,6 +450,7 @@ export function askFeedbacksByStartupId($strapi: Strapi) {
             id
             profile{
               name
+              slug
             }
           }
           feedbacks{
@@ -469,6 +478,7 @@ export function askFeedbacksByStartupId($strapi: Strapi) {
               id
               profile{
                 name
+                slug
               }
               
             }

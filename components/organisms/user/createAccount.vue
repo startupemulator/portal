@@ -171,7 +171,7 @@ export default class CreateAccount extends Vue {
     if (!this.$v.$error) {
       try {
         const newUser = await this.$createUser(this.email, this.password);
-        console.log(newUser);
+
         if (newUser !== null) {
           // const profile = await this.$getUserByEmail(this.email);
           // await this.$updateProfileName(profile.id, this.name);

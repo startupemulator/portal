@@ -15,6 +15,7 @@ export function profile($strapi: Strapi) {
         provider
         profile{
           name
+          slug
         }
       }
       technologies{
@@ -39,6 +40,7 @@ export function profileByUserId($strapi: Strapi) {
   profiles(where:{user:{id: "${id}"}}) {
       id
       name
+      slug
     user {
         id
         
@@ -77,6 +79,7 @@ export function profileBySlug($strapi: Strapi) {
         provider
         profile{
           name
+          slug
         }
       }
       technologies{
@@ -116,6 +119,7 @@ export function updateProfile($strapi: Strapi) {
                 email
                 profile{
                   name
+                  slug
                 }
               }
               technologies{
@@ -146,6 +150,7 @@ export function updateProfileName($strapi: Strapi) {
           profile {
             id
             name
+            slug
             user{
               id
             }
@@ -172,6 +177,7 @@ export function createProfile($strapi: Strapi) {
                 email
                 profile{
                   name
+                  slug
                 }
               }
               technologies{
@@ -197,6 +203,7 @@ export function createNewProfile($strapi: Strapi) {
                 profile {
                 id
                 name
+                slug
                 user{
                   id
                 }

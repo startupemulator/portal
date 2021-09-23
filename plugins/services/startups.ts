@@ -176,6 +176,7 @@ export function startupById($strapi: Strapi) {
                 profile{
                   id 
                   name
+                  slug
                   technologies{
                     id
                     title
@@ -501,6 +502,7 @@ export function updateStartupInfo($strapi: Strapi) {
                 profile{
                   id 
                   name
+                  slug
                   technologies{
                     id
                     title

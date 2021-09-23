@@ -129,6 +129,7 @@ export function userNotifications($strapi: Strapi) {
         id
         profile{
           name
+          slug
         }
       }
       message

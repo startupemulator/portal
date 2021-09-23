@@ -77,7 +77,7 @@ export default class extends Vue {
     $askFeedbacksForStartup,
     route,
     $emailConfirmation,
-    $createNewProfile,
+
     $loginPasswordless,
     $profileByUserId,
   }) {
@@ -89,21 +89,21 @@ export default class extends Vue {
     let userChallenges = [];
     let isExpert = false;
     let waitingFeedback = [];
-    if (route.query.confirmEmail && route.query.confirmEmail.length > 40) {
+    if (route.query.confirmEmail && route.query.confirmEmail.length > 20) {
       const confirmEmail = await $emailConfirmation(route.query.confirmEmail);
       if (confirmEmail) {
         await loginUserWithJWT(confirmEmail);
-        await createProfile(confirmEmail.user);
+        // await createProfile(confirmEmail.user);
       }
     }
 
-    if (route.query.loginToken && route.query.loginToken.length > 40) {
+    if (route.query.loginToken && route.query.loginToken.length > 20) {
       const loginPasswordLess = await $loginPasswordless(
         route.query.loginToken
       );
       if (loginPasswordLess !== null) {
         await loginUserWithJWT(loginPasswordLess);
-        await createProfile(loginPasswordLess.user);
+        // await createProfile(loginPasswordLess.user);
       }
     }
 
@@ -113,12 +113,12 @@ export default class extends Vue {
       await $strapi.setToken(jwt);
     }
 
-    async function createProfile(user) {
-      const profile = await $profileByUserId(user.id);
-      if (profile.length === 0) {
-        await $createNewProfile(user.username, user.id);
-      }
-    }
+    // async function createProfile(user) {
+    //   const profile = await $profileByUserId(user.id);
+    //   if (profile.length === 0) {
+    //     await $createNewProfile(user.username, user.id);
+    //   }
+    // }
 
     let userId = null;
     if ($strapi.user) {

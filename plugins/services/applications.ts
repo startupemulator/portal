@@ -14,6 +14,7 @@ export function applications($strapi: Strapi) {
       email
       profile{
         name
+        slug
       }
     }
     position{
@@ -57,6 +58,7 @@ export function applicationsByStartupId($strapi: Strapi) {
           profile{
             id 
             name
+            slug
             technologies{
               id
               title
