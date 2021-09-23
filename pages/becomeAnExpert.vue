@@ -1,6 +1,5 @@
 <template>
   <div class="fullscreen">
-    <pre>{{ userProfile }} </pre>
     <BecomeAnExpert
       :technologies="technologies"
       :user-id="userId"

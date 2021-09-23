@@ -19,6 +19,9 @@ export function getUserByEmail($strapi: Strapi) {
       query: `query {
   users (where: {email: "${email}"}) {
     id
+    profile{
+      id
+    }
     
   }
 }`,
@@ -30,7 +33,7 @@ export function createUser($strapi: Strapi) {
   return async (email: string, password: String) => {
     const data = await $strapi.graphql({
       query: `mutation {
-        register(input: { email: "${email}",  password: "${password}" }) {
+        register(input: { username:"${email}" email: "${email}",  password: "${password}" }) {
           jwt
           user {
             id

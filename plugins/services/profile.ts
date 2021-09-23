@@ -141,11 +141,14 @@ export function updateProfileName($strapi: Strapi) {
       query: `mutation {
         updateProfile(
           input: {
-          where: {id: "${id}" }
+          where:{id: "${id}"}
           data: { name: "${name}"} }) {
           profile {
             id
             name
+            user{
+              id
+            }
           }
         }
       }`,

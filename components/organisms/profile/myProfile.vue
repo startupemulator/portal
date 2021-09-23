@@ -54,10 +54,10 @@
 
         <Expert-user v-if="isExpert" :feedbacks="feedbacks"> </Expert-user>
 
-        <div class="profile-projects__experience">
+        <div v-if="userExperience" class="profile-projects__experience">
           <h3>Experience</h3>
           <div class="experience-work">
-            {{ userExperience ? userExperience.title : "Zero" }}
+            {{ userExperience.title }}
           </div>
           <ul class="experience_list">
             <li v-for="item in updatablemyTechnologies" :key="item.id">
