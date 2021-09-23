@@ -1,30 +1,33 @@
-import {Criterions} from "~/models/Criterions";
-import {Directions} from "~/models/Directions";
-import {Badges} from "~/models/Badges";
-import {userChallenges} from "~/models/UserChallenges";
-import {Positions} from "~/models/Positions";
-import {Invites} from "~/models/Invites";
-import {Technology} from "~/models/Technology";
-import {Applications} from "~/models/Applications";
-import {Estimation} from "~/models/Estimation";
-import {Specialisation} from "~/models/Specialisation";
-import {Experience} from "~/models/Experience";
-import {Profile} from "~/models/Profile";
-import {NotificationUser} from "~/models/NotificationUser";
-import {Feedbacks} from "~/models/Feedbacks";
-import {AskFeedbacks} from "~/models/AskFeedbacks";
-import {Notification} from "~/models/Notification";
-import {UserNotification} from "~/models/UserNotifications";
-import {NuxtStrapiLoginData, NuxtStrapiLoginResult} from "@nuxtjs/strapi/types/types";
-import {Challenge} from "~/models/Challenge";
-import {Startup} from "~/models/Startup";
-import {Testimonial} from "~/models/Testimonial";
-import {Links} from "~/models/Links";
-import {Releases} from "~/models/Releases";
-import {Sources} from "~/models/Sources";
-import {Solutions} from "~/models/Solution";
-import {Secrets} from "~/models/Secrets";
-import {Like} from "~/models/Like";
+import {
+  NuxtStrapiLoginData,
+  NuxtStrapiLoginResult,
+} from "@nuxtjs/strapi/types/types";
+import { Criterions } from "~/models/Criterions";
+import { Directions } from "~/models/Directions";
+import { Badges } from "~/models/Badges";
+import { userChallenges } from "~/models/UserChallenges";
+import { Positions } from "~/models/Positions";
+import { Invites } from "~/models/Invites";
+import { Technology } from "~/models/Technology";
+import { Applications } from "~/models/Applications";
+import { Estimation } from "~/models/Estimation";
+import { Specialisation } from "~/models/Specialisation";
+import { Experience } from "~/models/Experience";
+import { Profile } from "~/models/Profile";
+import { NotificationUser } from "~/models/NotificationUser";
+import { Feedbacks } from "~/models/Feedbacks";
+import { AskFeedbacks } from "~/models/AskFeedbacks";
+import { Notification } from "~/models/Notification";
+import { UserNotification } from "~/models/UserNotifications";
+import { Challenge } from "~/models/Challenge";
+import { Startup } from "~/models/Startup";
+import { Testimonial } from "~/models/Testimonial";
+import { Links } from "~/models/Links";
+import { Releases } from "~/models/Releases";
+import { Sources } from "~/models/Sources";
+import { Solutions } from "~/models/Solution";
+import { Secrets } from "~/models/Secrets";
+import { Like } from "~/models/Like";
 
 export interface Services {
   $createCriterions(
@@ -185,8 +188,6 @@ export interface Services {
     notificationId: string
   ): Promise<Partial<UserNotification>[]>;
 
-  $getUserBySlug(slug: string): Promise<Partial<NotificationUser>[]>;
-
   $getUserByEmail(email: string): Promise<Partial<NotificationUser>[]>;
 
   $login(data: NuxtStrapiLoginData): Promise<NuxtStrapiLoginResult>;
@@ -208,16 +209,16 @@ export interface Services {
     password: String
   ): Promise<Partial<NotificationUser>[]>;
 
-  $updateUser(
-    id: string,
-    username: string
-  ): Promise<Partial<NotificationUser>[]>;
-
   $emailConfirmation(token: string): Promise<Partial<NotificationUser>[]>;
 
   $createProfile(
     id: string,
     technologies: Array<string>
+  ): Promise<Partial<Profile>[]>;
+
+  $updateProfileName(
+    id: string,
+    name: Array<string>
   ): Promise<Partial<Profile>[]>;
 
   $createNewProfile(

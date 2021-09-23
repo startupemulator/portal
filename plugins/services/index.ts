@@ -32,6 +32,7 @@ import {
 import {
   createNewProfile,
   createProfile,
+  updateProfileName,
   expertProfiles,
   profile,
   profileBySlug,
@@ -43,8 +44,6 @@ import {
   createUser,
   emailConfirmation,
   getUserByEmail,
-  getUserBySlug,
-  updateUser,
   updateUserPassword,
   users,
 } from "~/plugins/services/user";
@@ -239,12 +238,12 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
 
   inject("updateProfile", updateProfile(ctx.$strapi));
   inject("createProfile", createProfile(ctx.$strapi));
+  inject("updateProfileName", updateProfileName(ctx.$strapi));
+
   inject("createNewProfile", createNewProfile(ctx.$strapi));
 
-  inject("updateUser", updateUser(ctx.$strapi));
   inject("emailConfirmation", emailConfirmation(ctx.$strapi));
   inject("users", users(ctx.$strapi));
-  inject("getUserBySlug", getUserBySlug(ctx.$strapi));
   inject("getUserByEmail", getUserByEmail(ctx.$strapi));
 
   inject("createUser", createUser(ctx.$strapi));

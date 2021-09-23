@@ -20,11 +20,15 @@ import BecomeAnExpert from "~/components/organisms/becomeAnExpert/becomeAnExpert
 })
 export default class extends Vue {
   userId = this.$strapi.user.id;
-  userName = this.$strapi.user.username;
-  async asyncData({ $technologies }) {
+
+  async asyncData({ $technologies, $profileByUserId, $strapi }) {
     const { technologies } = await $technologies();
+    const userProfile = await $profileByUserId($strapi.user.id);
+    const userName = userProfile[0].name;
     return {
       technologies,
+      userName,
+      userProfile,
     };
   }
 }

@@ -170,12 +170,12 @@ export default class CreateAccount extends Vue {
     this.$v.$touch();
     if (!this.$v.$error) {
       try {
-        const newUser = await this.$createUser(
-          this.email,
-          this.name,
-          this.password
-        );
+        const newUser = await this.$createUser(this.email, this.password);
+
         if (newUser !== null) {
+          // const user = await this.$getUserByEmail(this.email);
+          // await this.$updateProfileName(user.profile.id, this.name);
+          // it is will be work when profile will be creaated in back end
           this.error = "";
           this.popupConfirmEmail = true;
         } else {

@@ -3,11 +3,11 @@
     <div class="feed-back-card__main-content">
       <div class="feed-back-card__main-content-header">
         <h3 v-if="!isExpertProfile">
-          {{ feedback.request.creator.username }} <span>for</span> Startup #
+          {{ feedback.request.creator.profile.name }} <span>for</span> Startup #
           {{ feedback.request.startup.id }}
         </h3>
         <h3 v-if="isExpertProfile">
-          {{ feedback.request.creator.username }} <span>makes</span>
+          {{ feedback.request.creator.profile.name }} <span>makes</span>
           {{ feedback.description }}
         </h3>
 
@@ -75,7 +75,7 @@
             v-if="!expertFeedback"
             class="feed-back-card__main-content-feedback__header"
           >
-            <h4>Expert’s {{ feedback.request.creator.username }}</h4>
+            <h4>Expert’s {{ feedback.request.creator.profile.name }}</h4>
             <div class="feedback__header--delete">
               <img src="~/assets/img/close.svg" alt="ok" />
               <U-button

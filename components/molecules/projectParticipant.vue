@@ -4,14 +4,14 @@
     <div v-if="!isOwner" style="display: flex; flex-wrap: wrap">
       <div
         v-for="user in acceptedTeamMember"
-        :key="user.name"
+        :key="user.id"
         class="specializacion_names"
       >
         <nuxt-link
           class="project-participant__team-button"
           :to="'/user/' + user.user.profile.slug"
         >
-          <span>{{ user.user ? user.user.username : "" }}</span>
+          <span>{{ user.user ? user.user.profile.name : "" }}</span>
           <img src="~/assets/img/arrow.svg" alt="arrow" />
         </nuxt-link>
       </div>
@@ -30,7 +30,7 @@
           class="project-participant__team-button"
           :to="'/user/' + username.profile.slug"
         >
-          <span>{{ username.username }}</span>
+          <span>{{ username.profile.name }}</span>
 
           <img src="~/assets/img/arrow.svg" alt="arrow" />
         </nuxt-link>

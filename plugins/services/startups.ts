@@ -72,7 +72,6 @@ export function startup($strapi: Strapi) {
               decline_reason
               user {
                 id
-                username
                 email
                 profile{
                   id
@@ -106,8 +105,6 @@ export function startup($strapi: Strapi) {
               name
               slug
             }
-            
-            username
             invites{
               id
               email
@@ -175,10 +172,11 @@ export function startupById($strapi: Strapi) {
               decline_reason
               user {
                 id
-                username
                 email
                 profile{
                   id 
+                  name
+                  slug
                   technologies{
                     id
                     title
@@ -206,8 +204,6 @@ export function startupById($strapi: Strapi) {
               name
               slug
             }
-            
-            username
             invites{
               id
               email
@@ -502,10 +498,11 @@ export function updateStartupInfo($strapi: Strapi) {
               decline_reason
               user {
                 id
-                username
                 email
                 profile{
                   id 
+                  name
+                  slug
                   technologies{
                     id
                     title
@@ -533,8 +530,6 @@ export function updateStartupInfo($strapi: Strapi) {
               name
               slug
             }
-            
-            username
             invites{
               id
               email

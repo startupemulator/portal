@@ -10,7 +10,7 @@
         @clikOnButton="$emit('clikOnButton')"
       ></UBack>
 
-      <UTitle :text="solutionData.creator.username"></UTitle>
+      <UTitle :text="solutionData.creator.profile.name"></UTitle>
       <div class="startup-card__started-start-time">
         <div class="started-start-time__finished">
           <h3>Finished</h3>

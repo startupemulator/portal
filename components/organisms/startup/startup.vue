@@ -343,7 +343,6 @@
         </div>
         <div v-cloak class="startup-card__team">
           <h3>Team</h3>
-
           <ProjectParticipant
             :username="updatableDataStartup.owner"
             :is-owner="true"

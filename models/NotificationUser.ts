@@ -1,6 +1,5 @@
 export interface NotificationUser {
   id: string;
-  username: string;
   email: string;
   provider: string;
   password: string;

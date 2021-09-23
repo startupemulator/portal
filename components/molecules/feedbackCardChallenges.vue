@@ -4,7 +4,7 @@
       <div class="feed-back-card__main-content-header">
         <h3>
           Expert's
-          {{ feedback.expert ? feedback.expert.username : "" }}
+          {{ feedback.expert ? feedback.expert.profile.name : "" }}
         </h3>
 
         <p>{{ new Date(feedback.published_at).toUTCString().substr(4, 18) }}</p>

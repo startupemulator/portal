@@ -22,7 +22,7 @@
         v-for="item in applications"
         v-show="opendPosition"
         :key="item.id"
-        :name="item.user.username"
+        :name="item.user.profile.name"
         :uncheck="item.status === 'declined'"
         :check="item.status === 'accepted'"
         :advanced="item.status === 'advanced'"

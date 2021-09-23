@@ -6,7 +6,7 @@
         <U-title :text="'Profile'"> </U-title>
         <div class="profile-header__menu">
           <ul>
-            <li v-if="userData.provider !== 'expert'">
+            <li>
               <button type="button" @click="copyBaseUri">
                 Copy Link On My Profile
                 <img src="~/assets/img/copy.svg" alt="copy" />
@@ -35,7 +35,7 @@
           <div>
             <span>Full name</span>
             <p>
-              {{ userData.user.username }}
+              {{ userData.user.profile.name }}
             </p>
           </div>
           <div>
@@ -54,10 +54,10 @@
 
         <Expert-user v-if="isExpert" :feedbacks="feedbacks"> </Expert-user>
 
-        <div class="profile-projects__experience">
+        <div v-if="userExperience" class="profile-projects__experience">
           <h3>Experience</h3>
           <div class="experience-work">
-            {{ userExperience ? userExperience.title : "Zero" }}
+            {{ userExperience.title }}
           </div>
           <ul class="experience_list">
             <li v-for="item in updatablemyTechnologies" :key="item.id">
@@ -227,7 +227,11 @@ export default class extends Vue {
         data.experiences.id
       );
 
-      const updateUserName = await this.$updateUser(data.userId, data.userName);
+      const updateUserName = await this.$updateProfileName(
+        this.userData.id,
+        data.userName
+      );
+
       if (result !== null && updateUserName !== null) {
         this.updatablemyTechnologies = result.technologies;
 

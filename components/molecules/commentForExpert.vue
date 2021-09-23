@@ -10,7 +10,7 @@
         <h4>
           Product Owner’s
           <span>
-            {{ comment.creator ? comment.creator.username : "Anonymous" }}
+            {{ comment.creator ? comment.creator.profile.name : "Anonymous" }}
           </span>
         </h4>
         <p>

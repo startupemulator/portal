@@ -7,7 +7,7 @@
           class="profile-header"
           :class="!isOwner ? 'my-profile__content--publick' : ''"
         >
-          <U-title v-if="!isOwner" :text="user.name || user.username">
+          <U-title v-if="!isOwner" :text="user.name || user.profile.name">
           </U-title>
           <U-title v-if="isOwner" :text="'Profile'"> </U-title>
 
@@ -36,7 +36,7 @@
             <div>
               <span>Full name</span>
               <p>
-                {{ user.username }}
+                {{ user.profile.name }}
               </p>
             </div>
             <div>
@@ -223,7 +223,10 @@ export default class extends Vue {
         data.experiences.id
       );
 
-      const updateUserName = await this.$updateUser(data.userId, data.userName);
+      const updateUserName = await this.$updateProfileName(
+        this.profile.id,
+        data.userName
+      );
       if (result !== null && updateUserName !== null) {
         this.updatablemyTechnologies = result.technologies;
 

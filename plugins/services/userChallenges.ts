@@ -8,7 +8,10 @@ export function userChallengesById($strapi: Strapi) {
            id
            user{
              id
-             username
+             profile{
+              name
+              slug
+            }
            }
            estimation
            challenge{
@@ -28,7 +31,10 @@ export function userChallengesByUserId($strapi: Strapi) {
            id
            user{
              id
-             username
+             profile{
+              name
+              slug
+            }
            }
            estimation
            challenge{

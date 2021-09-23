@@ -11,10 +11,12 @@ export function profile($strapi: Strapi) {
       gardenkeeper
     user {
         id
-        username
         email
-        
         provider
+        profile{
+          name
+          slug
+        }
       }
       technologies{
         id
@@ -37,8 +39,11 @@ export function profileByUserId($strapi: Strapi) {
       query: `query {
   profiles(where:{user:{id: "${id}"}}) {
       id
+      name
+      slug
     user {
-        id 
+        id
+        
     }
   }
 }`,
@@ -70,9 +75,12 @@ export function profileBySlug($strapi: Strapi) {
       is_expert
     user {
         id
-        username
         email
         provider
+        profile{
+          name
+          slug
+        }
       }
       technologies{
         id
@@ -108,9 +116,11 @@ export function updateProfile($strapi: Strapi) {
             slug
             user {
                 id
-                username
-                
                 email
+                profile{
+                  name
+                  slug
+                }
               }
               technologies{
                 id
@@ -123,6 +133,28 @@ export function updateProfile($strapi: Strapi) {
               }
           }
           
+        }
+      }`,
+    });
+    return data.updateProfile.profile;
+  };
+}
+export function updateProfileName($strapi: Strapi) {
+  return async (id: string, name: string) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+        updateProfile(
+          input: {
+          where:{id: "${id}"}
+          data: { name: "${name}"} }) {
+          profile {
+            id
+            name
+            slug
+            user{
+              id
+            }
+          }
         }
       }`,
     });
@@ -142,8 +174,11 @@ export function createProfile($strapi: Strapi) {
             slug
             user {
                 id
-                username
                 email
+                profile{
+                  name
+                  slug
+                }
               }
               technologies{
                 id
@@ -159,15 +194,16 @@ export function createProfile($strapi: Strapi) {
 }
 
 export function createNewProfile($strapi: Strapi) {
-  return async (userName: string, userId: string) => {
+  return async (name: string, userId: string) => {
     const data = await $strapi.graphql({
       query: `mutation {
             createProfile(input: { 
               data: {
-                user: "${userId}", name:"${userName}", experience:"1", is_expert: false  } }) {
+                user: "${userId}", name:"${name}", experience:"1", is_expert: false  } }) {
                 profile {
                 id
                 name
+                slug
                 user{
                   id
                 }

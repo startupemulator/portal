@@ -34,7 +34,10 @@ export function feedbacksByStartupID($strapi: Strapi) {
     }
     expert{
       id
-      username
+      profile{
+        name
+        slug
+      }
     }
     request {
       id
@@ -44,8 +47,10 @@ export function feedbacksByStartupID($strapi: Strapi) {
       }
       creator{ 
         id
-        
-        username
+        profile{
+          name
+          slug
+        }
       }
     }
   }
@@ -108,7 +113,10 @@ export function feedbacks($strapi: Strapi) {
     }
     expert{
       id
-      username
+      profile{
+        name
+        slug
+      }
     }
     request {
       id
@@ -121,8 +129,10 @@ export function feedbacks($strapi: Strapi) {
       }
       creator{ 
         id
-        
-        username
+        profile{
+          name
+          slug
+        }
       }
     }
   }
@@ -165,7 +175,10 @@ export function feedbackById($strapi: Strapi) {
     }
     expert{
       id
-      username
+      profile{
+        name
+        slug
+      }
     }
     request {
       id
@@ -175,8 +188,10 @@ export function feedbackById($strapi: Strapi) {
       }
       creator{ 
         id
-        
-        username
+        profile{
+          name
+          slug
+        }
       
     }
   }
@@ -367,7 +382,10 @@ export function askFeedbacksByChallengeId($strapi: Strapi) {
           }
           creator{
             id
-            username
+            profile{
+              name
+              slug
+            }
           }
           feedbacks{
             id
@@ -392,7 +410,10 @@ export function askFeedbacksByChallengeId($strapi: Strapi) {
             is_public
             expert{
               id
-              username
+              profile{
+                name
+                slug
+              }
               
             }
             published_at
@@ -427,7 +448,10 @@ export function askFeedbacksByStartupId($strapi: Strapi) {
           }
           creator{
             id
-            username
+            profile{
+              name
+              slug
+            }
           }
           feedbacks{
             id
@@ -452,7 +476,10 @@ export function askFeedbacksByStartupId($strapi: Strapi) {
             is_public
             expert{
               id
-              username
+              profile{
+                name
+                slug
+              }
               
             }
             published_at

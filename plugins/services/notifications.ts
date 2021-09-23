@@ -127,7 +127,10 @@ export function userNotifications($strapi: Strapi) {
       id
       creator {
         id
-        username
+        profile{
+          name
+          slug
+        }
       }
       message
       link

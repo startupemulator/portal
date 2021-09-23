@@ -95,7 +95,7 @@
         >
           <div class="waiting-feedback__card-content">
             <div class="waiting-feedback__card-person">
-              <span> {{ item.creator.username }}</span>
+              <span> {{ item.creator.profile.name }}</span>
 
               <p>
                 <!-- {{
