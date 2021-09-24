@@ -76,10 +76,9 @@ export default class extends Vue {
     $profile,
     $askFeedbacksForStartup,
     route,
+    history,
     $emailConfirmation,
-
     $loginPasswordless,
-    $profileByUserId,
   }) {
     const { startups } = await $startups();
     const { challenges } = await $challenges();
@@ -93,7 +92,6 @@ export default class extends Vue {
       const confirmEmail = await $emailConfirmation(route.query.confirmEmail);
       if (confirmEmail) {
         await loginUserWithJWT(confirmEmail);
-        // await createProfile(confirmEmail.user);
       }
     }
 
@@ -103,7 +101,6 @@ export default class extends Vue {
       );
       if (loginPasswordLess !== null) {
         await loginUserWithJWT(loginPasswordLess);
-        // await createProfile(loginPasswordLess.user);
       }
     }
 
@@ -112,13 +109,6 @@ export default class extends Vue {
       await $strapi.setUser(user);
       await $strapi.setToken(jwt);
     }
-
-    // async function createProfile(user) {
-    //   const profile = await $profileByUserId(user.id);
-    //   if (profile.length === 0) {
-    //     await $createNewProfile(user.username, user.id);
-    //   }
-    // }
 
     let userId = null;
     if ($strapi.user) {
@@ -212,6 +202,9 @@ export default class extends Vue {
   mounted() {
     if (this.$router.currentRoute.fullPath === "/#pricing") {
       goToPricing();
+    }
+    if (this.$route.query.confirmEmail || this.$route.query.loginToken) {
+      history.pushState({}, null, this.$route.path);
     }
   }
 }

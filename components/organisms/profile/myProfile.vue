@@ -247,5 +247,12 @@ export default class extends Vue {
       this.loading = false;
     }
   }
+
+  mounted() {
+    if (this.$route.query.editProfile === null) {
+      this.toggleEditProfile();
+      history.pushState({}, null, this.$route.path);
+    }
+  }
 }
 </script>

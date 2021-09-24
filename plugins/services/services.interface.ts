@@ -211,19 +211,9 @@ export interface Services {
 
   $emailConfirmation(token: string): Promise<Partial<NotificationUser>[]>;
 
-  $createProfile(
-    id: string,
-    technologies: Array<string>
-  ): Promise<Partial<Profile>[]>;
-
   $updateProfileName(
     id: string,
     name: Array<string>
-  ): Promise<Partial<Profile>[]>;
-
-  $createNewProfile(
-    userName: string,
-    userId: string
   ): Promise<Partial<Profile>[]>;
 
   $updateProfile(

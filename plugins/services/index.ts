@@ -30,8 +30,6 @@ import {
   technologies,
 } from "~/plugins/services/technologies";
 import {
-  createNewProfile,
-  createProfile,
   updateProfileName,
   expertProfiles,
   profile,
@@ -237,10 +235,7 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("profileBySlug", profileBySlug(ctx.$strapi));
 
   inject("updateProfile", updateProfile(ctx.$strapi));
-  inject("createProfile", createProfile(ctx.$strapi));
   inject("updateProfileName", updateProfileName(ctx.$strapi));
-
-  inject("createNewProfile", createNewProfile(ctx.$strapi));
 
   inject("emailConfirmation", emailConfirmation(ctx.$strapi));
   inject("users", users(ctx.$strapi));

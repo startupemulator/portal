@@ -23,9 +23,12 @@
       <DurationExperiensePicker
         :title="'Total years of your experience'"
         :experiences="experiences"
-        :duration="userExperience.id"
+        :duration="userExperience ? userExperience.id : null"
         @clickOnDuration="clickOnDuration"
       ></DurationExperiensePicker>
+      <p v-show="$v.choosenExperiences.$error" class="errorInput">
+        Please choose total years of your experience
+      </p>
       <TechnologyPicker
         :key="updateKey"
         :title="'Pick technologies you have an experience with'"
@@ -35,6 +38,7 @@
         @addTechnologies="addTechnologies"
         @removeTechnology="removeTechnology"
       ></TechnologyPicker>
+
       <div class="edit-profile__buttons">
         <u-button
           :button-name="'Save'"
@@ -76,6 +80,9 @@ import { Technology } from "~/models/Technology";
       required,
       minLength: minLength(6),
     },
+    choosenExperiences: {
+      required,
+    },
   },
 })
 export default class extends Vue {
@@ -88,6 +95,7 @@ export default class extends Vue {
   profileUpdateData = {};
   updateKey = 0;
   userName = this.userData.profile.name;
+  choosenExperiences = "";
   saveProfileUpdateData() {
     this.$v.$touch();
     this.profileUpdateData.userName = this.userName;
@@ -102,6 +110,7 @@ export default class extends Vue {
   }
 
   clickOnDuration(data) {
+    this.choosenExperiences = data.id;
     this.profileUpdateData.experiences = data;
   }
 

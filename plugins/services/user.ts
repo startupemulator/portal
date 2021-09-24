@@ -21,6 +21,8 @@ export function getUserByEmail($strapi: Strapi) {
     id
     profile{
       id
+      name
+      slug
     }
     
   }

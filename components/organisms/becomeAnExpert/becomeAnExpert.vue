@@ -91,9 +91,6 @@ export default class extends Vue {
       this.loading = true;
       try {
         const findProfile = await this.$profile(this.userId);
-        if (findProfile === undefined) {
-          await this.$createProfile(this.userId, this.choosenTechnology);
-        }
         if (this.addedTechnologies.length > 0) {
           await this.addedTechnologies.forEach((el) => {
             this.$createTechnologies(this.userId, el.name);

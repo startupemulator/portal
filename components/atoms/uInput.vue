@@ -9,6 +9,7 @@
       :value="value"
       class="standard-input"
       @blur="$emit('textInput', $event.target.value)"
+      @keydown.enter.prevent="$emit('keydown', $event.target.value)"
     />
     <button
       v-if="btnShowPassword"
