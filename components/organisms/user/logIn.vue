@@ -123,12 +123,17 @@ export default class extends Vue {
     this.$v.$touch();
     if (!this.$v.$error) {
       try {
-        const user = await this.$strapi.login({
+        const userLogin = await this.$strapi.login({
           identifier: this.email,
           password: this.password,
         });
-        if (user) {
-          this.$nuxt.$router.push("/profile/projects");
+        if (userLogin) {
+          const user = await this.$getUserByEmail(this.email);
+          if (user.profile.name === null || user.profile.name === "") {
+            this.$nuxt.$router.push("/profile/?editProfile");
+          } else {
+            this.$nuxt.$router.push("/profile/projects");
+          }
         }
       } catch (e) {
         Toast.show({
