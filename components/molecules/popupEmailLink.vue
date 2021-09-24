@@ -25,6 +25,7 @@
           "
           :img="require('~/assets/img/email.svg')"
           @textInput="checkEmail"
+          @keydown="keydown"
         ></U-input>
         <p v-show="$v.email.$error" class="errorInput">
           Please enter an email address
@@ -68,6 +69,11 @@ export default class extends Vue {
   checkEmail(email) {
     this.email = email;
     this.$v.$touch();
+  }
+
+  keydown(email) {
+    this.checkEmail(email);
+    this.sendLink();
   }
 }
 </script>
