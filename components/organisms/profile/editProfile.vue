@@ -23,7 +23,7 @@
       <DurationExperiensePicker
         :title="'Total years of your experience'"
         :experiences="experiences"
-        :duration="userExperience.id"
+        :duration="userExperience ? userExperience.id : null"
         @clickOnDuration="clickOnDuration"
       ></DurationExperiensePicker>
       <TechnologyPicker
