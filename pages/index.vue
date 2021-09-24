@@ -76,6 +76,7 @@ export default class extends Vue {
     $profile,
     $askFeedbacksForStartup,
     route,
+    history,
     $emailConfirmation,
     $loginPasswordless,
   }) {
@@ -201,6 +202,9 @@ export default class extends Vue {
   mounted() {
     if (this.$router.currentRoute.fullPath === "/#pricing") {
       goToPricing();
+    }
+    if (this.$route.query.confirmEmail || this.$route.query.loginToken) {
+      history.pushState({}, null, this.$route.path);
     }
   }
 }

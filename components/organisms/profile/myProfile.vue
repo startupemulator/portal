@@ -251,6 +251,7 @@ export default class extends Vue {
   mounted() {
     if (this.$route.query.editProfile === null) {
       this.toggleEditProfile();
+      history.pushState({}, null, this.$route.path);
     }
   }
 }
