@@ -62,6 +62,10 @@
       @closePopupLinkEmail="togglePopupDeleteStartup"
       @deleteStartup="deleteStartup"
     ></PopupDeleteStartup>
+    <div v-if="startups.length === 0" class="emty-state-my-startups">
+      <p class="emty-state-my-startups__title">There is no any startups yet</p>
+      <span>Create the your first startup.</span>
+    </div>
   </div>
 </template>
 <script lang="ts">
