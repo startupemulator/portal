@@ -1,6 +1,15 @@
 .my-projects {
   width: 343px;
   margin: 0 auto;
+  .emty-state-my-startups {
+    margin: 0 auto;
+    max-width: 600px;
+    border: 1px dashed #fff;
+    padding: 100px;
+    color: #fff;
+    text-align: center;
+    border-radius: 12px;
+  }
   .my-projects__header {
     h2 {
       margin-left: 0;

@@ -301,10 +301,13 @@ export function startupByAcceptedApplication($strapi: Strapi) {
   };
 }
 export function myStartups($strapi: Strapi) {
-  return async (owner: string) => {
+  return async (
+    owner: string,
+    states: string[] = ["in_progress", "not_started", "finished"]
+  ) => {
     const data = await $strapi.graphql({
-      query: `query {
-        startups(where: {owner:{id: "${owner}"}}){
+      query: `query { 
+        startups(where: {owner:{id: "${owner}"}, state_ncontains: "removed"}){
           id
           title
           slug

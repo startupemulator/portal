@@ -1,5 +1,6 @@
 <template>
   <div class="my-projects">
+    <!-- <pre style="color: #fff"> {{ startups }}</pre> -->
     <div class="my-projects__header">
       <div class="my-projects__header-add-project">
         <U-title :text="'My projects'"></U-title>
@@ -62,6 +63,10 @@
       @closePopupLinkEmail="togglePopupDeleteStartup"
       @deleteStartup="deleteStartup"
     ></PopupDeleteStartup>
+    <div v-if="startups.length === 0" class="emty-state-my-startups">
+      <p class="emty-state-my-startups__title">There is no any startups yet</p>
+      <span>Create the your first startup.</span>
+    </div>
   </div>
 </template>
 <script lang="ts">
