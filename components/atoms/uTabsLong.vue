@@ -13,6 +13,7 @@
         >
           {{ button.title }}
           <div
+            v-show="inProgress !== 0"
             :class="
               button.message
                 ? 'startup-card__started--messege'
