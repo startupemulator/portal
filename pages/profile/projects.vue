@@ -76,7 +76,7 @@ export default class extends Vue {
           startups.findIndex((item) => item.id === el.id) === i
       );
     }
-
+    myStartups.sort((a, b) => b.id - a.id);
     return {
       myStartups,
       acceptedStartup,

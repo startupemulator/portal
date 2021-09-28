@@ -1,6 +1,5 @@
 <template>
   <div class="my-projects">
-    <!-- <pre style="color: #fff"> {{ startups }}</pre> -->
     <div class="my-projects__header">
       <div class="my-projects__header-add-project">
         <U-title :text="'My projects'"></U-title>
