@@ -350,7 +350,12 @@ export function deleteDraft($strapi: Strapi) {
   return async (id: string) => {
     await $strapi.graphql({
       query: `mutation {
-        deleteStartup(input: { where: { id: "${id}" } }) {
+        updateStartup (
+          input: {
+          where: {id: "${id}" }
+          data: {state: removed}
+         }
+         ) {
           startup {
             id
           }
