@@ -19,7 +19,7 @@
           @textInput="checkName"
         ></U-input>
         <p v-show="$v.name.$error" class="errorInput">
-          Please enter a full name
+          Please enter a full name, no more than 40 characters
         </p>
         <U-input
           :placeholder="'Enter your email'"
@@ -113,7 +113,13 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import { email, minLength, required, sameAs } from "vuelidate/lib/validators";
+import {
+  email,
+  minLength,
+  maxLength,
+  required,
+  sameAs,
+} from "vuelidate/lib/validators";
 import Toast from "../../../store/modules/Toast";
 import PopupEmailLink from "~/components/molecules/popupEmailLink.vue";
 import SigningUpLinkSent from "~/components/molecules/signingUpLinkSent.vue";
@@ -132,6 +138,7 @@ import {
     name: {
       required,
       minLength: minLength(4),
+      maxLength: maxLength(40),
     },
     email: {
       required,
