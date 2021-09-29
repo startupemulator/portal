@@ -780,7 +780,7 @@ export default class extends Vue {
         this.userId,
         comment,
         link,
-        "feedback",
+        flag === "advanced" || flag === "decline" ? "default" : "feedback",
         this.startup.id
       );
       if (newNotification !== null) {

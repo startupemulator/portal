@@ -52,21 +52,17 @@
             <div @click="readNotification(notification.id)">
               <nuxt-link
                 :to="{
-                  name:
-                    notification.notification.startup !== null
-                      ? 'startup-slug'
+                  path:
+                    notification.notification.startup !== null &&
+                    notification.notification.type === 'default'
+                      ? '/startup/requestsToTeam/' +
+                        notification.notification.startup.slug
+                      : notification.notification.startup !== null &&
+                        notification.notification.type === 'feedback'
+                      ? '/startup/' + notification.notification.startup.slug
                       : notification.notification.challenge !== null
-                      ? 'challenge-slug'
+                      ? '/challenge/' + notification.notification.challenge.slug
                       : '',
-                  params: {
-                    slug: notification.notification.link,
-                    notification:
-                      notification.notification.type === 'default'
-                        ? 'request'
-                        : notification.notification.type === 'feedback'
-                        ? notification.notification.type
-                        : '',
-                  },
                 }"
               >
                 <img src="~/assets/img/arrow.svg" />
@@ -116,14 +112,17 @@
                 {{ notification.published_at | formatDateWithTime }}
               </div>
             </div>
-
             <div @click="closeNotifications">
               <nuxt-link
                 :to="{
                   path:
-                    notification.notification.startup !== null
+                    notification.notification.startup !== null &&
+                    notification.notification.type === 'default'
                       ? '/startup/requestsToTeam/' +
                         notification.notification.startup.slug
+                      : notification.notification.startup !== null &&
+                        notification.notification.type === 'feedback'
+                      ? '/startup/' + notification.notification.startup.slug
                       : notification.notification.challenge !== null
                       ? '/challenge/' + notification.notification.challenge.slug
                       : '',
@@ -147,10 +146,6 @@
         <span>Show more</span>
       </button>
     </div>
-    <U-button
-      :button-name="'Show 20 More Notifications'"
-      :button-class="'u-button-gray notification-button'"
-    ></U-button>
     <Spiner :loading="notificationLoading"></Spiner>
   </div>
 </template>
@@ -266,6 +261,9 @@ export default class extends Vue {
   }
   .notification-popup__message {
     padding-bottom: 24px;
+    max-height: 245px;
+    overflow: hidden;
+    overflow-y: visible;
     .new-message__header {
       display: flex;
       justify-content: space-between;
@@ -367,6 +365,21 @@ export default class extends Vue {
     }
     .notification-popup__message {
       padding-bottom: 12px;
+      max-height: 540px;
+      &::-webkit-scrollbar {
+        width: 5px;
+        background-color: #2e384a;
+        padding-top: 20px;
+      }
+      &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: #59667e;
+      }
+      &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        background-color: #2e384a;
+      }
       .new-message__header {
         margin-bottom: 0;
         span {
