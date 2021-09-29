@@ -37,7 +37,6 @@ export default {
         } else {
           item.status = true;
         }
-        // item.status = item.id === i ? false : true;
       });
     },
   },
