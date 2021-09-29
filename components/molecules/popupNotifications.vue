@@ -52,21 +52,17 @@
             <div @click="readNotification(notification.id)">
               <nuxt-link
                 :to="{
-                  name:
-                    notification.notification.startup !== null
-                      ? 'startup-slug'
+                  path:
+                    notification.notification.startup !== null &&
+                    notification.notification.type === 'default'
+                      ? '/startup/requestsToTeam/' +
+                        notification.notification.startup.slug
+                      : notification.notification.startup !== null &&
+                        notification.notification.type === 'feedback'
+                      ? '/startup/' + notification.notification.startup.slug
                       : notification.notification.challenge !== null
-                      ? 'challenge-slug'
+                      ? '/challenge/' + notification.notification.challenge.slug
                       : '',
-                  params: {
-                    slug: notification.notification.link,
-                    notification:
-                      notification.notification.type === 'default'
-                        ? 'request'
-                        : notification.notification.type === 'feedback'
-                        ? notification.notification.type
-                        : '',
-                  },
                 }"
               >
                 <img src="~/assets/img/arrow.svg" />
@@ -116,14 +112,17 @@
                 {{ notification.published_at | formatDateWithTime }}
               </div>
             </div>
-
             <div @click="closeNotifications">
               <nuxt-link
                 :to="{
                   path:
-                    notification.notification.startup !== null
+                    notification.notification.startup !== null &&
+                    notification.notification.type === 'default'
                       ? '/startup/requestsToTeam/' +
                         notification.notification.startup.slug
+                      : notification.notification.startup !== null &&
+                        notification.notification.type === 'feedback'
+                      ? '/startup/' + notification.notification.startup.slug
                       : notification.notification.challenge !== null
                       ? '/challenge/' + notification.notification.challenge.slug
                       : '',

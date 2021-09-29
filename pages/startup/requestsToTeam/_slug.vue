@@ -56,7 +56,7 @@ export default class TakeStartup extends Vue {
         this.userId,
         comment,
         link,
-        "feedback",
+        flag === "advanced" || flag === "decline" ? "default" : "feedback",
         this.startup.id
       );
       if (newNotification !== null) {
@@ -167,6 +167,10 @@ export default class TakeStartup extends Vue {
     return {
       title: this.title,
     };
+  }
+
+  mounted() {
+    console.log(this.$route);
   }
 }
 </script>
