@@ -51,7 +51,7 @@
             @textInput="checkPassword"
           ></U-input>
           <p v-show="$v.password.$error" class="errorInput">
-            Please enter a password of at least 6 characters
+            Please enter a password of at least 8 characters
           </p>
         </div>
         <div>

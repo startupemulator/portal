@@ -19,6 +19,19 @@
           {{ card.state.split("_").join(" ") | capitalize }}
         </div>
         <div
+          v-if="userStatus !== '' && +card.owner.id !== +userId"
+          class="startup-card__started-title user-status"
+          :class="
+            userStatus === 'Member'
+              ? 'owner'
+              : userStatus === 'Rejected'
+              ? 'finished'
+              : ''
+          "
+        >
+          {{ userStatus }}
+        </div>
+        <div
           v-if="+card.owner.id === +userId && askFeedbacks === 0"
           class="startup-card__started-title owner"
         >
@@ -124,6 +137,7 @@ export default class StartupCard extends Vue {
   })
   waitingFeedback: Startup;
 
+  userStatus = "";
   userAccepted = false;
   allPositionsStaffed = false;
   askFeedbacks = 0;
@@ -143,15 +157,32 @@ export default class StartupCard extends Vue {
     }
     if (this.card.positions.length !== 0) {
       this.card.positions.forEach((item) => {
-        if (item.applications) {
-          item.applications.forEach((el) => {
-            if (
-              +el.user.id === +this.userId &&
-              (el.status === "accepted" || el.status === "advanced")
-            ) {
-              this.userAccepted = true;
-            }
-          });
+        if (
+          item.applications.length !== 0 &&
+          item.applications.some(
+            (el) =>
+              el.status === "accepted" ||
+              (el.status === "advanced" && +el.user.id === +this.userId)
+          )
+        ) {
+          this.userAccepted = true;
+          this.userStatus = "Member";
+        }
+        if (
+          item.applications.length !== 0 &&
+          item.applications.every(
+            (el) => el.status === "waiting" && +el.user.id === +this.userId
+          )
+        ) {
+          this.userStatus = "Applied";
+        }
+        if (
+          item.applications.length !== 0 &&
+          item.applications.every(
+            (el) => el.status === "declined" && +el.user.id === +this.userId
+          )
+        ) {
+          this.userStatus = "Rejected";
         }
       });
     }

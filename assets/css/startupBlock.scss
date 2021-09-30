@@ -106,6 +106,9 @@
       line-height: 24px;
       color: $main-text-color;
     }
+    .startup-card__started-title.user-status {
+      margin-left: 8px;
+    }
     .startup-card__started-title.feedback {
       background: #19adc7;
     }
