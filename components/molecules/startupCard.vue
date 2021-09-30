@@ -19,7 +19,7 @@
           {{ card.state.split("_").join(" ") | capitalize }}
         </div>
         <div
-          v-if="userStatus !== '' && +card.owner.id !== +userId"
+          v-if="userStatus !== ''"
           class="startup-card__started-title user-status"
           :class="
             userStatus === 'Member'
@@ -161,8 +161,8 @@ export default class StartupCard extends Vue {
           item.applications.length !== 0 &&
           item.applications.some(
             (el) =>
-              el.status === "accepted" ||
-              (el.status === "advanced" && +el.user.id === +this.userId)
+              (el.status === "accepted" || el.status === "advanced") &&
+              +el.user.id === +this.userId
           )
         ) {
           this.userAccepted = true;
