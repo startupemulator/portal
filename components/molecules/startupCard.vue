@@ -155,7 +155,7 @@ export default class StartupCard extends Vue {
     if (this.waitingFeedback.some((el) => +el.id === +this.card.id)) {
       this.checkAskFeedBack();
     }
-    if (this.card.positions.length !== 0) {
+    if (this.card.positions.length !== 0 && this.userId !== null) {
       this.card.positions.forEach((item) => {
         if (
           item.applications.length !== 0 &&
