@@ -77,7 +77,7 @@ export default class extends Vue {
   loading = false;
 
   newRequest: Array<any> = {
-    duration: this.experience ? this.experience : "1",
+    duration: this.experience,
   };
 
   applyToTeamGoStep2() {

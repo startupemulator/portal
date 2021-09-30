@@ -6,7 +6,7 @@
       :experiences="experiences"
       :specialisations="specialisations"
       :user-id="userId"
-      :experience="profile.experience.id"
+      :experience="profile.experience ? profile.experience.id : ''"
       :profile-id="profile.id"
       :profile="profile"
     ></BecomeToExpert>
