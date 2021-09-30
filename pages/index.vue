@@ -117,6 +117,7 @@ export default class extends Vue {
       const userProfile = await $profile($strapi.user.id);
       if (userProfile !== null) {
         isExpert = userProfile.is_expert;
+        console.log(userProfile);
       }
       userId = $strapi.user ? $strapi.user.id : null;
     }
