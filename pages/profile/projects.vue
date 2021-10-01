@@ -64,7 +64,10 @@ export default class extends Vue {
           el.applications.forEach((el) => {
             if (
               +el.user.id === +$strapi.user.id &&
-              (el.status === "accepted" || el.status === "advanced")
+              (el.status === "accepted" ||
+                el.status === "advanced" ||
+                el.status === "waiting" ||
+                el.status === "declined")
             ) {
               myStartups.push(item);
             }

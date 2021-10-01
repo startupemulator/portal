@@ -319,6 +319,13 @@ export function myStartups($strapi: Strapi) {
             id
             sort
             status
+            applications{
+              id
+              status
+              user{
+                id
+              }
+            }
             specialisation {
               id
               title
