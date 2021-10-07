@@ -43,7 +43,9 @@ import {
   emailConfirmation,
   getUserByEmail,
   updateUserPassword,
+  createPassword,
   users,
+  passwordType,
 } from "~/plugins/services/user";
 import {
   login,
@@ -238,12 +240,15 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("updateProfileName", updateProfileName(ctx.$strapi));
 
   inject("emailConfirmation", emailConfirmation(ctx.$strapi));
+  inject("passwordType", passwordType(ctx.$strapi));
+
   inject("users", users(ctx.$strapi));
   inject("getUserByEmail", getUserByEmail(ctx.$strapi));
 
   inject("createUser", createUser(ctx.$strapi));
 
   inject("updateUserPassword", updateUserPassword(ctx.$strapi));
+  inject("createPassword", createPassword(ctx.$strapi));
 
   inject("login", login(ctx.$strapi));
   inject("sendLoginLink", sendLoginLink(ctx.$strapi));

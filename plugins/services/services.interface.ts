@@ -199,10 +199,14 @@ export interface Services {
   ): Promise<NuxtStrapiLoginResult>;
 
   $updateUserPassword(
-    id: string,
-    password: string
+    password: string,
+    oldPassword: string,
+    passwordRepeat: string
   ): Promise<Partial<NotificationUser>[]>;
-
+  $createPassword(
+    password: string,
+    passwordRepeat: string
+  ): Promise<Partial<NotificationUser>[]>;
   $createUser(
     email: string,
     name: string,
@@ -210,6 +214,7 @@ export interface Services {
   ): Promise<Partial<NotificationUser>[]>;
 
   $emailConfirmation(token: string): Promise<Partial<NotificationUser>[]>;
+  $passwordType(): Promise<Partial<NotificationUser>[]>;
 
   $updateProfileName(
     id: string,

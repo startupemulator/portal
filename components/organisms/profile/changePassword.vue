@@ -1,22 +1,28 @@
 <template>
   <div class="change-password">
     <u-back :is-button="true" @clikOnButton="$emit('clickOnButton')"></u-back>
-    <u-title :text="'Change password'"></u-title>
+    <u-title
+      :text="passwordType === 'update' ? 'Change password' : 'Create password'"
+    ></u-title>
     <div class="change-password__content">
-      <p>Current password</p>
-      <UInput
-        :placeholder="'Enter your current password'"
-        :type="'password'"
-        :account-class="
-          $v.currentPassword.$error
-            ? 'create-account__email error'
-            : 'create-account__email'
-        "
-        @textInput="inputCurrentPassword"
-      ></UInput>
-      <p v-show="$v.currentPassword.$error" class="errorInput">
-        Please enter current password
-      </p>
+      <div v-if="passwordType === 'update'">
+        <p>Current password</p>
+        {{ passwordType }}
+        <UInput
+          :placeholder="'Enter your current password'"
+          :type="'password'"
+          :account-class="
+            $v.currentPassword.$error
+              ? 'create-account__email error'
+              : 'create-account__email'
+          "
+          @textInput="inputCurrentPassword"
+        ></UInput>
+
+        <p v-show="$v.currentPassword.$error" class="errorInput">
+          Please enter current password
+        </p>
+      </div>
       <p>New password</p>
 
       <UInput
@@ -108,6 +114,7 @@ export default class extends Vue {
   currentPassword = "";
   password = "";
   confirmPassword = "";
+  passwordType = "";
   loading = false;
 
   async changePassword() {
@@ -115,26 +122,28 @@ export default class extends Vue {
     if (!this.$v.$error) {
       try {
         this.loading = true;
-        // before update password need check current password
-        const user = await this.$strapi.login({
-          identifier: this.$strapi.user.email,
-          password: this.currentPassword,
-        });
-        if (user !== null) {
-          const updateUserPassword = await this.$updateUserPassword(
-            this.userId,
-            this.password
+        let userPassword = null;
+        if (this.passwordType === "update") {
+          userPassword = await this.$updateUserPassword(
+            this.password,
+            this.currentPassword,
+            this.confirmPassword
           );
-          if (updateUserPassword !== null) {
-            this.togglePopupChallengeStarted();
-            this.loading = false;
-          } else {
-            this.loading = false;
-            Toast.show({
-              data: "Something wrong.",
-              duration: 3000,
-            });
-          }
+        } else if (this.passwordType === "create") {
+          userPassword = await this.$createPassword(
+            this.password,
+            this.confirmPassword
+          );
+        }
+        if (userPassword !== null) {
+          this.togglePopupChallengeStarted();
+          this.loading = false;
+        } else {
+          this.loading = false;
+          Toast.show({
+            data: "Something wrong.",
+            duration: 3000,
+          });
         }
       } catch (e) {
         this.loading = false;
@@ -142,7 +151,6 @@ export default class extends Vue {
           data: e,
           duration: 3000,
         });
-        console.error(e);
       }
     }
   }
@@ -161,6 +169,20 @@ export default class extends Vue {
 
   inputConfirmPassword(data) {
     this.confirmPassword = data;
+  }
+
+  async mounted() {
+    try {
+      const passwordType = await this.$passwordType();
+      if (passwordType !== null) {
+        this.passwordType = passwordType.type;
+      }
+      if (this.passwordType === "create") {
+        this.currentPassword = "true"; // this is need for cheat veulidate currentPasswor, if we need only create new password
+      }
+    } catch (e) {
+      console.error(e);
+    }
   }
 }
 </script>
