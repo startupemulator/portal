@@ -62,7 +62,9 @@ export default class extends Vue {
     const specialisations = [];
     if (startup !== null) {
       startup.positions.forEach((el) => {
-        specialisations.push(el.specialisation);
+        if (el.status !== "staffed") {
+          specialisations.push(el.specialisation);
+        }
       });
     }
     const { experiences } = await $experiences();
