@@ -7,7 +7,6 @@
     <div class="change-password__content">
       <div v-if="passwordType === 'update'">
         <p>Current password</p>
-        {{ passwordType }}
         <UInput
           :placeholder="'Enter your current password'"
           :type="'password'"
