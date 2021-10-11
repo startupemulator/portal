@@ -48,22 +48,47 @@ export function createUser($strapi: Strapi) {
   };
 }
 export function updateUserPassword($strapi: Strapi) {
-  return async (id: string, password: string) => {
+  return async (
+    password: string,
+    oldPassword: string,
+    passwordRepeat: string
+  ) => {
     const data = await $strapi.graphql({
       query: `mutation {
-        updateUser(
-          input: {
-          where: {id: "${id}" }
-          data: { password: "${password}"}
-         }
-         ) {
-            user {
-              email
-            }
+        updatePassword( password: "${password}",
+                        oldPassword: "${oldPassword}",
+                        passwordRepeat: "${passwordRepeat}")
+                        {
+            status 
+                  }
+      }`,
+    });
+    return data.updatePassword ? data.updatePassword.status : null;
+  };
+}
+export function createPassword($strapi: Strapi) {
+  return async (password: string, passwordRepeat: string) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+        createPassword( password: "${password}",
+        passwordRepeat: "${passwordRepeat}") {
+            status 
+                  }
+      }`,
+    });
+    return data.createPassword ? data.createPassword.status : null;
+  };
+}
+export function passwordType($strapi: Strapi) {
+  return async () => {
+    const data = await $strapi.graphql({
+      query: `query {
+        changePasswordType{
+          type
         }
       }`,
     });
-    return data.updateUser ? data.updateUser.user : null;
+    return data.changePasswordType ? data.changePasswordType : null;
   };
 }
 

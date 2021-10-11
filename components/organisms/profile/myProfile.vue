@@ -92,7 +92,7 @@
       @removeTechnology="removeTechnology"
     ></EditProfile>
     <ChangePassword
-      v-if="changePassword"
+      v-show="changePassword"
       :user-id="userData.user.id"
       @clickOnButton="toggleChangePassword"
     ></ChangePassword>
