@@ -45,12 +45,9 @@
         ></U-button>
         <hr />
         <div class="create-account__buttons-continue">
-          <U-button
-            :button-name="'Continue with GitHub'"
-            :button-class="'u-button-gray'"
-            :is-link="'nuxt-link'"
-            :href="'/auth/github/connect'"
-          ></U-button>
+          <a :href="getAuthGithubLink()" class="button u-button u-button-grey">
+            Continue with GitHub
+          </a>
           <U-button
             :button-name="'Continue with the email link'"
             :button-class="'u-button-gray'"
@@ -94,6 +91,7 @@ import {
   disableScrolling,
   enableScrolling,
 } from "~/assets/jshelper/toggleScroll.js";
+
 @Component({
   validations: {
     email: {
@@ -188,6 +186,10 @@ export default class extends Vue {
         duration: 3000,
       });
     }
+  }
+
+  getAuthGithubLink() {
+    return `${this.$config.strapi.url}connect/github`;
   }
 }
 </script>
