@@ -61,6 +61,7 @@ export default class extends Vue {
   padding-top: 59px;
   color: #fff;
 }
+
 .badge-popup__content {
   position: relative;
   width: 343px;
@@ -72,11 +73,13 @@ export default class extends Vue {
   display: flex;
   flex-direction: column;
   align-items: center;
+
   .sign-up-link__close {
     position: absolute;
     right: 10px;
     background: none;
   }
+
   .content__profile-image {
     width: 192px;
     height: 192px;
@@ -84,6 +87,7 @@ export default class extends Vue {
     text-align: center;
     display: inline-block;
   }
+
   h2 {
     font-weight: bold;
     font-size: 26px;
@@ -92,6 +96,7 @@ export default class extends Vue {
     margin-top: 22px;
     text-align: center;
   }
+
   p {
     font-weight: normal;
     font-size: 16px;
@@ -99,16 +104,19 @@ export default class extends Vue {
     text-align: center;
     margin-top: 0;
   }
+
   .badge-popup__content-data {
     display: flex;
     justify-content: space-between;
     margin-top: 12px;
     margin-left: 52px;
     margin-right: 52px;
+
     .badge-popup__content-date {
       min-width: 90px;
       margin-right: 40px;
     }
+
     .badge-popup__content-form {
       min-width: 90px;
     }
@@ -119,12 +127,14 @@ export default class extends Vue {
       font-size: 14px;
       line-height: 20px;
     }
+
     div {
       font-weight: 500;
       font-size: 14px;
       line-height: 20px;
     }
   }
+
   .badge-popup__content-message {
     background: #2e384a;
     border-radius: 12px;
@@ -146,46 +156,56 @@ export default class extends Vue {
 @media (min-width: 768px) {
   .badge-popup {
     padding-top: 146px;
+
     .badge-popup__content {
       padding: 24px 24px 48px 24px;
       width: 564px;
+
       .sign-up-link__close {
         right: 18px;
         top: 22px;
       }
+
       .content__profile-image {
         margin-top: 22px;
       }
+
       h2 {
         font-weight: bold;
         font-size: 35px;
         line-height: 40px;
         margin-top: 24px;
       }
+
       p {
         font-weight: 500;
         font-size: 17px;
         line-height: 24px;
         margin-top: 12px;
       }
+
       .badge-popup__content-data {
         margin-top: 6px;
         margin-left: 120px;
         margin-right: 120px;
+
         .badge-popup__content-date {
           min-width: 87px;
           margin-right: 64px;
         }
+
         span {
           font-size: 14px;
           line-height: 24px;
         }
+
         div {
           font-size: 14px;
           line-height: 24px;
         }
       }
     }
+
     .badge-popup__content-message {
       width: 468px;
     }

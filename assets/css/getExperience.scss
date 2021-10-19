@@ -5,12 +5,14 @@
     #3b465a 0%,
     rgba(33, 41, 55, 0) 87%
   );
+
   .experience-content__second-image,
   .experience-content__third-image,
   .experience-content__first-image,
   .experience-content__four-image {
     display: none;
   }
+
   .get-experience-content .get-experience-content-mobile {
     margin: 0 auto;
     margin-top: 15px;
@@ -18,11 +20,13 @@
     overflow: hidden;
     justify-content: space-between;
     max-width: 375px;
+
     .experience-content__first-mobile-image img {
       position: relative;
       left: -35px;
       width: 228px;
     }
+
     .experience-content__second-mobile-image img {
       position: relative;
       top: -20px;
@@ -35,6 +39,7 @@
 .experience-content__title {
   display: flex;
   flex-direction: column;
+
   h2 {
     position: relative;
     width: 343px;
@@ -47,6 +52,7 @@
     // margin-top: 23px;
     top: -20px;
     z-index: 2;
+
     &::before {
       position: absolute;
       content: "";
@@ -60,6 +66,7 @@
       border-radius: 78px;
       z-index: -1;
     }
+
     &::after {
       position: absolute;
       content: "";
@@ -88,28 +95,36 @@
       margin-top: 16px;
     }
   }
+
   .button-startups {
     margin-top: 43px;
     background-color: $button-color-blue;
+
     &:hover {
       background-color: $button-color-blue-hover;
     }
+
     &:focus {
       background-color: $button-color-blue-focus;
     }
+
     &:active {
       background-color: $button-color-blue-active;
     }
   }
+
   .button-challenges {
     margin-top: 16px;
     background-color: $button-color-gray;
+
     &:hover {
       background-color: $button-color-gray-hover;
     }
+
     &:focus {
       background-color: $button-color-gray-focus;
     }
+
     &:active {
       background-color: $button-color-gray-active;
     }
@@ -119,10 +134,12 @@
 @media (min-width: 768px) {
   .get-experience .get-experience-content .get-experience-content-mobile {
     max-width: 90%;
+
     .experience-content__second-mobile-image img {
       left: 0;
     }
   }
+
   .experience-content__title {
     h2 {
       position: relative;
@@ -135,11 +152,13 @@
       margin: 0 auto;
       margin-top: 43px;
       z-index: 2;
+
       &::before {
         width: 384px;
         top: 73px;
         height: 8px;
       }
+
       &::after {
         width: 428px;
         top: 153px;
@@ -153,27 +172,34 @@
 @media (min-width: 1280px) {
   .get-experience {
     padding-top: 50px;
+
     .experience-content__second-image,
     .experience-content__third-image,
     .experience-content__first-image,
     .experience-content__four-image {
       display: block;
     }
+
     .experience-content__first-image img {
       width: 320px;
     }
+
     .experience-content__third-image img {
       width: 400px;
     }
+
     .experience-content__second-image img {
       width: 394px;
     }
+
     .experience-content__four-image img {
       width: 400px;
     }
+
     .get-experience-content {
       position: relative;
       margin: 0 auto;
+
       button {
         margin-top: 4px;
         width: 234px;
@@ -181,10 +207,12 @@
         font-size: 18px;
         line-height: 32px;
       }
+
       .button-startups {
         margin-right: 24px;
       }
     }
+
     .experience-content__five-image {
       position: absolute;
       top: 130px;
@@ -192,13 +220,16 @@
       display: flex;
       justify-content: center;
     }
+
     .get-experience-content .get-experience-content-mobile {
       display: none;
     }
+
     .get-experience-content-desktop {
       display: flex;
       flex-direction: column;
     }
+
     .desktop-1,
     .desktop-2 {
       width: 1290px;
@@ -207,20 +238,25 @@
       display: flex;
       justify-content: space-between;
     }
+
     .desktop-2 {
       margin-top: -10px;
     }
+
     .desktop-2 .experience-content__four-image {
       margin-top: 20px;
     }
+
     .button-startups--groupe {
       margin-top: 24px;
       flex-direction: row;
       justify-content: space-between;
       width: 492px;
+
       a:last-child {
         margin-top: 0;
       }
+
       .u-button-gray {
         margin-left: 24px;
       }

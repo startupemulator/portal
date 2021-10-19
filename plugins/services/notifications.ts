@@ -1,4 +1,42 @@
 import { Strapi } from "@nuxtjs/strapi";
+import { Notification } from "../../models/Notification";
+import { UserNotification } from "../../models/UserNotifications";
+
+export interface NotificationsServices {
+  $createNotification(
+    creatorId: string,
+    message: string,
+    link: string,
+    type: string
+  ): Promise<Partial<Notification>>;
+
+  $createUserNotification(
+    userId: string,
+    notificationId: string
+  ): Promise<Partial<Notification>>;
+
+  $createNotificationForStartup(
+    creatorId: string,
+    message: string,
+    link: string,
+    type: string,
+    startup: string
+  ): Promise<Partial<Notification>>;
+
+  $createNotificationForChallenge(
+    creatorId: string,
+    message: string,
+    link: string,
+    type: string,
+    challenge: string
+  ): Promise<Partial<Notification>>;
+
+  $userNotifications(userId: string): Promise<Partial<UserNotification>[]>;
+
+  $markReadNotification(
+    notificationId: string
+  ): Promise<Partial<UserNotification>>;
+}
 
 export function createNotification($strapi: Strapi) {
   return async (
@@ -26,6 +64,7 @@ export function createNotification($strapi: Strapi) {
     return data.notification ? data.notification : null;
   };
 }
+
 export function createNotificationForStartup($strapi: Strapi) {
   return async (
     creatorId: string,
@@ -47,7 +86,7 @@ export function createNotificationForStartup($strapi: Strapi) {
         }) {
           notification{
             id
-          }   
+          }
   }
 }`,
     });
@@ -56,6 +95,7 @@ export function createNotificationForStartup($strapi: Strapi) {
       : null;
   };
 }
+
 export function createNotificationForChallenge($strapi: Strapi) {
   return async (
     creatorId: string,
@@ -77,7 +117,7 @@ export function createNotificationForChallenge($strapi: Strapi) {
         }) {
           notification{
             id
-          }  
+          }
   }
 }`,
     });
@@ -118,7 +158,7 @@ export function userNotifications($strapi: Strapi) {
     viewed
     notified_at
     viewed_at
-    published_at 
+    published_at
     user{
       id
 
@@ -143,13 +183,14 @@ export function userNotifications($strapi: Strapi) {
         id
         slug
       }
-    }  
+    }
   }
 }`,
     });
     return data.userNotifications ? data.userNotifications : null;
   };
 }
+
 export function markReadNotification($strapi: Strapi) {
   return async (notificationId: string) => {
     const data = await $strapi.graphql({

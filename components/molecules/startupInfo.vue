@@ -196,6 +196,7 @@ export default class extends Vue {
 <style lang="scss">
 .startup-info {
   color: #fff;
+
   textarea {
     width: 340px;
     height: 136px;
@@ -211,6 +212,7 @@ export default class extends Vue {
     box-sizing: border-box;
     margin-bottom: 12px;
   }
+
   input {
     background-color: #2e384a;
     border-radius: 12px;
@@ -221,13 +223,16 @@ export default class extends Vue {
     padding-left: 16px;
     box-sizing: border-box;
     margin-top: 0;
+
     &::placeholder {
       color: #8c97ac;
     }
   }
+
   .standard-label .standard-input {
     padding-left: 24px;
   }
+
   .startup-info__form {
     p {
       font-weight: 500;
@@ -246,6 +251,7 @@ export default class extends Vue {
     color: #fff;
     margin-bottom: 10px;
   }
+
   .edit-startup-info__buttons {
     position: fixed;
     left: 0;
@@ -258,6 +264,7 @@ export default class extends Vue {
     display: flex;
     width: 100%;
     box-sizing: border-box;
+
     .u-button-gray {
       margin-left: 16px;
     }
@@ -270,6 +277,7 @@ export default class extends Vue {
       height: 56px;
       padding-left: 24px;
     }
+
     .tags-item input {
       position: absolute;
       top: 0;
@@ -278,6 +286,7 @@ export default class extends Vue {
       width: 0;
       opacity: 0;
     }
+
     textarea {
       width: 660px;
       height: 136px;
@@ -286,12 +295,14 @@ export default class extends Vue {
       padding: 12px 24px;
       margin-bottom: 0;
     }
+
     p {
       font-weight: 500;
       font-size: 17px;
       line-height: 32px;
       margin-top: 24px;
     }
+
     .startup-info__form {
       p {
         font-weight: 500;
@@ -301,6 +312,7 @@ export default class extends Vue {
         margin-top: 20px;
       }
     }
+
     .edit-startup-info__buttons {
       position: static;
       border: none;
@@ -313,6 +325,7 @@ export default class extends Vue {
       width: 100%;
       box-sizing: border-box;
       margin-top: 36px;
+
       .u-button-gray {
         margin-left: 24px;
       }

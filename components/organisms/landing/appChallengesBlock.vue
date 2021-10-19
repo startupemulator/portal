@@ -86,6 +86,7 @@ export default class AppChallengesBlock extends Vue {
   transition: 0.2s;
   transform: scale(1);
   position: relative;
+
   .active {
     transform: scale3d(0.8, 0.8, 0.8);
     transition: 0.2s;

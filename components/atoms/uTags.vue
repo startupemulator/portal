@@ -38,6 +38,7 @@ export default class extends Vue {
   margin-bottom: 14px;
   background: rgba(89, 102, 126, 0);
   transition: 0.2s;
+
   input {
     position: absolute;
     top: 0;

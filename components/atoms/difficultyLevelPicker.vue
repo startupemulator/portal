@@ -49,10 +49,12 @@ export default class extends Vue {
     line-height: 32px;
     margin: 0;
   }
+
   .difficulty-level-list {
     padding: 0;
     display: flex;
   }
+
   .difficulty-level-item {
     border: 1px solid #59667e;
     box-sizing: border-box;
@@ -63,12 +65,15 @@ export default class extends Vue {
     height: 40px;
     text-align: center;
     cursor: pointer;
+
     &:first-child {
       border-radius: 16px 0 0 16px;
     }
+
     &:last-child {
       border-radius: 0 16px 16px 0;
     }
+
     &.checked {
       background: #59667e;
       border: 1px solid #8c97ac;

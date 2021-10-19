@@ -9,12 +9,14 @@
   flex-direction: column;
   align-items: center;
   margin-top: 56px;
+
   img {
     width: 295px;
     height: 170px;
     border-radius: 12px;
     margin-top: 24px;
   }
+
   h2 {
     width: 295px;
     margin: 0 auto;
@@ -24,6 +26,7 @@
     font-size: 26px;
     line-height: 32px;
   }
+
   h3 {
     width: 295px;
     color: $main-text-color;
@@ -36,6 +39,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
   a {
     margin-top: 25px;
   }
@@ -80,10 +84,12 @@
   .team-develop {
     min-height: 452px;
     margin-top: 75px;
+
     img {
       width: 596px;
       height: 384px;
     }
+
     h2 {
       font-weight: 800;
       font-size: 46px;
@@ -92,6 +98,7 @@
       max-width: 596px;
       padding-top: 10px;
     }
+
     h3 {
       font-weight: normal;
       font-size: 17px;
@@ -101,10 +108,12 @@
       max-width: 536px;
       margin-left: 0;
     }
+
     button {
       padding: 0;
       margin-top: 10px;
     }
+
     a {
       display: block;
       max-width: 164px;
@@ -117,9 +126,11 @@
     max-width: 1344px;
     margin: 0 auto;
     margin-top: 75px;
+
     a {
       margin-top: 13px;
     }
+
     h2 {
       font-size: 56px;
     }

@@ -1,4 +1,28 @@
 import { Strapi } from "@nuxtjs/strapi";
+import { Sources } from "../../models/Sources";
+
+export interface SourcesServices {
+  $sources(id: string): Promise<Partial<Sources>[]>;
+
+  $deleteSource(id: string): Promise<Partial<Sources>>;
+
+  $createSource(
+    title: string,
+    link: string,
+    startupId: string
+  ): Promise<Partial<Sources>>;
+
+  $createSourceForChallenge(
+    title: string,
+    link: string
+  ): Promise<Partial<Sources>>;
+
+  $updateSource(
+    id: string,
+    title: string,
+    link: string
+  ): Promise<Partial<Sources>>;
+}
 
 export function sources($strapi: Strapi) {
   return async (id: string) => {
@@ -32,7 +56,7 @@ export function createSource($strapi: Strapi) {
   return async (title: string, link: string, startupId: string) => {
     const data = await $strapi.graphql({
       query: `mutation {
-        createSource(input: { data: { 
+        createSource(input: { data: {
           title: "${title}", link: "${link} ", startups:"${startupId}" } }) {
             source {
            id
@@ -49,7 +73,7 @@ export function createSourceForChallenge($strapi: Strapi) {
   return async (title: string, link: string) => {
     const data = await $strapi.graphql({
       query: `mutation {
-        createSource(input: { data: { 
+        createSource(input: { data: {
           title: "${title}", link: "${link} " } }) {
             source {
            id

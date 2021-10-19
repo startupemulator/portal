@@ -1,4 +1,16 @@
 import { Strapi } from "@nuxtjs/strapi";
+import { Technology } from "../../models/Technology";
+
+export interface TechnologiesServices {
+  $technologies(isPublic: boolean): Promise<Partial<Technology>[]>;
+
+  $createTechnologies(
+    creator: number,
+    title: string
+  ): Promise<Partial<Technology>[]>;
+
+  $myTechnologies(creator: string): Promise<Partial<Technology>[]>;
+}
 
 export function technologies($strapi: Strapi) {
   return (isPublic: boolean = true) => {
@@ -8,7 +20,7 @@ export function technologies($strapi: Strapi) {
     id
     title
     is_public
-   
+
   }
 }`,
     });
@@ -44,7 +56,7 @@ export function createTechnologies($strapi: Strapi) {
               creator_id
               title
             }
-    
+
   }
 }`,
     });

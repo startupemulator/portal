@@ -211,16 +211,20 @@ export default class extends Vue {
   width: 343px;
   margin: 0 auto;
   margin-top: 40px;
+
   .errorInput {
     margin-bottom: 0;
     top: 0;
+
     &.link {
       margin-bottom: 16px;
     }
   }
+
   h2 {
     margin-bottom: 12px;
   }
+
   p {
     font-weight: normal;
     font-size: 16px;
@@ -228,19 +232,23 @@ export default class extends Vue {
     margin-top: 12px;
     margin-bottom: 32px;
   }
+
   .u-button-blue.add-link {
     width: 340px;
     height: 40px;
     margin-bottom: 36px;
   }
+
   .request-feedback__comment {
     margin-top: 32px;
+
     p {
       font-weight: 500;
       font-size: 16px;
       line-height: 24px;
       margin-bottom: 8px;
     }
+
     textarea {
       width: 343px;
       height: 136px;
@@ -253,14 +261,17 @@ export default class extends Vue {
       padding: 8px 16px;
       box-sizing: border-box;
       color: #fff;
+
       &::placeholder {
         color: #b5c1d8;
       }
+
       &:focus {
         border: 2px solid #b5c1d8;
       }
     }
   }
+
   .request-feedback__button {
     position: fixed;
     left: 0;
@@ -274,6 +285,7 @@ export default class extends Vue {
     width: 100%;
     display: flex;
   }
+
   .request-feedback__finished-challenge {
     position: relative;
     margin-top: 32px;
@@ -281,12 +293,14 @@ export default class extends Vue {
     input {
       display: none;
     }
+
     label {
       font-weight: normal;
       font-size: 16px;
       line-height: 22px;
       padding-left: 36px;
       cursor: pointer;
+
       &::before {
         position: absolute;
         left: 0;
@@ -299,6 +313,7 @@ export default class extends Vue {
         cursor: pointer;
       }
     }
+
     input:checked ~ label {
       &::after {
         cursor: pointer;
@@ -321,26 +336,31 @@ export default class extends Vue {
   .request-feedback {
     width: 660px;
     margin-top: 48px;
+
     p {
       font-weight: normal;
       font-size: 17px;
       line-height: 24px;
       margin-bottom: 48px;
     }
+
     .u-button-blue.add-link {
       width: 121px;
       height: 48px;
       margin-bottom: 32px;
     }
+
     .technology-picker__title {
       margin-bottom: 12px;
     }
+
     .request-feedback__comment {
       p {
         font-weight: 500;
         font-size: 17px;
         line-height: 32px;
       }
+
       textarea {
         padding: 12px 24px;
         font-weight: normal;

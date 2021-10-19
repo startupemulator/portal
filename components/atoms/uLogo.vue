@@ -19,10 +19,12 @@ export default {};
   margin: 0;
   margin-left: 12px;
 }
+
 .main-header-logo img {
   height: 40px;
   width: 40px;
 }
+
 .main-header-logo {
   display: flex;
   align-items: center;

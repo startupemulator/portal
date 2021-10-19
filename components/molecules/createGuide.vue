@@ -49,9 +49,11 @@ export default class extends Vue {
   justify-content: space-between;
   align-items: flex-start;
   width: 340px;
+
   label {
     width: 100%;
   }
+
   .button-remove-link {
     position: relative;
     background: transparent;
@@ -59,23 +61,28 @@ export default class extends Vue {
     margin-top: 15px;
     right: -5px;
   }
+
   .link-name__inputs label {
     margin-bottom: 8px;
     display: inline-block;
+
     .standart-input {
       padding-left: 16px;
     }
   }
 }
+
 .createProject-step4 {
   .standard-label .standard-input {
     padding-left: 16px;
   }
 }
+
 .existing-sources {
   .standard-label .standard-input {
     padding-left: 8px;
   }
+
   textarea {
     background: #2e384a;
     border-radius: 12px;
@@ -89,9 +96,11 @@ export default class extends Vue {
     font-size: 16px;
     //   line-height: 32px;
     border: 2px solid transparent;
+
     &:focus {
       border: 2px solid #b5c1d8;
     }
+
     &::placeholder {
       color: #b5c1d8;
     }
@@ -101,6 +110,7 @@ export default class extends Vue {
 @media (min-width: 768px) {
   .existing-sources__link-name {
     width: 660px;
+
     label {
       width: 620px;
     }
@@ -114,6 +124,7 @@ export default class extends Vue {
       font-size: 18px;
       // line-height: 32px;
     }
+
     .standard-label .standard-input {
       padding-left: 16px;
     }

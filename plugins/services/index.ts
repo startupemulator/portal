@@ -2,6 +2,17 @@ import { Context, Plugin } from "@nuxt/types";
 
 import { Inject } from "@nuxt/types/app";
 import {
+  createSolution,
+  deleteSolution,
+  solutions,
+  updateSolution,
+} from "./solutions";
+import {
+  deleteUserChallenges,
+  userChallengesById,
+  userChallengesByUserId,
+} from "./user-challenges";
+import {
   addTechnologiesStartup,
   deleteDraft,
   filterStartup,
@@ -60,6 +71,8 @@ import {
   askFeedbacksForStartup,
   createAskFeedbackForChallenge,
   createAskFeedbackForStartup,
+} from "~/plugins/services/ask-feedbacks";
+import {
   createFeedback,
   feedbackById,
   feedbacks,
@@ -114,27 +127,16 @@ import {
   deleteSource,
   sources,
   updateSource,
-} from "~/plugins/services/Sources";
+} from "~/plugins/services/sources";
 
 import {
   createSecret,
   deleteSecret,
   secrets,
   updateSecret,
-} from "~/plugins/services/Secrets";
+} from "~/plugins/services/secrets";
 
 import { createLike, deleteLike } from "~/plugins/services/likes";
-import {
-  deleteUserChallenges,
-  userChallengesById,
-  userChallengesByUserId,
-} from "~/plugins/services/userChallenges";
-import {
-  createSolution,
-  deleteSolution,
-  solutions,
-  updateSolution,
-} from "~/plugins/services/solution";
 import { directions } from "~/plugins/services/directions";
 import { badges } from "~/plugins/services/badges";
 import {

@@ -50,6 +50,7 @@ export default {
   margin: 0 auto;
   margin-top: 175px;
 }
+
 .signing-up-link-sent__content {
   background: #232b39;
   border-radius: 12px;
@@ -57,11 +58,13 @@ export default {
   width: 343px;
   box-sizing: border-box;
   position: relative;
+
   h2 {
     font-weight: bold;
     font-size: 26px;
     line-height: 32px;
   }
+
   p {
     font-weight: normal;
     font-size: 16px;
@@ -69,6 +72,7 @@ export default {
     color: #fff;
   }
 }
+
 .sign-up-link__close {
   background: transparent;
   position: absolute;
@@ -82,12 +86,14 @@ export default {
   .signing-up-link-sent .signing-up-link-sent__content {
     min-height: 304px;
     margin-top: 325px;
+
     h2 {
       font-weight: bold;
       font-size: 35px;
       line-height: 40px;
       margin-top: 0;
     }
+
     p {
       font-weight: normal;
       font-size: 17px;
@@ -95,13 +101,16 @@ export default {
       color: #fff;
     }
   }
+
   .signing-up-link-sent__content {
     width: 564px;
     padding: 48px;
   }
+
   .signing-up-link-sent p {
     width: 468px;
   }
+
   .sign-up-link__close {
     background: transparent;
     position: absolute;

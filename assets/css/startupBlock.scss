@@ -4,9 +4,11 @@
   .startup-card__started-name {
     padding-top: 32px;
   }
+
   h3 {
     margin-bottom: 0;
   }
+
   .startup-card {
     transition: 1s;
     opacity: 1;
@@ -14,6 +16,7 @@
     min-height: 362px;
     padding-bottom: 32px;
   }
+
   .startup-card__started-text {
     margin-top: 5px;
   }
@@ -24,10 +27,13 @@
     display: none;
   }
 }
+
 .startup-block {
   margin-top: 56px;
+
   .startup-block-content {
     margin: 0 16px;
+
     .startup-block-link,
     .startup-block-button {
       display: flex;
@@ -46,6 +52,7 @@
     line-height: 40px;
     margin: 0;
   }
+
   h3 {
     color: $main-text-color;
     font-weight: normal;
@@ -67,6 +74,7 @@
       margin-left: 15px;
     }
   }
+
   .startup-block__startup-cards {
     .transition__startup-card {
       display: flex;
@@ -74,6 +82,7 @@
       max-width: 1368px;
     }
   }
+
   .startup-card {
     width: 327px;
     min-height: 446px;
@@ -87,6 +96,7 @@
       display: flex;
       justify-content: flex-end;
     }
+
     .startup-card__started-state {
       padding: 8px;
       background: #283040;
@@ -95,6 +105,7 @@
       display: flex;
       align-items: center;
     }
+
     .startup-card__started-title {
       background: #8c97ac;
       box-shadow: 0 -2px 8px rgba(140, 151, 172, 0.3),
@@ -106,22 +117,28 @@
       line-height: 24px;
       color: $main-text-color;
     }
+
     .startup-card__started-title.user-status {
       margin-left: 8px;
     }
+
     .startup-card__started-title.feedback {
       background: #19adc7;
     }
+
     .startup-card__started-title.started {
       background: #3cc28d;
     }
+
     .startup-card__started-title.finished {
       background: #f0663b;
     }
+
     .startup-card__started-title.owner {
       background: #19adc7;
       margin-left: 8px;
     }
+
     .startup-card__started-title.askFeedbacks {
       background: #eaf42c;
       border-radius: 14px;
@@ -134,9 +151,11 @@
       margin-left: 8px;
     }
   }
+
   .startup-card-content {
     padding: 0 24px;
   }
+
   .startup-card__started-name {
     font-weight: bold;
     font-size: 26px;
@@ -147,6 +166,7 @@
     overflow: hidden;
     word-wrap: break-word;
   }
+
   .startup-card__started-text {
     min-height: 72px;
     color: $main-text-color;
@@ -156,10 +176,12 @@
     margin: 0;
     word-wrap: break-word;
   }
+
   .startup-card__started-technologies {
     min-height: 80px;
     margin-top: 14px;
   }
+
   .startup-card__started-technologies-items {
     display: flex;
     flex-wrap: wrap;
@@ -167,6 +189,7 @@
     margin: 0;
     max-height: 80px;
     overflow: hidden;
+
     .startup-card__started-technology {
       color: $second-text-color;
       font-size: 14px;
@@ -179,8 +202,10 @@
       margin: 0 4px 8px 0;
     }
   }
+
   .startup-card__started-start-time {
     display: flex;
+
     h3 {
       margin: 0;
       margin-top: 3px;
@@ -189,6 +214,7 @@
       font-size: 14px;
       line-height: 20px;
     }
+
     p {
       margin: 0;
       color: $main-text-color;
@@ -196,19 +222,23 @@
       font-size: 14px;
       line-height: 20px;
     }
+
     .started-start-time__start {
       width: 50%;
       margin-right: 25px;
     }
+
     .started-start-time__duration {
       width: 50%;
     }
   }
+
   .startup-block__buttons {
     margin-top: 10px;
     display: flex;
     width: 279px;
     justify-content: space-between;
+
     .u-button-gray,
     .u-button-blue {
       width: 135px;
@@ -227,46 +257,58 @@
       margin-top: 0;
     }
   }
+
   .startup-block.challenges {
     min-height: 820px;
     margin-top: 30px;
+
     .startup-block__startup-cards {
       margin-left: 0;
     }
+
     .startup-card__started-text {
       margin-top: 15px;
     }
+
     .startup-card {
       margin-top: -5px;
       width: 318px;
     }
+
     .startup-card__started-name {
       padding-top: 50px;
     }
+
     .startup-card__started-start-time {
       display: none;
     }
+
     .startup-block__buttons {
       margin-top: 0;
     }
   }
+
   .startup-block {
     max-width: 1440px;
     margin: 0 auto;
     // min-height: 920px;
     margin-top: 132px;
+
     .startup-block-content {
       margin: 0 48px;
     }
+
     .startup-block-content__desktop-buttons {
       display: flex;
       justify-content: space-between;
     }
+
     h2 {
       font-weight: 800;
       font-size: 69px;
       line-height: 80px;
     }
+
     h3 {
       color: $main-text-color;
       font-weight: normal;
@@ -275,16 +317,20 @@
       width: 459px;
       margin-top: 23px;
     }
+
     .startup-block-button {
       margin-left: 55px;
     }
+
     .startup-card {
       width: 318px;
       min-height: 568px;
       margin-left: 24px;
+
       .startup-card__started-state {
         padding: 12px;
       }
+
       .startup-card__started-title {
         background: #8c97ac;
         box-shadow: 0 -2px 8px rgba(140, 151, 172, 0.3),
@@ -297,9 +343,11 @@
         color: $main-text-color;
       }
     }
+
     .startup-card-content {
       padding: 0 32px;
     }
+
     .startup-card__started-name {
       font-weight: bold;
       font-size: 35px;
@@ -309,6 +357,7 @@
       overflow: hidden;
       margin-top: 30px;
     }
+
     .startup-card__started-text {
       font-weight: normal;
       font-size: 17px;
@@ -316,31 +365,38 @@
       margin-top: 23px;
       width: 260px;
     }
+
     .startup-card__started-technologies {
       min-height: 84px;
       width: 262px;
       margin-top: 32px;
     }
+
     .startup-card__started-start-time {
       display: flex;
       margin-top: 20px;
+
       .started-start-time__start {
         margin-right: 5px;
       }
     }
+
     .startup-block__buttons {
       margin-top: 20px;
       display: flex;
       width: 254px;
+
       .u-button-gray,
       .u-button-blue {
         width: 121px;
       }
     }
+
     .desktop-buttons__slider {
       display: flex;
       width: 145px;
       justify-content: space-between;
+
       .slider-button {
         width: 60px;
         height: 60px;
@@ -350,9 +406,11 @@
         justify-content: center;
         align-items: center;
         border: 2px solid transparent;
+
         &:active {
           border: 2px solid #b5c1d8;
         }
+
         &:first-child img {
           transform: rotate(180deg);
         }
@@ -363,9 +421,11 @@
       }
     }
   }
+
   .startup-block-content__head {
     display: flex;
   }
+
   .startup-block__startup-cards {
     margin-top: 50px;
     margin-left: 24px;
@@ -380,6 +440,7 @@
   .startup-block.challenges .startup-card__started-name {
     padding-top: 0;
   }
+
   .startup-block.challenges {
     margin-left: 48px;
     margin-top: 160px;
@@ -387,17 +448,20 @@
     //   margin-right: 48px;
     // }
   }
+
   .testimonials {
     .startup-block-content__desktop-buttons {
       align-items: baseline;
       display: flex;
       justify-content: space-between;
     }
+
     .desktop-buttons__slider {
       display: flex;
       min-width: 145px;
       justify-content: space-between;
       margin-right: 32px;
+
       .slider-button {
         width: 64px;
         height: 64px;
@@ -408,25 +472,31 @@
         align-items: center;
         padding: 0;
         border: 2px solid transparent;
+
         &:active {
           border: 2px solid #b5c1d8;
         }
+
         &:first-child img {
           transform: rotate(180deg);
         }
+
         img {
           margin: 0;
         }
       }
     }
   }
+
   .start-ups_cards-content .startup-card.startup-card--draft {
     width: 314px;
     padding-bottom: 40px;
+
     .startup-card__started-name {
       min-height: auto;
       margin-top: 30px;
     }
+
     .startup-card__started-text {
       width: 260px;
       margin-top: 23px;
@@ -441,9 +511,11 @@
       width: 659px;
     }
   }
+
   .startup-block.challenges .startup-block-content {
     margin: 0 24px;
   }
+
   .startup-block.challenges .startup-block__startup-cards {
     margin-top: 70px;
     margin-left: 24px;
@@ -451,6 +523,7 @@
 
   .startup-block.challenges {
     margin-left: 24px;
+
     .startup-block-content__desktop-buttons {
       margin-right: 24px;
     }
@@ -466,13 +539,16 @@
       margin-right: 0;
     }
   }
+
   .startup-block.challenges .startup-block-content {
     margin: 0 48px;
   }
+
   .startup-block.challenges .startup-block__startup-cards {
     margin-top: 55px;
     margin-left: 48px;
   }
+
   .testimonials {
     .desktop-buttons__slider {
       margin: 0;

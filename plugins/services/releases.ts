@@ -1,4 +1,23 @@
 import { Strapi } from "@nuxtjs/strapi";
+import { Releases } from "../../models/Releases";
+
+export interface ReleasesServices {
+  $releases(id: string): Promise<Partial<Releases>[]>;
+
+  $deleteRelease(id: string): Promise<Partial<Releases>>;
+
+  $createRelease(
+    title: string,
+    url: string,
+    startupId: string
+  ): Promise<Partial<Releases>>;
+
+  $updateRelease(
+    id: string,
+    title: string,
+    url: string
+  ): Promise<Partial<Releases>>;
+}
 
 export function releases($strapi: Strapi) {
   return async (id: string) => {
@@ -32,7 +51,7 @@ export function createRelease($strapi: Strapi) {
   return async (title: string, url: string, startupId: string) => {
     const data = await $strapi.graphql({
       query: `mutation {
-        createRelease(input: { data: { 
+        createRelease(input: { data: {
           title: "${title}", url: "${url}",  startup:"${startupId}" } }) {
             release {
            id

@@ -49,6 +49,7 @@ export default class extends Vue {}
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   .finish-startup__content {
     background: #232b39;
     border-radius: 12px;
@@ -57,12 +58,14 @@ export default class extends Vue {}
     padding: 24px;
     padding-top: 40px;
     position: relative;
+
     h3 {
       font-weight: bold;
       font-size: 26px;
       line-height: 32px;
       margin-top: 0;
     }
+
     .sign-up-link__close {
       position: absolute;
       right: 16px;
@@ -70,6 +73,7 @@ export default class extends Vue {}
       background: transparent;
     }
   }
+
   .u-button-gray {
     margin-top: 16px;
   }
@@ -79,14 +83,17 @@ export default class extends Vue {}
     .finish-startup__content {
       width: 564px;
       padding: 48px;
+
       h3 {
         font-weight: bold;
         font-size: 35px;
         line-height: 40px;
       }
     }
+
     .finish-startup__content__buttons {
       display: flex;
+
       .u-button-gray {
         margin-top: 0;
         margin-left: 24px;

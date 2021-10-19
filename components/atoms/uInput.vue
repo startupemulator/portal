@@ -67,11 +67,13 @@ export default {
 <style lang="scss">
 .standard-label {
   position: relative;
+
   img {
     position: absolute;
     top: -2px;
     left: 15px;
   }
+
   .btnShowPassword {
     position: absolute;
     border: none;
@@ -79,6 +81,7 @@ export default {
     right: 35px;
     top: 0;
   }
+
   .standard-input {
     background: #2e384a;
     border-radius: 12px;
@@ -99,14 +102,17 @@ export default {
       font-weight: normal;
       font-size: 16px;
     }
+
     &:focus {
       border: 2px solid #b5c1d8;
     }
   }
 }
+
 .delete-startup__input .standard-input {
   padding-left: 16px;
 }
+
 .standard-label .standard-input.error {
   border: 1px solid #e94646;
 }
@@ -117,19 +123,23 @@ export default {
       top: -2px;
       left: 24px;
     }
+
     .btnShowPassword {
       right: 55px;
     }
+
     .standard-input {
       height: 56px;
       padding-left: 64px;
       font-size: 18px;
       line-height: 32px;
+
       &::placeholder {
         font-size: 18px;
       }
     }
   }
+
   .update-startup__input .standard-input {
     padding-left: 24px;
   }

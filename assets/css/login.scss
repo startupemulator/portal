@@ -3,33 +3,41 @@
   min-height: 490px;
   margin: 0 auto;
   margin-top: 37px;
+
   .create-account {
     margin: 0 16px;
   }
+
   .create-account__password,
   .create-account__email {
     margin: 0 0 16px 0;
   }
+
   .create-account__log-in {
     margin-top: 10px;
   }
+
   hr {
     background: #4e5a71;
     height: 1px;
     border: none;
     margin-top: 32px;
   }
+
   .create-account__buttons-continue {
     margin-top: 32px;
+
     button {
       &:last-child {
         margin-bottom: 16px;
       }
     }
+
     a.u-button {
       margin-bottom: 16px;
     }
   }
+
   .account__go-to-sign-up {
     display: flex;
     align-items: baseline;
@@ -42,6 +50,7 @@
       line-height: 24px;
       margin-right: 8px;
     }
+
     .button-back span {
       color: #8c97ac;
       font-weight: 600;
@@ -50,6 +59,7 @@
     }
   }
 }
+
 .errorInput {
   position: relative;
   font-weight: normal;
@@ -59,6 +69,7 @@
   margin: 0;
   padding-left: 24px;
   top: -16px;
+
   &::before {
     content: "";
     width: 16px;
@@ -72,26 +83,33 @@
 @media (min-width: 768px) {
   .account {
     min-width: 660px;
+
     .create-account {
       margin: 0;
+
       .button-back {
         margin-top: 45px;
       }
     }
+
     .create-account__buttons-continue {
       display: flex;
       justify-content: space-between;
+
       button {
         &:last-child {
           margin-top: 0;
         }
       }
+
       .u-button {
         width: 318px;
       }
     }
+
     .account__go-to-sign-up {
       margin-top: 0;
+
       .button-back {
         margin-top: 32px;
       }

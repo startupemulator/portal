@@ -43,6 +43,7 @@ export default class extends Vue {
   margin: 0 auto;
   margin-top: 175px;
 }
+
 .signing-up-link-sent p {
   margin-bottom: 24px;
 }
@@ -50,6 +51,7 @@ export default class extends Vue {
   .signing-up-link-sent .signing-up-link-sent__content {
     margin-top: 325px;
   }
+
   .signing-up-link-sent p {
     width: 468px;
   }

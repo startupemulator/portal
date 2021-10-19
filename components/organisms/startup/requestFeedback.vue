@@ -117,9 +117,11 @@ export default class extends Vue {
   margin: 0 auto;
   margin-top: 40px;
   color: #fff;
+
   .errorInput {
     top: 0;
   }
+
   .request-feedback__comment {
     h4 {
       font-weight: 500;
@@ -127,6 +129,7 @@ export default class extends Vue {
       line-height: 24px;
       margin-bottom: 8px;
     }
+
     textarea {
       background: #2e384a;
       border-radius: 12px;
@@ -136,11 +139,13 @@ export default class extends Vue {
       color: #fff;
       box-sizing: border-box;
       border: none;
+
       &::placeholder {
         color: #b5c1d8;
       }
     }
   }
+
   .request-feedback--button {
     position: fixed;
     bottom: 0;
@@ -158,22 +163,26 @@ export default class extends Vue {
   .request-feedback {
     width: 660px;
     margin-top: 48px;
+
     .request-feedback__comment {
       h4 {
         font-size: 17px;
         line-height: 32px;
       }
+
       textarea {
         width: 660px;
         height: 136px;
         padding: 12px 24px;
         font-size: 18px;
         line-height: 28px;
+
         &::placeholder {
           color: #b5c1d8;
         }
       }
     }
+
     .request-feedback--button {
       position: static;
       padding: 32px 0 28px 0;

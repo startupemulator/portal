@@ -201,11 +201,14 @@ export default class extends Vue {
   margin: 0 auto;
   padding: 0 16px;
   margin-top: 40px;
+
   h2 {
     margin-bottom: 28px;
   }
+
   .add-team-feedback__comment {
     margin-top: 8px;
+
     p {
       color: #fff;
       font-weight: 500;
@@ -214,6 +217,7 @@ export default class extends Vue {
       margin-top: 0;
       margin-bottom: 8px;
     }
+
     textarea {
       font-weight: normal;
       font-size: 16px;
@@ -226,14 +230,17 @@ export default class extends Vue {
       height: 136px;
       border: 2px solid transparent;
       box-sizing: border-box;
+
       &::placeholder {
         color: #b5c1d8;
       }
+
       &:focus {
         border: 2px solid #b5c1d8;
       }
     }
   }
+
   .add-team-feedback__buttons {
     position: fixed;
     left: 0;
@@ -246,10 +253,12 @@ export default class extends Vue {
     box-sizing: border-box;
     width: 100%;
     display: flex;
+
     .u-button-gray {
       margin-left: 16px;
     }
   }
+
   .errorInput.comment-error {
     top: 0;
   }
@@ -259,14 +268,18 @@ export default class extends Vue {
     width: 660px;
     padding: 0;
     margin-top: 48px;
+
     h2 {
       margin-bottom: 38px;
     }
+
     .add-team-feedback__comment {
       margin-top: 32px;
+
       p {
         margin-bottom: 10px;
       }
+
       textarea {
         font-size: 18px;
         line-height: 28px;
@@ -277,11 +290,13 @@ export default class extends Vue {
         &::placeholder {
           color: #b5c1d8;
         }
+
         &:focus {
           border: 2px solid #b5c1d8;
         }
       }
     }
+
     .add-team-feedback__buttons {
       position: static;
       border: none;
@@ -294,6 +309,7 @@ export default class extends Vue {
       width: 100%;
       box-sizing: border-box;
       margin-top: 24px;
+
       .u-button-gray {
         margin-left: 24px;
       }

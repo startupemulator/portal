@@ -67,10 +67,12 @@ export default class extends Vue {
   min-height: auto;
   padding-bottom: 30px;
   color: #fff;
+
   .startup-card__started-name {
     margin-top: 16px;
     min-height: auto;
   }
+
   .startup-card__started-text {
     width: 285px;
     margin-top: 10px;
@@ -79,16 +81,19 @@ export default class extends Vue {
     font-size: 16px;
     line-height: 22px;
   }
+
   .draft {
     padding: 8px;
     background-color: transparent;
     box-shadow: none;
     box-sizing: border-box;
   }
+
   .startup-card__started {
     display: flex;
     justify-content: flex-end;
   }
+
   .startup-card-content {
     padding: 0 24px;
   }
@@ -104,20 +109,25 @@ export default class extends Vue {
     line-height: 24px;
     color: #fff;
   }
+
   .startup-card__started-title.feedback {
     background: #19adc7;
   }
+
   .startup-card__started-title.started {
     background: #3cc28d;
   }
+
   .startup-card__started-title.finished {
     background: #f0663b;
   }
 }
+
 .startup-card--draft {
   background-color: transparent;
   border: 2px dashed #8c97ac;
   border-radius: 12px;
+
   button {
     margin-top: 16px;
   }
@@ -136,6 +146,7 @@ export default class extends Vue {
     min-height: 568px;
     width: 318px;
     box-sizing: border-box;
+
     .startup-card__started-text {
       min-height: 203px;
       margin-top: 24px;
@@ -145,12 +156,14 @@ export default class extends Vue {
       padding: 12px;
     }
   }
+
   .startup-card--draft {
     .startup-card__started-name {
       font-size: 35px;
       line-height: 38px;
     }
   }
+
   .startup-card.startup-card--draft .startup-card__started-name {
     margin-top: 24px;
   }

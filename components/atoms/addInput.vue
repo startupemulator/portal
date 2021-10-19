@@ -88,6 +88,7 @@ export default class extends Vue {
 .input-add.focused {
   border: 2px solid #b5c1d8;
 }
+
 .input-add {
   position: relative;
   width: 100%;
@@ -96,6 +97,7 @@ export default class extends Vue {
   border-radius: 12px;
   border: 2px solid transparent;
   box-sizing: border-box;
+
   &:focus {
     border: 2px solid #b5c1d8;
   }
@@ -107,6 +109,7 @@ export default class extends Vue {
     padding: 8px 16px;
     margin: 0;
   }
+
   .input-add__item {
     border: 1px solid #59667e;
     box-sizing: border-box;
@@ -125,12 +128,14 @@ export default class extends Vue {
     button {
       border: none;
       background-color: transparent;
+
       img {
         width: 12px;
         height: 12px;
       }
     }
   }
+
   .input-add__item-title {
     margin-left: auto;
     font-weight: 500;
@@ -139,6 +144,7 @@ export default class extends Vue {
     text-align: right;
     color: #dbe4f3;
   }
+
   .input-add__input {
     background-color: transparent;
     border: none;
@@ -147,6 +153,7 @@ export default class extends Vue {
     font-weight: 300;
     font-size: 16px;
     line-height: 32px;
+
     &::placeholder {
       color: #b5c1d8;
       font-weight: 300;
@@ -160,6 +167,7 @@ export default class extends Vue {
     .input-add__content {
       padding: 9px 24px;
     }
+
     .input-add__item-title {
       margin-left: auto;
       font-weight: 500;
@@ -168,10 +176,12 @@ export default class extends Vue {
       text-align: right;
       color: #dbe4f3;
     }
+
     .input-add__input {
       font-size: 18px;
       line-height: 32px;
       width: 60%;
+
       &::placeholder {
         font-size: 18px;
         line-height: 32px;

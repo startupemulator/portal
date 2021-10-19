@@ -1,4 +1,26 @@
 import { Strapi } from "@nuxtjs/strapi";
+import { Profile } from "../../models/Profile";
+
+export interface ProfileServices {
+  $profile(id: string): Promise<Partial<Profile>[]>;
+
+  $profileByUserId(id: string): Promise<Partial<Profile>[]>;
+
+  $expertProfiles(): Promise<Partial<Profile>[]>;
+
+  $profileBySlug(slug: string): Promise<Partial<Profile>[]>;
+
+  $updateProfileName(
+    id: string,
+    name: Array<string>
+  ): Promise<Partial<Profile>>;
+
+  $updateProfile(
+    id: string,
+    technologies: Array<string>,
+    experience: string
+  ): Promise<Partial<Profile>>;
+}
 
 export function profile($strapi: Strapi) {
   return async (id: string) => {
@@ -24,7 +46,7 @@ export function profile($strapi: Strapi) {
         is_public
       }
       experience {
-        id 
+        id
         title
       }
   }
@@ -43,7 +65,7 @@ export function profileByUserId($strapi: Strapi) {
       slug
     user {
         id
-        
+
     }
   }
 }`,
@@ -88,7 +110,7 @@ export function profileBySlug($strapi: Strapi) {
         is_public
       }
       experience {
-        id 
+        id
         title
       }
   }
@@ -128,11 +150,11 @@ export function updateProfile($strapi: Strapi) {
                 is_public
               }
               experience {
-                id 
+                id
                 title
               }
           }
-          
+
         }
       }`,
     });

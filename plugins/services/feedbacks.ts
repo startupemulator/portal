@@ -1,5 +1,29 @@
 import { Strapi } from "@nuxtjs/strapi";
-// import { Feedbacks } from "~/models/Feedbacks";
+import { Feedbacks } from "../../models/Feedbacks";
+
+export interface FeedbacksServices {
+  $feedbacksByStartupID(id: string): Promise<Partial<Feedbacks>[]>;
+
+  $newFeedbacksByStartupID(id: string): Promise<Partial<Feedbacks>[]>;
+
+  $feedbacks(): Promise<Partial<Feedbacks>[]>;
+
+  $feedbackById(id: string): Promise<Partial<Feedbacks>[]>;
+
+  $updateFeedback(id: string, badges: []): Promise<Partial<Feedbacks>[]>;
+
+  $publicFeedback(id: string): Promise<Partial<Feedbacks>[]>;
+
+  $unPublicFeedback(id: string): Promise<Partial<Feedbacks>[]>;
+
+  $createFeedback(
+    expert: string,
+    description: string,
+    criterions: Array<string>,
+    badges: Array<string>,
+    request: string
+  ): Promise<Partial<Feedbacks>>;
+}
 
 export function feedbacksByStartupID($strapi: Strapi) {
   return async (id: string) => {
@@ -14,7 +38,7 @@ export function feedbacksByStartupID($strapi: Strapi) {
       id
       mark
       direction{
-        id 
+        id
         title
       }
     }
@@ -45,7 +69,7 @@ export function feedbacksByStartupID($strapi: Strapi) {
       startup {
         id
       }
-      creator{ 
+      creator{
         id
         profile{
           name
@@ -93,7 +117,7 @@ export function feedbacks($strapi: Strapi) {
       id
       mark
       direction{
-        id 
+        id
         title
       }
     }
@@ -127,7 +151,7 @@ export function feedbacks($strapi: Strapi) {
       challenge {
         id
       }
-      creator{ 
+      creator{
         id
         profile{
           name
@@ -146,7 +170,7 @@ export function feedbackById($strapi: Strapi) {
     const data = await $strapi.graphql({
       query: `query {
         feedbacks(where: {id: "${id}"}, sort: "published_at:desc") {
-          
+
     id
     description
     is_public
@@ -155,7 +179,7 @@ export function feedbackById($strapi: Strapi) {
       id
       mark
       direction{
-        id 
+        id
         title
       }
     }
@@ -186,13 +210,13 @@ export function feedbackById($strapi: Strapi) {
       startup {
         id
       }
-      creator{ 
+      creator{
         id
         profile{
           name
           slug
         }
-      
+
     }
   }
 }
@@ -201,7 +225,6 @@ export function feedbackById($strapi: Strapi) {
     return data.feedbacks ? data.feedbacks[0] : null;
   };
 }
-
 export function createFeedback($strapi: Strapi) {
   return async (
     expert: string,
@@ -217,7 +240,7 @@ export function createFeedback($strapi: Strapi) {
           feedback {
           id
     }
-  } 
+  }
 }`,
     });
     return data.createFeedback ? data.createFeedback.feedback : null;
@@ -272,269 +295,5 @@ export function unPublicFeedback($strapi: Strapi) {
 }`,
     });
     return data.updateFeedback ? data.updateFeedback.feedback : null;
-  };
-}
-
-export function askFeedbacks($strapi: Strapi) {
-  return async () => {
-    const data = await $strapi.graphql({
-      query: `query {
-        requests {
-    id
-    comment
-    is_new
-    technologies{
-      id
-      title
-    }
-    challenge {
-      id
-    }
-    startup {
-      id
-    }
-  }
-}`,
-    });
-    return data.requests ? data.requests : null;
-  };
-}
-export function createAskFeedbackForStartup($strapi: Strapi) {
-  return async (
-    creator: string,
-    comment: string,
-    technologies: [],
-    startup: string
-  ) => {
-    const data = await $strapi.graphql({
-      query: `mutation {
-        createRequest(input: { data: { comment: "${comment}",
-         technologies: [${technologies}], startup: "${startup}", is_new: true, creator: "${creator}"} }) {
-        request {
-         id
-         is_new
-    comment
-    technologies{
-      id
-      title
-    }
-    challenge {
-      id
-    }
-    startup {
-      id
-    } 
-        }
-    
-  }
-}`,
-    });
-    return data.createRequest ? data.createRequest.request : null;
-  };
-}
-export function createAskFeedbackForChallenge($strapi: Strapi) {
-  return async (
-    creator: string,
-    comment: string,
-    technologies: [],
-    challenge: string
-  ) => {
-    const data = await $strapi.graphql({
-      query: `mutation {
-        createRequest(input: { data: { comment: "${comment}",
-        technologies: [${technologies}], challenge: "${challenge}", is_new: true, creator: "${creator}"} }) {
-        request {
-         id
-         is_new
-    comment
-    technologies{
-      id
-      title
-    }
-    challenge {
-      id
-    }
-    startup {
-      id
-    } 
-        }
-    
-  }
-}`,
-    });
-    return data.createRequest ? data.createRequest.request : null;
-  };
-}
-export function askFeedbacksByChallengeId($strapi: Strapi) {
-  return async (id: string) => {
-    const data = await $strapi.graphql({
-      query: `query {
-        requests (where: {challenge: {id: "${id}"}}) {
-          id
-          comment
-          is_new
-          technologies{
-            id
-            title
-          }
-          challenge {
-            id
-          }
-          creator{
-            id
-            profile{
-              name
-              slug
-            }
-          }
-          feedbacks{
-            id
-            description
-            criterions {
-              id
-              mark
-              direction{
-                id
-                title
-                comment
-              }
-            }
-            badges {
-              id
-              title
-              image {
-                id
-                url
-              }
-            }
-            is_public
-            expert{
-              id
-              profile{
-                name
-                slug
-              }
-              
-            }
-            published_at
-          }
-          solutions {
-            id
-            title
-            url
-            published_at
-          }
-        }
-      }`,
-    });
-    return data.requests ? data.requests : null;
-  };
-}
-
-export function askFeedbacksByStartupId($strapi: Strapi) {
-  return async (id: string) => {
-    const data = await $strapi.graphql({
-      query: `query {
-        requests (where: {startup: {id: "${id}"}}) {
-          id
-          comment
-          is_new
-          technologies{
-            id
-            title
-          }
-          startup {
-            id
-          }
-          creator{
-            id
-            profile{
-              name
-              slug
-            }
-          }
-          feedbacks{
-            id
-            description
-            criterions {
-              id
-              mark
-              direction{
-                id
-                title
-                comment
-              }
-            }
-            badges {
-              id
-              title
-              image {
-                id
-                url
-              }
-            }
-            is_public
-            expert{
-              id
-              profile{
-                name
-                slug
-              }
-              
-            }
-            published_at
-          }
-          solutions {
-            id
-            title
-            url
-            published_at
-          }
-        }
-      }`,
-    });
-    return data.requests[0] ? data.requests : null;
-  };
-}
-export function askFeedbacksForStartup($strapi: Strapi) {
-  return async () => {
-    const data = await $strapi.graphql({
-      query: `query {
-        requests (where: {startup_gt: "0"}){
-    id
-    startup {
-      id
-      state
-    }
-  }
-}`,
-    });
-    return data.requests ? data.requests : null;
-  };
-}
-export function askFeedbacksForChallenges($strapi: Strapi) {
-  return async () => {
-    const data = await $strapi.graphql({
-      query: `query {
-        requests (where: {challenge_gt: "0"}){
-    id
-    challenge {
-      id
-      title
-    }
-    creator{
-      id
-    }
-    feedbacks{
-      id
-      description
-      expert{
-        id
-      }
-    }
-  }
-}`,
-    });
-    return data.requests ? data.requests : null;
   };
 }

@@ -54,6 +54,7 @@ export default class extends Vue {
   z-index: 6;
   display: flex;
   align-items: flex-end;
+
   .guide-popup__content {
     position: relative;
     padding: 16px 24px 64px 24px;
@@ -62,18 +63,21 @@ export default class extends Vue {
     box-sizing: border-box;
     background: #232b39;
     border-radius: 12px;
+
     .sign-up-link__close {
       position: absolute;
       right: 10px;
       top: 16px;
       background: transparent;
     }
+
     h2 {
       font-weight: bold;
       font-size: 26px;
       line-height: 32px;
       margin-bottom: 16px;
     }
+
     h4 {
       font-weight: 600;
       font-size: 17px;
@@ -81,15 +85,18 @@ export default class extends Vue {
       margin-top: 0;
       margin-bottom: 4px;
     }
+
     p {
       margin: 0;
       font-weight: normal;
       font-size: 16px;
       line-height: 22px;
     }
+
     .guide {
       margin-top: 20px;
     }
+
     a {
       font-weight: normal;
       font-size: 16px;
@@ -104,31 +111,37 @@ export default class extends Vue {
   .guide-popup {
     align-items: center;
     justify-content: center;
+
     .guide-popup__content {
       width: 564px;
       height: auto;
       padding: 48px 48px 48px 48px;
+
       h2 {
         font-weight: bold;
         font-size: 35px;
         line-height: 40px;
         margin-top: 0;
       }
+
       h4 {
         font-weight: 600;
         font-size: 18px;
         line-height: 32px;
       }
+
       p {
         font-weight: normal;
         font-size: 17px;
         line-height: 24px;
       }
+
       .guide {
         font-weight: 600;
         font-size: 18px;
         line-height: 32px;
       }
+
       a {
         font-weight: normal;
         font-size: 17px;

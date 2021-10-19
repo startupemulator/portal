@@ -3,17 +3,21 @@
   min-height: 382px;
   margin: 0 auto;
 }
+
 .participate-challenge__content {
   margin-top: 36px;
+
   .standard-label input {
     padding-left: 16px;
     font-weight: normal;
+
     &::placeholder {
       font-size: 16px;
       line-height: 32px;
       font-weight: 300;
     }
   }
+
   .standard-label::before {
     position: absolute;
     content: "days";
@@ -25,6 +29,7 @@
     color: #dbe4f3;
   }
 }
+
 .bottom-fixed-button {
   position: fixed;
   bottom: 0;
@@ -38,16 +43,19 @@
   box-sizing: border-box;
   z-index: 5;
 }
+
 .bottom-fixed-button ~ .main-footer {
   padding-bottom: 75px;
 }
 @media (min-width: 768px) {
   .participate-challenge {
     width: 660px;
+
     .bottom-fixed-button {
       margin-top: 36px;
     }
   }
+
   .bottom-fixed-button {
     position: relative;
     width: 660px;
@@ -58,21 +66,26 @@
     border-radius: 0;
     padding: 0;
     box-sizing: border-box;
+
     button {
       margin-top: 32px;
       margin-left: 0;
       width: 660px;
     }
   }
+
   .bottom-fixed-button ~ .main-footer {
     padding-bottom: 0;
   }
+
   .participate-challenge__content {
     .button-back {
       margin-top: 44px;
     }
+
     .technology-picker {
       min-height: 98px;
+
       h2 {
         margin-top: 34px;
         margin-bottom: 10px;
@@ -81,13 +94,16 @@
         line-height: 32px;
       }
     }
+
     .standard-label input {
       padding-left: 24px;
       font-weight: 300;
+
       &::placeholder {
         font-size: 18px;
       }
     }
+
     .standard-label::before {
       position: absolute;
       content: "days";

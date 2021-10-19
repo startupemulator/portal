@@ -174,12 +174,15 @@ export default class extends Vue {
 .participant-solution {
   margin-top: 40px;
   padding: 0 16px;
+
   h2 {
     margin-bottom: 12px;
   }
+
   .startup-card__started-start-time {
     display: flex;
     margin-bottom: 40px;
+
     h3 {
       font-weight: normal;
       font-size: 14px;
@@ -187,6 +190,7 @@ export default class extends Vue {
       color: #8c97ac;
       margin: 0;
     }
+
     p {
       font-weight: 500;
       font-size: 14px;
@@ -194,14 +198,17 @@ export default class extends Vue {
       margin: 0;
       padding: 0;
     }
+
     .started-start-time__finished,
     .started-start-time__duration {
       width: 164px;
     }
+
     .started-start-time__duration {
       margin-left: 16px;
     }
   }
+
   .participant-solution__title {
     font-weight: bold;
     font-size: 26px;
@@ -216,18 +223,22 @@ export default class extends Vue {
     padding: 0;
     max-width: 831px;
     box-sizing: border-box;
+
     h2 {
       margin-bottom: 20px;
     }
+
     .startup-card__started-start-time {
       .started-start-time__finished,
       .started-start-time__duration {
         width: 135px;
       }
     }
+
     .startup-card__sources {
       margin-top: 60px;
     }
+
     .participant-solution__title {
       font-weight: 600;
       font-size: 35px;
@@ -235,6 +246,7 @@ export default class extends Vue {
       margin-top: 24px;
       margin-bottom: 24px;
     }
+
     .u-button-gray {
       width: 241px;
       height: 48px;

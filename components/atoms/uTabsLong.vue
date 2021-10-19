@@ -105,15 +105,18 @@ export default class extends Vue {
   max-width: 343px;
   overflow: hidden;
   min-height: 58px;
+
   .mobile-owned {
     left: 0;
     width: 443px;
     transition: 0.2s;
+
     &.move {
       left: -100px;
     }
   }
 }
+
 .u-tab-list {
   position: relative;
   display: flex;
@@ -135,6 +138,7 @@ export default class extends Vue {
     border-radius: 8px;
     transition: 0.2s;
   }
+
   button.active-button {
     color: #fff;
     background: #19adc7;
@@ -142,14 +146,17 @@ export default class extends Vue {
     box-shadow: inset 0 -2px 4px 1px #38a4b7,
       inset 0 1px 4px rgba(255, 255, 255, 0.3);
   }
+
   .u-tabs-message,
   .startup-card__started--messege {
     display: flex;
     align-items: center;
   }
+
   .tartup-card__started--disable {
     display: none;
   }
+
   .startup-card__started--messege {
     box-shadow: 0 -2px 8px rgba(234, 244, 44, 0.3),
       0 2px 8px rgba(234, 244, 44, 0.3),
@@ -164,6 +171,7 @@ export default class extends Vue {
     display: flex;
     justify-content: center;
     align-items: baseline;
+
     span {
       font-weight: 500;
       font-size: 14px;
@@ -178,18 +186,22 @@ export default class extends Vue {
     margin: 0 auto;
     margin-top: 48px;
     max-width: 585px;
+
     .mobile-owned {
       left: 0;
       width: 585px;
       transition: 0.2s;
+
       &.move {
         left: 0;
       }
     }
+
     .u-tab-list {
       padding: 12px;
     }
   }
+
   .u-tabs {
     button {
       padding: 8px 17px;
@@ -197,6 +209,7 @@ export default class extends Vue {
       font-size: 17px;
       line-height: 32px;
     }
+
     button.active-button {
       padding: 8px 24px;
     }

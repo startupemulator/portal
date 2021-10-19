@@ -1,6 +1,7 @@
 .testimonials {
   color: $main-text-color;
   margin-top: 55px;
+
   .testimonials-title {
     font-weight: bold;
     font-size: 36px;
@@ -8,10 +9,12 @@
     margin-left: 16px;
     margin-bottom: 25px;
   }
+
   .testimonials-content {
     display: flex;
     overflow: hidden;
     height: 326px;
+
     .testimonial-block {
       position: relative;
       width: 327px;
@@ -33,33 +36,39 @@
         z-index: 2;
       }
     }
+
     h3 {
       font-weight: normal;
       font-size: 16px;
       line-height: 22px;
       margin: 32px 24px 16px 24px;
       max-height: 130px;
+
       .u-button {
         display: contents;
         font-size: 16px;
         line-height: 22px;
+
         &:hover {
           text-decoration: underline;
         }
       }
     }
+
     p {
       padding-top: 3px;
       text-align: center;
       margin-bottom: 0;
       margin-top: 0;
     }
+
     .testimonial-block__position {
       color: #8c97ac;
       font-weight: 500;
       font-size: 14px;
       line-height: 20px;
     }
+
     .testimonial-block__img {
       position: absolute;
       bottom: -32px;
@@ -70,6 +79,7 @@
       border-radius: 50%;
     }
   }
+
   .testimonials-popup {
     padding-bottom: 238px;
     padding-top: 238px;
@@ -82,12 +92,14 @@
       box-sizing: border-box;
       position: relative;
       height: fit-content;
+
       .sign-up-link__close {
         position: absolute;
         background-color: transparent;
         right: 10px;
         top: 16px;
       }
+
       h3 {
         font-weight: normal;
         font-size: 16px;
@@ -95,6 +107,7 @@
         color: #dbe4f3;
         margin: 0;
       }
+
       .testimonials-popup__full-name {
         text-align: center;
         font-weight: bold;
@@ -103,6 +116,7 @@
         margin: 0;
         margin-top: 16px;
       }
+
       .testimonials-popup__position {
         text-align: center;
         color: #8c97ac;
@@ -111,6 +125,7 @@
         line-height: 20px;
         margin: 0;
       }
+
       .testimonials-popup__img {
         display: block;
         margin: 24px auto 0 auto;
@@ -125,6 +140,7 @@
 @media (min-width: 768px) {
   .testimonials {
     margin-top: 150px;
+
     .testimonials-title {
       font-style: normal;
       font-weight: 800;
@@ -132,6 +148,7 @@
       line-height: 80px;
       margin-left: 48px;
     }
+
     .testimonials-content {
       margin-left: 36px;
     }
@@ -142,6 +159,7 @@
   .testimonials {
     width: 1344px;
     margin: 0 auto;
+
     .testimonials-title {
       font-style: normal;
       font-weight: 800;
@@ -151,20 +169,24 @@
       margin-top: 170px;
       letter-spacing: 0.5px;
     }
+
     .testimonials-content {
       display: flex;
       overflow: hidden;
       height: 386px;
       margin-top: 40px;
       margin-left: 0;
+
       .testimonial-block {
         width: 432px;
         min-width: 432px;
         height: 328px;
         margin-left: 24px;
+
         &:first-child {
           margin-left: 0;
         }
+
         &::before {
           width: 120px;
           height: 60px;
@@ -172,6 +194,7 @@
           left: calc(50% - 60px);
           background-image: url("../img/corner-big.svg");
         }
+
         h3 {
           font-weight: normal;
           font-size: 17px;
@@ -179,12 +202,14 @@
           margin: 48px 48px 14px 48px;
           min-height: 130px;
         }
+
         p {
           padding-top: 3px;
           text-align: center;
           margin-bottom: 0;
           margin-top: 0;
         }
+
         .testimonial-block__img {
           position: absolute;
           height: 88px;
@@ -195,18 +220,22 @@
         }
       }
     }
+
     .testimonials-popup {
       .testimonials-popup__content {
         width: 664px;
         padding: 64px 48px 48px 48px;
+
         .sign-up-link__close {
           right: 20px;
           top: 24px;
         }
+
         h3 {
           font-size: 17px;
           line-height: 24px;
         }
+
         .testimonials-popup__full-name {
           font-size: 17px;
           line-height: 24px;

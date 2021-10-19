@@ -41,6 +41,7 @@ export default class extends Vue {
   color: #fff;
   display: flex;
   z-index: 99;
+
   .system-alert__left-border {
     min-width: 16px;
     height: 148px;
@@ -48,12 +49,14 @@ export default class extends Vue {
     box-shadow: -4px 0 6px 1px rgba(233, 70, 70, 0.25),
       4px 0 6px 1px rgba(233, 70, 70, 0.25);
     border-radius: 12px 0 0 12px;
+
     &.success {
       background: #3cc28d;
       box-shadow: 0 -2px 8px rgba(60, 194, 141, 0.3),
         0 2px 8px rgba(60, 194, 141, 0.3);
     }
   }
+
   h3 {
     margin-bottom: 10px;
     position: relative;
@@ -62,6 +65,7 @@ export default class extends Vue {
     font-weight: bold;
     font-size: 17px;
     line-height: 24px;
+
     &::before {
       content: "";
       position: absolute;
@@ -71,6 +75,7 @@ export default class extends Vue {
       left: 24px;
     }
   }
+
   h4 {
     margin-bottom: 10px;
     position: relative;
@@ -79,6 +84,7 @@ export default class extends Vue {
     font-weight: bold;
     font-size: 17px;
     line-height: 24px;
+
     &::before {
       content: "";
       position: absolute;
@@ -88,6 +94,7 @@ export default class extends Vue {
       left: 24px;
     }
   }
+
   p {
     margin-top: 0;
     padding-left: 56px;
@@ -96,9 +103,11 @@ export default class extends Vue {
     font-size: 14px;
     line-height: 20px;
     color: #b5c1d8;
+
     span {
       display: block;
     }
+
     div {
       display: inline;
     }
@@ -115,6 +124,7 @@ export default class extends Vue {
       min-width: 16px;
       height: 120px;
     }
+
     h3,
     h4 {
       padding-left: 60px;
@@ -122,11 +132,13 @@ export default class extends Vue {
       font-size: 18px;
       line-height: 24px;
     }
+
     p {
       padding-left: 60px;
       font-weight: 300;
       font-size: 14px;
       line-height: 20px;
+
       span {
         display: inline;
       }

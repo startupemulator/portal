@@ -1,4 +1,13 @@
 import { Strapi } from "@nuxtjs/strapi";
+import { userChallenges } from "../../models/UserChallenges";
+
+export interface UserChallengesServices {
+  $userChallengesById(id: string): Promise<Partial<userChallenges>[]>;
+
+  $userChallengesByUserId(id: string): Promise<Partial<userChallenges>[]>;
+
+  $deleteUserChallenges(id: string): Promise<Partial<userChallenges>>;
+}
 
 export function userChallengesById($strapi: Strapi) {
   return async (id: string) => {
@@ -16,7 +25,7 @@ export function userChallengesById($strapi: Strapi) {
            estimation
            challenge{
              id
-           } 
+           }
   }
 }`,
     });
@@ -54,7 +63,7 @@ export function deleteUserChallenges($strapi: Strapi) {
           userChallenge{
             id
           }
-           
+
   }
 }`,
     });

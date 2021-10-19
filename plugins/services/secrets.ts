@@ -1,4 +1,23 @@
 import { Strapi } from "@nuxtjs/strapi";
+import { Secrets } from "~/models/Secrets";
+
+export interface SecretsServices {
+  $secrets(id: string): Promise<Partial<Secrets>[]>;
+
+  $deleteSecret(id: string): Promise<Partial<Secrets>>;
+
+  $createSecret(
+    title: string,
+    description: string,
+    startupId: string
+  ): Promise<Partial<Secrets>>;
+
+  $updateSecret(
+    id: string,
+    title: string,
+    description: string
+  ): Promise<Partial<Secrets>>;
+}
 
 export function secrets($strapi: Strapi) {
   return async (id: string) => {
@@ -32,7 +51,7 @@ export function createSecret($strapi: Strapi) {
   return async (title: string, description: string, startupId: string) => {
     const data = await $strapi.graphql({
       query: `mutation {
-        createSecret(input: { data: { 
+        createSecret(input: { data: {
           title: "${title}", description: "${description}", startup: "${startupId}"  } }) {
             secret {
            id

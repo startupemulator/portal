@@ -1,4 +1,12 @@
 import { Strapi } from "@nuxtjs/strapi";
+import { Like } from "~/models/Like";
+
+export interface LikesServices {
+  $createLike(feedback: string, user: string): Promise<Partial<Like>>;
+
+  $deleteLike(id: string): Promise<Partial<Like>>;
+}
+
 export function createLike($strapi: Strapi) {
   return async (feedback: string, user: string) => {
     const data = await $strapi.graphql({

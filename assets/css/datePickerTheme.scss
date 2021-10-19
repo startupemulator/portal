@@ -12,23 +12,28 @@ $primary-color: #b5c1d8;
   border: none;
   font-family: $font-stack;
 }
+
 .xmx-table-date .cell.not-current-month {
   color: #b5c1d8;
 }
+
 .xmx-calendar-content .cell.disabled {
   color: #fff;
   background-color: transparent;
 }
+
 .xmx-date-row td div {
   font-weight: 500;
   font-size: 17px;
 }
+
 .xmx-table thead th {
   color: #8c97ac;
   font-weight: 500;
   font-size: 17px;
   line-height: 32px;
 }
+
 .xmx-calendar-content .cell:hover {
   box-shadow: inset 0 -2px 4px 1px rgba(48, 92, 178, 0.15),
     inset 0 1px 4px rgba(255, 255, 255, 0.15);
@@ -36,10 +41,12 @@ $primary-color: #b5c1d8;
   border-radius: 6px;
   background: #59667e;
 }
+
 .xmx-calendar-content .cell.active {
   border-radius: 6px;
   background: #59667e;
 }
+
 .xmx-icon-left::before,
 .xmx-icon-right::before,
 .xmx-icon-double-left::before,
@@ -50,25 +57,30 @@ $primary-color: #b5c1d8;
   height: 15px;
   border-width: 3px 0 0 3px;
 }
+
 .xmx-table-date td,
 .xmx-table-date th {
   height: 48px;
   width: 48px;
 }
+
 .xmx-table-month td,
 .xmx-table-month th {
   width: 112px;
   height: 72px;
 }
+
 .xmx-table-year td,
 .xmx-table-year th {
   width: 168px;
   height: 57.5px;
 }
+
 .xmx-calendar-header-label {
   font-weight: 500;
   font-size: 17px;
 }
+
 .xmx-calendar {
   width: 384px;
   height: 392px;
@@ -76,23 +88,28 @@ $primary-color: #b5c1d8;
   font-size: 17px;
   padding: 16px;
 }
+
 .xmx-table-month,
 .xmx-table-year {
   margin-top: 24px;
 }
+
 .xmx-btn {
   color: #8c97ac;
   font-weight: 500;
   font-size: 17px;
 }
+
 .xmx-calendar-header-label .xmx-btn-text {
   color: #fff;
 }
+
 .xmx-btn-text:hover {
   border-radius: 6px;
   background: #59667e;
   color: #fff;
 }
+
 .xmx-table-date .today {
   color: #fff;
   font-weight: 500;
@@ -102,6 +119,7 @@ $primary-color: #b5c1d8;
   background: #59667e;
   border: 1px solid #8c97ac;
 }
+
 .xmx-datepicker {
   .xmx-input-wrapper input {
     padding-left: 56px;
@@ -110,15 +128,18 @@ $primary-color: #b5c1d8;
     line-height: 32px;
     color: #b5c1d8;
   }
+
   svg {
     width: 24px;
     height: 24px;
   }
+
   .xmx-icon-calendar {
     right: auto;
     left: 16px;
     color: transparent;
   }
+
   .xmx-icon-clear {
     right: auto;
     left: 16px;
@@ -130,6 +151,7 @@ $primary-color: #b5c1d8;
     .xmx-input-wrapper input {
       padding-left: 65px;
     }
+
     .xmx-icon-calendar,
     .xmx-icon-clear {
       left: 24px;

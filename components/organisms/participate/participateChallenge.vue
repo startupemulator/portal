@@ -97,12 +97,15 @@ export default class ParticipateChallenge extends Vue {
 <style lang="scss">
 input {
   border: 2px solid transparent;
+
   &:focus {
     border: 2px solid #b5c1d8;
   }
 }
+
 .days-title {
   position: relative;
+
   &::after {
     position: absolute;
     content: "days";
@@ -114,6 +117,7 @@ input {
     color: #dbe4f3;
   }
 }
+
 .participate-challenge {
   .errorInput {
     top: 0;

@@ -287,9 +287,11 @@ export default class AppHeader extends Vue {
   justify-content: space-between;
   width: 220px;
   align-items: center;
+
   a:first-child {
     width: 99px;
   }
+
   a:last-child {
     width: 113px;
   }
@@ -297,9 +299,11 @@ export default class AppHeader extends Vue {
 @media (min-width: 768px) {
   .main-header-buttons {
     width: 274px;
+
     a:first-child {
       width: 118px;
     }
+
     a:last-child {
       width: 132px;
     }

@@ -95,13 +95,16 @@ export default class extends Vue {
   border: 2px solid transparent;
   padding: 8px 16px;
   box-sizing: border-box;
+
   &::placeholder {
     color: #b5c1d8;
   }
+
   &:focus {
     border: 2px solid #b5c1d8;
   }
 }
+
 .technology-picker__title {
   font-weight: 500;
   font-size: 16px;
@@ -114,6 +117,7 @@ export default class extends Vue {
     width: 660px;
     height: 56px;
   }
+
   .technology-picker__title {
     font-size: 17px;
     line-height: 32px;

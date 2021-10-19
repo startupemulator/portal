@@ -77,8 +77,10 @@ export default class extends Vue {
   width: 343px;
   margin: 0 auto;
   margin-top: 36px;
+
   .add-team-badge__comment {
     margin-top: 8px;
+
     p {
       color: #fff;
       font-weight: 500;
@@ -87,6 +89,7 @@ export default class extends Vue {
       margin-top: 0;
       margin-bottom: 8px;
     }
+
     textarea {
       font-weight: normal;
       font-size: 16px;
@@ -99,14 +102,17 @@ export default class extends Vue {
       height: 136px;
       border: 2px solid transparent;
       box-sizing: border-box;
+
       &::placeholder {
         color: #b5c1d8;
       }
+
       &:focus {
         border: 2px solid #b5c1d8;
       }
     }
   }
+
   .add-team-badge__buttons {
     position: fixed;
     left: 0;
@@ -119,6 +125,7 @@ export default class extends Vue {
     box-sizing: border-box;
     width: 100%;
     display: flex;
+
     .u-button-gray {
       margin-left: 16px;
     }
@@ -128,11 +135,14 @@ export default class extends Vue {
   .add-team-badge {
     width: 660px;
     margin-top: 48px;
+
     .add-team-badge__comment {
       margin-top: 22px;
+
       p {
         margin-bottom: 10px;
       }
+
       textarea {
         font-size: 18px;
         line-height: 28px;
@@ -143,11 +153,13 @@ export default class extends Vue {
         &::placeholder {
           color: #b5c1d8;
         }
+
         &:focus {
           border: 2px solid #b5c1d8;
         }
       }
     }
+
     .add-team-badge__buttons {
       position: static;
       border: none;
@@ -160,6 +172,7 @@ export default class extends Vue {
       width: 100%;
       box-sizing: border-box;
       margin-top: 24px;
+
       .u-button-gray {
         margin-left: 24px;
       }

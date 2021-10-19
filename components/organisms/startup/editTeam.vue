@@ -324,10 +324,12 @@ export default class extends Vue {
   padding: 0 16px;
   margin-top: 40px;
   color: #fff;
+
   .edit-team__header {
     h2 {
       margin-bottom: 0;
     }
+
     p {
       margin-top: 12px;
       margin-bottom: 24px;
@@ -335,13 +337,16 @@ export default class extends Vue {
       font-size: 16px;
       line-height: 22px;
     }
+
     .u-button {
       height: 40px;
     }
+
     .u-button-gray {
       margin-top: 12px;
     }
   }
+
   .edit-team__content {
     h3 {
       font-weight: bold;
@@ -350,6 +355,7 @@ export default class extends Vue {
       margin-top: 32px;
     }
   }
+
   .edit-team__content-buttons {
     position: fixed;
     left: 0;
@@ -363,10 +369,12 @@ export default class extends Vue {
     width: 100%;
     display: flex;
     z-index: 4;
+
     .u-button-gray {
       margin-left: 16px;
     }
   }
+
   .edit-team__openposition {
     h3 {
       font-weight: bold;
@@ -379,34 +387,42 @@ export default class extends Vue {
 @media (min-width: 768px) {
   .edit-team {
     margin-top: 48px;
+
     .invite-colleagues {
       margin-top: 33px;
       padding-top: 16px;
     }
+
     .u-button {
       min-height: 56px;
     }
+
     .button_pick_technologyes {
       margin-bottom: 16px;
     }
+
     .edit-team__header {
       p {
         font-size: 17px;
         line-height: 24px;
         width: 600px;
       }
+
       .edit-team__header-buttons {
         display: flex;
         width: 360px;
+
         .u-button {
           height: 48px;
         }
+
         .u-button-gray {
           margin-top: 0;
           margin-left: 16px;
         }
       }
     }
+
     .edit-team__content {
       h3 {
         font-weight: 600;
@@ -416,6 +432,7 @@ export default class extends Vue {
         margin-bottom: 24px;
       }
     }
+
     .edit-team__content-buttons {
       position: static;
       border: none;
@@ -428,10 +445,12 @@ export default class extends Vue {
       width: 100%;
       box-sizing: border-box;
       margin-top: 32px;
+
       .u-button-gray {
         margin-left: 24px;
       }
     }
+
     .edit-team__openposition {
       h3 {
         font-weight: 600;

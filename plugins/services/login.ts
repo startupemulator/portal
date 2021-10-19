@@ -1,8 +1,32 @@
 import { Strapi } from "@nuxtjs/strapi";
+import { User } from "../../models/User";
+
+interface NuxtStrapiLoginData {
+  /**
+   * Can be either the email or the username set by the user.
+   * */
+  identifier: string;
+  password: string;
+}
+
+interface NuxtStrapiLoginResult {
+  user: User;
+  jwt: string;
+}
+
+export interface LoginServices {
+  $login(data: NuxtStrapiLoginData): Promise<NuxtStrapiLoginResult>;
+
+  $sendLoginLink(email: NuxtStrapiLoginData): Promise<NuxtStrapiLoginResult>;
+
+  $loginPasswordless(
+    token: NuxtStrapiLoginData
+  ): Promise<NuxtStrapiLoginResult>;
+}
 
 export function login($strapi: Strapi) {
   return async (identifier: string, password: string) => {
-    const data = await $strapi.graphql({
+    return await $strapi.graphql({
       query: `mutation {
         login(input: { identifier: "${identifier}", password: "${password}" }) {
           jwt
@@ -16,7 +40,6 @@ export function login($strapi: Strapi) {
         }
       }`,
     });
-    return data;
   };
 }
 

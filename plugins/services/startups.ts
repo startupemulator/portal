@@ -1,4 +1,42 @@
 import { Strapi } from "@nuxtjs/strapi";
+import { Startup } from "../../models/Startup";
+
+export interface StartupsServices {
+  $startups(states: string[]): Promise<Partial<Startup>[]>;
+
+  $addTechnologiesStartup(
+    id: string[],
+    technologies: Array<string>
+  ): Promise<Partial<Startup>[]>;
+
+  $myStartups(states: string[]): Promise<Partial<Startup>[]>;
+
+  $deleteDraft(states: string[]): Promise<Partial<Startup>>;
+
+  $startup(slug: string[]): Promise<Partial<Startup>>;
+
+  $startupById(id: string[]): Promise<Partial<Startup>>;
+
+  $startupByAcceptedApplication(id: string[]): Promise<Partial<Startup>>;
+
+  $updateStartupInfo(
+    id: string,
+    date: string,
+    description: string,
+    duration: string,
+    title: string
+  ): Promise<Partial<Startup>[]>;
+
+  $finishStartup(id: string): Promise<Partial<Startup>[]>;
+
+  $updateStateStartup(
+    id: string,
+    state: string,
+    date: string
+  ): Promise<Partial<Startup>[]>;
+
+  $filterStartup(id: Array<string>): Promise<Partial<Startup>>;
+}
 
 export function startups($strapi: Strapi) {
   return (states: string[] = ["in_progress", "not_started", "finished"]) => {
@@ -37,15 +75,15 @@ export function startups($strapi: Strapi) {
           }
           owner {
             id
-            
+
           }
           technologies {
             id
             title
           }
-          
+
         }
-        
+
       }`,
     });
   };
@@ -76,16 +114,16 @@ export function startup($strapi: Strapi) {
                 profile{
                   id
                   name
-                  slug 
+                  slug
                   technologies{
                     id
                     title
                   }
                   experience{
-                    id 
+                    id
                     title
                   }
-                } 
+                }
               }
 
             }
@@ -127,7 +165,7 @@ export function startup($strapi: Strapi) {
             title
           }
           sources{
-            id 
+            id
             title
             link
             startups{
@@ -142,9 +180,9 @@ export function startup($strapi: Strapi) {
               id
             }
           }
-          
+
         }
-        
+
       }`,
     });
     return data.startups ? data.startups[0] : null;
@@ -174,7 +212,7 @@ export function startupById($strapi: Strapi) {
                 id
                 email
                 profile{
-                  id 
+                  id
                   name
                   slug
                   technologies{
@@ -182,10 +220,10 @@ export function startupById($strapi: Strapi) {
                     title
                   }
                   experience{
-                    id 
+                    id
                     title
                   }
-                } 
+                }
               }
 
             }
@@ -225,7 +263,7 @@ export function startupById($strapi: Strapi) {
             title
           }
           sources{
-            id 
+            id
             title
             link
             startups{
@@ -240,9 +278,9 @@ export function startupById($strapi: Strapi) {
               id
             }
           }
-          
+
         }
-        
+
       }`,
     });
     return data.startups ? data.startups[0] : null;
@@ -286,15 +324,15 @@ export function startupByAcceptedApplication($strapi: Strapi) {
               name
               slug
             }
-            
+
           }
           technologies {
             id
             title
           }
-          
+
         }
-        
+
       }`,
     });
     return data.startups ? data.startups : null;
@@ -306,7 +344,7 @@ export function myStartups($strapi: Strapi) {
     states: string[] = ["in_progress", "not_started", "finished"]
   ) => {
     const data = await $strapi.graphql({
-      query: `query { 
+      query: `query {
         startups(where: {owner:{id: "${owner}"}, state_ncontains: "removed"}){
           id
           title
@@ -341,15 +379,15 @@ export function myStartups($strapi: Strapi) {
               name
               slug
             }
-            
+
           }
           technologies {
             id
             title
           }
-          
+
         }
-        
+
       }`,
     });
     return data.startups;
@@ -385,7 +423,7 @@ export function updateStateStartup($strapi: Strapi) {
          }
          ) {
           startup{
-            id 
+            id
             start_date
             }
           }
@@ -407,7 +445,7 @@ export function finishStartup($strapi: Strapi) {
          ) {
           startup{
             id
-            state 
+            state
             }
           }
         }`,
@@ -455,7 +493,7 @@ export function filterStartup($strapi: Strapi) {
                 name
                 slug
               }
-              
+
             }
             technologies {
               id
@@ -464,9 +502,9 @@ export function filterStartup($strapi: Strapi) {
             positions{
               id
               status
-             
+
             }
-            
+
           }
       }`,
     });
@@ -487,7 +525,7 @@ export function updateStartupInfo($strapi: Strapi) {
         updateStartup (
           input: {
           where: {id: "${id}" }
-          data: { 
+          data: {
             description: "${description}",
              title: "${title}" ,
              duration: ${duration},
@@ -515,7 +553,7 @@ export function updateStartupInfo($strapi: Strapi) {
                 id
                 email
                 profile{
-                  id 
+                  id
                   name
                   slug
                   technologies{
@@ -523,10 +561,10 @@ export function updateStartupInfo($strapi: Strapi) {
                     title
                   }
                   experience{
-                    id 
+                    id
                     title
                   }
-                } 
+                }
               }
 
             }
@@ -566,7 +604,7 @@ export function updateStartupInfo($strapi: Strapi) {
             title
           }
           sources{
-            id 
+            id
             title
             link
             startups{
@@ -581,9 +619,9 @@ export function updateStartupInfo($strapi: Strapi) {
               id
             }
           }
-          
+
         }
-      } 
+      }
       }`,
     });
     return data.updateStartup ? data.updateStartup.startup : null;

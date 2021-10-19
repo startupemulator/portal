@@ -141,9 +141,11 @@ export default class extends Vue {
 h1 {
   color: white;
 }
+
 li {
   color: white;
 }
+
 #content {
   width: 400px;
   margin: 40px auto;

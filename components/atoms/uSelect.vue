@@ -56,6 +56,7 @@ export default class extends Vue {
   background: #2e384a;
   border-radius: 12px;
 }
+
 .u-select__item {
   display: flex;
   justify-content: space-between;
@@ -68,17 +69,20 @@ export default class extends Vue {
   border-radius: 12px;
   box-sizing: border-box;
   border: 2px solid transparent;
+
   img {
     transform: rotate(90deg);
     transition: 1s;
   }
 }
+
 .u-select__item.opend {
   border: 2px solid #b5c1d8;
   color: #fff;
   border-radius: 12px;
   font-weight: 500;
 }
+
 .u-select__item-list {
   padding: 0;
   font-weight: 500;
@@ -91,17 +95,22 @@ export default class extends Vue {
   color: #fff;
   background: #2e384a;
   border-radius: 12px;
+
   li {
     padding: 8px 16px;
+
     &:first-child {
       border-radius: 12px 12px 0 0;
     }
+
     &:last-child {
       border-radius: 0 0 12px 12px;
     }
+
     &:hover {
       background: #4e5a71;
     }
+
     &:active {
       background: #4b4ac8;
     }
@@ -112,6 +121,7 @@ export default class extends Vue {
     width: 660px;
     margin-top: 40px;
     box-sizing: border-box;
+
     .u-select__item {
       font-weight: normal;
       font-size: 18px;

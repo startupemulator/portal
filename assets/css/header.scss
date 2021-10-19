@@ -1,5 +1,6 @@
 .main-header {
   box-shadow: inset 0 -1px 0 #3b465a;
+
   .main-header-content {
     display: flex;
     min-height: 72px;
@@ -12,49 +13,62 @@
     .header-btn {
       font-size: 18px;
     }
+
     .u-button {
       height: 40px;
     }
+
     .button-sign-up {
       background-color: $button-color-blue;
       margin-right: 3px;
+
       &:hover {
         background-color: $button-color-blue-hover;
       }
+
       &:focus {
         background-color: $button-color-blue-focus;
       }
+
       &:active {
         background-color: $button-color-blue-active;
       }
     }
+
     .button-login {
       background-color: $button-color-gray;
+
       &:hover {
         background-color: $button-color-gray-hover;
       }
+
       &:focus {
         background-color: $button-color-gray-focus;
       }
+
       &:active {
         background-color: $button-color-gray-active;
       }
     }
   }
 }
+
 .main-header__nav {
   .nav-item__active svg path,
   .nav-item__active svg circle {
     stroke: #6295fc;
   }
+
   .nav-item__active {
     a {
       color: $main-text-color !important;
     }
   }
 }
+
 .notification {
   position: relative;
+
   .notification-message {
     position: absolute;
     right: -5px;
@@ -72,6 +86,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
     span {
       font-weight: 500;
       font-size: 14px;
@@ -84,6 +99,7 @@
   .main-header__nav {
     display: none;
   }
+
   .main-header__nav.logged-in__nav {
     display: block;
     position: fixed;
@@ -96,6 +112,7 @@
     width: 100%;
     z-index: 4;
     box-sizing: border-box;
+
     ul,
     div {
       padding: 0;
@@ -112,20 +129,24 @@
         align-items: center;
       }
     }
+
     svg {
       display: block;
       width: 24px;
       height: 24px;
       margin-bottom: 8px;
     }
+
     a {
       font-weight: 500;
       font-size: 11px;
       line-height: 16px;
     }
   }
+
   .notification {
     position: relative;
+
     .notification-message {
       top: 5px;
       right: 5px;
@@ -139,6 +160,7 @@
       min-height: 96px;
       margin: 0 48px;
     }
+
     .main-header-logo h2 {
       display: inline-block;
       color: #837cf3;
@@ -147,26 +169,32 @@
       line-height: 32px;
       margin-left: 16px;
     }
+
     .main-header-logo img {
       height: 48px;
       width: 48px;
     }
+
     .main-header-buttons {
       .header-btn {
         padding: $big-button;
         font-size: 18px;
       }
+
       .u-button {
         height: 56px;
       }
+
       .button-login {
         margin-right: 20px;
       }
     }
+
     .main-header__nav {
       display: block;
     }
   }
+
   .main-header__nav {
     a {
       display: flex;
@@ -177,34 +205,44 @@
       font-size: 18px;
       line-height: 32px;
     }
+
     svg {
       margin-right: 14px;
     }
+
     .nav-list {
       display: flex;
     }
+
     .nav-list div {
       display: flex;
     }
+
     .nav-item {
       padding: 12px 24px 12px 30px;
     }
+
     .nav-item__active svg path,
     .nav-item__active svg circle {
       stroke: #6295fc;
     }
+
     .nav-item__active.nav-item-startups svg path {
       stroke: none;
     }
+
     .nav-item__active.nav-item-startups svg {
       fill: #6295fc;
     }
+
     .nav-item__active.nav-item-pricing rect {
       stroke: #6295fc;
     }
+
     .nav-item__active.notification .filln {
       fill: #6295fc;
     }
+
     .nav-item__active {
       background-color: #2e384a;
       box-shadow: inset 0 0 10px 2px #262f3f;

@@ -270,14 +270,18 @@ export default class extends Vue {
     top: 0;
   }
 }
+
 .startup__name input {
   border: 2px solid transparent;
+
   &:focus {
     border: 2px solid #b5c1d8;
   }
 }
+
 .days-title {
   position: relative;
+
   &::after {
     position: absolute;
     content: "days";

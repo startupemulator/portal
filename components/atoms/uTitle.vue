@@ -13,6 +13,7 @@ export default {
 </script>
 <style lang="scss">
 @import "@/assets/css/variables.scss";
+
 h2 {
   font-weight: bold;
   margin: 0 auto;

@@ -160,7 +160,8 @@ export default class extends Vue {
   }
 
   pickedSpecialisation(data) {
-    if (this.specialisation.some((el) => el === data.id)) {
+    const specialisation = this.specialisation.includes(data.id);
+    if (specialisation) {
       this.specialisation.splice(
         this.specialisation.findIndex((el) => el === data.id),
         1
@@ -295,17 +296,21 @@ export default class extends Vue {
   max-width: 660px;
   margin: 0 auto;
   margin-top: 40px;
+
   .errorInput {
     top: 0;
+
     &.mt {
       top: 16px;
     }
   }
+
   p {
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
   }
+
   textarea {
     background: #2e384a;
     border-radius: 12px;
@@ -319,13 +324,16 @@ export default class extends Vue {
     font-size: 16px;
     margin-bottom: 21px;
     border: 2px solid transparent;
+
     &:focus {
       border: 2px solid #b5c1d8;
     }
+
     &::placeholder {
       color: #b5c1d8;
     }
   }
+
   .create-project__super-admin-progress-bar {
     position: relative;
     max-width: 660px;
@@ -335,6 +343,7 @@ export default class extends Vue {
     box-shadow: inset 2px -1px 8px rgba(78, 100, 141, 0.5);
     border-radius: 16px;
     background: #232b39;
+
     .create-project__super-admin__progress-bar--progress {
       position: relative;
       top: -1px;
@@ -348,6 +357,7 @@ export default class extends Vue {
       transition: 0.2s;
     }
   }
+
   .create-project__super-admin_button {
     position: fixed;
     left: 0;
@@ -360,6 +370,7 @@ export default class extends Vue {
     box-sizing: border-box;
     width: 100%;
     display: flex;
+
     .u-button-gray {
       margin-left: 16px;
     }
@@ -372,9 +383,11 @@ export default class extends Vue {
       font-size: 17px;
       line-height: 32px;
     }
+
     .standart-label .standart-input {
       padding-left: 24px;
     }
+
     .create-project__super-admin_button {
       position: static;
       border: none;
@@ -387,10 +400,12 @@ export default class extends Vue {
       width: 100%;
       box-sizing: border-box;
       margin-top: 32px;
+
       .u-button-gray {
         margin-left: 24px;
       }
     }
+
     textarea {
       width: 660px;
       min-height: 136px;
@@ -398,6 +413,7 @@ export default class extends Vue {
       font-size: 18px;
       padding: 12px 24px;
     }
+
     .add-link {
       width: 121px;
       height: 48px;

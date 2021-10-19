@@ -151,12 +151,14 @@ export default class extends Vue {
   .startup-block {
     min-height: 100px;
   }
+
   .startup-block__buttons.myproject-details {
     button {
       width: 295px;
       height: 48px;
     }
   }
+
   .owner {
     margin-left: 8px;
   }
@@ -167,6 +169,7 @@ export default class extends Vue {
     .startup-block {
       max-width: 1450px;
     }
+
     .startup-block__buttons.myproject-details {
       button {
         width: 254px;

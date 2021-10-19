@@ -168,18 +168,22 @@ export default class extends Vue {
   margin: 0 auto;
   padding: 0 16px;
   margin-top: 36px;
+
   .edit-sources__header {
     h2 {
       margin-bottom: 12px;
     }
+
     p {
       font-weight: normal;
       font-size: 16px;
       line-height: 22px;
     }
   }
+
   .edit-sources__content {
     margin-top: 34px;
+
     .existing-sources__add-link {
       margin-top: 8px;
 
@@ -188,6 +192,7 @@ export default class extends Vue {
       }
     }
   }
+
   .edit-sources__buttons {
     position: fixed;
     left: 0;
@@ -200,6 +205,7 @@ export default class extends Vue {
     box-sizing: border-box;
     width: 100%;
     display: flex;
+
     .u-button-gray {
       margin-left: 16px;
     }
@@ -208,6 +214,7 @@ export default class extends Vue {
 @media (min-width: 768px) {
   .edit-sources {
     margin-top: 48px;
+
     .edit-sources__header {
       p {
         margin-top: 14px;
@@ -216,8 +223,10 @@ export default class extends Vue {
         width: 600px;
       }
     }
+
     .edit-sources__content {
       margin-top: 48px;
+
       .existing-sources__add-link {
         margin-top: 20px;
 
@@ -227,6 +236,7 @@ export default class extends Vue {
         }
       }
     }
+
     .edit-sources__buttons {
       position: static;
       border: none;
@@ -239,6 +249,7 @@ export default class extends Vue {
       width: 100%;
       box-sizing: border-box;
       margin-top: 32px;
+
       .u-button-gray {
         margin-left: 24px;
       }

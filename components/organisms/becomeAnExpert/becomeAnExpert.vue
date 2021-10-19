@@ -122,6 +122,7 @@ export default class extends Vue {
   min-height: 460px;
   margin: 0 auto;
 }
+
 .become-expert__content {
   margin-top: 48px;
 
@@ -133,6 +134,7 @@ export default class extends Vue {
     font-size: 16px;
     line-height: 24px;
   }
+
   .errorInput {
     margin: 0;
     margin-top: 16px;
@@ -141,6 +143,7 @@ export default class extends Vue {
     line-height: 20px;
     color: #f87b7b;
   }
+
   .technology-picker h2 {
     font-weight: 500;
     font-size: 16px;
@@ -148,12 +151,14 @@ export default class extends Vue {
     margin-top: 32px;
     margin-bottom: 12px;
   }
+
   .technology-picker {
     form {
       min-height: 340px;
     }
   }
 }
+
 .become-expert__buttons {
   position: fixed;
   bottom: 0;
@@ -167,6 +172,7 @@ export default class extends Vue {
   box-sizing: border-box;
   z-index: 5;
 }
+
 .become-expert ~ .main-footer {
   padding-bottom: 75px;
 }
@@ -174,6 +180,7 @@ export default class extends Vue {
   .become-expert {
     width: 660px;
   }
+
   .become-expert__content {
     margin-top: 72px;
 
@@ -184,10 +191,12 @@ export default class extends Vue {
       font-size: 17px;
       line-height: 32px;
     }
+
     .technology-picker h2 {
       font-size: 17px;
       line-height: 32px;
     }
+
     .technology-picker {
       form {
         min-height: auto;
@@ -195,6 +204,7 @@ export default class extends Vue {
       }
     }
   }
+
   .become-expert__buttons {
     position: relative;
     width: 660px;
@@ -206,12 +216,14 @@ export default class extends Vue {
     padding: 0;
     box-sizing: border-box;
     margin-top: 32px;
+
     button {
       margin-top: 32px;
       margin-left: 0;
       width: 660px;
     }
   }
+
   .become-expert ~ .main-footer {
     padding-bottom: 0;
   }

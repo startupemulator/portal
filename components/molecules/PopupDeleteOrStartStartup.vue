@@ -112,12 +112,14 @@ export default class extends Vue {
       display: block;
     }
   }
+
   .update-startup__close {
     position: absolute;
     right: 10px;
     top: 16px;
     background-color: transparent;
   }
+
   h2 {
     font-weight: bold;
     font-size: 26px;
@@ -126,18 +128,22 @@ export default class extends Vue {
     margin-top: 40px;
     margin-bottom: 0;
   }
+
   p {
     font-weight: 300;
     font-size: 16px;
     line-height: 22px;
     color: #fff;
     width: 260px;
+
     span {
       font-weight: bold;
     }
   }
+
   .update-startup__buttons {
     margin-top: 24px;
+
     button {
       margin-bottom: 16px;
     }
@@ -150,22 +156,27 @@ export default class extends Vue {
       height: 360px;
       padding: 0 48px;
     }
+
     h2 {
       font-weight: bold;
       font-size: 35px;
       line-height: 40px;
     }
+
     p {
       font-weight: normal;
       font-size: 17px;
       line-height: 24px;
       width: 100%;
+
       span {
         font-weight: bold;
       }
     }
+
     .update-startup__buttons {
       display: flex;
+
       .u-button-gray {
         margin-left: 24px;
       }

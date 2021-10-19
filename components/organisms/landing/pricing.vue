@@ -122,15 +122,18 @@ export default class extends Vue {}
   box-sizing: border-box;
   width: 343px;
   margin: 0 auto;
+
   ul {
     padding: 0;
   }
+
   h4 {
     font-weight: bold;
     font-size: 36px;
     line-height: 40px;
     margin: 22px 0 24px 0;
   }
+
   .pricing__cards {
     .pricing__card {
       padding: 32px 24px 32px 24px;
@@ -143,12 +146,14 @@ export default class extends Vue {}
         width: 100%;
         display: flex;
         flex-direction: column;
+
         h5 {
           font-weight: normal;
           font-size: 24px;
           line-height: 32px;
           margin: 0;
         }
+
         .free-in-beta {
           position: relative;
           background: #283040;
@@ -159,6 +164,7 @@ export default class extends Vue {}
           top: -32px;
           margin-bottom: -24px;
           padding: 10px 8px;
+
           span {
             font-weight: 500;
             font-size: 14px;
@@ -173,12 +179,14 @@ export default class extends Vue {}
           }
         }
       }
+
       .pricing__card-content {
         h3 {
           font-weight: bold;
           font-size: 36px;
           line-height: 40px;
           margin: 24px 0;
+
           span {
             color: #8c97ac;
             font-weight: normal;
@@ -186,10 +194,12 @@ export default class extends Vue {}
             line-height: 24px;
           }
         }
+
         .pricing__card-content-item {
           display: flex;
           align-items: center;
           margin-bottom: 16px;
+
           span {
             margin-left: 8px;
             font-weight: normal;
@@ -201,6 +211,7 @@ export default class extends Vue {}
       }
     }
   }
+
   .u-button {
     margin-top: 8px;
     height: 40px;
@@ -209,6 +220,7 @@ export default class extends Vue {}
 @media (min-width: 767px) {
   .pricing {
     width: 768px;
+
     h4 {
       margin-left: 48px;
       font-weight: 800;
@@ -216,6 +228,7 @@ export default class extends Vue {}
       line-height: 80px;
       margin-top: 170px;
     }
+
     .pricing__cards {
       display: flex;
       flex-wrap: wrap;
@@ -250,18 +263,21 @@ export default class extends Vue {}
       font-size: 69px;
       line-height: 80px;
     }
+
     .pricing__cards {
       display: flex;
       justify-content: center;
       margin-top: 94px;
       // margin-left: 20px;
       flex-wrap: nowrap;
+
       .pricing__card {
         padding: 56px;
         margin-bottom: 0;
         margin-right: 24px;
         max-height: 524px;
         box-sizing: border-box;
+
         .pricing__card-header {
           .free-in-beta {
             right: -56px;
@@ -270,11 +286,13 @@ export default class extends Vue {}
             margin-bottom: -32px;
           }
         }
+
         &.senior-card {
           min-height: 584px;
           max-height: 584px;
           margin-top: -32px;
         }
+
         .pricing__card-content {
           h3 {
             font-weight: 800;
@@ -282,12 +300,14 @@ export default class extends Vue {}
             line-height: 64px;
             margin: 32px 0;
           }
+
           .pricing__card-content-item {
             margin-bottom: 20px;
           }
         }
       }
     }
+
     .u-button {
       margin-top: 20px;
       height: 56px;

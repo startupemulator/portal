@@ -1,25 +1,31 @@
 .challenge-page {
   color: #fff;
 }
+
 .challenge-task {
   margin-top: 40px;
   max-width: 831px;
   padding: 0 16px;
+
   .standard-label .standard-input {
     padding-left: 16px;
   }
+
   .challenge-task__header {
     display: flex;
     align-items: center;
+
     h2 {
       margin-left: 0;
       margin-bottom: 12px;
       max-width: 60%;
     }
+
     .challenge-task__header__startup-state {
       margin-left: 16px;
       padding: 2px 12px;
       margin-top: 4px;
+
       &.in_progress {
         background: #3cc28d;
         font-weight: 500;
@@ -29,6 +35,7 @@
           0 2px 8px rgba(60, 194, 141, 0.3);
         border-radius: 14px;
       }
+
       &.finished {
         background: #f0663b;
         box-shadow: -4px 0 6px 1px rgba(240, 102, 59, 0.25),
@@ -40,9 +47,11 @@
       }
     }
   }
+
   .startup-card__started-start-time {
     display: flex;
     margin-bottom: 32px;
+
     h3 {
       font-weight: normal;
       font-size: 14px;
@@ -50,6 +59,7 @@
       color: #8c97ac;
       margin: 0;
     }
+
     p {
       font-weight: 500;
       font-size: 14px;
@@ -57,10 +67,12 @@
       margin: 0;
       padding: 0;
     }
+
     .started-start-time__finished,
     .started-start-time__duration {
       width: 164px;
     }
+
     .started-start-time__duration {
       margin-left: 16px;
     }
@@ -73,9 +85,11 @@
     margin-top: 40px;
     margin-bottom: 40px;
   }
+
   .request-feedback {
     .existing-sources {
       margin-bottom: 16px;
+
       p {
         margin: 0;
         margin-bottom: 8px;
@@ -97,9 +111,11 @@
     display: flex;
     z-index: 8;
   }
+
   .startup-card__sources h3 {
     margin-bottom: 16px;
   }
+
   .challenge-task__header-menu-list {
     background: #2e384a;
     box-shadow: 0 8px 24px rgba(28, 35, 48, 0.2);
@@ -120,14 +136,17 @@
       line-height: 32px;
       padding: 8px 24px;
       box-sizing: border-box;
+
       &:hover {
         text-decoration: underline;
       }
     }
   }
+
   .challenge-task__feedBacks-sources {
     margin-top: 40px;
   }
+
   .cancel-participation__popup {
     position: fixed;
     top: 0;
@@ -139,6 +158,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
     .cancel-participation__popup__content {
       position: relative;
       width: 343px;
@@ -147,6 +167,7 @@
       border-radius: 12px;
       padding: 16px;
       box-sizing: border-box;
+
       .u-button-gray {
         margin-top: 16px;
         width: 100%;
@@ -159,6 +180,7 @@
         margin-top: 32px;
         margin-bottom: 24px;
       }
+
       .sign-up-link__close {
         position: absolute;
         right: 10px;
@@ -167,14 +189,17 @@
       }
     }
   }
+
   .waiting-feedback {
     margin-top: 56px;
+
     h3 {
       font-weight: bold;
       font-size: 26px;
       line-height: 32px;
       display: flex;
       align-items: center;
+
       span {
         width: 24px;
         height: 24px;
@@ -193,6 +218,7 @@
         display: inline-block;
       }
     }
+
     .waiting-feedback__card {
       padding: 12px 12px 16px 20px;
       box-sizing: border-box;
@@ -203,19 +229,23 @@
       width: 100%;
       margin-bottom: 16px;
     }
+
     .waiting-feedback__card-content {
       display: flex;
       justify-content: space-between;
+
       button {
         background: transparent;
       }
     }
+
     .waiting-feedback__card-person {
       span {
         font-weight: normal;
         font-size: 16px;
         line-height: 32px;
       }
+
       p {
         margin: 0;
         font-weight: normal;
@@ -225,6 +255,7 @@
       }
     }
   }
+
   .used-technologies {
     h3 {
       font-weight: bold;
@@ -233,6 +264,7 @@
       margin-bottom: 24px;
       margin-top: 24px;
     }
+
     .tags-item {
       font-weight: normal;
       font-size: 14px;
@@ -248,24 +280,30 @@
     padding: 0;
     margin-top: 48px;
     margin-left: 48px;
+
     .standard-label .standard-input {
       padding-left: 24px;
     }
+
     .challenge-task__header {
       h2 {
         max-width: 85%;
       }
+
       .challenge-task__header__startup-state {
         margin-top: 36px;
       }
     }
+
     h2 {
       margin-bottom: 24px;
       margin-right: 0;
     }
+
     .request-feedback h2 {
       margin-bottom: 12px;
     }
+
     p {
       font-size: 17px;
       line-height: 24px;
@@ -288,6 +326,7 @@
       box-sizing: border-box;
       margin-top: 0;
     }
+
     .startup-card__started-start-time {
       .started-start-time__finished,
       .started-start-time__duration {
@@ -295,29 +334,35 @@
         margin-top: 14px;
       }
     }
+
     .challenge-task__header-menu-list {
       position: absolute;
       right: 30px;
       top: 216px;
       width: 318px;
+
       button {
         padding: 12px 24px;
       }
     }
+
     .participant-solution__title {
       font-weight: 600;
       font-size: 35px;
       line-height: 40px;
     }
+
     .u-button-gray {
       width: 241px;
       height: 48px;
     }
+
     .request-feedback {
       .existing-sources {
         margin-bottom: 24px;
       }
     }
+
     .cancel-participation__popup {
       .cancel-participation__popup__content {
         width: 564px;
@@ -331,8 +376,10 @@
           font-size: 35px;
           line-height: 40px;
         }
+
         .cancel-participation__popup__buttons {
           display: flex;
+
           .u-button-gray {
             margin-top: 0;
             height: 56px;
@@ -341,25 +388,31 @@
         }
       }
     }
+
     .waiting-feedback {
       margin-top: 56px;
+
       h3 {
         font-weight: 600;
         font-size: 35px;
         line-height: 40px;
       }
+
       .waiting-feedback__card {
         padding: 16px 16px 16px 24px;
         width: auto;
         margin-bottom: 0;
         margin-right: 16px;
       }
+
       .waiting-feedback__card-person {
         margin-right: 24px;
+
         span {
           font-size: 17px;
           line-height: 32px;
         }
+
         p {
           font-weight: normal;
           font-size: 14px;
@@ -368,11 +421,13 @@
       }
     }
   }
+
   .u-button.add-feedback {
     margin-top: 32px;
     margin-bottom: 16px;
     min-height: 56px;
   }
+
   .used-technologies {
     h3 {
       font-weight: 600;

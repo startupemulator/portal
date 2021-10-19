@@ -89,20 +89,24 @@ export default class extends Vue {
 <style lang="scss">
 .add-speciality {
   margin-bottom: 16px;
+
   ul {
     margin: 0;
     padding: 0;
   }
+
   .add-speciality__title {
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
     margin-bottom: 10px;
   }
+
   .add-speciality__menu {
     display: flex;
     position: relative;
     justify-content: space-between;
+
     img {
       transform: rotate(90deg);
     }
@@ -120,6 +124,7 @@ export default class extends Vue {
       box-sizing: border-box;
       cursor: pointer;
     }
+
     .add-speciality__menu-list {
       position: absolute;
       top: 58px;
@@ -130,23 +135,28 @@ export default class extends Vue {
       padding: 8px 0;
       box-sizing: border-box;
       z-index: 6;
+
       li {
         padding: 8px 16px;
         font-weight: 500;
         font-size: 16px;
         line-height: 24px;
         cursor: pointer;
+
         &:hover {
           background: #4b4ac8;
         }
       }
     }
+
     .close {
       cursor: pointer;
     }
   }
+
   .add-speciality__technologies {
     margin-top: 16px;
+
     .tags-item {
       padding: 0 16px;
       color: #b5c1d8;
@@ -155,6 +165,7 @@ export default class extends Vue {
       line-height: 32px;
       margin-bottom: 0;
     }
+
     .u-button-transpend {
       width: 158px;
       color: #8c97ac;
@@ -164,6 +175,7 @@ export default class extends Vue {
       line-height: 24px;
     }
   }
+
   .add-speciality__popup-choose-techonogies {
     position: fixed;
     top: 0;
@@ -173,6 +185,7 @@ export default class extends Vue {
     background: rgba(59, 70, 90, 0.6);
     backdrop-filter: blur(16px);
     z-index: 8;
+
     .add-speciality__popup-choose-techonogies__content {
       position: absolute;
       bottom: 0;
@@ -185,6 +198,7 @@ export default class extends Vue {
       box-sizing: border-box;
       height: 760px;
       overflow: auto;
+
       p {
         font-weight: bold;
         font-size: 26px;
@@ -193,6 +207,7 @@ export default class extends Vue {
         margin-bottom: 32px;
       }
     }
+
     .add-speciality__content-buttons {
       position: fixed;
       bottom: 0;
@@ -206,6 +221,7 @@ export default class extends Vue {
       box-shadow: inset 0 0 10px 2px #262f3f;
       border-radius: 16px 16px 0 0;
       display: flex;
+
       .u-button-gray {
         margin-top: 0;
         background: transparent;
@@ -218,6 +234,7 @@ export default class extends Vue {
         font-size: 16px;
         line-height: 32px;
       }
+
       .u-button-blue {
         width: 245px;
         height: 48px;
@@ -237,6 +254,7 @@ export default class extends Vue {
       font-size: 17px;
       line-height: 32px;
     }
+
     .add-speciality__menu {
       .add-speciality__menu--choosen-speciality {
         min-width: 620px;
@@ -244,11 +262,13 @@ export default class extends Vue {
         height: 56px;
         padding: 12px 24px;
       }
+
       .add-speciality__menu-list {
         top: 66px;
         min-width: 620px;
         max-width: 620px;
         padding: 12px 0;
+
         li {
           padding: 12px 24px;
           font-weight: 500;
@@ -257,8 +277,10 @@ export default class extends Vue {
         }
       }
     }
+
     .add-speciality__technologies {
       margin-top: 8px;
+
       .tags-item {
         padding: 0 16px;
         color: #b5c1d8;
@@ -267,6 +289,7 @@ export default class extends Vue {
         line-height: 32px;
         margin-bottom: 0;
       }
+
       .u-button-transpend {
         width: 158px;
         color: #8c97ac;
@@ -292,10 +315,12 @@ export default class extends Vue {
         &::-webkit-scrollbar {
           width: 4px;
         }
+
         &::-webkit-scrollbar-thumb {
           border-radius: 4px;
           background: #6295fc;
         }
+
         p {
           font-weight: bold;
           font-size: 35px;
@@ -304,6 +329,7 @@ export default class extends Vue {
           margin-bottom: 32px;
           max-width: 500px;
         }
+
         .technology-picker {
           .input-technology {
             width: 532px;
@@ -332,6 +358,7 @@ export default class extends Vue {
           font-size: 16px;
           line-height: 32px;
         }
+
         .u-button-blue {
           width: 466px;
           height: 48px;

@@ -142,12 +142,14 @@ export default class extends Vue {
     box-sizing: border-box;
     margin-top: 175px;
   }
+
   .sign-up-link__close {
     position: absolute;
     right: 10px;
     top: 16px;
     background-color: transparent;
   }
+
   h2 {
     width: 100%;
     font-weight: bold;
@@ -156,6 +158,7 @@ export default class extends Vue {
     margin-top: 40px;
     margin-bottom: 0;
   }
+
   p {
     font-weight: 300;
     font-size: 16px;
@@ -164,21 +167,27 @@ export default class extends Vue {
     width: 100%;
     margin-top: 16px;
   }
+
   .invite-collegueses {
     margin-top: 12px;
   }
+
   .specialityOne__item.error {
     border: 1px solid #e94646;
   }
+
   .specialityOne__item-list,
   .specialityOne__item {
     width: 295px;
   }
+
   .btn-invite {
     margin-top: 24px;
   }
+
   .standard-label {
     margin-top: 16px;
+
     img {
       top: 12px;
     }
@@ -193,21 +202,25 @@ export default class extends Vue {
       padding: 0 48px;
       margin-top: 175px;
     }
+
     h2 {
       font-weight: bold;
       font-size: 35px;
       line-height: 40px;
       margin-top: 48px;
     }
+
     p {
       font-weight: 300;
       font-size: 17px;
       line-height: 24px;
     }
+
     .specialityOne__item-list,
     .specialityOne__item {
       width: 468px;
     }
+
     .standard-label {
       img {
         top: 16px;

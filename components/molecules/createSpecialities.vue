@@ -310,17 +310,21 @@ export default class extends Vue {
   font-size: 16px;
   line-height: 24px;
 }
+
 .speciality-content {
   .technology-picker {
     margin-right: 0;
     margin-left: 0;
   }
 }
+
 .specialityOne {
   color: #fff;
+
   .specialityOne__header {
     display: flex;
   }
+
   .position-status {
     display: flex;
     border: 1px solid #59667e;
@@ -338,6 +342,7 @@ export default class extends Vue {
       font-size: 14px;
       color: #b5c1d8;
       transition: 0.4s;
+
       &.active {
         background: #2e384a;
         transition: 0.4s;
@@ -345,8 +350,10 @@ export default class extends Vue {
     }
   }
 }
+
 .specialityOne__list {
   position: relative;
+
   .button-remove-speciality {
     position: absolute;
     top: 15px;
@@ -354,6 +361,7 @@ export default class extends Vue {
     background-color: transparent;
   }
 }
+
 .specialityOne__item {
   width: 340px;
   height: 48px;
@@ -371,15 +379,18 @@ export default class extends Vue {
   line-height: 32px;
   position: relative;
   transition: 0.4s;
+
   img {
     transform: rotate(90deg);
     margin-right: 5px;
     transition: 1s;
   }
 }
+
 .specialityOne__item.item-chosen {
   width: 304px;
 }
+
 .specialityOne__item-list {
   width: 340px;
   background: #2e384a;
@@ -389,6 +400,7 @@ export default class extends Vue {
   padding: 0;
   z-index: 6;
   color: #fff;
+
   .specialityOne__item-item {
     width: 100%;
     height: 48px;
@@ -399,15 +411,19 @@ export default class extends Vue {
     padding: 8px 16px;
     box-sizing: border-box;
     cursor: pointer;
+
     &:first-child {
       border-radius: 12px 12px 0 0;
     }
+
     &:last-child {
       border-radius: 0 0 12px 12px;
     }
+
     &:hover {
       background: #4e5a71;
     }
+
     &:active {
       background: #4b4ac8;
     }

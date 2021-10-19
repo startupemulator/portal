@@ -60,15 +60,18 @@ export default class extends Vue {
 .startup-card__sources {
   color: #fff;
   padding-bottom: 24px;
+
   h3 {
     font-weight: bold;
     font-size: 26px;
     line-height: 32px;
     margin-top: 0;
   }
+
   .startup-card__sources-design {
     margin-top: 16px;
   }
+
   .startup-card__sources-content {
     background: #2e384a;
     box-shadow: 0 8px 24px rgba(28, 35, 48, 0.2);
@@ -80,11 +83,13 @@ export default class extends Vue {
     max-width: 403px;
     margin-bottom: 16px;
   }
+
   .startup-card__sources-button {
     background: transparent;
     padding: 0;
     margin-left: 20px;
   }
+
   h5 {
     font-weight: normal;
     font-size: 16px;
@@ -92,6 +97,7 @@ export default class extends Vue {
     margin: 0;
     word-break: break-all;
   }
+
   p {
     word-break: break-all;
     margin: 0;
@@ -107,10 +113,12 @@ export default class extends Vue {
       font-size: 17px;
       line-height: 32px;
     }
+
     p {
       font-size: 14px;
       line-height: 24px;
     }
+
     .startup-card__sources-content {
       padding: 24px 0 24px 32px;
       margin-bottom: 24px;
@@ -128,15 +136,18 @@ export default class extends Vue {
   .startup-card__sources {
     margin-top: 40px;
   }
+
   .startup-card__sources--finished {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+
     .startup-card__sources-content {
       width: 403px;
       max-width: 403px;
       box-sizing: border-box;
     }
+
     .startup-card__sources-design {
       margin-top: 0;
     }

@@ -236,14 +236,17 @@ export default class extends Vue {
     margin: 0;
     display: flex;
   }
+
   .position-card__check {
     margin-left: 8px;
   }
+
   .position-card__feedback {
     margin-left: auto;
     cursor: pointer;
     align-self: baseline;
   }
+
   .position-card__experience {
     font-weight: normal;
     font-size: 14px;
@@ -252,6 +255,7 @@ export default class extends Vue {
     margin: 0;
     margin-top: 12px;
   }
+
   .position-card__experience-count {
     font-weight: 500;
     font-size: 14px;
@@ -260,6 +264,7 @@ export default class extends Vue {
     margin: 0;
     margin-bottom: 12px;
   }
+
   .tags-item {
     color: #b5c1d8;
     margin-right: 4px;
@@ -269,34 +274,41 @@ export default class extends Vue {
     font-size: 14px;
     line-height: 32px;
   }
+
   .position-card__buttons {
     margin-top: 22px;
     display: flex;
     justify-content: center;
+
     .u-button-gray {
       margin-left: 12px;
     }
   }
+
   .position-card__access {
     width: 295px;
     padding: 8px 16px;
     background: #3b465a;
     border-radius: 12px;
+
     .position-card__access-header {
       width: 100%;
       display: flex;
       justify-content: space-between;
       cursor: pointer;
+
       span {
         font-weight: 500;
         font-size: 16px;
         line-height: 32px;
       }
+
       img {
         transform: rotate(90deg);
         transition: 0.2s;
       }
     }
+
     .access--mobile {
       position: fixed;
       top: 0;
@@ -306,6 +318,7 @@ export default class extends Vue {
       z-index: 6;
       height: 100%;
       width: 100vw;
+
       .access-types {
         position: fixed;
         background: #232b39;
@@ -319,17 +332,21 @@ export default class extends Vue {
         padding: 24px 0;
         box-sizing: border-box;
       }
+
       .access-type {
         padding: 8px 24px;
         cursor: pointer;
+
         &:hover {
           background: #4b4ac8;
         }
+
         span {
           font-weight: 500;
           font-size: 17px;
           line-height: 32px;
         }
+
         p {
           font-weight: 500;
           font-size: 14px;
@@ -339,6 +356,7 @@ export default class extends Vue {
       }
     }
   }
+
   .decline-popup {
     position: fixed;
     top: 0;
@@ -351,6 +369,7 @@ export default class extends Vue {
     display: flex;
     justify-content: center;
     align-items: center;
+
     .decline-popup__content {
       position: absolute;
       width: 343px;
@@ -359,6 +378,7 @@ export default class extends Vue {
       padding: 24px;
       box-sizing: border-box;
     }
+
     .decline-popup__header {
       button {
         position: absolute;
@@ -366,6 +386,7 @@ export default class extends Vue {
         top: 16px;
         background: transparent;
       }
+
       h2 {
         margin: 0;
         margin: 24px 0 16px 0;
@@ -374,6 +395,7 @@ export default class extends Vue {
         line-height: 32px;
       }
     }
+
     p {
       margin: 0 0 24px 0;
       font-weight: normal;
@@ -381,6 +403,7 @@ export default class extends Vue {
       line-height: 22px;
       max-width: 440px;
     }
+
     textarea {
       width: 295px;
       height: 112px;
@@ -393,6 +416,7 @@ export default class extends Vue {
       border: none;
       color: #fff;
       box-sizing: border-box;
+
       &::placeholder {
         font-weight: normal;
         font-size: 16px;
@@ -400,16 +424,19 @@ export default class extends Vue {
         color: #b5c1d8;
       }
     }
+
     .decline-popup__buttons {
       margin-top: 24px;
       display: flex;
       flex-direction: column;
     }
+
     .u-button-gray {
       margin-left: 0;
       margin-top: 16px;
     }
   }
+
   .decline-reason {
     background: rgba(59, 70, 90, 0.6);
     backdrop-filter: blur(16px);
@@ -430,6 +457,7 @@ export default class extends Vue {
       box-sizing: border-box;
       padding: 16px 16px 16px 16px;
     }
+
     .decline-reason__header {
       button {
         background: transparent;
@@ -437,6 +465,7 @@ export default class extends Vue {
         right: 10px;
         top: 16px;
       }
+
       h2 {
         font-weight: bold;
         font-size: 26px;
@@ -444,6 +473,7 @@ export default class extends Vue {
         margin-top: 24px;
         margin-bottom: 16px;
       }
+
       p {
         margin: 0;
         height: 132px;
@@ -461,32 +491,40 @@ export default class extends Vue {
     &:not(:nth-child(2n)) {
       margin-right: 24px;
     }
+
     h5 {
       font-size: 18px;
       line-height: 32px;
     }
+
     .position-card__experience {
       margin-top: 16px;
     }
+
     .position-card__buttons {
       margin-top: 32px;
     }
+
     .decline-popup {
       .decline-popup__content {
         width: 564px;
       }
+
       .decline-popup__header {
         margin-left: 24px;
+
         h2 {
           font-size: 35px;
           line-height: 40px;
         }
       }
+
       p {
         font-size: 17px;
         margin-left: 24px;
         line-height: 24px;
       }
+
       textarea {
         width: 468px;
         height: 136px;
@@ -499,17 +537,21 @@ export default class extends Vue {
           line-height: 28px;
         }
       }
+
       .decline-popup__buttons {
         flex-direction: row;
         margin: 24px;
       }
+
       .u-button-gray {
         margin-left: 24px;
         margin-top: 0;
       }
     }
+
     .position-card__access {
       position: relative;
+
       .access--mobile {
         position: relative;
         top: 0;
@@ -519,6 +561,7 @@ export default class extends Vue {
         z-index: 6;
         height: auto;
         width: auto;
+
         .access-types {
           position: absolute;
           background: #3b465a;
@@ -529,17 +572,21 @@ export default class extends Vue {
           padding: 8px 0;
           box-sizing: border-box;
         }
+
         .access-type {
           padding: 8px 24px;
           cursor: pointer;
+
           &:hover {
             background: #4b4ac8;
           }
+
           span {
             font-weight: 500;
             font-size: 17px;
             line-height: 32px;
           }
+
           p {
             font-weight: 500;
             font-size: 14px;
@@ -549,6 +596,7 @@ export default class extends Vue {
         }
       }
     }
+
     .decline-reason {
       background: transparent;
       backdrop-filter: none;
@@ -565,6 +613,7 @@ export default class extends Vue {
         width: 468px;
         height: 204px;
         background: #4e5a71;
+
         &::before {
           position: absolute;
           content: "";
@@ -575,6 +624,7 @@ export default class extends Vue {
           right: 12px;
           transform: rotate(45deg);
         }
+
         &::after {
           position: absolute;
           content: "";
@@ -586,10 +636,12 @@ export default class extends Vue {
           transform: rotate(0deg);
         }
       }
+
       .decline-reason__header {
         button {
           display: none;
         }
+
         h2 {
           font-weight: 600;
           font-size: 18px;
@@ -597,6 +649,7 @@ export default class extends Vue {
           margin-top: 8px;
           margin-bottom: 4px;
         }
+
         p {
           font-weight: normal;
           font-size: 17px;

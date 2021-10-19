@@ -91,12 +91,15 @@ export default class extends Vue {
   justify-content: space-between;
   align-items: flex-start;
   width: 340px;
+
   .errorInput {
     top: 0;
   }
+
   label {
     width: 100%;
   }
+
   .button-remove-link {
     position: relative;
     background: transparent;
@@ -104,9 +107,11 @@ export default class extends Vue {
     margin-top: 15px;
     right: -5px;
   }
+
   .link-name__inputs label {
     margin-bottom: 8px;
     display: inline-block;
+
     .standart-input {
       padding-left: 16px;
     }
@@ -115,6 +120,7 @@ export default class extends Vue {
 @media (min-width: 768px) {
   .existing-sources__link-name {
     width: 660px;
+
     label {
       width: 620px;
     }

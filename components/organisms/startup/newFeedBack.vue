@@ -68,14 +68,17 @@ export default class extends Vue {
   width: 343px;
   margin: 0 auto;
   margin-top: 36px;
+
   .edit-add-realise__header--title {
     display: flex;
     align-items: center;
     width: 330px;
+
     h2 {
       margin-right: 0;
       margin-left: 0;
     }
+
     span {
       width: 24px;
       height: 24px;
@@ -96,6 +99,7 @@ export default class extends Vue {
       margin-bottom: 4px;
     }
   }
+
   .emty-state-feedbacks {
     padding: 32px 16px 64px;
     border: 2px dashed #8c97ac;
@@ -105,17 +109,20 @@ export default class extends Vue {
     display: flex;
     flex-direction: column;
     align-items: center;
+
     p {
       font-weight: bold;
       font-size: 20px;
       line-height: 24px;
     }
+
     span {
       font-weight: normal;
       font-size: 16px;
       line-height: 22px;
       text-align: center;
     }
+
     .emty-state-feedbacks__button {
       margin-top: 32px;
       width: 100%;
@@ -126,6 +133,7 @@ export default class extends Vue {
   .edit-add-realise {
     width: 660px;
     margin-top: 42px;
+
     .edit-add-realise__header--title {
       width: 500px;
 
@@ -142,11 +150,13 @@ export default class extends Vue {
         font-size: 35px;
         line-height: 40px;
       }
+
       span {
         font-size: 17px;
         line-height: 24px;
         width: 377px;
       }
+
       .emty-state-feedbacks__button {
         margin-top: 40px;
         width: 275px;

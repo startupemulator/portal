@@ -65,6 +65,7 @@ export default {
     padding: 8px 16px;
     margin: 0;
   }
+
   .input-add__item {
     border: 1px solid #59667e;
     box-sizing: border-box;
@@ -82,12 +83,14 @@ export default {
     button {
       border: none;
       background-color: transparent;
+
       img {
         width: 12px;
         height: 12px;
       }
     }
   }
+
   .input-add__item-title {
     margin-left: auto;
     font-weight: 500;
@@ -96,6 +99,7 @@ export default {
     text-align: right;
     color: #dbe4f3;
   }
+
   .input-add__input {
     background-color: transparent;
     border: none;
@@ -104,6 +108,7 @@ export default {
     font-weight: 300;
     font-size: 16px;
     line-height: 32px;
+
     &::placeholder {
       color: #b5c1d8;
       font-weight: 300;
@@ -117,6 +122,7 @@ export default {
     .input-add__content {
       padding: 12px 24px;
     }
+
     .input-add__item-title {
       margin-left: auto;
       font-weight: 500;
@@ -125,10 +131,12 @@ export default {
       text-align: right;
       color: #dbe4f3;
     }
+
     .input-add__input {
       font-size: 18px;
       line-height: 32px;
       width: 60%;
+
       &::placeholder {
         font-size: 18px;
         line-height: 32px;

@@ -180,10 +180,12 @@ export default class extends Vue {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
   .challenge-card__header {
     display: flex;
     flex-direction: column;
     position: relative;
+
     .challenge-card__header-startup-state {
       background: #283040;
       box-shadow: inset 2px -2px 8px rgba(28, 35, 48, 0.25);
@@ -213,11 +215,13 @@ export default class extends Vue {
           box-shadow: 0 -2px 8px rgba(60, 194, 141, 0.3),
             0 2px 8px rgba(60, 194, 141, 0.3);
         }
+
         &.finished {
           background: #f0663b;
           box-shadow: -4px 0 6px 1px rgba(240, 102, 59, 0.25),
             4px 0 6px 1px rgba(240, 102, 59, 0.25);
         }
+
         &.feedback {
           background: #19adc7;
           box-shadow: 0 -2px 8px rgba(25, 173, 199, 0.3),
@@ -225,6 +229,7 @@ export default class extends Vue {
             inset 0 -2px 4px 1px rgba(22, 135, 155, 0.15),
             inset 0 1px 4px rgba(255, 255, 255, 0.15);
         }
+
         &.feedback-count {
           background: #eaf42c;
           color: #4e5a71;
@@ -238,14 +243,17 @@ export default class extends Vue {
             inset 0 -2px 4px 1px rgba(117, 122, 14, 0.15),
             inset 0 1px 4px rgba(255, 255, 255, 0.15);
         }
+
         &.ml-8 {
           margin-left: 8px;
         }
+
         &.display-none {
           display: none;
         }
       }
     }
+
     .challenge-card__header-title {
       h4 {
         margin-top: 16px;
@@ -259,6 +267,7 @@ export default class extends Vue {
       }
     }
   }
+
   .challenge-card__content {
     .challenge-card__content-description {
       font-weight: normal;
@@ -268,8 +277,10 @@ export default class extends Vue {
       margin-bottom: 0;
       height: 80px;
     }
+
     .challenge-card__content-specialisation {
       margin-top: 16px;
+
       .tags-item {
         font-weight: normal;
         font-size: 14px;
@@ -284,12 +295,14 @@ export default class extends Vue {
     .challenge-card__content_buttons {
       margin-top: 24px;
       display: flex;
+
       .u-button-blue {
         margin-left: 9px;
       }
     }
   }
 }
+
 .startup-block.challenges .challenge-card {
   margin-right: 16px;
   width: 327px;
@@ -299,6 +312,7 @@ export default class extends Vue {
     margin-bottom: 12px;
     margin-top: -6px;
   }
+
   .challenge-card__content .challenge-card__content_buttons {
     margin-top: 10px;
   }
@@ -323,15 +337,18 @@ export default class extends Vue {
           line-height: 40px;
         }
       }
+
       .challenge-card__header-startup-state {
         padding: 12px;
         top: -24px;
         right: -32px;
       }
+
       & ~ .challenge-card__header-title {
         margin-top: -16px;
       }
     }
+
     .challenge-card__content {
       .challenge-card__content-description {
         font-size: 17px;
@@ -339,6 +356,7 @@ export default class extends Vue {
         margin-top: 24px;
         min-height: 96px;
       }
+
       .challenge-card__content-specialisation {
         margin-top: 32px;
         margin-top: auto;
@@ -353,6 +371,7 @@ export default class extends Vue {
       }
     }
   }
+
   .startup-block.challenges .challenge-card {
     width: 318px;
     min-width: 318px;

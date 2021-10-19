@@ -181,6 +181,7 @@ export default class extends Vue {
 </script>
 <style lang="scss">
 @import "~/assets/css/variables.scss";
+
 .challenges {
   max-width: 1344px;
   margin: 0 auto;
@@ -190,23 +191,28 @@ export default class extends Vue {
   ul {
     padding: 0;
   }
+
   p {
     color: $main-text-color;
   }
+
   .challenges__header-speciality-filter {
     margin-bottom: 30px;
+
     .challenges__header-speciality-filter_list {
       display: flex;
       flex-wrap: wrap;
       max-width: 890px;
       max-height: 92px;
       overflow: hidden;
+
       &.opend-filter {
         overflow: auto;
         max-height: inherit;
       }
     }
   }
+
   .filter-list-button {
     background: transparent;
     font-weight: normal;
@@ -214,24 +220,29 @@ export default class extends Vue {
     line-height: 24px;
     color: #8c97ac;
     padding: 0;
+
     &:hover {
       text-decoration-line: underline;
     }
   }
+
   .challenges__cards {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
     justify-content: center;
   }
+
   .button-more-cards {
     display: flex;
     justify-content: center;
   }
+
   .u-button-gray.more-cards {
     max-width: 343px;
     margin-top: 16px;
   }
+
   .team-develop {
     background: transparent;
     margin-top: 0;
@@ -241,23 +252,28 @@ export default class extends Vue {
       height: 192.88px;
       margin-top: 48px;
     }
+
     button {
       margin-top: 24px;
       background: #4b4ac8;
       box-shadow: inset 0 -2px 4px 1px rgba(48, 92, 178, 0.15),
         inset 0 1px 4px rgba(255, 255, 255, 0.15);
+
       &:hover {
         background-color: $button-color-blue-hover;
       }
+
       &:focus {
         background-color: $button-color-blue-focus;
         border-width: 2px;
         border-color: #b5c1d8;
       }
+
       &:active {
         background-color: $button-color-blue-active;
       }
     }
+
     .team-develop__text-block {
       h2 {
         margin: 0;
@@ -265,10 +281,12 @@ export default class extends Vue {
         font-weight: bold;
         font-size: 23px;
         line-height: 32px;
+
         div {
           display: inline;
         }
       }
+
       h3 {
         margin: 0;
         margin-top: 8px;
@@ -278,6 +296,7 @@ export default class extends Vue {
       }
     }
   }
+
   .tags-item.checked {
     background: #59667e;
   }
@@ -285,6 +304,7 @@ export default class extends Vue {
 @media (min-width: 768px) {
   .challenges {
     padding: 0;
+
     .challenges__header {
       h2 {
         font-weight: bold;
@@ -292,9 +312,11 @@ export default class extends Vue {
         line-height: 80px;
         margin-top: 72px;
       }
+
       .challenges__header-speciality-filters {
         display: flex;
         justify-content: space-between;
+
         p {
           font-weight: 500;
           font-size: 17px;
@@ -302,13 +324,16 @@ export default class extends Vue {
           margin: 0;
         }
       }
+
       .challenges__header-speciality-filter {
         margin-bottom: 16px;
+
         .challenges__header-speciality-filter_list {
           margin-top: 14px;
         }
       }
     }
+
     .challenges__cards {
       display: flex;
       flex-wrap: wrap;
@@ -317,24 +342,30 @@ export default class extends Vue {
       // margin-bottom: 24px;
       // }
     }
+
     .team-develop {
       justify-content: space-between;
+
       img {
         width: 660px;
         height: 384px;
         margin-top: 40px;
       }
+
       .team-develop__text-block {
         margin-top: 36px;
+
         h2 {
           width: 100%;
           font-weight: bold;
           font-size: 56px;
           line-height: 64px;
+
           div {
             display: block;
           }
         }
+
         h3 {
           font-size: 17px;
           line-height: 24px;

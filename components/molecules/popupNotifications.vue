@@ -232,14 +232,17 @@ export default class extends Vue {
   border-radius: 12px;
   box-sizing: border-box;
   border: 1px solid #59667e;
+
   .loader {
     position: static;
     height: auto;
   }
+
   ul {
     margin: 0;
     padding: 0;
   }
+
   .notification-popup__header {
     h3 {
       font-weight: bold;
@@ -248,6 +251,7 @@ export default class extends Vue {
       margin-bottom: 30px;
     }
   }
+
   .showMoreNewNotifications {
     background: transparent;
     display: flex;
@@ -259,25 +263,30 @@ export default class extends Vue {
     font-size: 16px;
     line-height: 32px;
   }
+
   .notification-popup__message {
     padding-bottom: 24px;
     max-height: 245px;
     overflow: hidden;
     overflow-y: visible;
+
     .new-message__header {
       display: flex;
       justify-content: space-between;
       margin-bottom: 16px;
+
       span {
         font-weight: bold;
         font-size: 26px;
         line-height: 32px;
       }
+
       button {
         background: transparent;
         display: flex;
         align-items: center;
         padding-right: 0;
+
         span {
           font-weight: 600;
           font-size: 16px;
@@ -285,6 +294,7 @@ export default class extends Vue {
           color: #8c97ac;
           margin-left: 8px;
         }
+
         img {
           width: 24px;
           height: 24px;
@@ -300,35 +310,43 @@ export default class extends Vue {
       .content-item-description {
         width: 255px;
       }
+
       span {
         font-weight: 500;
         font-size: 17px;
         line-height: 24px;
       }
+
       p {
         margin: 0;
         display: inline-block;
       }
+
       .content-item-description__date {
         font-weight: normal;
         font-size: 14px;
         line-height: 24px;
         color: #8c97ac;
       }
+
       img {
         margin-right: 8px;
       }
     }
   }
+
   .earlier__message {
     padding-top: 24px;
     border-top: 1px solid #4e5a71;
   }
+
   .notification-button {
     height: 40px;
   }
+
   .notification-popup__expert-notification {
     display: flex;
+
     .expert-button {
       padding: 4px 16px;
       font-weight: normal;
@@ -341,6 +359,7 @@ export default class extends Vue {
       width: auto;
       height: auto;
     }
+
     .expert-button-projects {
       margin-right: 8px;
     }
@@ -354,6 +373,7 @@ export default class extends Vue {
     top: 84px;
     max-width: 564px;
     padding: 0 32px;
+
     .notification-popup__header {
       h3 {
         font-weight: 600;
@@ -363,52 +383,64 @@ export default class extends Vue {
         margin-bottom: 28px;
       }
     }
+
     .notification-popup__message {
       padding-bottom: 12px;
       max-height: 540px;
+
       &::-webkit-scrollbar {
         width: 5px;
         background-color: #2e384a;
         padding-top: 20px;
       }
+
       &::-webkit-scrollbar-thumb {
         border-radius: 10px;
         background-color: #59667e;
       }
+
       &::-webkit-scrollbar-track {
         -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
         border-radius: 10px;
         background-color: #2e384a;
       }
+
       .new-message__header {
         margin-bottom: 0;
+
         span {
           font-weight: 600;
           font-size: 18px;
           line-height: 32px;
         }
       }
+
       .new-message__content-item {
         .content-item-description {
           width: 400px;
         }
+
         span {
           font-weight: 500;
           font-size: 17px;
           line-height: 24px;
         }
+
         p {
           font-size: 17px;
           line-height: 24px;
         }
       }
     }
+
     .earlier__message {
       padding-top: 18px;
     }
+
     .notification-button {
       display: none;
     }
+
     .notification-popup__expert-notification {
       margin-top: -10px;
       margin-bottom: 22px;

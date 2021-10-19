@@ -28,9 +28,11 @@ export default class extends Vue {}
   .empty-state {
     margin: 0 auto;
     width: 448px;
+
     div {
       margin: 0 auto;
       width: 178px;
+
       .u-button {
         height: 48px;
       }

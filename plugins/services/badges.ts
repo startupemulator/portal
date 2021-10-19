@@ -1,4 +1,9 @@
 import { Strapi } from "@nuxtjs/strapi";
+import { Badges } from "~/models/Badges";
+
+export interface BadgesServices {
+  $badges(): Promise<Partial<Badges>[]>;
+}
 
 export function badges($strapi: Strapi) {
   return async () => {

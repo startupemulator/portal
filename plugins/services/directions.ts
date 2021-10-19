@@ -1,4 +1,9 @@
 import { Strapi } from "@nuxtjs/strapi";
+import { Directions } from "~/models/Directions";
+
+export interface DirectionsServices {
+  $directions(): Promise<Partial<Directions>[]>;
+}
 
 export function directions($strapi: Strapi) {
   return async () => {

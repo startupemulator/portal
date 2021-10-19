@@ -2,8 +2,10 @@
   width: 343px;
   margin: 0 auto;
 }
+
 .start-ups__content {
   margin-top: 48px;
+
   p {
     font-weight: 500;
     font-size: 16px;
@@ -11,10 +13,12 @@
     color: #fff;
     margin-bottom: 12px;
   }
+
   ul {
     padding: 0;
     margin: 0;
   }
+
   .start-ups__all-technologies {
     font-weight: normal;
     font-size: 16px;
@@ -25,6 +29,7 @@
     padding: 0;
     margin-top: 4px;
   }
+
   .start-ups__header-filter_list {
     overflow: hidden;
     width: 343px;
@@ -32,29 +37,36 @@
     height: 103px;
     flex-wrap: wrap;
   }
+
   .start-ups__header-filter_list.challenges-filter_list {
     overflow: visible;
     height: auto;
   }
+
   .start-ups__header-filter_list.filter_list--opend {
     height: auto;
   }
+
   .startup-block {
     margin-left: 0;
   }
 }
+
 .start-ups_cards-content {
   margin-top: 20px;
+
   .startup-card {
     margin-left: 0;
     width: 343px;
   }
 }
+
 .startups-page .startup-block .startup-card,
 .challenges-page .startup-block .startup-card,
 .my-projects .startup-block .startup-card {
   margin-top: 16px;
 }
+
 .startups-page .u-button-gray__show-more,
 .challenges-page .u-button-gray__show-more {
   margin: 24px 0 32px 0;
@@ -76,30 +88,37 @@
       .u-button.u-button-gray {
         border-color: #2f2dad;
         background-color: $button-color-blue;
+
         &:hover {
           background-color: $button-color-blue-hover;
         }
+
         &:focus {
           background-color: $button-color-blue-focus;
           border-width: 2px;
           border-color: #b5c1d8;
         }
+
         &:active {
           background-color: $button-color-blue-active;
         }
       }
+
       img {
         width: 660px;
         height: 384px;
       }
     }
+
     .start-ups__header {
       display: flex;
       flex-wrap: wrap;
       margin-left: 12px;
+
       &.challenges__header {
         flex-direction: column;
       }
+
       h2 {
         margin-left: 0;
         font-weight: bold;
@@ -108,29 +127,35 @@
         margin-top: 24px;
         margin-bottom: 25px;
       }
+
       p {
         font-weight: 500;
         font-size: 17px;
         line-height: 32px;
       }
     }
+
     .start-ups__header-filter {
       order: 1;
     }
+
     .start-ups__header-filter_list {
       width: auto;
       height: auto;
     }
+
     .start-ups__all-technologies {
       display: none;
     }
   }
+
   .start-ups_cards-content {
     .startup-card {
       width: 318px;
       margin-bottom: 8px;
       margin-top: 0;
     }
+
     .transition__startup-card {
       display: flex;
       justify-content: center;
@@ -143,6 +168,7 @@
       }
     }
   }
+
   .startups-page .u-button-gray__show-more,
   .challenges-page .u-button-gray__show-more {
     display: none;

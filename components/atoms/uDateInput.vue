@@ -22,9 +22,11 @@ export default class extends Vue {}
   box-sizing: border-box;
   display: flex;
   align-items: center;
+
   img {
     margin-right: 16px;
   }
+
   input {
     font-weight: normal;
     font-size: 16px;
@@ -37,13 +39,16 @@ export default class extends Vue {}
     padding-right: 12px;
     padding-left: 12px;
     border-right: 1px solid #4e5a71;
+
     &::placeholder {
       color: #8c97ac;
     }
   }
+
   .date-input--day {
     padding-left: 0;
   }
+
   .date-input--year {
     width: 40px;
     border-right: none;

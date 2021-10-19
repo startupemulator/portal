@@ -52,10 +52,12 @@ export default {
     align-items: center;
     border-bottom: 1px solid transparent;
     transition: 0.3s;
+
     img {
       transform: rotate(180deg);
       margin-right: 15px;
     }
+
     span:hover {
       border-bottom: 1px solid #8c97ac;
     }

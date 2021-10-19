@@ -74,6 +74,7 @@ export default class extends Vue {
   .errorInput {
     top: 0;
   }
+
   .errorInput.select {
     top: 16px;
   }

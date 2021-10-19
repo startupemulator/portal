@@ -80,6 +80,7 @@ export default class extends Vue {
     font-size: 16px;
     line-height: 24px;
   }
+
   p {
     margin-top: 2px;
     font-weight: 500;
@@ -88,27 +89,34 @@ export default class extends Vue {
     color: #dbe4f3;
     margin-bottom: 12px;
   }
+
   .criterios_raiting {
     display: flex;
     align-items: center;
+
     ul {
       margin: 0;
       padding: 0;
       display: flex;
       align-items: center;
       margin-left: 2px;
+
       li:not(:last-child) {
         margin-right: 12px;
       }
     }
+
     svg {
       cursor: pointer;
+
       &.active {
         fill: #eaf42c;
+
         path {
           stroke: #eaf42c;
         }
       }
+
       &:hover {
         path {
           stroke: #eaf42c;
@@ -127,27 +135,33 @@ export default class extends Vue {
 @media (min-width: 768px) {
   .criterios {
     margin-bottom: 28px;
+
     h4 {
       font-size: 17px;
       line-height: 32px;
     }
+
     .criterios_raiting {
       ul {
         margin-top: 3px;
         margin-left: 3px;
+
         li:not(:last-child) {
           margin-right: 22px;
         }
       }
+
       svg {
         width: 42px;
         height: 42px;
       }
+
       .u-button-transpend {
         width: 85px;
         height: 48px;
         margin-left: 32px;
         color: #fff;
+
         &:hover {
           background: #59667e;
         }

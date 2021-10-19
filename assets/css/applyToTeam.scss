@@ -4,6 +4,7 @@
   justify-content: space-between;
   min-height: 100vh;
 }
+
 .apply-to-team {
   width: 343px;
   margin: 0 auto;
@@ -12,6 +13,7 @@
   .button-back {
     margin-top: 36px;
   }
+
   .apply-to-team__button {
     position: fixed;
     left: 0;
@@ -29,6 +31,7 @@
     z-index: 5;
   }
 }
+
 .apply-to-team__comment {
   color: #fff;
   font-weight: normal;
@@ -43,12 +46,14 @@
   box-sizing: border-box;
   border: 2px solid transparent;
   margin-top: 16px;
+
   &::placeholder {
     font-weight: normal;
     font-size: 16px;
     line-height: 24px;
     color: #b5c1d8;
   }
+
   &:hover,
   &:active {
     border: 2px solid #b5c1d8;
@@ -57,21 +62,26 @@
 @media (min-width: 768px) {
   .apply-to-team {
     width: 660px;
+
     .button-back {
       margin-top: 46px;
     }
+
     h2 {
       margin-bottom: 20px;
     }
+
     .technology-picker h2 {
       margin-top: 40px;
       font-weight: 500;
       font-size: 17px;
       line-height: 32px;
     }
+
     .technology-picker .technology-picker__title {
       margin-top: 20px;
     }
+
     .apply-to-team__button {
       position: relative;
       background-color: transparent;
@@ -83,6 +93,7 @@
       padding: 32px 0 0 0;
     }
   }
+
   .apply-to-team__comment {
     width: 660px;
     height: 136px;

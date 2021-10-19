@@ -98,19 +98,23 @@ export default class extends Vue {
   padding-bottom: 24px;
   padding-top: 24px;
   border-bottom: 1px solid #4e5a71;
+
   .position-list__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     .position-list__header-name {
       display: flex;
       align-items: center;
+
       h4 {
         font-weight: 600;
         font-size: 18px;
         line-height: 32px;
         margin: 0;
       }
+
       span {
         font-weight: 500;
         font-size: 14px;
@@ -128,11 +132,13 @@ export default class extends Vue {
         margin-left: 12px;
       }
     }
+
     .position-list__header-button {
       width: 65px;
       display: flex;
       justify-content: space-between;
       margin-right: 7px;
+
       span {
         width: 24px;
         height: 24px;
@@ -144,6 +150,7 @@ export default class extends Vue {
         background: rgba(255, 255, 255, 0.3);
         border-radius: 14px;
       }
+
       img {
         transform: rotate(90deg);
         cursor: pointer;
@@ -156,6 +163,7 @@ export default class extends Vue {
   .position-list {
     display: block;
   }
+
   .position-list__cards {
     display: flex;
     flex-wrap: wrap;

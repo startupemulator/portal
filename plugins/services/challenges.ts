@@ -1,4 +1,31 @@
 import { Strapi } from "@nuxtjs/strapi";
+import { Challenge } from "~/models/Challenge";
+
+export interface ChallengesServices {
+  $challenges(
+    difficulty: number[],
+    specialisations: number[]
+  ): Promise<Partial<Challenge>[]>;
+
+  $createChallenge(
+    title: string,
+    description: string,
+    difficulty: string,
+    specialisations: Array<string>,
+    sources: Array<string>
+  ): Promise<Partial<Challenge>>;
+
+  $updateChallenge(
+    id: string,
+    title: string,
+    description: string,
+    difficulty: string,
+    specialisations: Array<string>,
+    sources: Array<string>
+  ): Promise<Partial<Challenge>>;
+
+  $challenge(slug: string): Promise<Partial<Challenge>>;
+}
 
 export function challenges($strapi: Strapi) {
   return (
@@ -30,14 +57,13 @@ export function challenges($strapi: Strapi) {
                 slug
               }
             }
-            
+
           }
         }
       }`,
     });
   };
 }
-
 export function challenge($strapi: Strapi) {
   return async (slug: string) => {
     const data = await $strapi.graphql({
@@ -55,7 +81,7 @@ export function challenge($strapi: Strapi) {
     }
     author {
       id
-      
+
     }
     sources {
       id
@@ -78,7 +104,7 @@ export function createChallenge($strapi: Strapi) {
   ) => {
     const data = await $strapi.graphql({
       query: `mutation {
-        createChallenge(input: { data: { 
+        createChallenge(input: { data: {
           title: "${title}", description: "${description}", difficulty: ${difficulty},
           specialisations: [${specialisations}], sources: [${sources}] } }) {
             challenge {

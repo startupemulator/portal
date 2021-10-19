@@ -1,4 +1,32 @@
 import { Strapi } from "@nuxtjs/strapi";
+import { User } from "../../models/User";
+
+export interface UserServices {
+  $users(): Promise<Partial<User>[]>;
+
+  $getUserByEmail(email: string): Promise<Partial<User>>;
+
+  $updateUserPassword(
+    password: string,
+    oldPassword: string,
+    passwordRepeat: string
+  ): Promise<Partial<User>[]>;
+
+  $createPassword(
+    password: string,
+    passwordRepeat: string
+  ): Promise<Partial<User>[]>;
+
+  $createUser(
+    email: string,
+    name: string,
+    password: String
+  ): Promise<Partial<User>[]>;
+
+  $emailConfirmation(token: string): Promise<Partial<User>[]>;
+
+  $passwordType(): Promise<Partial<User>[]>;
+}
 
 export function users($strapi: Strapi) {
   return async () => {
@@ -6,7 +34,7 @@ export function users($strapi: Strapi) {
       query: `query {
   users {
     id
-    email  
+    email
   }
 }`,
     });
@@ -24,7 +52,7 @@ export function getUserByEmail($strapi: Strapi) {
       name
       slug
     }
-    
+
   }
 }`,
     });
@@ -59,7 +87,7 @@ export function updateUserPassword($strapi: Strapi) {
                         oldPassword: "${oldPassword}",
                         passwordRepeat: "${passwordRepeat}")
                         {
-            status 
+            status
                   }
       }`,
     });
@@ -72,7 +100,7 @@ export function createPassword($strapi: Strapi) {
       query: `mutation {
         createPassword( password: "${password}",
         passwordRepeat: "${passwordRepeat}") {
-            status 
+            status
                   }
       }`,
     });

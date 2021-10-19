@@ -8,7 +8,7 @@
       >
         <img src="~/assets/img/close.svg" alt="Close" />
       </button>
-      <u-title :text="'Signing up link was sent'"></u-title>
+      <U-Title :text="'Signing up link was sent'"></U-Title>
       <p>
         Signing up link was sent to your email.
         <span>Follow the link to create an account</span>
@@ -33,15 +33,18 @@ export default {};
     margin: 0 auto;
     margin-top: 262px;
   }
+
   .successfully-sent {
     height: 280px;
   }
+
   .sign-up-link__close {
     position: absolute;
     right: 10px;
     top: 16px;
     background-color: transparent;
   }
+
   h2 {
     font-weight: bold;
     font-size: 26px;
@@ -49,6 +52,7 @@ export default {};
     margin-top: 40px;
     margin-bottom: 0;
   }
+
   p {
     font-weight: 300;
     font-size: 16px;
@@ -66,13 +70,16 @@ export default {};
       padding: 0 48px;
       margin-top: 332px;
     }
+
     .successfully-sent {
       height: 344px;
     }
+
     .sign-up-link__close {
       right: 18px;
       top: 22px;
     }
+
     h2 {
       font-weight: bold;
       font-size: 35px;
@@ -80,6 +87,7 @@ export default {};
       margin: 0;
       margin-top: 46px;
     }
+
     p {
       font-weight: 300;
       font-size: 17px;

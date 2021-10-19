@@ -337,21 +337,26 @@ export default class extends Vue {
   box-sizing: border-box;
   color: #fff;
   margin-bottom: 16px;
+
   ul {
     margin: 0;
     padding: 0;
   }
+
   .feed-back-card__main-content-header {
     padding: 0 24px;
+
     h3 {
       font-weight: 500;
       font-size: 16px;
       line-height: 24px;
       margin: 0;
+
       span {
         font-weight: normal;
       }
     }
+
     p {
       font-weight: normal;
       font-size: 14px;
@@ -360,13 +365,16 @@ export default class extends Vue {
       margin-top: 0;
     }
   }
+
   .feed-back-card__main-content-body {
     display: flex;
     align-items: flex-start;
     border-top: 1px solid #4e5a71;
     padding: 16px 24px 0 24px;
+
     .feed-back-card__main-content-feedback {
       margin-left: 15px;
+
       h4 {
         margin-top: 0;
         font-weight: 500;
@@ -374,6 +382,7 @@ export default class extends Vue {
         line-height: 24px;
         margin-bottom: 12px;
       }
+
       .main-content-feedback__criterion {
         .criterion-star {
           svg {
@@ -385,12 +394,15 @@ export default class extends Vue {
               stroke: #8c97ac;
             }
           }
+
           svg.active {
             fill: #eaf42c;
+
             path {
               stroke: none;
             }
           }
+
           span {
             margin-left: 5px;
             font-weight: normal;
@@ -400,6 +412,7 @@ export default class extends Vue {
           }
         }
       }
+
       .main-content-feedback__descrition {
         font-weight: normal;
         font-size: 14px;
@@ -407,6 +420,7 @@ export default class extends Vue {
         color: #dbe4f3;
         margin-top: 14px;
         width: 240px;
+
         img {
           display: block;
           width: 48px;
@@ -416,10 +430,12 @@ export default class extends Vue {
       }
     }
   }
+
   .startup-card__activity-like {
     margin-top: 12px;
     display: flex;
     align-items: center;
+
     &.opend-feedback {
       padding-bottom: 16px;
     }
@@ -427,34 +443,40 @@ export default class extends Vue {
     & svg {
       cursor: pointer;
     }
+
     .startup-card__activity-like-count {
       font-weight: 500;
       font-size: 14px;
       line-height: 24px;
       margin-left: 8px;
     }
+
     .startup-card__activity-like-button {
       background: transparent;
       display: flex;
       align-items: center;
       margin-left: auto;
       margin-right: 16px;
+
       div {
         font-weight: normal;
         font-size: 14px;
         line-height: 24px;
         margin-right: 8px;
       }
+
       img {
         transform: rotate(90deg);
         transition: 0.2s;
       }
     }
   }
+
   .feedback-published,
   .feedback-unpublish {
     display: flex;
     margin-left: 26px;
+
     span {
       margin-left: 10px;
     }
@@ -463,30 +485,37 @@ export default class extends Vue {
       width: 235px;
     }
   }
+
   .feed-back-card__expert-buttons {
     padding: 16px 0 0 0;
     margin-top: 16px;
     border-top: 1px solid #4e5a71;
     display: flex;
     justify-content: center;
+
     .u-button {
       max-width: 295px;
     }
+
     .u-button-gray {
       margin-left: 9px;
     }
   }
+
   .feedbacks_badges {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
   }
+
   .feed-back-card__main-content-feedback__header {
     display: none;
   }
+
   .mobile-dellete-button {
     justify-content: flex-start;
     padding-left: 24px;
+
     .feedback__header--delete {
       display: flex;
       align-items: center;
@@ -495,6 +524,7 @@ export default class extends Vue {
         margin-top: 2px;
         margin-right: 10px;
       }
+
       .u-button-transpend {
         font-weight: 600;
         font-size: 16px;
@@ -508,26 +538,32 @@ export default class extends Vue {
     width: auto;
     max-width: 831px;
     padding: 24px 0 24px 0;
+
     .feed-back-card__main-content-header {
       padding: 0 32px;
+
       h3 {
         font-size: 17px;
         line-height: 24px;
+
         span {
           font-weight: normal;
         }
       }
+
       p {
         font-size: 14px;
         line-height: 24px;
         margin-bottom: 24px;
       }
     }
+
     .feed-back-card__expert-buttons {
       padding: 24px 0 0 0;
       padding-left: 32px;
       padding-right: 32px;
       margin-top: 24px;
+
       .u-button {
         max-width: 596px;
         max-height: 48px;
@@ -535,15 +571,19 @@ export default class extends Vue {
         font-size: 17px;
         line-height: 32px;
       }
+
       .u-button-gray {
         margin-left: 24px;
       }
     }
+
     .feed-back-card__main-content-body {
       padding: 20px 32px 0 32px;
+
       img {
         margin-top: 5px;
       }
+
       .feed-back-card__main-content-feedback {
         margin-left: 20px;
         width: 100%;
@@ -551,9 +591,11 @@ export default class extends Vue {
         .main-content-feedback__criterion {
           margin-bottom: 4px;
         }
+
         .main-content-feedback__descrition {
           margin-top: 18px;
           width: 498px;
+
           img {
             width: 72px;
             height: 72px;
@@ -562,14 +604,17 @@ export default class extends Vue {
         }
       }
     }
+
     .feed-back-card__published {
       display: flex;
       justify-content: space-between;
     }
+
     .feedback-unpublish {
       margin-right: 26px;
       justify-content: flex-end;
     }
+
     .feedback-published,
     .feedback-unpublish {
       width: 100%;
@@ -582,6 +627,7 @@ export default class extends Vue {
         line-height: 32px;
       }
     }
+
     .feed-back-card__main-content-feedback__header {
       display: flex;
       justify-content: space-between;
@@ -591,10 +637,12 @@ export default class extends Vue {
         display: flex;
         align-items: center;
         margin-top: -15px;
+
         img {
           margin-top: 2px;
           margin-right: 10px;
         }
+
         .u-button-transpend {
           font-weight: 600;
           font-size: 16px;
@@ -602,6 +650,7 @@ export default class extends Vue {
         }
       }
     }
+
     .mobile-dellete-button {
       display: none;
     }

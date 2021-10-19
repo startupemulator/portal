@@ -44,6 +44,7 @@ export default class extends Vue {
   .practicipants-header {
     display: flex;
     align-items: center;
+
     h4 {
       font-weight: bold;
       font-size: 26px;
@@ -51,6 +52,7 @@ export default class extends Vue {
       margin-top: 10px;
       margin-bottom: 0;
     }
+
     span {
       font-weight: 600;
       font-size: 14px;
@@ -64,6 +66,7 @@ export default class extends Vue {
       margin-left: 8px;
     }
   }
+
   .practicipants-list {
     margin: 0;
     padding: 0;
@@ -80,6 +83,7 @@ export default class extends Vue {
         font-size: 16px;
         line-height: 22px;
       }
+
       p {
         font-weight: normal;
         font-size: 14px;
@@ -89,11 +93,13 @@ export default class extends Vue {
         margin-top: 4px;
       }
     }
+
     .practicipants-item__button {
       display: flex;
       align-items: center;
       margin-right: 3px;
       width: 140px;
+
       img {
         width: 16px;
         height: 16px;
@@ -104,17 +110,20 @@ export default class extends Vue {
 @media (min-width: 768px) {
   .practicipants {
     margin-top: 24px;
+
     .practicipants-header {
       h4 {
         font-weight: 600;
         font-size: 35px;
         line-height: 40px;
       }
+
       span {
         margin-top: 24px;
         margin-left: 12px;
       }
     }
+
     .practicipants-list {
       .practicipants-item {
         padding-bottom: 16px;

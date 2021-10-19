@@ -51,6 +51,7 @@ export default {
   transition: 0.3s;
   box-sizing: border-box;
 }
+
 a.u-button {
   color: $main-text-color !important;
   cursor: pointer;
@@ -61,6 +62,7 @@ a.u-button {
   align-items: center;
   box-sizing: border-box;
 }
+
 .u-button-transpend {
   background: transparent;
   border: none;
@@ -70,29 +72,36 @@ a.u-button {
   line-height: 32px;
   box-shadow: none;
   box-sizing: border-box;
+
   :hover {
     text-decoration: underline;
   }
 }
+
 .u-button-blue {
   border-color: #2f2dad;
   background-color: $button-color-blue;
+
   &:hover {
     background-color: $button-color-blue-hover;
   }
+
   &:focus {
     background-color: $button-color-blue-focus;
     border-width: 2px;
     border-color: #b5c1d8;
   }
+
   &:active {
     background-color: $button-color-blue-active;
   }
+
   &.add-feedback {
     margin-top: 24px;
     margin-bottom: 16px;
   }
 }
+
 .u-button-gray {
   border-color: #404c5f;
   background-color: $button-color-gray;
@@ -100,11 +109,13 @@ a.u-button {
   &:hover {
     background-color: $button-color-gray-hover;
   }
+
   &:focus {
     background-color: $button-color-gray-focus;
     border-width: 2px;
     border-color: #b5c1d8;
   }
+
   &:active {
     background-color: $button-color-gray-active;
   }
@@ -115,11 +126,13 @@ a.u-button {
     height: 56px;
     font-size: 18px;
   }
+
   .challenge-task {
     .u-button-gray {
       width: 241px;
     }
   }
+
   .u-button-blue {
     &.add-feedback {
       max-width: 238px;

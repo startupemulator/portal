@@ -55,12 +55,14 @@ export default class AppHeader extends Vue {
   box-sizing: border-box;
   margin-bottom: 16px;
   color: #fff;
+
   .position-card__highlighter {
     min-height: 100%;
     background: #283040;
     box-shadow: inset 2px -2px 8px rgba(28, 35, 48, 0.25);
     border-radius: 0 10px 10px 0;
     padding: 8px 7px;
+
     .card__highlighter {
       height: 100%;
       background: #6295fc;
@@ -69,8 +71,10 @@ export default class AppHeader extends Vue {
       width: 2px;
     }
   }
+
   .position-card__developer {
     margin-left: 16px;
+
     h4 {
       font-weight: normal;
       font-size: 16px;
@@ -78,6 +82,7 @@ export default class AppHeader extends Vue {
       margin: 0;
       margin-bottom: 16px;
     }
+
     .tags-item {
       padding: 0 16px;
       font-weight: normal;
@@ -87,6 +92,7 @@ export default class AppHeader extends Vue {
       margin-right: 4px;
       color: #b5c1d8;
     }
+
     .position-card__developer__button {
       display: none;
     }
@@ -95,19 +101,24 @@ export default class AppHeader extends Vue {
 @media (min-width: 1280px) {
   .open-position-card {
     padding: 20px 0;
+
     .position-card__highlighter {
       padding: 12px 14px;
+
       .card__highlighter {
         width: 4px;
       }
     }
+
     .position-card__developer {
       margin-left: 24px;
       display: flex;
       width: 100%;
+
       .position-card__developer_technologies {
         width: 465px;
       }
+
       h4 {
         font-weight: normal;
         font-size: 17px;
@@ -115,10 +126,12 @@ export default class AppHeader extends Vue {
         margin-top: 4px;
         margin-bottom: 8px;
       }
+
       .technology-item {
         margin-right: 8px;
         color: #b5c1d8;
       }
+
       .position-card__developer__button {
         display: block;
         width: 254px;

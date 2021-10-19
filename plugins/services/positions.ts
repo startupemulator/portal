@@ -1,5 +1,29 @@
 import { Strapi } from "@nuxtjs/strapi";
+import { Positions } from "../../models/Positions";
 import { Technology } from "~/models/Technology";
+
+export interface PositionsServices {
+  $positions(id: string): Promise<Partial<Positions>[]>;
+
+  $createPosition(
+    startup: string,
+    technologies: Array<Technology>,
+    specialisation: string
+  ): Promise<Partial<Positions>>;
+
+  $deletePositions(id: string): Promise<Partial<Positions>>;
+
+  $updatePosition(
+    id: string,
+    technologies: Array<Technology>,
+    specialisation: string
+  ): Promise<Partial<Positions>>;
+
+  $updateStatusPosition(
+    id: string,
+    status: string
+  ): Promise<Partial<Positions>>;
+}
 
 export function positions($strapi: Strapi) {
   return async (id: string) => {
@@ -13,6 +37,7 @@ export function positions($strapi: Strapi) {
     return data.positions ? data.positions[0] : null;
   };
 }
+
 export function deletePositions($strapi: Strapi) {
   return async (id: string) => {
     const data = await $strapi.graphql({
@@ -27,6 +52,7 @@ export function deletePositions($strapi: Strapi) {
     return data.deletePosition.position ? data.deletePosition.position : null;
   };
 }
+
 export function createPosition($strapi: Strapi) {
   return async (
     startup: string,
@@ -49,7 +75,7 @@ export function createPosition($strapi: Strapi) {
                 id
                 title
             }
-            
+
           }
         }
       }`,
@@ -57,6 +83,7 @@ export function createPosition($strapi: Strapi) {
     return data.createPosition.position ? data.createPosition.position : null;
   };
 }
+
 export function updatePosition($strapi: Strapi) {
   return async (
     id: string,
@@ -83,7 +110,7 @@ export function updatePosition($strapi: Strapi) {
                 id
                 title
             }
-            
+
           }
         }
       }`,
@@ -91,6 +118,7 @@ export function updatePosition($strapi: Strapi) {
     return data.updatePosition.position ? data.updatePosition.position : null;
   };
 }
+
 export function updateStatusPosition($strapi: Strapi) {
   return async (id: string, status: string) => {
     const data = await $strapi.graphql({
@@ -102,7 +130,7 @@ export function updateStatusPosition($strapi: Strapi) {
              }
              ) {
           position {
-            id            
+            id
           }
         }
       }`,

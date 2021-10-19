@@ -2,7 +2,7 @@ import Vuex, { Store } from "vuex";
 import Vue from "vue";
 interface RootState {}
 Vue.use(Vuex);
-export const store = new Vuex.Store<RootState>({
+export const store = new Store<RootState>({
   actions: {
     nuxtServerInit: async () => {
       // await Technologies.fetch();

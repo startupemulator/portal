@@ -118,9 +118,11 @@ export default class extends Vue {
     flex-direction: column;
     align-items: center;
     height: calc(100vh - 310px);
+
     h2 {
       font-size: 17px;
     }
+
     .u-button-gray {
       width: 250px;
     }

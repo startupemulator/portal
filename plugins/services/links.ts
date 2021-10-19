@@ -1,4 +1,15 @@
 import { Strapi } from "@nuxtjs/strapi";
+import { Links } from "../../models/Links";
+
+export interface LinksServices {
+  $links(id: string): Promise<Partial<Links>[]>;
+
+  $deleteLink(id: string): Promise<Partial<Links>>;
+
+  $createLink(title: string, url: string): Promise<Partial<Links>>;
+
+  $updateLink(id: string, title: string, url: string): Promise<Partial<Links>>;
+}
 
 export function links($strapi: Strapi) {
   return async (id: string) => {
@@ -32,7 +43,7 @@ export function createLink($strapi: Strapi) {
   return async (title: string, url: string) => {
     const data = await $strapi.graphql({
       query: `mutation {
-        createLink(input: { data: { 
+        createLink(input: { data: {
           title: "${title}", url: [${url}]  } }) {
           link {
            id

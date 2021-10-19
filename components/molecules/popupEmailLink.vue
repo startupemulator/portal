@@ -93,12 +93,14 @@ export default class extends Vue {
     margin: 0 auto;
     margin-top: 175px;
   }
+
   .sign-up-link__close {
     position: absolute;
     right: 10px;
     top: 16px;
     background-color: transparent;
   }
+
   h2 {
     font-weight: bold;
     font-size: 26px;
@@ -106,6 +108,7 @@ export default class extends Vue {
     margin-top: 40px;
     margin-bottom: 0;
   }
+
   p {
     font-weight: 300;
     font-size: 16px;
@@ -113,11 +116,13 @@ export default class extends Vue {
     color: #fff;
     width: 260px;
   }
+
   .sign-up-in__email {
     margin-top: 8px;
     font-weight: 300;
     font-size: 16px;
     line-height: 32px;
+
     &::placeholder {
       font-weight: 300;
       font-size: 16px;
@@ -133,10 +138,12 @@ export default class extends Vue {
       padding: 0 48px;
       margin-top: 254px;
     }
+
     .sign-up-link__close {
       right: 18px;
       top: 20px;
     }
+
     h2 {
       font-weight: bold;
       font-size: 35px;
@@ -144,17 +151,20 @@ export default class extends Vue {
       margin: 0;
       margin-top: 48px;
     }
+
     p {
       font-weight: 300;
       font-size: 17px;
       line-height: 24px;
       width: 468px;
     }
+
     .sign-up-in__email {
       margin-top: 4px;
       font-weight: 300;
       font-size: 16px;
       line-height: 32px;
+
       &::placeholder {
         font-weight: 300;
         font-size: 16px;

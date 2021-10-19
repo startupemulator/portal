@@ -1,4 +1,23 @@
 import { Strapi } from "@nuxtjs/strapi";
+import { Solutions } from "../../models/Solution";
+
+export interface SolutionsServices {
+  $solutions(id: string): Promise<Partial<Solutions>[]>;
+
+  $deleteSolution(id: string): Promise<Partial<Solutions>>;
+
+  $createSolution(
+    title: string,
+    url: string,
+    request: string
+  ): Promise<Partial<Solutions>>;
+
+  $updateSolution(
+    id: string,
+    title: string,
+    url: string
+  ): Promise<Partial<Solutions>>;
+}
 
 export function solutions($strapi: Strapi) {
   return async (id: string) => {
@@ -14,6 +33,7 @@ export function solutions($strapi: Strapi) {
     return data.solutions ? data.solutions[0] : null;
   };
 }
+
 export function deleteSolution($strapi: Strapi) {
   return async (id: string) => {
     const data = await $strapi.graphql({
@@ -28,6 +48,7 @@ export function deleteSolution($strapi: Strapi) {
     return data.deleteSolution.solution ? data.deleteSolution.solution : null;
   };
 }
+
 export function createSolution($strapi: Strapi) {
   return async (title: string, url: string, request: string) => {
     const data = await $strapi.graphql({
@@ -35,7 +56,7 @@ export function createSolution($strapi: Strapi) {
         createSolution(input: { data: { title: "${title}", url: "${url}", request: "${request}"  } } ) {
           solution {
            id
-           
+
           }
         }
       }`,
@@ -43,6 +64,7 @@ export function createSolution($strapi: Strapi) {
     return data.createSolution.solution ? data.createSolution.solution : null;
   };
 }
+
 export function updateSolution($strapi: Strapi) {
   return async (id: string, title: string, url: string) => {
     const data = await $strapi.graphql({
