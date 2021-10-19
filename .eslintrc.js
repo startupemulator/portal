@@ -21,5 +21,6 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": "off",
     "import/no-mutable-exports": "off",
     camelcase: "off",
+    "prettier/prettier": "error",
   },
 };

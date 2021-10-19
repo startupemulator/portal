@@ -1,4 +1,6 @@
-export interface NotificationUser {
+import { Profile } from "./Profile";
+
+export interface User {
   id: string;
   email: string;
   provider: string;
@@ -9,6 +11,7 @@ export interface NotificationUser {
   blocked: true;
   role: string;
   name: string;
+  profile: Profile;
   created_by: string;
   updated_by: string;
 }

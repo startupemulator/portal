@@ -1,4 +1,4 @@
-import { NotificationUser } from "./NotificationUser";
+import { User } from "./User";
 import { Technology } from "./Technology";
 import { Experience } from "./Experience";
 
@@ -6,7 +6,8 @@ export interface Profile {
   id: string;
   is_expert: boolean;
   slug: string;
-  user: Array<NotificationUser>;
+  name: string;
+  user: User;
   technologies: Array<Technology>;
-  experience: Array<Experience>;
+  experience: Experience;
 }

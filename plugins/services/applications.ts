@@ -1,8 +1,26 @@
 import { Strapi } from "@nuxtjs/strapi";
+import { Applications } from "~/models/Applications";
+
+export interface ApplicationsServices {
+  $applications(): Promise<Partial<Applications>[]>;
+
+  $applicationsByStartupId(id: string): Promise<Partial<Applications>[]>;
+
+  $cancelApplication(id: string): Promise<Partial<Applications>>;
+
+  $applicationAccept(id: string): Promise<Partial<Applications>>;
+
+  $applicationAdvancedAccess(id: string): Promise<Partial<Applications>>;
+
+  $applicationDecline(
+    id: string,
+    declineReason: string
+  ): Promise<Partial<Applications>>;
+}
 
 export function applications($strapi: Strapi) {
   return async () => {
-    const data = await $strapi.graphql({
+    return await $strapi.graphql({
       query: `query {
     applications {
     id
@@ -23,12 +41,11 @@ export function applications($strapi: Strapi) {
   }
 }`,
     });
-    return data;
   };
 }
 export function applicationsByStartupId($strapi: Strapi) {
   return async (id: string) => {
-    const data = await $strapi.graphql({
+    return await $strapi.graphql({
       query: `query {
     applications(where:{position:{startup: "${id}"}}) {
     id
@@ -56,7 +73,7 @@ export function applicationsByStartupId($strapi: Strapi) {
           id
           email
           profile{
-            id 
+            id
             name
             slug
             technologies{
@@ -64,23 +81,21 @@ export function applicationsByStartupId($strapi: Strapi) {
               title
             }
             experience{
-              id 
+              id
               title
             }
-          } 
+          }
         }
       }
     }
   }
 }`,
     });
-    return data;
   };
 }
-
 export function applicationAdvancedAccess($strapi: Strapi) {
   return async (id: string) => {
-    const data = await $strapi.graphql({
+    return await $strapi.graphql({
       query: `mutation {
         updateApplication(
           input: {
@@ -94,12 +109,11 @@ export function applicationAdvancedAccess($strapi: Strapi) {
         }
       }`,
     });
-    return data;
   };
 }
 export function applicationAccept($strapi: Strapi) {
   return async (id: string) => {
-    const data = await $strapi.graphql({
+    return await $strapi.graphql({
       query: `mutation {
         updateApplication(
           input: {
@@ -113,12 +127,11 @@ export function applicationAccept($strapi: Strapi) {
         }
       }`,
     });
-    return data;
   };
 }
 export function applicationDecline($strapi: Strapi) {
   return async (id: string, declineReason: string) => {
-    const data = await $strapi.graphql({
+    return await $strapi.graphql({
       query: `mutation {
         updateApplication(
           input: {
@@ -134,12 +147,11 @@ export function applicationDecline($strapi: Strapi) {
         }
       }`,
     });
-    return data;
   };
 }
 export function cancelApplication($strapi: Strapi) {
   return async (id: string) => {
-    const data = await $strapi.graphql({
+    return await $strapi.graphql({
       query: `mutation {
         deleteApplication(
           input: {
@@ -152,6 +164,5 @@ export function cancelApplication($strapi: Strapi) {
         }
       }`,
     });
-    return data || null;
   };
 }

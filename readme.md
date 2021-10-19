@@ -41,13 +41,11 @@ npm run storybook
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
 
-
 ## Docker build
 
 ```bash
 docker build -t startupemulator_portal .
 ```
-
 
 ## Docker run
 

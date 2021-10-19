@@ -9,12 +9,11 @@ import { userChallenges } from "~/models/UserChallenges";
 import { Positions } from "~/models/Positions";
 import { Invites } from "~/models/Invites";
 import { Technology } from "~/models/Technology";
-import { Applications } from "~/models/Applications";
 import { Estimation } from "~/models/Estimation";
 import { Specialisation } from "~/models/Specialisation";
 import { Experience } from "~/models/Experience";
 import { Profile } from "~/models/Profile";
-import { NotificationUser } from "~/models/NotificationUser";
+import { User } from "~/models/User";
 import { Feedbacks } from "~/models/Feedbacks";
 import { AskFeedbacks } from "~/models/AskFeedbacks";
 import { Notification } from "~/models/Notification";
@@ -28,8 +27,9 @@ import { Sources } from "~/models/Sources";
 import { Solutions } from "~/models/Solution";
 import { Secrets } from "~/models/Secrets";
 import { Like } from "~/models/Like";
+import { ApplicationsServices } from "~/plugins/services/applications";
 
-export interface Services {
+export interface Services extends ApplicationsServices {
   $createCriterions(
     mark: string,
     direction: string
@@ -77,21 +77,6 @@ export interface Services {
     status: string
   ): Promise<Partial<Positions>[]>;
 
-  $applications(): Promise<Partial<Applications>[]>;
-
-  $applicationsByStartupId(id: string): Promise<Partial<Applications>[]>;
-
-  $cancelApplication(id: string): Promise<Partial<Applications>[]>;
-
-  $applicationAccept(id: string): Promise<Partial<Applications>[]>;
-
-  $applicationAdvancedAccess(id: string): Promise<Partial<Applications>[]>;
-
-  $applicationDecline(
-    id: string,
-    declineReason: string
-  ): Promise<Partial<Applications>[]>;
-
   $estimations(): Promise<Partial<Estimation>[]>;
 
   $specialisations(): Promise<Partial<Specialisation>[]>;
@@ -106,7 +91,7 @@ export interface Services {
 
   $profileBySlug(slug: string): Promise<Partial<Profile>[]>;
 
-  $users(): Promise<Partial<NotificationUser>[]>;
+  $users(): Promise<Partial<User>[]>;
 
   $feedbacksByStartupID(id: string): Promise<Partial<Feedbacks>[]>;
 
@@ -188,7 +173,7 @@ export interface Services {
     notificationId: string
   ): Promise<Partial<UserNotification>[]>;
 
-  $getUserByEmail(email: string): Promise<Partial<NotificationUser>[]>;
+  $getUserByEmail(email: string): Promise<Partial<User>>;
 
   $login(data: NuxtStrapiLoginData): Promise<NuxtStrapiLoginResult>;
 
@@ -202,19 +187,19 @@ export interface Services {
     password: string,
     oldPassword: string,
     passwordRepeat: string
-  ): Promise<Partial<NotificationUser>[]>;
+  ): Promise<Partial<User>[]>;
   $createPassword(
     password: string,
     passwordRepeat: string
-  ): Promise<Partial<NotificationUser>[]>;
+  ): Promise<Partial<User>[]>;
   $createUser(
     email: string,
     name: string,
     password: String
-  ): Promise<Partial<NotificationUser>[]>;
+  ): Promise<Partial<User>[]>;
 
-  $emailConfirmation(token: string): Promise<Partial<NotificationUser>[]>;
-  $passwordType(): Promise<Partial<NotificationUser>[]>;
+  $emailConfirmation(token: string): Promise<Partial<User>[]>;
+  $passwordType(): Promise<Partial<User>[]>;
 
   $updateProfileName(
     id: string,

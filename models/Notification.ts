@@ -1,5 +1,5 @@
-import { NotificationUser } from "./NotificationUser";
+import { User } from "./User";
 export interface Notification {
   id: string;
-  user: Array<NotificationUser>;
+  user: Array<User>;
 }

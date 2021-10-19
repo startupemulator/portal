@@ -107,6 +107,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import Toast from "../../../store/modules/Toast";
+import { User } from "../../../models/User";
 import RegularUser from "./regularUser.vue";
 import ExpertUser from "./expertUser.vue";
 import { Startup } from "~/models/Startup";
@@ -116,7 +117,6 @@ import UTitle from "~/components/atoms/uTitle.vue";
 import { Technology } from "~/models/Technology";
 import UTags from "~/components/atoms/uTags.vue";
 import { Profile } from "~/models/Profile";
-import { NotificationUser } from "~/models/NotificationUser";
 import { Feedbacks } from "~/models/Feedbacks";
 import ChangePassword from "~/components/organisms/profile/changePassword.vue";
 import { scrollToHeader } from "~/assets/jshelper/scrollToHeader";
@@ -143,7 +143,7 @@ import BadgePopup from "~/components/molecules/popupBadge.vue";
 export default class extends Vue {
   @Prop() startups: Array<Startup>;
   @Prop() technologies: Array<Technology>;
-  @Prop() user: Array<NotificationUser>;
+  @Prop() user: Array<User>;
   @Prop() profile: Array<Profile>;
   @Prop() feedbacks: Array<Feedbacks>;
   @Prop() userId: string;

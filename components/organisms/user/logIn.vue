@@ -45,9 +45,8 @@
         ></U-button>
         <hr />
         <div class="create-account__buttons-continue">
-          <a :href="getAuthGithubLink()" class="button u-button u-button-grey">
-            Continue with GitHub
-          </a>
+          <a :href="getAuthGithubLink()"> Continue with GitHub </a>
+
           <U-button
             :button-name="'Continue with the email link'"
             :button-class="'u-button-gray'"
@@ -81,6 +80,7 @@
 import { email, minLength, required } from "vuelidate/lib/validators";
 import { Component, Vue } from "nuxt-property-decorator";
 import Toast from "../../../store/modules/Toast";
+import { User } from "../../../models/User";
 import PopupEmailLink from "~/components/molecules/popupEmailLink.vue";
 import SigningUpLinkSent from "~/components/molecules/signingUpLinkSent.vue";
 import UBack from "~/components/atoms/uBack.vue";
@@ -126,7 +126,7 @@ export default class extends Vue {
           password: this.password,
         });
         if (userLogin) {
-          const user = await this.$getUserByEmail(this.email);
+          const user: Partial<User> = await this.$getUserByEmail(this.email);
           if (user.profile.name === null || user.profile.name === "") {
             this.$nuxt.$router.push("/profile/?editProfile");
           } else {

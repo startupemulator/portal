@@ -1,8 +1,8 @@
-import { NotificationUser } from "./NotificationUser";
+import { User } from "./User";
 
 export interface Applications {
   id: string;
-  user: Array<NotificationUser>;
+  user: Array<User>;
   position: any[];
   status: string;
   comment: string;
