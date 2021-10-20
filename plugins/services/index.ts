@@ -113,7 +113,7 @@ import {
   deleteLink,
   links,
   updateLink,
-} from "~/plugins/services/Links";
+} from "~/plugins/services/links";
 import {
   createRelease,
   deleteRelease,
