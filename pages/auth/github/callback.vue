@@ -1,12 +1,15 @@
 <template>
-  <Spiner :loading="true"></Spiner>
+  <Spinner :loading="true"></Spinner>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 import { Context } from "@nuxt/types";
+import Spinner from "~/components/molecules/spiner.vue";
 
-@Component({})
+@Component({
+  components: { Spinner },
+})
 export default class GithubCallback extends Vue {
   async asyncData(context: Context) {
     const access_token = context.route.query.access_token as string;
@@ -19,7 +22,7 @@ export default class GithubCallback extends Vue {
         }
       );
       await context.$strapi.setToken(jwt);
-      await context.$strapi.setUser(user);
+      await context.$strapi.fetchUser();
       return { user };
     } catch (e) {
       console.error(e);

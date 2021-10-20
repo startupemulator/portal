@@ -24,6 +24,7 @@
 </template>
 <script lang="ts">
 import { Component, Watch, Vue } from "nuxt-property-decorator";
+import { UserNotification } from "../models/UserNotifications";
 import AppFooter from "~/components/molecules/appFooter.vue";
 import AppHeader from "~/components/molecules/appHeader.vue";
 import Toast from "~/components/molecules/toast.vue";
@@ -42,7 +43,7 @@ export default class extends Vue {
   isLogined = !!this.$strapi.user;
   user = this.$strapi.user ? this.$strapi.user.name : "";
   currentRoute = this.$router.currentRoute.name;
-  notifications: Array<Notification> = [];
+  notifications: Array<Partial<UserNotification>> = [];
   isExpert = false;
   loading = false;
   notificationLoading = false;
@@ -50,14 +51,19 @@ export default class extends Vue {
   notificationByMyProjects = false;
   notificationByFeedback = false;
   async downloadNotifications() {
-    try {
-      this.notifications = await this.$userNotifications(this.$strapi.user.id);
-      const profile = await this.$profile(this.$strapi.user.id);
-      if (profile !== null && profile.is_expert !== false) {
-        this.isExpert = true;
+    if (this.$strapi.user && this.$strapi.user.id) {
+      try {
+        this.notifications = await this.$userNotifications(
+          this.$strapi.user.id
+        );
+        console.log(this.notifications);
+        const profile = await this.$profile(this.$strapi.user.id);
+        if (profile !== null && profile.is_expert !== false) {
+          this.isExpert = true;
+        }
+      } catch (e) {
+        console.error(e);
       }
-    } catch (e) {
-      console.error(e);
     }
   }
 

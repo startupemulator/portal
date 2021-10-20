@@ -6,7 +6,7 @@
       :technology="technologies"
       :user-id="userId"
       :waiting-feedback="waitingFeedback"
-      @slideRigth="slideRigth"
+      @slideRight="slideRight"
       @slideLeft="slideLeft"
     ></app-startups-block>
     <app-challenges-block
@@ -15,7 +15,7 @@
       :user-challenges="userChallenges"
       :feed-back-for-challenges="feedBackForChallenges"
       :is-expert="isExpert"
-      @slideRigth="slideRigth"
+      @slideRight="slideRight"
       @slideLeft="slideLeft"
     ></app-challenges-block>
     <app-team-develop :is-logined="isLogined"></app-team-develop>
@@ -24,7 +24,7 @@
     <app-top-startups></app-top-startups>
     <app-testimonials
       :cards="testimonials"
-      @slideRigth="slideRigth"
+      @slideRight="slideRight"
       @slideLeft="slideLeft"
     ></app-testimonials>
   </div>
@@ -166,7 +166,7 @@ export default class extends Vue {
     this.isLogined = !!this.$strapi.user;
   }
 
-  slideRigth(data) {
+  slideRight(data) {
     let el: any;
     switch (data) {
       case "startups":

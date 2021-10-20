@@ -16,11 +16,11 @@ import { Component, Vue, Watch } from "nuxt-property-decorator";
 import Toast from "~/store/modules/Toast";
 import Spiner from "~/components/molecules/spiner.vue";
 
-import myProjects from "~/components/organisms/myprojects/myProjects.vue";
+import MyProjects from "~/components/organisms/myprojects/myProjects.vue";
 
 @Component({
   components: {
-    myProjects,
+    MyProjects,
     Spiner,
   },
   middleware: ["deny-unauthenticated"],
