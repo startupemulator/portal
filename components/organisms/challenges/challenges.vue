@@ -109,7 +109,7 @@ import EmptyState from "~/components/molecules/emptyState.vue";
     EmptyState,
   },
 })
-export default class extends Vue {
+export default class Challenges extends Vue {
   @Prop()
   challenges: Array<Challenge>;
 

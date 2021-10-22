@@ -1,6 +1,5 @@
 <template>
   <div class="startups-page">
-    <Spiner :loading="loading"></Spiner>
     <StartupPage
       :startup="startup"
       :feedbacks="feedbacks"
@@ -27,15 +26,14 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
+import Spinner from "../../store/modules/Spinner";
 import StartupPage from "~/components/organisms/startup/startup.vue";
 import { Startup } from "~/models/Startup";
 import Toast from "~/store/modules/Toast";
-import Spiner from "~/components/molecules/spiner.vue";
 
 @Component({
   components: {
     StartupPage,
-    Spiner,
   },
 })
 export default class TakeStartup extends Vue {
@@ -45,7 +43,6 @@ export default class TakeStartup extends Vue {
   isExpert = false;
   developerPosition = "";
   applicationId = "";
-  loading = false;
   userId = this.$strapi.user ? this.$strapi.user.id : "";
   title: string;
   notification: string = this.$route.params.notification
@@ -118,7 +115,7 @@ export default class TakeStartup extends Vue {
   }
 
   async cancelApplication() {
-    this.loading = true;
+    Spinner.show();
 
     try {
       const application = await this.$cancelApplication(this.applicationId);
@@ -129,21 +126,21 @@ export default class TakeStartup extends Vue {
           data: "Something wrong!",
           duration: 3000,
         });
-        this.loading = false;
+        Spinner.hide();
       }
-      this.loading = false;
+      Spinner.hide();
     } catch (e) {
       console.error(e);
       Toast.show({
         data: e.message,
         duration: 3000,
       });
-      this.loading = false;
+      Spinner.hide();
     }
   }
 
   async leaveProject() {
-    this.loading = true;
+    Spinner.show();
 
     let applicationId = 0;
     this.applications.forEach((item) => {
@@ -169,7 +166,7 @@ export default class TakeStartup extends Vue {
         data: e.message,
         duration: 3000,
       });
-      this.loading = false;
+      Spinner.hide();
     }
   }
 
@@ -217,14 +214,14 @@ export default class TakeStartup extends Vue {
   }
 
   async deleteStartup(id, startupName) {
-    this.loading = true;
+    Spinner.show();
     try {
       const moveAwayStartup = await this.$startupById(id);
       if (startupName === moveAwayStartup.title) {
         const deleteDraft = await this.$deleteDraft(id);
         if (deleteDraft !== null) {
           this.myStartups = await this.$myStartups(this.$strapi.user.id);
-          this.loading = false;
+          Spinner.hide();
           this.$nuxt.$router.push("/profile/projects");
         }
       } else {
@@ -232,7 +229,7 @@ export default class TakeStartup extends Vue {
           data: "Fill the startup name correctly.",
           duration: 3000,
         });
-        this.loading = false;
+        Spinner.hide();
       }
     } catch (e) {
       console.error(e);
@@ -240,7 +237,7 @@ export default class TakeStartup extends Vue {
         data: e.message,
         duration: 3000,
       });
-      this.loading = false;
+      Spinner.hide();
     }
   }
 

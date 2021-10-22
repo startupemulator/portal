@@ -23,12 +23,12 @@
         @clickOnButton="$emit('clikOnButton')"
       ></U-button>
     </div>
-    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
 
+import Spinner from "../../../store/modules/Spinner";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
@@ -44,7 +44,6 @@ export default class extends Vue {
   @Prop() feedbackId: string;
   comment = "";
   chhosenbadge: Array<Badges>;
-  loading = false;
 
   badgesOnFeedback = [];
   addBadge(data) {
@@ -52,7 +51,7 @@ export default class extends Vue {
   }
 
   async submitAddBadge() {
-    this.loading = true;
+    Spinner.show();
     try {
       if (this.feedbackId !== undefined) {
         const feedback = await this.$feedbackById(this.feedbackId);
@@ -62,11 +61,11 @@ export default class extends Vue {
           await this.$updateFeedback(this.feedbackId, this.badgesOnFeedback);
         }
       }
-      this.loading = false;
+      Spinner.hide();
       this.$emit("addedBadge");
     } catch (e) {
       console.error(e);
-      this.loading = false;
+      Spinner.hide();
     }
   }
 }

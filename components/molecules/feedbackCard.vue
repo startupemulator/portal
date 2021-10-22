@@ -183,21 +183,19 @@
         </div>
       </div>
     </div>
-    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
+import Spinner from "../../store/modules/Spinner";
 import AddTeamFeedBack from "~/components/organisms/startup/addTeamFeedback.vue";
 import AddTeamBadge from "~/components/organisms/startup/addTeamBadge.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import { Feedbacks } from "~/models/Feedbacks";
 import Toast from "~/store/modules/Toast";
-import Spiner from "~/components/molecules/spiner.vue";
 @Component({
   components: {
     UButton,
-    Spiner,
     AddTeamFeedBack,
     AddTeamBadge,
   },
@@ -212,7 +210,6 @@ export default class extends Vue {
   showFeedback: boolean = false;
   thisUserlike: boolean = false;
   thisUserlikeId: string = "";
-  loading = false;
 
   toggleFeedBack() {
     this.showFeedback = !this.showFeedback;
@@ -227,32 +224,32 @@ export default class extends Vue {
   }
 
   async publish(id) {
-    this.loading = true;
+    Spinner.show();
     try {
       const publishFeedback = await this.$publicFeedback(id);
       if (publishFeedback !== null) {
         this.$emit("updateFeedbacks");
-        this.loading = false;
+        Spinner.hide();
       }
-      this.loading = false;
+      Spinner.hide();
     } catch (e) {
       console.error(e);
-      this.loading = false;
+      Spinner.hide();
     }
   }
 
   async deleteFromStartupPage(id) {
-    this.loading = true;
+    Spinner.show();
     try {
       const unPublickFeedback = await this.$unPublicFeedback(id);
       if (unPublickFeedback !== null) {
         this.$emit("updateFeedbacks");
-        this.loading = false;
+        Spinner.hide();
       }
-      this.loading = false;
+      Spinner.hide();
     } catch (e) {
       console.error(e);
-      this.loading = false;
+      Spinner.hide();
     }
   }
 
@@ -261,7 +258,7 @@ export default class extends Vue {
   }
 
   async like() {
-    this.loading = true;
+    Spinner.show();
     if (!this.thisUserlike && !!this.userId) {
       try {
         const like = await this.$createLike(this.feedback.id, this.userId);
@@ -269,7 +266,7 @@ export default class extends Vue {
           this.$emit("updateFeedbacks", like);
           this.thisUserlikeId = like.id;
           this.thisUserlike = true;
-          this.loading = false;
+          Spinner.hide();
         }
       } catch (e) {
         console.error(e);
@@ -277,7 +274,7 @@ export default class extends Vue {
           data: e.message,
           duration: 3000,
         });
-        this.loading = false;
+        Spinner.hide();
       }
     } else if (this.userId) {
       try {
@@ -286,7 +283,7 @@ export default class extends Vue {
           this.$emit("updateFeedbacks", like);
           this.thisUserlikeId = "";
           this.thisUserlike = false;
-          this.loading = false;
+          Spinner.hide();
         }
       } catch (e) {
         console.error(e);
@@ -294,7 +291,7 @@ export default class extends Vue {
           data: e.message,
           duration: 3000,
         });
-        this.loading = false;
+        Spinner.hide();
       }
     } else if (!this.userId) {
       this.$router.push("/login");

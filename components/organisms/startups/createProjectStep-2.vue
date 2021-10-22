@@ -64,15 +64,14 @@
       @closePopupLinkEmail="toggleInviteColleagues"
       @inviteCollegue="inviteCollegue"
     ></Invitecolleagues>
-    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
+import Spinner from "../../../store/modules/Spinner";
 import UButton from "~/components/atoms/uButton.vue";
 import CreateSpecialities from "~/components/molecules/createSpecialities.vue";
 import Invitecolleagues from "~/components/molecules/inviteColleagues.vue";
-import Spiner from "~/components/molecules/spiner.vue";
 
 import { Specialisation } from "~/models/Specialisation";
 import {
@@ -81,7 +80,7 @@ import {
 } from "~/assets/jshelper/toggleScroll.js";
 import { Technology } from "~/models/Technology";
 @Component({
-  components: { UButton, CreateSpecialities, Invitecolleagues, Spiner },
+  components: { UButton, CreateSpecialities, Invitecolleagues },
 })
 export default class extends Vue {
   @Prop() technologies: Array<Technology>;
@@ -91,16 +90,15 @@ export default class extends Vue {
   specialityComponent: Array<any> = [{ id: 0, type: "create-specialities" }];
   invitedcolleagues: Array<any> = [];
   invitecolleagues: Boolean = false;
-  loading = false;
 
   async addSpecialityToSpecialityComponent(data, i, id) {
-    this.loading = true;
+    Spinner.show();
     const updatePostition = await this.$updatePosition(id, ["0"], data[0].id);
     if (updatePostition !== null) {
       this.specialityComponent[i].speciality = data[0].title;
       this.specialityComponent[i].speciality_id = data[0].id;
     }
-    this.loading = false;
+    Spinner.hide();
   }
 
   async addchosenTechnologies(data, i, id) {
@@ -155,7 +153,7 @@ export default class extends Vue {
   }
 
   async removeSpeciality(id, i) {
-    this.loading = true;
+    Spinner.show();
     const removedPosition = await this.$deletePositions(id);
     if (removedPosition.id === id) {
       this.specialityComponent = this.specialityComponent.filter(
@@ -167,11 +165,11 @@ export default class extends Vue {
         }
       });
     }
-    this.loading = false;
+    Spinner.hide();
   }
 
   async addSpeciality() {
-    this.loading = true;
+    Spinner.show();
     const newPosition = await this.$createPosition(
       this.createdStartupId.toString(),
       ["0"],
@@ -181,18 +179,18 @@ export default class extends Vue {
       id: newPosition.id,
       type: "create-specialities",
     });
-    this.loading = false;
+    Spinner.hide();
   }
 
   async removeInvitedcolleagues(id) {
-    this.loading = true;
+    Spinner.show();
     const removeInvite = await this.$deleteInvite(id);
     if (id === removeInvite.id) {
       this.invitedcolleagues = this.invitedcolleagues.filter(
         (item) => item.id !== removeInvite.id
       );
     }
-    this.loading = false;
+    Spinner.hide();
   }
 
   mounted() {

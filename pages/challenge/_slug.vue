@@ -14,18 +14,16 @@
       :is-super-admin="isSuperAdmin"
       @requestIsSend="requestIsSend"
     ></ChallengePage>
-    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
+import Spinner from "../../store/modules/Spinner";
 import ChallengePage from "~/components/organisms/challenge/challenge.vue";
-import Spiner from "~/components/molecules/spiner.vue";
 import { scrollToHeader } from "~/assets/jshelper/scrollToHeader.js";
 @Component({
   components: {
     ChallengePage,
-    Spiner,
   },
 })
 export default class TakeChallenge extends Vue {
@@ -33,7 +31,6 @@ export default class TakeChallenge extends Vue {
   userId: string = this.$strapi.user ? this.$strapi.user.id : "";
   title: string;
   updateKey = 0;
-  loading = false;
 
   async asyncData({
     $challenge,
@@ -97,7 +94,7 @@ export default class TakeChallenge extends Vue {
   }
 
   async requestIsSend() {
-    this.loading = true;
+    Spinner.show();
     try {
       this.updatableChallenge = await this.$challenge(this.$route.params.slug);
       this.updatableaskfeedbacks = await this.$askFeedbacksByChallengeId(
@@ -115,10 +112,10 @@ export default class TakeChallenge extends Vue {
         scrollToHeader();
         this.requestFeedbackNotification();
       }
-      this.loading = false;
+      Spinner.hide();
     } catch (e) {
       console.error(e);
-      this.loading = false;
+      Spinner.hide();
     }
   }
 

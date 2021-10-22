@@ -1,7 +1,5 @@
 <template v-cloak>
   <div class="projects" :class="myStartups.length === 0 ? 'full-screen' : ''">
-    <Spiner :loading="loading"></Spiner>
-
     <MyProjects
       :key="updateFlag"
       :startups="myStartups"
@@ -13,22 +11,20 @@
 </template>
 <script lang="ts">
 import { Component, Vue, Watch } from "nuxt-property-decorator";
+import Spinner from "../../store/modules/Spinner";
 import Toast from "~/store/modules/Toast";
-import Spiner from "~/components/molecules/spiner.vue";
 
 import MyProjects from "~/components/organisms/myprojects/myProjects.vue";
 
 @Component({
   components: {
     MyProjects,
-    Spiner,
   },
   middleware: ["deny-unauthenticated"],
 })
 export default class extends Vue {
   userId: Number = this.$strapi.user.id;
   updateFlag = 0;
-  loading = false;
 
   async asyncData({
     $myStartups,
@@ -88,21 +84,21 @@ export default class extends Vue {
   }
 
   async deleteDraft(id, startupName) {
-    this.loading = true;
+    Spinner.show();
     try {
       const moveAwayStartup = await this.$startupById(id);
       if (startupName === moveAwayStartup.title) {
         const deleteDraft = await this.$deleteDraft(id);
         if (deleteDraft !== null) {
           this.myStartups = await this.$myStartups(this.$strapi.user.id);
-          this.loading = false;
+          Spinner.hide();
         }
       } else {
         Toast.show({
           data: "Fill the startup name correctly.",
           duration: 3000,
         });
-        this.loading = false;
+        Spinner.hide();
       }
     } catch (e) {
       console.error(e);
@@ -110,7 +106,7 @@ export default class extends Vue {
         data: e.message,
         duration: 3000,
       });
-      this.loading = false;
+      Spinner.hide();
     }
   }
 

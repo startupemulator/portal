@@ -37,13 +37,14 @@
       :text-content="'Experts will receive your request and give feedback about your startup.'"
       @closePopupLinkSent="closeUPopup"
     ></UPopup>
-    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 
 import { required, minLength } from "vuelidate/lib/validators";
+import Spinner from "../../../store/modules/Spinner";
+import Spiner from "../../atoms/spinner.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
@@ -51,9 +52,8 @@ import TechnologyPicker from "~/components/molecules/technologyPicker.vue";
 import UPopup from "~/components/molecules/popupChallengeStarted.vue";
 import { Startup } from "~/models/Startup";
 import Toast from "~/store/modules/Toast";
-import Spiner from "~/components/molecules/spiner.vue";
 @Component({
-  components: { UBack, UTitle, TechnologyPicker, UButton, UPopup, Spiner },
+  components: { UBack, UTitle, TechnologyPicker, UButton, UPopup },
   validations: {
     comment: {
       required,
@@ -69,12 +69,11 @@ export default class extends Vue {
   @Prop() userId: string;
   pickedTechnology = [];
   comment = "";
-  loading = false;
   UPopup = false;
   async toggleUPopup() {
     this.$v.$touch();
     if (!this.$v.$error) {
-      this.loading = true;
+      Spinner.show();
       try {
         const askFeedback = await this.$createAskFeedbackForStartup(
           this.userId,
@@ -84,7 +83,7 @@ export default class extends Vue {
         );
 
         if (askFeedback !== null) {
-          this.loading = false;
+          Spinner.hide();
           this.UPopup = !this.UPopup;
           this.$emit("createFedbackNotification");
         }
@@ -94,7 +93,7 @@ export default class extends Vue {
           data: e.message,
           duration: 3000,
         });
-        this.loading = false;
+        Spinner.hide();
       }
     }
   }

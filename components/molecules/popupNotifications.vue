@@ -146,17 +146,17 @@
         <span>Show more</span>
       </button>
     </div>
-    <Spiner :loading="notificationLoading"></Spiner>
+    <Spinner :loading="notificationLoading"></Spinner>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
 import UButton from "../atoms/uButton.vue";
+import Spinner from "../atoms/spinner.vue";
 import { Notification } from "~/models/Notification";
-import Spiner from "~/components/molecules/spiner.vue";
 
 @Component({
-  components: { UButton, Spiner },
+  components: { UButton, Spinner },
 })
 export default class extends Vue {
   @Prop() notifications: Array<Notification>;

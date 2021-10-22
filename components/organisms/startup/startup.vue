@@ -463,7 +463,6 @@
       @closePopupLeaveproject="togglepopupLeaveProject"
       @leveProject="leveProject"
     ></PopupLeaveProject>
-    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
@@ -471,6 +470,7 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 import FeedBackCard from "../../molecules/feedbackCard.vue";
 import GuidePopup from "../../molecules/popupGuide.vue";
 import { Estimation } from "../../../models/Estimation";
+import Spinner from "../../../store/modules/Spinner";
 import RequestToTeam from "./requestsToTeam.vue";
 import newFeedBack from "./newFeedBack.vue";
 import RequestFeedback from "./requestFeedback.vue";
@@ -496,7 +496,6 @@ import { Specialisation } from "~/models/Specialisation";
 import { Technology } from "~/models/Technology";
 import { Applications } from "~/models/Applications";
 import Toast from "~/store/modules/Toast";
-import Spiner from "~/components/molecules/spiner.vue";
 import { AskFeedbacks } from "~/models/AskFeedbacks";
 import { Directions } from "~/models/Directions";
 import { Badges } from "~/models/Badges";
@@ -526,7 +525,6 @@ import PopupLeaveProject from "~/components/molecules/popupLeaveProject.vue";
     AddTeamFeedBack,
     AddTeamBadge,
     CommentExpert,
-    Spiner,
     PopupLeaveProject,
   },
 })
@@ -821,7 +819,7 @@ export default class extends Vue {
   }
 
   async accept(id) {
-    this.loading = true;
+    Spinner.show();
     try {
       const accept = await this.$applicationAccept(id);
       if (accept) {
@@ -853,14 +851,14 @@ export default class extends Vue {
 
           this.createNotification(recipients, "accept");
         }
-        this.loading = false;
+        Spinner.hide();
         this.updateKey += 1;
       } else {
         Toast.show({
           data: "Something wrong!",
           duration: 3000,
         });
-        this.loading = false;
+        Spinner.hide();
       }
     } catch (e) {
       console.error(e);
@@ -868,12 +866,12 @@ export default class extends Vue {
         data: e.message,
         duration: 3000,
       });
-      this.loading = false;
+      Spinner.hide();
     }
   }
 
   async decline(id, declinetext) {
-    this.loading = true;
+    Spinner.show();
     try {
       const decline = await this.$applicationDecline(id, declinetext);
       if (decline) {
@@ -892,14 +890,14 @@ export default class extends Vue {
           );
           this.createNotification(recipients, "decline");
         }
-        this.loading = false;
+        Spinner.hide();
         this.updateKey += 1;
       } else {
         Toast.show({
           data: "Something wrong!",
           duration: 3000,
         });
-        this.loading = false;
+        Spinner.hide();
       }
     } catch (e) {
       console.error(e);
@@ -907,12 +905,12 @@ export default class extends Vue {
         data: e.message,
         duration: 3000,
       });
-      this.loading = false;
+      Spinner.hide();
     }
   }
 
   async advancedAccess(id) {
-    this.loading = true;
+    Spinner.show();
     try {
       const advancedAccess = await this.$applicationAdvancedAccess(id);
       if (advancedAccess) {
@@ -932,14 +930,14 @@ export default class extends Vue {
           this.createNotification(recipients, "advanced");
         }
 
-        this.loading = false;
+        Spinner.hide();
         this.updateKey += 1;
       } else {
         Toast.show({
           data: "Something wrong!",
           duration: 3000,
         });
-        this.loading = false;
+        Spinner.hide();
       }
     } catch (e) {
       console.error(e);
@@ -947,7 +945,7 @@ export default class extends Vue {
         data: e.message,
         duration: 3000,
       });
-      this.loading = false;
+      Spinner.hide();
     }
   }
 
@@ -965,7 +963,7 @@ export default class extends Vue {
   }
 
   async startStartup(state) {
-    this.loading = true;
+    Spinner.show();
     const date = new Date().toISOString();
     try {
       const updateStartup = await this.$updateStateStartup(
@@ -984,7 +982,7 @@ export default class extends Vue {
           duration: 3000,
           success: true,
         });
-        this.loading = false;
+        Spinner.hide();
         this.status = startup.status;
         this.popupDeleteOrStartStartup = !this.popupDeleteOrStartStartup;
       }
@@ -994,12 +992,12 @@ export default class extends Vue {
         data: e.message,
         duration: 3000,
       });
-      this.loading = false;
+      Spinner.hide();
     }
   }
 
   async finishThisStartup() {
-    this.loading = true;
+    Spinner.show();
     try {
       const finishStartup = await this.$finishStartup(this.startup.id);
       if (+this.startup.id === +finishStartup.id) {
@@ -1014,7 +1012,7 @@ export default class extends Vue {
           duration: 3000,
           success: true,
         });
-        this.loading = false;
+        Spinner.hide();
         this.status = startup.status;
         this.finishStartup = !this.finishStartup;
       }
@@ -1024,12 +1022,12 @@ export default class extends Vue {
         data: e.message,
         duration: 3000,
       });
-      this.loading = false;
+      Spinner.hide();
     }
   }
 
   async updateStartup(data) {
-    this.loading = true;
+    Spinner.show();
     try {
       const updateStartup = await this.$updateStartupInfo(
         this.startup.id,
@@ -1045,7 +1043,7 @@ export default class extends Vue {
           success: true,
         });
         this.updatableDataStartup = updateStartup;
-        this.loading = false;
+        Spinner.hide();
         this.toggleEditStartupInfo();
 
         scrollToHeader();
@@ -1056,7 +1054,7 @@ export default class extends Vue {
         data: e.message,
         duration: 3000,
       });
-      this.loading = false;
+      Spinner.hide();
     }
   }
 
@@ -1167,7 +1165,7 @@ export default class extends Vue {
   }
 
   async updateFeedbacks() {
-    this.loading = true;
+    Spinner.show();
     try {
       const feedbacks = await this.$feedbacksByStartupID(this.startup.id);
       if (feedbacks !== null) {
@@ -1175,14 +1173,14 @@ export default class extends Vue {
         this.feedbackFilterByPrivateFlag(feedbacks);
       }
 
-      this.loading = false;
+      Spinner.hide();
     } catch (e) {
       console.error(e);
       Toast.show({
         data: e.message,
         duration: 3000,
       });
-      this.loading = false;
+      Spinner.hide();
     }
   }
 }

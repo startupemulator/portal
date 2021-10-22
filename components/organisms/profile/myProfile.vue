@@ -1,9 +1,8 @@
 <template>
   <div class="profile-content my-profile">
-    <Spiner :loading="loading"></Spiner>
     <div v-if="!changePassword & !editProfile" class="my-profile__content">
       <div class="profile-header">
-        <U-title :text="'Profile'"> </U-title>
+        <U-title :text="'Profile'"></U-title>
         <div class="profile-header__menu">
           <ul>
             <li>
@@ -52,7 +51,7 @@
           @togglePopup="togglePopup"
         ></My-profile-regular-user>
 
-        <Expert-user v-if="isExpert" :feedbacks="feedbacks"> </Expert-user>
+        <Expert-user v-if="isExpert" :feedbacks="feedbacks"></Expert-user>
 
         <div v-if="userExperience" class="profile-projects__experience">
           <h3>Experience</h3>
@@ -114,11 +113,12 @@ import { Technology } from "~/models/Technology";
 import UTags from "~/components/atoms/uTags.vue";
 import StartupCard from "~/components/molecules/startupCard.vue";
 import { Experience } from "~/models/Experience";
-import Spiner from "~/components/molecules/spiner.vue";
 import { copyToClipboard } from "~/assets/jshelper/copyToClipBoard";
 import { Feedbacks } from "~/models/Feedbacks";
 import { scrollToHeader } from "~/assets/jshelper/scrollToHeader";
 import { Badges } from "~/models/Badges";
+import Spinner from "~/store/modules/Spinner";
+
 @Component({
   components: {
     UTitle,
@@ -130,7 +130,6 @@ import { Badges } from "~/models/Badges";
     ChangePassword,
     MyProfileRegularUser,
     ExpertUser,
-    Spiner,
   },
 })
 export default class extends Vue {
@@ -150,9 +149,9 @@ export default class extends Vue {
   private editProfile: boolean = false;
   private changePassword: boolean = false;
   createdTechnologies = [];
-  loading = false;
   achivementsData = {};
   badge: Array<Badges> = [];
+
   logOut() {
     this.$strapi.logout();
     this.$nuxt.$router.push("/");
@@ -180,10 +179,10 @@ export default class extends Vue {
   }
 
   copyBaseUri() {
-    this.loading = true;
+    Spinner.show();
     const url = window.location.origin + `/user/${this.userData.slug}`;
     copyToClipboard(url);
-    setTimeout(() => (this.loading = false), 500);
+    setTimeout(() => Spinner.hide(), 500);
     Toast.show({
       data: "Link copied is  -  " + url,
       duration: 3000,
@@ -210,7 +209,7 @@ export default class extends Vue {
   }
 
   async saveProfileUpdateData(data) {
-    this.loading = true;
+    Spinner.show();
     if (this.createdTechnologies.length !== 0) {
       this.createdTechnologies.forEach((el) => data.technologies.push(el.id));
     } else {
@@ -238,13 +237,13 @@ export default class extends Vue {
         this.$emit("updateData");
       }
       scrollToHeader();
-      this.loading = false;
+      Spinner.hide();
     } catch (e) {
       Toast.show({
         data: e.message,
         duration: 3000,
       });
-      this.loading = false;
+      Spinner.hide();
     }
   }
 

@@ -14,29 +14,26 @@
       @filterNotificationByMyProjects="filterNotificationByMyProjects"
       @filterNotificationByFeedback="filterNotificationByFeedback"
     ></AppHeader>
-
     <Nuxt />
-
     <AppFooter></AppFooter>
-    <Spiner :loading="loading"></Spiner>
     <Toast />
+    <Spinner />
   </div>
 </template>
 <script lang="ts">
 import { Component, Watch, Vue } from "nuxt-property-decorator";
 import { UserNotification } from "../models/UserNotifications";
+import Spinner from "../components/molecules/spinner.vue";
 import AppFooter from "~/components/molecules/appFooter.vue";
 import AppHeader from "~/components/molecules/appHeader.vue";
 import Toast from "~/components/molecules/toast.vue";
-import { Notification } from "~/models/Notification";
-import Spiner from "~/components/molecules/spiner.vue";
 
 @Component({
   components: {
     AppHeader,
     AppFooter,
     Toast,
-    Spiner,
+    Spinner,
   },
 })
 export default class extends Vue {
@@ -45,7 +42,6 @@ export default class extends Vue {
   currentRoute = this.$router.currentRoute.name;
   notifications: Array<Partial<UserNotification>> = [];
   isExpert = false;
-  loading = false;
   notificationLoading = false;
   newNotificationCount: number = 0;
   notificationByMyProjects = false;
@@ -56,7 +52,6 @@ export default class extends Vue {
         this.notifications = await this.$userNotifications(
           this.$strapi.user.id
         );
-        console.log(this.notifications);
         const profile = await this.$profile(this.$strapi.user.id);
         if (profile !== null && profile.is_expert !== false) {
           this.isExpert = true;

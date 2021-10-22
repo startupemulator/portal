@@ -50,18 +50,17 @@
       v-if="popupPublish"
       @closePopup="$nuxt.$router.push('/profile/projects')"
     ></PopupCreatedStartUp>
-    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
 import Toast from "../../../store/modules/Toast";
 import { Estimation } from "../../../models/Estimation";
+import Spinner from "../../../store/modules/Spinner";
 import CreateProjectStep1 from "./createProjectStep-1.vue";
 import CreateProjectStep2 from "./createProjectStep-2.vue";
 import CreateProjectStep3 from "./createProjectStep-3.vue";
 import CreateProjectStep4 from "./createProjectStep-4.vue";
-import Spiner from "~/components/molecules/spiner.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import { Technology } from "~/models/Technology";
@@ -77,7 +76,6 @@ import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartup.vue"
     UTitle,
     UBack,
     PopupCreatedStartUp,
-    Spiner,
   },
 })
 export default class extends Vue {
@@ -93,7 +91,6 @@ export default class extends Vue {
   };
 
   createdStartupId: Number = this.draftStartup.id ? this.draftStartup.id : 0;
-  loading = false;
   startupData: Array<Startup> = this.draftStartup;
   popupPublish = false;
   tehnologies: Array<string> = [];
@@ -126,7 +123,7 @@ export default class extends Vue {
   }
 
   async publish(state = "review") {
-    this.loading = true;
+    Spinner.show();
     try {
       const startupId: string = this.createdStartupId.toString();
       await this.$strapi.update("startups", startupId, {
@@ -136,7 +133,7 @@ export default class extends Vue {
       await this.$addTechnologiesStartup(startupId, this.tehnologies);
 
       if (state === "draft") {
-        this.loading = false;
+        Spinner.hide();
         Toast.show({
           data: "Draft saved.",
           duration: 1500,
@@ -144,7 +141,7 @@ export default class extends Vue {
         });
       } else {
         this.popupPublish = !this.popupPublish;
-        this.loading = false;
+        Spinner.hide();
       }
     } catch (e) {
       Toast.show({
@@ -152,7 +149,7 @@ export default class extends Vue {
         duration: 3000,
       });
       console.error(e);
-      this.loading = false;
+      Spinner.hide();
     }
   }
 

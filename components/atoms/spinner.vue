@@ -11,7 +11,7 @@ import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 @Component({
   components: { MoonLoader },
 })
-export default class extends Vue {
+export default class Spinner extends Vue {
   @Prop() loading: Boolean;
 }
 </script>

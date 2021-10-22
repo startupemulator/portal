@@ -72,14 +72,13 @@
       @clikOnButton="toggleAddFeedback"
       @teamNotificationFeedback="teamNotificationFeedback"
     ></AddTeamFeedBack>
-    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
-import Spiner from "~/components/molecules/spiner.vue";
 
+import Spinner from "../../../store/modules/Spinner";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
@@ -102,7 +101,6 @@ import { scrollToHeader } from "~/assets/jshelper/scrollToHeader.js";
     FeedbackCardChallenges,
     CommentExpert,
     AddTeamFeedBack,
-    Spiner,
   },
 })
 export default class extends Vue {
@@ -117,7 +115,6 @@ export default class extends Vue {
 
   showMoreTwoFeedbacks = 2;
   addFeedback = false;
-  loading = false;
 
   renewableFeeadback: Array<Feedbacks> = this.feedbacks || [];
   showMoreFeedbacks() {
@@ -149,16 +146,16 @@ export default class extends Vue {
   }
 
   async updateFeedbacks() {
-    this.loading = true;
+    Spinner.show();
     try {
       const feedbacks = await this.$feedbacks();
       if (feedbacks !== null) {
         this.renewableFeeadback = feedbacks;
-        this.loading = false;
+        Spinner.hide();
       }
     } catch (e) {
       console.error(e);
-      this.loading = false;
+      Spinner.hide();
     }
 
     this.addFeedback = !this.addFeedback;

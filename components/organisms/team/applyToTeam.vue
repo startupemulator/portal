@@ -30,13 +30,13 @@
       v-show="popupApplied"
       @closePopupLinkSent="closePopup"
     ></PopupApplied>
-    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import Toast from "../../../store/modules/Toast";
+import Spinner from "../../../store/modules/Spinner";
 import ApplyToTeamStep1 from "~/components/organisms/team/applyToTeamStep1.vue";
 import ApplyToTeamStep2 from "~/components/organisms/team/applyToTeamStep2.vue";
 import PopupApplied from "~/components/molecules/popupApplied.vue";
@@ -45,7 +45,6 @@ import { Technology } from "~/models/Technology";
 import { Startup } from "~/models/Startup";
 import { Experience } from "~/models/Experience";
 import { Profile } from "~/models/Profile";
-import Spiner from "~/components/molecules/spiner.vue";
 
 @Component({
   components: {
@@ -53,7 +52,6 @@ import Spiner from "~/components/molecules/spiner.vue";
     ApplyToTeamStep2,
     ApplyToTeamStep1,
     PopupApplied,
-    Spiner,
   },
 })
 export default class extends Vue {
@@ -73,8 +71,6 @@ export default class extends Vue {
   userCreatedTechnologies = this.profile.technologies.filter(
     (el) => !el.is_public
   );
-
-  loading = false;
 
   newRequest: Array<any> = {
     duration: this.experience,
@@ -112,7 +108,7 @@ export default class extends Vue {
     this.newRequest.position = position[0].id;
 
     try {
-      this.loading = true;
+      Spinner.show();
       const newRequest = await this.$strapi.create(
         "applications",
         this.newRequest
@@ -148,11 +144,11 @@ export default class extends Vue {
 
       if (newRequest !== null) {
         this.createNewNotification(this.newRequest.comment);
-        this.loading = false;
+        Spinner.hide();
         this.popupApplied = !this.popupApplied;
       }
     } catch (e) {
-      this.loading = false;
+      Spinner.hide();
       Toast.show({
         data: "Something wrong.",
         duration: 3000,

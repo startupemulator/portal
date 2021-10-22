@@ -39,35 +39,33 @@
         @clickOnButton="cancelSources"
       ></U-button>
     </div>
-    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 
 import AddExistingSourse from "../../molecules/addExistingSource.vue";
+import Spinner from "../../../store/modules/Spinner";
 import UButton from "~/components/atoms/uButton.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import { Sources } from "~/models/Sources";
-import Spiner from "~/components/molecules/spiner.vue";
 import Toast from "~/store/modules/Toast";
 
 @Component({
-  components: { UButton, UBack, UTitle, AddExistingSourse, Spiner },
+  components: { UButton, UBack, UTitle, AddExistingSourse },
 })
 export default class extends Vue {
   @Prop() sources: Array<Sources>;
   @Prop() startupId: string;
-  loading = false;
   newsources = [];
 
   existingSourseComponent: Array<any> = [];
   saveSources() {
-    this.loading = true;
+    Spinner.show();
     this.newsources = [];
     setTimeout(() => {
-      this.loading = false;
+      Spinner.hide();
       Toast.show({
         data: "Startup data updated!",
         duration: 1000,
@@ -79,14 +77,14 @@ export default class extends Vue {
 
   cancelSources() {
     if (this.newsources.length !== 0) {
-      this.loading = true;
+      Spinner.show();
       this.newsources.forEach((el) => {
         this.removeExistingSources(el);
       });
     }
 
     setTimeout(() => {
-      this.loading = false;
+      Spinner.hide();
       Toast.show({
         data: "Startup data updated!",
         duration: 1000,
@@ -97,7 +95,7 @@ export default class extends Vue {
   }
 
   async addExistingSourse() {
-    this.loading = true;
+    Spinner.show();
     try {
       const source = await this.$createSource("", "https://", this.startupId);
       if (source !== null) {
@@ -109,39 +107,39 @@ export default class extends Vue {
         });
         this.newsources.push(source.id);
       }
-      this.loading = false;
+      Spinner.hide();
     } catch (e) {
       console.error(e);
-      this.loading = false;
+      Spinner.hide();
     }
   }
 
   async updateSourses(data, id) {
-    this.loading = true;
+    Spinner.show();
     try {
       const sources = await this.$updateSource(id, data[0], data[1]);
       if (sources !== null) {
-        this.loading = false;
+        Spinner.hide();
       }
     } catch (e) {
       console.error(e);
-      this.loading = false;
+      Spinner.hide();
     }
   }
 
   async removeExistingSources(id) {
-    this.loading = true;
+    Spinner.show();
     try {
       const sources = await this.$deleteSource(id);
       if (+sources.id === +id) {
         this.existingSourseComponent = this.existingSourseComponent.filter(
           (item) => item.id !== id
         );
-        this.loading = false;
+        Spinner.hide();
       }
     } catch (e) {
       console.error(e);
-      this.loading = false;
+      Spinner.hide();
     }
   }
 

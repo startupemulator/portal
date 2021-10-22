@@ -1,7 +1,5 @@
 <template>
   <div class="fullscreen">
-    <Spiner :loading="loading"></Spiner>
-
     <ParticipateChallenge
       :challenge="challenge"
       :estimations="estimations"
@@ -14,13 +12,12 @@
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 import { Challenge } from "../../../models/Challenge";
+import Spinner from "../../../store/modules/Spinner";
 import ParticipateChallenge from "~/components/organisms/participate/participateChallenge.vue";
-import Spiner from "~/components/molecules/spiner.vue";
 
 @Component({
   components: {
     ParticipateChallenge,
-    Spiner,
   },
   middleware: ["deny-unauthenticated"],
 })
@@ -36,7 +33,7 @@ export default class TakeChallenge extends Vue {
   }
 
   async startChallenge(duration) {
-    this.loading = true;
+    Spinner.show();
     try {
       const data = {
         user: this.$strapi.user.id,
@@ -46,11 +43,11 @@ export default class TakeChallenge extends Vue {
 
       const sentRequest = await this.$strapi.create("user-challenges", data);
       if (sentRequest !== null) {
-        this.loading = false;
+        Spinner.hide();
         this.popupChallengeStarted = true;
       }
     } catch (e) {
-      this.loading = false;
+      Spinner.hide();
       this.popupChallengeStarted = true;
     }
   }

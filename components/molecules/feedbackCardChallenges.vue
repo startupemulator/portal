@@ -70,21 +70,19 @@
         ></U-button>
       </div>
     </div>
-    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
+import Spinner from "../../store/modules/Spinner";
 import AddTeamFeedBack from "~/components/organisms/startup/addTeamFeedback.vue";
 import AddTeamBadge from "~/components/organisms/startup/addTeamBadge.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import { Feedbacks } from "~/models/Feedbacks";
 import Toast from "~/store/modules/Toast";
-import Spiner from "~/components/molecules/spiner.vue";
 @Component({
   components: {
     UButton,
-    Spiner,
     AddTeamFeedBack,
     AddTeamBadge,
   },
@@ -98,7 +96,6 @@ export default class extends Vue {
   show_feedback: boolean = false;
   thisUserlike: boolean = false;
   thisUserlikeId: string = "";
-  loading = false;
 
   toggleFeedBack() {
     this.show_feedback = !this.show_feedback;
@@ -113,7 +110,7 @@ export default class extends Vue {
   }
 
   async like() {
-    this.loading = true;
+    Spinner.show();
     if (!this.thisUserlike && !!this.userId) {
       try {
         const like = await this.$createLike(this.feedback.id, this.userId);
@@ -121,7 +118,7 @@ export default class extends Vue {
           this.$emit("updateFeedbacks", like);
           this.thisUserlikeId = like.id;
           this.thisUserlike = true;
-          this.loading = false;
+          Spinner.hide();
         }
       } catch (e) {
         console.error(e);
@@ -129,7 +126,7 @@ export default class extends Vue {
           data: e.message,
           duration: 3000,
         });
-        this.loading = false;
+        Spinner.hide();
       }
     } else if (this.userId) {
       try {
@@ -138,7 +135,7 @@ export default class extends Vue {
           this.$emit("updateFeedbacks", like);
           this.thisUserlikeId = "";
           this.thisUserlike = false;
-          this.loading = false;
+          Spinner.hide();
         }
       } catch (e) {
         console.error(e);
@@ -146,7 +143,7 @@ export default class extends Vue {
           data: e.message,
           duration: 3000,
         });
-        this.loading = false;
+        Spinner.hide();
       }
     } else if (!this.userId) {
       this.$router.push("/login");

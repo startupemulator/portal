@@ -70,19 +70,18 @@
       :title="'You successfully changed your password'"
       :text-content="``"
     ></popup-challenge-started>
-    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import { minLength, required, sameAs } from "vuelidate/lib/validators";
 import Toast from "../../../store/modules/Toast";
+import Spinner from "../../../store/modules/Spinner";
 import uBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UInput from "~/components/atoms/uInput.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import PopupChallengeStarted from "~/components/molecules/popupChallengeStarted.vue";
-import Spiner from "~/components/molecules/spiner.vue";
 
 @Component({
   components: {
@@ -91,7 +90,6 @@ import Spiner from "~/components/molecules/spiner.vue";
     UInput,
     UButton,
     PopupChallengeStarted,
-    Spiner,
   },
   validations: {
     currentPassword: {
@@ -114,13 +112,12 @@ export default class extends Vue {
   password = "";
   confirmPassword = "";
   passwordType = "";
-  loading = false;
 
   async changePassword() {
     this.$v.$touch();
     if (!this.$v.$error) {
       try {
-        this.loading = true;
+        Spinner.show();
         let userPassword = null;
         if (this.passwordType === "update") {
           userPassword = await this.$updateUserPassword(
@@ -136,16 +133,16 @@ export default class extends Vue {
         }
         if (userPassword !== null) {
           this.togglePopupChallengeStarted();
-          this.loading = false;
+          Spinner.hide();
         } else {
-          this.loading = false;
+          Spinner.hide();
           Toast.show({
             data: "Something wrong.",
             duration: 3000,
           });
         }
       } catch (e) {
-        this.loading = false;
+        Spinner.hide();
         Toast.show({
           data: e,
           duration: 3000,

@@ -36,35 +36,34 @@
         @clickOnButton="cancelReleases"
       ></U-button>
     </div>
-    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 
 import AddExistingSourse from "../../molecules/addExistingSource.vue";
+import Spinner from "../../../store/modules/Spinner";
+import Spiner from "../../atoms/spinner.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import { Releases } from "~/models/Releases";
-import Spiner from "~/components/molecules/spiner.vue";
 import Toast from "~/store/modules/Toast";
 
 @Component({
-  components: { UButton, UBack, UTitle, AddExistingSourse, Spiner },
+  components: { UButton, UBack, UTitle, AddExistingSourse },
 })
 export default class extends Vue {
   @Prop() releases: Array<Releases>;
   @Prop() startupId: string;
-  loading = false;
   newsReleases = [];
 
   existingSourseComponent: Array<any> = [];
   saveReleases() {
-    this.loading = true;
+    Spinner.show();
     this.newsReleases = [];
     setTimeout(() => {
-      this.loading = false;
+      Spinner.hide();
       Toast.show({
         data: "Releases updated!",
         duration: 1000,
@@ -77,14 +76,14 @@ export default class extends Vue {
   cancelReleases() {
     this.$emit("clikOnButton");
     if (this.newsReleases.length !== 0) {
-      this.loading = true;
+      Spinner.show();
       this.newsReleases.forEach((el) => {
         this.removeExistingReleases(el);
       });
     }
 
     setTimeout(() => {
-      this.loading = false;
+      Spinner.hide();
       Toast.show({
         data: "Releases removed!",
         duration: 1000,
@@ -94,7 +93,7 @@ export default class extends Vue {
   }
 
   async addExistingReleases() {
-    this.loading = true;
+    Spinner.show();
     try {
       const release = await this.$createRelease("", "https://", this.startupId);
       if (release !== null) {
@@ -106,10 +105,10 @@ export default class extends Vue {
         });
         this.newsReleases.push(release.id);
       }
-      this.loading = false;
+      Spinner.hide();
     } catch (e) {
       console.error(e);
-      this.loading = false;
+      Spinner.hide();
     }
   }
 
@@ -132,20 +131,20 @@ export default class extends Vue {
   }
 
   async updateReleases(id, title = "", url = "") {
-    this.loading = true;
+    Spinner.show();
     try {
       const release = await this.$updateRelease(id, title, url);
       if (release !== null) {
-        this.loading = false;
+        Spinner.hide();
       }
     } catch (e) {
       console.error(e);
-      this.loading = false;
+      Spinner.hide();
     }
   }
 
   async removeExistingReleases(id) {
-    this.loading = true;
+    Spinner.show();
     try {
       const release = await this.$deleteRelease(id);
 
@@ -153,11 +152,11 @@ export default class extends Vue {
         this.existingSourseComponent = this.existingSourseComponent.filter(
           (item) => item.id !== id
         );
-        this.loading = false;
+        Spinner.hide();
       }
     } catch (e) {
       console.error(e);
-      this.loading = false;
+      Spinner.hide();
     }
   }
 

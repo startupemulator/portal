@@ -75,7 +75,6 @@
         @clickOnButton="saveDraft"
       ></U-button>
     </div>
-    <Spiner></Spiner>
   </div>
 </template>
 <script lang="ts">
@@ -87,7 +86,6 @@ import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import UInput from "~/components/atoms/uInput.vue";
-import Spiner from "~/components/molecules/spiner.vue";
 import DifficultyLevelPicker from "~/components/atoms/difficultyLevelPicker.vue";
 import AddExistingSourse from "~/components/molecules/addExistingSource.vue";
 import { Specialisation } from "~/models/Specialisation";
@@ -100,7 +98,6 @@ import SpecializationPicker from "~/components/molecules/specializationPicker.vu
     UTitle,
     UBack,
     UInput,
-    Spiner,
     AddExistingSourse,
     DifficultyLevelPicker,
     SpecializationPicker,
@@ -128,7 +125,6 @@ import SpecializationPicker from "~/components/molecules/specializationPicker.vu
 export default class extends Vue {
   @Prop() specialisations: Array<Specialisation>;
   @Prop({ default: null }) challenge: Array<Challenge>;
-  loading = false;
 
   existingSourseComponent = [{ id: `1`, type: "add-existing-sourse" }];
 

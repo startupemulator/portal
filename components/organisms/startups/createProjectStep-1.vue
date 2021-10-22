@@ -108,7 +108,6 @@
         @clickOnButton="saveDraft"
       ></U-button>
     </div>
-    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 
@@ -118,10 +117,10 @@ import { Component, Vue, Prop } from "nuxt-property-decorator";
 import { required, minLength, numeric } from "vuelidate/lib/validators";
 import Toast from "../../../store/modules/Toast";
 import { Estimation } from "../../../models/Estimation";
+import Spinner from "../../../store/modules/Spinner";
 import UButton from "~/components/atoms/uButton.vue";
 import DurationPicker from "~/components/molecules/durationPicker.vue";
 import AddInput from "~/components/atoms/addInput.vue";
-import Spiner from "~/components/molecules/spiner.vue";
 
 @Component({
   validations: {
@@ -141,7 +140,7 @@ import Spiner from "~/components/molecules/spiner.vue";
       numeric,
     },
   },
-  components: { DatePicker, UButton, DurationPicker, AddInput, Spiner },
+  components: { DatePicker, UButton, DurationPicker, AddInput },
 })
 export default class extends Vue {
   @Prop() startupData!: Array<any>;
@@ -155,7 +154,6 @@ export default class extends Vue {
         .join("  |  ")
     : "";
 
-  loading = false;
   title: String = this.startupData.title ? this.startupData.title : "";
 
   description: String = this.startupData.description
@@ -215,7 +213,7 @@ export default class extends Vue {
     this.$v.$touch();
     if (!this.$v.$error) {
       try {
-        this.loading = true;
+        Spinner.show();
         if (this.createdStartupId === 0) {
           // if new startup
           const data = {
@@ -247,13 +245,13 @@ export default class extends Vue {
             this.$emit("goToStepTwo", updateStartup);
           }
         }
-        this.loading = false;
+        Spinner.hide();
       } catch (e) {
         Toast.show({
           data: "Something wrong.",
           duration: 3000,
         });
-        this.loading = false;
+        Spinner.hide();
       }
     } else {
       Toast.show({

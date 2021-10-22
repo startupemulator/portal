@@ -82,7 +82,6 @@
       @closePopupLinkEmail="toggleInviteColleagues"
       @inviteCollegue="inviteCollegue"
     ></Invitecolleagues>
-    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
@@ -94,7 +93,6 @@ import UTitle from "~/components/atoms/uTitle.vue";
 import TeamMemberCard from "~/components/molecules/teamMemberCard.vue";
 import Toast from "~/store/modules/Toast";
 import { Startup } from "~/models/Startup";
-import Spiner from "~/components/molecules/spiner.vue";
 import CreateSpecialities from "~/components/molecules/createSpecialities.vue";
 import { Specialisation } from "~/models/Specialisation";
 import { Technology } from "~/models/Technology";
@@ -111,7 +109,6 @@ import {
     UTitle,
     TeamMemberCard,
     CreateSpecialities,
-    Spiner,
     Invitecolleagues,
   },
 })
@@ -292,28 +289,6 @@ export default class extends Vue {
         this.specialityComponent.push(data);
       });
     }
-
-    // if (this.startup.specialists) {
-    //   this.specialityComponent = this.startup.specialists;
-    // } else if (this.startup.owner.invites) {
-    //   this.invitedcolleagues = [];
-
-    //   this.startup.owner.invites.forEach((el) => {
-    //     if (
-    //       el.position &&
-    //       el.position.startup !== null &&
-    //       this.startup.id === el.position.startup.id
-    //     ) {
-    //       const data = {
-    //         id: el.id,
-    //         type: "create-specialities",
-    //         email: el.email,
-    //         choosenSpeciality: el.position.specialisation.title,
-    //       };
-    //       this.invitedcolleagues.push(data);
-    //     }
-    //   });
-    // }
   }
 }
 </script>

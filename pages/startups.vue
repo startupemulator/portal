@@ -18,7 +18,7 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import Spiner from "~/components/molecules/spiner.vue";
+import Spiner from "../components/atoms/spinner.vue";
 import Startups from "~/components/organisms/startups/startups.vue";
 
 @Component({

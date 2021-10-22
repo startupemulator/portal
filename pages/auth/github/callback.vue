@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 import { Context } from "@nuxt/types";
-import Spinner from "~/components/molecules/spiner.vue";
+import Spinner from "../../../components/atoms/spinner.vue";
 
 @Component({
   components: { Spinner },

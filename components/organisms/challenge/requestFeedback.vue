@@ -61,12 +61,12 @@
         @clickOnButton="submit"
       ></U-button>
     </div>
-    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
 import { sameAs, minLength, required } from "vuelidate/lib/validators";
+import Spinner from "../../../store/modules/Spinner";
 import { Profile } from "~/models/Profile";
 
 import UBack from "~/components/atoms/uBack.vue";
@@ -74,7 +74,6 @@ import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import AddExistingSourse from "~/components/molecules/addExistingSource.vue";
 import TechnologyPicker from "~/components/molecules/technologyPicker.vue";
-import Spiner from "~/components/molecules/spiner.vue";
 import Toast from "~/store/modules/Toast";
 
 @Component({
@@ -84,7 +83,6 @@ import Toast from "~/store/modules/Toast";
     UBack,
     AddExistingSourse,
     TechnologyPicker,
-    Spiner,
   },
   validations: {
     addedTechnologies: {
@@ -110,7 +108,6 @@ export default class extends Vue {
   addedNewTechnologies = [];
   challengeFinished = false;
   haveASolution = false;
-  loading = false;
   @Prop() profile: Array<Profile>;
   @Prop() challengeId: string;
 
@@ -173,7 +170,7 @@ export default class extends Vue {
 
     if (!this.$v.$error) {
       try {
-        this.loading = true;
+        Spinner.show();
         const requestFeedback = await this.$createAskFeedbackForChallenge(
           this.profile.user.id.toString(),
           this.commentToExpert,
@@ -185,14 +182,14 @@ export default class extends Vue {
             this.createSolution(el.title, el.url, requestFeedback.id);
           });
 
-          this.loading = false;
+          Spinner.hide();
           this.$emit("submit");
         } else {
           Toast.show({
             data: "Something wrong!",
             duration: 3000,
           });
-          this.loading = false;
+          Spinner.hide();
         }
       } catch (e) {
         console.error(e);
@@ -200,7 +197,7 @@ export default class extends Vue {
           data: e.message,
           duration: 3000,
         });
-        this.loading = false;
+        Spinner.hide();
       }
     }
   }

@@ -40,35 +40,34 @@
         @clickOnButton="cancelSources"
       ></U-button>
     </div>
-    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
 
+import Spinner from "../../../store/modules/Spinner";
+import Spiner from "../../atoms/spinner.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
-import Spiner from "~/components/molecules/spiner.vue";
 import Toast from "~/store/modules/Toast";
 import CreateGuide from "~/components/molecules/createGuide.vue";
 import { Secrets } from "~/models/Secrets";
 
 @Component({
-  components: { UButton, UBack, UTitle, CreateGuide, Spiner },
+  components: { UButton, UBack, UTitle, CreateGuide },
 })
 export default class extends Vue {
   @Prop() secrets: Array<Secrets>;
   @Prop() startupId: string;
 
-  loading = false;
   newswcrets = [];
   guideSourseComponent: Array<any> = [];
   saveSources() {
-    this.loading = true;
+    Spinner.show();
     this.newswcrets = [];
     setTimeout(() => {
-      this.loading = false;
+      Spinner.hide();
       Toast.show({
         data: "Startup data updated!",
         duration: 1000,
@@ -79,14 +78,14 @@ export default class extends Vue {
   }
 
   cancelSources() {
-    this.loading = true;
+    Spinner.show();
     if (this.newswcrets.length !== 0) {
       this.newswcrets.forEach((el) => {
         this.removeGuideSources(el);
       });
     }
     setTimeout(() => {
-      this.loading = false;
+      Spinner.hide();
       Toast.show({
         data: "Startup data updated!",
         duration: 1000,
@@ -97,7 +96,7 @@ export default class extends Vue {
   }
 
   async addGuideSourse() {
-    this.loading = true;
+    Spinner.show();
     try {
       const secret = await this.$createSecret("", "", this.startupId);
       if (secret !== null) {
@@ -109,39 +108,39 @@ export default class extends Vue {
         });
       }
       this.newswcrets.push(secret.id);
-      this.loading = false;
+      Spinner.hide();
     } catch (e) {
       console.error(e);
-      this.loading = false;
+      Spinner.hide();
     }
   }
 
   async removeGuideSources(id) {
-    this.loading = true;
+    Spinner.show();
     try {
       const secret = await this.$deleteSecret(id);
       if (+secret.id === +id) {
         this.guideSourseComponent = this.guideSourseComponent.filter(
           (item) => item.id !== id
         );
-        this.loading = false;
+        Spinner.hide();
       }
     } catch (e) {
       console.error(e);
-      this.loading = false;
+      Spinner.hide();
     }
   }
 
   async updateSecret(id, title = "", description = "") {
-    this.loading = true;
+    Spinner.show();
     try {
       const secret = await this.$updateSecret(id, title, description);
       if (secret !== null) {
-        this.loading = false;
+        Spinner.hide();
       }
     } catch (e) {
       console.error(e);
-      this.loading = false;
+      Spinner.hide();
     }
   }
 

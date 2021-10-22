@@ -101,13 +101,13 @@
       :user-id="user.id"
       @clickOnButton="toggleChangePassword"
     ></ChangePassword>
-    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import Toast from "../../../store/modules/Toast";
 import { User } from "../../../models/User";
+import Spinner from "../../../store/modules/Spinner";
 import RegularUser from "./regularUser.vue";
 import ExpertUser from "./expertUser.vue";
 import { Startup } from "~/models/Startup";
@@ -122,7 +122,6 @@ import ChangePassword from "~/components/organisms/profile/changePassword.vue";
 import { scrollToHeader } from "~/assets/jshelper/scrollToHeader";
 import EditProfile from "~/components/organisms/profile/editProfile.vue";
 import { Experience } from "~/models/Experience";
-import Spiner from "~/components/molecules/spiner.vue";
 import { Badges } from "~/models/Badges";
 import BadgePopup from "~/components/molecules/popupBadge.vue";
 
@@ -136,7 +135,6 @@ import BadgePopup from "~/components/molecules/popupBadge.vue";
     ExpertUser,
     ChangePassword,
     EditProfile,
-    Spiner,
     BadgePopup,
   },
 })
@@ -156,7 +154,6 @@ export default class extends Vue {
   changePassword: boolean = false;
   editProfile: boolean = false;
   createdTechnologies = [];
-  loading = false;
   achivementsData = {};
   badge: Array<Badges> = [];
   opendPopup: boolean = false;
@@ -205,7 +202,7 @@ export default class extends Vue {
   }
 
   async saveProfileUpdateData(data) {
-    this.loading = true;
+    Spinner.show();
 
     if (this.createdTechnologies.length !== 0) {
       this.createdTechnologies.forEach((el) => data.technologies.push(el.id));
@@ -234,13 +231,13 @@ export default class extends Vue {
       }
       this.$emit("updateData");
       scrollToHeader();
-      this.loading = false;
+      Spinner.hide();
     } catch (e) {
       Toast.show({
         data: e.message,
         duration: 3000,
       });
-      this.loading = false;
+      Spinner.hide();
     }
   }
 }

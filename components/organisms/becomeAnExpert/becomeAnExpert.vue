@@ -32,7 +32,6 @@
         ></U-button>
       </div>
     </div>
-    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 
@@ -46,7 +45,7 @@ import UInput from "~/components/atoms/uInput.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import { Technology } from "~/models/Technology";
 import Toast from "~/store/modules/Toast";
-import Spiner from "~/components/molecules/spiner.vue";
+import Spinner from "~/store/modules/Spinner";
 
 @Component({
   components: {
@@ -54,7 +53,6 @@ import Spiner from "~/components/molecules/spiner.vue";
     UTitle,
     UInput,
     UButton,
-    Spiner,
   },
   validations: {
     fullName: {
@@ -70,7 +68,6 @@ export default class extends Vue {
   fullName = this.userName ? this.userName : "";
   choosenTechnology: String = "";
   addedTechnologies: Array<String> = [];
-  loading = false;
 
   checkName(textValue: String) {
     this.fullName = textValue.trim();
@@ -88,7 +85,7 @@ export default class extends Vue {
   async finishSigningUp() {
     this.$v.$touch();
     if (!this.$v.$error) {
-      this.loading = true;
+      Spinner.show();
       try {
         const findProfile = await this.$profile(this.userId);
         if (this.addedTechnologies.length > 0) {
@@ -97,17 +94,17 @@ export default class extends Vue {
           });
         }
         await this.$updateProfileName(findProfile.id, this.fullName);
-        this.loading = false;
+        Spinner.hide();
         this.$nuxt.$router.push("/profile/projects");
       } catch (e) {
-        this.loading = false;
+        Spinner.hide();
         Toast.show({
           data: e.message,
           duration: 3000,
         });
       }
     } else {
-      this.loading = false;
+      Spinner.hide();
       Toast.show({
         data: "Fill the form correctly.",
         duration: 3000,

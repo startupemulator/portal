@@ -1,6 +1,5 @@
 <template>
   <div class="startups-page">
-    <Spiner :loading="loading"></Spiner>
     <RequestToTeam
       :update-key="updateKey"
       :startup="startup"
@@ -13,21 +12,19 @@
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 
+import Spinner from "../../../store/modules/Spinner";
 import RequestToTeam from "~/components/organisms/startup/requestsToTeam.vue";
 import { Startup } from "~/models/Startup";
-import Spiner from "~/components/molecules/spiner.vue";
 import Toast from "~/store/modules/Toast";
 
 @Component({
   components: {
-    Spiner,
     RequestToTeam,
   },
 })
 export default class TakeStartup extends Vue {
   startup: Array<Startup>;
   updateKey: Number = 0;
-  loading = false;
   userId = this.$strapi.user ? this.$strapi.user.id : "";
 
   async asyncData({ $startup, route }) {
@@ -73,7 +70,7 @@ export default class TakeStartup extends Vue {
   }
 
   async accept(id) {
-    this.loading = true;
+    Spinner.show();
     try {
       const accept = await this.$applicationAccept(id);
       if (accept !== null) {
@@ -89,19 +86,19 @@ export default class TakeStartup extends Vue {
       }
 
       this.updateKey += 1;
-      this.loading = false;
+      Spinner.hide();
     } catch (e) {
       console.error(e);
       Toast.show({
         data: e.message,
         duration: 3000,
       });
-      this.loading = false;
+      Spinner.hide();
     }
   }
 
   async decline(id, declinetext) {
-    this.loading = true;
+    Spinner.show();
     try {
       const decline = await this.$applicationDecline(id, declinetext);
       if (decline) {
@@ -114,14 +111,14 @@ export default class TakeStartup extends Vue {
           (el) => el.status === "accepted" || el.status === "advanced"
         );
         this.createNotification(recipients, "decline");
-        this.loading = false;
+        Spinner.hide();
         this.updateKey += 1;
       } else {
         Toast.show({
           data: "Something wrong!",
           duration: 3000,
         });
-        this.loading = false;
+        Spinner.hide();
       }
     } catch (e) {
       console.error(e);
@@ -129,12 +126,12 @@ export default class TakeStartup extends Vue {
         data: e.message,
         duration: 3000,
       });
-      this.loading = false;
+      Spinner.hide();
     }
   }
 
   async advancedAccess(id) {
-    this.loading = true;
+    Spinner.show();
     try {
       const advancedAccess = await this.$applicationAdvancedAccess(id);
       if (advancedAccess !== null) {
@@ -152,7 +149,7 @@ export default class TakeStartup extends Vue {
           this.createNotification(recipient, "advanced");
         }
       }
-      this.loading = false;
+      Spinner.hide();
       this.updateKey += 1;
     } catch (e) {
       console.error(e);

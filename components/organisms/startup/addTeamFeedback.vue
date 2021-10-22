@@ -43,13 +43,13 @@
         @clickOnButton="$emit('clikOnButton')"
       ></U-button>
     </div>
-    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 
 import { minLength, required } from "vuelidate/lib/validators";
+import Spinner from "../../../store/modules/Spinner";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
@@ -57,10 +57,9 @@ import Criterios from "~/components/molecules/criterios.vue";
 import PickBadeg from "~/components/molecules/pickBadge.vue";
 import { Directions } from "~/models/Directions";
 import { Badges } from "~/models/Badges";
-import Spiner from "~/components/molecules/spiner.vue";
 
 @Component({
-  components: { UButton, UTitle, UBack, Criterios, PickBadeg, Spiner },
+  components: { UButton, UTitle, UBack, Criterios, PickBadeg },
   validations: {
     markedDirection: {
       required,
@@ -78,7 +77,6 @@ export default class extends Vue {
   @Prop() badges: Array<Badges>;
   @Prop() expertId: string;
   @Prop() requestId: string;
-  loading = false;
   markedDirection = [];
   comment = "";
   badge = "";
@@ -123,44 +121,44 @@ export default class extends Vue {
   }
 
   async createCriterions(el, id) {
-    this.loading = true;
+    Spinner.show();
 
     try {
       const criterion = await this.$createCriterions(el.mark, el.id);
       if (criterion !== null) {
         this.markedDirection[id].keyId = criterion.id;
-        this.loading = false;
+        Spinner.hide();
       }
     } catch (e) {
       console.error(e);
-      this.loading = false;
+      Spinner.hide();
     }
   }
 
   async updateCriterions(el) {
-    this.loading = true;
+    Spinner.show();
     try {
       const criterion = await this.$updateCriterions(el.keyId, el.mark);
 
       if (criterion !== null) {
-        this.loading = false;
+        Spinner.hide();
       }
     } catch (e) {
       console.error(e);
-      this.loading = false;
+      Spinner.hide();
     }
   }
 
   async deleteCriterions(el) {
-    this.loading = true;
+    Spinner.show();
     try {
       const criterion = await this.$deleteCriterions(el.keyId);
       if (criterion !== null) {
-        this.loading = false;
+        Spinner.hide();
       }
     } catch (e) {
       console.error(e);
-      this.loading = false;
+      Spinner.hide();
     }
   }
 
@@ -171,7 +169,7 @@ export default class extends Vue {
         this.createdCriterions.push(el.keyId)
       );
 
-      this.loading = true;
+      Spinner.show();
 
       try {
         const createFeedback = await this.$createFeedback(
@@ -182,13 +180,13 @@ export default class extends Vue {
           this.requestId
         );
         if (createFeedback !== null) {
-          this.loading = false;
+          Spinner.hide();
           this.$emit("clikOnButton");
           this.$emit("teamNotificationFeedback");
         }
       } catch (e) {
         console.error(e);
-        this.loading = false;
+        Spinner.hide();
       }
     }
   }

@@ -1,6 +1,5 @@
 <template>
   <div class="startups-page">
-    <Spiner :loading="loading"></Spiner>
     <Challenges
       :challenges="challengesList"
       :specialisations="specialisations"
@@ -18,13 +17,12 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import Spiner from "~/components/molecules/spiner.vue";
+import Spinner from "~/store/modules/Spinner";
 import Challenges from "~/components/organisms/challenges/challenges.vue";
 
 @Component({
   components: {
     Challenges,
-    Spiner,
   },
 })
 export default class extends Vue {
@@ -33,7 +31,6 @@ export default class extends Vue {
   userId = this.$strapi.user ? this.$strapi.user.id : "";
   difficultyLevel: Array<any> = [];
   pickedSpecialty: Array<any> = [];
-  loading = false;
   async asyncData({
     $strapi,
     $profile,
@@ -67,7 +64,7 @@ export default class extends Vue {
   }
 
   async filterCards() {
-    this.loading = true;
+    Spinner.show();
     const findCriterios = [];
     this.difficultyLevel.forEach((el) => findCriterios.push(el));
     this.pickedSpecialty.forEach((el) => findCriterios.push(el));
@@ -83,7 +80,7 @@ export default class extends Vue {
     }
     if (filterChallenges !== null) {
       this.challengesList = filterChallenges;
-      this.loading = false;
+      Spinner.hide();
     }
   }
 

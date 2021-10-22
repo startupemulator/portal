@@ -34,20 +34,18 @@
         @clickOnButton="$emit('saveDraft')"
       ></U-button>
     </div>
-    <Spiner :loading="loading"></Spiner>
   </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
+import Spinner from "../../../store/modules/Spinner";
 import UButton from "~/components/atoms/uButton.vue";
 import AddExistingSourse from "~/components/molecules/addExistingSource.vue";
-import Spiner from "~/components/molecules/spiner.vue";
 
 @Component({
   components: {
     UButton,
     AddExistingSourse,
-    Spiner,
   },
 })
 export default class extends Vue {
@@ -57,17 +55,17 @@ export default class extends Vue {
   existingSourseComponent: Array<any> = [];
 
   async updateSourses(data, i, id) {
-    this.loading = true;
+    Spinner.show();
     try {
       const sources = await this.$updateSource(id, data[0], data[1]);
       if (sources !== null) {
-        this.loading = false;
+        Spinner.hide();
         this.existingSourseComponent[i].title = data[1];
         this.existingSourseComponent[i].link = data[1];
       }
     } catch (e) {
       console.error(e);
-      this.loading = false;
+      Spinner.hide();
     }
   }
 
@@ -76,7 +74,7 @@ export default class extends Vue {
   }
 
   async addExistingSourse() {
-    this.loading = true;
+    Spinner.show();
     try {
       const source = await this.$createSource(
         "",
@@ -91,26 +89,26 @@ export default class extends Vue {
           type: "add-existing-sourse",
         });
       }
-      this.loading = false;
+      Spinner.hide();
     } catch (e) {
       console.error(e);
-      this.loading = false;
+      Spinner.hide();
     }
   }
 
   async removeExistingSources(id) {
-    this.loading = true;
+    Spinner.show();
     try {
       const sources = await this.$deleteSource(id);
       if (+sources.id === +id) {
         this.existingSourseComponent = this.existingSourseComponent.filter(
           (item) => item.id !== id
         );
-        this.loading = false;
+        Spinner.hide();
       }
     } catch (e) {
       console.error(e);
-      this.loading = false;
+      Spinner.hide();
     }
   }
 
