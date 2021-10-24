@@ -23,7 +23,10 @@ export interface UserServices {
     password: String
   ): Promise<Partial<User>[]>;
 
-  $emailConfirmation(token: string): Promise<Partial<User>[]>;
+  $emailConfirmation(token: string): Promise<{
+    jwt: string;
+    user: Partial<User>;
+  }>;
 
   $passwordType(): Promise<Partial<User>[]>;
 }

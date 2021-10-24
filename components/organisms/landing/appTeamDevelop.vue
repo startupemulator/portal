@@ -47,7 +47,7 @@ import UButton from "~/components/atoms/uButton.vue";
 @Component({
   components: { UButton },
 })
-export default class extends Vue {
+export default class AppTeamDevelop extends Vue {
   @Prop() isLogined: Boolean;
 }
 </script>

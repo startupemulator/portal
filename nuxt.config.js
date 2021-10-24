@@ -1,5 +1,6 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
+  ssr: true,
   head: {
     title: "StartupEmulator - training platform for developers",
     htmlAttrs: {

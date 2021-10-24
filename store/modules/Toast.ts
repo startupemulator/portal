@@ -19,7 +19,7 @@ interface Message {
   success: boolean;
 }
 
-interface ToastState {
+export interface ToastState {
   messages: Message[];
 }
 

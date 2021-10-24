@@ -54,29 +54,31 @@
       <div class="experience-content__five-image experience-content__title">
         <h2>Get an experience in real projects</h2>
         <div class="button-startups--groupe">
-          <U-button
+          <U-Button
             :button-name="'Explore Startups'"
             :button-class="'u-button-blue'"
             :is-link="'nuxt-link'"
             :href="'/startups'"
-          ></U-button>
+          ></U-Button>
 
-          <U-button
+          <U-Button
             :button-name="'Explore Challenges'"
             :button-class="'u-button-gray '"
             :is-link="'nuxt-link'"
             :href="'/challenges'"
-          ></U-button>
+          ></U-Button>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from "nuxt-property-decorator";
 import UButton from "~/components/atoms/uButton.vue";
 
-export default {
+@Component({
   components: { UButton },
-};
+})
+export default class AppGetExperience extends Vue {}
 </script>

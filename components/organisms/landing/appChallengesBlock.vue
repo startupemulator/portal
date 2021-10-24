@@ -17,14 +17,14 @@
           <button
             type="button"
             class="slider-button"
-            @click="$emit('slideRigth', 'challenges')"
+            @click="$emit('slideRight')"
           >
             <img src="~/assets/img/arrow.svg" alt="arrow" />
           </button>
           <button
             type="button"
             class="slider-button"
-            @click="$emit('slideLeft', 'challenges')"
+            @click="$emit('slideLeft')"
           >
             <img src="~/assets/img/arrow.svg" alt="arrow" />
           </button>
@@ -74,9 +74,9 @@ export default class AppChallengesBlock extends Vue {
 
   touchHandler(data) {
     if (data === "left") {
-      this.$emit("slideLeft", "challenges");
+      this.$emit("slideLeft");
     } else if (data === "right") {
-      this.$emit("slideRigth", "challenges");
+      this.$emit("slideRight");
     }
   }
 }

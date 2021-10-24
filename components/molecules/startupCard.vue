@@ -1,6 +1,5 @@
 <template>
   <div class="startup-card" :class="i > 3 ? 'startup-card_animation' : ''">
-    {{ card.technologies.title }}
     <div v-show="!!card.state" class="startup-card__started">
       <div class="startup-card__started-state">
         <div
@@ -91,7 +90,7 @@
           :style="
             card.state === 'finished' ||
             allPositionsStaffed ||
-            !!(+card.owner.id === +userId) ||
+            !!+card.owner.id === userId ||
             userAccepted
               ? 'width:100%'
               : ''
@@ -121,15 +120,13 @@
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UButton from "../atoms/uButton.vue";
 import { Startup } from "~/models/Startup";
-import { Technology } from "~/models/Technology";
+
 @Component({
   components: { UButton },
 })
 export default class StartupCard extends Vue {
   @Prop() i: number;
   @Prop() card: Startup;
-  @Prop() technology: Technology;
-  @Prop() userId: Number;
   @Prop({
     default: () => {
       return [];
@@ -141,6 +138,7 @@ export default class StartupCard extends Vue {
   userAccepted = false;
   allPositionsStaffed = false;
   askFeedbacks = 0;
+  userId = null;
 
   async checkAskFeedBack() {
     try {
@@ -152,10 +150,11 @@ export default class StartupCard extends Vue {
   }
 
   mounted() {
+    this.userId = this.$strapi.user?.id;
     if (this.waitingFeedback.some((el) => +el.id === +this.card.id)) {
       this.checkAskFeedBack();
     }
-    if (this.card.positions.length !== 0 && this.userId !== null) {
+    if (this.card.positions.length !== 0 && this.userId) {
       this.card.positions.forEach((item) => {
         if (
           item.applications.length !== 0 &&

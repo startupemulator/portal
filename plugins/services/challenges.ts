@@ -3,9 +3,9 @@ import { Challenge } from "~/models/Challenge";
 
 export interface ChallengesServices {
   $challenges(
-    difficulty: number[],
-    specialisations: number[]
-  ): Promise<Partial<Challenge>[]>;
+    difficulty?: number[],
+    specialisations?: number[]
+  ): Promise<{ challenges: Partial<Challenge>[] }>;
 
   $createChallenge(
     title: string,
@@ -64,6 +64,7 @@ export function challenges($strapi: Strapi) {
     });
   };
 }
+
 export function challenge($strapi: Strapi) {
   return async (slug: string) => {
     const data = await $strapi.graphql({
@@ -94,6 +95,7 @@ export function challenge($strapi: Strapi) {
     return data.challenges ? data.challenges[0] : null;
   };
 }
+
 export function createChallenge($strapi: Strapi) {
   return async (
     title: string,
@@ -119,6 +121,7 @@ export function createChallenge($strapi: Strapi) {
       : null;
   };
 }
+
 export function updateChallenge($strapi: Strapi) {
   return async (
     id: string,

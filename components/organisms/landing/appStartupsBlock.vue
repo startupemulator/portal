@@ -4,10 +4,8 @@
       <div class="startup-block-content__head">
         <h2>Startups</h2>
         <nuxt-link to="/startups" class="startup-block-button">
-          <!-- <button type="button" class="startup-block-button"> -->
           <span>See All Startups</span>
           <img src="~/assets/img/arrow.svg" alt="arrow" />
-          <!-- </button> -->
         </nuxt-link>
       </div>
       <div class="startup-block-content__desktop-buttons">
@@ -20,14 +18,14 @@
           <button
             type="button"
             class="slider-button"
-            @click="$emit('slideRigth', 'startups')"
+            @click.prevent="slideLeft()"
           >
             <img src="~/assets/img/arrow.svg" alt="arrow" />
           </button>
           <button
             type="button"
             class="slider-button"
-            @click="$emit('slideLeft', 'startups')"
+            @click.prevent="slideRight()"
           >
             <img src="~/assets/img/arrow.svg" alt="arrow" />
           </button>
@@ -37,16 +35,11 @@
     <div class="startup-block__startup-cards">
       <transition-group name="card" tag="div" class="transition__startup-card">
         <div v-for="card in cards" :key="card.id" class="card-move">
-          <Startup-card
-            :id="card.id"
-            :key="card.id"
+          <StartupCard
             v-touch:swipe="$device.isMobile ? touchHandler : ''"
             v-touch-class="$device.isMobile ? 'active' : ''"
             :card="card"
-            :technology="technology"
-            :user-id="userId"
-            :waiting-feedback="card.state !== 'finished' ? waitingFeedback : []"
-          ></Startup-card>
+          ></StartupCard>
         </div>
       </transition-group>
     </div>
@@ -57,9 +50,7 @@
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 
 import { Startup } from "~/models/Startup";
-import { Technology } from "~/models/Technology";
 import StartupCard from "~/components/molecules/startupCard.vue";
-import { AskFeedbacks } from "~/models/AskFeedbacks";
 
 @Component({
   components: {
@@ -68,20 +59,22 @@ import { AskFeedbacks } from "~/models/AskFeedbacks";
 })
 export default class AppStartupsBlock extends Vue {
   @Prop() cards: Array<Startup>;
-  @Prop() technology: Array<Technology>;
-  @Prop() userId: string;
-  @Prop() waitingFeedback: Array<AskFeedbacks>;
 
   touchHandler(data) {
     if (data === "left") {
-      this.$emit("slideLeft", "startups");
+      this.slideLeft();
     } else if (data === "right") {
-      this.$emit("slideRigth", "startups");
+      this.slideRight();
     }
   }
-  // touchHandler(data, event) {
-  //   console.log(data, event.currentTarget);
-  // }
+
+  slideRight() {
+    this.$emit("slideRight");
+  }
+
+  slideLeft() {
+    this.$emit("slideLeft");
+  }
 }
 </script>
 <style lang="scss" scoped>

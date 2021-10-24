@@ -47,5 +47,5 @@ import UButton from "~/components/atoms/uButton.vue";
 @Component({
   components: { UButton },
 })
-export default class extends Vue {}
+export default class AppTopStartups extends Vue {}
 </script>

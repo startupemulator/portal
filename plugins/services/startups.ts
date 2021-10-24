@@ -2,7 +2,7 @@ import { Strapi } from "@nuxtjs/strapi";
 import { Startup } from "../../models/Startup";
 
 export interface StartupsServices {
-  $startups(states: string[]): Promise<Partial<Startup>[]>;
+  $startups(states?: string[]): Promise<{ startups: Partial<Startup>[] }>;
 
   $addTechnologiesStartup(
     id: string[],
@@ -81,9 +81,7 @@ export function startups($strapi: Strapi) {
             id
             title
           }
-
         }
-
       }`,
     });
   };

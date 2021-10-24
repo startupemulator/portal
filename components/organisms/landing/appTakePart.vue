@@ -7,7 +7,7 @@
       :class="{ 'technologies-active': item.status === true }"
       class="take-part__technologies"
     >
-      <div class="take-part__technologies-title" @click="switchingtakePart(i)">
+      <div class="take-part__technologies-title" @click="switchingTakePart(i)">
         <h2>{{ item.title }}</h2>
         <img src="~/assets/img/arrow.svg" alt="arrow" />
       </div>
@@ -23,24 +23,21 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  data: () => ({
-    takePart: takePart(),
-  }),
+<script lang="ts">
+import { Component, Vue } from "nuxt-property-decorator";
 
-  methods: {
-    switchingtakePart(i) {
-      this.takePart.forEach((item) => {
-        if (item.id.toString() === i.toString()) {
-          item.status = false;
-        } else {
-          item.status = true;
-        }
-      });
-    },
-  },
-};
+@Component({})
+export default class AppTakePart extends Vue {
+  takePart = takePart();
+
+  switchingTakePart(i) {
+    this.takePart.forEach((item) => {
+      item.status = item.id.toString() !== i.toString();
+    });
+  }
+}
+
+// @TODO add real data for the block
 function takePart() {
   return [
     {
@@ -77,10 +74,12 @@ function takePart() {
   }
 }
 
-.take-part__technologies.technologies-active
-  .take-part__technologies-title
-  img {
-  transform: rotate(90deg);
-  transition: 1s;
+.take-part__technologies.technologies-active {
+  .take-part__technologies-title {
+    img {
+      transform: rotate(90deg);
+      transition: 1s;
+    }
+  }
 }
 </style>

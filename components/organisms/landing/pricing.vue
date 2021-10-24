@@ -1,5 +1,6 @@
 <template>
   <div class="pricing">
+    <a name="pricing"></a>
     <h4>Pricing</h4>
     <div class="pricing__cards">
       <div class="pricing__card">
@@ -113,7 +114,7 @@
 import { Component, Vue } from "nuxt-property-decorator";
 import UButton from "~/components/atoms/uButton.vue";
 @Component({ components: { UButton } })
-export default class extends Vue {}
+export default class Pricing extends Vue {}
 </script>
 <style lang="scss" scoped>
 .pricing {

@@ -19,9 +19,7 @@ export interface LoginServices {
 
   $sendLoginLink(email: NuxtStrapiLoginData): Promise<NuxtStrapiLoginResult>;
 
-  $loginPasswordless(
-    token: NuxtStrapiLoginData
-  ): Promise<NuxtStrapiLoginResult>;
+  $loginPasswordless(token: string): Promise<NuxtStrapiLoginResult>;
 }
 
 export function login($strapi: Strapi) {

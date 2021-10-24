@@ -6,15 +6,11 @@
         <button
           type="button"
           class="slider-button"
-          @click="$emit('slideRigth', 'testimonials')"
+          @click="$emit('slideRight')"
         >
           <img src="~/assets/img/arrow.svg" alt="arrow" />
         </button>
-        <button
-          type="button"
-          class="slider-button"
-          @click="$emit('slideLeft', 'testimonials')"
-        >
+        <button type="button" class="slider-button" @click="$emit('slideLeft')">
           <img src="~/assets/img/arrow.svg" alt="arrow" />
         </button>
       </div>
@@ -39,7 +35,7 @@
               v-if="card.comment.length > 175"
               :button-name="' Show all'"
               :button-class="'u-button-transpend'"
-              @clickOnButton="toggleTestominalPopup(i)"
+              @clickOnButton="toggletestimonialPopup(i)"
             ></U-button>
           </h3>
 
@@ -54,12 +50,12 @@
         </div>
       </div>
     </transition-group>
-    <div v-if="testominalPopup" class="testimonials-popup popup">
+    <div v-if="testimonialPopup" class="testimonials-popup popup">
       <div class="testimonials-popup__content">
         <button
           type="button"
           class="sign-up-link__close"
-          @click="toggleTestominalPopup"
+          @click="toggletestimonialPopup"
         >
           <img src="~/assets/img/close.svg" alt="Close" />
         </button>
@@ -67,15 +63,15 @@
           {{ cards[0].comment }}
         </h3>
         <p class="testimonials-popup__full-name">
-          {{ cards[testominalNumber].author }}
+          {{ cards[testimonialNumber].author }}
         </p>
         <p class="testimonials-popup__position">
-          {{ cards[testominalNumber].title }}
+          {{ cards[testimonialNumber].title }}
         </p>
         <img
-          v-if="cards[testominalNumber].photo[0]"
+          v-if="cards[testimonialNumber].photo[0]"
           class="testimonials-popup__img"
-          :src="cards[testominalNumber].photo[0].url"
+          :src="cards[testimonialNumber].photo[0].url"
           alt="testimonial"
         />
       </div>
@@ -91,22 +87,22 @@ import {
   enableScrolling,
 } from "~/assets/jshelper/toggleScroll.js";
 @Component({ components: { UButton } })
-export default class extends Vue {
+export default class AppTestimonials extends Vue {
   @Prop() cards: Array<Testimonial>;
-  testominalPopup = false;
-  testominalNumber: Number = 0;
+  testimonialPopup = false;
+  testimonialNumber: Number = 0;
 
-  toggleTestominalPopup(i: Number) {
-    this.testominalNumber = i;
-    this.testominalPopup ? enableScrolling() : disableScrolling();
-    this.testominalPopup = !this.testominalPopup;
+  toggletestimonialPopup(i: Number) {
+    this.testimonialNumber = i;
+    this.testimonialPopup ? enableScrolling() : disableScrolling();
+    this.testimonialPopup = !this.testimonialPopup;
   }
 
   touchHandler(data) {
     if (data === "left") {
-      this.$emit("slideLeft", "testimonials");
+      this.$emit("slideLeft");
     } else if (data === "right") {
-      this.$emit("slideRigth", "testimonials");
+      this.$emit("slideRight");
     }
   }
 }

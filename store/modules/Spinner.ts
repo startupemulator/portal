@@ -1,9 +1,9 @@
 import { Module, MutationAction, VuexModule } from "nuxt-property-decorator";
 import { getModule } from "vuex-module-decorators";
 import { Store } from "vuex";
-import { store } from "../index";
+import { store } from "..";
 
-interface SpinnerState {
+export interface SpinnerState {
   visible: boolean;
 }
 

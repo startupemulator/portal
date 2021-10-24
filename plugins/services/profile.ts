@@ -1,8 +1,8 @@
 import { Strapi } from "@nuxtjs/strapi";
-import { Profile } from "../../models/Profile";
+import { Profile } from "~/models/Profile";
 
 export interface ProfileServices {
-  $profile(id: string): Promise<Partial<Profile>[]>;
+  $profile(id: string): Promise<Partial<Profile>>;
 
   $profileByUserId(id: string): Promise<Partial<Profile>[]>;
 
