@@ -22,8 +22,7 @@ export default class GithubCallback extends Vue {
         }
       );
       await context.$strapi.setToken(jwt);
-      await context.$strapi.fetchUser();
-      return { user };
+      await context.$strapi.setUser(user);
     } catch (e) {
       console.error(e);
     }
