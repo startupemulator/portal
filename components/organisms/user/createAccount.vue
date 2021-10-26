@@ -5,7 +5,7 @@
         <SystemAlert v-if="error !== ''"></SystemAlert>
         <U-Back link="/"></U-Back>
         <U-Title :text="'Create an account'"> </U-Title>
-        <U-input
+        <U-Input
           :placeholder="'Enter your full name'"
           :type="'text'"
           :value="name.trim()"
@@ -17,11 +17,11 @@
           :img="require('~/assets/img/profile.svg')"
           :btn-show-password="false"
           @textInput="checkName"
-        ></U-input>
+        ></U-Input>
         <p v-show="$v.name.$error" class="errorInput">
           Please enter a full name, no more than 40 characters
         </p>
-        <U-input
+        <U-Input
           :placeholder="'Enter your email'"
           :type="'email'"
           :value="email"
@@ -32,12 +32,12 @@
           "
           :img="require('~/assets/img/email.svg')"
           @textInput="checkEmail"
-        ></U-input>
+        ></U-Input>
         <p v-show="$v.email.$error" class="errorInput">
           Please enter an email address
         </p>
         <div>
-          <U-input
+          <U-Input
             :placeholder="'Set a password'"
             :type="'password'"
             :value="password"
@@ -49,13 +49,13 @@
             :img="require('~/assets/img/password.svg')"
             :btn-show-password="true"
             @textInput="checkPassword"
-          ></U-input>
+          ></U-Input>
           <p v-show="$v.password.$error" class="errorInput">
             Please enter a password of at least 8 characters
           </p>
         </div>
         <div>
-          <U-input
+          <U-Input
             :placeholder="'Repeat a password'"
             :value="repeatPassword"
             :type="'password'"
@@ -67,31 +67,29 @@
             :img="require('~/assets/img/password.svg')"
             :btn-show-password="true"
             @textInput="checkRepeatPassword"
-          ></U-input>
+          ></U-Input>
           <p v-show="$v.repeatPassword.$error" class="errorInput">
             Both passwords should be the same
           </p>
         </div>
         <div>
-          <U-button
+          <U-Button
             :button-name="'Sign Up'"
             :button-class="'u-button-blue create-account__log-in'"
             @clickOnButton="register"
-          ></U-button>
+          ></U-Button>
         </div>
         <hr />
         <div class="create-account__buttons-continue">
-          <nuxt-link to="/auth/github/connect">
-            <U-button
-              :button-name="'Continue with GitHub'"
-              :button-class="'u-button-gray'"
-            ></U-button>
-          </nuxt-link>
-          <U-button
+          <A-Link
+            :link="getAuthGithubLink()"
+            :link-name="'Continue with GitHub'"
+          ></A-Link>
+          <U-Button
             :button-name="'Continue with the email link'"
             :button-class="'u-button-gray'"
             @clickOnButton="showPopupEmailLink"
-          ></U-button>
+          ></U-Button>
         </div>
         <div class="account__go-to-sign-up">
           <span>Already have an account?</span>
@@ -99,16 +97,16 @@
         </div>
       </div>
     </form>
-    <PopupEmailLink
+    <Popup-Email-Link
       v-if="popupEmailLink"
       @closePopupLinkEmail="showPopupEmailLink"
       @sendLink="sendLoginLink"
-    ></PopupEmailLink>
-    <SigningUpLinkSent
+    ></Popup-Email-Link>
+    <Signing-Up-Link-Sent
       v-if="popupSignUpLink"
       @closePopupLinkSent="showPopupLinkSent"
-    ></SigningUpLinkSent>
-    <ConfirmEmail v-if="popupConfirmEmail"></ConfirmEmail>
+    ></Signing-Up-Link-Sent>
+    <Confirm-Email v-if="popupConfirmEmail"></Confirm-Email>
   </div>
 </template>
 <script lang="ts">
@@ -128,6 +126,8 @@ import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UInput from "~/components/atoms/uInput.vue";
 import UButton from "~/components/atoms/uButton.vue";
+import ALink from "~/components/atoms/uLink.vue";
+
 import ConfirmEmail from "~/components/molecules/popupConfirmEmail.vue";
 import {
   disableScrolling,
@@ -161,6 +161,7 @@ import {
     SigningUpLinkSent,
     SystemAlert,
     ConfirmEmail,
+    ALink,
   },
 })
 export default class CreateAccount extends Vue {
@@ -256,6 +257,10 @@ export default class CreateAccount extends Vue {
         duration: 3000,
       });
     }
+  }
+
+  getAuthGithubLink() {
+    return `${this.$config.strapi.url}connect/github`;
   }
 }
 </script>
