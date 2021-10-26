@@ -31,6 +31,7 @@ export function profile($strapi: Strapi) {
       slug
       is_expert
       gardenkeeper
+      name
     user {
         id
         email
