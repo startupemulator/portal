@@ -4,7 +4,7 @@
       <div class="create-account">
         <U-Back link="/"></U-Back>
         <U-Title :text="'Log in'"></U-Title>
-        <U-input
+        <U-Input
           :placeholder="'Enter your email'"
           :type="'email'"
           :value="email"
@@ -15,12 +15,12 @@
           "
           :img="require('~/assets/img/email.svg')"
           @textInput="checkEmail"
-        ></U-input>
+        ></U-Input>
         <p v-show="$v.email.$error" class="errorInput">
           Please enter an email address
         </p>
         <div>
-          <U-input
+          <U-Input
             :placeholder="'Enter your password'"
             :type="'password'"
             :value="password"
@@ -32,27 +32,21 @@
             :img="require('~/assets/img/password.svg')"
             :btn-show-password="true"
             @textInput="checkPassword"
-          ></U-input>
+          ></U-Input>
           <p v-show="$v.password.$error" class="errorInput">
             Please enter a password of at least 8 characters
           </p>
         </div>
 
-        <U-button
+        <U-Button
           :button-name="'Log in'"
           :button-class="'u-button-blue create-account__log-in'"
           @clickOnButton="login"
-        ></U-button>
+        ></U-Button>
         <hr />
-        <div class="create-account__buttons-continue">
-          <a :href="getAuthGithubLink()"> Continue with GitHub </a>
-
-          <U-button
-            :button-name="'Continue with the email link'"
-            :button-class="'u-button-gray'"
-            @clickOnButton="showPopupEmailLink"
-          ></U-button>
-        </div>
+        <Login-With-Another-Sources
+          @showPopupEmailLink="showPopupEmailLink"
+        ></Login-With-Another-Sources>
         <div class="account__go-to-sign-up">
           <span>Don’t have an account?</span>
           <U-Back
@@ -63,16 +57,16 @@
         </div>
       </div>
     </form>
-    <popup-email-link
+    <Popup-Email-Link
       v-if="popupEmailLink"
       @closePopupLinkEmail="showPopupEmailLink"
       @openPopupLinkSent="showPopupLinkSent"
       @sendLink="sendLoginLink"
-    ></popup-email-link>
-    <signing-up-link-sent
+    ></Popup-Email-Link>
+    <Signing-Up-Link-Sent
       v-if="popupSignUpLink"
       @closePopupLinkSent="showPopupLinkSent"
-    ></signing-up-link-sent>
+    ></Signing-Up-Link-Sent>
   </div>
 </template>
 
@@ -87,6 +81,7 @@ import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UInput from "~/components/atoms/uInput.vue";
 import UButton from "~/components/atoms/uButton.vue";
+import LoginWithAnotherSources from "~/components/molecules/loginWithAnotherSources.vue";
 import {
   disableScrolling,
   enableScrolling,
@@ -110,6 +105,7 @@ import {
     UButton,
     PopupEmailLink,
     SigningUpLinkSent,
+    LoginWithAnotherSources,
   },
 })
 export default class extends Vue {
@@ -186,10 +182,6 @@ export default class extends Vue {
         duration: 3000,
       });
     }
-  }
-
-  getAuthGithubLink() {
-    return `${this.$config.strapi.url}connect/github`;
   }
 }
 </script>
