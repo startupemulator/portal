@@ -44,17 +44,9 @@
           @clickOnButton="login"
         ></U-Button>
         <hr />
-        <div class="create-account__buttons-continue">
-          <A-Link
-            :link="getAuthGithubLink()"
-            :link-name="'Continue with GitHub'"
-          ></A-Link>
-          <U-Button
-            :button-name="'Continue with the email link'"
-            :button-class="'u-button-gray'"
-            @clickOnButton="showPopupEmailLink"
-          ></U-Button>
-        </div>
+        <Login-With-Another-Sources
+          @showPopupEmailLink="showPopupEmailLink"
+        ></Login-With-Another-Sources>
         <div class="account__go-to-sign-up">
           <span>Don’t have an account?</span>
           <U-Back
@@ -89,7 +81,7 @@ import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UInput from "~/components/atoms/uInput.vue";
 import UButton from "~/components/atoms/uButton.vue";
-import ALink from "~/components/atoms/uLink.vue";
+import LoginWithAnotherSources from "~/components/molecules/loginWithAnotherSources.vue";
 import {
   disableScrolling,
   enableScrolling,
@@ -113,7 +105,7 @@ import {
     UButton,
     PopupEmailLink,
     SigningUpLinkSent,
-    ALink,
+    LoginWithAnotherSources,
   },
 })
 export default class extends Vue {
@@ -190,10 +182,6 @@ export default class extends Vue {
         duration: 3000,
       });
     }
-  }
-
-  getAuthGithubLink() {
-    return `${this.$config.strapi.url}connect/github`;
   }
 }
 </script>
