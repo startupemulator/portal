@@ -120,7 +120,7 @@ export default class EditProfile
     try {
       if (personalAddedTechnologies.length !== 0) {
         for (const personalTechnology of personalAddedTechnologies) {
-          if (personalTechnology.id.split("-")[0] === "new") {
+          if (personalTechnology.id.toString().split("-")[0] === "new") {
             const createTechnology = await $createTechnologies(
               profile.user.id,
               personalTechnology.title
