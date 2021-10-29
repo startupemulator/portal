@@ -108,7 +108,7 @@ export default class EditProfile
     const { $updateProfile, $updateProfileName, $createTechnologies } = context;
     let profileUpdated = false;
     const experience = profile.experience.id;
-    console.log(experience);
+
     const updateTechnologies = [];
 
     technologies.forEach((technology) => {
@@ -116,7 +116,6 @@ export default class EditProfile
         updateTechnologies.push(technology.id);
       }
     });
-    // await console.log(updateTechnologies);
 
     try {
       if (personalAddedTechnologies.length !== 0) {
@@ -132,8 +131,6 @@ export default class EditProfile
           }
         }
       }
-      await console.log(updateTechnologies);
-
       const updateProfileData = await $updateProfile(
         profile.id,
         updateTechnologies,
@@ -143,10 +140,8 @@ export default class EditProfile
         profile.id,
         profile.name
       );
-
       if ((updateProfileData && updateProfileName) !== null) {
         profileUpdated = true;
-        console.log(updateProfileData);
       }
     } catch (e) {
       console.error(e);

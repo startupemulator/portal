@@ -136,12 +136,6 @@ export default class extends Vue {
     this.$v.$touch();
     EditProfilePage.changeFullName(data);
   }
-
-  mounted() {
-    console.log(EditProfilePage.personalAddedTechnologies);
-    console.log(EditProfilePage.profile.technologies);
-    console.log(EditProfilePage.technologies);
-  }
 }
 </script>
 
