@@ -1,7 +1,7 @@
 <template>
   <div class="edit-profile">
     <div class="edit-profile__header">
-      <u-back :is-button="true" @clikOnButton="$emit('clickOnButton')"></u-back>
+      <u-back :link="'/profile'"></u-back>
       <u-title :text="'Edit profile'"></u-title>
     </div>
     <div class="edit-profile__content">
@@ -24,7 +24,7 @@
         :title="'Total years of your experience'"
         :experiences="EditProfilePage.experiences"
         :duration="choosenExperiences"
-        @clickOnDuration="EditProfilePage.changeTotalexperience($event)"
+        @clickOnDuration="EditProfilePage.changeTotalExperience($event)"
       ></DurationExperiensePicker>
       <p v-show="$v.choosenExperiences.$error" class="errorInput">
         Please choose total years of your experience
@@ -47,7 +47,7 @@
         <u-button
           :button-name="'Cancel'"
           :button-class="'u-button-gray'"
-          @clickOnButton="$emit('clickOnButton')"
+          @clickOnButton="$router.push('/profile')"
         ></u-button>
       </div>
     </div>
@@ -56,15 +56,16 @@
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 import { minLength, required } from "vuelidate/lib/validators";
+import Toast from "~/store/modules/Toast";
 import DurationExperiensePicker from "~/components/molecules/durationExperiencePicker.vue";
 import TechnologyPicker from "~/components/molecules/technologyPicker.vue";
 import uBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UInput from "~/components/atoms/uInput.vue";
 import uButton from "~/components/atoms/uButton.vue";
-// import { Experience } from "~/models/Experience";
-// import { Technology } from "~/models/Technology";
 import { EditProfilePage } from "~/store";
+import Spinner from "~/store/modules/Spinner";
+
 @Component({
   components: {
     uBack,
@@ -101,26 +102,45 @@ export default class extends Vue {
     ? EditProfilePage.profile.experience.id
     : null;
 
-  saveProfileUpdateData() {
+  async saveProfileUpdateData() {
     this.$v.$touch();
     if (!this.$v.$error) {
-      EditProfilePage.saveProfile();
+      Spinner.show();
+      try {
+        await EditProfilePage.saveProfile(this);
+      } catch (e) {
+        console.error(e);
+        Toast.show({
+          data: e.message,
+          duration: 3000,
+        });
+      } finally {
+        Spinner.hide();
+        if (EditProfilePage.profileUpdated) {
+          this.$nuxt.$router.push("/profile");
+        }
+      }
     }
   }
 
-  removeTechnology(data) {
-    //   this.$emit("removeTechnology", data);
+  removeTechnology(technology) {
+    EditProfilePage.removePersonalAddedTechnologies(technology);
   }
 
-  addTechnologies(data) {
-    //   this.profileUpdateData.newTechnologies = data;
-    //   this.$emit("addTechnologies", data);
+  addTechnologies(technologies) {
+    EditProfilePage.addPersonalAddedTechnologies(technologies);
   }
 
   textInput(data) {
     this.userName = data;
     this.$v.$touch();
     EditProfilePage.changeFullName(data);
+  }
+
+  mounted() {
+    console.log(EditProfilePage.personalAddedTechnologies);
+    console.log(EditProfilePage.profile.technologies);
+    console.log(EditProfilePage.technologies);
   }
 }
 </script>

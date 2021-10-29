@@ -31,7 +31,7 @@ export default class extends Vue {
   checkedExperience: Number = 0;
   pickTechnology(id) {
     this.checkedExperience = id;
-    this.$emit("clickOnDuration", id);
+    this.$emit("clickOnDuration", { id });
   }
 
   mounted() {

@@ -15,10 +15,12 @@ export default class EditProfile
 {
   profile: Profile[] = [];
   technologies: Technology[] = [];
+  personalAddedTechnologies: Technology[] = [];
   experiences: Experience[] = [];
   userName = "this.userData.profile.name";
-
+  profileUpdated = false;
   // mutations
+
   @MutationAction
   async init(context: NuxtContext) {
     const { $strapi } = context;
@@ -33,8 +35,14 @@ export default class EditProfile
           technology.checked = false;
         }
       });
+      const personalAddedTechnologies = [];
+      profile.technologies.forEach((technology) => {
+        if (!technology.is_public) {
+          personalAddedTechnologies.push(technology);
+        }
+      });
 
-      return { technologies, experiences, profile };
+      return { technologies, experiences, profile, personalAddedTechnologies };
     } catch (e) {
       console.error(e);
     }
@@ -56,9 +64,9 @@ export default class EditProfile
   }
 
   @MutationAction
-  changeTotalexperience(experience) {
+  changeTotalExperience(experience) {
     const { profile } = this.state as EditProfileState;
-    profile.experience = experience;
+    profile.experience.id = experience.id;
     return {
       profile,
     };
@@ -74,34 +82,77 @@ export default class EditProfile
   }
 
   @MutationAction
+  addPersonalAddedTechnologies(technology) {
+    const { personalAddedTechnologies } = this.state as EditProfileState;
+    personalAddedTechnologies.push({
+      id: `new-${personalAddedTechnologies.length + 1}`,
+      title: technology,
+    });
+    return {
+      personalAddedTechnologies,
+    };
+  }
+
+  @MutationAction
+  removePersonalAddedTechnologies(technologies) {
+    const personalAddedTechnologies = technologies;
+    return {
+      personalAddedTechnologies,
+    };
+  }
+
+  @MutationAction
   async saveProfile(context: NuxtContext) {
-    // const { profile, technologies } = this.state as EditProfileState;
-    const { profile } = this.state as EditProfileState;
+    const { profile, technologies, personalAddedTechnologies } = this
+      .state as EditProfileState;
+    const { $updateProfile, $updateProfileName, $createTechnologies } = context;
+    let profileUpdated = false;
+    const experience = profile.experience.id;
+    console.log(experience);
+    const updateTechnologies = [];
 
-    // const experience = profile.experience;
-    // console.log(experience);
+    technologies.forEach((technology) => {
+      if (technology.checked) {
+        updateTechnologies.push(technology.id);
+      }
+    });
+    // await console.log(updateTechnologies);
 
-    // const updateTechnologies = [];
-    // technologies.forEach((el) => {
-    //   if (el.checked) {
-    //     updateTechnologies.push(el.id);
-    //   }
-    // });
-    const { $strapi, $profile } = context;
     try {
-      //   const updateProfileData = await $updateProfile(
-      //     profile.user.id,
-      //     updateTechnologies,
-      //     experience
-      //   );
-      const profile = await $profile($strapi.user.id);
-      //   newProfileName = await $updateProfileName("profile.name");
-      console.log(profile);
+      if (personalAddedTechnologies.length !== 0) {
+        for (const personalTechnology of personalAddedTechnologies) {
+          if (personalTechnology.id.split("-")[0] === "new") {
+            const createTechnology = await $createTechnologies(
+              profile.user.id,
+              personalTechnology.title
+            );
+            updateTechnologies.push(createTechnology.id);
+          } else {
+            updateTechnologies.push(personalTechnology.id);
+          }
+        }
+      }
+      await console.log(updateTechnologies);
+
+      const updateProfileData = await $updateProfile(
+        profile.id,
+        updateTechnologies,
+        experience
+      );
+      const updateProfileName = await $updateProfileName(
+        profile.id,
+        profile.name
+      );
+
+      if ((updateProfileData && updateProfileName) !== null) {
+        profileUpdated = true;
+        console.log(updateProfileData);
+      }
     } catch (e) {
       console.error(e);
     }
     return {
-      profile,
+      profileUpdated,
     };
   }
 }
