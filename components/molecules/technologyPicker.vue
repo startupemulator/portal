@@ -2,18 +2,20 @@
   <div class="technology-picker">
     <h2 class="technology-picker__title">{{ title }}</h2>
     <form ref="technologyList">
-      <u-tags
+      <U-Tags
         v-for="item in technologies"
         :id="`${item.id}-used_technology-${uniqueId}`"
         :key="item.id"
         :title="item.title"
-        @pick="pickTechnology($event, item.id, item.title)"
+        :class="item.checked ? 'checked' : ''"
+        :is-checked="item.checked"
+        @pick="pickTechnology($event.target, item.id, item.title)"
       >
         {{ item.title }}
-      </u-tags>
+      </U-Tags>
     </form>
 
-    <Add-input
+    <Add-Input
       v-if="addTechnology"
       :placeholder="'Type a technology to add'"
       :length="12"
@@ -21,7 +23,7 @@
       :title="false"
       @add="$emit('addTechnologies', $event)"
       @removeTechnology="$emit('removeTechnology', $event)"
-    ></Add-input>
+    ></Add-Input>
   </div>
 </template>
 <script lang="ts">
@@ -39,24 +41,9 @@ export default class extends Vue {
   @Prop() choosenTechnologies: Array<any>;
   @Prop() uniqueId: string;
   beforeCreatedTechnologies: Array<Technology> = [];
-  chosenTechnology: Array<any>;
+  userTechnologies: Array<any>;
   pickTechnology(item, id) {
-    const pickeTechnology = item.target.parentNode.classList;
-    pickeTechnology.contains("checked")
-      ? pickeTechnology.remove("checked")
-      : pickeTechnology.add("checked");
-
-    const pickedTechnology = [];
-    const pickedTechnologyId = [];
-
-    this.$refs.technologyList.forEach((el) =>
-      el.parentElement.classList.contains("checked")
-        ? (pickedTechnology.push(el.parentElement.textContent),
-          pickedTechnologyId.push(el.id.split("-")[0]))
-        : () => {}
-    );
-
-    this.$emit("chosenTechnologi", pickedTechnology, pickedTechnologyId);
+    this.$emit("chosenTechnologi", { item, id });
   }
 
   inputTechnology(e) {
@@ -67,20 +54,6 @@ export default class extends Vue {
         title: value,
       });
       e.target.value = "";
-    }
-  }
-
-  mounted() {
-    if (this.choosenTechnologies) {
-      this.$refs.technologyList.forEach((el) => {
-        if (
-          this.choosenTechnologies.some(
-            (item) => item.id === el.id.split("-")[0]
-          )
-        ) {
-          el.parentElement.classList.add("checked");
-        }
-      });
     }
   }
 }

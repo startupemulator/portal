@@ -12,10 +12,10 @@
               </button>
             </li>
             <li>
-              <button type="button" @click="toggleEditProfile">
-                Edit Profile
+              <nuxt-link :to="'/profile/edit'">
+                <span> Edit Profile</span>
                 <img src="~/assets/img/arrow.svg" alt="arrow" />
-              </button>
+              </nuxt-link>
             </li>
             <li>
               <button type="button" @click="toggleChangePassword">
@@ -77,19 +77,6 @@
         @closePopup="closePopup"
       ></BadgePopup>
     </div>
-
-    <EditProfile
-      v-if="editProfile"
-      :user-data="userData.user"
-      :experiences="experiences"
-      :user-experience="userExperience"
-      :technologies="publickTechnologies"
-      :my-technologies="updatablemyTechnologies"
-      @clickOnButton="toggleEditProfile"
-      @saveProfileUpdateData="saveProfileUpdateData"
-      @addTechnologies="addTechnologies"
-      @removeTechnology="removeTechnology"
-    ></EditProfile>
     <ChangePassword
       v-show="changePassword"
       :user-id="userData.user.id"
@@ -168,11 +155,6 @@ export default class extends Vue {
     this.opendPopup = !this.opendPopup;
   }
 
-  toggleEditProfile() {
-    this.editProfile = !this.editProfile;
-    scrollToHeader();
-  }
-
   toggleChangePassword() {
     this.changePassword = !this.changePassword;
     scrollToHeader();
@@ -188,70 +170,6 @@ export default class extends Vue {
       duration: 3000,
       success: true,
     });
-  }
-
-  removeTechnology(createdTechnologies) {
-    this.createdTechnologies = createdTechnologies;
-  }
-
-  async addTechnologies(technology) {
-    try {
-      const newTechnology = await this.$createTechnologies(
-        this.userData.user.id,
-        technology
-      );
-      if (newTechnology !== null) {
-        this.createdTechnologies.push(newTechnology);
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  async saveProfileUpdateData(data) {
-    Spinner.show();
-    if (this.createdTechnologies.length !== 0) {
-      this.createdTechnologies.forEach((el) => data.technologies.push(el.id));
-    } else {
-      this.createdTechnologies.forEach((el) => {
-        if (!el.is_public) {
-          data.technologies.push(el.id);
-        }
-      });
-    }
-    try {
-      const result = await this.$updateProfile(
-        this.userData.id,
-        data.technologies,
-        data.experiences.id
-      );
-
-      const updateUserName = await this.$updateProfileName(
-        this.userData.id,
-        data.userName
-      );
-
-      if (result !== null && updateUserName !== null) {
-        this.updatablemyTechnologies = result.technologies;
-
-        this.$emit("updateData");
-      }
-      scrollToHeader();
-      Spinner.hide();
-    } catch (e) {
-      Toast.show({
-        data: e.message,
-        duration: 3000,
-      });
-      Spinner.hide();
-    }
-  }
-
-  mounted() {
-    if (this.$route.query.editProfile === null) {
-      this.toggleEditProfile();
-      history.pushState({}, null, this.$route.path);
-    }
   }
 }
 </script>

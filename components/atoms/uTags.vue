@@ -1,11 +1,13 @@
 <template>
   <label :for="id" class="tags-item">
     {{ title }}
+
     <input
       :id="id"
+      :checked="isChecked"
       :type="type"
       :name="name"
-      @click.prevent="$emit('pick', $event)"
+      @click="$emit('pick', $event)"
     />
   </label>
 </template>
@@ -18,7 +20,9 @@ export default class extends Vue {
   @Prop({ default: "title" }) title: string;
   @Prop({ default: "name" }) name: string;
   @Prop({ default: "" }) id: string;
-  @Prop({ default: "checkbox" }) type: "checkbox" | "radio";
+  @Prop({ default: false }) isChecked: boolean;
+  @Prop({ default: "checkbox" })
+  type: "checkbox" | "radio";
 }
 </script>
 

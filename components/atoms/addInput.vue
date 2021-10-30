@@ -65,6 +65,7 @@ export default class extends Vue {
         this.addData.splice(i, 1);
       }
     });
+
     this.$emit("removeTechnology", this.addData);
   }
 
