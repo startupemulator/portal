@@ -29,7 +29,7 @@ export default class CreateProject
       let draftStartup = [];
 
       if (route.params.slug !== undefined) {
-        const startup = await $startup(route.params.slug);
+        const startup = await context.$startup(route.params.slug);
         draftStartup = startup;
       }
       return { technologies, estimations, specialisations, draftStartup };
