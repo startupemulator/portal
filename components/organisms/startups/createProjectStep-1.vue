@@ -121,6 +121,7 @@ import Spinner from "../../../store/modules/Spinner";
 import UButton from "~/components/atoms/uButton.vue";
 import DurationPicker from "~/components/molecules/durationPicker.vue";
 import AddInput from "~/components/atoms/addInput.vue";
+import { CreateProjectPage } from "~/store";
 
 @Component({
   validations: {
@@ -143,27 +144,27 @@ import AddInput from "~/components/atoms/addInput.vue";
   components: { DatePicker, UButton, DurationPicker, AddInput },
 })
 export default class extends Vue {
+  CreateProjectPage;
+  constructor() {
+    super();
+    this.CreateProjectPage = CreateProjectPage;
+  }
+
   @Prop() startupData!: Array<any>;
   @Prop() estimations: Array<Estimation>;
   @Prop() createdStartupId: Number;
-  date: String = this.startupData.date
-    ? this.startupData.start_datethis.startupData.start_date
-        .split("T")[0]
-        .split("-")
-        .reverse()
-        .join("  |  ")
-    : "";
+  date: String = CreateProjectPage.draftStartup?.date
+    ?.split("T")[0]
+    .split("-")
+    .reverse()
+    .join("  |  ");
 
-  title: String = this.startupData.title ? this.startupData.title : "";
+  title: String = CreateProjectPage.draftStartup?.title;
 
-  description: String = this.startupData.description
-    ? this.startupData.description
-    : "";
+  description: String = CreateProjectPage.draftStartup?.description;
 
   start_date: Date = new Date();
-  duration: Number = this.startupData.duration
-    ? this.startupData.duration
-    : null;
+  duration: Number = CreateProjectPage.draftStartup?.duration;
 
   numberDays: String = "";
   technologies: Array<[string | boolean]>;
@@ -195,6 +196,7 @@ export default class extends Vue {
         .reverse()
         .join("  |  ");
     }
+    console.log(this.date);
   }
 
   saveDraft() {
