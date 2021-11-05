@@ -150,22 +150,19 @@ export default class extends Vue {
     this.CreateProjectPage = CreateProjectPage;
   }
 
-  @Prop() startupData!: Array<any>;
   @Prop() estimations: Array<Estimation>;
   @Prop() createdStartupId: Number;
-  date: String = CreateProjectPage.draftStartup?.date
-    ?.split("T")[0]
-    .split("-")
-    .reverse()
-    .join("  |  ");
+  date: String =
+    CreateProjectPage.draftStartup?.start_date
+      ?.split("T")[0]
+      .split("-")
+      .reverse()
+      .join("  |  ") || "";
 
-  title: String = CreateProjectPage.draftStartup?.title;
-
-  description: String = CreateProjectPage.draftStartup?.description;
-
+  title: String = CreateProjectPage.draftStartup?.title || "";
+  description: String = CreateProjectPage.draftStartup?.description || "";
   start_date: Date = new Date();
-  duration: Number = CreateProjectPage.draftStartup?.duration;
-
+  duration: Number = CreateProjectPage.draftStartup?.duration || null;
   numberDays: String = "";
   technologies: Array<[string | boolean]>;
 
@@ -173,30 +170,12 @@ export default class extends Vue {
     this.duration = el.value;
   }
 
-  add(duration: { [key: string]: any }) {
-    if (duration.length !== 0) {
-      this.duration = duration[duration.length - 1].name;
-    }
-  }
-
   disabledBeforeTodayAndAfterAWeek(date) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-
     return (
       date < today || date > new Date(today.getTime() + 365 * 24 * 3600 * 1000)
     );
-  }
-
-  mounted() {
-    if (this.startupData.start_date) {
-      this.date = this.startupData.start_date
-        .split("T")[0]
-        .split("-")
-        .reverse()
-        .join("  |  ");
-    }
-    console.log(this.date);
   }
 
   saveDraft() {
@@ -217,7 +196,6 @@ export default class extends Vue {
       try {
         Spinner.show();
         if (this.createdStartupId === 0) {
-          // if new startup
           const data = {
             title: this.title,
             description: this.description,
@@ -226,33 +204,27 @@ export default class extends Vue {
             slug: new Date().getTime().toString(),
             owner: this.$strapi.user.id,
           };
-
-          const createStartup = await this.$strapi.create("startups", data);
-
-          this.$emit("goToStepTwo", createStartup);
+          await CreateProjectPage.updateDraftStartup(data);
+          await CreateProjectPage.createNewStartup(this);
+          this.$emit("goToStepTwo");
         } else {
-          // if went back one step and update some data
           const data = {
             title: this.title,
             description: this.description,
             start_date: new Date(this.date.split("  |  ").reverse().join("-")),
             duration: this.duration,
+            owner: this.$strapi.user.id,
           };
-          const updateStartup = await this.$strapi.update(
-            "startups",
-            this.createdStartupId.toString(),
-            data
-          );
-          if (updateStartup) {
-            this.$emit("goToStepTwo", updateStartup);
-          }
+          await CreateProjectPage.updateDraftStartup(data);
+          await CreateProjectPage.updateStartup(this);
+          this.$emit("goToStepTwo");
         }
-        Spinner.hide();
       } catch (e) {
         Toast.show({
           data: "Something wrong.",
           duration: 3000,
         });
+      } finally {
         Spinner.hide();
       }
     } else {

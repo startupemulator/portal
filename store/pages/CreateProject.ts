@@ -37,4 +37,59 @@ export default class CreateProject
       console.error(e);
     }
   }
+
+  @MutationAction
+  updateDraftStartup(data) {
+    const { draftStartup } = this.state as CreateProjectState;
+    draftStartup.title = data.title;
+    draftStartup.description = data.description;
+    draftStartup.start_date = data.start_date.toISOString();
+    draftStartup.duration = data.duration;
+    draftStartup.owner = data.owner;
+    return { draftStartup };
+  }
+
+  @MutationAction
+  async createNewStartup(context: NuxtContext) {
+    const { draftStartup } = this.state as CreateProjectState;
+    const { $createStartup } = context;
+    try {
+      const newStartup = await $createStartup(
+        draftStartup.start_date,
+        draftStartup.description,
+        draftStartup.duration,
+        draftStartup.title,
+        draftStartup.owner
+      );
+      if (newStartup !== null) {
+        draftStartup.id = newStartup.id;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+
+    return {
+      draftStartup,
+    };
+  }
+
+  @MutationAction
+  async updateStartup(context: NuxtContext) {
+    const { draftStartup } = this.state as CreateProjectState;
+    const { $updateStartupInfo } = context;
+    try {
+      await $updateStartupInfo(
+        draftStartup.id,
+        draftStartup.start_date,
+        draftStartup.description,
+        draftStartup.duration,
+        draftStartup.title
+      );
+    } catch (e) {
+      console.error(e);
+    }
+    return {
+      draftStartup,
+    };
+  }
 }

@@ -18,7 +18,6 @@
 
     <CreateProjectStep1
       v-if="createprodjectSteps.stepOne"
-      :startup-data="CreateProjectPage.draftStartup"
       :estimations="estimations"
       :created-startup-id="createdStartupId"
       @goToStepTwo="goToStepTwo"
@@ -164,19 +163,9 @@ export default class extends Vue {
     }
   }
 
-  goToStepTwo(data: Array<Startup> = []) {
+  goToStepTwo() {
     this.createprodjectSteps.stepOne = false;
     this.createprodjectSteps.stepTwo = true;
-    this.createdStartupId = data.id;
-
-    if (CreateProjectPage.draftStartup.length !== 0) {
-      CreateProjectPage.draftStartup.title = data.title;
-      CreateProjectPage.draftStartup.description = data.description;
-      CreateProjectPage.draftStartup.start_date = data.start_date;
-      CreateProjectPage.draftStartup.duration = data.duration;
-    } else {
-      CreateProjectPage.draftStartup = data;
-    }
   }
 
   goToStepBack() {

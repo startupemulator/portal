@@ -12,6 +12,13 @@ export interface StartupsServices {
   $myStartups(states: string[]): Promise<Partial<Startup>[]>;
 
   $deleteDraft(states: string[]): Promise<Partial<Startup>>;
+  $createStartup(
+    date: string,
+    description: string,
+    duration: string,
+    title: string,
+    owner: string
+  ): Promise<Partial<Startup>>;
 
   $startup(slug: string[]): Promise<Partial<Startup>>;
 
@@ -623,5 +630,36 @@ export function updateStartupInfo($strapi: Strapi) {
       }`,
     });
     return data.updateStartup ? data.updateStartup.startup : null;
+  };
+}
+
+export function createStartup($strapi: Strapi) {
+  return async (
+    date: string,
+    description: string,
+    duration: string,
+    title: string,
+    owner: string
+  ) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+        createStartup (
+          input: {
+          data: {
+            description: "${description}",
+             title: "${title}" ,
+             duration: ${duration},
+             start_date: "${date}",
+             owner: "${owner}"
+            }
+         }
+         ) {
+          startup {
+            id
+        }
+      }
+      }`,
+    });
+    return data.createStartup ? data.createStartup.startup : null;
   };
 }
