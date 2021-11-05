@@ -195,30 +195,20 @@ export default class extends Vue {
     if (!this.$v.$error) {
       try {
         Spinner.show();
+        const data = {
+          title: this.title,
+          description: this.description,
+          start_date: new Date(this.date.split("  |  ").reverse().join("-")),
+          duration: this.duration,
+          owner: this.$strapi.user.id,
+        };
+        await CreateProjectPage.updateDraftStartup(data);
         if (this.createdStartupId === 0) {
-          const data = {
-            title: this.title,
-            description: this.description,
-            start_date: new Date(this.date.split("  |  ").reverse().join("-")),
-            duration: this.duration,
-            slug: new Date().getTime().toString(),
-            owner: this.$strapi.user.id,
-          };
-          await CreateProjectPage.updateDraftStartup(data);
           await CreateProjectPage.createNewStartup(this);
-          this.$emit("goToStepTwo");
         } else {
-          const data = {
-            title: this.title,
-            description: this.description,
-            start_date: new Date(this.date.split("  |  ").reverse().join("-")),
-            duration: this.duration,
-            owner: this.$strapi.user.id,
-          };
-          await CreateProjectPage.updateDraftStartup(data);
           await CreateProjectPage.updateStartup(this);
-          this.$emit("goToStepTwo");
         }
+        this.$emit("goToStepTwo");
       } catch (e) {
         Toast.show({
           data: "Something wrong.",

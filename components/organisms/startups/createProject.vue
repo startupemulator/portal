@@ -89,7 +89,7 @@ export default class extends Vue {
   @Prop() technologies: Array<Technology>;
   @Prop() estimations: Array<Estimation>;
   @Prop() specialisations: Array<Specialisation>;
-  // @Prop() draftStartup!: Array<Startup>;
+
   createprodjectSteps: { [key: string]: boolean } = {
     stepOne: true,
     stepTwo: false,
@@ -101,7 +101,6 @@ export default class extends Vue {
     ? CreateProjectPage.draftStartup.id
     : 0;
 
-  // startupData: Array<Startup> = this.draftStartup;
   popupPublish = false;
   tehnologies: Array<string> = [];
   get progressSpets() {
