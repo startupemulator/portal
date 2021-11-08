@@ -51,7 +51,7 @@ export default class CreateProject
 
   @MutationAction
   async createNewStartup(context: NuxtContext) {
-    const { draftStartup } = this.state as CreateProjectState;
+    let { draftStartup } = this.state as CreateProjectState;
     const { $createStartup } = context;
     try {
       const newStartup = await $createStartup(
@@ -62,7 +62,7 @@ export default class CreateProject
         draftStartup.owner
       );
       if (newStartup !== null) {
-        draftStartup.id = newStartup.id;
+        draftStartup = newStartup;
       }
     } catch (e) {
       console.error(e);
@@ -85,6 +85,63 @@ export default class CreateProject
         draftStartup.duration,
         draftStartup.title
       );
+    } catch (e) {
+      console.error(e);
+    }
+    return {
+      draftStartup,
+    };
+  }
+
+  @MutationAction
+  async createPosition(context: NuxtContext) {
+    const { draftStartup } = this.state as CreateProjectState;
+    const { $createPosition } = context;
+    try {
+      const newPosition = await $createPosition(draftStartup.id, ["0"], "12");
+      if (newPosition !== null) {
+        draftStartup.positions.push(newPosition);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return {
+      draftStartup,
+    };
+  }
+
+  @MutationAction
+  async removePosition({ context, id }) {
+    const { draftStartup } = this.state as CreateProjectState;
+    const { $deletePositions } = context;
+    try {
+      const removePosition = await $deletePositions(id);
+      if (removePosition !== null) {
+        draftStartup.positions = draftStartup.positions.filter(
+          (el) => el.id !== removePosition.id
+        );
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return {
+      draftStartup,
+    };
+  }
+
+  @MutationAction
+  async addSpecialityToPosition({ context, titleId, id }) {
+    const { draftStartup } = this.state as CreateProjectState;
+    const { $updatePosition } = context;
+    try {
+      const updatePosition = await $updatePosition(id, ["0"], titleId);
+      if (updatePosition !== null) {
+        draftStartup.positions.forEach((position) => {
+          if (position.id === updatePosition.id) {
+            position.specialisation.title = updatePosition.specialisation.title;
+          }
+        });
+      }
     } catch (e) {
       console.error(e);
     }

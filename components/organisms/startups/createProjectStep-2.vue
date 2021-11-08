@@ -6,26 +6,29 @@
       candidates you will be able to accept as much candidates as you need for
       each speciality.
     </h3>
-    <div
-      :is="item.type"
-      v-for="(item, i) in specialityComponent"
-      :key="item.id"
+    <Create-Specialities
+      v-for="(position, i) in CreateProjectPage.draftStartup.positions"
+      :key="position.id"
       :technologies="technologies"
       :class="'speciality-content'"
       :name="'Speciality ' + (i + 1)"
       :picker="true"
-      :creator="startupData.owner.id"
+      :creator="CreateProjectPage.draftStartup.owner.id"
       :specialisations="specialisations"
-      :speciality-from-parent="[item.speciality, item.speciality_id]"
-      :checked-technologies="item.technologies"
-      @removeSpeciality="removeSpeciality(item.id, i)"
-      @chosenSpeciality="addSpecialityToSpecialityComponent($event, i, item.id)"
-      @chosenTechnologies="addchosenTechnologies($event, i, item.id)"
-    ></div>
-
+      :speciality-from-parent="[
+        position.specialisation.title,
+        position.specialisation.id,
+      ]"
+      :checked-technologies="position.technologies"
+      @removeSpeciality="removeSpeciality(position.id, i)"
+      @chosenSpeciality="addSpecialityToPosition($event, position.id)"
+      @chosenTechnologies="addchosenTechnologies($event, i, position.id)"
+    >
+    </Create-Specialities>
     <button class="specialityOne__button" @click="addSpeciality">
       Add Speciality
     </button>
+
     <div class="invite-colleagues">
       <h5>
         You can also invite your colleagues
@@ -47,23 +50,23 @@
       </button>
     </div>
     <div class="createProject-step1__buttons">
-      <U-button
+      <U-Button
         :button-name="'Next'"
         :button-class="'u-button-blue'"
         @clickOnButton="goToStepThree"
-      ></U-button>
-      <U-button
+      ></U-Button>
+      <U-Button
         :button-name="'Save Draft'"
         :button-class="'u-button-gray'"
         @clickOnButton="$emit('saveDraft')"
-      ></U-button>
+      ></U-Button>
     </div>
-    <Invitecolleagues
+    <Invite-Colleagues
       v-if="invitecolleagues"
-      :specialisations="specialityComponent"
+      :specialisations="CreateProjectPage.draftStartup.positions"
       @closePopupLinkEmail="toggleInviteColleagues"
       @inviteCollegue="inviteCollegue"
-    ></Invitecolleagues>
+    ></Invite-Colleagues>
   </div>
 </template>
 <script lang="ts">
@@ -72,32 +75,50 @@ import Spinner from "../../../store/modules/Spinner";
 import UButton from "~/components/atoms/uButton.vue";
 import CreateSpecialities from "~/components/molecules/createSpecialities.vue";
 import Invitecolleagues from "~/components/molecules/inviteColleagues.vue";
-
 import { Specialisation } from "~/models/Specialisation";
 import {
   enableScrolling,
   disableScrolling,
 } from "~/assets/jshelper/toggleScroll.js";
 import { Technology } from "~/models/Technology";
+import { CreateProjectPage } from "~/store";
+
 @Component({
   components: { UButton, CreateSpecialities, Invitecolleagues },
 })
 export default class extends Vue {
+  CreateProjectPage;
+  constructor() {
+    super();
+    this.CreateProjectPage = CreateProjectPage;
+  }
+
   @Prop() technologies: Array<Technology>;
-  @Prop() startupData!: Array<any>;
   @Prop() specialisations: Array<Specialisation>;
   @Prop() createdStartupId: Number;
   specialityComponent: Array<any> = [{ id: 0, type: "create-specialities" }];
   invitedcolleagues: Array<any> = [];
   invitecolleagues: Boolean = false;
 
-  async addSpecialityToSpecialityComponent(data, i, id) {
+  async addSpeciality() {
     Spinner.show();
-    const updatePostition = await this.$updatePosition(id, ["0"], data[0].id);
-    if (updatePostition !== null) {
-      this.specialityComponent[i].speciality = data[0].title;
-      this.specialityComponent[i].speciality_id = data[0].id;
-    }
+    await CreateProjectPage.createPosition(this);
+    Spinner.hide();
+  }
+
+  async removeSpeciality(id, i) {
+    Spinner.show();
+    await CreateProjectPage.removePosition({ context: this, id });
+    Spinner.hide();
+  }
+
+  async addSpecialityToPosition(data, id) {
+    Spinner.show();
+    await CreateProjectPage.addSpecialityToPosition({
+      context: this,
+      titleId: data[0].id,
+      id,
+    });
     Spinner.hide();
   }
 
@@ -123,8 +144,8 @@ export default class extends Vue {
     const invite = await this.$createInvite(
       data.email,
       data.position_id,
-      this.startupData.id,
-      this.startupData.owner.id
+      CreateProjectPage.draftStartup.id,
+      CreateProjectPage.draftStartup.owner.id
     );
     if (invite !== null) {
       const inviteData = {
@@ -152,39 +173,9 @@ export default class extends Vue {
     }
   }
 
-  async removeSpeciality(id, i) {
-    Spinner.show();
-    const removedPosition = await this.$deletePositions(id);
-    if (removedPosition.id === id) {
-      this.specialityComponent = this.specialityComponent.filter(
-        (item) => item.id !== this.specialityComponent[i].id
-      );
-      this.invitedcolleagues.forEach((el) => {
-        if (+el.position_id === +removedPosition.id) {
-          this.removeInvitedcolleagues(el.id);
-        }
-      });
-    }
-    Spinner.hide();
-  }
-
-  async addSpeciality() {
-    Spinner.show();
-    const newPosition = await this.$createPosition(
-      this.createdStartupId.toString(),
-      ["0"],
-      "12"
-    );
-    this.specialityComponent.push({
-      id: newPosition.id,
-      type: "create-specialities",
-    });
-    Spinner.hide();
-  }
-
   async removeInvitedcolleagues(id) {
     Spinner.show();
-    const removeInvite = await this.$deleteInvite(id);
+    await this.$deleteInvite(id);
     if (id === removeInvite.id) {
       this.invitedcolleagues = this.invitedcolleagues.filter(
         (item) => item.id !== removeInvite.id
@@ -194,35 +185,20 @@ export default class extends Vue {
   }
 
   mounted() {
-    if (this.startupData.coleagues) {
-      this.invitedcolleagues = this.startupData.coleagues;
-    } else if (this.startupData.positions) {
-      this.specialityComponent = [];
-      this.startupData.positions.forEach((el) => {
-        const technologies = [];
-        el.technologies.forEach((el) => technologies.push(el));
-        const data = {
-          id: el.id,
-          type: "create-specialities",
-          speciality: el.specialisation.title,
-          speciality_id: el.specialisation.id,
-          technologies,
-        };
-
-        this.specialityComponent.push(data);
-      });
+    if (CreateProjectPage.draftStartup.coleagues) {
+      this.invitedcolleagues = CreateProjectPage.draftStartup.coleagues;
     }
 
-    if (this.startupData.specialists) {
-      this.specialityComponent = this.startupData.specialists;
-    } else if (this.startupData.owner.invites) {
+    if (CreateProjectPage.draftStartup.specialists) {
+      this.specialityComponent = CreateProjectPage.draftStartup.specialists;
+    } else if (CreateProjectPage.draftStartup.owner.invites) {
       this.invitedcolleagues = [];
 
-      this.startupData.owner.invites.forEach((el) => {
+      CreateProjectPage.draftStartup.owner.invites.forEach((el) => {
         if (
           el.position &&
           el.position.startup !== null &&
-          this.startupData.id === el.position.startup.id
+          CreateProjectPage.draftStartup.id === el.position.startup.id
         ) {
           const data = {
             id: el.id,

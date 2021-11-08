@@ -21,12 +21,10 @@
       :estimations="estimations"
       :created-startup-id="createdStartupId"
       @goToStepTwo="goToStepTwo"
-      @saveDraft="saveDraft"
     ></CreateProjectStep1>
     <CreateProjectStep2
       v-if="createprodjectSteps.stepTwo"
       :technologies="technologies"
-      :startup-data="CreateProjectPage.draftStartup"
       :specialisations="specialisations"
       :created-startup-id="createdStartupId"
       @goToStepThree="goToStepThree"

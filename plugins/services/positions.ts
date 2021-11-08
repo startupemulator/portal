@@ -102,6 +102,7 @@ export function updatePosition($strapi: Strapi) {
             id
             specialisation{
                 id
+                title
             }
             startup{
                 id

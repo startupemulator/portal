@@ -656,6 +656,91 @@ export function createStartup($strapi: Strapi) {
          ) {
           startup {
             id
+          title
+          slug
+          description
+          start_date
+          duration
+          state
+          positions {
+            id
+            sort
+            status
+            applications{
+              id
+              status
+              decline_reason
+              user {
+                id
+                email
+                profile{
+                  id
+                  name
+                  slug
+                  technologies{
+                    id
+                    title
+                  }
+                  experience{
+                    id
+                    title
+                  }
+                }
+              }
+
+            }
+            specialisation {
+              id
+              title
+            }
+            technologies{
+              id
+              title
+            }
+          }
+          owner {
+            id
+            profile{
+              name
+              slug
+            }
+            invites{
+              id
+              email
+              position{
+                id
+                startup{
+                  id
+                }
+                specialisation{
+                  id
+                  title
+                }
+              }
+
+            }
+          }
+          technologies {
+            id
+            title
+          }
+          sources{
+            id
+            title
+            link
+            startups{
+              id
+            }
+          }
+          secrets{
+            id
+            title
+            description
+            startup{
+              id
+            }
+          }
+
         }
       }
       }`,
