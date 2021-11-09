@@ -2,7 +2,7 @@ import Vuex, { Store } from "vuex";
 import Vue from "vue";
 import { getModule } from "vuex-module-decorators";
 import Landing, { LandingPageState } from "./pages/LandingPage";
-import EditProfile, { EditProfileState } from "./pages/editProfile";
+import EditProfile, { EditProfileState } from "./pages/EditProfile";
 import CreateProject, { CreateProjectState } from "./pages/CreateProject";
 import { SpinnerState } from "./modules/Spinner";
 import { ToastState } from "./modules/Toast";
