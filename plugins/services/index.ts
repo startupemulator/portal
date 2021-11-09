@@ -24,6 +24,7 @@ import {
   startups,
   updateStartupInfo,
   updateStateStartup,
+  createStartup,
 } from "~/plugins/services/startups";
 import {
   challenge,
@@ -227,6 +228,7 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   );
 
   inject("deleteDraft", deleteDraft(ctx.$strapi));
+  inject("createStartup", createStartup(ctx.$strapi));
   inject("startup", startup(ctx.$strapi));
   inject("updateStartupInfo", updateStartupInfo(ctx.$strapi));
   inject("updateStateStartup", updateStateStartup(ctx.$strapi));

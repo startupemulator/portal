@@ -24,7 +24,7 @@
       </p>
       <div class="startup__start-date">
         <h4>Start date</h4>
-        <DatePicker
+        <Date-Picker
           v-model.trim="$v.date.$model"
           value-type="format"
           format="DD  |  MM  |  YYYY"
@@ -71,17 +71,17 @@
               <rect x="13" y="16" width="2" height="2" fill="#8C97AC" />
               <rect x="17" y="16" width="2" height="2" fill="#8C97AC" />
             </svg> </i
-        ></DatePicker>
+        ></Date-Picker>
 
         <p v-show="$v.date.$error" class="errorInput">Please enter a date</p>
       </div>
       <div class="startup__finish-date">
-        <Duration-picker
+        <Duration-Picker
           :title="'Estimated duration'"
           :duration="duration"
           :estimations="estimations"
           @clickOnDuration="chooseDuration"
-        ></Duration-picker>
+        ></Duration-Picker>
 
         <label for="days-title" class="days-title">
           <input
@@ -97,16 +97,16 @@
       </div>
     </div>
     <div class="createProject-step1__buttons">
-      <U-button
+      <U-Button
         :button-name="'Next'"
         :button-class="'u-button-blue'"
         @clickOnButton="goToStepTwo"
-      ></U-button>
-      <U-button
+      ></U-Button>
+      <U-Button
         :button-name="'Save Draft'"
         :button-class="'u-button-gray'"
         @clickOnButton="saveDraft"
-      ></U-button>
+      ></U-Button>
     </div>
   </div>
 </template>
@@ -121,6 +121,7 @@ import Spinner from "../../../store/modules/Spinner";
 import UButton from "~/components/atoms/uButton.vue";
 import DurationPicker from "~/components/molecules/durationPicker.vue";
 import AddInput from "~/components/atoms/addInput.vue";
+import { CreateProjectPage } from "~/store";
 
 @Component({
   validations: {
@@ -143,28 +144,25 @@ import AddInput from "~/components/atoms/addInput.vue";
   components: { DatePicker, UButton, DurationPicker, AddInput },
 })
 export default class extends Vue {
-  @Prop() startupData!: Array<any>;
+  CreateProjectPage;
+  constructor() {
+    super();
+    this.CreateProjectPage = CreateProjectPage;
+  }
+
   @Prop() estimations: Array<Estimation>;
   @Prop() createdStartupId: Number;
-  date: String = this.startupData.date
-    ? this.startupData.start_datethis.startupData.start_date
-        .split("T")[0]
-        .split("-")
-        .reverse()
-        .join("  |  ")
-    : "";
+  date: String =
+    CreateProjectPage.draftStartup?.start_date
+      ?.split("T")[0]
+      .split("-")
+      .reverse()
+      .join("  |  ") || "";
 
-  title: String = this.startupData.title ? this.startupData.title : "";
-
-  description: String = this.startupData.description
-    ? this.startupData.description
-    : "";
-
+  title: String = CreateProjectPage.draftStartup?.title || "";
+  description: String = CreateProjectPage.draftStartup?.description || "";
   start_date: Date = new Date();
-  duration: Number = this.startupData.duration
-    ? this.startupData.duration
-    : null;
-
+  duration: Number = CreateProjectPage.draftStartup?.duration || null;
   numberDays: String = "";
   technologies: Array<[string | boolean]>;
 
@@ -172,29 +170,12 @@ export default class extends Vue {
     this.duration = el.value;
   }
 
-  add(duration: { [key: string]: any }) {
-    if (duration.length !== 0) {
-      this.duration = duration[duration.length - 1].name;
-    }
-  }
-
   disabledBeforeTodayAndAfterAWeek(date) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-
     return (
       date < today || date > new Date(today.getTime() + 365 * 24 * 3600 * 1000)
     );
-  }
-
-  mounted() {
-    if (this.startupData.start_date) {
-      this.date = this.startupData.start_date
-        .split("T")[0]
-        .split("-")
-        .reverse()
-        .join("  |  ");
-    }
   }
 
   saveDraft() {
@@ -214,43 +195,26 @@ export default class extends Vue {
     if (!this.$v.$error) {
       try {
         Spinner.show();
+        const data = {
+          title: this.title,
+          description: this.description,
+          start_date: new Date(this.date.split("  |  ").reverse().join("-")),
+          duration: this.duration,
+          owner: this.$strapi.user.id,
+        };
+        await CreateProjectPage.updateDraftStartup(data);
         if (this.createdStartupId === 0) {
-          // if new startup
-          const data = {
-            title: this.title,
-            description: this.description,
-            start_date: new Date(this.date.split("  |  ").reverse().join("-")),
-            duration: this.duration,
-            slug: new Date().getTime().toString(),
-            owner: this.$strapi.user.id,
-          };
-
-          const createStartup = await this.$strapi.create("startups", data);
-
-          this.$emit("goToStepTwo", createStartup);
+          await CreateProjectPage.createNewStartup(this);
         } else {
-          // if went back one step and update some data
-          const data = {
-            title: this.title,
-            description: this.description,
-            start_date: new Date(this.date.split("  |  ").reverse().join("-")),
-            duration: this.duration,
-          };
-          const updateStartup = await this.$strapi.update(
-            "startups",
-            this.createdStartupId.toString(),
-            data
-          );
-          if (updateStartup) {
-            this.$emit("goToStepTwo", updateStartup);
-          }
+          await CreateProjectPage.updateStartup(this);
         }
-        Spinner.hide();
+        this.$emit("goToStepTwo");
       } catch (e) {
         Toast.show({
           data: "Something wrong.",
           duration: 3000,
         });
+      } finally {
         Spinner.hide();
       }
     } else {

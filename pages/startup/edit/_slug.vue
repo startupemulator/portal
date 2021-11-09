@@ -2,10 +2,9 @@
   <div>
     <div class="createProject">
       <CreateProdgect
-        :technologies="technologies"
-        :estimations="estimations"
-        :specialisations="specialisations"
-        :draft-startup="draftStartup"
+        :technologies="CreateProjectPage.technologies"
+        :estimations="CreateProjectPage.estimations"
+        :specialisations="CreateProjectPage.specialisations"
       ></CreateProdgect>
     </div>
   </div>
@@ -14,7 +13,8 @@
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 import CreateProdgect from "~/components/organisms/startups/createProject.vue";
-import { Startup } from "~/models/Startup";
+import { CreateProjectPage } from "~/store";
+
 @Component({
   components: {
     CreateProdgect,
@@ -22,28 +22,14 @@ import { Startup } from "~/models/Startup";
   middleware: ["deny-unauthenticated"],
 })
 export default class extends Vue {
-  async asyncData({
-    $technologies,
-    $estimations,
-    $specialisations,
-    $startup,
-    route,
-  }) {
-    const { technologies } = await $technologies();
-    const { estimations } = await $estimations();
-    const { specialisations } = await $specialisations();
-    let draftStartup: Array<Startup> = [];
+  CreateProjectPage;
+  constructor() {
+    super();
+    this.CreateProjectPage = CreateProjectPage;
+  }
 
-    if (route.params.slug !== undefined) {
-      const startup = await $startup(route.params.slug);
-      draftStartup = startup;
-    }
-    return {
-      technologies,
-      estimations,
-      specialisations,
-      draftStartup,
-    };
+  async asyncData(context) {
+    await CreateProjectPage.init(context);
   }
 }
 </script>

@@ -5,7 +5,6 @@
         :technologies="CreateProjectPage.technologies"
         :estimations="CreateProjectPage.estimations"
         :specialisations="CreateProjectPage.specialisations"
-        :draft-startup="CreateProjectPage.draftStartup"
       ></CreateProdgect>
     </div>
   </div>

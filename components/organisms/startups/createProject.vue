@@ -18,16 +18,13 @@
 
     <CreateProjectStep1
       v-if="createprodjectSteps.stepOne"
-      :startup-data="startupData"
       :estimations="estimations"
       :created-startup-id="createdStartupId"
       @goToStepTwo="goToStepTwo"
-      @saveDraft="saveDraft"
     ></CreateProjectStep1>
     <CreateProjectStep2
       v-if="createprodjectSteps.stepTwo"
       :technologies="technologies"
-      :startup-data="startupData"
       :specialisations="specialisations"
       :created-startup-id="createdStartupId"
       @goToStepThree="goToStepThree"
@@ -35,13 +32,13 @@
     ></CreateProjectStep2>
     <CreateProjectStep3
       v-if="createprodjectSteps.stepThree"
-      :startup-data="startupData"
+      :startup-data="CreateProjectPage.draftStartup"
       @goToStepFour="goToStepFour"
       @saveDraft="saveDraft"
     ></CreateProjectStep3>
     <CreateProjectStep4
       v-if="createprodjectSteps.stepFour"
-      :startup-data="startupData"
+      :startup-data="CreateProjectPage.draftStartup"
       @addSomeGiude="addSomeGiude"
       @saveDraft="saveDraft"
       @publish="publish"
@@ -67,6 +64,8 @@ import { Technology } from "~/models/Technology";
 import { Startup } from "~/models/Startup";
 import { Specialisation } from "~/models/Specialisation";
 import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartup.vue";
+import { CreateProjectPage } from "~/store";
+
 @Component({
   components: {
     CreateProjectStep1,
@@ -79,10 +78,16 @@ import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartup.vue"
   },
 })
 export default class extends Vue {
+  CreateProjectPage;
+  constructor() {
+    super();
+    this.CreateProjectPage = CreateProjectPage;
+  }
+
   @Prop() technologies: Array<Technology>;
   @Prop() estimations: Array<Estimation>;
   @Prop() specialisations: Array<Specialisation>;
-  @Prop() draftStartup!: Array<Startup>;
+
   createprodjectSteps: { [key: string]: boolean } = {
     stepOne: true,
     stepTwo: false,
@@ -90,8 +95,10 @@ export default class extends Vue {
     stepFour: false,
   };
 
-  createdStartupId: Number = this.draftStartup.id ? this.draftStartup.id : 0;
-  startupData: Array<Startup> = this.draftStartup;
+  createdStartupId: Number = CreateProjectPage.draftStartup.id
+    ? CreateProjectPage.draftStartup.id
+    : 0;
+
   popupPublish = false;
   tehnologies: Array<string> = [];
   get progressSpets() {
@@ -107,8 +114,8 @@ export default class extends Vue {
   }
 
   checkTechnologies() {
-    if (this.startupData.specialists !== undefined) {
-      this.startupData.specialists.forEach((specialist) => {
+    if (CreateProjectPage.draftStartup.specialists !== undefined) {
+      CreateProjectPage.draftStartup.specialists.forEach((specialist) => {
         if (specialist.technologiesId) {
           specialist.technologiesId.forEach((el) => {
             this.tehnologies.push(el);
@@ -153,19 +160,9 @@ export default class extends Vue {
     }
   }
 
-  goToStepTwo(data: Array<Startup> = []) {
+  goToStepTwo() {
     this.createprodjectSteps.stepOne = false;
     this.createprodjectSteps.stepTwo = true;
-    this.createdStartupId = data.id;
-
-    if (this.startupData.length !== 0) {
-      this.startupData.title = data.title;
-      this.startupData.description = data.description;
-      this.startupData.start_date = data.start_date;
-      this.startupData.duration = data.duration;
-    } else {
-      this.startupData = data;
-    }
   }
 
   goToStepBack() {
@@ -190,10 +187,14 @@ export default class extends Vue {
   goToStepThree(secodStepData) {
     this.createprodjectSteps.stepTwo = false;
     this.createprodjectSteps.stepThree = true;
-    this.startupData.specialists = [];
-    this.startupData.coleagues = [];
-    secodStepData[0].forEach((el) => this.startupData.specialists.push(el));
-    secodStepData[1].forEach((el) => this.startupData.coleagues.push(el));
+    CreateProjectPage.draftStartup.specialists = [];
+    CreateProjectPage.draftStartup.coleagues = [];
+    secodStepData[0].forEach((el) =>
+      CreateProjectPage.draftStartup.specialists.push(el)
+    );
+    secodStepData[1].forEach((el) =>
+      CreateProjectPage.draftStartup.coleagues.push(el)
+    );
 
     this.checkTechnologies();
   }
@@ -201,17 +202,17 @@ export default class extends Vue {
   goToStepFour(thirdStepData) {
     this.createprodjectSteps.stepThree = false;
     this.createprodjectSteps.stepFour = true;
-    this.startupData.sources = [];
+    CreateProjectPage.draftStartup.sources = [];
     thirdStepData.forEach((el) => {
-      this.startupData.sources.push(el);
+      CreateProjectPage.draftStartup.sources.push(el);
     });
   }
 
   addSomeGiude(data) {
-    this.startupData.guide = [];
+    CreateProjectPage.draftStartup.guide = [];
     data.forEach((el) => {
       if (el.name) {
-        this.startupData.guide.push(el);
+        CreateProjectPage.draftStartup.guide.push(el);
       }
     });
   }

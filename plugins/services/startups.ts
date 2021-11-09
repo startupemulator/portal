@@ -12,6 +12,13 @@ export interface StartupsServices {
   $myStartups(states: string[]): Promise<Partial<Startup>[]>;
 
   $deleteDraft(states: string[]): Promise<Partial<Startup>>;
+  $createStartup(
+    date: string,
+    description: string,
+    duration: string,
+    title: string,
+    owner: string
+  ): Promise<Partial<Startup>>;
 
   $startup(slug: string[]): Promise<Partial<Startup>>;
 
@@ -623,5 +630,121 @@ export function updateStartupInfo($strapi: Strapi) {
       }`,
     });
     return data.updateStartup ? data.updateStartup.startup : null;
+  };
+}
+
+export function createStartup($strapi: Strapi) {
+  return async (
+    date: string,
+    description: string,
+    duration: string,
+    title: string,
+    owner: string
+  ) => {
+    const data = await $strapi.graphql({
+      query: `mutation {
+        createStartup (
+          input: {
+          data: {
+            description: "${description}",
+             title: "${title}" ,
+             duration: ${duration},
+             start_date: "${date}",
+             owner: "${owner}"
+            }
+         }
+         ) {
+          startup {
+            id
+          title
+          slug
+          description
+          start_date
+          duration
+          state
+          positions {
+            id
+            sort
+            status
+            applications{
+              id
+              status
+              decline_reason
+              user {
+                id
+                email
+                profile{
+                  id
+                  name
+                  slug
+                  technologies{
+                    id
+                    title
+                  }
+                  experience{
+                    id
+                    title
+                  }
+                }
+              }
+
+            }
+            specialisation {
+              id
+              title
+            }
+            technologies{
+              id
+              title
+            }
+          }
+          owner {
+            id
+            profile{
+              name
+              slug
+            }
+            invites{
+              id
+              email
+              position{
+                id
+                startup{
+                  id
+                }
+                specialisation{
+                  id
+                  title
+                }
+              }
+
+            }
+          }
+          technologies {
+            id
+            title
+          }
+          sources{
+            id
+            title
+            link
+            startups{
+              id
+            }
+          }
+          secrets{
+            id
+            title
+            description
+            startup{
+              id
+            }
+          }
+
+        }
+      }
+      }`,
+    });
+    return data.createStartup ? data.createStartup.startup : null;
   };
 }
