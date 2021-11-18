@@ -8,7 +8,7 @@
       >
         <img src="~/assets/img/close.svg" alt="Close" />
       </button>
-      <U-Title :text="title"></-title>
+      <U-Title :text="title"></U-Title>
       <p>
         {{ textContent }}
       </p>
