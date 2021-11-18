@@ -24,8 +24,6 @@
     ></CreateProjectStep1>
     <CreateProjectStep2
       v-if="createprodjectSteps.stepTwo"
-      :technologies="technologies"
-      :specialisations="specialisations"
       :created-startup-id="createdStartupId"
       @goToStepThree="goToStepThree"
       @saveDraft="saveDraft"
