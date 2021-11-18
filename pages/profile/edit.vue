@@ -98,9 +98,7 @@ export default class extends Vue {
   }
 
   userName = EditProfilePage.profile?.name;
-  choosenExperiences = EditProfilePage.profile.experience.id
-    ? EditProfilePage.profile.experience.id
-    : null;
+  choosenExperiences = EditProfilePage.profile?.experience?.id || null;
 
   async saveProfileUpdateData() {
     this.$v.$touch();
