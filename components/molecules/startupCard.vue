@@ -90,7 +90,7 @@
           :style="
             card.state === 'finished' ||
             allPositionsStaffed ||
-            !!+card.owner.id === userId ||
+            +card.owner.id === +userId ||
             userAccepted
               ? 'width:100%'
               : ''
