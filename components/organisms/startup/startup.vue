@@ -81,7 +81,7 @@
       @saveReleaseLinks="saveReleaseLinks"
     ></AddReleseLinks>
     <AddTeamFeedBack
-      v-show="addTeamFeedBack"
+      v-if="addTeamFeedBack"
       :key="updateKey + 'addFeedback'"
       :title="feedBackTitle"
       :badges="badges"
@@ -93,7 +93,7 @@
     ></AddTeamFeedBack>
 
     <AddTeamBadge
-      v-show="addTeamBadge"
+      v-if="addTeamBadge"
       :badges="badges"
       :title="badgeTitle"
       @clikOnButton="toggleAddTeamBadge"

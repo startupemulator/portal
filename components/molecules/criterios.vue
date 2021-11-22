@@ -5,7 +5,7 @@
       {{ direction.comment }}
     </p>
     <div class="criterios_raiting">
-      <ul ref="starsList" class="criterios_raiting-stars">
+      <ul class="criterios_raiting-stars">
         <li
           v-for="star in stars"
           :key="star.id + direction.title"
@@ -66,15 +66,17 @@ export default class extends Vue {
         star.isActive = false;
       }
     });
-
-    this.$emit("markDirection", id, this.i + 1);
+    this.$emit("markDirection", { satrsCount: id, directionId: this.i + 1 });
   }
 
   clickOnButtonSkip() {
     this.stars.forEach((star) => {
       star.isActive = false;
     });
-    this.$emit("markDirection", this.i + 1, "skip");
+    this.$emit("markDirection", {
+      directionId: this.i + 1,
+      satrsCount: "skip",
+    });
   }
 }
 </script>

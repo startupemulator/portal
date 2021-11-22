@@ -2,16 +2,17 @@
   <div class="pick-bage">
     <h4>{{ title }}</h4>
     <div class="pick-bage__content">
-      <ul ref="pickBageList" class="pick-bage__conten-list">
+      <ul class="pick-bage__conten-list">
         <li
-          v-for="badge in badges"
-          :key="badge.id"
+          v-for="achievement in badges"
+          :key="achievement.id"
+          :class="achievement.isActive === true ? 'active' : ''"
           class="pick-bage__content-item"
-          @click="clickOnBage($event, badge)"
+          @click="clickOnBage(achievement.id)"
         >
           <div class="">
-            <img :src="badge.image[0].url" alt="boots" />
-            <span>{{ badge.title }}</span>
+            <img :src="achievement.image[0].url" alt="boots" />
+            <span>{{ achievement.title }}</span>
           </div>
         </li>
       </ul>
@@ -30,18 +31,30 @@ export default class extends Vue {
   @Prop({ default: "Pick a badge" }) title: String;
   @Prop() badges: Array<Badges>;
 
-  clickOnBage($event, badge) {
-    const obj = $event.currentTarget;
-    if (obj.classList.contains("active")) {
-      obj.classList.remove("active");
-    } else {
-      const bageList = this.$refs.pickBageList.children;
-      bageList.forEach((item) =>
-        item.classList.contains("active") ? item.classList.remove("active") : ""
-      );
-      obj.classList.add("active");
-    }
-    this.$emit("addBadge", badge);
+  clickOnBage(achievementId) {
+    this.badges.forEach((item) => {
+      if (item.id === achievementId) {
+        item.isActive = true;
+      } else {
+        item.isActive = false;
+      }
+    });
+
+    // const obj = $event.currentTarget;
+    // if (obj.classList.contains("active")) {
+    //   obj.classList.remove("active");
+    // } else {
+    //   const bageList = this.$refs.pickBageList.children;
+    //   bageList.forEach((item) =>
+    //     item.classList.contains("active") ? item.classList.remove("active") : ""
+    //   );
+    //   obj.classList.add("active");
+    // }
+    // this.$emit("addBadge", badge);
+  }
+
+  mounted() {
+    this.badges.forEach((badge) => (badge.isActive = false));
   }
 }
 </script>
