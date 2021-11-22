@@ -149,8 +149,8 @@ export default class extends Vue {
     }
   }
 
-  addBadge(badge) {
-    this.badge = badge.id;
+  addBadge(achievementId) {
+    this.badge = achievementId;
   }
 
   async createFeedback() {
@@ -169,12 +169,12 @@ export default class extends Vue {
           this.requestId
         );
         if (createFeedback !== null) {
-          Spinner.hide();
           this.$emit("clikOnButton");
           this.$emit("teamNotificationFeedback");
         }
       } catch (e) {
         console.error(e);
+      } finally {
         Spinner.hide();
       }
     }

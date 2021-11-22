@@ -39,18 +39,7 @@ export default class extends Vue {
         item.isActive = false;
       }
     });
-
-    // const obj = $event.currentTarget;
-    // if (obj.classList.contains("active")) {
-    //   obj.classList.remove("active");
-    // } else {
-    //   const bageList = this.$refs.pickBageList.children;
-    //   bageList.forEach((item) =>
-    //     item.classList.contains("active") ? item.classList.remove("active") : ""
-    //   );
-    //   obj.classList.add("active");
-    // }
-    // this.$emit("addBadge", badge);
+    this.$emit("addBadge", achievementId);
   }
 
   mounted() {
