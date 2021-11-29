@@ -1,4 +1,9 @@
-import { Module, MutationAction, VuexModule } from "nuxt-property-decorator";
+import {
+  Module,
+  VuexMutation,
+  MutationAction,
+  VuexModule,
+} from "nuxt-property-decorator";
 import { NuxtContext } from "../../types/services";
 import { Technology } from "../../models/Technology";
 import { Estimation } from "../../models/Estimation";
@@ -148,5 +153,74 @@ export default class CreateProject
     return {
       draftStartup,
     };
+  }
+
+  @VuexMutation
+  addTechnologyToPosition({ positionId, technology }) {
+    this.draftStartup.positions.forEach((position) => {
+      if (position.id === positionId && !technology.checked) {
+        technology.checked = true;
+        position.technologies.push(technology);
+      }
+    });
+  }
+
+  @VuexMutation
+  removeTechnologyToPosition({ positionId, technology }) {
+    this.draftStartup.positions.forEach((position) => {
+      if (position.id === positionId && technology.checked) {
+        technology.checked = false;
+        position.technologies = position.technologies.filter(
+          (el) => el.id !== technology.id
+        );
+      }
+    });
+  }
+
+  @VuexMutation
+  skipTechnologies({ positionId, chosenTechnologies }) {
+    this.draftStartup.positions.forEach((position) => {
+      if (position.id === positionId) {
+        position.technologies = [];
+        this.technologies.forEach((item) => {
+          if (chosenTechnologies.some((el) => +el === +item.id)) {
+            position.technologies.push(item);
+          }
+        });
+      }
+    });
+  }
+
+  @MutationAction
+  async createCustomTechnology({ context, technology, positionId }) {
+    const { draftStartup } = this.state as CreateProjectState;
+    const { $createTechnologies } = context;
+    let newTechnology = {};
+    try {
+      newTechnology = await $createTechnologies(draftStartup.owner, technology);
+    } catch (e) {
+      console.error(e);
+    }
+    if (newTechnology !== null) {
+      draftStartup.positions.forEach((position) => {
+        if (position.id === positionId) {
+          position.technologies.push(newTechnology);
+        }
+      });
+    }
+    return {
+      draftStartup,
+    };
+  }
+
+  @VuexMutation
+  removePersonalTechnology({ technologies, positionId }) {
+    this.draftStartup.positions.forEach((position) => {
+      if (position.id === positionId) {
+        position.technologies = position.technologies
+          .filter((el) => el.is_public)
+          .concat(technologies);
+      }
+    });
   }
 }

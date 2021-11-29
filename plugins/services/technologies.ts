@@ -59,6 +59,7 @@ export function createTechnologies($strapi: Strapi) {
               id
               creator_id
               title
+              is_public
             }
 
   }

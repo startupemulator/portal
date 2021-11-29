@@ -3,7 +3,6 @@
     <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
     <UTitle :text="'Request feedback'"></UTitle>
     <TechnologyPicker
-      :key="loading"
       :title="'Pick technologies you need feedback in'"
       :technologies="startup.technologies"
       :add-technology="false"
@@ -44,7 +43,7 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 
 import { required, minLength } from "vuelidate/lib/validators";
 import Spinner from "../../../store/modules/Spinner";
-import Spiner from "../../atoms/spinner.vue";
+
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";

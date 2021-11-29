@@ -85,6 +85,7 @@ export default class TakeStartup extends Vue {
     if ($strapi.user) {
       directions = await $directions();
       badges = await $badges();
+      badges.forEach((badge) => (badge.isActive = false));
     }
 
     return {

@@ -79,7 +79,11 @@ export default class extends Vue {
         (el) => !el.is_public
       );
       createdTechnologies.forEach((el) =>
-        this.addData.push({ id: el.id, name: el.title })
+        this.addData.push({
+          id: el.id,
+          name: el.title || el.name,
+          is_public: el.is_public,
+        })
       );
     }
   }

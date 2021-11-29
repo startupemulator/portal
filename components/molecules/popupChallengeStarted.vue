@@ -8,23 +8,25 @@
       >
         <img src="~/assets/img/close.svg" alt="Close" />
       </button>
-      <u-title :text="title"></u-title>
+      <U-Title :text="title"></U-Title>
       <p>
         {{ textContent }}
       </p>
-      <U-button
+      <U-Button
         :button-name="'Got It'"
         :button-class="'u-button-blue'"
         @clickOnButton="closeSiginUpPopup"
-      ></U-button>
+      ></U-Button>
     </div>
   </div>
 </template>
 <script>
 import UButton from "../atoms/uButton";
+import UTitle from "../atoms/uTitle.vue";
 export default {
   components: {
     UButton,
+    UTitle,
   },
   props: {
     title: {

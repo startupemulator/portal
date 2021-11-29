@@ -81,7 +81,7 @@
       @saveReleaseLinks="saveReleaseLinks"
     ></AddReleseLinks>
     <AddTeamFeedBack
-      v-show="addTeamFeedBack"
+      v-if="addTeamFeedBack"
       :key="updateKey + 'addFeedback'"
       :title="feedBackTitle"
       :badges="badges"
@@ -93,7 +93,7 @@
     ></AddTeamFeedBack>
 
     <AddTeamBadge
-      v-show="addTeamBadge"
+      v-if="addTeamBadge"
       :badges="badges"
       :title="badgeTitle"
       @clikOnButton="toggleAddTeamBadge"
@@ -472,7 +472,7 @@ import GuidePopup from "../../molecules/popupGuide.vue";
 import { Estimation } from "../../../models/Estimation";
 import Spinner from "../../../store/modules/Spinner";
 import RequestToTeam from "./requestsToTeam.vue";
-import newFeedBack from "./newFeedBack.vue";
+import NewFeedBack from "./newFeedBack.vue";
 import RequestFeedback from "./requestFeedback.vue";
 import EditStartupInfo from "./editStartupInfo.vue";
 import EditTeam from "./editTeam.vue";
@@ -514,7 +514,7 @@ import PopupLeaveProject from "~/components/molecules/popupLeaveProject.vue";
     GuidePopup,
     RequestToTeam,
     Sources,
-    newFeedBack,
+    NewFeedBack,
     RequestFeedback,
     EditStartupInfo,
     EditTeam,

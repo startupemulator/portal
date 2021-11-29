@@ -9,17 +9,17 @@
     <Create-Specialities
       v-for="(position, i) in CreateProjectPage.draftStartup.positions"
       :key="position.id"
-      :technologies="technologies"
       :class="'speciality-content'"
       :name="'Speciality ' + (i + 1)"
       :picker="true"
       :creator="CreateProjectPage.draftStartup.owner.id"
-      :specialisations="specialisations"
+      :specialisations="CreateProjectPage.specialisations"
       :speciality-from-parent="[
         position.specialisation.title,
         position.specialisation.id,
       ]"
       :checked-technologies="position.technologies"
+      :position-id="position.id"
       @removeSpeciality="removeSpeciality(position.id, i)"
       @chosenSpeciality="addSpecialityToPosition($event, position.id)"
       @chosenTechnologies="addchosenTechnologies($event, i, position.id)"
@@ -39,7 +39,7 @@
         v-for="item in invitedcolleagues"
         :key="item.id"
         :name="item.email"
-        :specialisations="specialisations"
+        :specialisations="CreateProjectPage.specialisations"
         :speciality="specialityComponent"
         :picker="false"
         :speciality-from-parent="[item.choosenSpeciality]"
@@ -93,8 +93,6 @@ export default class extends Vue {
     this.CreateProjectPage = CreateProjectPage;
   }
 
-  @Prop() technologies: Array<Technology>;
-  @Prop() specialisations: Array<Specialisation>;
   @Prop() createdStartupId: Number;
   specialityComponent: Array<any> = [{ id: 0, type: "create-specialities" }];
   invitedcolleagues: Array<any> = [];

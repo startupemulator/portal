@@ -81,34 +81,67 @@ export default class extends Vue {
   comment = "";
   badge = "";
   createdCriterions: Array<string> = [];
-  markDirection(directionId: string, mark: string) {
+  async markDirection({
+    directionId,
+    satrsCount,
+  }: {
+    directionId: string;
+    satrsCount: string;
+  }) {
     if (
       this.markedDirection.some((el) => +el.id === +directionId) &&
-      mark !== "skip"
+      satrsCount !== "skip"
     ) {
       this.markedDirection[
         this.markedDirection.findIndex((el) => +el.id === +directionId)
-      ].mark = mark;
-      this.updateCriterions(
-        this.markedDirection[
-          this.markedDirection.findIndex((el) => +el.id === +directionId)
-        ]
-      );
-    } else if (mark !== "skip") {
-      this.markedDirection.push({ id: directionId, mark });
-      const criterion = { id: directionId, mark };
-      this.createCriterions(
-        criterion,
-        this.markedDirection.findIndex((el) => +el.id === +directionId)
-      );
-    }
+      ].satrsCount = satrsCount;
 
-    if (mark === "skip") {
-      this.deleteCriterions(
-        this.markedDirection[
-          this.markedDirection.findIndex((el) => +el.id === +directionId)
-        ]
-      );
+      try {
+        Spinner.show();
+        const criterionId =
+          this.markedDirection[
+            this.markedDirection.findIndex((el) => +el.id === +directionId)
+          ].criterionId;
+        const criterion = await this.$updateCriterions(criterionId, satrsCount);
+        if (criterion !== null) {
+          Spinner.hide();
+        }
+      } catch (e) {
+        console.error(e);
+        Spinner.hide();
+      }
+    } else if (satrsCount !== "skip") {
+      try {
+        Spinner.show();
+        const criterion = await this.$createCriterions(satrsCount, directionId);
+        if (criterion !== null) {
+          this.markedDirection.push({
+            id: directionId,
+            criterionId: criterion.id,
+            satrsCount,
+          });
+          Spinner.hide();
+        }
+      } catch (e) {
+        console.error(e);
+        Spinner.hide();
+      }
+    }
+    if (satrsCount === "skip") {
+      try {
+        const criterionId =
+          this.markedDirection[
+            this.markedDirection.findIndex((el) => +el.id === +directionId)
+          ].criterionId;
+        Spinner.show();
+        const criterion = await this.$deleteCriterions(criterionId);
+        if (criterion !== null) {
+          Spinner.hide();
+        }
+      } catch (e) {
+        console.error(e);
+        Spinner.hide();
+      }
       this.markedDirection.splice(
         this.markedDirection.findIndex((el) => +el.id === +directionId),
         1
@@ -116,61 +149,17 @@ export default class extends Vue {
     }
   }
 
-  addBadge(badge) {
-    this.badge = badge.id;
-  }
-
-  async createCriterions(el, id) {
-    Spinner.show();
-
-    try {
-      const criterion = await this.$createCriterions(el.mark, el.id);
-      if (criterion !== null) {
-        this.markedDirection[id].keyId = criterion.id;
-        Spinner.hide();
-      }
-    } catch (e) {
-      console.error(e);
-      Spinner.hide();
-    }
-  }
-
-  async updateCriterions(el) {
-    Spinner.show();
-    try {
-      const criterion = await this.$updateCriterions(el.keyId, el.mark);
-
-      if (criterion !== null) {
-        Spinner.hide();
-      }
-    } catch (e) {
-      console.error(e);
-      Spinner.hide();
-    }
-  }
-
-  async deleteCriterions(el) {
-    Spinner.show();
-    try {
-      const criterion = await this.$deleteCriterions(el.keyId);
-      if (criterion !== null) {
-        Spinner.hide();
-      }
-    } catch (e) {
-      console.error(e);
-      Spinner.hide();
-    }
+  addBadge(achievementId) {
+    this.badge = achievementId;
   }
 
   async createFeedback() {
     this.$v.$touch();
     if (!this.$v.$error) {
       this.markedDirection.forEach((el) =>
-        this.createdCriterions.push(el.keyId)
+        this.createdCriterions.push(el.criterionId)
       );
-
       Spinner.show();
-
       try {
         const createFeedback = await this.$createFeedback(
           this.expertId,
@@ -180,12 +169,12 @@ export default class extends Vue {
           this.requestId
         );
         if (createFeedback !== null) {
-          Spinner.hide();
           this.$emit("clikOnButton");
           this.$emit("teamNotificationFeedback");
         }
       } catch (e) {
         console.error(e);
+      } finally {
         Spinner.hide();
       }
     }

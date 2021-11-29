@@ -132,7 +132,7 @@ export default class extends Vue {
   mounted() {
     if (this.card.users && this.card.users.length !== 0) {
       this.card.users.forEach((el) => {
-        if (+el.user === +this.userId || +el.user.id === +this.userId) {
+        if (+el.user === +this.userId || +el.user?.id === +this.userId) {
           this.userIsAccept = true;
         }
       });
