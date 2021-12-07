@@ -166,8 +166,6 @@ export default class extends Vue {
   })
   speciality: Array<any>;
 
-  // @Prop() technologies!: Array<any>;
-
   @Prop({
     default() {
       return [];
@@ -196,7 +194,10 @@ export default class extends Vue {
   customTechnologiesForRemove = [];
   publicTechnologies: Technology[] = [];
 
-  specialityId = "";
+  specialityId = this.specialityFromParent[1]
+    ? this.specialityFromParent[1]
+    : "";
+
   isOpenPosition = this.status === "open";
   isStaffedPosition = this.status === "staffed";
 
@@ -246,6 +247,7 @@ export default class extends Vue {
 
   async savePopupPickTechnologies() {
     this.chosenTechnologies = [];
+
     for (const technology of this.newTechnologies) {
       await CreateProjectPage.createCustomTechnology({
         context: this,
@@ -270,7 +272,12 @@ export default class extends Vue {
         this.chosenTechnologies.push(technology.id);
       }
     });
-
+    await CreateProjectPage.updatePosition({
+      context: this,
+      positionId: this.positionId,
+      technologies: this.chosenTechnologies,
+      specialisation: this.specialityId,
+    });
     this.closeTechnologiPicker();
   }
 
@@ -287,8 +294,7 @@ export default class extends Vue {
       }
     });
     enableScrolling();
-    this.popupPickTechnology = !this.popupPickTechnology;
-    console.log(this.checkedTechnologies);
+    this.popupPickTechnology = !this.popupPickTechnology; 
   }
 
   closeTechnologiPicker() {
