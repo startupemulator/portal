@@ -580,6 +580,7 @@ export function updateStartupInfo($strapi: Strapi) {
             technologies{
               id
               title
+              is_public
             }
           }
           owner {

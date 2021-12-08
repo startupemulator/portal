@@ -163,7 +163,6 @@ export default class extends Vue {
 
   toggleInviteColleagues() {
     if (CreateProjectPage.draftStartup.positions.length !== 0) {
-      console.log(CreateProjectPage.draftStartup.positions);
       this.invitecolleagues = !this.invitecolleagues;
       this.invitecolleagues ? disableScrolling() : enableScrolling();
     }
@@ -181,7 +180,6 @@ export default class extends Vue {
   }
 
   mounted() {
-    console.log(this.CreateProjectPage.draftStartup);
     if (CreateProjectPage.draftStartup.coleagues) {
       this.invitedcolleagues = CreateProjectPage.draftStartup.coleagues;
     }

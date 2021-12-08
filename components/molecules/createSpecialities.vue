@@ -247,18 +247,19 @@ export default class extends Vue {
 
   async savePopupPickTechnologies() {
     this.chosenTechnologies = [];
-
+    console.log(this.newTechnologies);
+    if (this.customTechnologiesForRemove.length !== 0) {
+      await CreateProjectPage.removePersonalTechnology({
+        technologies: this.customTechnologiesForRemove,
+        positionId: this.positionId,
+      });
+    }
+    /// else remove all custom technologies
     for (const technology of this.newTechnologies) {
       await CreateProjectPage.createCustomTechnology({
         context: this,
         positionId: this.positionId,
         technology,
-      });
-    }
-    if (this.customTechnologiesForRemove.length !== 0) {
-      await CreateProjectPage.removePersonalTechnology({
-        technologies: this.customTechnologiesForRemove,
-        positionId: this.positionId,
       });
     }
 
@@ -282,6 +283,7 @@ export default class extends Vue {
   }
 
   async skiptechnology() {
+    console.log(this.chosenTechnologies);
     await CreateProjectPage.skipTechnologies({
       positionId: this.positionId,
       chosenTechnologies: this.chosenTechnologies,
@@ -293,6 +295,12 @@ export default class extends Vue {
         technology.checked = false;
       }
     });
+    this.checkedTechnologies.forEach((el) => {
+      if (!el.is_public) {
+        this.chosenTechnologies.push(el.id);
+      }
+    });
+    console.log(this.checkedTechnologies);
     enableScrolling();
     this.popupPickTechnology = !this.popupPickTechnology;
   }
@@ -328,6 +336,11 @@ export default class extends Vue {
         }
       });
     }
+    this.checkedTechnologies.forEach((el) => {
+      if (!el.is_public) {
+        this.chosenTechnologies.push(el.id);
+      }
+    });
   }
 }
 </script>

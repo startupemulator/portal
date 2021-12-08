@@ -59,7 +59,6 @@ import CreateProjectStep4 from "./createProjectStep-4.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import { Technology } from "~/models/Technology";
-import { Startup } from "~/models/Startup";
 import { Specialisation } from "~/models/Specialisation";
 import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartup.vue";
 import { CreateProjectPage } from "~/store";
@@ -279,6 +278,10 @@ export default class extends Vue {
     } catch (e) {
       console.error(e);
     }
+  }
+
+  mounted() {
+    console.log(CreateProjectPage.draftStartup);
   }
 }
 </script>

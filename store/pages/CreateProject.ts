@@ -206,12 +206,11 @@ export default class CreateProject
   skipTechnologies({ positionId, chosenTechnologies }) {
     this.draftStartup.positions.forEach((position) => {
       if (position.id === positionId) {
-        position.technologies = [];
-        this.technologies.forEach((item) => {
-          if (chosenTechnologies.some((el) => +el === +item.id)) {
-            position.technologies.push(item);
-          }
-        });
+        // console.log(position.technologies);
+        // console.log(chosenTechnologies);
+        position.technologies = position.technologies.filter((el) =>
+          chosenTechnologies.includes(el.id)
+        );
       }
     });
   }
