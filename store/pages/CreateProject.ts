@@ -44,13 +44,28 @@ export default class CreateProject
   }
 
   @MutationAction
-  updateDraftStartup(data) {
-    const { draftStartup } = this.state as CreateProjectState;
+  async updateDraftStartup({ context, data }) {
+    let { draftStartup } = this.state as CreateProjectState;
+    const { $updateStartupInfo } = context;
     draftStartup.title = data.title;
     draftStartup.description = data.description;
     draftStartup.start_date = data.start_date.toISOString();
     draftStartup.duration = data.duration;
     draftStartup.owner = data.owner;
+    try {
+      const updateStartup = await $updateStartupInfo(
+        draftStartup.id,
+        data.start_date.toISOString(),
+        data.description,
+        data.duration,
+        data.title
+      );
+      if (updateStartup !== null) {
+        draftStartup = updateStartup;
+      }
+    } catch (e) {
+      console.error(e);
+    }
     return { draftStartup };
   }
 
@@ -166,6 +181,16 @@ export default class CreateProject
   }
 
   @VuexMutation
+  async updatePosition({ context, positionId, technologies, specialisation }) {
+    const { $updatePosition } = context;
+    try {
+      await $updatePosition(positionId, technologies, specialisation);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  @VuexMutation
   removeTechnologyToPosition({ positionId, technology }) {
     this.draftStartup.positions.forEach((position) => {
       if (position.id === positionId && technology.checked) {
@@ -196,8 +221,12 @@ export default class CreateProject
     const { draftStartup } = this.state as CreateProjectState;
     const { $createTechnologies } = context;
     let newTechnology = {};
+
     try {
-      newTechnology = await $createTechnologies(draftStartup.owner, technology);
+      newTechnology = await $createTechnologies(
+        draftStartup.owner.id,
+        technology
+      );
     } catch (e) {
       console.error(e);
     }

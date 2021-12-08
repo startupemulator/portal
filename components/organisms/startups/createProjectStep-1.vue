@@ -202,7 +202,10 @@ export default class extends Vue {
           duration: this.duration,
           owner: this.$strapi.user.id,
         };
-        await CreateProjectPage.updateDraftStartup(data);
+        await CreateProjectPage.updateDraftStartup({
+          context: this,
+          data,
+        });
         if (this.createdStartupId === 0) {
           await CreateProjectPage.createNewStartup(this);
         } else {

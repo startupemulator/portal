@@ -1,23 +1,23 @@
 <template>
   <div>
     <div class="createProject">
-      <CreateProdgect
+      <CreateProject
         :technologies="CreateProjectPage.technologies"
         :estimations="CreateProjectPage.estimations"
         :specialisations="CreateProjectPage.specialisations"
-      ></CreateProdgect>
+      ></CreateProject>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import CreateProdgect from "~/components/organisms/startups/createProject.vue";
+import CreateProject from "~/components/organisms/startups/createProject.vue";
 import { CreateProjectPage } from "~/store";
 
 @Component({
   components: {
-    CreateProdgect,
+    CreateProject,
   },
   middleware: ["deny-unauthenticated"],
 })

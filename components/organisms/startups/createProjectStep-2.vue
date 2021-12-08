@@ -22,7 +22,7 @@
       :position-id="position.id"
       @removeSpeciality="removeSpeciality(position.id, i)"
       @chosenSpeciality="addSpecialityToPosition($event, position.id)"
-      @chosenTechnologies="addchosenTechnologies($event, i, position.id)"
+      @chosenTechnologies="addChosenTechnologies($event, i, position.id)"
     >
     </Create-Specialities>
     <button class="specialityOne__button" @click="addSpeciality">
@@ -74,17 +74,15 @@ import { Component, Vue, Prop } from "nuxt-property-decorator";
 import Spinner from "../../../store/modules/Spinner";
 import UButton from "~/components/atoms/uButton.vue";
 import CreateSpecialities from "~/components/molecules/createSpecialities.vue";
-import Invitecolleagues from "~/components/molecules/inviteColleagues.vue";
-import { Specialisation } from "~/models/Specialisation";
+import InviteColleagues from "~/components/molecules/inviteColleagues.vue";
 import {
   enableScrolling,
   disableScrolling,
 } from "~/assets/jshelper/toggleScroll.js";
-import { Technology } from "~/models/Technology";
 import { CreateProjectPage } from "~/store";
 
 @Component({
-  components: { UButton, CreateSpecialities, Invitecolleagues },
+  components: { UButton, CreateSpecialities, InviteColleagues },
 })
 export default class extends Vue {
   CreateProjectPage;
@@ -120,7 +118,9 @@ export default class extends Vue {
     Spinner.hide();
   }
 
-  async addchosenTechnologies(data, i, id) {
+  async addChosenTechnologies(data, i, id) {
+    console.log("update position");
+    console.log(data, i, id);
     try {
       await this.$updatePosition(id, data[0].id, data[0].specialisation);
       this.specialityComponent[i].technologies = data[0].technologies;
@@ -162,10 +162,8 @@ export default class extends Vue {
   }
 
   toggleInviteColleagues() {
-    if (
-      this.specialityComponent.length !== 0 &&
-      this.specialityComponent[0].speciality
-    ) {
+    if (CreateProjectPage.draftStartup.positions.length !== 0) {
+      console.log(CreateProjectPage.draftStartup.positions);
       this.invitecolleagues = !this.invitecolleagues;
       this.invitecolleagues ? disableScrolling() : enableScrolling();
     }
@@ -183,6 +181,7 @@ export default class extends Vue {
   }
 
   mounted() {
+    console.log(this.CreateProjectPage.draftStartup);
     if (CreateProjectPage.draftStartup.coleagues) {
       this.invitedcolleagues = CreateProjectPage.draftStartup.coleagues;
     }
