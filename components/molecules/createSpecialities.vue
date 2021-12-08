@@ -294,7 +294,7 @@ export default class extends Vue {
       }
     });
     enableScrolling();
-    this.popupPickTechnology = !this.popupPickTechnology; 
+    this.popupPickTechnology = !this.popupPickTechnology;
   }
 
   closeTechnologiPicker() {
