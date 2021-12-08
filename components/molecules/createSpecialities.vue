@@ -228,7 +228,12 @@ export default class extends Vue {
   }
 
   removeTechnology(data) {
-    this.customTechnologiesForRemove = data;
+    this.customTechnologiesForRemove = [];
+    if (data.length === 0) {
+      this.customTechnologiesForRemove.push(false);
+    } else {
+      this.customTechnologiesForRemove = data;
+    }
   }
 
   chosespeciality(e, id) {
@@ -247,14 +252,14 @@ export default class extends Vue {
 
   async savePopupPickTechnologies() {
     this.chosenTechnologies = [];
-    console.log(this.newTechnologies);
+
     if (this.customTechnologiesForRemove.length !== 0) {
       await CreateProjectPage.removePersonalTechnology({
         technologies: this.customTechnologiesForRemove,
         positionId: this.positionId,
       });
     }
-    /// else remove all custom technologies
+
     for (const technology of this.newTechnologies) {
       await CreateProjectPage.createCustomTechnology({
         context: this,
@@ -283,7 +288,6 @@ export default class extends Vue {
   }
 
   async skiptechnology() {
-    console.log(this.chosenTechnologies);
     await CreateProjectPage.skipTechnologies({
       positionId: this.positionId,
       chosenTechnologies: this.chosenTechnologies,
@@ -300,7 +304,6 @@ export default class extends Vue {
         this.chosenTechnologies.push(el.id);
       }
     });
-    console.log(this.checkedTechnologies);
     enableScrolling();
     this.popupPickTechnology = !this.popupPickTechnology;
   }

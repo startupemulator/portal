@@ -279,9 +279,5 @@ export default class extends Vue {
       console.error(e);
     }
   }
-
-  mounted() {
-    console.log(CreateProjectPage.draftStartup);
-  }
 }
 </script>

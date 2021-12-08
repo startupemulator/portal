@@ -206,8 +206,6 @@ export default class CreateProject
   skipTechnologies({ positionId, chosenTechnologies }) {
     this.draftStartup.positions.forEach((position) => {
       if (position.id === positionId) {
-        // console.log(position.technologies);
-        // console.log(chosenTechnologies);
         position.technologies = position.technologies.filter((el) =>
           chosenTechnologies.includes(el.id)
         );
@@ -245,9 +243,15 @@ export default class CreateProject
   removePersonalTechnology({ technologies, positionId }) {
     this.draftStartup.positions.forEach((position) => {
       if (position.id === positionId) {
-        position.technologies = position.technologies
-          .filter((el) => el.is_public)
-          .concat(technologies);
+        if (technologies[0] !== false) {
+          position.technologies = position.technologies
+            .filter((el) => el.is_public)
+            .concat(technologies);
+        } else {
+          position.technologies = position.technologies.filter(
+            (el) => el.is_public
+          );
+        }
       }
     });
   }

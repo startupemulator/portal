@@ -41,7 +41,7 @@ export default class extends Vue {
   @Prop() choosenTechnologies: Array<any>;
   @Prop() uniqueId: string;
   beforeCreatedTechnologies: Array<Technology> = [];
-  // userTechnologies: Array<any>;
+
   pickTechnology(item, id) {
     this.$emit("chosenTechnologi", { item, id });
   }
@@ -55,11 +55,6 @@ export default class extends Vue {
       });
       e.target.value = "";
     }
-  }
-
-  mounted() {
-    // console.log("render");
-    // console.log(this.technologies);
   }
 }
 </script>
