@@ -17,9 +17,10 @@ test.describe("landing page", () => {
   test.describe("hero", () => {
     test("actions", async ({ page }) => {
       const buttons = page.locator(".get-experience a.button-link");
-      await expect(buttons).toHaveText(
-        ["Explore Startups", "Explore Challenges"]
-      );
+      await expect(buttons).toHaveText([
+        "Explore Startups",
+        "Explore Challenges",
+      ]);
     });
   });
 
@@ -34,7 +35,7 @@ test.describe("landing page", () => {
       await expect(logo).toHaveText("Startup Emulator");
     });
 
-    test("navigation", async ({page}) => {
+    test("navigation", async ({ page }) => {
       const items = page.locator(".main-header nav ul>li a");
       await expect(items).toHaveText(["Startups", "Challenges", "Pricing"]);
     });
@@ -53,5 +54,4 @@ test.describe("landing page", () => {
       await expect(loginButton).toHaveText("Sign Up");
     });
   });
-
 });
