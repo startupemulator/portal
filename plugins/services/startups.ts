@@ -20,7 +20,7 @@ export interface StartupsServices {
     owner: string
   ): Promise<Partial<Startup>>;
 
-  $startup(slug: string[]): Promise<Partial<Startup>>;
+  $startup(slug: string): Promise<Partial<Startup>>;
 
   $startupById(id: string[]): Promise<Partial<Startup>>;
 
