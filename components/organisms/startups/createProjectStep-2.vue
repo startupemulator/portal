@@ -34,17 +34,20 @@
         You can also invite your colleagues
         <p>to the team as developers or as product owners.</p>
       </h5>
-      <div
-        :is="item.type"
-        v-for="item in invitedcolleagues"
+      <CreateSpecialities
+        v-for="item in CreateProjectPage.invites"
         :key="item.id"
         :name="item.email"
         :specialisations="CreateProjectPage.specialisations"
-        :speciality="specialityComponent"
+        :speciality="CreateProjectPage.draftStartup.positions"
         :picker="false"
-        :speciality-from-parent="[item.choosenSpeciality]"
+        :speciality-from-parent="[
+          item.position.specialisation.title,
+          item.position.specialisation.id,
+        ]"
         @removeSpeciality="removeInvitedcolleagues(item.id)"
-      ></div>
+      ></CreateSpecialities>
+
       <button class="invite-colleagues__button" @click="toggleInviteColleagues">
         Invite colleagues
       </button>
@@ -137,26 +140,12 @@ export default class extends Vue {
   }
 
   async inviteCollegue(data) {
-    const invite = await this.$createInvite(
-      data.email,
-      data.position_id,
-      CreateProjectPage.draftStartup.id,
-      CreateProjectPage.draftStartup.owner.id
-    );
-    if (invite !== null) {
-      const inviteData = {
-        id: invite.id,
-        type: "create-specialities",
-        email: invite.email,
-        choosenSpeciality: data.speciality.trim(),
-        position_id: data.position_id,
-      };
-      this.invitedcolleagues.push(inviteData);
+    Spinner.show();
+    await CreateProjectPage.inviteCollegue({ context: this, data });
+    Spinner.hide();
 
-      this.invitecolleagues = !this.invitecolleagues;
-
-      enableScrolling();
-    }
+    this.invitecolleagues = !this.invitecolleagues;
+    enableScrolling();
   }
 
   toggleInviteColleagues() {
@@ -168,41 +157,8 @@ export default class extends Vue {
 
   async removeInvitedcolleagues(id) {
     Spinner.show();
-    await this.$deleteInvite(id);
-    if (id === removeInvite.id) {
-      this.invitedcolleagues = this.invitedcolleagues.filter(
-        (item) => item.id !== removeInvite.id
-      );
-    }
+    await CreateProjectPage.deleteInviteCollegue({ context: this, id });
     Spinner.hide();
-  }
-
-  mounted() {
-    if (CreateProjectPage.draftStartup.coleagues) {
-      this.invitedcolleagues = CreateProjectPage.draftStartup.coleagues;
-    }
-
-    if (CreateProjectPage.draftStartup.specialists) {
-      this.specialityComponent = CreateProjectPage.draftStartup.specialists;
-    } else if (CreateProjectPage.draftStartup.owner.invites) {
-      this.invitedcolleagues = [];
-
-      CreateProjectPage.draftStartup.owner.invites.forEach((el) => {
-        if (
-          el.position &&
-          el.position.startup !== null &&
-          CreateProjectPage.draftStartup.id === el.position.startup.id
-        ) {
-          const data = {
-            id: el.id,
-            type: "create-specialities",
-            email: el.email,
-            choosenSpeciality: el.position.specialisation.title,
-          };
-          this.invitedcolleagues.push(data);
-        }
-      });
-    }
   }
 }
 </script>

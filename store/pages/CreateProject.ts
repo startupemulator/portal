@@ -4,11 +4,12 @@ import {
   MutationAction,
   VuexModule,
 } from "nuxt-property-decorator";
-import { NuxtContext } from "../../types/services";
-import { Technology } from "../../models/Technology";
-import { Estimation } from "../../models/Estimation";
-import { Specialisation } from "../../models/Specialisation";
-import { Startup } from "../../models/Startup";
+import { NuxtContext } from "../../../types/services";
+import { Technology } from "../../../models/Technology";
+import { Estimation } from "../../../models/Estimation";
+import { Specialisation } from "../../../models/Specialisation";
+import { Startup } from "../../../models/Startup";
+import { Invites } from "../../../models/Invites";
 export interface CreateProjectState {
   technologies: Technology[];
   estimations: Estimation[];
@@ -23,6 +24,7 @@ export default class CreateProject
   estimations: Estimation[] = [];
   specialisations: Specialisation[] = [];
   draftStartup: Startup[] = [];
+  invites: Invites[] = [];
 
   @MutationAction
   async init(context: NuxtContext) {
@@ -32,12 +34,32 @@ export default class CreateProject
       const { estimations } = await context.$estimations();
       const { specialisations } = await context.$specialisations();
       let draftStartup = [];
+      const invites = [];
 
       if (route.params.slug !== undefined) {
         const startup = await context.$startup(route.params.slug);
         draftStartup = startup;
+
+        if (draftStartup.owner.invites) {
+          draftStartup.owner.invites.forEach((el) => {
+            if (
+              el.position &&
+              el.position.startup !== null &&
+              draftStartup.id === el.position.startup.id
+            ) {
+              invites.push(el);
+            }
+          });
+        }
       }
-      return { technologies, estimations, specialisations, draftStartup };
+      return {
+        technologies,
+        estimations,
+        specialisations,
+        draftStartup,
+        invites,
+        // specialisationsForInvites,
+      };
     } catch (e) {
       console.error(e);
     }
@@ -132,8 +154,9 @@ export default class CreateProject
 
   @MutationAction
   async removePosition({ context, id }) {
-    const { draftStartup } = this.state as CreateProjectState;
-    const { $deletePositions } = context;
+    const { draftStartup, invites } = this.state as CreateProjectState;
+    const { $deletePositions, $deleteInvite } = context;
+
     try {
       const removePosition = await $deletePositions(id);
       if (removePosition !== null) {
@@ -146,6 +169,7 @@ export default class CreateProject
     }
     return {
       draftStartup,
+      invites,
     };
   }
 
@@ -254,5 +278,46 @@ export default class CreateProject
         }
       }
     });
+  }
+
+  @MutationAction
+  async inviteCollegue({ context, data }) {
+    const { draftStartup, invites } = this.state as CreateProjectState;
+    const { $createInvite } = context;
+    try {
+      const newInvite = await $createInvite(
+        data.email,
+        data.position_id,
+        draftStartup.id,
+        draftStartup.owner.id
+      );
+      if (newInvite !== null) {
+        invites.push(newInvite);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+
+    return { draftStartup };
+  }
+
+  @MutationAction
+  async deleteInviteCollegue({ context, id }) {
+    const { invites } = this.state as CreateProjectState;
+    const { $deleteInvite } = context;
+    try {
+      const deletedInvite = await $deleteInvite(id);
+      if (deletedInvite !== null) {
+        invites.forEach((el, i) => {
+          if (+el.id === +deletedInvite.id) {
+            invites.splice(i, 1);
+          }
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+
+    return { invites };
   }
 }

@@ -40,6 +40,7 @@
         >
           <img src="~/assets/img/close.svg" alt="" />
         </button>
+
         <ul v-show="openSpeciality" class="specialityOne__item-list">
           <li
             v-for="item in speciality.length > 0 ? speciality : specialisations"
@@ -47,10 +48,13 @@
             class="specialityOne__item-item"
             @click="chosespeciality($event.target, item.id)"
           >
-            {{ item.speciality }}
+            {{ item.specialisation }}
+
             {{ item.title }}
           </li>
         </ul>
+        <pre>{{ speciality }}</pre>
+
         <ul
           class="chosen-technology"
           :class="
