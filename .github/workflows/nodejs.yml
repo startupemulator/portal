@@ -9,7 +9,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
 
     steps:
       - uses: actions/checkout@v1
@@ -20,9 +20,10 @@ jobs:
       - name: npm install, build, lint and test
         run: |
           npm ci
+          npx playwright install
           npm run build
           npm run lint
-          npm run test
+          npm run test:e2e
         env:
           CI: true
       - name: Build docker
@@ -33,4 +34,4 @@ jobs:
           file: ./Dockerfile
           push: false
           tags: startupemulator/portal:latest
-  
+
