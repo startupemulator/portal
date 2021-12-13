@@ -17,6 +17,7 @@
 
       <div class="specialityOne__list">
         <div
+          :style="!isDropping ? 'cursor:default' : ''"
           class="specialityOne__item"
           :class="
             chosenSpeciality !== 'Select a speciality' ? 'item-chosen' : ''
@@ -25,6 +26,7 @@
         >
           <span>{{ chosenSpeciality }}</span>
           <img
+            v-if="isDropping"
             src="~/assets/img/arrow.svg"
             alt="arrow"
             :style="
@@ -41,7 +43,11 @@
           <img src="~/assets/img/close.svg" alt="" />
         </button>
 
-        <ul v-show="openSpeciality" class="specialityOne__item-list">
+        <ul
+          v-if="isDropping"
+          v-show="openSpeciality"
+          class="specialityOne__item-list"
+        >
           <li
             v-for="(item, i) in specialisations"
             :key="i"
@@ -175,6 +181,7 @@ export default class extends Vue {
   @Prop() status!: string;
   @Prop() isEditTeam: boolean;
   @Prop() positionId: string;
+  @Prop({ default: true }) isDropping: Boolean;
 
   openSpeciality = false;
   chosenSpeciality = this.specialityFromParent[0]

@@ -39,6 +39,7 @@
         :name="item.email"
         :specialisations="CreateProjectPage.specialisationsForInvites"
         :picker="false"
+        :isDropping="false"
         :speciality-from-parent="[
           item.position.specialisation.title,
           item.position.specialisation.id,
