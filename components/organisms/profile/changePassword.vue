@@ -7,16 +7,19 @@
     <div class="change-password__content">
       <div v-if="passwordType === 'update'">
         <p>Current password</p>
-        <UInput
+        <U-Input
           :placeholder="'Enter your current password'"
           :type="'password'"
+          :value="currentPassword"
           :account-class="
             $v.currentPassword.$error
               ? 'create-account__email error'
               : 'create-account__email'
           "
+          :img="require('~/assets/img/password.svg')"
+          :btn-show-password="true"
           @textInput="inputCurrentPassword"
-        ></UInput>
+        ></U-Input>
 
         <p v-show="$v.currentPassword.$error" class="errorInput">
           Please enter current password
@@ -24,45 +27,51 @@
       </div>
       <p>New password</p>
 
-      <UInput
+      <U-Input
         :placeholder="'Enter your new password'"
         :type="'password'"
+        :value="password"
         :account-class="
           $v.password.$error
             ? 'create-account__email error'
             : 'create-account__email'
         "
+        :img="require('~/assets/img/password.svg')"
+        :btn-show-password="true"
         @textInput="inputNewPassword"
-      ></UInput>
+      ></U-Input>
       <p v-show="$v.password.$error" class="errorInput">
         Please enter a password of at least 8 characters
       </p>
       <p>Confirm new password</p>
 
-      <UInput
+      <U-Input
         :placeholder="'Enter your new password one more time'"
         :type="'password'"
+        :value="confirmPassword"
         :account-class="
           $v.confirmPassword.$error
             ? 'create-account__email error'
             : 'create-account__email'
         "
+        :img="require('~/assets/img/password.svg')"
+        :btn-show-password="true"
         @textInput="inputConfirmPassword"
-      ></UInput>
+      ></U-Input>
       <p v-show="$v.confirmPassword.$error" class="errorInput">
         Both passwords should be the same
       </p>
       <div class="change-password__buttons">
-        <UButton
+        <U-Button
           :button-name="'Change'"
           :button-class="'u-button-blue'"
           @clickOnButton="changePassword"
-        ></UButton>
-        <UButton
+        ></U-Button>
+        <U-Button
           :button-name="'Cancel'"
           :button-class="'u-button-gray'"
           @clickOnButton="$emit('clickOnButton')"
-        ></UButton>
+        ></U-Button>
       </div>
     </div>
     <popup-challenge-started
@@ -144,7 +153,7 @@ export default class extends Vue {
       } catch (e) {
         Spinner.hide();
         Toast.show({
-          data: e,
+          data: "Old password is invalid",
           duration: 3000,
         });
       }
@@ -174,7 +183,7 @@ export default class extends Vue {
         this.passwordType = passwordType.type;
       }
       if (this.passwordType === "create") {
-        this.currentPassword = "true"; // this is need for cheat veulidate currentPasswor, if we need only create new password
+        this.currentPassword = "true";
       }
     } catch (e) {
       console.error(e);
