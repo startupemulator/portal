@@ -25,6 +25,7 @@ export default class CreateProject
   specialisations: Specialisation[] = [];
   draftStartup: Startup[] = [];
   invites: Invites[] = [];
+  specialisationsForInvites: Specialisation[] = [];
 
   @MutationAction
   async init(context: NuxtContext) {
@@ -35,11 +36,15 @@ export default class CreateProject
       const { specialisations } = await context.$specialisations();
       let draftStartup = [];
       const invites = [];
-
+      const specialisationsForInvites = [];
       if (route.params.slug !== undefined) {
         const startup = await context.$startup(route.params.slug);
         draftStartup = startup;
-
+        if (draftStartup.positions) {
+          draftStartup.positions.forEach((el) => {
+            specialisationsForInvites.push(el.specialisation);
+          });
+        }
         if (draftStartup.owner.invites) {
           draftStartup.owner.invites.forEach((el) => {
             if (
@@ -58,7 +63,7 @@ export default class CreateProject
         specialisations,
         draftStartup,
         invites,
-        // specialisationsForInvites,
+        specialisationsForInvites,
       };
     } catch (e) {
       console.error(e);
@@ -155,14 +160,21 @@ export default class CreateProject
   @MutationAction
   async removePosition({ context, id }) {
     const { draftStartup, invites } = this.state as CreateProjectState;
-    const { $deletePositions, $deleteInvite } = context;
+    let { specialisationsForInvites } = this.state as CreateProjectState;
 
+    const { $deletePositions, $deleteInvite } = context;
     try {
       const removePosition = await $deletePositions(id);
       if (removePosition !== null) {
         draftStartup.positions = draftStartup.positions.filter(
           (el) => el.id !== removePosition.id
         );
+      }
+      specialisationsForInvites = [];
+      if (draftStartup.positions) {
+        draftStartup.positions.forEach((el) => {
+          specialisationsForInvites.push(el.specialisation);
+        });
       }
     } catch (e) {
       console.error(e);
@@ -176,6 +188,7 @@ export default class CreateProject
   @MutationAction
   async addSpecialityToPosition({ context, titleId, id }) {
     const { draftStartup } = this.state as CreateProjectState;
+    let { specialisationsForInvites } = this.state as CreateProjectState;
     const { $updatePosition } = context;
     try {
       const updatePosition = await $updatePosition(id, ["0"], titleId);
@@ -183,6 +196,12 @@ export default class CreateProject
         draftStartup.positions.forEach((position) => {
           if (position.id === updatePosition.id) {
             position.specialisation.title = updatePosition.specialisation.title;
+            specialisationsForInvites = [];
+            if (draftStartup.positions) {
+              draftStartup.positions.forEach((el) => {
+                specialisationsForInvites.push(el.specialisation);
+              });
+            }
           }
         });
       }
@@ -191,6 +210,7 @@ export default class CreateProject
     }
     return {
       draftStartup,
+      specialisationsForInvites,
     };
   }
 
@@ -319,5 +339,121 @@ export default class CreateProject
     }
 
     return { invites };
+  }
+
+  @MutationAction
+  async addExistingSourse(context) {
+    const { draftStartup } = this.state as CreateProjectState;
+    const { $createSource } = context;
+    try {
+      const newSource = await $createSource("", "https://", draftStartup.id);
+      if (newSource !== null) {
+        draftStartup.sources.push(newSource);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return {
+      draftStartup,
+    };
+  }
+
+  @MutationAction
+  async removeExistingSources({ context, sourcesId }) {
+    const { draftStartup } = this.state as CreateProjectState;
+    const { $deleteSource } = context;
+    try {
+      const detetedsource = await $deleteSource(sourcesId);
+      if (detetedsource !== null) {
+        draftStartup.sources = draftStartup.sources.filter(
+          (el) => el.id !== detetedsource.id
+        );
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return {
+      draftStartup,
+    };
+  }
+
+  @MutationAction
+  async updateSources({ context, sourceId, title, link }) {
+    const { draftStartup } = this.state as CreateProjectState;
+    const { $updateSource } = context;
+    try {
+      const sources = await $updateSource(sourceId, title, link);
+      if (sources !== null) {
+        draftStartup.sources.forEach((el) => {
+          if (el.id === sources.id) {
+            el.link = sources.link;
+            el.title = sources.title;
+          }
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return {
+      draftStartup,
+    };
+  }
+
+  @MutationAction
+  async addGuideSourse(context) {
+    const { draftStartup } = this.state as CreateProjectState;
+    const { $createSecret } = context;
+    try {
+      const newSecret = await $createSecret("", "", draftStartup.id);
+      if (newSecret !== null) {
+        draftStartup.secrets.push(newSecret);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return {
+      draftStartup,
+    };
+  }
+
+  @MutationAction
+  async removeGuideSources({ context, sourceId }) {
+    const { draftStartup } = this.state as CreateProjectState;
+    const { $deleteSecret } = context;
+    try {
+      const deleteSecret = await $deleteSecret(sourceId);
+      if (deleteSecret !== null) {
+        draftStartup.secrets = draftStartup.secrets.filter(
+          (el) => el.id !== deleteSecret.id
+        );
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return {
+      draftStartup,
+    };
+  }
+
+  @MutationAction
+  async updateGuideSources({ context, guideId, title, description }) {
+    const { draftStartup } = this.state as CreateProjectState;
+    const { $updateSecret } = context;
+    try {
+      const secret = await $updateSecret(guideId, title, description);
+      if (secret !== null) {
+        draftStartup.secrets.forEach((el) => {
+          if (el.id === secret.id) {
+            el.link = secret.link;
+            el.description = secret.description;
+          }
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return {
+      draftStartup,
+    };
   }
 }

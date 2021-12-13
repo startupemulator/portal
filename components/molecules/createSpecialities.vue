@@ -43,17 +43,14 @@
 
         <ul v-show="openSpeciality" class="specialityOne__item-list">
           <li
-            v-for="item in speciality.length > 0 ? speciality : specialisations"
-            :key="item.id"
+            v-for="(item, i) in specialisations"
+            :key="i"
             class="specialityOne__item-item"
             @click="chosespeciality($event.target, item.id)"
           >
-            {{ item.specialisation }}
-
             {{ item.title }}
           </li>
         </ul>
-        <pre>{{ speciality }}</pre>
 
         <ul
           class="chosen-technology"
@@ -163,12 +160,6 @@ export default class extends Vue {
 
   @Prop({ default: "" }) name: String;
   @Prop({ default: "" }) title: String;
-  @Prop({
-    default() {
-      return {};
-    },
-  })
-  speciality: Array<any>;
 
   @Prop({
     default() {

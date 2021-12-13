@@ -3,23 +3,23 @@
     <p>{{ name }}</p>
     <div class="existing-sources__link-name">
       <div class="link-name__inputs">
-        <U-input
+        <U-Input
           :type="'text'"
           :placeholder="'Enter a link name'"
           :value="title"
           :account-class="$v.title.$error ? ' error' : ''"
           @textInput="inputlinkName($event)"
-        ></U-input>
+        ></U-Input>
         <p v-show="$v.title.$error" class="errorInput">
           Please enter a link name of at least 8 characters
         </p>
-        <U-input
+        <U-Input
           :type="'text'"
           :placeholder="'https://...'"
-          :value="link"
+          :value="link.trim()"
           :account-class="$v.link.$error ? ' error' : ''"
           @textInput="inputUrl($event)"
-        ></U-input>
+        ></U-Input>
         <p v-show="$v.link.$error" class="errorInput">Please enter a link</p>
       </div>
       <button
@@ -59,28 +59,17 @@ export default class extends Vue {
     this.link = e.trim();
     this.$v.$touch();
     this.emitSourses();
-
-    // if (!this.$v.$error) {
-    //   this.$emit("textInput", [e, "url"]);
-    // }
   }
 
   inputlinkName(e) {
     this.title = e.trim();
     this.$v.$touch();
     this.emitSourses();
-    // if (!this.$v.$error) {
-    //   this.$emit("textInput", [e, "name"]);
-    // }
   }
 
   emitSourses() {
     if (!this.$v.$error) {
-      console.log(this.link);
-      console.log(this.title);
-      // this.$emit("textInput", [this.link, "url"]);
-      // this.$emit("textInput", [this.title, "name"]);
-      this.$emit("updateSourses", [this.title, this.link]);
+      this.$emit("updateSources", { title: this.title, link: this.link });
     }
   }
 }

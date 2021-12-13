@@ -37,7 +37,6 @@
     <CreateProjectStep4
       v-if="createprodjectSteps.stepFour"
       :startup-data="CreateProjectPage.draftStartup"
-      @addSomeGiude="addSomeGiude"
       @saveDraft="saveDraft"
       @publish="publish"
     ></CreateProjectStep4>
@@ -110,22 +109,6 @@ export default class extends Vue {
     this.publish("draft");
   }
 
-  checkTechnologies() {
-    if (CreateProjectPage.draftStartup.specialists !== undefined) {
-      CreateProjectPage.draftStartup.specialists.forEach((specialist) => {
-        if (specialist.technologiesId) {
-          specialist.technologiesId.forEach((el) => {
-            this.tehnologies.push(el);
-          });
-        } else if (specialist.technologies) {
-          specialist.technologies.forEach((el) => {
-            this.tehnologies.push(el.id);
-          });
-        }
-      });
-    }
-  }
-
   async publish(state = "review") {
     Spinner.show();
     try {
@@ -192,26 +175,11 @@ export default class extends Vue {
     secodStepData[1].forEach((el) =>
       CreateProjectPage.draftStartup.coleagues.push(el)
     );
-
-    this.checkTechnologies();
   }
 
-  goToStepFour(thirdStepData) {
+  goToStepFour() {
     this.createprodjectSteps.stepThree = false;
     this.createprodjectSteps.stepFour = true;
-    CreateProjectPage.draftStartup.sources = [];
-    thirdStepData.forEach((el) => {
-      CreateProjectPage.draftStartup.sources.push(el);
-    });
-  }
-
-  addSomeGiude(data) {
-    CreateProjectPage.draftStartup.guide = [];
-    data.forEach((el) => {
-      if (el.name) {
-        CreateProjectPage.draftStartup.guide.push(el);
-      }
-    });
   }
 }
 </script>

@@ -6,15 +6,21 @@
         <UInput
           :type="'text'"
           :placeholder="'Enter an item name'"
-          :value="guideName"
-          @textInput="$emit('textInput', [$event, 'name'])"
+          :value="guideTitle"
+          @textInput="checkForm($event, 'name')"
         ></UInput>
+        <p v-show="$v.guideTitle.$error" class="errorInput">
+          Please enter item name
+        </p>
         <textarea
           class="guide-comments"
           placeholder="Enter your comment"
-          :value="guideComment"
-          @blur="$emit('textInput', [$event.target.value, 'comment'])"
+          :value="description"
+          @blur="checkForm($event.target.value, 'comment')"
         ></textarea>
+        <p v-show="$v.description.$error" class="errorInput">
+          Please enter your comment
+        </p>
       </div>
       <button
         class="button-remove-link"
@@ -29,6 +35,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
+import { required } from "vuelidate/lib/validators";
 
 import UInput from "~/components/atoms/uInput.vue";
 
@@ -36,11 +43,37 @@ import UInput from "~/components/atoms/uInput.vue";
   components: {
     UInput,
   },
+  validations: {
+    description: {
+      required,
+    },
+    guideTitle: {
+      required,
+    },
+  },
 })
 export default class extends Vue {
   @Prop({ default: "i" }) name: String;
-  @Prop() guideName: String;
-  @Prop() guideComment: String;
+  @Prop() guideName!: String;
+  @Prop() guideComment!: String;
+  guideTitle = this.guideName ? this.guideName : "";
+  description = this.guideComment ? this.guideComment : "";
+
+  checkForm(injectedText, status) {
+    if (status === "name") {
+      this.guideTitle = injectedText;
+    } else if (status === "comment") {
+      this.description = injectedText;
+    }
+    this.$v.$touch();
+
+    if (!this.$v.$error) {
+      this.$emit("updateSecret", {
+        title: this.guideTitle,
+        description: this.description,
+      });
+    }
+  }
 }
 </script>
 <style lang="scss">

@@ -22,7 +22,6 @@
       :position-id="position.id"
       @removeSpeciality="removeSpeciality(position.id, i)"
       @chosenSpeciality="addSpecialityToPosition($event, position.id)"
-      @chosenTechnologies="addChosenTechnologies($event, i, position.id)"
     >
     </Create-Specialities>
     <button class="specialityOne__button" @click="addSpeciality">
@@ -38,8 +37,7 @@
         v-for="item in CreateProjectPage.invites"
         :key="item.id"
         :name="item.email"
-        :specialisations="CreateProjectPage.specialisations"
-        :speciality="CreateProjectPage.draftStartup.positions"
+        :specialisations="CreateProjectPage.specialisationsForInvites"
         :picker="false"
         :speciality-from-parent="[
           item.position.specialisation.title,
@@ -119,17 +117,6 @@ export default class extends Vue {
       id,
     });
     Spinner.hide();
-  }
-
-  async addChosenTechnologies(data, i, id) {
-    try {
-      await this.$updatePosition(id, data[0].id, data[0].specialisation);
-      this.specialityComponent[i].technologies = data[0].technologies;
-      this.specialityComponent[i].technologiesId = data[0].id;
-      this.specialityComponent[i].newTechnologies = data[0].newTechnologies;
-    } catch (e) {
-      console.error(e);
-    }
   }
 
   goToStepThree() {
