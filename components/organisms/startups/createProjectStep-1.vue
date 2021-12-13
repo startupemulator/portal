@@ -91,8 +91,14 @@
             placeholder="Or enter the number of days"
             :class="$v.duration.$error ? ' error' : ''"
         /></label>
-        <p v-show="$v.duration.$error" class="errorInput">
+        <p
+          v-show="!$v.duration.required || !$v.duration.numeric"
+          class="errorInput"
+        >
           Please enter or choose estimation duration
+        </p>
+        <p v-show="!$v.duration.maxValue" class="errorInput">
+          Estimation duration can't be more 365 days
         </p>
       </div>
     </div>
@@ -114,7 +120,12 @@
 <script lang="ts">
 import DatePicker from "vue2-datepicker";
 import { Component, Vue, Prop } from "nuxt-property-decorator";
-import { required, minLength, numeric } from "vuelidate/lib/validators";
+import {
+  required,
+  minLength,
+  numeric,
+  maxValue,
+} from "vuelidate/lib/validators";
 import Toast from "../../../store/modules/Toast";
 import { Estimation } from "../../../models/Estimation";
 import Spinner from "../../../store/modules/Spinner";
@@ -139,6 +150,7 @@ import { CreateProjectPage } from "~/store";
     duration: {
       required,
       numeric,
+      maxValue: maxValue(365),
     },
   },
   components: { DatePicker, UButton, DurationPicker, AddInput },
