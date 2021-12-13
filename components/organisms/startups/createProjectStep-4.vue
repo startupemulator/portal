@@ -5,16 +5,15 @@
       Add links on design, userflows, repositories, etc., which will be used
       during the project’s development. You can skip this step for now.
     </h3>
-    <div
-      :is="item.type"
-      v-for="(item, i) in guideSourseComponent"
-      :key="item.id"
+    <CreateGuide
+      v-for="(guide, i) in CreateProjectPage.draftStartup.secrets"
+      :key="guide.id"
       :name="'Item ' + (i + 1)"
-      :guide-name="item.name"
-      :guide-comment="item.comment"
-      @removeGuideSources="removeGuideSources(item.id)"
-      @textInput="textInput($event, i, item.id)"
-    ></div>
+      :guide-name="guide.title"
+      :guide-comment="guide.description"
+      @removeGuideSources="removeGuideSources(guide.id)"
+      @updateSecret="updateSources($event, guide.id)"
+    ></CreateGuide>
     <div class="existing-sources__add-link">
       <U-button
         :button-name="'Add item'"
@@ -46,106 +45,45 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 import Spinner from "../../../store/modules/Spinner";
 import UButton from "~/components/atoms/uButton.vue";
 import CreateGuide from "~/components/molecules/createGuide.vue";
-
+import { CreateProjectPage } from "~/store";
 import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartup.vue";
 
 @Component({
   components: { UButton, CreateGuide, PopupCreatedStartUp },
 })
 export default class extends Vue {
+  CreateProjectPage;
+  constructor() {
+    super();
+    this.CreateProjectPage = CreateProjectPage;
+  }
+
   @Prop() startupData!: Array<any>;
   popupPublish: Boolean = false;
   guideSourseComponent: Array<any> = [];
 
   async addGuideSourse() {
     Spinner.show();
-    try {
-      const secret = await this.$createSecret("", "", this.startupData.id);
-      if (secret !== null) {
-        this.guideSourseComponent.push({
-          id: secret.id,
-          type: "create-guide",
-          name: secret.title,
-          comment: secret.description,
-        });
-      }
-
-      Spinner.hide();
-    } catch (e) {
-      console.error(e);
-      Spinner.hide();
-    }
+    await CreateProjectPage.addGuideSourse(this);
+    Spinner.hide();
   }
 
-  async removeGuideSources(id) {
+  async removeGuideSources(sourceId) {
     Spinner.show();
-    try {
-      const secret = await this.$deleteSecret(id);
-      if (+secret.id === +id) {
-        this.guideSourseComponent = this.guideSourseComponent.filter(
-          (item) => item.id !== id
-        );
-        Spinner.hide();
-      }
-    } catch (e) {
-      console.error(e);
-      Spinner.hide();
-    }
+    await CreateProjectPage.removeGuideSources({ context: this, sourceId });
+
+    Spinner.hide();
   }
 
-  async updateSecret(id, title = "", description = "") {
+  async updateSources({ title, description }, guideId) {
     Spinner.show();
-    try {
-      const secret = await this.$updateSecret(id, title, description);
-      if (secret !== null) {
-        Spinner.hide();
-      }
-    } catch (e) {
-      console.error(e);
-      Spinner.hide();
-    }
-  }
-
-  textInput($event, i, id) {
-    switch ($event[1]) {
-      case "name":
-        this.updateSecret(id, $event[0], this.guideSourseComponent[i].comment);
-        this.guideSourseComponent[i].name = $event[0];
-        break;
-      case "comment":
-        this.updateSecret(id, this.guideSourseComponent[i].name, $event[0]);
-        this.guideSourseComponent[i].comment = $event[0];
-        break;
-      default:
-    }
-    this.$emit("addSomeGiude", this.guideSourseComponent);
-  }
-
-  mounted() {
-    if (this.startupData.secrets && this.startupData.secrets.length !== 0) {
-      this.startupData.secrets.forEach((el) => {
-        const data = {
-          id: el.id,
-          comment: el.description,
-          name: el.title,
-          type: "create-guide",
-        };
-        this.guideSourseComponent.push(data);
-      });
-    }
-  }
-
-  beforeDestroy() {
-    this.startupData.secrets = [];
-    this.guideSourseComponent.forEach((el) => {
-      const data = {
-        id: el.id,
-        description: el.comment,
-        title: el.name,
-        type: "create-guide",
-      };
-      this.startupData.secrets.push(data);
+    await CreateProjectPage.updateGuideSources({
+      context: this,
+      guideId,
+      title,
+      description,
     });
+    Spinner.hide();
   }
 }
 </script>

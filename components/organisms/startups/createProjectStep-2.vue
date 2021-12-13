@@ -22,7 +22,6 @@
       :position-id="position.id"
       @removeSpeciality="removeSpeciality(position.id, i)"
       @chosenSpeciality="addSpecialityToPosition($event, position.id)"
-      @chosenTechnologies="addChosenTechnologies($event, i, position.id)"
     >
     </Create-Specialities>
     <button class="specialityOne__button" @click="addSpeciality">
@@ -34,17 +33,19 @@
         You can also invite your colleagues
         <p>to the team as developers or as product owners.</p>
       </h5>
-      <div
-        :is="item.type"
-        v-for="item in invitedcolleagues"
+      <CreateSpecialities
+        v-for="item in CreateProjectPage.invites"
         :key="item.id"
         :name="item.email"
-        :specialisations="CreateProjectPage.specialisations"
-        :speciality="specialityComponent"
+        :specialisations="CreateProjectPage.specialisationsForInvites"
         :picker="false"
-        :speciality-from-parent="[item.choosenSpeciality]"
+        :speciality-from-parent="[
+          item.position.specialisation.title,
+          item.position.specialisation.id,
+        ]"
         @removeSpeciality="removeInvitedcolleagues(item.id)"
-      ></div>
+      ></CreateSpecialities>
+
       <button class="invite-colleagues__button" @click="toggleInviteColleagues">
         Invite colleagues
       </button>
@@ -118,19 +119,6 @@ export default class extends Vue {
     Spinner.hide();
   }
 
-  async addChosenTechnologies(data, i, id) {
-    console.log("update position");
-    console.log(data, i, id);
-    try {
-      await this.$updatePosition(id, data[0].id, data[0].specialisation);
-      this.specialityComponent[i].technologies = data[0].technologies;
-      this.specialityComponent[i].technologiesId = data[0].id;
-      this.specialityComponent[i].newTechnologies = data[0].newTechnologies;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
   goToStepThree() {
     this.$emit("goToStepThree", [
       this.specialityComponent,
@@ -139,31 +127,16 @@ export default class extends Vue {
   }
 
   async inviteCollegue(data) {
-    const invite = await this.$createInvite(
-      data.email,
-      data.position_id,
-      CreateProjectPage.draftStartup.id,
-      CreateProjectPage.draftStartup.owner.id
-    );
-    if (invite !== null) {
-      const inviteData = {
-        id: invite.id,
-        type: "create-specialities",
-        email: invite.email,
-        choosenSpeciality: data.speciality.trim(),
-        position_id: data.position_id,
-      };
-      this.invitedcolleagues.push(inviteData);
+    Spinner.show();
+    await CreateProjectPage.inviteCollegue({ context: this, data });
+    Spinner.hide();
 
-      this.invitecolleagues = !this.invitecolleagues;
-
-      enableScrolling();
-    }
+    this.invitecolleagues = !this.invitecolleagues;
+    enableScrolling();
   }
 
   toggleInviteColleagues() {
     if (CreateProjectPage.draftStartup.positions.length !== 0) {
-      console.log(CreateProjectPage.draftStartup.positions);
       this.invitecolleagues = !this.invitecolleagues;
       this.invitecolleagues ? disableScrolling() : enableScrolling();
     }
@@ -171,42 +144,8 @@ export default class extends Vue {
 
   async removeInvitedcolleagues(id) {
     Spinner.show();
-    await this.$deleteInvite(id);
-    if (id === removeInvite.id) {
-      this.invitedcolleagues = this.invitedcolleagues.filter(
-        (item) => item.id !== removeInvite.id
-      );
-    }
+    await CreateProjectPage.deleteInviteCollegue({ context: this, id });
     Spinner.hide();
-  }
-
-  mounted() {
-    console.log(this.CreateProjectPage.draftStartup);
-    if (CreateProjectPage.draftStartup.coleagues) {
-      this.invitedcolleagues = CreateProjectPage.draftStartup.coleagues;
-    }
-
-    if (CreateProjectPage.draftStartup.specialists) {
-      this.specialityComponent = CreateProjectPage.draftStartup.specialists;
-    } else if (CreateProjectPage.draftStartup.owner.invites) {
-      this.invitedcolleagues = [];
-
-      CreateProjectPage.draftStartup.owner.invites.forEach((el) => {
-        if (
-          el.position &&
-          el.position.startup !== null &&
-          CreateProjectPage.draftStartup.id === el.position.startup.id
-        ) {
-          const data = {
-            id: el.id,
-            type: "create-specialities",
-            email: el.email,
-            choosenSpeciality: el.position.specialisation.title,
-          };
-          this.invitedcolleagues.push(data);
-        }
-      });
-    }
   }
 }
 </script>

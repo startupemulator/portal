@@ -5,16 +5,15 @@
       Add links on design, userflows, repositories, etc., which will be used
       during the project’s development. You can skip this step for now.
     </h3>
-    <div
-      :is="item.type"
-      v-for="(item, i) in existingSourseComponent"
-      :key="item.id"
+    <Add-Existing-Source
+      v-for="(sources, i) in startupData.sources"
+      :key="sources.id"
       :name="'Link ' + (i + 1)"
-      :link-name="item.title"
-      :link-href="item.link"
-      @removeExistingSources="removeExistingSources(item.id)"
-      @updateSourses="updateSourses($event, i, item.id)"
-    ></div>
+      :link-name="sources.title"
+      :link-href="sources.link"
+      @removeExistingSources="removeExistingSources(sources.id)"
+      @updateSources="updateSources($event, sources.id)"
+    ></Add-Existing-Source>
     <div class="existing-sources__add-link">
       <U-button
         :button-name="'Add Link'"
@@ -40,90 +39,53 @@
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import Spinner from "../../../store/modules/Spinner";
 import UButton from "~/components/atoms/uButton.vue";
-import AddExistingSourse from "~/components/molecules/addExistingSource.vue";
+import AddExistingSource from "~/components/molecules/addExistingSource.vue";
+import { CreateProjectPage } from "~/store";
 
 @Component({
   components: {
     UButton,
-    AddExistingSourse,
+    AddExistingSource,
   },
 })
 export default class extends Vue {
   @Prop() startupData!: Array<any>;
   loading = false;
-
-  existingSourseComponent: Array<any> = [];
-
-  async updateSourses(data, i, id) {
-    Spinner.show();
-    try {
-      const sources = await this.$updateSource(id, data[0], data[1]);
-      if (sources !== null) {
-        Spinner.hide();
-        this.existingSourseComponent[i].title = data[1];
-        this.existingSourseComponent[i].link = data[1];
-      }
-    } catch (e) {
-      console.error(e);
-      Spinner.hide();
-    }
-  }
-
-  goToStepFour() {
-    this.$emit("goToStepFour", this.existingSourseComponent);
+  CreateProjectPage;
+  constructor() {
+    super();
+    this.CreateProjectPage = CreateProjectPage;
   }
 
   async addExistingSourse() {
     Spinner.show();
-    try {
-      const source = await this.$createSource(
-        "",
-        "https://",
-        this.startupData.id
-      );
-      if (source !== null) {
-        this.existingSourseComponent.push({
-          id: source.id,
-          title: source.title,
-          link: source.link.trim(),
-          type: "add-existing-sourse",
-        });
-      }
-      Spinner.hide();
-    } catch (e) {
-      console.error(e);
-      Spinner.hide();
-    }
+    await CreateProjectPage.addExistingSourse(this);
+    Spinner.hide();
   }
 
   async removeExistingSources(id) {
     Spinner.show();
-    try {
-      const sources = await this.$deleteSource(id);
-      if (+sources.id === +id) {
-        this.existingSourseComponent = this.existingSourseComponent.filter(
-          (item) => item.id !== id
-        );
-        Spinner.hide();
-      }
-    } catch (e) {
-      console.error(e);
-      Spinner.hide();
-    }
+    await CreateProjectPage.removeExistingSources({
+      context: this,
+      sourcesId: id,
+    });
+    Spinner.hide();
   }
 
-  mounted() {
-    if (this.startupData.sources && this.startupData.sources.length !== 0) {
-      this.startupData.sources.forEach((el) => {
-        const data = {
-          id: el.id,
-          link: el.link,
-          title: el.title,
-          type: "add-existing-sourse",
-        };
-        this.existingSourseComponent.push(data);
-      });
-    }
+  async updateSources({ title, link }, sourceId) {
+    Spinner.show();
+    await CreateProjectPage.updateSources({
+      context: this,
+      sourceId,
+      title,
+      link,
+    });
+
+    Spinner.hide();
+  }
+
+  goToStepFour() {
+    this.$emit("goToStepFour");
   }
 }
 </script>

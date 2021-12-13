@@ -37,7 +37,6 @@
     <CreateProjectStep4
       v-if="createprodjectSteps.stepFour"
       :startup-data="CreateProjectPage.draftStartup"
-      @addSomeGiude="addSomeGiude"
       @saveDraft="saveDraft"
       @publish="publish"
     ></CreateProjectStep4>
@@ -59,7 +58,6 @@ import CreateProjectStep4 from "./createProjectStep-4.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import { Technology } from "~/models/Technology";
-import { Startup } from "~/models/Startup";
 import { Specialisation } from "~/models/Specialisation";
 import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartup.vue";
 import { CreateProjectPage } from "~/store";
@@ -109,22 +107,6 @@ export default class extends Vue {
 
   saveDraft() {
     this.publish("draft");
-  }
-
-  checkTechnologies() {
-    if (CreateProjectPage.draftStartup.specialists !== undefined) {
-      CreateProjectPage.draftStartup.specialists.forEach((specialist) => {
-        if (specialist.technologiesId) {
-          specialist.technologiesId.forEach((el) => {
-            this.tehnologies.push(el);
-          });
-        } else if (specialist.technologies) {
-          specialist.technologies.forEach((el) => {
-            this.tehnologies.push(el.id);
-          });
-        }
-      });
-    }
   }
 
   async publish(state = "review") {
@@ -193,92 +175,11 @@ export default class extends Vue {
     secodStepData[1].forEach((el) =>
       CreateProjectPage.draftStartup.coleagues.push(el)
     );
-
-    this.checkTechnologies();
   }
 
-  goToStepFour(thirdStepData) {
+  goToStepFour() {
     this.createprodjectSteps.stepThree = false;
     this.createprodjectSteps.stepFour = true;
-    CreateProjectPage.draftStartup.sources = [];
-    thirdStepData.forEach((el) => {
-      CreateProjectPage.draftStartup.sources.push(el);
-    });
-  }
-
-  addSomeGiude(data) {
-    CreateProjectPage.draftStartup.guide = [];
-    data.forEach((el) => {
-      if (el.name) {
-        CreateProjectPage.draftStartup.guide.push(el);
-      }
-    });
-  }
-
-  async createSpecialisation(data) {
-    try {
-      await this.$strapi.create("positions", data);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  async createNewTechnologies(data) {
-    try {
-      await this.$strapi.create("technologies", {
-        creator_id: this.$strapi.user.id,
-        title: data,
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  async newInvate(data) {
-    try {
-      await this.$strapi.create("invites", {
-        inviter: this.$strapi.user.id.toString(),
-        startup: this.createdStartupId.toString(),
-        position: data.position,
-        email: data.email,
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  async addGuide(data) {
-    try {
-      await this.$strapi.create("secrets", {
-        title: data.name,
-        description: data.comment,
-        startup: this.createdStartupId.toString(),
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  async addLink(data) {
-    try {
-      await this.$strapi.create("sources", {
-        title: data.title,
-        link: data.link,
-        startups: this.createdStartupId.toString(),
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  async addTechnologiesToStartup(data) {
-    try {
-      await this.$strapi.update("startups", this.createdStartupId.toString(), {
-        technologies: data,
-      });
-    } catch (e) {
-      console.error(e);
-    }
   }
 }
 </script>

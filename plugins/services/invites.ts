@@ -26,8 +26,16 @@ export function createInvite($strapi: Strapi) {
             invite {
               id
               email
+              is_expert
               position{
                   id
+                  startup{
+                    id
+                  }
+                  specialisation{
+                    id
+                    title
+                  }
               }
             }
           }

@@ -40,17 +40,18 @@
         >
           <img src="~/assets/img/close.svg" alt="" />
         </button>
+
         <ul v-show="openSpeciality" class="specialityOne__item-list">
           <li
-            v-for="item in speciality.length > 0 ? speciality : specialisations"
-            :key="item.id"
+            v-for="(item, i) in specialisations"
+            :key="i"
             class="specialityOne__item-item"
             @click="chosespeciality($event.target, item.id)"
           >
-            {{ item.speciality }}
             {{ item.title }}
           </li>
         </ul>
+
         <ul
           class="chosen-technology"
           :class="
@@ -159,12 +160,6 @@ export default class extends Vue {
 
   @Prop({ default: "" }) name: String;
   @Prop({ default: "" }) title: String;
-  @Prop({
-    default() {
-      return {};
-    },
-  })
-  speciality: Array<any>;
 
   @Prop({
     default() {
@@ -228,7 +223,12 @@ export default class extends Vue {
   }
 
   removeTechnology(data) {
-    this.customTechnologiesForRemove = data;
+    this.customTechnologiesForRemove = [];
+    if (data.length === 0) {
+      this.customTechnologiesForRemove.push(false);
+    } else {
+      this.customTechnologiesForRemove = data;
+    }
   }
 
   chosespeciality(e, id) {
@@ -248,17 +248,18 @@ export default class extends Vue {
   async savePopupPickTechnologies() {
     this.chosenTechnologies = [];
 
+    if (this.customTechnologiesForRemove.length !== 0) {
+      await CreateProjectPage.removePersonalTechnology({
+        technologies: this.customTechnologiesForRemove,
+        positionId: this.positionId,
+      });
+    }
+
     for (const technology of this.newTechnologies) {
       await CreateProjectPage.createCustomTechnology({
         context: this,
         positionId: this.positionId,
         technology,
-      });
-    }
-    if (this.customTechnologiesForRemove.length !== 0) {
-      await CreateProjectPage.removePersonalTechnology({
-        technologies: this.customTechnologiesForRemove,
-        positionId: this.positionId,
       });
     }
 
@@ -291,6 +292,11 @@ export default class extends Vue {
         technology.checked = true;
       } else {
         technology.checked = false;
+      }
+    });
+    this.checkedTechnologies.forEach((el) => {
+      if (!el.is_public) {
+        this.chosenTechnologies.push(el.id);
       }
     });
     enableScrolling();
@@ -328,6 +334,11 @@ export default class extends Vue {
         }
       });
     }
+    this.checkedTechnologies.forEach((el) => {
+      if (!el.is_public) {
+        this.chosenTechnologies.push(el.id);
+      }
+    });
   }
 }
 </script>

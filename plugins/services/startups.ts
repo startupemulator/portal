@@ -239,6 +239,7 @@ export function startupById($strapi: Strapi) {
             technologies{
               id
               title
+              is_public
             }
           }
           owner {
@@ -250,6 +251,7 @@ export function startupById($strapi: Strapi) {
             invites{
               id
               email
+              is_expert
               position{
                 id
                 startup{
@@ -580,6 +582,7 @@ export function updateStartupInfo($strapi: Strapi) {
             technologies{
               id
               title
+              is_public
             }
           }
           owner {
