@@ -56,4 +56,8 @@ export default class extends Vue {
 .checked {
   background: rgba(89, 102, 126, 1);
 }
+
+.experience_list .tags-item {
+  cursor: default;
+}
 </style>

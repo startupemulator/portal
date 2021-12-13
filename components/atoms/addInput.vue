@@ -9,6 +9,7 @@
       </li>
       <input
         v-model="inputedtext"
+        maxlength="25"
         class="input-add__input focused"
         type="text"
         :placeholder="placeholder"

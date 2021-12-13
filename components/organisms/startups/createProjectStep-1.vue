@@ -98,7 +98,7 @@
           Please enter or choose estimation duration
         </p>
         <p v-show="!$v.duration.maxValue" class="errorInput">
-          Estimation duration can't be more 365 days
+          Estimation duration can't be more 365 days.
         </p>
       </div>
     </div>
