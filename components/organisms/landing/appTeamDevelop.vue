@@ -23,21 +23,21 @@
         product owner should describe his idea.
       </h3>
 
-      <U-button
+      <U-Button
         v-if="!isLogined"
         :href="'createAccount'"
         :button-name="'Sign Up'"
         :button-class="'u-button-gray'"
         :is-link="'nuxt-link'"
-      ></U-button>
+      ></U-Button>
 
-      <U-button
+      <U-Button
         v-if="isLogined"
         :href="'/startup/create'"
         :button-name="'Create Startup'"
         :button-class="'u-button-gray'"
         :is-link="'nuxt-link'"
-      ></U-button>
+      ></U-Button>
     </div>
   </div>
 </template>

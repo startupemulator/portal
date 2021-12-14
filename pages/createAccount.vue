@@ -1,6 +1,6 @@
 <template>
   <div class="createaccount-fullscreen">
-    <CreateAccount></CreateAccount>
+    <Create-Account></Create-Account>
     <toast></toast>
   </div>
 </template>

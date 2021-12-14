@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="createProject">
-      <CreateChallenge :specialisations="specialisations"></CreateChallenge>
+      <Create-Challenge :specialisations="specialisations"></Create-Challenge>
     </div>
   </div>
 </template>

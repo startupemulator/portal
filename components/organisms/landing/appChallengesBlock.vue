@@ -37,7 +37,7 @@
         tag="div"
         class="transition__startup-card"
       >
-        <ChallengeCard
+        <Challenge-Card
           v-for="card in cards"
           :key="card.id"
           v-touch:swipe="$device.isMobile ? touchHandler : ''"
@@ -47,7 +47,7 @@
           :is-expert="isExpert"
           :user-challenges="userChallenges"
           :feed-back-for-challenges="feedBackForChallenges"
-        ></ChallengeCard>
+        ></Challenge-Card>
       </transition-group>
     </div>
   </div>

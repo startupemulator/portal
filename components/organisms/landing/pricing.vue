@@ -29,12 +29,12 @@
           </ul>
         </div>
 
-        <UButton
+        <U-Button
           :button-name="'Sign Up'"
           :button-class="'u-button-gray'"
           :is-link="'nuxt-link'"
           :href="'logIn'"
-        ></UButton>
+        ></U-Button>
       </div>
       <div class="pricing__card senior-card">
         <div class="pricing__card-header">
@@ -67,12 +67,12 @@
           </ul>
         </div>
 
-        <UButton
+        <U-Button
           :button-name="'Sign Up'"
           :button-class="'u-button-blue'"
           :is-link="'nuxt-link'"
           :href="'createAccount'"
-        ></UButton>
+        ></U-Button>
       </div>
       <div class="pricing__card">
         <div class="pricing__card-header">
@@ -100,12 +100,12 @@
           </ul>
         </div>
 
-        <UButton
+        <U-Button
           :button-name="'Contact Us'"
           :button-class="'u-button-gray'"
           :is-link="'nuxt-link'"
           :href="'/'"
-        ></UButton>
+        ></U-Button>
       </div>
     </div>
   </div>

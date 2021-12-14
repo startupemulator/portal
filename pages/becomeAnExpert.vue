@@ -1,10 +1,10 @@
 <template>
   <div class="fullscreen">
-    <BecomeAnExpert
+    <Become-An-Expert
       :technologies="technologies"
       :user-id="userId"
       :user-name="userName"
-    ></BecomeAnExpert>
+    ></Become-An-Expert>
   </div>
 </template>
 

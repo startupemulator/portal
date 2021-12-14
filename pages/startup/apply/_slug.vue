@@ -1,6 +1,6 @@
 <template>
   <div class="experience">
-    <BecomeToExpert
+    <Become-To-Expert
       :technology="technology"
       :startup="startup"
       :experiences="experiences"
@@ -9,7 +9,7 @@
       :experience="profile.experience ? profile.experience.id : ''"
       :profile-id="profile.id"
       :profile="profile"
-    ></BecomeToExpert>
+    ></Become-To-Expert>
   </div>
 </template>
 

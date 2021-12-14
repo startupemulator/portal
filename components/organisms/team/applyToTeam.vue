@@ -1,13 +1,13 @@
 <template>
   <div class="apply-to-team">
-    <U-back v-if="applyToTeamStep1" :link="'/startups'"></U-back>
+    <U-Back v-if="applyToTeamStep1" :link="'/startups'"></U-Back>
 
-    <U-back
+    <U-Back
       v-if="!applyToTeamStep1"
       :is-button="true"
       @clikOnButton="applyToTeamGoStep1"
-    ></U-back>
-    <ApplyToTeamStep1
+    ></U-Back>
+    <Apply-To-Team-Step1
       v-if="applyToTeamStep1"
       :experiences="experiences"
       :technologies="technology"
@@ -18,18 +18,18 @@
       @chosenTechnology="chosenTechnology"
       @addTechnologies="addTechnologies"
       @removeTechnology="removeTechnology"
-    ></ApplyToTeamStep1>
+    ></Apply-To-Team-Step1>
 
-    <ApplyToTeamStep2
+    <Apply-To-Team-Step2
       v-if="applyToTeamStep2"
       :startup="startup || {}"
       :specialisations="specialisations"
       @apply="apply"
-    ></ApplyToTeamStep2>
-    <PopupApplied
+    ></Apply-To-Team-Step2>
+    <Popup-Applied
       v-show="popupApplied"
       @closePopupLinkSent="closePopup"
-    ></PopupApplied>
+    ></Popup-Applied>
   </div>
 </template>
 

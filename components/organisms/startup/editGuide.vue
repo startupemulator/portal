@@ -21,24 +21,24 @@
         @textInput="textInput($event, i, item.id)"
       ></div>
       <div class="edit-guide__add-link">
-        <U-button
+        <U-Button
           :button-name="'Add item'"
           :button-class="'u-button-blue'"
           @clickOnButton="addGuideSourse"
-        ></U-button>
+        ></U-Button>
       </div>
     </div>
     <div class="edit-guide__buttons">
-      <U-button
+      <U-Button
         :button-name="'Save'"
         :button-class="'u-button-blue'"
         @clickOnButton="saveSources"
-      ></U-button>
-      <U-button
+      ></U-Button>
+      <U-Button
         :button-name="'Cancel'"
         :button-class="'u-button-gray'"
         @clickOnButton="cancelSources"
-      ></U-button>
+      ></U-Button>
     </div>
   </div>
 </template>

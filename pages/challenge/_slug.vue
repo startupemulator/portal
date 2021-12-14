@@ -1,6 +1,6 @@
 <template>
   <div v-cloak class="startups-page">
-    <ChallengePage
+    <Challenge-Page
       :key="updateKey"
       :challenge="updatableChallenge"
       :user-challenges="userChallenges"
@@ -13,7 +13,7 @@
       :badges="badges"
       :is-super-admin="isSuperAdmin"
       @requestIsSend="requestIsSend"
-    ></ChallengePage>
+    ></Challenge-Page>
   </div>
 </template>
 <script lang="ts">

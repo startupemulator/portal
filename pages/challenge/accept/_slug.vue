@@ -1,11 +1,11 @@
 <template>
   <div class="fullscreen">
-    <ParticipateChallenge
+    <Participate-Challenge
       :challenge="challenge"
       :estimations="estimations"
       :popup-challenge-started="popupChallengeStarted"
       @startChallenge="startChallenge"
-    ></ParticipateChallenge>
+    ></Participate-Challenge>
   </div>
 </template>
 

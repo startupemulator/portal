@@ -35,11 +35,11 @@
     <div class="startup-block__startup-cards">
       <transition-group name="card" tag="div" class="transition__startup-card">
         <div v-for="card in cards" :key="card.id" class="card-move">
-          <StartupCard
+          <Startup-Card
             v-touch:swipe="$device.isMobile ? touchHandler : ''"
             v-touch-class="$device.isMobile ? 'active' : ''"
             :card="card"
-          ></StartupCard>
+          ></Startup-Card>
         </div>
       </transition-group>
     </div>

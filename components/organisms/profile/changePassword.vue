@@ -74,11 +74,11 @@
         ></U-Button>
       </div>
     </div>
-    <popup-challenge-started
+    <Popup-Challenge-Started
       v-if="popupChallengeStarted"
       :title="'You successfully changed your password'"
       :text-content="''"
-    ></popup-challenge-started>
+    ></Popup-Challenge-Started>
   </div>
 </template>
 <script lang="ts">

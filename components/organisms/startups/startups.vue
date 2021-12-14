@@ -2,7 +2,7 @@
   <div v-cloak class="start-ups">
     <div class="start-ups__content">
       <div class="start-ups__header">
-        <U-title :text="'Startups'"></U-title>
+        <U-Title :text="'Startups'"></U-Title>
         <div class="start-ups__header-filter">
           <p>Filter by Technologies</p>
           <ul
@@ -10,13 +10,13 @@
             :class="filterList ? 'filter_list--opend' : ''"
           >
             <li v-for="item in technologies" :key="item.id" ref="filter">
-              <U-tags
+              <U-Tags
                 :id="item.id"
                 :title="item.title"
                 :name="item.title"
                 :type="'checkbox'"
                 @pick="pickTechnologi($event.target)"
-              ></U-tags>
+              ></U-Tags>
             </li>
           </ul>
 
@@ -38,14 +38,14 @@
       </div>
       <div class="start-ups_cards-content startup-block">
         <div class="transition__startup-card">
-          <Startup-card
+          <Startup-Card
             v-for="card in startups"
             :key="card.id"
             :card="card"
             :technology="technologies"
             :user-id="userId"
             :waiting-feedback="card.state !== 'finished' ? waitingFeedback : []"
-          ></Startup-card>
+          ></Startup-Card>
         </div>
       </div>
 
@@ -54,8 +54,8 @@
         :class="'u-button-gray u-button-gray__show-more'"
         :button-name="'Show More'"
       ></u-button>
-      <EmptyState v-if="emptyState" @clickOnButton="cleanFilter"></EmptyState>
-      <AppTeamDevelop v-if="!autorizated"></AppTeamDevelop>
+      <Empty-State v-if="emptyState" @clickOnButton="cleanFilter"></Empty-State>
+      <App-Team-Develop v-if="!autorizated"></App-Team-Develop>
     </div>
   </div>
 </template>

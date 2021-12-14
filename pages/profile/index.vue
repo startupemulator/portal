@@ -1,6 +1,6 @@
 <template>
   <div class="profile">
-    <MyProfile
+    <My-Profile
       v-if="userHaveProfile"
       :key="updatePageAfterSendNewDataInProfile"
       :startups="startups"
@@ -15,15 +15,15 @@
       :my-startup-feedbacks="myStartupFeedbacks"
       :my-challenge-feedbacks="myChallengeFeedbacks"
       @updateData="updateData"
-    ></MyProfile>
+    ></My-Profile>
     <div v-else class="confim-your-email">
       <h2>Please confirm your email</h2>
-      <UButton
+      <U-Button
         v-if="$strapi.user"
         button-class="u-button-gray"
         button-name="Log Out"
         @clickOnButton="$strapi.logout()"
-      ></UButton>
+      ></U-Button>
     </div>
   </div>
 </template>

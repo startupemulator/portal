@@ -1,7 +1,7 @@
 <template>
   <div class="request-feedback">
-    <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
-    <UTitle :text="'Request feedback'"></UTitle>
+    <U-Back :is-button="true" @clikOnButton="$emit('clikOnButton')"></U-Back>
+    <U-Title :text="'Request feedback'"></U-Title>
     <p>
       Add all the specialities that you need in your team. During reviewing
       candidates you will be able to accept as much candidates as you need for
@@ -20,19 +20,19 @@
     <p v-show="$v.haveASolution.$error" class="errorInput link">
       Please add solution link
     </p>
-    <U-button
+    <U-Button
       :button-name="'Add Link'"
       :button-class="'u-button-blue add-link'"
       @clickOnButton="addExistingSourse"
-    ></U-button>
+    ></U-Button>
 
-    <TechnologyPicker
+    <Technolog-Picker
       :title="'Pick technologies you used'"
       :add-technology="true"
       :technologies="profile.technologies"
       @chosenTechnologi="chosenTechnologi"
       @addTechnologies="addTechnologies"
-    ></TechnologyPicker>
+    ></Technolog-Picker>
     <p v-show="$v.addedTechnologies.$error" class="errorInput">
       Please choose a technologies
     </p>
@@ -55,11 +55,11 @@
       Please check I’ve finished this challenge
     </p>
     <div class="request-feedback__button">
-      <U-button
+      <U-Button
         :button-name="'Submit'"
         :button-class="'u-button-blue'"
         @clickOnButton="submit"
-      ></U-button>
+      ></U-Button>
     </div>
   </div>
 </template>

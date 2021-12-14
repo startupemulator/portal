@@ -7,14 +7,14 @@
           <span>{{ feedbacksCount }}</span>
         </div>
       </div>
-      <FeedBackCard
+      <Feed-Back-Card
         v-for="feedback in feedbacks"
         :key="feedback.id"
         :feedback="feedback"
         :is-expert="isExpert"
         :user-id="userId"
         :is-expert-profile="true"
-      ></FeedBackCard>
+      ></Feed-Back-Card>
     </div>
   </div>
 </template>

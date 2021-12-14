@@ -1,14 +1,14 @@
 <template>
   <div class="edit-startup-info">
-    <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
-    <UTitle :text="'Edit startup info'"></UTitle>
+    <U-Back :is-button="true" @clikOnButton="$emit('clikOnButton')"></U-Back>
+    <U-Title :text="'Edit startup info'"></U-Title>
 
-    <StartupInfo
+    <Startup-Info
       :startup="startup"
       :estimations="estimations"
       @cancel="$emit('cancelEditStartupInfo')"
       @updateStartup="updateStartup"
-    ></StartupInfo>
+    ></Startup-Info>
   </div>
 </template>
 <script lang="ts">

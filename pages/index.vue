@@ -1,27 +1,27 @@
 <template>
   <div>
-    <app-get-experience></app-get-experience>
+    <App-Get-Experience></App-Get-Experience>
 
-    <app-startups-block
+    <App-Startups-Block
       :cards="LandingPage.startups"
       @slideRight="LandingPage.moveRightStartups()"
       @slideLeft="LandingPage.moveLeftStartups()"
-    ></app-startups-block>
-    <app-challenges-block
+    ></App-Startups-Block>
+    <App-Challenges-Block
       :cards="LandingPage.challenges"
       :user-id="$strapi.user ? $strapi.user.id : null"
       @slideRight="LandingPage.moveRightChallenges()"
       @slideLeft="LandingPage.moveLeftChallenges()"
-    ></app-challenges-block>
-    <app-team-develop :is-logined="!!$strapi.user"></app-team-develop>
-    <app-take-part></app-take-part>
+    ></App-Challenges-Block>
+    <App-Team-Develop :is-logined="!!$strapi.user"></App-Team-Develop>
+    <App-Take-Part></App-Take-Part>
     <Pricing ref="pricing"></Pricing>
-    <app-top-startups></app-top-startups>
-    <app-testimonials
+    <App-Top-Startups></App-Top-Startups>
+    <App-Testimonials
       :cards="LandingPage.testimonials"
       @slideRight="LandingPage.moveRightTestimonials()"
       @slideLeft="LandingPage.moveLeftTestimonials()"
-    ></app-testimonials>
+    ></App-Testimonials>
   </div>
 </template>
 

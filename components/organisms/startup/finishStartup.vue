@@ -10,16 +10,16 @@
         <img src="~/assets/img/close.svg" alt="Close" />
       </button>
       <div class="finish-startup__content__buttons">
-        <U-button
+        <U-Button
           :button-name="'Yes, Finish'"
           :button-class="'u-button-blue'"
           @clickOnButton="$emit('finishStartup')"
-        ></U-button>
-        <U-button
+        ></U-Button>
+        <U-Button
           :button-name="'No, Don’t Finish'"
           :button-class="'u-button-gray'"
           @clickOnButton="$emit('clikOnButton')"
-        ></U-button>
+        ></U-Button>
       </div>
     </div>
   </div>

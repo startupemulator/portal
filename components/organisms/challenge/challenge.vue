@@ -1,6 +1,6 @@
 <template>
   <div class="challenge-page">
-    <ChallengeTask
+    <Challenge-Task
       v-if="challengeTask"
       :key="isExpert"
       :is-started="isStarted"
@@ -20,9 +20,9 @@
       @openParticipantSolution="toggleChallengeTask"
       @participantRequest="participantRequest"
       @requestIsSend="$emit('requestIsSend')"
-    ></ChallengeTask>
+    ></Challenge-Task>
 
-    <ParticipantSolution
+    <Participant-Solution
       v-if="participantSolution"
       :feedbacks="feedbacks"
       :challenge="challenge"
@@ -33,7 +33,7 @@
       :badges="badges"
       :expert-id="profile.length !== 0 ? profile.user.id : null"
       @clikOnButton="toggleChallengeTask"
-    ></ParticipantSolution>
+    ></Participant-Solution>
   </div>
 </template>
 <script lang="ts">

@@ -2,7 +2,7 @@
   <div class="profile-content my-profile">
     <div v-if="!changePassword & !editProfile" class="my-profile__content">
       <div class="profile-header">
-        <U-title :text="'Profile'"></U-title>
+        <U-Title :text="'Profile'"></U-Title>
         <div class="profile-header__menu">
           <ul>
             <li>
@@ -44,14 +44,14 @@
         </div>
       </div>
       <div :class="isExpert ? 'reverse-data' : ''">
-        <My-profile-regular-user
+        <My-Profile-Regular-User
           v-if="!isExpert"
           :my-startup-feedbacks="myStartupFeedbacks"
           :my-challenge-feedbacks="myChallengeFeedbacks"
           @togglePopup="togglePopup"
-        ></My-profile-regular-user>
+        ></My-Profile-Regular-User>
 
-        <Expert-user v-if="isExpert" :feedbacks="feedbacks"></Expert-user>
+        <Expert-User v-if="isExpert" :feedbacks="feedbacks"></Expert-User>
 
         <div v-if="userExperience" class="profile-projects__experience">
           <h3>Experience</h3>
@@ -60,28 +60,28 @@
           </div>
           <ul class="experience_list">
             <li v-for="item in updatablemyTechnologies" :key="item.id">
-              <U-tags
+              <U-Tags
                 :id="item.id"
                 :title="item.title"
                 :name="item.title"
                 :type="'checkbox'"
-              ></U-tags>
+              ></U-Tags>
             </li>
           </ul>
         </div>
       </div>
-      <BadgePopup
+      <Badge-Popup
         v-if="opendPopup"
         :achivements-data="achivementsData"
         :badge="badge"
         @closePopup="closePopup"
-      ></BadgePopup>
+      ></Badge-Popup>
     </div>
-    <ChangePassword
+    <Change-Password
       v-show="changePassword"
       :user-id="userData.user.id"
       @clickOnButton="toggleChangePassword"
-    ></ChangePassword>
+    ></Change-Password>
   </div>
 </template>
 <script lang="ts">

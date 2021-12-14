@@ -7,7 +7,7 @@
     <div class="edit-profile__content">
       <p>Full name</p>
 
-      <UInput
+      <U-Input
         v-model="userName"
         :placeholder="''"
         :account-class="
@@ -16,39 +16,39 @@
             : 'create-account__password'
         "
         @textInput="textInput"
-      ></UInput>
+      ></U-Input>
       <p v-show="$v.userName.$error" class="errorInput">
         Please enter a full name, least 6 characters
       </p>
-      <DurationExperiensePicker
+      <Duration-Experiense-Picker
         :title="'Total years of your experience'"
         :experiences="EditProfilePage.experiences"
         :duration="choosenExperiences"
         @clickOnDuration="EditProfilePage.changeTotalExperience($event)"
-      ></DurationExperiensePicker>
+      ></Duration-Experiense-Picker>
       <p v-show="$v.choosenExperiences.$error" class="errorInput">
         Please choose total years of your experience
       </p>
-      <TechnologyPicker
+      <Technology-Picker
         :title="'Pick technologies you have an experience with'"
         :technologies="EditProfilePage.technologies"
         :choosen-technologies="EditProfilePage.profile.technologies"
         @chosenTechnologi="EditProfilePage.pickTechnology($event)"
         @addTechnologies="addTechnologies"
         @removeTechnology="removeTechnology"
-      ></TechnologyPicker>
+      ></Technology-Picker>
 
       <div class="edit-profile__buttons">
-        <u-button
+        <U-Button
           :button-name="'Save'"
           :button-class="'u-button-blue'"
           @clickOnButton="saveProfileUpdateData"
-        ></u-button>
-        <u-button
+        ></U-Button>
+        <U-Button
           :button-name="'Cancel'"
           :button-class="'u-button-gray'"
           @clickOnButton="$router.push('/profile')"
-        ></u-button>
+        ></U-Button>
       </div>
     </div>
   </div>

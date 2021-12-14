@@ -7,9 +7,9 @@
           class="profile-header"
           :class="!isOwner ? 'my-profile__content--publick' : ''"
         >
-          <U-title v-if="!isOwner" :text="user.name || user.profile.name">
-          </U-title>
-          <U-title v-if="isOwner" :text="'Profile'"> </U-title>
+          <U-Title v-if="!isOwner" :text="user.name || user.profile.name">
+          </U-Title>
+          <U-Title v-if="isOwner" :text="'Profile'"> </U-Title>
 
           <div v-if="isOwner" class="profile-header__menu">
             <ul>
@@ -47,44 +47,44 @@
         </div>
       </div>
 
-      <Regular-user
+      <Regular-User
         v-if="!isExpert"
         :startups="startups"
         :user-id="userId"
         :my-startup-feedbacks="myStartupFeedbacks"
         :my-challenge-feedbacks="myChallengeFeedbacks"
         @togglePopup="togglePopup"
-      ></Regular-user>
-      <Expert-user
+      ></Regular-User>
+      <Expert-User
         v-if="isExpert"
         :feedbacks="feedbacks"
         :user-id="userId"
         :is-expert="isExpert"
         :is-owner="isOwner"
       >
-      </Expert-user>
+      </Expert-User>
       <div class="profile-projects__experience">
         <h3>Experience</h3>
         <div class="experience-work">{{ profile.experience.title }}</div>
         <ul class="experience_list">
           <li v-for="item in technologies" :key="item.id">
-            <U-tags
+            <U-Tags
               :id="item.id"
               :title="item.title"
               :name="item.title"
               :type="'checkbox'"
-            ></U-tags>
+            ></U-Tags>
           </li>
         </ul>
-        <BadgePopup
+        <Badge-Popup
           v-if="opendPopup"
           :achivements-data="achivementsData"
           :badge="badge"
           @closePopup="closePopup"
-        ></BadgePopup>
+        ></Badge-Popup>
       </div>
     </div>
-    <EditProfile
+    <Edit-Profile
       v-if="editProfile"
       :user-data="user"
       :experiences="experiences"
@@ -95,12 +95,12 @@
       @saveProfileUpdateData="saveProfileUpdateData"
       @addTechnologies="addTechnologies"
       @removeTechnology="removeTechnology"
-    ></EditProfile>
-    <ChangePassword
+    ></Edit-Profile>
+    <Change-Password
       v-if="changePassword"
       :user-id="user.id"
       @clickOnButton="toggleChangePassword"
-    ></ChangePassword>
+    ></Change-Password>
   </div>
 </template>
 <script lang="ts">

@@ -4,13 +4,13 @@
     :style="addFeedback ? 'margin: 0 auto' : ''"
   >
     <div v-if="!addFeedback">
-      <UBack
+      <U-Back
         :title="'Task Name'"
         :is-button="true"
         @clikOnButton="$emit('clikOnButton')"
-      ></UBack>
+      ></U-Back>
 
-      <UTitle :text="solutionData.creator.profile.name"></UTitle>
+      <U-Title :text="solutionData.creator.profile.name"></U-Title>
       <div class="startup-card__started-start-time">
         <div class="started-start-time__finished">
           <h3>Finished</h3>
@@ -21,25 +21,25 @@
           <p>{{ solutionData.estimation }} days</p>
         </div>
       </div>
-      <CommentExpert
+      <Comment-Expert
         v-if="isExpert"
         :solution-data="solutionData"
-      ></CommentExpert>
+      ></Comment-Expert>
       <div v-if="isExpert" class="challenge-task__button">
-        <U-button
+        <U-Button
           :button-name="'Add Feedback'"
           :button-class="'u-button-blue add-feedback'"
           @clickOnButton="toggleAddFeedback"
-        ></U-button>
+        ></U-Button>
       </div>
       <Solutions :solution="solutionData.solutions"></Solutions>
       <div v-if="isExpert" class="used-technologies">
         <h3>Used technologies</h3>
-        <UTags
+        <U-Tags
           v-for="item in solutionData.technologies"
           :key="item.id"
           :title="item.title"
-        ></UTags>
+        ></U-Tags>
       </div>
       <h3
         v-if="feedbacks.length > 0 && isExpert"
@@ -47,22 +47,22 @@
       >
         Feedback
       </h3>
-      <FeedbackCardChallenges
+      <Feedback-Card-Challenges
         v-for="feedback in renewableFeeadback.slice(0, showMoreTwoFeedbacks)"
         :key="feedback.id"
         :feedback="feedback"
         :user-id="userId"
-      ></FeedbackCardChallenges>
+      ></Feedback-Card-Challenges>
 
-      <U-button
+      <U-Button
         v-if="showMoreTwoFeedbacks < solutionData.feedbacks.length"
         :button-name="'Show 2 More Feedback'"
         :button-class="'u-button-gray'"
         @clickOnButton="showMoreFeedbacks"
-      ></U-button>
+      ></U-Button>
     </div>
 
-    <AddTeamFeedBack
+    <Add-Team-Feedback
       v-if="addFeedback"
       :directions="directions"
       :expert-id="expertId"
@@ -71,7 +71,7 @@
       @updateFeedbacks="updateFeedbacks"
       @clikOnButton="toggleAddFeedback"
       @teamNotificationFeedback="teamNotificationFeedback"
-    ></AddTeamFeedBack>
+    ></Add-Team-Feedback>
   </div>
 </template>
 
@@ -87,7 +87,7 @@ import FeedbackCardChallenges from "~/components/molecules/feedbackCardChallenge
 import { Feedbacks } from "~/models/Feedbacks";
 import { Challenge } from "~/models/Challenge";
 import CommentExpert from "~/components/molecules/commentForExpert.vue";
-import AddTeamFeedBack from "~/components/organisms/startup/addTeamFeedback.vue";
+import AddTeamFeedback from "~/components/organisms/startup/addTeamFeedback.vue";
 import { Directions } from "~/models/Directions";
 import { Badges } from "~/models/Badges";
 import { scrollToHeader } from "~/assets/jshelper/scrollToHeader.js";
@@ -100,7 +100,7 @@ import { scrollToHeader } from "~/assets/jshelper/scrollToHeader.js";
     Solutions,
     FeedbackCardChallenges,
     CommentExpert,
-    AddTeamFeedBack,
+    AddTeamFeedback,
   },
 })
 export default class extends Vue {

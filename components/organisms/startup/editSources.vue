@@ -1,8 +1,8 @@
 <template>
   <div class="edit-sources">
     <div class="edit-sources__header">
-      <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
-      <UTitle :text="'Edit sources'"></UTitle>
+      <U-Back :is-button="true" @clikOnButton="$emit('clikOnButton')"></U-Back>
+      <U-Title :text="'Edit sources'"></U-Title>
       <p>
         Add links on design, userflows, repositories, etc., which will be used
         during the project’s development. You can skip this step for now.
@@ -20,24 +20,24 @@
         @updateSourses="updateSourses($event, item.id)"
       ></div>
       <div class="existing-sources__add-link">
-        <U-button
+        <U-Button
           :button-name="'Add Link'"
           :button-class="'u-button-blue'"
           @clickOnButton="addExistingSourse"
-        ></U-button>
+        ></U-Button>
       </div>
     </div>
     <div class="edit-sources__buttons">
-      <U-button
+      <U-Button
         :button-name="'Save'"
         :button-class="'u-button-blue'"
         @clickOnButton="saveSources"
-      ></U-button>
-      <U-button
+      ></U-Button>
+      <U-Button
         :button-name="'Cancel'"
         :button-class="'u-button-gray'"
         @clickOnButton="cancelSources"
-      ></U-button>
+      ></U-Button>
     </div>
   </div>
 </template>

@@ -5,15 +5,15 @@
         :is-button="false"
         :link="'/challenge/' + challenge.slug"
       ></U-Back>
-      <U-title :text="'Participate in ' + challenge.title"></U-title>
-      <Duration-picker
+      <U-Title :text="'Participate in ' + challenge.title"></U-Title>
+      <Duration-Picker
         :title="'Select your expected estimation for this challenge'"
         :estimations="estimations"
         :duration="duration"
         @clickOnDuration="chooseDuration"
-      ></Duration-picker>
+      ></Duration-Picker>
 
-      <UInput
+      <U-Input
         :placeholder="'Or enter the number of days'"
         :value="duration"
         :account-class="
@@ -22,7 +22,7 @@
             : 'create-account__email'
         "
         @textInput="textInput"
-      ></UInput>
+      ></U-Input>
       <p v-show="$v.duration.$error" class="errorInput">
         Please enter an estimation
       </p>
@@ -34,12 +34,12 @@
         ></U-button>
       </div>
     </div>
-    <PopupChallengeStarted
+    <Popup-Challenge-Started
       v-if="popupChallengeStarted"
       :title="'The challenge has started'"
       :text-content="`Come back when you complete this challenge and get feedback from our
         experts. Also, feel free to request feedback when you are in progress.`"
-    ></PopupChallengeStarted>
+    ></Popup-Challenge-Started>
   </div>
 </template>
 

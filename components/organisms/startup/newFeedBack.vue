@@ -2,9 +2,12 @@
   <div class="edit-add-realise">
     <div class="edit-add-realise__content">
       <div class="edit-add-realise__header">
-        <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
+        <U-Back
+          :is-button="true"
+          @clikOnButton="$emit('clikOnButton')"
+        ></U-Back>
         <div class="edit-add-realise__header--title">
-          <UTitle :text="'Expert feedback'"></UTitle>
+          <U-Title :text="'Expert feedback'"></U-Title>
           <span v-if="newFeedBacks !== 0">{{ newFeedBacks }} </span>
         </div>
       </div>
@@ -14,14 +17,14 @@
           >Request the first feeback about your startup from our experts.</span
         >
         <div class="emty-state-feedbacks__button">
-          <Ubutton
+          <U-button
             :button-name="'Request Feedback'"
             :button-class="'u-button-blue'"
             @clickOnButton="$emit('requestFeedback')"
-          ></Ubutton>
+          ></U-button>
         </div>
       </div>
-      <FeedBackCard
+      <FeedBack-Card
         v-for="feedback in feedbacks"
         :key="feedback.published_at"
         :comment="feedback.description"
@@ -37,7 +40,7 @@
         @updateFeedbacks="updateFeedbacks"
         @publickFeedback="$emit('publickFeedback')"
       >
-      </FeedBackCard>
+      </FeedBack-Card>
     </div>
   </div>
 </template>
