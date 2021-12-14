@@ -174,14 +174,14 @@ export default class extends Vue {
   })
   checkedTechnologies: Array<any>;
 
-  @Prop({ default: "" }) picker: Boolean;
+  @Prop({ default: "" }) picker: boolean;
   @Prop({ default: "Select a speciality" }) specialityFromParent!: String;
   @Prop() specialisations: Array<Specialisation>;
   @Prop() creator: number;
   @Prop() status!: string;
   @Prop() isEditTeam: boolean;
   @Prop() positionId: string;
-  @Prop({ default: true }) isDropping: Boolean;
+  @Prop({ default: true }) isDropping: boolean;
 
   openSpeciality = false;
   chosenSpeciality = this.specialityFromParent[0]
