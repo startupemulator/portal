@@ -43,7 +43,6 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 
 import AddExistingSourse from "../../molecules/addExistingSource.vue";
 import Spinner from "../../../store/modules/Spinner";
-import Spiner from "../../atoms/spinner.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";

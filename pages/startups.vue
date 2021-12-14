@@ -18,13 +18,13 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import Spiner from "../components/atoms/spinner.vue";
+import Spinner from "../components/atoms/spinner.vue";
 import Startups from "~/components/organisms/startups/startups.vue";
 
 @Component({
   components: {
     Startups,
-    Spiner,
+    Spinner,
   },
 })
 export default class extends Vue {
