@@ -8,7 +8,7 @@
       >
         <img src="~/assets/img/close.svg" alt="Close" />
       </button>
-      <u-title :text="'Guide'"></u-title>
+      <U-Title :text="'Guide'"></U-Title>
 
       <div v-for="guide in startup.secrets" :key="guide.id" class="guide">
         <h4>{{ guide.title }}</h4>

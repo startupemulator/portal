@@ -84,7 +84,7 @@
         </div>
       </div>
       <div class="startup-block__buttons">
-        <U-button
+        <U-Button
           :button-name="'Details'"
           :button-class="'u-button-gray'"
           :style="
@@ -97,9 +97,9 @@
           "
           :is-link="'nuxt-link'"
           :href="'/startup/' + card.slug"
-        ></U-button>
+        ></U-Button>
 
-        <U-button
+        <U-Button
           v-if="
             !(+card.owner.id === +userId) &&
             !(card.state === 'finished') &&
@@ -110,7 +110,7 @@
           :button-name="'Apply'"
           :is-link="'nuxt-link'"
           :button-class="'u-button-blue'"
-        ></U-button>
+        ></U-Button>
       </div>
     </div>
   </div>

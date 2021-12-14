@@ -67,22 +67,22 @@
         {{ card.description | truncate(70, "...") }}
       </h4>
       <div class="challenge-card__content-specialisation">
-        <UTags
+        <U-Tags
           v-for="specialisation in card.specialisations.slice(0, 2)"
           :id="specialisation.id + 'specialisations'"
           :key="specialisation.id"
           :title="specialisation.title"
           class="modificate-challenge-slider"
-        ></UTags>
-        <UTags
+        ></U-Tags>
+        <U-Tags
           v-show="card.specialisations.length > 2"
           :id="card.id + 'countSpecialisations'"
           :title="'+' + (card.specialisations.length - 2)"
           class="modificate-challenge-slider"
           @pick="$router.push(`/challenge/${card.slug}`)"
-        ></UTags>
+        ></U-Tags>
       </div>
-      <DifficultyLevel :card="card"></DifficultyLevel>
+      <Difficulty-Level :card="card"></Difficulty-Level>
       <div class="challenge-card__content_buttons">
         <U-button
           :button-name="'Details'"

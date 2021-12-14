@@ -8,7 +8,7 @@
       >
         <img src="~/assets/img/close.svg" alt="Close" />
       </button>
-      <u-title :text="'Delete this startup?'"></u-title>
+      <U-Title :text="'Delete this startup?'"></U-Title>
       <p>
         Enter the name of your startup
         <span>{{ moveAwayStartupName | truncate(40, "...") }}</span> to confirm

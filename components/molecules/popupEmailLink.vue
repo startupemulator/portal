@@ -8,7 +8,7 @@
       >
         <img src="~/assets/img/close.svg" alt="Close" />
       </button>
-      <u-title :text="'Sign up with the email link'"></u-title>
+      <U-Title :text="'Sign up with the email link'"></U-Title>
       <p>
         Signing up link will be sent to your email. After signing up you can log
         in in the same way.
@@ -30,7 +30,6 @@
         <p v-show="$v.email.$error" class="errorInput">
           Please enter an email address
         </p>
-
         <div>
           <U-Button
             :button-name="'Log in'"

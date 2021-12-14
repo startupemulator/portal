@@ -28,24 +28,24 @@
     </h5>
     <p class="position-card__experience">Experience</p>
     <p class="position-card__experience-count">{{ experience }}</p>
-    <UTags
+    <U-Tags
       v-for="technology in technologies"
       :key="technology.title"
       :title="technology.title"
-    ></UTags>
+    ></U-Tags>
     <div class="position-card__buttons">
-      <U-button
+      <U-Button
         v-if="!access"
         :button-name="'Accept'"
         :button-class="'u-button-blue'"
         @clickOnButton="$emit('accept', positionId)"
-      ></U-button>
-      <U-button
+      ></U-Button>
+      <U-Button
         v-if="!access"
         :button-name="'Decline'"
         :button-class="'u-button-gray'"
         @clickOnButton="toggleDeclineCandidate"
-      ></U-button>
+      ></U-Button>
 
       <div v-if="access" class="position-card__access">
         <div class="position-card__access-header" @click="toggleAccsessList">
@@ -91,16 +91,16 @@
             placeholder="Enter your comment"
           ></textarea>
           <div class="decline-popup__buttons">
-            <U-button
+            <U-Button
               :button-name="'Yes, Decline'"
               :button-class="'u-button-blue'"
               @clickOnButton="decline"
-            ></U-button>
-            <U-button
+            ></U-Button>
+            <U-Button
               :button-name="'No, Don’t Decline'"
               :button-class="'u-button-gray'"
               @clickOnButton="toggleDeclineCandidate"
-            ></U-button>
+            ></U-Button>
           </div>
         </div>
       </div>
@@ -152,7 +152,6 @@ export default class extends Vue {
   declinetext: string = "";
   accsessButtonTitle = "Default access";
   showDeclineReasonMessage() {
-    //   if mobile it work like click
     if (window.screen.width < 1438) {
       this.declineReasonMessage = true;
     } else {

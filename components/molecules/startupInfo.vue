@@ -23,7 +23,7 @@
     </div>
     <p>Start date</p>
 
-    <DatePicker
+    <Date-Picker
       v-model.trim="$v.date.$model"
       value-type="format"
       format="DD  |  MM  |  YYYY"
@@ -70,15 +70,15 @@
           <rect x="13" y="16" width="2" height="2" fill="#8C97AC" />
           <rect x="17" y="16" width="2" height="2" fill="#8C97AC" />
         </svg> </i
-    ></DatePicker>
+    ></Date-Picker>
 
     <div class="startup__finish-date">
-      <Duration-picker
+      <Duration-Picker
         :title="'Estimated duration'"
         :duration="duration"
         :estimations="estimations"
         @clickOnDuration="chooseDuration"
-      ></Duration-picker>
+      ></Duration-Picker>
 
       <label for="days-title" class="days-title">
         <input
@@ -93,16 +93,16 @@
       </p>
     </div>
     <div class="edit-startup-info__buttons">
-      <U-button
+      <U-Button
         :button-name="'Save'"
         :button-class="'u-button-blue'"
         @clickOnButton="updateStartup"
-      ></U-button>
-      <U-button
+      ></U-Button>
+      <U-Button
         :button-name="'Cancel'"
         :button-class="'u-button-gray'"
         @clickOnButton="cancel"
-      ></U-button>
+      ></U-Button>
     </div>
   </div>
 </template>

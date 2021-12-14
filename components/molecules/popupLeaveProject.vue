@@ -8,14 +8,14 @@
       >
         <img src="~/assets/img/close.svg" alt="Close" />
       </button>
-      <UTitle :text="'Do you really want to leave this project?'"></UTitle>
+      <U-Title :text="'Do you really want to leave this project?'"></U-Title>
 
       <div class="leave-project__buttons">
-        <U-button
+        <U-Button
           :button-name="'Yes confirm'"
           :button-class="'u-button-blue'"
           @clickOnButton="$emit('leveProject')"
-        ></U-button>
+        ></U-Button>
         <U-button
           :button-name="'Cancel'"
           :button-class="'u-button-gray'"

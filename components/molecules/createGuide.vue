@@ -3,12 +3,12 @@
     <p>{{ name }}</p>
     <div class="existing-sources__link-name">
       <div class="link-name__inputs">
-        <UInput
+        <U-Input
           :type="'text'"
           :placeholder="'Enter an item name'"
           :value="guideTitle"
           @textInput="checkForm($event, 'name')"
-        ></UInput>
+        ></U-Input>
         <p v-show="$v.guideTitle.$error" class="errorInput">
           Please enter item name
         </p>

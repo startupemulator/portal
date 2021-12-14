@@ -17,12 +17,12 @@
       </div>
     </div>
     <div class="project-participant_technologies">
-      <UTags
+      <U-Tags
         v-for="technology in technologies"
         :key="technology.id + '-' + 'participant-technologies'"
         :technologi-id="technology.id"
         :title="technology.title"
-      ></UTags>
+      ></U-Tags>
     </div>
     <div v-if="isOwner">
       <div class="specializacion_names">

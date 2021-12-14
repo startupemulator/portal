@@ -1,6 +1,6 @@
 <template>
   <transition-group name="fade">
-    <SystemAlert
+    <System-Alert
       v-for="message in $store.state.Toast.messages"
       :key="message.id"
       :msg="message.data"

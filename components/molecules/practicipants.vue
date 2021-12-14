@@ -18,11 +18,11 @@
         </div>
 
         <div class="practicipants-item__button">
-          <U-button
+          <U-Button
             :button-name="'See Solution'"
             :button-class="'u-button-transpend'"
             @clickOnButton="$emit('clickOnButton', item)"
-          ></U-button>
+          ></U-Button>
           <img src="~/assets/img/arrow.svg" alt="arrow" />
         </div>
       </li>

@@ -2,7 +2,7 @@
   <div class="technology-picker">
     <h2>{{ title }}</h2>
     <form ref="specialisations">
-      <uTags
+      <U-Tags
         v-for="specialisation in specialisations"
         :id="specialisation.id"
         :key="specialisation.id"
@@ -12,7 +12,7 @@
         :name="'duration'"
         @pick="pickSpecialisation(specialisation.id)"
       >
-      </uTags>
+      </U-Tags>
     </form>
   </div>
 </template>

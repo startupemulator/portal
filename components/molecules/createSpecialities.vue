@@ -121,16 +121,16 @@
           </div>
 
           <div class="createProject-step2__buttons-popup">
-            <U-button
+            <U-Button
               :button-name="'Save'"
               :button-class="'u-button-blue'"
               @clickOnButton="savePopupPickTechnologies"
-            ></U-button>
-            <U-button
+            ></U-Button>
+            <U-Button
               :button-name="'Skip'"
               :button-class="'u-button-transpend'"
               @clickOnButton="skiptechnology"
-            ></U-button>
+            ></U-Button>
           </div>
         </div>
       </div>

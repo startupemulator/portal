@@ -8,7 +8,7 @@
       >
         <img src="~/assets/img/close.svg" alt="Close" />
       </button>
-      <u-title :text="'You successfully created your startup'"></u-title>
+      <U-Title :text="'You successfully created your startup'"></U-Title>
       <p>
         It’s being pending now. You will receive an email notification when we
         approve your startup and add it to the main list.

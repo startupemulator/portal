@@ -8,7 +8,7 @@
       >
         <img src="~/assets/img/close.svg" alt="Close" />
       </button>
-      <UTitle :text="'You successfully applied'"></UTitle>
+      <U-Title :text="'You successfully applied'"></U-Title>
       <p>
         You will receive an email notification when Product owner selects
         developer for a team. Also, you are able to apply to other startups.

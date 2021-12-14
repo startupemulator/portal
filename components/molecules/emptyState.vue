@@ -2,12 +2,12 @@
   <div class="empty-state">
     <p>Looks like there are no relevant projects for these filters</p>
     <div>
-      <UButton
+      <U-Button
         type="button"
         :button-name="'Reset All Filters'"
         class="u-button-gray"
         @clickOnButton="$emit('clickOnButton')"
-      ></UButton>
+      ></U-Button>
     </div>
   </div>
 </template>
