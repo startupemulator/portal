@@ -77,7 +77,7 @@
     <popup-challenge-started
       v-if="popupChallengeStarted"
       :title="'You successfully changed your password'"
-      :text-content="``"
+      :text-content="''"
     ></popup-challenge-started>
   </div>
 </template>
@@ -194,5 +194,6 @@ export default class extends Vue {
 <style lang="scss">
 .change-password .signing-up-link-sent .signing-up-link-sent__content {
   min-height: 260px;
+  padding: 48px;
 }
 </style>

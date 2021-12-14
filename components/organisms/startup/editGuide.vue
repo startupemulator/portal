@@ -1,8 +1,8 @@
 <template>
   <div class="edit-guide">
     <div class="edit-guide__header">
-      <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
-      <UTitle :text="'Edit guide'"></UTitle>
+      <U-Back :is-button="true" @clikOnButton="$emit('clikOnButton')"></U-Back>
+      <U-Title :text="'Edit guide'"></U-Title>
       <p>
         Add any links, comments, an information about messengers, logins and
         passwords, etc. All the information that you need to share with your
@@ -22,7 +22,7 @@
       ></div>
       <div class="edit-guide__add-link">
         <U-button
-          :button-name="'Add Link'"
+          :button-name="'Add item'"
           :button-class="'u-button-blue'"
           @clickOnButton="addGuideSourse"
         ></U-button>

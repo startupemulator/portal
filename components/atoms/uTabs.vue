@@ -42,14 +42,14 @@ export default {
         {
           id: 0,
           title: "Open positions",
-          active: false,
+          active: true,
           message: false,
           messageLenght: 0,
         },
         {
           id: 1,
           title: "Fully staffed",
-          active: true,
+          active: false,
           message: true,
           messageLenght: this.staffed,
         },

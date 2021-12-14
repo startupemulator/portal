@@ -1,6 +1,6 @@
 <template>
   <div v-cloak class="startups-page">
-    <Spiner :loading="loading"></Spiner>
+    <Spinner :loading="loading"></Spinner>
     <Startups
       :key="updatableKey"
       :startups="startupsList"
@@ -28,10 +28,9 @@ import Startups from "~/components/organisms/startups/startups.vue";
   },
 })
 export default class extends Vue {
-  // data loaded here will be added during server rendering
   emptyState = false;
   loading = false;
-  position = 1;
+  position = 0;
   isExpert = false;
   updatableKey = 1;
   autorizated = !!this.$strapi.user;
