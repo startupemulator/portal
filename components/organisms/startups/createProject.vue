@@ -1,49 +1,49 @@
 <template>
   <div class="createProject-content">
-    <U-back
+    <U-Back
       v-show="createprodjectSteps.stepOne"
       :link="'/profile/projects'"
-    ></U-back>
+    ></U-Back>
     <div v-show="!createprodjectSteps.stepOne" class="button-back">
       <button type="button" class="btn-back" @click="goToStepBack">
         <img src="~/assets/img/arrow.svg" alt="arrow" />
         <span>Back</span>
       </button>
     </div>
-    <U-title :text="'Create a startup'"></U-title>
+    <U-Title :text="'Create a startup'"></U-Title>
 
     <div class="createProject-step1__progress-bar">
       <div class="createProject__progress-bar" :class="progressSpets"></div>
     </div>
 
-    <CreateProjectStep1
+    <Create-Project-Step1
       v-if="createprodjectSteps.stepOne"
       :estimations="estimations"
       :created-startup-id="createdStartupId"
       @goToStepTwo="goToStepTwo"
-    ></CreateProjectStep1>
-    <CreateProjectStep2
+    ></Create-Project-Step1>
+    <Create-Project-Step2
       v-if="createprodjectSteps.stepTwo"
       :created-startup-id="createdStartupId"
       @goToStepThree="goToStepThree"
       @saveDraft="saveDraft"
-    ></CreateProjectStep2>
-    <CreateProjectStep3
+    ></Create-Project-Step2>
+    <Create-Project-Step3
       v-if="createprodjectSteps.stepThree"
       :startup-data="CreateProjectPage.draftStartup"
       @goToStepFour="goToStepFour"
       @saveDraft="saveDraft"
-    ></CreateProjectStep3>
-    <CreateProjectStep4
+    ></Create-Project-Step3>
+    <Create-Project-Step4
       v-if="createprodjectSteps.stepFour"
       :startup-data="CreateProjectPage.draftStartup"
       @saveDraft="saveDraft"
       @publish="publish"
-    ></CreateProjectStep4>
-    <PopupCreatedStartUp
+    ></Create-Project-Step4>
+    <Popup-Created-StartUp
       v-if="popupPublish"
       @closePopup="$nuxt.$router.push('/profile/projects')"
-    ></PopupCreatedStartUp>
+    ></Popup-Created-StartUp>
   </div>
 </template>
 <script lang="ts">

@@ -1,7 +1,7 @@
 <template>
   <div v-if="loading" class="loader">
     <div class="loader-content">
-      <MoonLoader :color="'#6295FC'"></MoonLoader>
+      <Moon-Loader :color="'#6295FC'"></Moon-Loader>
     </div>
   </div>
 </template>

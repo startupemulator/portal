@@ -1,8 +1,8 @@
 <template>
   <div class="edit-guide">
     <div class="edit-guide__header">
-      <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
-      <UTitle :text="'Edit guide'"></UTitle>
+      <U-Back :is-button="true" @clikOnButton="$emit('clikOnButton')"></U-Back>
+      <U-Title :text="'Edit guide'"></U-Title>
       <p>
         Add any links, comments, an information about messengers, logins and
         passwords, etc. All the information that you need to share with your
@@ -21,32 +21,30 @@
         @textInput="textInput($event, i, item.id)"
       ></div>
       <div class="edit-guide__add-link">
-        <U-button
-          :button-name="'Add Link'"
+        <U-Button
+          :button-name="'Add item'"
           :button-class="'u-button-blue'"
           @clickOnButton="addGuideSourse"
-        ></U-button>
+        ></U-Button>
       </div>
     </div>
     <div class="edit-guide__buttons">
-      <U-button
+      <U-Button
         :button-name="'Save'"
         :button-class="'u-button-blue'"
         @clickOnButton="saveSources"
-      ></U-button>
-      <U-button
+      ></U-Button>
+      <U-Button
         :button-name="'Cancel'"
         :button-class="'u-button-gray'"
         @clickOnButton="cancelSources"
-      ></U-button>
+      ></U-Button>
     </div>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
-
 import Spinner from "../../../store/modules/Spinner";
-import Spiner from "../../atoms/spinner.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";

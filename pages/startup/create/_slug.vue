@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="createProject">
-      <CreateProject
+      <Create-Project
         :technologies="CreateProjectPage.technologies"
         :estimations="CreateProjectPage.estimations"
         :specialisations="CreateProjectPage.specialisations"
-      ></CreateProject>
+      ></Create-Project>
     </div>
   </div>
 </template>

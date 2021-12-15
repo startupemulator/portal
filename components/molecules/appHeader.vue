@@ -74,7 +74,6 @@
               Pricing</nuxt-link
             >
           </li>
-          <!-- logined -->
           <div v-if="isLogined">
             <li
               class="nav-item"
@@ -221,7 +220,7 @@
         ></U-button>
       </div>
     </div>
-    <Notifications-popup
+    <Notifications-Popup
       v-if="notification"
       :notifications="notifications"
       :is-expert="isExpert"
@@ -232,7 +231,7 @@
       @markNotificationIsReaded="markNotificationIsReaded($event)"
       @filterNotificationByMyProjects="$emit('filterNotificationByMyProjects')"
       @filterNotificationByFeedback="$emit('filterNotificationByFeedback')"
-    ></Notifications-popup>
+    ></Notifications-Popup>
   </header>
 </template>
 <script lang="ts">

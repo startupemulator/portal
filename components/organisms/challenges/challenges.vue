@@ -1,7 +1,7 @@
 <template>
   <div class="challenges">
     <div class="challenges__header">
-      <UTitle :text="'Challenges'"></UTitle>
+      <U-Title :text="'Challenges'"></U-Title>
       <div class="challenges__header-speciality-filters">
         <div class="challenges__header-speciality-filter">
           <p>Filter by Specialty</p>
@@ -16,14 +16,14 @@
               ref="specialisations"
               class="challenges__header-speciality-filter_item"
             >
-              <U-tags
+              <U-Tags
                 :id="specialisation.id"
                 :title="specialisation.title"
                 :name="specialisation.title"
                 :type="'checkbox'"
                 :checked-class="specialisation.checked ? 'checked' : ''"
                 @pick="specialty($event)"
-              ></U-tags>
+              ></U-Tags>
             </li>
           </ul>
           <button
@@ -47,21 +47,21 @@
               ref="difficulty"
               class="challenges__header-diffculty-filter-item"
             >
-              <U-tags
+              <U-Tags
                 v-for="(item, i) in 5"
                 :id="i + 1 + '.difficulty'"
                 :key="i * 124"
                 :type="'checkbox'"
                 :title="'Level ' + (i + 1)"
                 @pick="levelFilter"
-              ></U-tags>
+              ></U-Tags>
             </li>
           </ul>
         </div>
       </div>
     </div>
     <div class="challenges__cards">
-      <ChallengeCard
+      <Challenge-Card
         v-for="card in $device.isMobile
           ? challenges.slice(0, lengthCardList)
           : challenges"
@@ -72,18 +72,18 @@
         :is-expert="isExpert"
         :user-challenges="userChallenges"
         :feed-back-for-challenges="feedBackForChallenges"
-      ></ChallengeCard>
+      ></Challenge-Card>
     </div>
     <div class="button-more-cards">
-      <U-button
+      <U-Button
         v-if="$device.isMobile && challenges.length > lengthCardList"
         :button-name="'Show More'"
         :button-class="'u-button-gray more-cards'"
         @clickOnButton="showMoreCards"
-      ></U-button>
+      ></U-Button>
     </div>
-    <EmptyState v-if="emptyState" @clickOnButton="cleanFilter"></EmptyState>
-    <AppTeamDevelop v-if="!autorizated"></AppTeamDevelop>
+    <Empty-State v-if="emptyState" @clickOnButton="cleanFilter"></Empty-State>
+    <App-Team-Develop v-if="!autorizated"></App-Team-Develop>
   </div>
 </template>
 <script lang="ts">

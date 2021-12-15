@@ -37,7 +37,6 @@ export default class AppTakePart extends Vue {
   }
 }
 
-// @TODO add real data for the block
 function takePart() {
   return [
     {

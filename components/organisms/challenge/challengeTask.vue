@@ -7,10 +7,10 @@
       v-if="!requestFeedback && !addFeedback"
       class="challenge-task__content"
     >
-      <UBack :link="'/challenges'"></UBack>
+      <U-Back :link="'/challenges'"></U-Back>
 
       <div class="challenge-task__header">
-        <UTitle :text="challenge.title"></UTitle>
+        <U-Title :text="challenge.title"></U-Title>
 
         <div v-if="isSuperAdmin" class="applied-startup">
           <div class="applied-startup__not-started">
@@ -29,12 +29,12 @@
         </div>
       </div>
 
-      <UTags
+      <U-Tags
         v-for="(item, i) in challenge.specialisations"
         :key="i"
         :title="item.title"
-      ></UTags>
-      <DifficultyLevel :card="challenge"></DifficultyLevel>
+      ></U-Tags>
+      <Difficulty-Level :card="challenge"></Difficulty-Level>
       <div
         v-if="isStarted || finished"
         class="startup-card__started-start-time"
@@ -125,21 +125,21 @@
         class="challenge-task__feedBacks"
       >
         <h3 class="participant-solution__title">Feedback</h3>
-        <FeedbackCardChallenges
+        <Feedback-Card-Challenges
           v-for="feedback in feedbacks.slice(0, showMoreTwoFeedbacks)"
           :key="feedback.id"
           :feedback="feedback"
           :is-expert="isExpert"
           :user-id="userId"
-        ></FeedbackCardChallenges>
+        ></Feedback-Card-Challenges>
         <Sources v-if="finished" :startup="challenge"></Sources>
 
-        <U-button
+        <U-Button
           v-if="showMoreTwoFeedbacks < feedbacks.length"
           :button-name="'Show 2 More Feedback'"
           :button-class="'u-button-gray'"
           @clickOnButton="showMoreFeedbacks"
-        ></U-button>
+        ></U-Button>
       </div>
 
       <Practicipants
@@ -147,13 +147,13 @@
         @clickOnButton="$emit('openParticipantSolution', $event)"
       ></Practicipants>
     </div>
-    <RequestFeedback
+    <Request-Feedback
       v-show="requestFeedback"
       :profile="profile"
       :challenge-id="challenge.id"
       @clikOnButton="toogleRequestFeedback"
       @submit="requestIsSend"
-    ></RequestFeedback>
+    ></Request-Feedback>
     <div v-show="cancelParticipationPopup" class="cancel-participation__popup">
       <div class="cancel-participation__popup__content">
         <button
@@ -163,18 +163,20 @@
         >
           <img src="~/assets/img/close.svg" alt="Close" />
         </button>
-        <UTitle :text="'Cancel your participation in this challenge?'"></UTitle>
+        <U-Title
+          :text="'Cancel your participation in this challenge?'"
+        ></U-Title>
         <div class="cancel-participation__popup__buttons">
-          <U-button
+          <U-Button
             :button-name="'Yes, Cancel'"
             :button-class="'u-button-blue'"
             @clickOnButton="cancelParticipation"
-          ></U-button>
-          <U-button
+          ></U-Button>
+          <U-Button
             :button-name="'No, Don’t Cancel'"
             :button-class="'u-button-gray'"
             @clickOnButton="toggleCancelParticipationPopup"
-          ></U-button>
+          ></U-Button>
         </div>
       </div>
     </div>

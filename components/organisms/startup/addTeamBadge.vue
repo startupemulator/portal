@@ -1,27 +1,27 @@
 <template>
   <div class="add-team-badge">
     <div class="add-team-badge__header">
-      <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
-      <UTitle :text="title"></UTitle>
+      <U-Back :is-button="true" @clikOnButton="$emit('clikOnButton')"></U-Back>
+      <U-Title :text="title"></U-Title>
     </div>
     <div class="add-team-badge__content">
-      <PickBadeg :badges="badges" @addBadge="addBadge"></PickBadeg>
+      <Pick-Badeg :badges="badges" @addBadge="addBadge"></Pick-Badeg>
       <div class="add-team-badge__comment">
         <p>Comment (Optional)</p>
         <textarea v-model="comment" placeholder="Enter your comment"></textarea>
       </div>
     </div>
     <div class="add-team-badge__buttons">
-      <U-button
+      <U-Button
         :button-name="'Submit'"
         :button-class="'u-button-blue'"
         @clickOnButton="submitAddBadge"
-      ></U-button>
-      <U-button
+      ></U-Button>
+      <U-Button
         :button-name="'Cancel'"
         :button-class="'u-button-gray'"
         @clickOnButton="$emit('clikOnButton')"
-      ></U-button>
+      ></U-Button>
     </div>
   </div>
 </template>

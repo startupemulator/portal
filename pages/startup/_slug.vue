@@ -1,6 +1,6 @@
 <template>
   <div class="startups-page">
-    <StartupPage
+    <Startup-Page
       :startup="startup"
       :feedbacks="feedbacks"
       :applications="applications"
@@ -21,7 +21,7 @@
       @cancelApplication="cancelApplication"
       @leaveProject="leaveProject"
       @saveReleaseLinks="updateReleaseLinks"
-    ></StartupPage>
+    ></Startup-Page>
   </div>
 </template>
 <script lang="ts">

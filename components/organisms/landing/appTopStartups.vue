@@ -13,30 +13,30 @@
           <span>pakipaki.io</span>
         </div>
         <div class="top-startup__buttons">
-          <U-button
+          <U-Button
             :button-name="'See Details'"
             :button-class="'u-button-blue'"
             :is-link="'nuxt-link'"
             :href="'/'"
-          ></U-button>
-          <U-button
+          ></U-Button>
+          <U-Button
             :button-name="'Go to the Website'"
             :button-class="'u-button-gray'"
             :is-link="'nuxt-link'"
             :href="'/'"
-          ></U-button>
+          ></U-Button>
         </div>
       </div>
       <div class="next-startup">
         <h2>Your startup can be the next</h2>
         <h3>Join a team or create your startup</h3>
-        <U-button
+        <U-Button
           :button-name="'Sign Up'"
           :button-class="'u-button-blue'"
           :is-link="'nuxt-link'"
           :href="'createAccount'"
           class="next-link"
-        ></U-button>
+        ></U-Button>
       </div>
     </div>
   </div>

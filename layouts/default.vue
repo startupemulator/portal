@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AppHeader
+    <App-Header
       :key="isLogined"
       :current-route="currentRoute"
       :is-logined="isLogined"
@@ -13,9 +13,9 @@
       @markNotificationIsReaded="markNotificationIsReaded"
       @filterNotificationByMyProjects="filterNotificationByMyProjects"
       @filterNotificationByFeedback="filterNotificationByFeedback"
-    ></AppHeader>
+    ></App-Header>
     <Nuxt />
-    <AppFooter></AppFooter>
+    <App-Footer></App-Footer>
     <Toast />
     <Spinner />
   </div>

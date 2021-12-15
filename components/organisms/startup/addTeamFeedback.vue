@@ -1,17 +1,17 @@
 <template>
   <div class="add-team-feedback">
     <div class="add-team-feedback__header">
-      <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
-      <UTitle :text="title"></UTitle>
+      <U-Back :is-button="true" @clikOnButton="$emit('clikOnButton')"></U-Back>
+      <U-Title :text="title"></U-Title>
     </div>
     <div class="add-team-feedback__content">
-      <Criterios
+      <Criterions
         v-for="(direction, i) in directions"
         :key="direction.id"
         :direction="direction"
         :i="i"
         @markDirection="markDirection"
-      ></Criterios>
+      ></Criterions>
       <p v-show="$v.markedDirection.$error" class="errorInput">
         Please choose mininum 1 criterions
       </p>
@@ -25,23 +25,23 @@
       <p v-show="$v.comment.$error" class="errorInput comment-error">
         Please enter a comment of at least 10 characters
       </p>
-      <PickBadeg
+      <Pick-Badeg
         :title="'Pick a badge (Optional)'"
         :badges="badges"
         @addBadge="addBadge"
-      ></PickBadeg>
+      ></Pick-Badeg>
     </div>
     <div class="add-team-feedback__buttons">
-      <U-button
+      <U-Button
         :button-name="'Submit'"
         :button-class="'u-button-blue'"
         @clickOnButton="createFeedback"
-      ></U-button>
-      <U-button
+      ></U-Button>
+      <U-Button
         :button-name="'Cancel'"
         :button-class="'u-button-gray'"
         @clickOnButton="$emit('clikOnButton')"
-      ></U-button>
+      ></U-Button>
     </div>
   </div>
 </template>
@@ -53,13 +53,13 @@ import Spinner from "../../../store/modules/Spinner";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
-import Criterios from "~/components/molecules/criterios.vue";
+import Criterions from "~/components/molecules/criterios.vue";
 import PickBadeg from "~/components/molecules/pickBadge.vue";
 import { Directions } from "~/models/Directions";
 import { Badges } from "~/models/Badges";
 
 @Component({
-  components: { UButton, UTitle, UBack, Criterios, PickBadeg },
+  components: { UButton, UTitle, UBack, Criterions, PickBadeg },
   validations: {
     markedDirection: {
       required,

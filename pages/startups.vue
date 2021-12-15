@@ -1,6 +1,6 @@
 <template>
   <div v-cloak class="startups-page">
-    <Spiner :loading="loading"></Spiner>
+    <Spinner :loading="loading"></Spinner>
     <Startups
       :key="updatableKey"
       :startups="startupsList"
@@ -18,20 +18,19 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import Spiner from "../components/atoms/spinner.vue";
+import Spinner from "../components/atoms/spinner.vue";
 import Startups from "~/components/organisms/startups/startups.vue";
 
 @Component({
   components: {
     Startups,
-    Spiner,
+    Spinner,
   },
 })
 export default class extends Vue {
-  // data loaded here will be added during server rendering
   emptyState = false;
   loading = false;
-  position = 1;
+  position = 0;
   isExpert = false;
   updatableKey = 1;
   autorizated = !!this.$strapi.user;

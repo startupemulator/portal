@@ -17,6 +17,7 @@
 
       <div class="specialityOne__list">
         <div
+          :style="!isDropping ? 'cursor:default' : ''"
           class="specialityOne__item"
           :class="
             chosenSpeciality !== 'Select a speciality' ? 'item-chosen' : ''
@@ -25,6 +26,7 @@
         >
           <span>{{ chosenSpeciality }}</span>
           <img
+            v-if="isDropping"
             src="~/assets/img/arrow.svg"
             alt="arrow"
             :style="
@@ -41,7 +43,11 @@
           <img src="~/assets/img/close.svg" alt="" />
         </button>
 
-        <ul v-show="openSpeciality" class="specialityOne__item-list">
+        <ul
+          v-if="isDropping"
+          v-show="openSpeciality"
+          class="specialityOne__item-list"
+        >
           <li
             v-for="(item, i) in specialisations"
             :key="i"
@@ -115,16 +121,16 @@
           </div>
 
           <div class="createProject-step2__buttons-popup">
-            <U-button
+            <U-Button
               :button-name="'Save'"
               :button-class="'u-button-blue'"
               @clickOnButton="savePopupPickTechnologies"
-            ></U-button>
-            <U-button
+            ></U-Button>
+            <U-Button
               :button-name="'Skip'"
               :button-class="'u-button-transpend'"
               @clickOnButton="skiptechnology"
-            ></U-button>
+            ></U-Button>
           </div>
         </div>
       </div>
@@ -168,13 +174,14 @@ export default class extends Vue {
   })
   checkedTechnologies: Array<any>;
 
-  @Prop({ default: "" }) picker: Boolean;
+  @Prop({ default: "" }) picker: boolean;
   @Prop({ default: "Select a speciality" }) specialityFromParent!: String;
   @Prop() specialisations: Array<Specialisation>;
   @Prop() creator: number;
   @Prop() status!: string;
   @Prop() isEditTeam: boolean;
   @Prop() positionId: string;
+  @Prop({ default: true }) isDropping: boolean;
 
   openSpeciality = false;
   chosenSpeciality = this.specialityFromParent[0]

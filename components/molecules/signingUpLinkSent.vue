@@ -16,8 +16,15 @@
     </div>
   </div>
 </template>
-<script>
-export default {};
+<script lang="ts">
+import { Component, Vue } from "nuxt-property-decorator";
+
+import UTitle from "../atoms/uTitle.vue";
+
+@Component({
+  components: { UTitle },
+})
+export default class extends Vue {}
 </script>
 <style lang="scss">
 .signing-up-link-sent {

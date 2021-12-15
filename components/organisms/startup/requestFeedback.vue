@@ -1,14 +1,14 @@
 <template>
   <div class="request-feedback">
-    <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
-    <UTitle :text="'Request feedback'"></UTitle>
-    <TechnologyPicker
+    <U-Back :is-button="true" @clikOnButton="$emit('clikOnButton')"></U-Back>
+    <U-Title :text="'Request feedback'"></U-Title>
+    <Technology-Picker
       :title="'Pick technologies you need feedback in'"
       :technologies="startup.technologies"
       :add-technology="false"
       :choosen-technologies="pickedTechnology"
       @chosenTechnologi="chosenTechnologi"
-    ></TechnologyPicker>
+    ></Technology-Picker>
     <p v-show="$v.pickedTechnology.$error" class="errorInput">
       Please pick technologies
     </p>
@@ -24,18 +24,18 @@
       </p>
     </div>
     <div class="request-feedback--button">
-      <UButton
+      <U-Button
         :button-name="'Request'"
         :button-class="'u-button-blue'"
         @clickOnButton="toggleUPopup"
-      ></UButton>
+      ></U-Button>
     </div>
-    <UPopup
+    <U-Popup
       v-show="UPopup"
       :title="'You successfully requested feedback from our experts'"
       :text-content="'Experts will receive your request and give feedback about your startup.'"
       @closePopupLinkSent="closeUPopup"
-    ></UPopup>
+    ></U-Popup>
   </div>
 </template>
 <script lang="ts">

@@ -1,8 +1,8 @@
 <template>
   <div v-cloak class="request-to-team">
-    <UBack :is-button="false" :link="'/startup/' + startup.slug"></UBack>
+    <U-Back :is-button="false" :link="'/startup/' + startup.slug"></U-Back>
     <div class="request-to-team__header">
-      <UTitle :text="'Requests to team'"></UTitle>
+      <U-Title :text="'Requests to team'"></U-Title>
       <div class="request-to-team__header-description">
         Review candidates that applied to your team. You can choose several
         candidates with the same speciality. Select the most relevant for your
@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="request-to-team__content">
-      <PositionList
+      <Position-List
         v-for="item in startup.positions"
         :id="item.id"
         :key="item.id"
@@ -20,7 +20,7 @@
         @accept="accept"
         @decline="decline"
         @advancedAccess="advancedAccess"
-      ></PositionList>
+      ></Position-List>
     </div>
   </div>
 </template>

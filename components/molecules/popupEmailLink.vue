@@ -8,13 +8,13 @@
       >
         <img src="~/assets/img/close.svg" alt="Close" />
       </button>
-      <u-title :text="'Sign up with the email link'"></u-title>
+      <U-Title :text="'Sign up with the email link'"></U-Title>
       <p>
         Signing up link will be sent to your email. After signing up you can log
         in in the same way.
       </p>
       <form>
-        <U-input
+        <U-Input
           :placeholder="'Enter your email'"
           :type="'email'"
           :value="email"
@@ -26,17 +26,16 @@
           :img="require('~/assets/img/email.svg')"
           @textInput="checkEmail"
           @keydown="keydown"
-        ></U-input>
+        ></U-Input>
         <p v-show="$v.email.$error" class="errorInput">
           Please enter an email address
         </p>
-
         <div>
-          <U-button
+          <U-Button
             :button-name="'Log in'"
             :button-class="'u-button-blue create-account__log-in'"
             @clickOnButton="sendLink"
-          ></U-button>
+          ></U-Button>
         </div>
       </form>
     </div>

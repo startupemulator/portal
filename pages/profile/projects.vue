@@ -1,12 +1,12 @@
 <template v-cloak>
   <div class="projects" :class="myStartups.length === 0 ? 'full-screen' : ''">
-    <MyProjects
+    <My-Projects
       :key="updateFlag"
       :startups="myStartups"
       :user-id="userId"
       :is-super-admin="isSuperAdmin"
       @deleteDraft="deleteDraft"
-    ></MyProjects>
+    ></My-Projects>
   </div>
 </template>
 <script lang="ts">

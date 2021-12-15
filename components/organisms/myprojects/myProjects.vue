@@ -2,7 +2,7 @@
   <div class="my-projects">
     <div class="my-projects__header">
       <div class="my-projects__header-add-project">
-        <U-title :text="'My projects'"></U-title>
+        <U-Title :text="'My projects'"></U-Title>
         <nuxt-link
           v-if="!isSuperAdmin"
           to="/startup/create"
@@ -39,29 +39,29 @@
     </div>
     <div class="start-ups_cards-content startup-block">
       <div class="transition__startup-card">
-        <Draft-card
+        <Draft-Card
           v-for="card in draft"
           :key="card.id"
           :card="card"
           @clickOnButton="deleteDraft"
-        ></Draft-card>
-        <Startup-card
+        ></Draft-Card>
+        <Startup-Card
           v-for="card in startup"
           :key="card.id"
           :card="card"
           :user-id="userId"
-        ></Startup-card>
+        ></Startup-Card>
       </div>
     </div>
 
-    <PopupDeleteStartup
+    <Popup-Delete-Startup
       v-show="popupDeleteStartup"
       :move-away-startup="moveAwayStartup"
       :move-away-startup-name="moveAwayStartupName"
       @clickOnButton="togglePopupDeleteStartup"
       @closePopupLinkEmail="togglePopupDeleteStartup"
       @deleteStartup="deleteStartup"
-    ></PopupDeleteStartup>
+    ></Popup-Delete-Startup>
     <div v-if="startups.length === 0" class="emty-state-my-startups">
       <p class="emty-state-my-startups__title">There is no any startups yet</p>
       <span>Create the your first startup.</span>

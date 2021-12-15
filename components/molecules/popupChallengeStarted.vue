@@ -9,10 +9,11 @@
         <img src="~/assets/img/close.svg" alt="Close" />
       </button>
       <U-Title :text="title"></U-Title>
-      <p>
+      <p v-show="textContent !== ''">
         {{ textContent }}
       </p>
       <U-Button
+        :style="textContent !== '' ? '' : 'margin-top: 24px'"
         :button-name="'Got It'"
         :button-class="'u-button-blue'"
         @clickOnButton="closeSiginUpPopup"

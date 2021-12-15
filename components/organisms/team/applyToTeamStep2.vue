@@ -1,11 +1,11 @@
 <template>
   <div class="apply-to-team apply-to-team-step2">
-    <UTitle :text="'Apply to Startup ' + startup.title"></UTitle>
+    <U-Title :text="'Apply to Startup ' + startup.title"></U-Title>
 
-    <USelect
+    <U-Select
       :specialisations="specialisations"
       @choosenSpeciality="choosenSpeciality"
-    ></USelect>
+    ></U-Select>
     <p v-show="$v.speciality.$error" class="errorInput select">
       Please choose a specialty
     </p>
@@ -18,11 +18,11 @@
       Please enter a comment of at least 10 characters
     </p>
     <div class="apply-to-team__button">
-      <U-button
+      <U-Button
         :button-class="'u-button-blue'"
         :button-name="'Apply'"
         @clickOnButton="apply"
-      ></U-button>
+      ></U-Button>
     </div>
   </div>
 </template>

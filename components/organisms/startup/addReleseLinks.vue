@@ -1,8 +1,8 @@
 <template>
   <div class="edit-sources">
     <div class="edit-sources__header">
-      <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
-      <UTitle :text="'Add release links'"></UTitle>
+      <U-Back :is-button="true" @clikOnButton="$emit('clikOnButton')"></U-Back>
+      <U-Title :text="'Add release links'"></U-Title>
       <p>Add links on your published product, a case, an article, etc.</p>
     </div>
     <div class="edit-sources__content">
@@ -17,24 +17,24 @@
         @textInput="textInput($event, i, item.id)"
       ></div>
       <div class="existing-sources__add-link">
-        <U-button
+        <U-Button
           :button-name="'Add Link'"
           :button-class="'u-button-blue'"
           @clickOnButton="addExistingReleases"
-        ></U-button>
+        ></U-Button>
       </div>
     </div>
     <div class="edit-sources__buttons">
-      <U-button
+      <U-Button
         :button-name="'Save'"
         :button-class="'u-button-blue'"
         @clickOnButton="saveReleases"
-      ></U-button>
-      <U-button
+      ></U-Button>
+      <U-Button
         :button-name="'Cancel'"
         :button-class="'u-button-gray'"
         @clickOnButton="cancelReleases"
-      ></U-button>
+      ></U-Button>
     </div>
   </div>
 </template>
@@ -43,7 +43,6 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 
 import AddExistingSourse from "../../molecules/addExistingSource.vue";
 import Spinner from "../../../store/modules/Spinner";
-import Spiner from "../../atoms/spinner.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";

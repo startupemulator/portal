@@ -5,7 +5,7 @@
       Add links on design, userflows, repositories, etc., which will be used
       during the project’s development. You can skip this step for now.
     </h3>
-    <CreateGuide
+    <Create-Guide
       v-for="(guide, i) in CreateProjectPage.draftStartup.secrets"
       :key="guide.id"
       :name="'Item ' + (i + 1)"
@@ -13,30 +13,30 @@
       :guide-comment="guide.description"
       @removeGuideSources="removeGuideSources(guide.id)"
       @updateSecret="updateSources($event, guide.id)"
-    ></CreateGuide>
+    ></Create-Guide>
     <div class="existing-sources__add-link">
-      <U-button
+      <U-Button
         :button-name="'Add item'"
         :button-class="'u-button-blue'"
         @clickOnButton="addGuideSourse"
-      ></U-button>
+      ></U-Button>
     </div>
     <div class="createProject-step1__buttons">
-      <U-button
+      <U-Button
         :button-name="'Publish'"
         :button-class="'u-button-blue'"
         @clickOnButton="$emit('publish')"
-      ></U-button>
-      <U-button
+      ></U-Button>
+      <U-Button
         :button-name="'Save Draft'"
         :button-class="'u-button-gray'"
         @clickOnButton="$emit('saveDraft')"
-      ></U-button>
+      ></U-Button>
     </div>
-    <popup-created-start-up
+    <Popup-Created-Startup
       v-if="popupPublish"
       @closePopup="publish"
-    ></popup-created-start-up>
+    ></Popup-Created-Startup>
   </div>
 </template>
 <script lang="ts">

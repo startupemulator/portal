@@ -19,11 +19,11 @@
       <p v-show="$v.fullName.$error" class="errorInput">
         Please enter a name of at least 4 characters
       </p>
-      <TechnologyPicker
+      <Technology-Picker
         :technologies="technologies"
         @chosenTechnologi="chosenTechnologi"
         @addTechnologies="addTechnologies"
-      ></TechnologyPicker>
+      ></Technology-Picker>
       <div class="become-expert__buttons">
         <U-button
           :button-name="'Finish Signing Up'"

@@ -8,7 +8,7 @@
       >
         <img src="~/assets/img/close.svg" alt="Close" />
       </button>
-      <UTitle :text="'You successfully register'"></UTitle>
+      <U-Title :text="'You successfully register'"></U-Title>
       <p>Please confirm your email</p>
       <U-button
         :button-name="'Discover More Startups'"

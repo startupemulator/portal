@@ -23,12 +23,12 @@
       <img class="close" src="~assets/img/close.svg" alt="close" />
     </div>
     <div class="add-speciality__technologies">
-      <UTags v-for="(item, i) in 9" :key="i" :title="'Javascript'"></UTags>
-      <UButton
+      <U-Tags v-for="(item, i) in 9" :key="i" :title="'Javascript'"></U-Tags>
+      <U-Button
         :button-class="'u-button-transpend'"
         :button-name="'Edit technologies'"
         @clickOnButton="togglePopupTechnologies"
-      ></UButton>
+      ></U-Button>
     </div>
     <div
       v-show="popupTechnologies"
@@ -39,7 +39,7 @@
           Pick technologies you need to use within {{ choosenSpeciality }}
           speciality
         </p>
-        <TechnologyPicker></TechnologyPicker>
+        <Technology-Picker></Technology-Picker>
         <div class="add-speciality__content-buttons">
           <U-button
             :button-name="'Save'"

@@ -1,12 +1,12 @@
 <template>
   <div class="startups-page">
-    <RequestToTeam
+    <Request-To-Team
       :update-key="updateKey"
       :startup="startup"
       @accept="accept"
       @decline="decline"
       @advancedAccess="advancedAccess"
-    ></RequestToTeam>
+    ></Request-To-Team>
   </div>
 </template>
 <script lang="ts">

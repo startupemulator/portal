@@ -1,9 +1,9 @@
 <template>
   <div class="create-project__super-admin">
-    <UBack :link="'/profile/projects'"></UBack>
-    <UTitle
+    <U-Back :link="'/profile/projects'"></U-Back>
+    <U-Title
       :text="challenge === null ? 'Create a challenge' : 'Edit a challenge'"
-    ></UTitle>
+    ></U-Title>
     <p>Challenge name</p>
     <input
       v-model.trim="$v.challengeName.$model"
@@ -24,23 +24,23 @@
     <p v-show="$v.challengeDescription.$error" class="errorInput">
       Please enter a description name of at least 8 characters
     </p>
-    <DifficultyLevelPicker
+    <Difficulty-Level-Picker
       :key="updateKey + 'difficultyLevel'"
       :checked-difficalty-level="difficultyLevel"
       @difficultyLevelId="difficultyLevelId"
-    ></DifficultyLevelPicker>
+    ></Difficulty-Level-Picker>
     <p v-show="$v.difficultyLevel.$error" class="errorInput">
       Please choose difficulty level
     </p>
     <p>Pick specialization this task is for</p>
 
-    <SpecializationPicker
+    <Specialization-Picker
       :specialisations="specialisations"
       :choosen-specialisation="
         challenge !== null ? challenge.specialisations : null
       "
       @pickSpecialisation="pickedSpecialisation"
-    ></SpecializationPicker>
+    ></Specialization-Picker>
     <p v-show="$v.specialisation.$error" class="errorInput">
       Please choose specialisations
     </p>
@@ -55,25 +55,25 @@
       @textInput="textInput($event, i, item.id)"
     ></div>
 
-    <U-button
+    <U-Button
       :button-name="'Add Link'"
       :button-class="'u-button-blue add-link'"
       @clickOnButton="addExistingSourse"
-    ></U-button>
+    ></U-Button>
     <p v-show="$v.existingSourseComponent.$error" class="errorInput mt">
       Please add source link
     </p>
     <div class="create-project__super-admin_button">
-      <U-button
+      <U-Button
         :button-name="'Publish'"
         :button-class="'u-button-blue'"
         @clickOnButton="publishChallenge"
-      ></U-button>
-      <U-button
+      ></U-Button>
+      <U-Button
         :button-name="'Save Draft'"
         :button-class="'u-button-gray'"
         @clickOnButton="saveDraft"
-      ></U-button>
+      ></U-Button>
     </div>
   </div>
 </template>

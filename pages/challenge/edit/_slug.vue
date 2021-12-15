@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="createProject">
-      <CreateChallenge
+      <Create-Challenge
         :specialisations="specialisations"
         :challenge="challenge"
-      ></CreateChallenge>
+      ></Create-Challenge>
     </div>
   </div>
 </template>

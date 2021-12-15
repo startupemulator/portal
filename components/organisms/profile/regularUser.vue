@@ -66,20 +66,20 @@
     </div>
     <div class="start-ups_cards-content startup-block">
       <div class="transition__startup-card">
-        <Startup-card
+        <Startup-Card
           v-for="card in startups"
           :key="card.id"
           :card="card"
           :user-id="userId"
           :button_apply="false"
           :button_details="true"
-        ></Startup-card>
+        ></Startup-Card>
       </div>
     </div>
-    <u-button
+    <U-Button
       :class="'u-button-gray u-button-gray__show-more'"
       :button-name="'Show 1 More Project'"
-    ></u-button>
+    ></U-Button>
   </div>
 </template>
 <script lang="ts">

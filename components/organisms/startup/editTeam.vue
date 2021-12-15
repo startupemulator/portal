@@ -1,8 +1,8 @@
 <template>
   <div class="edit-team createProject-step2">
     <div class="edit-team__header">
-      <UBack :is-button="true" @clikOnButton="$emit('clikOnButton')"></UBack>
-      <UTitle :text="'Edit team'"></UTitle>
+      <U-Back :is-button="true" @clikOnButton="$emit('clikOnButton')"></U-Back>
+      <U-Title :text="'Edit team'"></U-Title>
       <p>
         Add an additional speciality to receive new requests, change access
         rights for existing team members or remove them from your team.
@@ -33,23 +33,23 @@
         ></div>
       </div>
       <div class="edit-team__header-buttons">
-        <U-button
+        <U-Button
           :button-name="'Add Speciality'"
           :button-class="'u-button-blue'"
           :style="invitedcolleagues.length > 0 ? 'max-width:169px' : ''"
           @clickOnButton="addSpeciality"
-        ></U-button>
-        <U-button
+        ></U-Button>
+        <U-Button
           :button-name="'Invite Collegues'"
           :button-class="'u-button-gray'"
           @clickOnButton="toggleInviteColleagues"
-        ></U-button>
+        ></U-Button>
       </div>
     </div>
     <div class="edit-team__content">
       <h3>Team</h3>
       <div v-for="items in teamMember" :key="items.id">
-        <TeamMemberCard
+        <Team-Member-Card
           v-for="item in items.applications.filter(
             (el) => el.status === 'accepted' || el.status === 'advanced'
           )"
@@ -60,28 +60,28 @@
           :premission="item.status"
           @chagePremission="chagePremission"
           @removeUserMember="$emit('removeUserMember', $event)"
-        ></TeamMemberCard>
+        ></Team-Member-Card>
       </div>
 
       <div class="edit-team__content-buttons">
-        <U-button
+        <U-Button
           :button-name="'Save'"
           :button-class="'u-button-blue'"
           @clickOnButton="save"
-        ></U-button>
-        <U-button
+        ></U-Button>
+        <U-Button
           :button-name="'Cancel'"
           :button-class="'u-button-gray'"
           @clickOnButton="cancel"
-        ></U-button>
+        ></U-Button>
       </div>
     </div>
-    <Invitecolleagues
+    <Invite-Colleagues
       v-if="invitecolleagues"
       :specialisations="specialityComponent"
       @closePopupLinkEmail="toggleInviteColleagues"
       @inviteCollegue="inviteCollegue"
-    ></Invitecolleagues>
+    ></Invite-Colleagues>
   </div>
 </template>
 <script lang="ts">

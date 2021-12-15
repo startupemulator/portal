@@ -1,6 +1,6 @@
 <template>
   <div>
-    <RequestToTeam
+    <Request-ToTeam
       v-show="requestToTeam"
       :update-key="updateKey"
       :startup="updatableDataStartup"
@@ -8,8 +8,8 @@
       @accept="accept"
       @decline="decline"
       @advancedAccess="advancedAccess"
-    ></RequestToTeam>
-    <NewFeedBack
+    ></Request-ToTeam>
+    <New-FeedBack
       v-show="newFeedBack"
       :key="updateKey + 'new-feedback'"
       :feedbacks="feedbacksData"
@@ -20,24 +20,24 @@
       @clikOnButton="toggleNewFeedBack"
       @updateFeedbacks="updateFeedbacks"
       @requestFeedback="requestFeedback"
-    ></NewFeedBack>
-    <RequestFeedback
+    ></New-FeedBack>
+    <Request-Feedback
       v-show="requestFeedBack"
       :key="updateKey"
       :startup="updatableDataStartup"
       :user-id="userId"
       @clikOnButton="toggleRequestFeedBack"
       @createFedbackNotification="createFedbackNotification"
-    ></RequestFeedback>
-    <EditStartupInfo
+    ></Request-Feedback>
+    <Edit-Startup-Info
       v-show="editStartupInfo"
       :startup="updatableDataStartup"
       :estimations="estimations"
       @updateStartup="updateStartup($event)"
       @clikOnButton="toggleEditStartupInfo"
       @cancelEditStartupInfo="cancelEditStartupInfo"
-    ></EditStartupInfo>
-    <EditTeam
+    ></Edit-Startup-Info>
+    <Edit-Team
       v-if="editTeam"
       :update-key="updateKey"
       :staffed-position="staffedPosition"
@@ -52,35 +52,35 @@
       @cancelEditTeam="cancelEditTeam"
       @changeTeam="changeTeam"
       @removeUserMember="removeUserMember"
-    ></EditTeam>
-    <EditSources
+    ></Edit-Team>
+    <Edit-Sources
       v-show="editSources"
       :sources="updatableDataStartup.sources"
       :startup-id="moveAwayStartup"
       @clikOnButton="toggleEditSources"
       @saveSources="saveSources"
       @cancelSources="cancelSources"
-    ></EditSources>
-    <EditGuide
+    ></Edit-Sources>
+    <Edit-Guide
       v-show="editGuide"
       :secrets="updatableDataStartup.secrets"
       :startup-id="moveAwayStartup"
       @clikOnButton="toggleEditGuide"
       @saveGuide="saveGuide"
-    ></EditGuide>
-    <FinishStartup
+    ></Edit-Guide>
+    <Finish-Startup
       v-show="finishStartup"
       @clikOnButton="toggleFinishStartup"
       @finishStartup="finishThisStartup"
-    ></FinishStartup>
-    <AddReleseLinks
+    ></Finish-Startup>
+    <Add-Relese-Links
       v-show="releaseLikns"
       :startup-id="startup.id"
       :releases="releases"
       @clikOnButton="toggleReleaseLikns"
       @saveReleaseLinks="saveReleaseLinks"
-    ></AddReleseLinks>
-    <AddTeamFeedBack
+    ></Add-Relese-Links>
+    <Add-Team-FeedBack
       v-if="addTeamFeedBack"
       :key="updateKey + 'addFeedback'"
       :title="feedBackTitle"
@@ -90,21 +90,21 @@
       :directions="directions"
       @clikOnButton="toggleAddTeamFeedBack"
       @teamNotificationFeedback="teamNotificationFeedback"
-    ></AddTeamFeedBack>
+    ></Add-Team-FeedBack>
 
-    <AddTeamBadge
+    <Add-Team-Badge
       v-if="addTeamBadge"
       :badges="badges"
       :title="badgeTitle"
       @clikOnButton="toggleAddTeamBadge"
-    ></AddTeamBadge>
-    <AddTeamBadge
+    ></Add-Team-Badge>
+    <Add-Team-Badge
       v-show="addFeedBackBadge"
       :badges="badges"
       :feedback-id="feedbackIdForAddBadge"
       @clikOnButton="closeAddFeedBackBadge"
       @addedBadge="closeAddFeedBackBadge"
-    ></AddTeamBadge>
+    ></Add-Team-Badge>
     <div
       v-show="
         !requestToTeam &&
@@ -128,10 +128,10 @@
       "
     >
       <div class="startup_block-1">
-        <U-back :title="'Startups'" :link="'/startups'"></U-back>
+        <U-Back :title="'Startups'" :link="'/startups'"></U-Back>
 
         <div class="startup__header">
-          <U-title :text="'Startup #' + updatableDataStartup.id"></U-title>
+          <U-Title :text="'Startup #' + updatableDataStartup.id"></U-Title>
           <div
             class="startup__header__startup-state"
             :class="isStarted ? 'started' : finished ? 'finished' : ''"
@@ -197,10 +197,10 @@
           {{ updatableDataStartup.description }}
         </p>
         <div>
-          <CommentExpert
+          <Comment-Expert
             v-if="isExpert && askFeedbacks !== null"
             :solution-data="askFeedbacks"
-          ></CommentExpert>
+          ></Comment-Expert>
         </div>
 
         <div v-if="isOwner && !finished" class="owner-menu">
@@ -331,7 +331,7 @@
           class="startup__open-position"
         >
           <h3>Open positions</h3>
-          <Open-position-card
+          <Open-Position-Card
             v-for="item in openPosition"
             :key="item.id + 'open-position'"
             :position="item"
@@ -339,24 +339,24 @@
             :slug="updatableDataStartup.slug"
             :is-owner="isOwner"
             :is-developer="isDeveloper"
-          ></Open-position-card>
+          ></Open-Position-Card>
         </div>
         <div v-cloak class="startup-card__team">
           <h3>Team</h3>
-          <ProjectParticipant
+          <Project-Participant
             :username="updatableDataStartup.owner"
             :is-owner="true"
-          ></ProjectParticipant>
+          ></Project-Participant>
           <div
             v-if="teamMember.length > 0 && (isStarted || finished)"
             class="team"
           >
-            <ProjectParticipant
+            <Project-Participant
               v-for="item in teamMember"
               :key="item.id + 'project-participant' + updateKey"
               :position="item.specialisation.title"
               :username="item.applications"
-            ></ProjectParticipant>
+            ></Project-Participant>
           </div>
         </div>
       </div>
@@ -374,7 +374,7 @@
               }}
             </p>
           </div>
-          <FeedBackCard
+          <FeedBack-Card
             v-for="feedback in updatableFeedbacks.slice(0, maxLengthActivity)"
             :key="feedback.id + 'feedback'"
             :feedback="feedback"
@@ -383,10 +383,10 @@
             @updateFeedbacks="updateFeedbacks"
             @addFeedback="toggleAddTeamFeedBack"
             @addBadge="addFeedbackBadge"
-          ></FeedBackCard>
+          ></FeedBack-Card>
         </div>
 
-        <U-button
+        <U-Button
           v-if="updatableFeedbacks.length > maxLengthActivity"
           :button-name="`Show ${
             updatableFeedbacks.length - maxLengthActivity > 3
@@ -395,7 +395,7 @@
           } Earlier Actions`"
           :button-class="'u-button-gray button-show-earlier-actions'"
           @clickOnButton="showMore"
-        ></U-button>
+        ></U-Button>
 
         <div class="project-started">
           <h4>Project started</h4>
@@ -412,10 +412,10 @@
         v-if="!isOwner && !isDeveloper && !isExpert"
         class="position-card__developer__primary-button"
       >
-        <U-button
+        <U-Button
           :button-name="'Apply to Teams'"
           :button-class="'u-button-blue'"
-        ></U-button>
+        ></U-Button>
       </div>
       <div v-show="popupCancelApplication" class="popup-cancel-application">
         <div class="popup-cancel-application__content">
@@ -429,11 +429,11 @@
           </button>
 
           <div class="popup-cancel-application__buttons">
-            <U-button
+            <U-Button
               :button-name="'Yes, Cancel'"
               :button-class="'u-button-blue'"
               @clickOnButton="$emit('cancelApplication')"
-            ></U-button>
+            ></U-Button>
             <U-button
               :button-name="'No, Don’t Cancel'"
               :button-class="'u-button-gray'"
@@ -442,7 +442,7 @@
           </div>
         </div>
       </div>
-      <PopupDeleteOrStartStartup
+      <Popup-Delete-Or-Start-Startup
         v-show="popupDeleteOrStartStartup"
         :move-away-startup="moveAwayStartup"
         :move-away-startup-name="moveAwayStartupName"
@@ -451,18 +451,18 @@
         @closePopupLinkEmail="togglepopupDeleteOrStartStartup"
         @deleteStartup="deleteStartup"
         @startStartup="startStartup('in_progress')"
-      ></PopupDeleteOrStartStartup>
-      <GuidePopup
+      ></Popup-Delete-Or-Start-Startup>
+      <Guide-Popup
         v-if="popupGuide"
         :startup="updatableDataStartup"
         @closePopup="togglePopupGuide"
-      ></GuidePopup>
+      ></Guide-Popup>
     </div>
-    <PopupLeaveProject
+    <Popup-Leave-Project
       v-if="popupLeaveProject"
       @closePopupLeaveproject="togglepopupLeaveProject"
       @leveProject="leveProject"
-    ></PopupLeaveProject>
+    ></Popup-Leave-Project>
   </div>
 </template>
 <script lang="ts">

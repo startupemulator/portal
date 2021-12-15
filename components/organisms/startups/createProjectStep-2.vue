@@ -33,18 +33,19 @@
         You can also invite your colleagues
         <p>to the team as developers or as product owners.</p>
       </h5>
-      <CreateSpecialities
+      <Create-Specialities
         v-for="item in CreateProjectPage.invites"
         :key="item.id"
         :name="item.email"
         :specialisations="CreateProjectPage.specialisationsForInvites"
         :picker="false"
+        :is-dropping="false"
         :speciality-from-parent="[
           item.position.specialisation.title,
           item.position.specialisation.id,
         ]"
         @removeSpeciality="removeInvitedcolleagues(item.id)"
-      ></CreateSpecialities>
+      ></Create-Specialities>
 
       <button class="invite-colleagues__button" @click="toggleInviteColleagues">
         Invite colleagues
