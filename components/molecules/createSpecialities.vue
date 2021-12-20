@@ -135,6 +135,12 @@
         </div>
       </div>
     </div>
+    <p
+      v-show="positionWithoutSpecialisation && !specialityFromParent"
+      class="errorInput"
+    >
+      Choose specialisation
+    </p>
   </div>
 </template>
 <script lang="ts">
@@ -166,6 +172,7 @@ export default class extends Vue {
 
   @Prop({ default: "" }) name: String;
   @Prop({ default: "" }) title: String;
+  @Prop() positionWithoutSpecialisation: boolean;
 
   @Prop({
     default() {

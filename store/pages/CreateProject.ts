@@ -145,7 +145,7 @@ export default class CreateProject
     const { draftStartup } = this.state as CreateProjectState;
     const { $createPosition } = context;
     try {
-      const newPosition = await $createPosition(draftStartup.id, ["0"], "12");
+      const newPosition = await $createPosition(draftStartup.id);
       if (newPosition !== null) {
         draftStartup.positions.push(newPosition);
       }
@@ -195,7 +195,10 @@ export default class CreateProject
       if (updatePosition !== null) {
         draftStartup.positions.forEach((position) => {
           if (position.id === updatePosition.id) {
-            position.specialisation.title = updatePosition.specialisation.title;
+            position.specialisation = {
+              title: updatePosition.specialisation.title,
+              id: updatePosition.specialisation.id,
+            };
             specialisationsForInvites = [];
             if (draftStartup.positions) {
               draftStartup.positions.forEach((el) => {
