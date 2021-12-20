@@ -4,12 +4,12 @@ import {
   MutationAction,
   VuexModule,
 } from "nuxt-property-decorator";
-import { NuxtContext } from "../../../types/services";
-import { Technology } from "../../../models/Technology";
-import { Estimation } from "../../../models/Estimation";
-import { Specialisation } from "../../../models/Specialisation";
-import { Startup } from "../../../models/Startup";
-import { Invites } from "../../../models/Invites";
+import { NuxtContext } from "../../types/services";
+import { Technology } from "../../models/Technology";
+import { Estimation } from "../../models/Estimation";
+import { Specialisation } from "../../models/Specialisation";
+import { Startup } from "../../models/Startup";
+import { Invites } from "../../models/Invites";
 export interface CreateProjectState {
   technologies: Technology[];
   estimations: Estimation[];
