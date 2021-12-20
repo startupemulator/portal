@@ -85,11 +85,15 @@
           id="days-title"
           v-model="duration"
           type="text"
+          maxlength="3"
           placeholder="Or enter the number of days"
           :class="$v.duration.$error ? ' error' : ''"
       /></label>
-      <p v-show="$v.duration.$error" class="errorInput">
+      <p v-show="$v.duration.$error || !$v.duration.numeric" class="errorInput">
         Please enter or choose estimation duration
+      </p>
+      <p v-show="!$v.duration.between" class="errorInput">
+        Estimation duration can't be less 1 and more 365 days.
       </p>
     </div>
     <div class="edit-startup-info__buttons">
@@ -108,7 +112,12 @@
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
-import { required, minLength, numeric } from "vuelidate/lib/validators";
+import {
+  required,
+  minLength,
+  numeric,
+  between,
+} from "vuelidate/lib/validators";
 import DatePicker from "vue2-datepicker";
 import { Estimation } from "../../../models/Estimation";
 import UInput from "~/components/atoms/uInput.vue";
@@ -134,6 +143,7 @@ import DurationPicker from "~/components/molecules/durationPicker.vue";
     duration: {
       required,
       numeric,
+      between: between(1, 365),
     },
   },
 })
@@ -269,7 +279,16 @@ export default class extends Vue {
       margin-left: 16px;
     }
   }
+
+  p.errorInput,
+  .startup-info__form p.errorInput {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    color: #f87b7b;
+  }
 }
+
 @media (min-width: 768px) {
   .startup-info {
     input {
