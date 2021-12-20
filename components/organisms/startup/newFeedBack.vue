@@ -50,9 +50,9 @@ import FeedBackCard from "../../molecules/feedbackCard.vue";
 import { Feedbacks } from "~/models/Feedbacks";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
-import Ubutton from "~/components/atoms/uButton.vue";
+import UButton from "~/components/atoms/uButton.vue";
 @Component({
-  components: { UBack, UTitle, FeedBackCard, Ubutton },
+  components: { UBack, UTitle, FeedBackCard, UButton },
 })
 export default class extends Vue {
   @Prop() feedbacks: Array<Feedbacks>;
