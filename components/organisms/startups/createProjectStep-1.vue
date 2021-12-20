@@ -99,7 +99,7 @@
           Please enter or choose estimation duration
         </p>
         <p v-show="!$v.duration.between" class="errorInput">
-          Estimation duration can't be less 0 and more 365 days.
+          Estimation duration can't be less 1 and more 365 days.
         </p>
       </div>
     </div>
@@ -142,7 +142,7 @@ import { CreateProjectPage } from "~/store";
       minLength: minLength(8),
     },
     description: {
-      minLength: minLength(10),
+      minLength: minLength(8),
       required,
     },
     date: {
