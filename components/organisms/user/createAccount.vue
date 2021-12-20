@@ -2,7 +2,7 @@
   <div class="account">
     <form>
       <div class="create-account">
-        <SystemAlert v-if="error !== ''"></SystemAlert>
+        <System-Alert v-if="error !== ''"></System-Alert>
         <U-Back link="/"></U-Back>
         <U-Title :text="'Create an account'"> </U-Title>
         <U-Input

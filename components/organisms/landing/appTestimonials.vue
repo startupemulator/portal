@@ -31,12 +31,12 @@
         <div>
           <h3>
             {{ card.comment | truncate(175, "...") }}
-            <U-button
+            <U-Button
               v-if="card.comment.length > 175"
               :button-name="' Show all'"
               :button-class="'u-button-transpend'"
               @clickOnButton="toggletestimonialPopup(i)"
-            ></U-button>
+            ></U-Button>
           </h3>
 
           <p class="testimonial-block__full-name">{{ card.author }}</p>
