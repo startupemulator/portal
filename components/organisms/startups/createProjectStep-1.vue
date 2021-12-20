@@ -92,8 +92,9 @@
             placeholder="Or enter the number of days"
             :class="$v.duration.$error ? ' error' : ''"
         /></label>
+
         <p
-          v-show="!$v.duration.required || !$v.duration.numeric"
+          v-show="$v.duration.$error || !$v.duration.numeric"
           class="errorInput"
         >
           Please enter or choose estimation duration
