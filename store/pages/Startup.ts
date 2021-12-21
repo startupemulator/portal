@@ -41,7 +41,6 @@ export default class StartupPage
   badges: Badges[] = [];
   releases: Releases[] = [];
   profile: Profile[] = [];
-  title: string = "";
   isOwner: boolean = false;
   isDeveloper: boolean = false;
   isExpert: boolean = false;
@@ -68,7 +67,6 @@ export default class StartupPage
       const { estimations } = await context.$estimations();
       const { specialisations } = await context.$specialisations();
       const { technologies } = await context.$technologies();
-      const title = startup.description;
       if ($strapi.user) {
         profile = await context.$profile($strapi.user.id);
       }
@@ -120,7 +118,6 @@ export default class StartupPage
         estimations,
         specialisations,
         technologies,
-        title,
         profile,
         releases,
         directions,

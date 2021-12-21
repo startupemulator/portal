@@ -181,7 +181,6 @@ export default class extends Vue {
   }
 
   mounted() {
-    document.title = Startup.startup.title;
     //   if (this.$strapi.user && +this.$strapi.user.id === +this.startup.owner.id) {
     //     this.isOwner = true;
     //   }
@@ -247,13 +246,9 @@ export default class extends Vue {
     //   }
   }
 
-  beforeDestroy() {
-    document.title = "StartupEmulator - training platform for developers";
-  }
-
   head() {
     return {
-      title: this.title,
+      title: Startup.startup.title,
     };
   }
 }
