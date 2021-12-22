@@ -12,12 +12,14 @@
       :class="'speciality-content'"
       :name="'Speciality ' + (i + 1)"
       :picker="true"
+      :position-without-specialisation="positionWithoutSpecialisation"
       :creator="CreateProjectPage.draftStartup.owner.id"
       :specialisations="CreateProjectPage.specialisations"
-      :speciality-from-parent="[
-        position.specialisation.title,
-        position.specialisation.id,
-      ]"
+      :speciality-from-parent="
+        position.specialisation !== null
+          ? [position.specialisation.title, position.specialisation.id]
+          : ''
+      "
       :checked-technologies="position.technologies"
       :position-id="position.id"
       @removeSpeciality="removeSpeciality(position.id, i)"
@@ -64,7 +66,7 @@
       ></U-Button>
     </div>
     <Invite-Colleagues
-      v-if="invitecolleagues"
+      v-if="inviteColleagues"
       :specialisations="CreateProjectPage.draftStartup.positions"
       @closePopupLinkEmail="toggleInviteColleagues"
       @inviteCollegue="inviteCollegue"
@@ -94,10 +96,8 @@ export default class extends Vue {
   }
 
   @Prop() createdStartupId: Number;
-  specialityComponent: Array<any> = [{ id: 0, type: "create-specialities" }];
-  invitedcolleagues: Array<any> = [];
-  invitecolleagues: Boolean = false;
-
+  inviteColleagues = false;
+  positionWithoutSpecialisation = false;
   async addSpeciality() {
     Spinner.show();
     await CreateProjectPage.createPosition(this);
@@ -121,10 +121,16 @@ export default class extends Vue {
   }
 
   goToStepThree() {
-    this.$emit("goToStepThree", [
-      this.specialityComponent,
-      this.invitedcolleagues,
-    ]);
+    CreateProjectPage.draftStartup.positions.forEach((position) => {
+      if (position.specialisation === null) {
+        this.positionWithoutSpecialisation = true;
+      } else {
+        this.positionWithoutSpecialisation = false;
+      }
+    });
+    if (!this.positionWithoutSpecialisation) {
+      this.$emit("goToStepThree");
+    }
   }
 
   async inviteCollegue(data) {
@@ -132,14 +138,14 @@ export default class extends Vue {
     await CreateProjectPage.inviteCollegue({ context: this, data });
     Spinner.hide();
 
-    this.invitecolleagues = !this.invitecolleagues;
+    this.inviteColleagues = !this.inviteColleagues;
     enableScrolling();
   }
 
   toggleInviteColleagues() {
     if (CreateProjectPage.draftStartup.positions.length !== 0) {
-      this.invitecolleagues = !this.invitecolleagues;
-      this.invitecolleagues ? disableScrolling() : enableScrolling();
+      this.inviteColleagues = !this.inviteColleagues;
+      this.inviteColleagues ? disableScrolling() : enableScrolling();
     }
   }
 

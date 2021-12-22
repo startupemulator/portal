@@ -5,11 +5,7 @@ import { Technology } from "~/models/Technology";
 export interface PositionsServices {
   $positions(id: string): Promise<Partial<Positions>[]>;
 
-  $createPosition(
-    startup: string,
-    technologies: Array<Technology>,
-    specialisation: string
-  ): Promise<Partial<Positions>>;
+  $createPosition(startup: string): Promise<Partial<Positions>>;
 
   $deletePositions(id: string): Promise<Partial<Positions>>;
 
@@ -54,15 +50,11 @@ export function deletePositions($strapi: Strapi) {
 }
 
 export function createPosition($strapi: Strapi) {
-  return async (
-    startup: string,
-    technologies: Array<Technology>,
-    specialisation: string
-  ) => {
+  return async (startup: string) => {
     const data = await $strapi.graphql({
       query: `mutation {
         createPosition(input: { data: { startup: "${startup}",
-        specialisation: "${specialisation}", technologies: [${technologies}], status: open  } }) {
+         status: open  } }) {
           position {
             id
             specialisation{

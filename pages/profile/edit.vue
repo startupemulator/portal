@@ -62,7 +62,7 @@ import TechnologyPicker from "~/components/molecules/technologyPicker.vue";
 import uBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UInput from "~/components/atoms/uInput.vue";
-import uButton from "~/components/atoms/uButton.vue";
+import UButton from "~/components/atoms/uButton.vue";
 import { EditProfilePage } from "~/store";
 import Spinner from "~/store/modules/Spinner";
 
@@ -70,7 +70,7 @@ import Spinner from "~/store/modules/Spinner";
   components: {
     uBack,
     UTitle,
-    uButton,
+    UButton,
     UInput,
     DurationExperiensePicker,
     TechnologyPicker,

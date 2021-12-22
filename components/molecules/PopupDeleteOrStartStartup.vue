@@ -155,6 +155,7 @@ export default class extends Vue {
       width: 564px;
       height: 360px;
       padding: 0 48px;
+      margin-top: 342px;
     }
 
     h2 {

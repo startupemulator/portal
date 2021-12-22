@@ -164,17 +164,11 @@ export default class extends Vue {
     }
   }
 
-  goToStepThree(secodStepData) {
+  goToStepThree() {
     this.createprodjectSteps.stepTwo = false;
     this.createprodjectSteps.stepThree = true;
     CreateProjectPage.draftStartup.specialists = [];
     CreateProjectPage.draftStartup.coleagues = [];
-    secodStepData[0].forEach((el) =>
-      CreateProjectPage.draftStartup.specialists.push(el)
-    );
-    secodStepData[1].forEach((el) =>
-      CreateProjectPage.draftStartup.coleagues.push(el)
-    );
   }
 
   goToStepFour() {

@@ -156,18 +156,10 @@ export default class TakeStartup extends Vue {
     }
   }
 
-  beforeDestroy() {
-    document.title = "StartupEmulator - training platform for developers";
-  }
-
   head() {
     return {
-      title: this.title,
+      title: this.startup.title,
     };
-  }
-
-  mounted() {
-    console.log(this.$route);
   }
 }
 </script>

@@ -88,17 +88,19 @@
             id="days-title"
             v-model="duration"
             type="text"
+            maxlength="3"
             placeholder="Or enter the number of days"
             :class="$v.duration.$error ? ' error' : ''"
         /></label>
+
         <p
-          v-show="!$v.duration.required || !$v.duration.numeric"
+          v-show="$v.duration.$error || !$v.duration.numeric"
           class="errorInput"
         >
           Please enter or choose estimation duration
         </p>
-        <p v-show="!$v.duration.maxValue" class="errorInput">
-          Estimation duration can't be more 365 days.
+        <p v-show="!$v.duration.between" class="errorInput">
+          Estimation duration can't be less 1 and more 365 days.
         </p>
       </div>
     </div>
@@ -124,7 +126,7 @@ import {
   required,
   minLength,
   numeric,
-  maxValue,
+  between,
 } from "vuelidate/lib/validators";
 import Toast from "../../../store/modules/Toast";
 import { Estimation } from "../../../models/Estimation";
@@ -141,7 +143,7 @@ import { CreateProjectPage } from "~/store";
       minLength: minLength(8),
     },
     description: {
-      minLength: minLength(10),
+      minLength: minLength(8),
       required,
     },
     date: {
@@ -150,7 +152,7 @@ import { CreateProjectPage } from "~/store";
     duration: {
       required,
       numeric,
-      maxValue: maxValue(365),
+      between: between(1, 365),
     },
   },
   components: { DatePicker, UButton, DurationPicker, AddInput },
