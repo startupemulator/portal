@@ -1,6 +1,14 @@
 name: StartupEmulator Portal CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - 'main'
+    tags:
+      - 'v*'
+  pull_request:
+    branches:
+      - 'main'
 
 env:
   REGISTRY: ghcr.io
@@ -28,9 +36,14 @@ jobs:
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        uses: docker/metadata-action@v3
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
@@ -52,6 +65,6 @@ jobs:
         with:
           context: ./
           file: ./Dockerfile
-          push: true
+          push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
