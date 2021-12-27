@@ -1,4 +1,4 @@
-# StartupEmulator Portal [![StartupEmulator  CI](https://github.com/startupemulator/portal/actions/workflows/nodejs.yml/badge.svg)](https://github.com/startupemulator/portal/actions/workflows/nodejs.yml)
+# StartupEmulator Portal [![StartupEmulator  CI](https://github.com/startupemulator/portal/actions/workflows/pipeline.yml/badge.svg)](https://github.com/startupemulator/portal/actions/workflows/pipeline.yml)
 
 ## Commit changes to repository
 
