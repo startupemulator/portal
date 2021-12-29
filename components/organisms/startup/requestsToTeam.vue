@@ -11,7 +11,9 @@
     </div>
     <div class="request-to-team__content">
       <Position-List
-        v-for="item in startup.positions"
+        v-for="item in (positions = startup.positions.filter(
+          (el) => el.specialisation !== null
+        ))"
         :id="item.id"
         :key="item.id"
         :update-key="updateKey"
