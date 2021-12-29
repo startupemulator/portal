@@ -15,6 +15,7 @@
       :position-without-specialisation="positionWithoutSpecialisation"
       :creator="CreateProjectPage.draftStartup.owner.id"
       :specialisations="CreateProjectPage.specialisations"
+      :all-technologies="CreateProjectPage.technologies"
       :speciality-from-parent="
         position.specialisation !== null
           ? [position.specialisation.title, position.specialisation.id]
@@ -24,6 +25,12 @@
       :position-id="position.id"
       @removeSpeciality="removeSpeciality(position.id, i)"
       @chosenSpeciality="addSpecialityToPosition($event, position.id)"
+      @addTechnologyToPosition="addTechnologyToPosition($event)"
+      @removeTechnologyToPosition="removeTechnologyToPosition($event)"
+      @removePersonalTechnology="removePersonalTechnology($event)"
+      @createCustomTechnology="createCustomTechnology($event)"
+      @updatePosition="updatePosition($event)"
+      @skipTechnologies="skipTechnologies($event)"
     >
     </Create-Specialities>
     <button class="specialityOne__button" @click="addSpeciality">
@@ -153,6 +160,51 @@ export default class extends Vue {
     Spinner.show();
     await CreateProjectPage.deleteInviteCollegue({ context: this, id });
     Spinner.hide();
+  }
+
+  async addTechnologyToPosition({ positionId, technology }) {
+    await CreateProjectPage.addTechnologyToPosition({
+      positionId,
+      technology,
+    });
+  }
+
+  async removeTechnologyToPosition({ positionId, technology }) {
+    await CreateProjectPage.removeTechnologyToPosition({
+      positionId,
+      technology,
+    });
+  }
+
+  async removePersonalTechnology({ positionId, technologies }) {
+    await CreateProjectPage.removePersonalTechnology({
+      technologies,
+      positionId,
+    });
+  }
+
+  async createCustomTechnology({ positionId, technology }) {
+    await CreateProjectPage.createCustomTechnology({
+      context: this,
+      positionId,
+      technology,
+    });
+  }
+
+  async updatePosition({ positionId, technologies, specialisation }) {
+    await CreateProjectPage.updatePosition({
+      context: this,
+      positionId,
+      technologies,
+      specialisation,
+    });
+  }
+
+  async skipTechnologies({ positionId, chosenTechnologies }) {
+    await CreateProjectPage.skipTechnologies({
+      positionId,
+      chosenTechnologies,
+    });
   }
 }
 </script>
