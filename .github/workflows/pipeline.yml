@@ -59,6 +59,11 @@ jobs:
         env:
           CI: true
 
+      - name: Generate version
+        run: |
+          git log --pretty=format:'%cs-%h' -n 1 > static/version.txt
+          cat static/version.txt
+
       - name: Build docker
         id: docker_build
         uses: docker/build-push-action@v2
