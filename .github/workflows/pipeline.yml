@@ -46,12 +46,14 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
 
       - name: Deploy to stage
-        uses: JimCronqvist/action-ssh@master
+        uses: appleboy/ssh-action@master
         if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
         with:
-          hosts: "${{ secrets.STAGE_USER }}@${{ secrets.STAGE_HOST }}"
-          privateKey: ${{ secrets.STAGE_KEY }}
-          command: |
+          host: ${{ secrets.STAGE_HOST }}
+          username: ${{ secrets.STAGE_USER }}
+          key: ${{ secrets.STAGE_KEY }}
+          port: 22
+          script: |
             whoami
             ls -al
 
