@@ -77,26 +77,24 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-      - run: |
-          echo ${{ secrets.STAGE_HOST }}
-          echo ${{ secrets.STAGE_USER }}
-
       - name: Deploy to stage
-        uses: appleboy/ssh-action@master
+        uses: fifsky/ssh-action@master
+        if: ${{ github.event_name != 'pull_request' && github.branch == 'main' }}
         with:
           host: ${{ secrets.STAGE_HOST }}
-          username: ${{ secrets.STAGE_USER }}
+          user: ${{ secrets.STAGE_USER }}
           key: ${{ secrets.STAGE_KEY }}
-          port: 22
-          script: |
+          command: |
             whoami
             ls -al
 
       - name: Deploy to prod
-        uses: appleboy/ssh-action@master
+        uses: fifsky/ssh-action@master
         if: ${{ github.event_name != 'pull_request' && github.branch != 'main' }}
         with:
           host: ${{ secrets.STAGE_HOST }}
-          username: ${{ secrets.STAGE_USER }}
+          user: ${{ secrets.STAGE_USER }}
           key: ${{ secrets.STAGE_KEY }}
-          script: whoami
+          command: |
+            whoami
+            ls -al
