@@ -50,7 +50,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: npm install, build, lint and test
+      - name: Tests
         run: |
           npm ci
           npx playwright install
@@ -59,6 +59,13 @@ jobs:
           npm run test:e2e
         env:
           CI: true
+
+      - name: Generate version
+        run: |
+          VERSION="${{steps.meta.outputs.labels['org.opencontainers.image.version']}}"
+          COMMIT_DATE=`git log --pretty=format:'%cs-%h' -n 1`
+          echo "${VERSION} ${COMMIT_DATE}" > static/version.txt
+          cat static/version.txt
 
       - name: Build docker
         id: docker_build
@@ -69,3 +76,23 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Deploy to stage
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.STAGE_HOST }}
+          username: ${{ secrets.STAGE_USER }}
+          key: ${{ secrets.STAGE_KEY }}
+          port: ${{ secrets.STAGE_PORT:-22 }}
+          script: |
+            whoami
+            ls -al
+
+      - name: Deploy to prod
+        uses: appleboy/ssh-action@master
+        if: ${{ github.event_name != 'pull_request' && github.branch != 'main' }}
+        with:
+          host: ${{ secrets.STAGE_HOST }}
+          username: ${{ secrets.STAGE_USER }}
+          key: ${{ secrets.STAGE_KEY }}
+          script: whoami
