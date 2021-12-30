@@ -79,7 +79,7 @@ jobs:
 
       - name: Deploy to stage
         uses: fifsky/ssh-action@master
-        if: ${{ github.event_name != 'pull_request' && github.branch == 'main' }}
+        if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
         with:
           host: ${{ secrets.STAGE_HOST }}
           user: ${{ secrets.STAGE_USER }}
@@ -90,7 +90,7 @@ jobs:
 
       - name: Deploy to prod
         uses: fifsky/ssh-action@master
-        if: ${{ github.event_name != 'pull_request' && github.branch != 'main' }}
+        if: ${{ github.event_name != 'pull_request' && github.ref_type == 'tag' }}
         with:
           host: ${{ secrets.STAGE_HOST }}
           user: ${{ secrets.STAGE_USER }}
