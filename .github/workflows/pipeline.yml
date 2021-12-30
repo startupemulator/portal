@@ -77,6 +77,10 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
+      - run: |
+          echo ${{ secrets.STAGE_HOST }}
+          echo ${{ secrets.STAGE_USER }}
+
       - name: Deploy to stage
         uses: appleboy/ssh-action@master
         with:
