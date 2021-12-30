@@ -45,6 +45,18 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
 
+      - name: Deploy to stage
+        uses: appleboy/ssh-action@master
+        if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
+        with:
+          host: ${{ secrets.STAGE_HOST }}
+          username: ${{ secrets.STAGE_USER }}
+          key: ${{ secrets.STAGE_KEY }}
+          port: 22
+          script: |
+            whoami
+            ls -al
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -62,8 +74,8 @@ jobs:
 
       - name: Generate version
         run: |
-          VERSION="${{steps.meta.outputs.labels['org.opencontainers.image.version']}}"
-          COMMIT_DATE=`git log --pretty=format:'%cs-%h' -n 1`
+          VERSION=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}
+          COMMIT_DATE=`git log --pretty=format:'%cs %h' -n 1`
           echo "${VERSION} ${COMMIT_DATE}" > static/version.txt
           cat static/version.txt
 
@@ -76,17 +88,6 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-
-      - name: Deploy to stage
-        uses: fifsky/ssh-action@master
-        if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
-        with:
-          host: ${{ secrets.STAGE_HOST }}
-          user: ${{ secrets.STAGE_USER }}
-          key: ${{ secrets.STAGE_KEY }}
-          command: |
-            whoami
-            ls -al
 
       - name: Deploy to prod
         uses: fifsky/ssh-action@master
