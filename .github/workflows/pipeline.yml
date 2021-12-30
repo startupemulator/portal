@@ -49,6 +49,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+
       - name: npm install, build, lint and test
         run: |
           npm ci
@@ -58,11 +59,6 @@ jobs:
           npm run test:e2e
         env:
           CI: true
-
-      - name: Generate version
-        run: |
-          git log --pretty=format:'%cs-%h' -n 1 > static/version.txt
-          cat static/version.txt
 
       - name: Build docker
         id: docker_build
