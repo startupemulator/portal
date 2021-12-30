@@ -45,18 +45,6 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
 
-      - name: Deploy to stage
-        uses: appleboy/ssh-action@master
-        if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
-        with:
-          host: ${{ secrets.STAGE_HOST }}
-          username: ${{ secrets.STAGE_USER }}
-          key: ${{ secrets.STAGE_KEY }}
-          port: 22
-          script: |
-            whoami
-            ls -al
-
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -89,13 +77,22 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-      - name: Deploy to prod
-        uses: fifsky/ssh-action@master
+      - name: Deploy to stage
+        uses: appleboy/ssh-action@master
+        if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
+        with:
+          host: ${{ secrets.STAGE_HOST }}
+          username: ${{ secrets.STAGE_USER }}
+          key: ${{ secrets.STAGE_KEY }}
+          port: 22
+          script: sh /opt/startupemulator/refresh-versions.sh
+
+      - name: Deploy to Prod
+        uses: appleboy/ssh-action@master
         if: ${{ github.event_name != 'pull_request' && github.ref_type == 'tag' }}
         with:
           host: ${{ secrets.STAGE_HOST }}
-          user: ${{ secrets.STAGE_USER }}
+          username: ${{ secrets.STAGE_USER }}
           key: ${{ secrets.STAGE_KEY }}
-          command: |
-            whoami
-            ls -al
+          port: 22
+          script: sh /opt/startupemulator/refresh-versions.sh
