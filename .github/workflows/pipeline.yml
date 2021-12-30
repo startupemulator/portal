@@ -85,7 +85,9 @@ jobs:
           username: ${{ secrets.STAGE_USER }}
           key: ${{ secrets.STAGE_KEY }}
           port: 22
-          script: sh /opt/startupemulator/refresh-versions.sh
+          script: |
+            cd /opt/startupemulator/
+            ./refresh-versions.sh
 
       - name: Deploy to Prod
         uses: appleboy/ssh-action@master
@@ -95,4 +97,6 @@ jobs:
           username: ${{ secrets.STAGE_USER }}
           key: ${{ secrets.STAGE_KEY }}
           port: 22
-          script: sh /opt/startupemulator/refresh-versions.sh
+          script: |
+            cd /opt/startupemulator/
+            ./refresh-versions.sh
