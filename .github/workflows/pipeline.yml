@@ -83,7 +83,7 @@ jobs:
           host: ${{ secrets.STAGE_HOST }}
           username: ${{ secrets.STAGE_USER }}
           key: ${{ secrets.STAGE_KEY }}
-          port: ${{ secrets.STAGE_PORT:-22 }}
+          port: 22
           script: |
             whoami
             ls -al
