@@ -332,7 +332,9 @@
         >
           <h3>Open positions</h3>
           <Open-Position-Card
-            v-for="item in openPosition"
+            v-for="item in (position = openPosition.filter(
+              (el) => el.specialisation !== null
+            ))"
             :key="item.id + 'open-position'"
             :position="item"
             :is-expert="isExpert"

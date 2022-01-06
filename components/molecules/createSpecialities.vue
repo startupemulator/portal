@@ -154,7 +154,6 @@ import TechnologyPicker from "~/components/molecules/technologyPicker.vue";
 import UTags from "~/components/atoms/uTags.vue";
 import { Specialisation } from "~/models/Specialisation";
 import { Technology } from "~/models/Technology";
-import { CreateProjectPage } from "~/store";
 
 @Component({
   components: {
@@ -164,12 +163,6 @@ import { CreateProjectPage } from "~/store";
   },
 })
 export default class extends Vue {
-  CreateProjectPage;
-  constructor() {
-    super();
-    this.CreateProjectPage = CreateProjectPage;
-  }
-
   @Prop({ default: "" }) name: String;
   @Prop({ default: "" }) title: String;
   @Prop() positionWithoutSpecialisation: boolean;
@@ -189,7 +182,7 @@ export default class extends Vue {
   @Prop() isEditTeam: boolean;
   @Prop() positionId: string;
   @Prop({ default: true }) isDropping: boolean;
-
+  @Prop({ default: [] }) allTechnologies: Technology[];
   openSpeciality = false;
   chosenSpeciality = this.specialityFromParent[0]
     ? this.specialityFromParent[0]
@@ -214,7 +207,7 @@ export default class extends Vue {
     if (item.checked) {
       this.publicTechnologies.forEach((technology) => {
         if (+technology.id === +id) {
-          CreateProjectPage.addTechnologyToPosition({
+          this.$emit("addTechnologyToPosition", {
             positionId: this.positionId,
             technology,
           });
@@ -223,7 +216,7 @@ export default class extends Vue {
     } else {
       this.publicTechnologies.forEach((technology) => {
         if (+technology.id === +id) {
-          CreateProjectPage.removeTechnologyToPosition({
+          this.$emit("removeTechnologyToPosition", {
             positionId: this.positionId,
             technology,
           });
@@ -263,15 +256,14 @@ export default class extends Vue {
     this.chosenTechnologies = [];
 
     if (this.customTechnologiesForRemove.length !== 0) {
-      await CreateProjectPage.removePersonalTechnology({
+      await this.$emit("removePersonalTechnology", {
         technologies: this.customTechnologiesForRemove,
         positionId: this.positionId,
       });
     }
 
     for (const technology of this.newTechnologies) {
-      await CreateProjectPage.createCustomTechnology({
-        context: this,
+      await this.$emit("createCustomTechnology", {
         positionId: this.positionId,
         technology,
       });
@@ -287,8 +279,7 @@ export default class extends Vue {
         this.chosenTechnologies.push(technology.id);
       }
     });
-    await CreateProjectPage.updatePosition({
-      context: this,
+    await this.$emit("updatePosition", {
       positionId: this.positionId,
       technologies: this.chosenTechnologies,
       specialisation: this.specialityId,
@@ -297,10 +288,11 @@ export default class extends Vue {
   }
 
   async skiptechnology() {
-    await CreateProjectPage.skipTechnologies({
+    await this.$emit("skipTechnologies", {
       positionId: this.positionId,
       chosenTechnologies: this.chosenTechnologies,
     });
+
     this.publicTechnologies.forEach((technology) => {
       if (this.checkedTechnologies.some((el) => el.id === technology.id)) {
         technology.checked = true;
@@ -337,7 +329,7 @@ export default class extends Vue {
   mounted() {
     if (this.checkedTechnologies) {
       this.publicTechnologies = JSON.parse(
-        JSON.stringify(CreateProjectPage.technologies)
+        JSON.stringify(this.allTechnologies)
       );
       this.publicTechnologies.forEach((technology) => {
         if (this.checkedTechnologies.some((el) => el.id === technology.id)) {
