@@ -77,17 +77,17 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-      - name: Deploy to stage
+      - name: Deploy to Stage
         uses: appleboy/ssh-action@master
         if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
         with:
-          host: ${{ secrets.STAGE_HOST }}
-          username: ${{ secrets.STAGE_USER }}
-          key: ${{ secrets.STAGE_KEY }}
+          host: ${{ secrets.PLUM_HOST }}
+          username: ${{ secrets.PLUM_USER }}
+          key: ${{ secrets.PLUM_KEY }}
           port: 22
           script: |
             cd /opt/startupemulator/
-            ./refresh-versions.sh
+            ./deploy.sh
 
       - name: Deploy to Prod
         uses: appleboy/ssh-action@master
@@ -99,4 +99,4 @@ jobs:
           port: 22
           script: |
             cd /opt/startupemulator/
-            ./refresh-versions.sh
+            ./deploy.sh
