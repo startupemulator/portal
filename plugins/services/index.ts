@@ -97,6 +97,7 @@ import {
   applicationAdvancedAccess,
   applicationDecline,
   applications,
+  createApplication,
   applicationsByStartupId,
   cancelApplication,
 } from "~/plugins/services/applications";
@@ -197,6 +198,7 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("deleteInvite", deleteInvite(ctx.$strapi));
 
   inject("applications", applications(ctx.$strapi));
+  inject("createApplication", createApplication(ctx.$strapi));
   inject("cancelApplication", cancelApplication(ctx.$strapi));
 
   inject("applicationsByStartupId", applicationsByStartupId(ctx.$strapi));

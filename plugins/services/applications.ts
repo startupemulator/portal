@@ -3,6 +3,11 @@ import { Applications } from "~/models/Applications";
 
 export interface ApplicationsServices {
   $applications(): Promise<Partial<Applications>[]>;
+  $createApplication(
+    user: string,
+    position: string,
+    comment: string
+  ): Promise<Partial<Applications>[]>;
 
   $applicationsByStartupId(id: string): Promise<Partial<Applications>[]>;
 
@@ -41,6 +46,32 @@ export function applications($strapi: Strapi) {
   }
 }`,
     });
+  };
+}
+export function createApplication($strapi: Strapi) {
+  return async (user: string, position: string, comment: string) => {
+    const data = await $strapi.graphql({
+      query: `mutation{
+        createApplication(
+      input:{
+        data: {
+          user: "${user}",
+          position: "${position}",
+          status: waiting,
+          comment: "${comment}"} }) {
+            application{
+              id
+              user{
+                id
+              }
+              position {
+                id
+              }
+            }
+          }
+  }`,
+    });
+    return data.createApplication ? data.createApplication.application : null;
   };
 }
 export function applicationsByStartupId($strapi: Strapi) {

@@ -7,6 +7,7 @@
       :duration="newRequest.duration"
       @clickOnDuration="$emit('chooseDuration', $event)"
     ></DurationExperiencePicker>
+
     <TechnologyPicker
       :title="'Pick technologies you have an experience with'"
       :technologies="technologies"
@@ -46,9 +47,8 @@ export default class extends Vue {
   @Prop() experiences: Array<Experience>;
   @Prop() newRequest: Array<any>;
   @Prop() userTechnologies: Array<Technology>;
-
-  chosenTechnology(data, id) {
-    this.$emit("chosenTechnology", data, id);
+  chosenTechnology(data) {
+    this.$emit("chosenTechnology", data);
   }
 }
 </script>
