@@ -1,5 +1,6 @@
 <template>
   <div class="startups-page">
+    {{ Startup.profile }}
     <Startup-Page
       :startup="Startup.startup"
       :feedbacks="Startup.feedbacks"
@@ -11,7 +12,9 @@
       :estimations="Startup.estimations"
       :technologies="Startup.technologies"
       :specialisations="Startup.specialisations"
-      :user-id="Startup.profile.user.id"
+      :user-id="
+        Startup.profile.length !== 0 ? Startup.profile.length.user.id : ''
+      "
       :ask-feedbacks="Startup.askFeedbacks"
       :directions="Startup.directions"
       :badges="Startup.badges"
