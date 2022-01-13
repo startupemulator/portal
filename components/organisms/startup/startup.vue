@@ -47,7 +47,6 @@
       :startup-id="moveAwayStartup"
       :team-member="teamMember"
       @clikOnButton="toggleEditTeam"
-      @chagePremission="chagePremission"
       @saveEditTeam="saveEditTeam"
       @cancelEditTeam="cancelEditTeam"
       @changeTeam="changeTeam"
@@ -1124,26 +1123,27 @@ export default class extends Vue {
     }
   }
 
-  async cancelEditTeam() {
+  cancelEditTeam() {
     this.toggleEditTeam();
     scrollToHeader();
-    try {
-      const startup = await this.$startupById(this.startup.id);
-      if (startup !== null) {
-        this.teamMember = [];
-        startup.positions.forEach((item) => {
-          if (
-            item.applications.some(
-              (el) => el.status === "accepted" || el.status === "advanced"
-            )
-          ) {
-            this.teamMember.push(item);
-          }
-        });
-      }
-    } catch (e) {
-      console.error(e);
-    }
+
+    // try {
+    //   const startup = await this.$startupById(this.startup.id);
+    //   if (startup !== null) {
+    //     this.teamMember = [];
+    //     startup.positions.forEach((item) => {
+    //       if (
+    //         item.applications.some(
+    //           (el) => el.status === "accepted" || el.status === "advanced"
+    //         )
+    //       ) {
+    //         this.teamMember.push(item);
+    //       }
+    //     });
+    //   }
+    // } catch (e) {
+    //   console.error(e);
+    // }
   }
 
   async saveSources() {

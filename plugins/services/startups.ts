@@ -1,4 +1,5 @@
 import { Strapi } from "@nuxtjs/strapi";
+import { data } from "autoprefixer";
 import { Startup } from "../../models/Startup";
 
 export interface StartupsServices {
@@ -403,7 +404,7 @@ export function myStartups($strapi: Strapi) {
 
 export function deleteDraft($strapi: Strapi) {
   return async (id: string) => {
-    await $strapi.graphql({
+    const data = await $strapi.graphql({
       query: `mutation {
         updateStartup (
           input: {
@@ -413,10 +414,12 @@ export function deleteDraft($strapi: Strapi) {
          ) {
           startup {
             id
+            state
           }
         }
       }`,
     });
+    return data.updateStartup ? data.updateStartup.startup : null;
   };
 }
 export function updateStateStartup($strapi: Strapi) {

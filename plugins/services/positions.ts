@@ -57,6 +57,12 @@ export function createPosition($strapi: Strapi) {
          status: open  } }) {
           position {
             id
+            status
+            applications{
+              id
+              status
+              decline_reason
+            }
             specialisation{
                 id
             }
@@ -90,7 +96,7 @@ export function updatePosition($strapi: Strapi) {
              data: { specialisation: "${specialisation}", technologies: [${technologies}]  }
              }
              ) {
-          position {
+          position { 
             id
             specialisation{
                 id
@@ -124,6 +130,7 @@ export function updateStatusPosition($strapi: Strapi) {
              ) {
           position {
             id
+            status
           }
         }
       }`,
