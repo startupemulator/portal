@@ -347,4 +347,19 @@ export default class StartupPage
     }
     return { newApplication };
   }
+
+  @MutationAction
+  async deleteStartup({ context, id, startupName }) {
+    const { startup } = this.state as StartupPageState;
+    const { $deleteDraft } = context;
+    try {
+      const deletedstartup = await context.$deleteDraft(id);
+      if (deletedstartup !== null) {
+        startup.state = deletedstartup.state;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { startup };
+  }
 }
