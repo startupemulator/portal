@@ -126,7 +126,7 @@ export function applicationsByStartupId($strapi: Strapi) {
 }
 export function applicationAdvancedAccess($strapi: Strapi) {
   return async (id: string) => {
-    return await $strapi.graphql({
+    const data = await $strapi.graphql({
       query: `mutation {
         updateApplication(
           input: {
@@ -135,16 +135,20 @@ export function applicationAdvancedAccess($strapi: Strapi) {
          }
          ) {
           application {
-              id
+            id
+            comment
+            decline_reason
+            status
             }
         }
       }`,
     });
+    return data.updateApplication ? data.updateApplication.application : null;
   };
 }
 export function applicationAccept($strapi: Strapi) {
   return async (id: string) => {
-    return await $strapi.graphql({
+    const data = await $strapi.graphql({
       query: `mutation {
         updateApplication(
           input: {
@@ -153,16 +157,20 @@ export function applicationAccept($strapi: Strapi) {
          }
          ) {
           application {
-              id
+            id
+            comment
+            decline_reason
+            status
             }
         }
       }`,
     });
+    return data.updateApplication ? data.updateApplication.application : null;
   };
 }
 export function applicationDecline($strapi: Strapi) {
   return async (id: string, declineReason: string) => {
-    return await $strapi.graphql({
+    const data = await $strapi.graphql({
       query: `mutation {
         updateApplication(
           input: {
@@ -174,10 +182,12 @@ export function applicationDecline($strapi: Strapi) {
               id
               comment
               decline_reason
+              status
             }
         }
       }`,
     });
+    return data.updateApplication ? data.updateApplication.application : null;
   };
 }
 export function cancelApplication($strapi: Strapi) {
@@ -191,6 +201,7 @@ export function cancelApplication($strapi: Strapi) {
          ) {
           application {
               id
+              status
             }
         }
       }`,

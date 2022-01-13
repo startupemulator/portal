@@ -52,6 +52,7 @@ export default class extends Vue {
   @Prop() userName: string;
   @Prop() specialisation: string;
   @Prop() premission!: string;
+  @Prop() positionCount: string;
   choosenPremission = this.premission;
 
   premissionMenu = false;
@@ -63,19 +64,22 @@ export default class extends Vue {
   defaultAccess($event) {
     this.premissionMenu = !this.premissionMenu;
     this.choosenPremission = "accepted";
-    this.$emit("chagePremission", [
-      this.applicationId,
-      $event.target.textContent.trim(),
-    ]);
+    this.$emit("chagePremission", {
+      positionCount: this.positionCount,
+      applicationId: this.applicationId,
+      premission: $event.target.textContent.trim(),
+    });
   }
 
   advancedAccess($event) {
     this.premissionMenu = !this.premissionMenu;
     this.choosenPremission = $event.target.textContent;
-    this.$emit("chagePremission", [
-      this.applicationId,
-      $event.target.textContent.trim(),
-    ]);
+    this.$emit("chagePremission", {
+      positionCount: this.positionCount,
+
+      applicationId: this.applicationId,
+      premission: $event.target.textContent.trim(),
+    });
   }
 }
 </script>

@@ -15,6 +15,8 @@
           :class="'speciality-content'"
           :name="'Speciality ' + (i + 1)"
           :picker="true"
+          :is-edit-team="true"
+          :status="position.status"
           :position-without-specialisation="false"
           :creator="Startup.startup.owner.id"
           :specialisations="Startup.specialisations"
@@ -34,6 +36,7 @@
           @createCustomTechnology="createCustomTechnology($event)"
           @updatePosition="updatePosition($event)"
           @skipTechnologies="skipTechnologies($event)"
+          @changeStatusPosition="changeStatusPosition($event)"
         >
         </Create-Specialities>
       </div>
@@ -41,7 +44,7 @@
         <U-Button
           :button-name="'Add Speciality'"
           :button-class="'u-button-blue'"
-          :style="invitedcolleagues.length > 0 ? 'max-width:169px' : ''"
+          :style="'max-width:169px'"
           @clickOnButton="addSpeciality"
         ></U-Button>
         <U-Button
@@ -53,7 +56,8 @@
     </div>
     <div class="edit-team__content">
       <h3>Team</h3>
-      <div v-for="items in teamMember" :key="items.id">
+
+      <div v-for="(items, i) in Startup.startup.positions" :key="items.id">
         <Team-Member-Card
           v-for="item in items.applications.filter(
             (el) => el.status === 'accepted' || el.status === 'advanced'
@@ -61,6 +65,7 @@
           :key="item.id"
           :specialisation="items.specialisation.title"
           :user-name="item.user.profile.name"
+          :position-count="i"
           :application-id="item.id"
           :premission="item.status"
           @chagePremission="chagePremission"
@@ -81,12 +86,12 @@
         ></U-Button>
       </div>
     </div>
-    <Invite-Colleagues
-      v-if="invitecolleagues"
-      :specialisations="specialityComponent"
+    <Invite-Collegue
+      v-if="inviteColleagues"
+      :specialisations="Startup.startup.positions"
       @closePopupLinkEmail="toggleInviteColleagues"
       @inviteCollegue="inviteCollegue"
-    ></Invite-Colleagues>
+    ></Invite-Collegue>
   </div>
 </template>
 <script lang="ts">
@@ -97,13 +102,8 @@ import UButton from "~/components/atoms/uButton.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import TeamMemberCard from "~/components/molecules/teamMemberCard.vue";
-import Toast from "~/store/modules/Toast";
-// import { Startup } from "~/models/Startup";
 import CreateSpecialities from "~/components/molecules/createSpecialities.vue";
-import { Specialisation } from "~/models/Specialisation";
-import { Technology } from "~/models/Technology";
-import Invitecolleagues from "~/components/molecules/inviteColleagues.vue";
-import { Positions } from "~/models/Positions";
+import InviteCollegue from "~/components/molecules/inviteColleagues.vue";
 import {
   enableScrolling,
   disableScrolling,
@@ -117,7 +117,7 @@ import { Startup } from "~/store";
     UTitle,
     TeamMemberCard,
     CreateSpecialities,
-    Invitecolleagues,
+    InviteCollegue,
   },
 })
 export default class extends Vue {
@@ -127,19 +127,7 @@ export default class extends Vue {
     this.Startup = Startup;
   }
 
-  // @Prop() startup!: Array<Startup>;
-  // @Prop() startupId: Array<Startup>;
-  @Prop() updateKey: Number;
-  @Prop() specialisations: Array<Specialisation>;
-  @Prop() technologies: Array<Technology>;
-  @Prop() teamMember: Array<Positions>;
-
-  specialityComponent: Array<any> = [{ id: 0, type: "create-specialities" }];
-  invitedcolleagues: Array<any> = [];
-  openPositionCash = [];
-  positionForRemove = [];
-  invitesCach = [];
-  invitecolleagues: Boolean = false;
+  inviteColleagues: Boolean = false;
 
   loading = false;
   async addSpeciality() {
@@ -156,7 +144,6 @@ export default class extends Vue {
 
   async addSpecialityToPosition(data, id) {
     Spinner.show();
-    await console.log(data, id);
     await Startup.addSpecialityToPosition({
       context: this,
       titleId: data[0].id,
@@ -211,148 +198,39 @@ export default class extends Vue {
   }
 
   cancel() {
-    // this.loading = true;
-    // this.$emit("cancelEditTeam");
-    // if (this.openPositionCash.length !== 0) {
-    //   this.openPositionCash.forEach((el) => {
-    //     this.$deletePositions(el);
-    //     this.specialityComponent = this.specialityComponent.filter(
-    //       (item) => item.id !== el
-    //     );
-    //   });
-    // }
-    // if (this.invitesCach.length !== 0) {
-    //   this.invitesCach.forEach((el) => {
-    //     this.$deleteInvite(el);
-    //     this.invitedcolleagues = this.invitedcolleagues.filter(
-    //       (item) => item.id !== el
-    //     );
-    //   });
-    // }
-    // setTimeout(() => {
-    //   this.loading = false;
-    //   Toast.show({
-    //     data: "Startup data updated!",
-    //     duration: 1000,
-    //     success: true,
-    //   });
-    // }, 900);
+    this.$emit("cancelEditTeam");
   }
 
-  // async
   save() {
-    // this.loading = true;
-    // this.invitesCach = [];
-    // this.openPositionCash = [];
-    // if (this.positionForRemove.length !== 0) {
-    //   for (const position of this.positionForRemove) {
-    //     await this.deletePositions(position);
-    //   }
-    // }
-    // setTimeout(() => {
-    //   this.loading = false;
-    //   Toast.show({
-    //     data: "Startup data updated!",
-    //     duration: 1000,
-    //     success: true,
-    //   });
-    // }, 900);
-    // this.$emit("saveEditTeam", this.specialityComponent);
-  }
-
-  changeStatusPosition(id, status) {
-    // this.specialityComponent.forEach((el) => {
-    //   if (+el.id === +id) {
-    //     el.status = status;
-    //   }
-    // });
-  }
-
-  // async
-  deletePositions(positionId) {
-    // await this.$deletePositions(positionId);
-  }
-
-  // async
-  addSpecialityToSpecialityComponent(data, i, id) {
-    // this.loading = true;
-    // const updatePostition = await this.$updatePosition(id, ["0"], data[0].id);
-    // if (updatePostition !== null) {
-    //   this.specialityComponent[i].speciality = data[0].title;
-    //   this.specialityComponent[i].speciality_id = data[0].id;
-    // }
-    // this.loading = false;
-  }
-
-  // async
-  addchosenTechnologies(data, i, id) {
-    // try {
-    //   await this.$updatePosition(id, data[0].id, data[0].specialisation);
-    //   this.specialityComponent[i].technologies = data[0].technologies;
-    //   this.specialityComponent[i].technologiesId = data[0].id;
-    //   this.specialityComponent[i].newTechnologies = data[0].newTechnologies;
-    // } catch (e) {
-    //   console.error(e);
-    // }
+    this.$emit("cancelEditTeam");
   }
 
   toggleInviteColleagues() {
-    // if (
-    //   this.specialityComponent.length !== 0 &&
-    //   this.specialityComponent[0].speciality
-    // ) {
-    //   this.invitecolleagues = !this.invitecolleagues;
-    //   this.invitecolleagues ? disableScrolling() : enableScrolling();
-    // }
+    this.inviteColleagues = !this.inviteColleagues;
+    this.inviteColleagues ? disableScrolling() : enableScrolling();
   }
 
-  // async
-  inviteCollegue(data) {
-    // const invite = await this.$createInvite(
-    //   data.email,
-    //   data.position_id,
-    //   this.startupId,
-    //   this.startup.owner.id
-    // );
-    // if (invite !== null) {
-    //   const inviteData = {
-    //     id: invite.id,
-    //     email: invite.email,
-    //     choosenSpeciality: data.speciality.trim(),
-    //     position_id: data.position_id,
-    //   };
-    //   this.invitesCach.push(invite.id);
-    //   this.invitedcolleagues.push(inviteData);
-    //   this.invitecolleagues = !this.invitecolleagues;
-    //   enableScrolling();
-    // }
+  async inviteCollegue(data) {
+    Spinner.show();
+    await Startup.inviteCollegue({ context: this, data });
+    Spinner.hide();
+
+    this.inviteColleagues = !this.inviteColleagues;
+    enableScrolling();
   }
 
-  chagePremission(premission) {
-    this.$emit("chagePremission", premission);
+  chagePremission({ premission, applicationId, positionCount }) {
+    Startup.changePremission({
+      context: this,
+      premission,
+      applicationId,
+      positionCount,
+    });
   }
 
-  // mounted() {
-  //   if (this.startup.coleagues) {
-  //     this.invitedcolleagues = this.startup.coleagues;
-  //   } else if (this.startup.positions) {
-  //     this.specialityComponent = [];
-  //     this.startup.positions.forEach((el) => {
-  //       const technologies = [];
-  //       el.technologies.forEach((el) => technologies.push(el));
-  //       const data = {
-  //         id: el.id,
-  //         type: "create-specialities",
-  //         speciality: el.specialisation.title,
-  //         speciality_id: el.specialisation.id,
-  //         technologies,
-  //         status: el.status,
-  //       };
-
-  //       this.specialityComponent.push(data);
-  //     });
-  //   }
-  // }
+  changeStatusPosition({ positionId, status }) {
+    Startup.changePositionStatus({ context: this, positionId, status });
+  }
 }
 </script>
 <style lang="scss">

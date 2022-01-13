@@ -310,12 +310,14 @@ export default class StartupPage
 
   @MutationAction
   async updatePosition({ context, positionId, technologies, specialisation }) {
+    const { startup } = this.state as StartupPageState;
     const { $updatePosition } = context;
     try {
       await $updatePosition(positionId, technologies, specialisation);
     } catch (e) {
       console.error(e);
     }
+    return { startup };
   }
 
   @VuexMutation
@@ -360,6 +362,83 @@ export default class StartupPage
     } catch (e) {
       console.error(e);
     }
+    return { startup };
+  }
+
+  @MutationAction
+  async inviteCollegue({ context, data }) {
+    const { startup, invites } = this.state as CreateProjectState;
+    const { $createInvite } = context;
+    try {
+      const newInvite = await $createInvite(
+        data.email,
+        data.position_id,
+        startup.id,
+        startup.owner.id
+      );
+      if (newInvite !== null) {
+        invites.push(newInvite);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+
+    return { startup };
+  }
+
+  @MutationAction
+  async changePremission({
+    context,
+    premission,
+    applicationId,
+    positionCount,
+  }) {
+    const { startup } = this.state as CreateProjectState;
+    const {
+      $applicationAccept,
+      $applicationAdvancedAccess,
+      $applicationDecline,
+    } = context;
+    let modificationApplication = [];
+    try {
+      if (premission === "Default access") {
+        modificationApplication = await $applicationAccept(applicationId);
+      } else if (premission === "decline") {
+        modificationApplication = await $applicationDecline(applicationId);
+      } else {
+        modificationApplication = await $applicationAdvancedAccess(
+          applicationId
+        );
+      }
+      startup.positions[positionCount].applications.forEach((application) => {
+        if (application.id === applicationId) {
+          application.status = modificationApplication.status;
+        }
+      });
+    } catch (e) {
+      console.error(e);
+    }
+    return { startup };
+  }
+
+  @MutationAction
+  async changePositionStatus({ context, positionId, status }) {
+    const { startup } = this.state as CreateProjectState;
+    const { $updateStatusPosition } = context;
+    let updatePosition;
+    try {
+      updatePosition = await $updateStatusPosition(positionId, status);
+      await console.log(positionId, status);
+    } catch (e) {
+      console.error(e);
+    }
+    console.log(updatePosition);
+    startup.positions.forEach((position) => {
+      if (position.id === positionId) {
+        position.status = updatePosition.status;
+      }
+    });
+
     return { startup };
   }
 }
