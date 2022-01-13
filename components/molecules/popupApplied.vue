@@ -83,7 +83,6 @@ export default class extends Vue {}
       font-weight: bold;
       font-size: 35px;
       line-height: 40px;
-      margin-top: 0;
     }
 
     p {

@@ -113,7 +113,7 @@
             >
               <img src="~/assets/img/close.svg" alt="Close" />
             </button>
-            <u-title :text="'Decline reason'"></u-title>
+            <U-Title :text="'Decline reason'"></U-Title>
             <div class="decline-reason__description">
               <p>
                 {{ declineReason }}
@@ -131,9 +131,10 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UInput from "../atoms/uInput.vue";
 import UTags from "~/components/atoms/uTags.vue";
 import UButton from "~/components/atoms/uButton.vue";
+import UTitle from "~/components/atoms/uTitle.vue";
 
 @Component({
-  components: { UTags, UButton, UInput },
+  components: { UTags, UButton, UInput, UTitle },
 })
 export default class extends Vue {
   @Prop() name: String;

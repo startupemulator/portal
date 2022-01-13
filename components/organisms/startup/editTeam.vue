@@ -9,28 +9,33 @@
       </p>
       <div class="edit-team__openposition">
         <h3>Open positions</h3>
-        <div
-          :is="item.type"
-          v-for="(item, i) in specialityComponent"
-          :key="item.id"
-          :technologies="technologies"
+        <Create-Specialities
+          v-for="(position, i) in Startup.startup.positions"
+          :key="position.id"
           :class="'speciality-content'"
           :name="'Speciality ' + (i + 1)"
           :picker="true"
-          :creator="startup.owner.id"
-          :status="item.status"
-          :specialisations="specialisations"
-          :speciality-from-parent="[item.speciality, item.speciality_id]"
-          :checked-technologies="item.technologies"
-          :is-edit-team="true"
-          :position-id="item.id"
-          @changeStatusPosition="changeStatusPosition"
-          @removeSpeciality="removeSpeciality(item.id, i)"
-          @chosenSpeciality="
-            addSpecialityToSpecialityComponent($event, i, item.id)
+          :position-without-specialisation="false"
+          :creator="Startup.startup.owner.id"
+          :specialisations="Startup.specialisations"
+          :all-technologies="Startup.technologies"
+          :speciality-from-parent="
+            position.specialisation !== null
+              ? [position.specialisation.title, position.specialisation.id]
+              : ''
           "
-          @chosenTechnologies="addchosenTechnologies($event, i, item.id)"
-        ></div>
+          :checked-technologies="position.technologies"
+          :position-id="position.id"
+          @removeSpeciality="removeSpeciality(position.id, i)"
+          @chosenSpeciality="addSpecialityToPosition($event, position.id)"
+          @addTechnologyToPosition="addTechnologyToPosition($event)"
+          @removeTechnologyToPosition="removeTechnologyToPosition($event)"
+          @removePersonalTechnology="removePersonalTechnology($event)"
+          @createCustomTechnology="createCustomTechnology($event)"
+          @updatePosition="updatePosition($event)"
+          @skipTechnologies="skipTechnologies($event)"
+        >
+        </Create-Specialities>
       </div>
       <div class="edit-team__header-buttons">
         <U-Button
@@ -87,12 +92,13 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
 
+import Spinner from "../../../store/modules/Spinner";
 import UButton from "~/components/atoms/uButton.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import TeamMemberCard from "~/components/molecules/teamMemberCard.vue";
 import Toast from "~/store/modules/Toast";
-import { Startup } from "~/models/Startup";
+// import { Startup } from "~/models/Startup";
 import CreateSpecialities from "~/components/molecules/createSpecialities.vue";
 import { Specialisation } from "~/models/Specialisation";
 import { Technology } from "~/models/Technology";
@@ -102,6 +108,8 @@ import {
   enableScrolling,
   disableScrolling,
 } from "~/assets/jshelper/toggleScroll.js";
+import { Startup } from "~/store";
+
 @Component({
   components: {
     UButton,
@@ -113,8 +121,14 @@ import {
   },
 })
 export default class extends Vue {
-  @Prop() startup!: Array<Startup>;
-  @Prop() startupId: Array<Startup>;
+  Startup;
+  constructor() {
+    super();
+    this.Startup = Startup;
+  }
+
+  // @Prop() startup!: Array<Startup>;
+  // @Prop() startupId: Array<Startup>;
   @Prop() updateKey: Number;
   @Prop() specialisations: Array<Specialisation>;
   @Prop() technologies: Array<Technology>;
@@ -129,167 +143,216 @@ export default class extends Vue {
 
   loading = false;
   async addSpeciality() {
-    this.loading = true;
-    const newPosition = await this.$createPosition(this.startupId, ["0"], "12");
-    this.specialityComponent.push({
-      id: newPosition.id,
-      type: "create-specialities",
+    Spinner.show();
+    await Startup.createPosition(this);
+    Spinner.hide();
+  }
+
+  async removeSpeciality(id) {
+    Spinner.show();
+    await Startup.removePosition({ context: this, id });
+    Spinner.hide();
+  }
+
+  async addSpecialityToPosition(data, id) {
+    Spinner.show();
+    await console.log(data, id);
+    await Startup.addSpecialityToPosition({
+      context: this,
+      titleId: data[0].id,
+      id,
     });
-    this.openPositionCash.push(newPosition.id);
-    this.loading = false;
+    Spinner.hide();
+  }
+
+  async addTechnologyToPosition({ positionId, technology }) {
+    await Startup.addTechnologyToPosition({
+      positionId,
+      technology,
+    });
+  }
+
+  async removeTechnologyToPosition({ positionId, technology }) {
+    await Startup.removeTechnologyToPosition({
+      positionId,
+      technology,
+    });
+  }
+
+  async removePersonalTechnology({ positionId, technologies }) {
+    await Startup.removePersonalTechnology({
+      technologies,
+      positionId,
+    });
+  }
+
+  async createCustomTechnology({ positionId, technology }) {
+    await Startup.createCustomTechnology({
+      context: this,
+      positionId,
+      technology,
+    });
+  }
+
+  async updatePosition({ positionId, technologies, specialisation }) {
+    await Startup.updatePosition({
+      context: this,
+      positionId,
+      technologies,
+      specialisation,
+    });
+  }
+
+  async skipTechnologies({ positionId, chosenTechnologies }) {
+    await Startup.skipTechnologies({
+      positionId,
+      chosenTechnologies,
+    });
   }
 
   cancel() {
-    this.loading = true;
-    this.$emit("cancelEditTeam");
-    if (this.openPositionCash.length !== 0) {
-      this.openPositionCash.forEach((el) => {
-        this.$deletePositions(el);
-        this.specialityComponent = this.specialityComponent.filter(
-          (item) => item.id !== el
-        );
-      });
-    }
-    if (this.invitesCach.length !== 0) {
-      this.invitesCach.forEach((el) => {
-        this.$deleteInvite(el);
-        this.invitedcolleagues = this.invitedcolleagues.filter(
-          (item) => item.id !== el
-        );
-      });
-    }
-    setTimeout(() => {
-      this.loading = false;
-      Toast.show({
-        data: "Startup data updated!",
-        duration: 1000,
-        success: true,
-      });
-    }, 900);
+    // this.loading = true;
+    // this.$emit("cancelEditTeam");
+    // if (this.openPositionCash.length !== 0) {
+    //   this.openPositionCash.forEach((el) => {
+    //     this.$deletePositions(el);
+    //     this.specialityComponent = this.specialityComponent.filter(
+    //       (item) => item.id !== el
+    //     );
+    //   });
+    // }
+    // if (this.invitesCach.length !== 0) {
+    //   this.invitesCach.forEach((el) => {
+    //     this.$deleteInvite(el);
+    //     this.invitedcolleagues = this.invitedcolleagues.filter(
+    //       (item) => item.id !== el
+    //     );
+    //   });
+    // }
+    // setTimeout(() => {
+    //   this.loading = false;
+    //   Toast.show({
+    //     data: "Startup data updated!",
+    //     duration: 1000,
+    //     success: true,
+    //   });
+    // }, 900);
   }
 
-  async save() {
-    this.loading = true;
-    this.invitesCach = [];
-    this.openPositionCash = [];
-    if (this.positionForRemove.length !== 0) {
-      for (const position of this.positionForRemove) {
-        await this.deletePositions(position);
-      }
-    }
-    setTimeout(() => {
-      this.loading = false;
-      Toast.show({
-        data: "Startup data updated!",
-        duration: 1000,
-        success: true,
-      });
-    }, 900);
-    this.$emit("saveEditTeam", this.specialityComponent);
+  // async
+  save() {
+    // this.loading = true;
+    // this.invitesCach = [];
+    // this.openPositionCash = [];
+    // if (this.positionForRemove.length !== 0) {
+    //   for (const position of this.positionForRemove) {
+    //     await this.deletePositions(position);
+    //   }
+    // }
+    // setTimeout(() => {
+    //   this.loading = false;
+    //   Toast.show({
+    //     data: "Startup data updated!",
+    //     duration: 1000,
+    //     success: true,
+    //   });
+    // }, 900);
+    // this.$emit("saveEditTeam", this.specialityComponent);
   }
 
   changeStatusPosition(id, status) {
-    this.specialityComponent.forEach((el) => {
-      if (+el.id === +id) {
-        el.status = status;
-      }
-    });
+    // this.specialityComponent.forEach((el) => {
+    //   if (+el.id === +id) {
+    //     el.status = status;
+    //   }
+    // });
   }
 
-  removeSpeciality(id, i) {
-    this.loading = true;
-    this.positionForRemove.push(id);
-    console.log(this.positionForRemove);
-    this.specialityComponent = this.specialityComponent.filter(
-      (item) => item.id !== this.specialityComponent[i].id
-    );
-    this.loading = false;
+  // async
+  deletePositions(positionId) {
+    // await this.$deletePositions(positionId);
   }
 
-  async deletePositions(positionId) {
-    await this.$deletePositions(positionId);
+  // async
+  addSpecialityToSpecialityComponent(data, i, id) {
+    // this.loading = true;
+    // const updatePostition = await this.$updatePosition(id, ["0"], data[0].id);
+    // if (updatePostition !== null) {
+    //   this.specialityComponent[i].speciality = data[0].title;
+    //   this.specialityComponent[i].speciality_id = data[0].id;
+    // }
+    // this.loading = false;
   }
 
-  async addSpecialityToSpecialityComponent(data, i, id) {
-    this.loading = true;
-    const updatePostition = await this.$updatePosition(id, ["0"], data[0].id);
-    if (updatePostition !== null) {
-      this.specialityComponent[i].speciality = data[0].title;
-      this.specialityComponent[i].speciality_id = data[0].id;
-    }
-    this.loading = false;
-  }
-
-  async addchosenTechnologies(data, i, id) {
-    try {
-      await this.$updatePosition(id, data[0].id, data[0].specialisation);
-      this.specialityComponent[i].technologies = data[0].technologies;
-      this.specialityComponent[i].technologiesId = data[0].id;
-      this.specialityComponent[i].newTechnologies = data[0].newTechnologies;
-    } catch (e) {
-      console.error(e);
-    }
+  // async
+  addchosenTechnologies(data, i, id) {
+    // try {
+    //   await this.$updatePosition(id, data[0].id, data[0].specialisation);
+    //   this.specialityComponent[i].technologies = data[0].technologies;
+    //   this.specialityComponent[i].technologiesId = data[0].id;
+    //   this.specialityComponent[i].newTechnologies = data[0].newTechnologies;
+    // } catch (e) {
+    //   console.error(e);
+    // }
   }
 
   toggleInviteColleagues() {
-    if (
-      this.specialityComponent.length !== 0 &&
-      this.specialityComponent[0].speciality
-    ) {
-      this.invitecolleagues = !this.invitecolleagues;
-      this.invitecolleagues ? disableScrolling() : enableScrolling();
-    }
+    // if (
+    //   this.specialityComponent.length !== 0 &&
+    //   this.specialityComponent[0].speciality
+    // ) {
+    //   this.invitecolleagues = !this.invitecolleagues;
+    //   this.invitecolleagues ? disableScrolling() : enableScrolling();
+    // }
   }
 
-  async inviteCollegue(data) {
-    const invite = await this.$createInvite(
-      data.email,
-      data.position_id,
-      this.startupId,
-      this.startup.owner.id
-    );
-    if (invite !== null) {
-      const inviteData = {
-        id: invite.id,
-        email: invite.email,
-        choosenSpeciality: data.speciality.trim(),
-        position_id: data.position_id,
-      };
-
-      this.invitesCach.push(invite.id);
-      this.invitedcolleagues.push(inviteData);
-
-      this.invitecolleagues = !this.invitecolleagues;
-
-      enableScrolling();
-    }
+  // async
+  inviteCollegue(data) {
+    // const invite = await this.$createInvite(
+    //   data.email,
+    //   data.position_id,
+    //   this.startupId,
+    //   this.startup.owner.id
+    // );
+    // if (invite !== null) {
+    //   const inviteData = {
+    //     id: invite.id,
+    //     email: invite.email,
+    //     choosenSpeciality: data.speciality.trim(),
+    //     position_id: data.position_id,
+    //   };
+    //   this.invitesCach.push(invite.id);
+    //   this.invitedcolleagues.push(inviteData);
+    //   this.invitecolleagues = !this.invitecolleagues;
+    //   enableScrolling();
+    // }
   }
 
   chagePremission(premission) {
     this.$emit("chagePremission", premission);
   }
 
-  mounted() {
-    if (this.startup.coleagues) {
-      this.invitedcolleagues = this.startup.coleagues;
-    } else if (this.startup.positions) {
-      this.specialityComponent = [];
-      this.startup.positions.forEach((el) => {
-        const technologies = [];
-        el.technologies.forEach((el) => technologies.push(el));
-        const data = {
-          id: el.id,
-          type: "create-specialities",
-          speciality: el.specialisation.title,
-          speciality_id: el.specialisation.id,
-          technologies,
-          status: el.status,
-        };
+  // mounted() {
+  //   if (this.startup.coleagues) {
+  //     this.invitedcolleagues = this.startup.coleagues;
+  //   } else if (this.startup.positions) {
+  //     this.specialityComponent = [];
+  //     this.startup.positions.forEach((el) => {
+  //       const technologies = [];
+  //       el.technologies.forEach((el) => technologies.push(el));
+  //       const data = {
+  //         id: el.id,
+  //         type: "create-specialities",
+  //         speciality: el.specialisation.title,
+  //         speciality_id: el.specialisation.id,
+  //         technologies,
+  //         status: el.status,
+  //       };
 
-        this.specialityComponent.push(data);
-      });
-    }
-  }
+  //       this.specialityComponent.push(data);
+  //     });
+  //   }
+  // }
 }
 </script>
 <style lang="scss">

@@ -1,7 +1,6 @@
 <template>
   <div class="apply-to-team">
     <U-Back v-if="applyToTeamStep1" :link="'/startups'"></U-Back>
-
     <U-Back
       v-if="!applyToTeamStep1"
       :is-button="true"
@@ -10,36 +9,29 @@
     <Apply-To-Team-Step1
       v-if="applyToTeamStep1"
       :experiences="experiences"
-      :technologies="technology"
+      :technologies="publicTechnologies"
       :new-request="newRequest"
       :user-technologies="choosenTechnologies"
       @applyToTeamGoStep2="applyToTeamGoStep2"
       @chooseDuration="chooseDuration"
-      @chosenTechnology="chosenTechnology"
+      @chosenTechnology="chosenTechnology($event)"
       @addTechnologies="addTechnologies"
       @removeTechnology="removeTechnology"
     ></Apply-To-Team-Step1>
 
     <Apply-To-Team-Step2
-      v-if="applyToTeamStep2"
+      v-show="applyToTeamStep2"
       :startup="startup || {}"
       :specialisations="specialisations"
       @apply="apply"
     ></Apply-To-Team-Step2>
-    <Popup-Applied
-      v-show="popupApplied"
-      @closePopupLinkSent="closePopup"
-    ></Popup-Applied>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
-import Toast from "../../../store/modules/Toast";
-import Spinner from "../../../store/modules/Spinner";
 import ApplyToTeamStep1 from "~/components/organisms/team/applyToTeamStep1.vue";
 import ApplyToTeamStep2 from "~/components/organisms/team/applyToTeamStep2.vue";
-import PopupApplied from "~/components/molecules/popupApplied.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import { Technology } from "~/models/Technology";
 import { Startup } from "~/models/Startup";
@@ -51,41 +43,60 @@ import { Profile } from "~/models/Profile";
     UBack,
     ApplyToTeamStep2,
     ApplyToTeamStep1,
-    PopupApplied,
   },
 })
 export default class extends Vue {
   @Prop() technology: Array<Technology>;
   @Prop() startup!: Array<Startup>;
   @Prop() experiences: Array<Experience>;
-  @Prop() specialisations: Array<any>;
+  @Prop() positions: Array<any>;
   @Prop() userId: Number;
   @Prop() experience: string;
   @Prop() profileId: string;
   @Prop() profile!: Array<Profile>;
-  private applyToTeamStep1 = true;
-  private applyToTeamStep2 = false;
-  private popupApplied = false;
-  choosenTechnologies = this.profile.technologies;
+  applyToTeamStep1 = true;
+  applyToTeamStep2 = false;
+  choosenTechnologies = this.profile.technologies.filter((el) => !el.is_public);
   userTechnologies = this.profile.technologies.filter((el) => el.is_public);
-  userCreatedTechnologies = this.profile.technologies.filter(
-    (el) => !el.is_public
-  );
-
+  specialisations = [];
+  publicTechnologies: Array<Technology> = [];
   newRequest: Array<any> = {
     duration: this.experience,
   };
 
+  chosenTechnology({ item, id }) {
+    this.publicTechnologies.forEach((technology) => {
+      if (technology.id === id) {
+        technology.checked = !technology.checked;
+      }
+    });
+    this.publicTechnologies = JSON.parse(
+      JSON.stringify(this.publicTechnologies)
+    );
+  }
+
+  addTechnologies(data) {
+    this.choosenTechnologies.push({
+      id: null,
+      title: data,
+      is_public: false,
+    });
+  }
+
+  removeTechnology(data) {
+    this.choosenTechnologies = [];
+    data.forEach((el) => {
+      this.choosenTechnologies.push({
+        id: el.id,
+        title: el.name,
+        is_public: false,
+      });
+    });
+  }
+
   applyToTeamGoStep2() {
     this.applyToTeamStep1 = !this.applyToTeamStep1;
     this.applyToTeamStep2 = !this.applyToTeamStep2;
-
-    this.choosenTechnologies = this.userTechnologies.filter(
-      (el) => !el.is_publick
-    );
-    this.userCreatedTechnologies.forEach((el) => {
-      this.choosenTechnologies.push(el);
-    });
   }
 
   applyToTeamGoStep1() {
@@ -93,68 +104,24 @@ export default class extends Vue {
     this.applyToTeamStep2 = !this.applyToTeamStep2;
   }
 
-  closePopup() {
-    this.$router.push("/startups");
-    this.popupApplied = !this.popupApplied;
-  }
-
-  async apply(data) {
-    this.newRequest.comment = data[0];
-    this.newRequest.user = this.userId;
-    const technologies = [];
-    const position = this.startup.positions.filter(
-      (el) => el.specialisation.id === data[1]
+  async apply({ comment, speciality }) {
+    const position = this.positions.filter(
+      (el) => el.specialisation.id === speciality
     );
-    this.newRequest.position = position[0].id;
 
-    try {
-      Spinner.show();
-      const newRequest = await this.$strapi.create(
-        "applications",
-        this.newRequest
-      );
-      if (this.userCreatedTechnologies !== null) {
-        for (const technology of this.userCreatedTechnologies) {
-          if (!technology.id) {
-            try {
-              const newTechnology = await this.$createTechnologies(
-                this.profileId,
-                technology.title
-              );
-              technologies.push(newTechnology.id);
-            } catch (e) {
-              console.error(e);
-            }
-          } else {
-            technologies.push(technology.id);
-          }
-        }
-      }
-      this.choosenTechnologies.forEach((el) => {
-        if (el.is_public) {
-          technologies.push(el.id);
-        }
-      });
-
-      await this.$updateProfile(
-        this.profileId,
-        technologies,
-        this.newRequest.duration
-      );
-
-      if (newRequest !== null) {
-        this.createNewNotification(this.newRequest.comment);
-        Spinner.hide();
-        this.popupApplied = !this.popupApplied;
-      }
-    } catch (e) {
-      Spinner.hide();
-      Toast.show({
-        data: "Something wrong.",
-        duration: 3000,
-      });
-      console.error(e);
-    }
+    const applicationData = {
+      userId: this.userId,
+      position: position[0].id,
+      comment,
+    };
+    const profileData = {
+      experience: this.newRequest.duration,
+      technologies: this.publicTechnologies.filter((el) => el.checked),
+      personalTechnologies: this.choosenTechnologies,
+    };
+    await this.$emit("updateProfile", profileData);
+    await this.$emit("createApplication", applicationData);
+    this.createNewNotification(comment);
   }
 
   async createNewNotification(comment: string) {
@@ -178,48 +145,26 @@ export default class extends Vue {
     }
   }
 
-  async createNewTechnologies(data) {
-    try {
-      await this.$strapi.create("technologies", {
-        creator_id: this.$strapi.user.id,
-        title: data,
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  chosenTechnology(data, id) {
-    this.userTechnologies = [];
-    id.forEach((el, i) => {
-      this.userTechnologies.push({ id: el, title: data[i], is_public: true });
-    });
-  }
-
-  addTechnologies(data) {
-    this.userCreatedTechnologies.push({
-      title: data,
-      is_public: false,
-    });
-  }
-
-  removeTechnology(data) {
-    this.userCreatedTechnologies = [];
-    data.forEach((el) => {
-      this.userCreatedTechnologies.push({
-        id: el.id,
-        title: el.name,
-        is_public: false,
-      });
-    });
-  }
-
   chooseDuration(data) {
     this.newRequest.duration = data.id;
   }
 
   mounted() {
     this.newRequest.startup = this.startup.id;
+    this.publicTechnologies = JSON.parse(JSON.stringify(this.technology));
+
+    this.publicTechnologies.forEach((technology) => {
+      if (this.userTechnologies.some((el) => el.id === technology.id)) {
+        technology.checked = true;
+      } else {
+        technology.checked = false;
+      }
+    });
+    this.positions.forEach((position) => {
+      if (position.status === "open") {
+        this.specialisations.push(position.specialisation);
+      }
+    });
   }
 }
 </script>

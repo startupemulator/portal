@@ -64,7 +64,10 @@ export default class extends Vue {
   apply() {
     this.$v.$touch();
     if (!this.$v.$error) {
-      this.$emit("apply", [this.comment, this.speciality]);
+      this.$emit("apply", {
+        comment: this.comment,
+        speciality: this.speciality,
+      });
     }
   }
 }
