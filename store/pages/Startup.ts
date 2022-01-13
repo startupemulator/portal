@@ -428,11 +428,9 @@ export default class StartupPage
     let updatePosition;
     try {
       updatePosition = await $updateStatusPosition(positionId, status);
-      await console.log(positionId, status);
     } catch (e) {
       console.error(e);
     }
-    console.log(updatePosition);
     startup.positions.forEach((position) => {
       if (position.id === positionId) {
         position.status = updatePosition.status;
