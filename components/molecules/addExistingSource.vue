@@ -25,7 +25,7 @@
       <button
         class="button-remove-link"
         type="button"
-        @click="$emit('removeESource')"
+        @click="$emit('removeSource')"
       >
         <img src="~/assets/img/close.svg" alt="" />
       </button>
