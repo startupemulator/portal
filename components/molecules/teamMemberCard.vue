@@ -35,10 +35,7 @@
         </ul>
       </div>
     </div>
-    <button
-      class="removeInvite"
-      @click="$emit('removeUserMember', applicationId)"
-    >
+    <button class="removeInvite" @click="removeUserMember">
       <img class="close" src="~/assets/img/close.svg" alt="close" />
     </button>
   </div>
@@ -79,6 +76,14 @@ export default class extends Vue {
 
       applicationId: this.applicationId,
       permission: $event.target.textContent.trim(),
+    });
+  }
+
+  removeUserMember() {
+    this.$emit("changePermission", {
+      positionCount: this.positionCount,
+      applicationId: this.applicationId,
+      permission: "Canceled",
     });
   }
 }

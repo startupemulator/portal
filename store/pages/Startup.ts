@@ -399,6 +399,7 @@ export default class StartupPage
       $applicationAccept,
       $applicationAdvancedAccess,
       $applicationDecline,
+      $cancelApplication,
     } = context;
     let modificationApplication = [];
     try {
@@ -409,6 +410,8 @@ export default class StartupPage
           applicationId,
           declineReason
         );
+      } else if (permission === "Canceled") {
+        modificationApplication = await $cancelApplication(applicationId);
       } else {
         modificationApplication = await $applicationAdvancedAccess(
           applicationId
@@ -422,7 +425,6 @@ export default class StartupPage
           }
         });
       }
-      console.log("finished");
     } catch (e) {
       console.error(e);
     }

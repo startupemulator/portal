@@ -1,13 +1,5 @@
 <template>
   <div>
-    <!-- <Request-ToTeam
-      v-show="requestToTeam"
-      :update-key="updateKey"
-      :startup="updatableDataStartup"
-      @clikOnButton="toggleRequestToTeam"
-      @accept="accept"
-      @updateTeamRequest="updateTeamRequest"
-    ></Request-ToTeam> -->
     <New-FeedBack
       v-show="newFeedBack"
       :key="updateKey + 'new-feedback'"
@@ -25,6 +17,7 @@
       :key="updateKey"
       :startup="updatableDataStartup"
       :user-id="userId"
+      :technologies="technologies"
       @clikOnButton="toggleRequestFeedBack"
       @createFedbackNotification="createFedbackNotification"
     ></Request-Feedback>
@@ -39,15 +32,8 @@
     <Edit-Team
       v-if="editTeam"
       :update-key="updateKey"
-      :staffed-position="staffedPosition"
-      :startup="updatableDataStartup"
-      :specialisations="specialisations"
-      :technologies="technologies"
-      :startup-id="moveAwayStartup"
-      :team-member="teamMember"
       @clikOnButton="toggleEditTeam"
       @cancelEditTeam="cancelEditTeam"
-      @removeUserMember="removeUserMember"
     ></Edit-Team>
     <Edit-Sources
       v-show="editSources"
@@ -103,7 +89,6 @@
     ></Add-Team-Badge>
     <div
       v-show="
-        !requestToTeam &&
         !newFeedBack &&
         !requestFeedBack &&
         !editStartupInfo &&
@@ -469,7 +454,7 @@ import FeedBackCard from "../../molecules/feedbackCard.vue";
 import GuidePopup from "../../molecules/popupGuide.vue";
 import { Estimation } from "../../../models/Estimation";
 import Spinner from "../../../store/modules/Spinner";
-import RequestToTeam from "./requestsToTeam.vue";
+
 import NewFeedBack from "./newFeedBack.vue";
 import RequestFeedback from "./requestFeedback.vue";
 import EditStartupInfo from "./editStartupInfo.vue";
@@ -510,7 +495,7 @@ import PopupLeaveProject from "~/components/molecules/popupLeaveProject.vue";
     ProjectParticipant,
     FeedBackCard,
     GuidePopup,
-    RequestToTeam,
+
     Sources,
     NewFeedBack,
     RequestFeedback,
@@ -566,7 +551,7 @@ export default class extends Vue {
   popupGuide = false;
   finished = false;
   review = false;
-  requestToTeam = false;
+
   newFeedBack = false;
   requestFeedBack = false;
   editStartupInfo = false;
@@ -618,10 +603,6 @@ export default class extends Vue {
   closeAddFeedBackBadge() {
     this.addFeedBackBadge = !this.addFeedBackBadge;
     this.updateFeedbacks();
-  }
-
-  toggleRequestToTeam() {
-    this.requestToTeam = !this.requestToTeam;
   }
 
   toggleFinishStartup() {
@@ -726,10 +707,6 @@ export default class extends Vue {
     if (this.feedbacks !== null) {
       this.feedbackFilterByPublickFlag(this.feedbacks);
       this.feedbackFilterByPrivateFlag(this.feedbacks);
-    }
-
-    if (this.notification === "request") {
-      this.requestToTeam = !this.requestToTeam;
     }
   }
 
@@ -920,24 +897,6 @@ export default class extends Vue {
   cancelEditTeam() {
     this.toggleEditTeam();
     scrollToHeader();
-
-    // try {
-    //   const startup = await this.$startupById(this.startup.id);
-    //   if (startup !== null) {
-    //     this.teamMember = [];
-    //     startup.positions.forEach((item) => {
-    //       if (
-    //         item.applications.some(
-    //           (el) => el.status === "accepted" || el.status === "advanced"
-    //         )
-    //       ) {
-    //         this.teamMember.push(item);
-    //       }
-    //     });
-    //   }
-    // } catch (e) {
-    //   console.error(e);
-    // }
   }
 
   async saveSources() {
