@@ -15,9 +15,7 @@
     <Request-Feedback
       v-show="requestFeedBack"
       :key="updateKey"
-      :startup="updatableDataStartup"
       :user-id="userId"
-      :technologies="technologies"
       @clikOnButton="toggleRequestFeedBack"
       @createFedbackNotification="createFedbackNotification"
     ></Request-Feedback>
@@ -773,7 +771,6 @@ export default class extends Vue {
     try {
       const experts = await this.$expertProfiles();
       if (experts !== null) {
-        console.log(experts);
         this.createNotification(experts, "requestFeedback");
       }
     } catch (e) {

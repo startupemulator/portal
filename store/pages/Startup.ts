@@ -160,6 +160,7 @@ export default class StartupPage
         badges,
         isOwner,
         isExpert,
+        isDeveloper,
         invites,
         specialisationsForInvites,
         experiences,
