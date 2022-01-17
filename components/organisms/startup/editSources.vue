@@ -14,7 +14,7 @@
           :name="'Link ' + (i + 1)"
           :link-name="source.title"
           :link-href="source.link"
-          @removeESource="removeExistingSources(source.id)"
+          @removeSource="removeExistingSources(source.id)"
           @updateSource="updateSourses($event, source.id)"
         ></Add-Existing-Source>
       </div>
