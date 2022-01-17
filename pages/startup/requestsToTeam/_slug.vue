@@ -1,11 +1,8 @@
 <template>
   <div class="startups-page">
     <Request-To-Team
-      :update-key="updateKey"
       :startup="startup"
-      @accept="accept"
-      @decline="decline"
-      @advancedAccess="advancedAccess"
+      @updateTeamRequest="updateTeamRequest"
     ></Request-To-Team>
   </div>
 </template>
@@ -16,6 +13,7 @@ import Spinner from "../../../store/modules/Spinner";
 import RequestToTeam from "~/components/organisms/startup/requestsToTeam.vue";
 import { Startup } from "~/models/Startup";
 import Toast from "~/store/modules/Toast";
+import { Startup as StartupAction } from "~/store";
 
 @Component({
   components: {
@@ -23,8 +21,14 @@ import Toast from "~/store/modules/Toast";
   },
 })
 export default class TakeStartup extends Vue {
+  StartupAction;
+  constructor() {
+    super();
+    this.StartupAction = StartupAction;
+  }
+
   startup: Array<Startup>;
-  updateKey: Number = 0;
+
   userId = this.$strapi.user ? this.$strapi.user.id : "";
 
   async asyncData({ $startup, route }) {
@@ -32,6 +36,49 @@ export default class TakeStartup extends Vue {
     return {
       startup,
     };
+  }
+
+  async updateTeamRequest({ id, declineReason, status, positionCount }) {
+    Spinner.show();
+    await StartupAction.changePremission({
+      context: this,
+      permission: status,
+      applicationId: id,
+      declineReason,
+      positionCount,
+    });
+    try {
+      const startup = await this.$startupById(this.startup.id);
+      const { applications } = await this.$applicationsByStartupId(
+        this.startup.id
+      );
+
+      this.startup = startup;
+      let recipients = [];
+      if (status === "Decline") {
+        recipients = applications.filter(
+          (el) => el.status === "accepted" || el.status === "advanced"
+        );
+        this.createNotification(recipients, "decline");
+      } else if (status === "Advanced access") {
+        recipients = applications.filter(
+          (el) => el.status === "accepted" || el.status === "advanced"
+        );
+        this.createNotification(recipient, "advanced");
+      } else {
+        recipients = applications.filter(
+          (el) => el.status === "accepted" || el.status === "advanced"
+        );
+        this.createNotification(recipients, "accept");
+      }
+    } catch (e) {
+      console.error(e);
+      Toast.show({
+        data: e.message,
+        duration: 3000,
+      });
+    }
+    Spinner.hide();
   }
 
   async createNotification(recipients, flag) {
@@ -64,93 +111,6 @@ export default class TakeStartup extends Vue {
           );
         }
       }
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  async accept(id) {
-    Spinner.show();
-    try {
-      const accept = await this.$applicationAccept(id);
-      if (accept !== null) {
-        const startup = await this.$startupById(this.startup.id);
-        const { applications } = await this.$applicationsByStartupId(
-          this.startup.id
-        );
-        this.startup = startup;
-        const recipients = applications.filter(
-          (el) => el.status === "accepted" || el.status === "advanced"
-        );
-        this.createNotification(recipients, "accept");
-      }
-
-      this.updateKey += 1;
-      Spinner.hide();
-    } catch (e) {
-      console.error(e);
-      Toast.show({
-        data: e.message,
-        duration: 3000,
-      });
-      Spinner.hide();
-    }
-  }
-
-  async decline(id, declinetext) {
-    Spinner.show();
-    try {
-      const decline = await this.$applicationDecline(id, declinetext);
-      if (decline) {
-        const startup = await this.$startupById(this.startup.id);
-        const { applications } = await this.$applicationsByStartupId(
-          this.startup.id
-        );
-        this.startup = startup;
-        const recipients = applications.filter(
-          (el) => el.status === "accepted" || el.status === "advanced"
-        );
-        this.createNotification(recipients, "decline");
-        Spinner.hide();
-        this.updateKey += 1;
-      } else {
-        Toast.show({
-          data: "Something wrong!",
-          duration: 3000,
-        });
-        Spinner.hide();
-      }
-    } catch (e) {
-      console.error(e);
-      Toast.show({
-        data: e.message,
-        duration: 3000,
-      });
-      Spinner.hide();
-    }
-  }
-
-  async advancedAccess(id) {
-    Spinner.show();
-    try {
-      const advancedAccess = await this.$applicationAdvancedAccess(id);
-      if (advancedAccess !== null) {
-        const startup = await this.$startupById(this.startup.id);
-        const { applications } = await this.$applicationsByStartupId(
-          this.startup.id
-        );
-        if (startup !== null) {
-          this.startup = startup;
-        }
-        if (applications !== null) {
-          const recipient = applications.filter(
-            (el) => el.status === "accepted" || el.status === "advanced"
-          );
-          this.createNotification(recipient, "advanced");
-        }
-      }
-      Spinner.hide();
-      this.updateKey += 1;
     } catch (e) {
       console.error(e);
     }

@@ -1,14 +1,13 @@
 <template>
   <div>
-    <Request-ToTeam
+    <!-- <Request-ToTeam
       v-show="requestToTeam"
       :update-key="updateKey"
       :startup="updatableDataStartup"
       @clikOnButton="toggleRequestToTeam"
       @accept="accept"
-      @decline="decline"
-      @advancedAccess="advancedAccess"
-    ></Request-ToTeam>
+      @updateTeamRequest="updateTeamRequest"
+    ></Request-ToTeam> -->
     <New-FeedBack
       v-show="newFeedBack"
       :key="updateKey + 'new-feedback'"
@@ -47,9 +46,7 @@
       :startup-id="moveAwayStartup"
       :team-member="teamMember"
       @clikOnButton="toggleEditTeam"
-      @saveEditTeam="saveEditTeam"
       @cancelEditTeam="cancelEditTeam"
-      @changeTeam="changeTeam"
       @removeUserMember="removeUserMember"
     ></Edit-Team>
     <Edit-Sources
@@ -819,150 +816,6 @@ export default class extends Vue {
     }
   }
 
-  async accept(id) {
-    Spinner.show();
-    try {
-      const accept = await this.$applicationAccept(id);
-      if (accept) {
-        const startup = await this.$startupById(this.startup.id);
-        const { applications } = await this.$applicationsByStartupId(
-          this.startup.id
-        );
-        if (startup !== null) {
-          this.updatableDataStartup = startup;
-          if (this.startup.state === "in_progress") {
-            return (this.isStarted = true);
-          } else if (this.startup.state === "finished") {
-            return (this.finished = true);
-          }
-          this.changeTeam(startup);
-
-          this.openPosition = this.startup.positions.filter(
-            (position) => position.status === "open"
-          );
-          this.updateKey = 1;
-          this.moveAwayStartup = this.startup.id;
-          this.moveAwayStartupName = this.startup.title;
-        }
-        if (applications !== null) {
-          this.updatableDataApplications = applications;
-          const recipients = this.updatableDataApplications.filter(
-            (el) => el.status === "accepted" || el.status === "advanced"
-          );
-
-          this.createNotification(recipients, "accept");
-        }
-        Spinner.hide();
-        this.updateKey += 1;
-      } else {
-        Toast.show({
-          data: "Something wrong!",
-          duration: 3000,
-        });
-        Spinner.hide();
-      }
-    } catch (e) {
-      console.error(e);
-      Toast.show({
-        data: e.message,
-        duration: 3000,
-      });
-      Spinner.hide();
-    }
-  }
-
-  async decline(id, declinetext) {
-    Spinner.show();
-    try {
-      const decline = await this.$applicationDecline(id, declinetext);
-      if (decline) {
-        const startup = await this.$startupById(this.startup.id);
-        const { applications } = await this.$applicationsByStartupId(
-          this.startup.id
-        );
-        if (startup !== null) {
-          this.updatableDataStartup = startup;
-          this.changeTeam(startup);
-        }
-        if (applications !== null) {
-          this.updatableDataApplications = applications;
-          const recipients = this.updatableDataApplications.filter(
-            (el) => el.status === "accepted" || el.status === "advanced"
-          );
-          this.createNotification(recipients, "decline");
-        }
-        Spinner.hide();
-        this.updateKey += 1;
-      } else {
-        Toast.show({
-          data: "Something wrong!",
-          duration: 3000,
-        });
-        Spinner.hide();
-      }
-    } catch (e) {
-      console.error(e);
-      Toast.show({
-        data: e.message,
-        duration: 3000,
-      });
-      Spinner.hide();
-    }
-  }
-
-  async advancedAccess(id) {
-    Spinner.show();
-    try {
-      const advancedAccess = await this.$applicationAdvancedAccess(id);
-      if (advancedAccess) {
-        const startup = await this.$startupById(this.startup.id);
-        const { applications } = await this.$applicationsByStartupId(
-          this.startup.id
-        );
-        if (startup !== null) {
-          this.updatableDataStartup = startup;
-          this.changeTeam(startup);
-        }
-        if (applications !== null) {
-          this.updatableDataApplications = applications;
-          const recipients = this.updatableDataApplications.filter(
-            (el) => el.status === "accepted" || el.status === "advanced"
-          );
-          this.createNotification(recipients, "advanced");
-        }
-
-        Spinner.hide();
-        this.updateKey += 1;
-      } else {
-        Toast.show({
-          data: "Something wrong!",
-          duration: 3000,
-        });
-        Spinner.hide();
-      }
-    } catch (e) {
-      console.error(e);
-      Toast.show({
-        data: e.message,
-        duration: 3000,
-      });
-      Spinner.hide();
-    }
-  }
-
-  changeTeam(id) {
-    this.teamMember.forEach((item) => {
-      item.applications = item.applications.filter((el) => el.id !== id);
-    });
-    this.updateKey += 1;
-  }
-
-  removeUserMember(id) {
-    this.deleteApplicationCash.push(id);
-
-    this.changeTeam(id);
-  }
-
   async startStartup(state) {
     Spinner.show();
     const date = new Date().toISOString();
@@ -1062,65 +915,6 @@ export default class extends Vue {
   cancelEditStartupInfo() {
     this.toggleEditStartupInfo();
     scrollToHeader();
-  }
-
-  async saveEditTeam(positions) {
-    try {
-      if (this.deleteApplicationCash.length !== 0) {
-        for (const applicationId of this.deleteApplicationCash) {
-          await this.$cancelApplication(applicationId);
-        }
-      }
-      if (this.changedPremissionOnTeam.length !== 0) {
-        for (const premission of this.changedPremissionOnTeam) {
-          if (premission[1] === "Advanced access") {
-            await this.$applicationAdvancedAccess(premission[0]);
-          } else {
-            await this.$applicationAccept(premission[0]);
-          }
-        }
-      }
-      if (positions.length !== 0) {
-        let i = 0;
-        for (const position of positions) {
-          if (
-            !!this.updatableDataStartup.positions[i] &&
-            +position.id === +this.updatableDataStartup.positions[i].id &&
-            position.status !== this.updatableDataStartup.positions[i].status
-          ) {
-            await this.$updateStatusPosition(position.id, position.status);
-          }
-          i++;
-        }
-      }
-
-      const startup = await this.$startupById(this.startup.id);
-      if (startup !== null) {
-        this.updatableDataStartup = startup;
-        this.openPosition = this.updatableDataStartup.positions.filter(
-          (position) => position.status === "open"
-        );
-        this.staffedPosition = this.updatableDataStartup.positions.filter(
-          (position) => position.status === "staffed"
-        );
-        this.teamMember = [];
-        startup.positions.forEach((item) => {
-          if (
-            item.applications.some(
-              (el) => el.status === "accepted" || el.status === "advanced"
-            )
-          ) {
-            this.teamMember.push(item);
-          }
-        });
-        this.toggleEditTeam();
-        scrollToHeader();
-      }
-    } catch (e) {
-      console.error(e);
-      this.toggleEditTeam();
-      scrollToHeader();
-    }
   }
 
   cancelEditTeam() {

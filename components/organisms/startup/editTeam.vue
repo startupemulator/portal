@@ -68,7 +68,7 @@
           :position-count="i"
           :application-id="item.id"
           :premission="item.status"
-          @chagePremission="chagePremission"
+          @changePermission="changePermission"
           @removeUserMember="$emit('removeUserMember', $event)"
         ></Team-Member-Card>
       </div>
@@ -129,7 +129,6 @@ export default class extends Vue {
 
   inviteColleagues: Boolean = false;
 
-  loading = false;
   async addSpeciality() {
     Spinner.show();
     await Startup.createPosition(this);
@@ -219,12 +218,13 @@ export default class extends Vue {
     enableScrolling();
   }
 
-  chagePremission({ premission, applicationId, positionCount }) {
+  changePermission({ permission, applicationId, positionCount }) {
     Startup.changePremission({
       context: this,
-      premission,
+      permission,
       applicationId,
       positionCount,
+      declineReason: false,
     });
   }
 

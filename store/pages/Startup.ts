@@ -389,9 +389,10 @@ export default class StartupPage
   @MutationAction
   async changePremission({
     context,
-    premission,
+    permission,
     applicationId,
     positionCount,
+    declineReason,
   }) {
     const { startup } = this.state as CreateProjectState;
     const {
@@ -401,20 +402,27 @@ export default class StartupPage
     } = context;
     let modificationApplication = [];
     try {
-      if (premission === "Default access") {
+      if (permission === "Default access") {
         modificationApplication = await $applicationAccept(applicationId);
-      } else if (premission === "decline") {
-        modificationApplication = await $applicationDecline(applicationId);
+      } else if (permission === "Decline") {
+        modificationApplication = await $applicationDecline(
+          applicationId,
+          declineReason
+        );
       } else {
         modificationApplication = await $applicationAdvancedAccess(
           applicationId
         );
       }
-      startup.positions[positionCount].applications.forEach((application) => {
-        if (application.id === applicationId) {
-          application.status = modificationApplication.status;
-        }
-      });
+
+      if (typeof declineReason === "boolean") {
+        startup.positions[positionCount].applications.forEach((application) => {
+          if (application.id === applicationId) {
+            application.status = modificationApplication.status;
+          }
+        });
+      }
+      console.log("finished");
     } catch (e) {
       console.error(e);
     }

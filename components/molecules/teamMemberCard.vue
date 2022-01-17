@@ -13,9 +13,9 @@
         class="team-member-card__menu-premission"
         :class="premissionMenu ? 'active' : ''"
       >
-        <div class="menu-premission__header" @click="togglePremissionMenu">
+        <div class="menu-premission__header" @click="togglePermissionMenu">
           <span>{{
-            choosenPremission === "accepted"
+            choosenPermission === "accepted"
               ? "Default access"
               : "Advanced access"
           }}</span>
@@ -53,32 +53,32 @@ export default class extends Vue {
   @Prop() specialisation: string;
   @Prop() premission!: string;
   @Prop() positionCount: string;
-  choosenPremission = this.premission;
+  choosenPermission = this.premission;
 
   premissionMenu = false;
 
-  togglePremissionMenu() {
+  togglePermissionMenu() {
     this.premissionMenu = !this.premissionMenu;
   }
 
   defaultAccess($event) {
     this.premissionMenu = !this.premissionMenu;
-    this.choosenPremission = "accepted";
-    this.$emit("chagePremission", {
+    this.choosenPermission = "accepted";
+    this.$emit("changePermission", {
       positionCount: this.positionCount,
       applicationId: this.applicationId,
-      premission: $event.target.textContent.trim(),
+      permission: $event.target.textContent.trim(),
     });
   }
 
   advancedAccess($event) {
     this.premissionMenu = !this.premissionMenu;
-    this.choosenPremission = $event.target.textContent;
-    this.$emit("chagePremission", {
+    this.choosenPermission = $event.target.textContent;
+    this.$emit("changePermission", {
       positionCount: this.positionCount,
 
       applicationId: this.applicationId,
-      premission: $event.target.textContent.trim(),
+      permission: $event.target.textContent.trim(),
     });
   }
 }
