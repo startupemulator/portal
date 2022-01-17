@@ -450,4 +450,57 @@ export default class StartupPage
 
     return { startup };
   }
+
+  @MutationAction
+  async createSource(context) {
+    const { startup } = this.state as CreateProjectState;
+    const { $createSource } = context;
+    try {
+      const source = await $createSource("", "https://", startup.id);
+      if (source !== null) {
+        startup.sources.push(source);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { startup };
+  }
+
+  @MutationAction
+  async deleteSources({ context, id }) {
+    const { startup } = this.state as CreateProjectState;
+    const { $deleteSource } = context;
+    try {
+      const source = await $deleteSource(id);
+      if (source !== null) {
+        startup.sources.forEach((source, i) => {
+          if (source.id === id) {
+            startup.sources.splice(i, 1);
+          }
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { startup };
+  }
+
+  @MutationAction
+  async updateSources({ context, link, title, id }) {
+    const { startup } = this.state as CreateProjectState;
+    const { $updateSource } = context;
+    try {
+      const newSource = await $updateSource(id, link, title);
+      if (newSource !== null) {
+        startup.sources.forEach((source, i) => {
+          if (source.id === newSource.id) {
+            startup.sources[i] = newSource;
+          }
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { startup };
+  }
 }

@@ -39,7 +39,6 @@
       :startup-id="moveAwayStartup"
       @clikOnButton="toggleEditSources"
       @saveSources="saveSources"
-      @cancelSources="cancelSources"
     ></Edit-Sources>
     <Edit-Guide
       v-show="editGuide"
@@ -896,22 +895,7 @@ export default class extends Vue {
     scrollToHeader();
   }
 
-  async saveSources() {
-    try {
-      const startup = await this.$startupById(this.startup.id);
-      if (startup !== null) {
-        this.updatableDataStartup = startup;
-        this.toggleEditSources();
-        scrollToHeader();
-      }
-    } catch (e) {
-      console.error(e);
-      this.toggleEditSources();
-      scrollToHeader();
-    }
-  }
-
-  cancelSources() {
+  saveSources() {
     this.toggleEditSources();
     scrollToHeader();
   }
