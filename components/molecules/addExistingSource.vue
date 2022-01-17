@@ -25,7 +25,7 @@
       <button
         class="button-remove-link"
         type="button"
-        @click="$emit('removeExistingSources')"
+        @click="$emit('removeESource')"
       >
         <img src="~/assets/img/close.svg" alt="" />
       </button>
@@ -69,7 +69,7 @@ export default class extends Vue {
 
   emitSourses() {
     if (!this.$v.$error) {
-      this.$emit("updateSources", { title: this.title, link: this.link });
+      this.$emit("updateSource", { title: this.title, link: this.link });
     }
   }
 }

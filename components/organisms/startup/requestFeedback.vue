@@ -4,9 +4,8 @@
     <U-Title :text="'Request feedback'"></U-Title>
     <Technology-Picker
       :title="'Pick technologies you need feedback in'"
-      :technologies="startup.technologies"
+      :technologies="technologies"
       :add-technology="false"
-      :choosen-technologies="pickedTechnology"
       @chosenTechnologi="chosenTechnologi"
     ></Technology-Picker>
     <p v-show="$v.pickedTechnology.$error" class="errorInput">
@@ -49,8 +48,9 @@ import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import TechnologyPicker from "~/components/molecules/technologyPicker.vue";
 import UPopup from "~/components/molecules/popupChallengeStarted.vue";
-import { Startup } from "~/models/Startup";
 import Toast from "~/store/modules/Toast";
+import { Startup } from "~/store";
+
 @Component({
   components: { UBack, UTitle, TechnologyPicker, UButton, UPopup },
   validations: {
@@ -64,12 +64,23 @@ import Toast from "~/store/modules/Toast";
   },
 })
 export default class extends Vue {
-  @Prop() startup: Array<Startup>;
+  Startup;
+  constructor() {
+    super();
+    this.Startup = Startup;
+  }
+
   @Prop() userId: string;
   pickedTechnology = [];
+  technologies = [];
   comment = "";
   UPopup = false;
   async toggleUPopup() {
+    this.technologies.forEach((technology) => {
+      if (technology.checked) {
+        this.pickedTechnology.push(technology.id);
+      }
+    });
     this.$v.$touch();
     if (!this.$v.$error) {
       Spinner.show();
@@ -78,7 +89,7 @@ export default class extends Vue {
           this.userId,
           this.comment,
           this.pickedTechnology,
-          this.startup.id
+          Startup.startup.id
         );
 
         if (askFeedback !== null) {
@@ -103,8 +114,20 @@ export default class extends Vue {
     this.UPopup = !this.UPopup;
   }
 
-  chosenTechnologi(pickedTechnology, pickedTechnologyId) {
-    this.pickedTechnology = pickedTechnologyId;
+  chosenTechnologi({ id, item }) {
+    this.technologies.forEach((technology) => {
+      if (technology.id === id && item.checked) {
+        technology.checked = true;
+      } else if (technology.id === id && !item.checked) {
+        technology.checked = false;
+      }
+    });
+    this.technologies = JSON.parse(JSON.stringify(this.technologies));
+  }
+
+  mounted() {
+    this.technologies = JSON.parse(JSON.stringify(Startup.technologies));
+    this.technologies.forEach((technology) => (technology.checked = false));
   }
 }
 </script>

@@ -192,19 +192,23 @@ export function applicationDecline($strapi: Strapi) {
 }
 export function cancelApplication($strapi: Strapi) {
   return async (id: string) => {
-    return await $strapi.graphql({
+    const data = await $strapi.graphql({
       query: `mutation {
-        deleteApplication(
+        updateApplication(
           input: {
           where: {id: "${id}" }
+          data: { status: canceled}
          }
          ) {
           application {
-              id
-              status
+            id
+            comment
+            decline_reason
+            status
             }
         }
       }`,
     });
+    return data.updateApplication ? data.updateApplication.application : null;
   };
 }

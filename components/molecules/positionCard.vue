@@ -188,13 +188,13 @@ export default class extends Vue {
       this.accsessList = !this.accsessList;
     }
 
-    // const checkedAccses = $event.currentTarget.children[0].textContent;
-    // this.accsessButtonTitle = checkedAccses;
-    // this.accsessList = !this.accsessList;
+    const checkedAccses = $event.currentTarget.children[0].textContent;
+    this.accsessButtonTitle = checkedAccses;
   }
 
   decline() {
     this.$emit("decline", this.positionId, this.declinetext);
+    this.accsessButtonTitle = "Decline";
     this.declineCandidate = !this.declineCandidate;
   }
 
@@ -209,10 +209,6 @@ export default class extends Vue {
   }
 
   mounted() {
-    this.checkAccess();
-  }
-
-  beforeUpdate() {
     this.checkAccess();
   }
 }
@@ -607,8 +603,8 @@ export default class extends Vue {
 
       .decline-reason__content {
         position: absolute;
-        bottom: 250px;
-        right: -8px;
+        bottom: 322px;
+        right: -25px;
         padding: 16px 16px 16px 16px;
         width: 468px;
         height: 204px;

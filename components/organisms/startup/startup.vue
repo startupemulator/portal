@@ -1,14 +1,5 @@
 <template>
   <div>
-    <Request-ToTeam
-      v-show="requestToTeam"
-      :update-key="updateKey"
-      :startup="updatableDataStartup"
-      @clikOnButton="toggleRequestToTeam"
-      @accept="accept"
-      @decline="decline"
-      @advancedAccess="advancedAccess"
-    ></Request-ToTeam>
     <New-FeedBack
       v-show="newFeedBack"
       :key="updateKey + 'new-feedback'"
@@ -24,7 +15,6 @@
     <Request-Feedback
       v-show="requestFeedBack"
       :key="updateKey"
-      :startup="updatableDataStartup"
       :user-id="userId"
       @clikOnButton="toggleRequestFeedBack"
       @createFedbackNotification="createFedbackNotification"
@@ -40,30 +30,18 @@
     <Edit-Team
       v-if="editTeam"
       :update-key="updateKey"
-      :staffed-position="staffedPosition"
-      :startup="updatableDataStartup"
-      :specialisations="specialisations"
-      :technologies="technologies"
-      :startup-id="moveAwayStartup"
-      :team-member="teamMember"
       @clikOnButton="toggleEditTeam"
-      @saveEditTeam="saveEditTeam"
       @cancelEditTeam="cancelEditTeam"
-      @changeTeam="changeTeam"
-      @removeUserMember="removeUserMember"
     ></Edit-Team>
     <Edit-Sources
       v-show="editSources"
       :sources="updatableDataStartup.sources"
-      :startup-id="moveAwayStartup"
       @clikOnButton="toggleEditSources"
       @saveSources="saveSources"
-      @cancelSources="cancelSources"
     ></Edit-Sources>
     <Edit-Guide
       v-show="editGuide"
       :secrets="updatableDataStartup.secrets"
-      :startup-id="moveAwayStartup"
       @clikOnButton="toggleEditGuide"
       @saveGuide="saveGuide"
     ></Edit-Guide>
@@ -106,7 +84,6 @@
     ></Add-Team-Badge>
     <div
       v-show="
-        !requestToTeam &&
         !newFeedBack &&
         !requestFeedBack &&
         !editStartupInfo &&
@@ -472,7 +449,7 @@ import FeedBackCard from "../../molecules/feedbackCard.vue";
 import GuidePopup from "../../molecules/popupGuide.vue";
 import { Estimation } from "../../../models/Estimation";
 import Spinner from "../../../store/modules/Spinner";
-import RequestToTeam from "./requestsToTeam.vue";
+
 import NewFeedBack from "./newFeedBack.vue";
 import RequestFeedback from "./requestFeedback.vue";
 import EditStartupInfo from "./editStartupInfo.vue";
@@ -513,7 +490,7 @@ import PopupLeaveProject from "~/components/molecules/popupLeaveProject.vue";
     ProjectParticipant,
     FeedBackCard,
     GuidePopup,
-    RequestToTeam,
+
     Sources,
     NewFeedBack,
     RequestFeedback,
@@ -569,7 +546,7 @@ export default class extends Vue {
   popupGuide = false;
   finished = false;
   review = false;
-  requestToTeam = false;
+
   newFeedBack = false;
   requestFeedBack = false;
   editStartupInfo = false;
@@ -621,10 +598,6 @@ export default class extends Vue {
   closeAddFeedBackBadge() {
     this.addFeedBackBadge = !this.addFeedBackBadge;
     this.updateFeedbacks();
-  }
-
-  toggleRequestToTeam() {
-    this.requestToTeam = !this.requestToTeam;
   }
 
   toggleFinishStartup() {
@@ -730,10 +703,6 @@ export default class extends Vue {
       this.feedbackFilterByPublickFlag(this.feedbacks);
       this.feedbackFilterByPrivateFlag(this.feedbacks);
     }
-
-    if (this.notification === "request") {
-      this.requestToTeam = !this.requestToTeam;
-    }
   }
 
   feedbackFilterByPublickFlag(feedbacks) {
@@ -799,7 +768,6 @@ export default class extends Vue {
     try {
       const experts = await this.$expertProfiles();
       if (experts !== null) {
-        console.log(experts);
         this.createNotification(experts, "requestFeedback");
       }
     } catch (e) {
@@ -817,150 +785,6 @@ export default class extends Vue {
     } else {
       this.changedPremissionOnTeam.push(premission);
     }
-  }
-
-  async accept(id) {
-    Spinner.show();
-    try {
-      const accept = await this.$applicationAccept(id);
-      if (accept) {
-        const startup = await this.$startupById(this.startup.id);
-        const { applications } = await this.$applicationsByStartupId(
-          this.startup.id
-        );
-        if (startup !== null) {
-          this.updatableDataStartup = startup;
-          if (this.startup.state === "in_progress") {
-            return (this.isStarted = true);
-          } else if (this.startup.state === "finished") {
-            return (this.finished = true);
-          }
-          this.changeTeam(startup);
-
-          this.openPosition = this.startup.positions.filter(
-            (position) => position.status === "open"
-          );
-          this.updateKey = 1;
-          this.moveAwayStartup = this.startup.id;
-          this.moveAwayStartupName = this.startup.title;
-        }
-        if (applications !== null) {
-          this.updatableDataApplications = applications;
-          const recipients = this.updatableDataApplications.filter(
-            (el) => el.status === "accepted" || el.status === "advanced"
-          );
-
-          this.createNotification(recipients, "accept");
-        }
-        Spinner.hide();
-        this.updateKey += 1;
-      } else {
-        Toast.show({
-          data: "Something wrong!",
-          duration: 3000,
-        });
-        Spinner.hide();
-      }
-    } catch (e) {
-      console.error(e);
-      Toast.show({
-        data: e.message,
-        duration: 3000,
-      });
-      Spinner.hide();
-    }
-  }
-
-  async decline(id, declinetext) {
-    Spinner.show();
-    try {
-      const decline = await this.$applicationDecline(id, declinetext);
-      if (decline) {
-        const startup = await this.$startupById(this.startup.id);
-        const { applications } = await this.$applicationsByStartupId(
-          this.startup.id
-        );
-        if (startup !== null) {
-          this.updatableDataStartup = startup;
-          this.changeTeam(startup);
-        }
-        if (applications !== null) {
-          this.updatableDataApplications = applications;
-          const recipients = this.updatableDataApplications.filter(
-            (el) => el.status === "accepted" || el.status === "advanced"
-          );
-          this.createNotification(recipients, "decline");
-        }
-        Spinner.hide();
-        this.updateKey += 1;
-      } else {
-        Toast.show({
-          data: "Something wrong!",
-          duration: 3000,
-        });
-        Spinner.hide();
-      }
-    } catch (e) {
-      console.error(e);
-      Toast.show({
-        data: e.message,
-        duration: 3000,
-      });
-      Spinner.hide();
-    }
-  }
-
-  async advancedAccess(id) {
-    Spinner.show();
-    try {
-      const advancedAccess = await this.$applicationAdvancedAccess(id);
-      if (advancedAccess) {
-        const startup = await this.$startupById(this.startup.id);
-        const { applications } = await this.$applicationsByStartupId(
-          this.startup.id
-        );
-        if (startup !== null) {
-          this.updatableDataStartup = startup;
-          this.changeTeam(startup);
-        }
-        if (applications !== null) {
-          this.updatableDataApplications = applications;
-          const recipients = this.updatableDataApplications.filter(
-            (el) => el.status === "accepted" || el.status === "advanced"
-          );
-          this.createNotification(recipients, "advanced");
-        }
-
-        Spinner.hide();
-        this.updateKey += 1;
-      } else {
-        Toast.show({
-          data: "Something wrong!",
-          duration: 3000,
-        });
-        Spinner.hide();
-      }
-    } catch (e) {
-      console.error(e);
-      Toast.show({
-        data: e.message,
-        duration: 3000,
-      });
-      Spinner.hide();
-    }
-  }
-
-  changeTeam(id) {
-    this.teamMember.forEach((item) => {
-      item.applications = item.applications.filter((el) => el.id !== id);
-    });
-    this.updateKey += 1;
-  }
-
-  removeUserMember(id) {
-    this.deleteApplicationCash.push(id);
-
-    this.changeTeam(id);
   }
 
   async startStartup(state) {
@@ -1064,104 +888,12 @@ export default class extends Vue {
     scrollToHeader();
   }
 
-  async saveEditTeam(positions) {
-    try {
-      if (this.deleteApplicationCash.length !== 0) {
-        for (const applicationId of this.deleteApplicationCash) {
-          await this.$cancelApplication(applicationId);
-        }
-      }
-      if (this.changedPremissionOnTeam.length !== 0) {
-        for (const premission of this.changedPremissionOnTeam) {
-          if (premission[1] === "Advanced access") {
-            await this.$applicationAdvancedAccess(premission[0]);
-          } else {
-            await this.$applicationAccept(premission[0]);
-          }
-        }
-      }
-      if (positions.length !== 0) {
-        let i = 0;
-        for (const position of positions) {
-          if (
-            !!this.updatableDataStartup.positions[i] &&
-            +position.id === +this.updatableDataStartup.positions[i].id &&
-            position.status !== this.updatableDataStartup.positions[i].status
-          ) {
-            await this.$updateStatusPosition(position.id, position.status);
-          }
-          i++;
-        }
-      }
-
-      const startup = await this.$startupById(this.startup.id);
-      if (startup !== null) {
-        this.updatableDataStartup = startup;
-        this.openPosition = this.updatableDataStartup.positions.filter(
-          (position) => position.status === "open"
-        );
-        this.staffedPosition = this.updatableDataStartup.positions.filter(
-          (position) => position.status === "staffed"
-        );
-        this.teamMember = [];
-        startup.positions.forEach((item) => {
-          if (
-            item.applications.some(
-              (el) => el.status === "accepted" || el.status === "advanced"
-            )
-          ) {
-            this.teamMember.push(item);
-          }
-        });
-        this.toggleEditTeam();
-        scrollToHeader();
-      }
-    } catch (e) {
-      console.error(e);
-      this.toggleEditTeam();
-      scrollToHeader();
-    }
-  }
-
   cancelEditTeam() {
     this.toggleEditTeam();
     scrollToHeader();
-
-    // try {
-    //   const startup = await this.$startupById(this.startup.id);
-    //   if (startup !== null) {
-    //     this.teamMember = [];
-    //     startup.positions.forEach((item) => {
-    //       if (
-    //         item.applications.some(
-    //           (el) => el.status === "accepted" || el.status === "advanced"
-    //         )
-    //       ) {
-    //         this.teamMember.push(item);
-    //       }
-    //     });
-    //   }
-    // } catch (e) {
-    //   console.error(e);
-    // }
   }
 
-  async saveSources() {
-    try {
-      const startup = await this.$startupById(this.startup.id);
-      if (startup !== null) {
-        this.updatableDataStartup = startup;
-        this.toggleEditSources();
-        scrollToHeader();
-      }
-    } catch (e) {
-      console.error(e);
-      this.toggleEditSources();
-      scrollToHeader();
-    }
-  }
-
-  cancelSources() {
+  saveSources() {
     this.toggleEditSources();
     scrollToHeader();
   }

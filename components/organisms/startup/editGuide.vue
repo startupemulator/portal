@@ -10,21 +10,22 @@
       </p>
     </div>
     <div class="edit-guide__content">
-      <div
-        :is="item.type"
-        v-for="(item, i) in guideSourseComponent"
-        :key="item.id"
-        :name="'Item ' + (i + 1)"
-        :guide-name="item.name"
-        :guide-comment="item.comment"
-        @removeGuideSources="removeGuideSources(item.id)"
-        @textInput="textInput($event, i, item.id)"
-      ></div>
+      <div>
+        <Create-Guide
+          v-for="(guide, i) in secrets"
+          :key="guide.id"
+          :name="'Item ' + (i + 1)"
+          :guide-name="guide.title"
+          :guide-comment="guide.description"
+          @removeGuideSources="deleteSecret(guide.id)"
+          @updateSecret="updateSecret($event, guide.id)"
+        ></Create-Guide>
+      </div>
       <div class="edit-guide__add-link">
         <U-Button
           :button-name="'Add item'"
           :button-class="'u-button-blue'"
-          @clickOnButton="addGuideSourse"
+          @clickOnButton="createSecret"
         ></U-Button>
       </div>
     </div>
@@ -51,19 +52,40 @@ import UTitle from "~/components/atoms/uTitle.vue";
 import Toast from "~/store/modules/Toast";
 import CreateGuide from "~/components/molecules/createGuide.vue";
 import { Secrets } from "~/models/Secrets";
+import { Startup } from "~/store";
 
 @Component({
   components: { UButton, UBack, UTitle, CreateGuide },
 })
 export default class extends Vue {
-  @Prop() secrets: Array<Secrets>;
-  @Prop() startupId: string;
+  Startup;
+  constructor() {
+    super();
+    this.Startup = Startup;
+  }
 
-  newswcrets = [];
-  guideSourseComponent: Array<any> = [];
+  @Prop() secrets: Array<Secrets>;
+
+  async createSecret() {
+    Spinner.show();
+    await Startup.createSecret(this);
+    Spinner.hide();
+  }
+
+  async deleteSecret(id) {
+    Spinner.show();
+    await Startup.deleteSecret({ context: this, id });
+    Spinner.hide();
+  }
+
+  async updateSecret({ title, description }, id) {
+    Spinner.show();
+    await Startup.updateSecret({ context: this, title, description, id });
+    Spinner.hide();
+  }
+
   saveSources() {
     Spinner.show();
-    this.newswcrets = [];
     setTimeout(() => {
       Spinner.hide();
       Toast.show({
@@ -76,100 +98,7 @@ export default class extends Vue {
   }
 
   cancelSources() {
-    Spinner.show();
-    if (this.newswcrets.length !== 0) {
-      this.newswcrets.forEach((el) => {
-        this.removeGuideSources(el);
-      });
-    }
-    setTimeout(() => {
-      Spinner.hide();
-      Toast.show({
-        data: "Startup data updated!",
-        duration: 1000,
-        success: true,
-      });
-    }, 900);
-    this.$emit("saveGuide");
-  }
-
-  async addGuideSourse() {
-    Spinner.show();
-    try {
-      const secret = await this.$createSecret("", "", this.startupId);
-      if (secret !== null) {
-        this.guideSourseComponent.push({
-          id: secret.id,
-          type: "create-guide",
-          name: secret.title,
-          comment: secret.description,
-        });
-      }
-      this.newswcrets.push(secret.id);
-      Spinner.hide();
-    } catch (e) {
-      console.error(e);
-      Spinner.hide();
-    }
-  }
-
-  async removeGuideSources(id) {
-    Spinner.show();
-    try {
-      const secret = await this.$deleteSecret(id);
-      if (+secret.id === +id) {
-        this.guideSourseComponent = this.guideSourseComponent.filter(
-          (item) => item.id !== id
-        );
-        Spinner.hide();
-      }
-    } catch (e) {
-      console.error(e);
-      Spinner.hide();
-    }
-  }
-
-  async updateSecret(id, title = "", description = "") {
-    Spinner.show();
-    try {
-      const secret = await this.$updateSecret(id, title, description);
-      if (secret !== null) {
-        Spinner.hide();
-      }
-    } catch (e) {
-      console.error(e);
-      Spinner.hide();
-    }
-  }
-
-  textInput($event, i, id) {
-    switch ($event[1]) {
-      case "name":
-        this.updateSecret(id, $event[0], this.guideSourseComponent[i].comment);
-        this.guideSourseComponent[i].name = $event[0];
-        break;
-      case "comment":
-        this.updateSecret(id, this.guideSourseComponent[i].name, $event[0]);
-        this.guideSourseComponent[i].comment = $event[0];
-        break;
-      default:
-    }
-    this.$emit("addSomeGiude", this.guideSourseComponent);
-  }
-
-  mounted() {
-    if (this.secrets) {
-      this.guideSourseComponent = [];
-      this.secrets.forEach((el) => {
-        const data = {
-          id: el.id,
-          comment: el.description,
-          name: el.title,
-          type: "create-guide",
-        };
-        this.guideSourseComponent.push(data);
-      });
-    }
+    this.saveSources();
   }
 }
 </script>

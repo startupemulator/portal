@@ -160,6 +160,7 @@ export default class StartupPage
         badges,
         isOwner,
         isExpert,
+        isDeveloper,
         invites,
         specialisationsForInvites,
         experiences,
@@ -389,32 +390,42 @@ export default class StartupPage
   @MutationAction
   async changePremission({
     context,
-    premission,
+    permission,
     applicationId,
     positionCount,
+    declineReason,
   }) {
     const { startup } = this.state as CreateProjectState;
     const {
       $applicationAccept,
       $applicationAdvancedAccess,
       $applicationDecline,
+      $cancelApplication,
     } = context;
     let modificationApplication = [];
     try {
-      if (premission === "Default access") {
+      if (permission === "Default access") {
         modificationApplication = await $applicationAccept(applicationId);
-      } else if (premission === "decline") {
-        modificationApplication = await $applicationDecline(applicationId);
+      } else if (permission === "Decline") {
+        modificationApplication = await $applicationDecline(
+          applicationId,
+          declineReason
+        );
+      } else if (permission === "Canceled") {
+        modificationApplication = await $cancelApplication(applicationId);
       } else {
         modificationApplication = await $applicationAdvancedAccess(
           applicationId
         );
       }
-      startup.positions[positionCount].applications.forEach((application) => {
-        if (application.id === applicationId) {
-          application.status = modificationApplication.status;
-        }
-      });
+
+      if (typeof declineReason === "boolean") {
+        startup.positions[positionCount].applications.forEach((application) => {
+          if (application.id === applicationId) {
+            application.status = modificationApplication.status;
+          }
+        });
+      }
     } catch (e) {
       console.error(e);
     }
@@ -437,6 +448,112 @@ export default class StartupPage
       }
     });
 
+    return { startup };
+  }
+
+  @MutationAction
+  async createSource(context) {
+    const { startup } = this.state as CreateProjectState;
+    const { $createSource } = context;
+    try {
+      const source = await $createSource("", "https://", startup.id);
+      if (source !== null) {
+        startup.sources.push(source);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { startup };
+  }
+
+  @MutationAction
+  async deleteSources({ context, id }) {
+    const { startup } = this.state as CreateProjectState;
+    const { $deleteSource } = context;
+    try {
+      const source = await $deleteSource(id);
+      if (source !== null) {
+        startup.sources.forEach((source, i) => {
+          if (source.id === id) {
+            startup.sources.splice(i, 1);
+          }
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { startup };
+  }
+
+  @MutationAction
+  async updateSources({ context, link, title, id }) {
+    const { startup } = this.state as CreateProjectState;
+    const { $updateSource } = context;
+    try {
+      const updatedSource = await $updateSource(id, link, title);
+      if (updatedSource !== null) {
+        startup.sources.forEach((source, i) => {
+          if (source.id === updatedSource.id) {
+            startup.sources[i] = updatedSource;
+          }
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { startup };
+  }
+
+  @MutationAction
+  async createSecret(context) {
+    const { startup } = this.state as CreateProjectState;
+    const { $createSecret } = context;
+    try {
+      const source = await $createSecret("", "", startup.id);
+      if (source !== null) {
+        startup.secrets.push(source);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { startup };
+  }
+
+  @MutationAction
+  async deleteSecret({ context, id }) {
+    const { startup } = this.state as CreateProjectState;
+    const { $deleteSecret } = context;
+    try {
+      const secret = await $deleteSecret(id);
+      if (secret !== null) {
+        startup.secrets.forEach((secret, i) => {
+          if (secret.id === id) {
+            startup.secrets.splice(i, 1);
+          }
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { startup };
+  }
+
+  @MutationAction
+  async updateSecret({ context, title, description, id }) {
+    const { startup } = this.state as CreateProjectState;
+    const { $updateSecret } = context;
+    try {
+      const updatedSecret = await $updateSecret(id, title, description);
+      if (updatedSecret !== null) {
+        startup.secrets.forEach((secret, i) => {
+          if (secret.id === updatedSecret.id) {
+            startup.secrets[i] = updatedSecret;
+          }
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
     return { startup };
   }
 }
