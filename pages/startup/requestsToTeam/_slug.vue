@@ -54,21 +54,14 @@ export default class TakeStartup extends Vue {
       );
 
       this.startup = startup;
-      let recipients = [];
+      const recipients = applications.filter(
+        (el) => el.status === "accepted" || el.status === "advanced"
+      );
       if (status === "Decline") {
-        recipients = applications.filter(
-          (el) => el.status === "accepted" || el.status === "advanced"
-        );
         this.createNotification(recipients, "decline");
       } else if (status === "Advanced access") {
-        recipients = applications.filter(
-          (el) => el.status === "accepted" || el.status === "advanced"
-        );
-        this.createNotification(recipient, "advanced");
+        this.createNotification(recipients, "advanced");
       } else {
-        recipients = applications.filter(
-          (el) => el.status === "accepted" || el.status === "advanced"
-        );
         this.createNotification(recipients, "accept");
       }
     } catch (e) {

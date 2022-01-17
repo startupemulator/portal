@@ -194,6 +194,7 @@ export default class extends Vue {
 
   decline() {
     this.$emit("decline", this.positionId, this.declinetext);
+    this.accsessButtonTitle = "Decline";
     this.declineCandidate = !this.declineCandidate;
   }
 
