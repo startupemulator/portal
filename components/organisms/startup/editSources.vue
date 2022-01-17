@@ -64,7 +64,6 @@ export default class extends Vue {
   }
 
   @Prop() sources: Array<Sources>;
-  @Prop() startupId: string;
 
   async createSource() {
     Spinner.show();

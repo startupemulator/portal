@@ -490,11 +490,64 @@ export default class StartupPage
     const { startup } = this.state as CreateProjectState;
     const { $updateSource } = context;
     try {
-      const newSource = await $updateSource(id, link, title);
-      if (newSource !== null) {
+      const updatedSource = await $updateSource(id, link, title);
+      if (updatedSource !== null) {
         startup.sources.forEach((source, i) => {
-          if (source.id === newSource.id) {
-            startup.sources[i] = newSource;
+          if (source.id === updatedSource.id) {
+            startup.sources[i] = updatedSource;
+          }
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { startup };
+  }
+
+  @MutationAction
+  async createSecret(context) {
+    const { startup } = this.state as CreateProjectState;
+    const { $createSecret } = context;
+    try {
+      const source = await $createSecret("", "", startup.id);
+      if (source !== null) {
+        startup.secrets.push(source);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { startup };
+  }
+
+  @MutationAction
+  async deleteSecret({ context, id }) {
+    const { startup } = this.state as CreateProjectState;
+    const { $deleteSecret } = context;
+    try {
+      const secret = await $deleteSecret(id);
+      if (secret !== null) {
+        startup.secrets.forEach((secret, i) => {
+          if (secret.id === id) {
+            startup.secrets.splice(i, 1);
+          }
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { startup };
+  }
+
+  @MutationAction
+  async updateSecret({ context, title, description, id }) {
+    const { startup } = this.state as CreateProjectState;
+    const { $updateSecret } = context;
+    try {
+      const updatedSecret = await $updateSecret(id, title, description);
+      if (updatedSecret !== null) {
+        startup.secrets.forEach((secret, i) => {
+          if (secret.id === updatedSecret.id) {
+            startup.secrets[i] = updatedSecret;
           }
         });
       }

@@ -36,14 +36,12 @@
     <Edit-Sources
       v-show="editSources"
       :sources="updatableDataStartup.sources"
-      :startup-id="moveAwayStartup"
       @clikOnButton="toggleEditSources"
       @saveSources="saveSources"
     ></Edit-Sources>
     <Edit-Guide
       v-show="editGuide"
       :secrets="updatableDataStartup.secrets"
-      :startup-id="moveAwayStartup"
       @clikOnButton="toggleEditGuide"
       @saveGuide="saveGuide"
     ></Edit-Guide>
