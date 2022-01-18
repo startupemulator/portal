@@ -11,7 +11,7 @@
           @textInput="inputlinkName($event)"
         ></U-Input>
         <p v-show="$v.title.$error" class="errorInput">
-          Please enter a link name of at least 8 characters
+          Please enter a link name of at least 4 characters
         </p>
         <U-Input
           :type="'text'"
@@ -45,7 +45,7 @@ import UInput from "../atoms/uInput.vue";
     },
     title: {
       required,
-      minLength: minLength(8),
+      minLength: minLength(4),
     },
   },
 })

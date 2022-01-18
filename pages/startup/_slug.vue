@@ -19,7 +19,6 @@
       :notification="Startup.notification"
       @deleteStartup="deleteStartup"
       @cancelApplication="cancelApplication"
-      @saveReleaseLinks="updateReleaseLinks"
     ></Startup-Page>
   </div>
 </template>
@@ -47,16 +46,6 @@ export default class extends Vue {
   }
 
   title: string;
-  async updateReleaseLinks() {
-    //   try {
-    //     const releases = await this.$releases(this.startup.id);
-    //     if (releases !== null) {
-    //       this.releases = releases;
-    //     }
-    //   } catch (e) {
-    //     console.error(e);
-    //   }
-  }
 
   async cancelApplication() {
     Spinner.show();

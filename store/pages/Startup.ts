@@ -575,4 +575,49 @@ export default class StartupPage
     }
     return { startup };
   }
+
+  @MutationAction
+  async createReleaseLink(context) {
+    const { startup, releases } = this.state as CreateProjectState;
+    const { $createRelease } = context;
+    try {
+      const newReleaseLink = await $createRelease("", "https://", startup.id);
+      if (newReleaseLink !== null) {
+        releases.push(newReleaseLink);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { releases };
+  }
+
+  @MutationAction
+  async deleteReleaseLink({ context, id, releasePosition }) {
+    const { startup, releases } = this.state as CreateProjectState;
+    const { $deleteRelease } = context;
+    try {
+      const deleteReleaseLink = await $deleteRelease(id);
+      if (deleteReleaseLink !== null) {
+        releases.splice(releasePosition, 1);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { releases };
+  }
+
+  @MutationAction
+  async updateRelease({ context, id, title, link, releasePosition }) {
+    const { startup, releases } = this.state as CreateProjectState;
+    const { $updateRelease } = context;
+    try {
+      const updateReleaseLink = await $updateRelease(id, title, link);
+      if (updateReleaseLink !== null) {
+        releases[releasePosition] = updateReleaseLink;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { releases };
+  }
 }

@@ -5,24 +5,27 @@
       <U-Title :text="'Add release links'"></U-Title>
       <p>Add links on your published product, a case, an article, etc.</p>
     </div>
-    <div class="edit-sources__content">
-      <div
-        :is="item.type"
-        v-for="(item, i) in existingSourseComponent"
-        :key="item.id"
+    <div
+      v-for="(release, i) in releases"
+      :key="release.id"
+      class="edit-sources__content"
+    >
+      <Add-Release-Link
         :name="'Link ' + (i + 1)"
-        :link-name="item.title"
-        :link-href="item.url"
-        @removeExistingSources="removeExistingReleases(item.id)"
-        @textInput="textInput($event, i, item.id)"
-      ></div>
-      <div class="existing-sources__add-link">
-        <U-Button
-          :button-name="'Add Link'"
-          :button-class="'u-button-blue'"
-          @clickOnButton="addExistingReleases"
-        ></U-Button>
-      </div>
+        :link-name="release.title"
+        :link-href="release.url"
+        @removeSource="
+          deleteReleaseLink({ releasePosition: i, id: release.id })
+        "
+        @updateSource="updateReleaseLink($event, i, release.id)"
+      ></Add-Release-Link>
+    </div>
+    <div class="existing-sources__add-link">
+      <U-Button
+        :button-name="'Add Link'"
+        :button-class="'u-button-blue'"
+        @clickOnButton="createReleaseLink"
+      ></U-Button>
     </div>
     <div class="edit-sources__buttons">
       <U-Button
@@ -33,7 +36,7 @@
       <U-Button
         :button-name="'Cancel'"
         :button-class="'u-button-gray'"
-        @clickOnButton="cancelReleases"
+        @clickOnButton="saveReleases"
       ></U-Button>
     </div>
   </div>
@@ -41,26 +44,52 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 
-import AddExistingSourse from "../../molecules/addExistingSource.vue";
+import AddReleaseLink from "../../molecules/addExistingSource.vue";
 import Spinner from "../../../store/modules/Spinner";
 import UButton from "~/components/atoms/uButton.vue";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import { Releases } from "~/models/Releases";
 import Toast from "~/store/modules/Toast";
+import { Startup } from "~/store";
 
 @Component({
-  components: { UButton, UBack, UTitle, AddExistingSourse },
+  components: { UButton, UBack, UTitle, AddReleaseLink },
 })
 export default class extends Vue {
   @Prop() releases: Array<Releases>;
   @Prop() startupId: string;
-  newsReleases = [];
 
-  existingSourseComponent: Array<any> = [];
+  async createReleaseLink() {
+    Spinner.show();
+    await Startup.createReleaseLink(this);
+    Spinner.hide();
+  }
+
+  async deleteReleaseLink({ releasePosition, id }) {
+    Spinner.show();
+    await Startup.deleteReleaseLink({ context: this, id, releasePosition });
+
+    Spinner.hide();
+  }
+
+  async updateReleaseLink({ title, link }, i, id) {
+    console.log(title, link, i, id);
+    Spinner.show();
+    await Startup.updateRelease({
+      context: this,
+      id,
+      title,
+      link,
+      releasePosition: i,
+    });
+
+    Spinner.hide();
+  }
+
   saveReleases() {
     Spinner.show();
-    this.newsReleases = [];
+
     setTimeout(() => {
       Spinner.hide();
       Toast.show({
@@ -70,108 +99,6 @@ export default class extends Vue {
       });
     }, 900);
     this.$emit("saveReleaseLinks");
-  }
-
-  cancelReleases() {
-    this.$emit("clikOnButton");
-    if (this.newsReleases.length !== 0) {
-      Spinner.show();
-      this.newsReleases.forEach((el) => {
-        this.removeExistingReleases(el);
-      });
-    }
-
-    setTimeout(() => {
-      Spinner.hide();
-      Toast.show({
-        data: "Releases removed!",
-        duration: 1000,
-        success: true,
-      });
-    }, 100);
-  }
-
-  async addExistingReleases() {
-    Spinner.show();
-    try {
-      const release = await this.$createRelease("", "https://", this.startupId);
-      if (release !== null) {
-        this.existingSourseComponent.push({
-          id: release.id,
-          title: release.title,
-          url: release.url.trim(),
-          type: "add-existing-sourse",
-        });
-        this.newsReleases.push(release.id);
-      }
-      Spinner.hide();
-    } catch (e) {
-      console.error(e);
-      Spinner.hide();
-    }
-  }
-
-  textInput($event, i, id) {
-    switch ($event[1]) {
-      case "name":
-        this.updateReleases(id, $event[0], this.existingSourseComponent[i].url);
-        this.existingSourseComponent[i].title = $event[0];
-        break;
-      case "url":
-        this.updateReleases(
-          id,
-          this.existingSourseComponent[i].title,
-          $event[0]
-        );
-        this.existingSourseComponent[i].url = $event[0];
-        break;
-      default:
-    }
-  }
-
-  async updateReleases(id, title = "", url = "") {
-    Spinner.show();
-    try {
-      const release = await this.$updateRelease(id, title, url);
-      if (release !== null) {
-        Spinner.hide();
-      }
-    } catch (e) {
-      console.error(e);
-      Spinner.hide();
-    }
-  }
-
-  async removeExistingReleases(id) {
-    Spinner.show();
-    try {
-      const release = await this.$deleteRelease(id);
-
-      if (+release.id === +id) {
-        this.existingSourseComponent = this.existingSourseComponent.filter(
-          (item) => item.id !== id
-        );
-        Spinner.hide();
-      }
-    } catch (e) {
-      console.error(e);
-      Spinner.hide();
-    }
-  }
-
-  mounted() {
-    if (this.releases) {
-      this.existingSourseComponent = [];
-      this.releases.forEach((el) => {
-        const data = {
-          id: el.id,
-          url: el.url,
-          title: el.title,
-          type: "add-existing-sourse",
-        };
-        this.existingSourseComponent.push(data);
-      });
-    }
   }
 }
 </script>
@@ -240,14 +167,14 @@ export default class extends Vue {
 
     .edit-sources__content {
       margin-top: 48px;
+    }
 
-      .existing-sources__add-link {
-        margin-top: 20px;
+    .existing-sources__add-link {
+      margin-top: 20px;
 
-        .u-button {
-          height: 48px;
-          width: 121px;
-        }
+      .u-button {
+        height: 48px;
+        width: 121px;
       }
     }
 
