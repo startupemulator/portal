@@ -131,7 +131,10 @@
             <p>{{ updatableDataStartup.duration }} days</p>
           </div>
         </div>
-        <div v-if="isDeveloper && !finished" class="applied-startup">
+        <div
+          v-if="isDeveloper && !isOwner && !finished"
+          class="applied-startup"
+        >
           <div v-if="!isStarted" class="applied-startup__not-started">
             <h4>
               You applied to this startup as a
@@ -767,18 +770,6 @@ export default class extends Vue {
       }
     } catch (e) {
       console.error(e);
-    }
-  }
-
-  chagePremission(premission) {
-    if (this.changedPremissionOnTeam.some((el) => el[0] === premission[0])) {
-      this.changedPremissionOnTeam.forEach((item) => {
-        if (item[0] === premission[0]) {
-          item[1] = premission[1];
-        }
-      });
-    } else {
-      this.changedPremissionOnTeam.push(premission);
     }
   }
 
