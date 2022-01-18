@@ -61,6 +61,7 @@ import { Technology } from "~/models/Technology";
 import { Specialisation } from "~/models/Specialisation";
 import PopupCreatedStartUp from "~/components/molecules/popupCreatedStartup.vue";
 import { CreateProjectPage } from "~/store";
+import CreateProject from "~/store/pages/CreateProject";
 
 @Component({
   components: {
@@ -111,12 +112,15 @@ export default class extends Vue {
 
   async publish(state = "review") {
     Spinner.show();
+    const date = new Date().toISOString();
     try {
       const startupId: string = this.createdStartupId.toString();
-      await this.$strapi.update("startups", startupId, {
+      await CreateProjectPage.publishStartup({
+        context: this,
+        id: CreateProjectPage.draftStartup.id,
         state,
+        date,
       });
-
       await this.$addTechnologiesStartup(startupId, this.tehnologies);
 
       if (state === "draft") {

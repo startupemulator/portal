@@ -432,12 +432,97 @@ export function updateStateStartup($strapi: Strapi) {
           data: {state: ${state}, start_date:"${date}"}
          }
          ) {
-          startup{
+          startup {
             id
-            start_date
+          title
+          slug
+          description
+          start_date
+          duration
+          state
+          positions {
+            id
+            sort
+            status
+            applications{
+              id
+              status
+              decline_reason
+              user {
+                id
+                email
+                profile{
+                  id
+                  name
+                  slug
+                  technologies{
+                    id
+                    title
+                  }
+                  experience{
+                    id
+                    title
+                  }
+                }
+              }
+
+            }
+            specialisation {
+              id
+              title
+            }
+            technologies{
+              id
+              title
+              is_public
             }
           }
-        }`,
+          owner {
+            id
+            profile{
+              name
+              slug
+            }
+            invites{
+              id
+              email
+              position{
+                id
+                startup{
+                  id
+                }
+                specialisation{
+                  id
+                  title
+                }
+              }
+
+            }
+          }
+          technologies {
+            id
+            title
+          }
+          sources{
+            id
+            title
+            link
+            startups{
+              id
+            }
+          }
+          secrets{
+            id
+            title
+            description
+            startup{
+              id
+            }
+          }
+
+        }
+      }
+      }`,
     });
     return data.updateStartup ? data.updateStartup.startup : null;
   };
@@ -537,10 +622,9 @@ export function updateStartupInfo($strapi: Strapi) {
           where: {id: "${id}" }
           data: {
             description: "${description}",
-             title: "${title}" ,
+             title: "${title}",
              duration: ${duration},
-             start_date: "${date}",
-            }
+             start_date: "${date}",}
          }
          ) {
           startup {
