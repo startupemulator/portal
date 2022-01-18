@@ -91,7 +91,6 @@ import Toast from "../../../store/modules/Toast";
 import MyProfileRegularUser from "./myProfileRegularUser.vue";
 import ExpertUser from "./expertUser.vue";
 import BadgePopup from "~/components/molecules/popupBadge.vue";
-import EditProfile from "~/components/organisms/profile/editProfile.vue";
 import ChangePassword from "~/components/organisms/profile/changePassword.vue";
 import { Startup } from "~/models/Startup";
 import UButton from "~/components/atoms/uButton.vue";
@@ -113,7 +112,6 @@ import Spinner from "~/store/modules/Spinner";
     UTags,
     UButton,
     BadgePopup,
-    EditProfile,
     ChangePassword,
     MyProfileRegularUser,
     ExpertUser,

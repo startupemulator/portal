@@ -87,10 +87,12 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 import { Startup } from "~/models/Startup";
 import StartupCard from "~/components/molecules/startupCard.vue";
 import { Feedbacks } from "~/models/Feedbacks";
+import UButton from "~/components/atoms/uButton.vue";
 
 @Component({
   components: {
     StartupCard,
+    UButton,
   },
 })
 export default class extends Vue {
