@@ -19,8 +19,6 @@
       :notification="Startup.notification"
       @deleteStartup="deleteStartup"
       @cancelApplication="cancelApplication"
-      @leaveProject="leaveProject"
-      @saveReleaseLinks="updateReleaseLinks"
     ></Startup-Page>
   </div>
 </template>
@@ -48,69 +46,12 @@ export default class extends Vue {
   }
 
   title: string;
-  async updateReleaseLinks() {
-    //   try {
-    //     const releases = await this.$releases(this.startup.id);
-    //     if (releases !== null) {
-    //       this.releases = releases;
-    //     }
-    //   } catch (e) {
-    //     console.error(e);
-    //   }
-  }
 
   async cancelApplication() {
-    //   Spinner.show();
-    //   try {
-    //     const application = await this.$cancelApplication(this.applicationId);
-    //     if (application !== null) {
-    //       this.$router.push("/profile/projects");
-    //     } else {
-    //       Toast.show({
-    //         data: "Something wrong!",
-    //         duration: 3000,
-    //       });
-    //       Spinner.hide();
-    //     }
-    //     Spinner.hide();
-    //   } catch (e) {
-    //     console.error(e);
-    //     Toast.show({
-    //       data: e.message,
-    //       duration: 3000,
-    //     });
-    //     Spinner.hide();
-    //   }
-  }
-
-  async leaveProject() {
-    //   Spinner.show();
-    //   let applicationId = 0;
-    //   this.applications.forEach((item) => {
-    //     item.position.applications.forEach((el) => {
-    //       if (
-    //         (el.status === "accepted" && +this.$strapi.user.id === +el.user.id) ||
-    //         (el.status === "advanced" && +this.$strapi.user.id === +el.user.id)
-    //       ) {
-    //         applicationId = el.id;
-    //       }
-    //     });
-    //   });
-    //   try {
-    //     const leaveProject = await this.$cancelApplication(
-    //       applicationId.toString()
-    //     );
-    //     if (leaveProject !== null) {
-    //       this.$router.push("/profile/projects");
-    //     }
-    //   } catch (e) {
-    //     console.error(e);
-    //     Toast.show({
-    //       data: e.message,
-    //       duration: 3000,
-    //     });
-    //     Spinner.hide();
-    //   }
+    Spinner.show();
+    await Startup.cancelApplication(this);
+    this.$router.push("/profile/projects");
+    Spinner.hide();
   }
 
   async deleteStartup(id, startupName) {

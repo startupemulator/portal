@@ -50,13 +50,13 @@
       @clikOnButton="toggleFinishStartup"
       @finishStartup="finishThisStartup"
     ></Finish-Startup>
-    <Add-Relese-Links
+    <Add-Release-Links
       v-show="releaseLikns"
       :startup-id="startup.id"
       :releases="releases"
       @clikOnButton="toggleReleaseLikns"
       @saveReleaseLinks="saveReleaseLinks"
-    ></Add-Relese-Links>
+    ></Add-Release-Links>
     <Add-Team-FeedBack
       v-if="addTeamFeedBack"
       :key="updateKey + 'addFeedback'"
@@ -131,7 +131,10 @@
             <p>{{ updatableDataStartup.duration }} days</p>
           </div>
         </div>
-        <div v-if="isDeveloper && !finished" class="applied-startup">
+        <div
+          v-if="isDeveloper && !isOwner && !finished"
+          class="applied-startup"
+        >
           <div v-if="!isStarted" class="applied-startup__not-started">
             <h4>
               You applied to this startup as a
@@ -283,13 +286,15 @@
               </button>
             </li>
             <li
-              v-for="link in releases"
+              v-for="link in (displayReleases = releases.filter(
+                (release) => release.title !== '' && release.url !== 'https://'
+              ))"
               :key="link.id + link.title"
               class="owner-menu__item"
             >
               <button type="button">
                 <a :href="link.url" target="_blank">
-                  <span>{{ link.title }} </span>
+                  <span>{{ link.title | truncate(20, "...") }} </span>
 
                   <img src="~/assets/img/arrow.svg" alt="arrow"
                 /></a>
@@ -439,7 +444,7 @@
     <Popup-Leave-Project
       v-if="popupLeaveProject"
       @closePopupLeaveproject="togglepopupLeaveProject"
-      @leveProject="leveProject"
+      @leveProject="$emit('cancelApplication')"
     ></Popup-Leave-Project>
   </div>
 </template>
@@ -455,7 +460,7 @@ import RequestFeedback from "./requestFeedback.vue";
 import EditStartupInfo from "./editStartupInfo.vue";
 import EditTeam from "./editTeam.vue";
 import EditSources from "./editSources.vue";
-import AddReleseLinks from "./addReleseLinks.vue";
+import AddReleaseLinks from "./addReleseLinks.vue";
 import EditGuide from "./editGuide.vue";
 import FinishStartup from "./finishStartup.vue";
 import AddTeamFeedBack from "./addTeamFeedback.vue";
@@ -490,14 +495,13 @@ import PopupLeaveProject from "~/components/molecules/popupLeaveProject.vue";
     ProjectParticipant,
     FeedBackCard,
     GuidePopup,
-
     Sources,
     NewFeedBack,
     RequestFeedback,
     EditStartupInfo,
     EditTeam,
     EditSources,
-    AddReleseLinks,
+    AddReleaseLinks,
     EditGuide,
     FinishStartup,
     AddTeamFeedBack,
@@ -571,7 +575,6 @@ export default class extends Vue {
   saveReleaseLinks() {
     this.releaseLikns = !this.releaseLikns;
     scrollToHeader();
-    this.$emit("saveReleaseLinks");
   }
 
   togglepopupLeaveProject() {
@@ -662,11 +665,6 @@ export default class extends Vue {
   saveGuide() {
     this.toggleEditGuide();
     scrollToHeader();
-  }
-
-  leveProject() {
-    this.$emit("leaveProject");
-    this.$router.push("/startups");
   }
 
   mounted() {
@@ -772,18 +770,6 @@ export default class extends Vue {
       }
     } catch (e) {
       console.error(e);
-    }
-  }
-
-  chagePremission(premission) {
-    if (this.changedPremissionOnTeam.some((el) => el[0] === premission[0])) {
-      this.changedPremissionOnTeam.forEach((item) => {
-        if (item[0] === premission[0]) {
-          item[1] = premission[1];
-        }
-      });
-    } else {
-      this.changedPremissionOnTeam.push(premission);
     }
   }
 

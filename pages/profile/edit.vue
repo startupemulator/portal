@@ -101,6 +101,9 @@ export default class extends Vue {
   choosenExperiences = EditProfilePage.profile?.experience?.id || null;
 
   async saveProfileUpdateData() {
+    const userExperience = await EditProfilePage.profile;
+    this.choosenExperiences =
+      userExperience.experience !== null ? userExperience.experience.id : null;
     this.$v.$touch();
     if (!this.$v.$error) {
       Spinner.show();

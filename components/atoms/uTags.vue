@@ -20,7 +20,7 @@ export default class extends Vue {
   @Prop({ default: "title" }) title: string;
   @Prop({ default: "name" }) name: string;
   @Prop({ default: "" }) id: string;
-  @Prop({ default: false }) isChecked: boolean;
+  @Prop() isChecked: boolean;
   @Prop({ default: "checkbox" })
   type: "checkbox" | "radio";
 }
@@ -53,7 +53,7 @@ export default class extends Vue {
   }
 }
 
-.checked {
+.tags-item .checked {
   background: rgba(89, 102, 126, 1);
 }
 
