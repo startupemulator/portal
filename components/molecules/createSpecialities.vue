@@ -182,7 +182,13 @@ export default class extends Vue {
   @Prop() isEditTeam: boolean;
   @Prop() positionId: string;
   @Prop({ default: true }) isDropping: boolean;
-  @Prop({ default: [] }) allTechnologies: Technology[];
+  @Prop({
+    default() {
+      return [];
+    },
+  })
+  allTechnologies: Technology[];
+
   openSpeciality = false;
   chosenSpeciality = this.specialityFromParent[0]
     ? this.specialityFromParent[0]

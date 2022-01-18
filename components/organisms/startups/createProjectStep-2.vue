@@ -150,9 +150,16 @@ export default class extends Vue {
   }
 
   toggleInviteColleagues() {
-    if (CreateProjectPage.draftStartup.positions.length !== 0) {
+    if (
+      CreateProjectPage.draftStartup.positions.length !== 0 &&
+      !CreateProjectPage.draftStartup.positions.some(
+        (position) => position.specialisation === null
+      )
+    ) {
       this.inviteColleagues = !this.inviteColleagues;
       this.inviteColleagues ? disableScrolling() : enableScrolling();
+    } else {
+      this.goToStepThree();
     }
   }
 
