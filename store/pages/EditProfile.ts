@@ -64,7 +64,14 @@ export default class EditProfile
   @MutationAction
   changeTotalExperience(experience) {
     const { profile } = this.state as EditProfileState;
-    profile.experience.id = experience.id;
+
+    if (profile.experience === null) {
+      profile.experience = {};
+      profile.experience.id = experience.id;
+    } else {
+      profile.experience.id = experience.id;
+    }
+
     return {
       profile,
     };
@@ -186,7 +193,6 @@ export default class EditProfile
         technologyForUpdateProfile,
         experience
       );
-      console.log(updateProfileData);
     } catch (e) {
       console.error(e);
     }
