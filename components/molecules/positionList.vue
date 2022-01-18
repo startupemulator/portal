@@ -36,7 +36,11 @@
             : false
         "
         :decline-reason="item.decline_reason"
-        :experience="item.user.profile.experience.title"
+        :experience="
+          item.user.profile.experience !== null
+            ? item.user.profile.experience.title
+            : null
+        "
         :technologies="item.user.profile.technologies"
         :position-id="item.id"
         @accept="accept"
