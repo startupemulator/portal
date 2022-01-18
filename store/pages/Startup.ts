@@ -556,4 +556,23 @@ export default class StartupPage
     }
     return { startup };
   }
+
+  @MutationAction
+  async cancelApplication(context) {
+    const { startup, applications, profile } = this.state as CreateProjectState;
+    const { $cancelApplication } = context;
+    try {
+      for (const application of applications) {
+        if (
+          application.user.id === profile.user.id &&
+          application.status !== "canceled"
+        ) {
+          await $cancelApplication(application.id);
+        }
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { startup };
+  }
 }

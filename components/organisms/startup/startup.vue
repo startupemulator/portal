@@ -439,7 +439,7 @@
     <Popup-Leave-Project
       v-if="popupLeaveProject"
       @closePopupLeaveproject="togglepopupLeaveProject"
-      @leveProject="leveProject"
+      @leveProject="$emit('cancelApplication')"
     ></Popup-Leave-Project>
   </div>
 </template>
@@ -662,11 +662,6 @@ export default class extends Vue {
   saveGuide() {
     this.toggleEditGuide();
     scrollToHeader();
-  }
-
-  leveProject() {
-    this.$emit("leaveProject");
-    this.$router.push("/startups");
   }
 
   mounted() {
