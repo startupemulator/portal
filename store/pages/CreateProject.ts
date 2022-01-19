@@ -459,4 +459,20 @@ export default class CreateProject
       draftStartup,
     };
   }
+
+  @MutationAction
+  async publishStartup({ context, id, state, date }) {
+    let { draftStartup } = this.state as CreateProjectState;
+    const { $updateStateStartup } = context;
+    try {
+      const publishStartup = await $updateStateStartup(id, state, date);
+      console.log(publishStartup);
+      if (publishStartup !== null) {
+        draftStartup = publishStartup;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { draftStartup };
+  }
 }
