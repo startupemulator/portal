@@ -8,6 +8,7 @@ export interface ChallengesServices {
   ): Promise<{ challenges: Partial<Challenge>[] }>;
 
   $createChallenge(
+    status: string,
     title: string,
     description: string,
     difficulty: string,
@@ -98,6 +99,7 @@ export function challenge($strapi: Strapi) {
 
 export function createChallenge($strapi: Strapi) {
   return async (
+    status: string,
     title: string,
     description: string,
     difficulty: string,
@@ -107,7 +109,7 @@ export function createChallenge($strapi: Strapi) {
     const data = await $strapi.graphql({
       query: `mutation {
         createChallenge(input: { data: {
-          title: "${title}", description: "${description}", difficulty: ${difficulty},
+          status: ${status} ,title: "${title}", description: "${description}", difficulty: ${difficulty},
           specialisations: [${specialisations}], sources: [${sources}] } }) {
             challenge {
               id

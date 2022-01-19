@@ -1,13 +1,13 @@
 <template>
   <div class="technology-picker">
     <h2>{{ title }}</h2>
-    <form ref="specialisations">
+    <form>
       <U-Tags
         v-for="specialisation in specialisations"
         :id="specialisation.id"
         :key="specialisation.id"
         :title="specialisation.title"
-        :checked-class="specialisation.checked ? 'checked' : ''"
+        :class="specialisation.checked ? 'checked' : ''"
         :type="'checkbox'"
         :name="'duration'"
         @pick="pickSpecialisation(specialisation.id)"
@@ -18,29 +18,19 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
-import uTags from "~/components/atoms/uTags.vue";
+import UTags from "~/components/atoms/uTags.vue";
 import { Specialisation } from "~/models/Specialisation";
 
 @Component({
-  components: { uTags },
+  components: { UTags },
 })
 export default class extends Vue {
   @Prop({ default: " " }) title: String;
   @Prop() specialisations: Array<Specialisation>;
   @Prop() choosenSpecialisation: Array<Specialisation>;
 
-  pickSpecialisation(i) {
-    this.specialisations.forEach((el) => {
-      if (i === el.id) {
-        this.$refs.specialisations.children.forEach((element, i) => {
-          if (+i + 1 === +el.id) {
-            element.classList.toggle("checked");
-          }
-        });
-
-        this.$emit("pickSpecialisation", el);
-      }
-    });
+  pickSpecialisation(id) {
+    this.$emit("pickSpecialisation", id);
   }
 
   mounted() {
@@ -58,5 +48,9 @@ export default class extends Vue {
   font-size: 16px;
   line-height: 24px;
   margin-bottom: 13px;
+}
+
+.technology-picker .checked {
+  background: rgba(89, 102, 126, 1);
 }
 </style>
