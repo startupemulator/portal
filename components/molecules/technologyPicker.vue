@@ -85,6 +85,9 @@ export default class extends Vue {
   margin-top: -5px;
   margin-bottom: 14px;
 }
+.technology-picker .checked {
+    background: #59667e;
+}
 @media (min-width: 768px) {
   .input-technology {
     width: 660px;
