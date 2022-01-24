@@ -7,33 +7,32 @@
       candidates you will be able to accept as much candidates as you need for
       each speciality.
     </p>
-    <div
-      :is="item.type"
-      v-for="(item, i) in existingSourseComponent"
-      :key="item.id"
-      :name="'Link ' + (i + 1)"
-      :link="item.link"
-      :title="item.title"
-      @removeExistingSources="removeExistingSources(item.id)"
-      @textInput="inputLink($event, i, item.id)"
-    ></div>
+    <div v-for="(source, i) in sourceComponent" :key="source.id">
+      <Source
+        :name="'Link ' + (i + 1)"
+        :link-href="source.link"
+        :link-name="source.title"
+        @removeSource="removeSource({ sourcePosition: i })"
+        @updateSource="updateSource($event, i)"
+      ></Source>
+    </div>
     <p v-show="$v.haveASolution.$error" class="errorInput link">
       Please add solution link
     </p>
     <U-Button
       :button-name="'Add Link'"
       :button-class="'u-button-blue add-link'"
-      @clickOnButton="addExistingSourse"
+      @clickOnButton="addSource"
     ></U-Button>
-
     <Technology-Picker
       :title="'Pick technologies you used'"
       :add-technology="true"
-      :technologies="profile.technologies"
+      :technologies="userTechnologies"
       @chosenTechnologi="chosenTechnologi"
+      @removeTechnology="removeTechnology"
       @addTechnologies="addTechnologies"
     ></Technology-Picker>
-    <p v-show="$v.addedTechnologies.$error" class="errorInput">
+    <p v-show="$v.technologyIsAdded.$error" class="errorInput">
       Please choose a technologies
     </p>
     <div class="request-feedback__comment">
@@ -47,8 +46,12 @@
         Please enter a comment to expert of at least 8 characters
       </p>
     </div>
-    <div class="request-feedback__finished-challenge" @click="finishChallenge">
-      <input id="finished-challenge" ref="finishedChallenge" type="checkbox" />
+    <div class="request-feedback__finished-challenge">
+      <input
+        id="finished-challenge"
+        type="checkbox"
+        @click="finishChallenge($event.target)"
+      />
       <label for="finished-challenge">I’ve finished this challenge</label>
     </div>
     <p v-show="$v.challengeFinished.$error" class="errorInput">
@@ -72,8 +75,9 @@ import { Profile } from "~/models/Profile";
 import UBack from "~/components/atoms/uBack.vue";
 import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
-import AddExistingSourse from "~/components/molecules/addExistingSource.vue";
+import Source from "~/components/molecules/addExistingSource.vue";
 import TechnologyPicker from "~/components/molecules/technologyPicker.vue";
+import { Technology } from "~/models/Technology";
 import Toast from "~/store/modules/Toast";
 
 @Component({
@@ -81,12 +85,12 @@ import Toast from "~/store/modules/Toast";
     UButton,
     UTitle,
     UBack,
-    AddExistingSourse,
+    Source,
     TechnologyPicker,
   },
   validations: {
-    addedTechnologies: {
-      required,
+    technologyIsAdded: {
+      sameAs: sameAs(() => true),
     },
     commentToExpert: {
       required,
@@ -101,86 +105,122 @@ import Toast from "~/store/modules/Toast";
   },
 })
 export default class extends Vue {
-  existingSourseComponent = [{ id: 0, type: "add-existing-sourse" }];
+  @Prop() userTechnologies: Array<Technology>;
 
-  commentToExpert = "";
-  addedTechnologies = [];
-  addedNewTechnologies = [];
-  challengeFinished = false;
-  haveASolution = false;
   @Prop() profile: Array<Profile>;
   @Prop() challengeId: string;
+  sourceComponent = [{ id: 0, link: "https://", name: "" }];
+  commentToExpert = "";
+  addedTechnologies = [];
 
-  addExistingSourse() {
-    this.existingSourseComponent.push({
-      id: this.existingSourseComponent.length + 1,
-      type: "add-existing-sourse",
+  technologyIsAdded = false;
+  challengeFinished = false;
+  haveASolution = false;
+
+  addSource() {
+    this.sourceComponent.push({
+      id: this.sourceComponent.length + 1,
+      link: "https://",
+      name: "",
     });
   }
 
-  removeExistingSources(i) {
-    this.existingSourseComponent = this.existingSourseComponent.filter(
-      (item) => item.id !== i
-    );
-    this.haveASolution = true;
+  updateSource({ title, link }, i) {
+    this.sourceComponent[i].title = title;
+    this.sourceComponent[i].link = link;
+    this.checkSolution();
   }
 
-  chosenTechnologi(name, id) {
-    this.addedTechnologies = id;
+  removeSource({ sourcePosition }) {
+    this.sourceComponent.splice(sourcePosition, 1);
+  }
+
+  chosenTechnologi({ item, id }) {
+    this.$emit("pickTechnology", { item, id });
+    this.checkTechnologies();
   }
 
   addTechnologies(data) {
-    this.addedNewTechnologies = data;
+    this.addedTechnologies.push({
+      name: data,
+    });
+    this.checkSolution();
   }
 
-  inputLink($event, i, id) {
-    switch ($event[1]) {
-      case "name":
-        this.existingSourseComponent[i].title = $event[0];
-        break;
-      case "url":
-        this.existingSourseComponent[i].url = $event[0];
-        break;
-      default:
+  removeTechnology(data) {
+    this.addedTechnologies = JSON.parse(JSON.stringify(data));
+    this.checkTechnologies();
+  }
+
+  finishChallenge(item) {
+    this.challengeFinished = item.checked;
+  }
+
+  checkSolution() {
+    if (this.sourceComponent.length !== null) {
+      this.sourceComponent.forEach((el) => {
+        if (el.link !== "https://" && el.title !== "") {
+          this.haveASolution = true;
+        } else {
+          this.haveASolution = false;
+        }
+      });
     }
   }
 
-  async createSolution(title, url, request) {
-    try {
-      await this.$createSolution(title, url, request);
-    } catch (e) {
-      console.error(e);
+  checkTechnologies() {
+    if (
+      this.userTechnologies.some((el) => el.checked) ||
+      this.addedTechnologies.length !== 0
+    ) {
+      this.technologyIsAdded = true;
+    } else {
+      this.technologyIsAdded = false;
     }
-  }
-
-  finishChallenge() {
-    this.challengeFinished = this.$refs.finishedChallenge.checked;
   }
 
   async submit() {
-    this.finishChallenge();
-    this.existingSourseComponent.forEach((el) => {
-      if (el.url !== undefined && el.title !== undefined) {
-        this.haveASolution = true;
-      } else {
-        this.haveASolution = false;
-      }
-    });
-    this.$v.$touch();
+    this.checkTechnologies();
+    this.checkSolution();
 
+    this.$v.$touch();
     if (!this.$v.$error) {
       try {
-        Spinner.show();
+        await Spinner.show();
+        const technologyForAskFeedback: [string] = [];
+        if (this.addedTechnologies.length !== 0) {
+          for (const technology of this.addedTechnologies) {
+            const newTechnology = await this.$createTechnologies(
+              this.profile.user.id,
+              technology.name
+            );
+            if (newTechnology !== null) {
+              technologyForAskFeedback.push(newTechnology.id);
+            }
+          }
+        }
+        if (this.userTechnologies.length !== 0) {
+          this.userTechnologies.forEach((technology) => {
+            if (technology.checked) {
+              technologyForAskFeedback.push(technology.id);
+            }
+          });
+        }
+
         const requestFeedback = await this.$createAskFeedbackForChallenge(
           this.profile.user.id.toString(),
           this.commentToExpert,
-          this.addedTechnologies,
+          technologyForAskFeedback,
           this.challengeId
         );
         if (requestFeedback !== null) {
-          this.existingSourseComponent.forEach((el) => {
-            this.createSolution(el.title, el.url, requestFeedback.id);
-          });
+          for (const source of this.sourceComponent) {
+            await this.$createSolution(
+              source.name,
+              source.link,
+              requestFeedback.id
+            );
+          }
 
           Spinner.hide();
           this.$emit("submit");

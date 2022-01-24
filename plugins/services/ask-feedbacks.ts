@@ -15,14 +15,14 @@ export interface AskFeedbacksServices {
   $createAskFeedbackForStartup(
     creator: string,
     comment: string,
-    technologies: [],
+    technologies: [string],
     startup: string
   ): Promise<Partial<AskFeedbacks>[]>;
 
   $createAskFeedbackForChallenge(
     creator: string,
     comment: string,
-    technologies: [],
+    technologies: [string],
     challenge: string
   ): Promise<Partial<AskFeedbacks>[]>;
 }
