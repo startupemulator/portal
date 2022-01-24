@@ -70,9 +70,7 @@ export default class extends Vue {
       status,
     });
     if (Challenge.challenge.length !== null) {
-      this.$router.push(
-        window.location.origin + `/challenge/${Challenge.challenge.slug}`
-      );
+      this.$router.push(`/challenge/${Challenge.challenge.slug}`);
     }
     Spinner.hide();
   }
