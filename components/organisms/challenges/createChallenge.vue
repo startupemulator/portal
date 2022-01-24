@@ -127,11 +127,13 @@ import { Sources } from "~/models/Sources";
 export default class extends Vue {
   @Prop() specialisations: Specialisation[];
   @Prop() sources: Sources[];
-  @Prop({ default: null }) challenge: Array<Challenge>;
+  @Prop({ default: null }) challenge!: Array<Challenge>;
 
-  challengeName = "";
-  challengeDescription = "";
-  difficultyLevel = " ";
+  challengeName = this.challenge === null ? "" : this.challenge.title;
+  challengeDescription =
+    this.challenge === null ? "" : this.challenge.description;
+
+  difficultyLevel = this.challenge === null ? " " : this.challenge.difficulty;
   specialisation = [];
   isEmptySource = false;
   createSource() {
@@ -155,7 +157,6 @@ export default class extends Vue {
   }
 
   publishChallenge(status = "new") {
-    console.log(status);
     this.sources.forEach((source) => {
       if (source.title.length < 4 || source.link.length < 11) {
         this.isEmptySource = true;

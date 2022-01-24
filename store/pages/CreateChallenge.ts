@@ -20,16 +20,24 @@ export default class CreateChallenge
   challenge: Challenge[] = [];
   @MutationAction
   async init(context: NuxtContext) {
-    const sources = [{ id: "0", title: "", link: "https://" }];
+    const { route } = context;
+    let sources = [];
+    let challenge = [];
     try {
       const { specialisations } = await context.$specialisations();
-
+      if (route.params.slug !== undefined) {
+        challenge = await context.$challenge(route.params.slug);
+        sources = challenge.sources;
+      } else {
+        sources = [{ id: "0", title: "", link: "https://" }];
+      }
       specialisations.forEach((specialisation) => {
         specialisation.checked = false;
       });
       return {
         specialisations,
         sources,
+        challenge,
       };
     } catch (e) {
       console.error(e);
