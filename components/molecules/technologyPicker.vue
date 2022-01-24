@@ -14,7 +14,6 @@
         {{ item.title }}
       </U-Tags>
     </form>
-
     <Add-Input
       v-if="addTechnology"
       :placeholder="'Type a technology to add'"
@@ -40,7 +39,6 @@ export default class extends Vue {
   @Prop() technologies: Array<Technology>;
   @Prop() choosenTechnologies: Array<any>;
   @Prop() uniqueId: string;
-  beforeCreatedTechnologies: Array<Technology> = [];
 
   pickTechnology(item, id) {
     this.$emit("chosenTechnologi", { item, id });
