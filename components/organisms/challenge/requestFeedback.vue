@@ -26,13 +26,13 @@
       @clickOnButton="addExistingSourse"
     ></U-Button>
 
-    <Technolog-Picker
+    <Technology-Picker
       :title="'Pick technologies you used'"
       :add-technology="true"
       :technologies="profile.technologies"
       @chosenTechnologi="chosenTechnologi"
       @addTechnologies="addTechnologies"
-    ></Technolog-Picker>
+    ></Technology-Picker>
     <p v-show="$v.addedTechnologies.$error" class="errorInput">
       Please choose a technologies
     </p>
