@@ -161,7 +161,22 @@ export default class extends Vue {
       }
     });
     this.positions.forEach((position) => {
-      if (position.status === "open") {
+      console.log(position);
+      console.log(
+        position.status === "open" &&
+          position.applications.some(
+            (el) => el.status === "declined" && el.user.id === this.userId
+          )
+      );
+      if (
+        position.status === "open" &&
+        !(
+          position.status === "open" &&
+          position.applications.some(
+            (el) => el.status === "declined" && el.user.id === this.userId
+          )
+        )
+      ) {
         this.specialisations.push(position.specialisation);
       }
     });
