@@ -69,7 +69,8 @@ export default class extends Vue {
       specialisation,
       status,
     });
-    if (Challenge.challenge.length !== null) {
+
+    if (Challenge.challenge.length !== 0) {
       this.$router.push(`/challenge/${Challenge.challenge.slug}`);
     }
     Spinner.hide();

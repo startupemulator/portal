@@ -50,6 +50,7 @@ export default class CreateChallenge
       id: this.sources.length + 1,
       title: "",
       link: "https://",
+      isNew: true,
     });
   }
 
@@ -88,6 +89,8 @@ export default class CreateChallenge
     const { sources } = this.state as CreateProjectState;
     const { $createChallenge, $createSourceForChallenge } = context;
     const createdSource = [];
+    challengeName = challengeName.replace(/[^a-zA-Z ]/g, "");
+    challengeDescription = challengeDescription.replace(/(\r\n|\n|\r)/gm, " ");
     try {
       for (const source of sources) {
         const newSource = await $createSourceForChallenge(
@@ -105,6 +108,55 @@ export default class CreateChallenge
         difficultyLevel,
         specialisation,
         createdSource
+      );
+      if (newChallenge !== null) {
+        challenge = newChallenge;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { challenge };
+  }
+
+  @MutationAction
+  async updateChallenge({
+    context,
+    challengeId,
+    challengeName,
+    challengeDescription,
+    difficultyLevel,
+    specialisation,
+  }) {
+    let { challenge } = this.state as CreateProjectState;
+    const { sources } = this.state as CreateProjectState;
+    const { $updateChallenge, $createSourceForChallenge } = context;
+    const sourcesForChallenge = [];
+    await console.log(challengeName);
+    challengeName = challengeName.replace(/[^a-zA-Z ]/g, "");
+
+    challengeDescription = challengeDescription.replace(/(\r\n|\n|\r)/gm, " ");
+    console.log(challengeDescription);
+    try {
+      for (const source of sources) {
+        if (source.isNew) {
+          const newSource = await $createSourceForChallenge(
+            source.title,
+            source.link
+          );
+          if (newSource !== null) {
+            sourcesForChallenge.push(newSource.id);
+          }
+        } else {
+          sourcesForChallenge.push(source.id);
+        }
+      }
+      const newChallenge = await $updateChallenge(
+        challengeId,
+        challengeName,
+        challengeDescription,
+        difficultyLevel,
+        specialisation,
+        sourcesForChallenge
       );
       if (newChallenge !== null) {
         challenge = newChallenge;
