@@ -3,21 +3,34 @@
     <App-Get-Experience></App-Get-Experience>
 
     <App-Startups-Block
+      v-if="LandingPage.settings.landing_startups"
       :cards="LandingPage.startups"
       @slideRight="LandingPage.moveRightStartups()"
       @slideLeft="LandingPage.moveLeftStartups()"
     ></App-Startups-Block>
     <App-Challenges-Block
+      v-if="LandingPage.settings.landing_challenges"
       :cards="LandingPage.challenges"
       :user-id="$strapi.user ? $strapi.user.id : null"
       @slideRight="LandingPage.moveRightChallenges()"
       @slideLeft="LandingPage.moveLeftChallenges()"
     ></App-Challenges-Block>
-    <App-Team-Develop :is-logined="!!$strapi.user"></App-Team-Develop>
-    <App-Take-Part></App-Take-Part>
-    <Pricing ref="pricing"></Pricing>
-    <App-Top-Startups></App-Top-Startups>
+    <App-Team-Develop
+      v-if="LandingPage.settings.landing_ads"
+      :is-logined="!!$strapi.user"
+    ></App-Team-Develop>
+    <App-Take-Part
+      v-if="LandingPage.settings.landing_take_a_part"
+    ></App-Take-Part>
+    <Pricing
+      v-if="LandingPage.settings.landing_pricing"
+      ref="pricing"
+    ></Pricing>
+    <App-Top-Startups
+      v-if="LandingPage.settings.landing_top_startups"
+    ></App-Top-Startups>
     <App-Testimonials
+      v-if="LandingPage.settings.landing_testimonials"
       :cards="LandingPage.testimonials"
       @slideRight="LandingPage.moveRightTestimonials()"
       @slideLeft="LandingPage.moveLeftTestimonials()"

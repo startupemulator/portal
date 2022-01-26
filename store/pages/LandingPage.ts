@@ -3,6 +3,7 @@ import { Challenge } from "../../models/Challenge";
 import { Technology } from "../../models/Technology";
 import { Testimonial } from "../../models/Testimonial";
 import { NuxtContext } from "../../types/services";
+import { Settings } from "../../models/Settings";
 import { Startup } from "~/models/Startup";
 
 export interface LandingPageState {
@@ -10,6 +11,7 @@ export interface LandingPageState {
   challenges: Challenge[];
   technologies: Technology[];
   testimonials: Testimonial[];
+  settings: Settings;
   confirmedEmail: boolean;
   passwordless: boolean;
 }
@@ -25,15 +27,17 @@ export default class LandingPage
   challenges: Challenge[] = [];
   technologies: Technology[] = [];
   testimonials: Testimonial[] = [];
+  settings: Settings = {};
 
   @MutationAction
   async init(context: NuxtContext) {
     try {
+      const settings = await context.$settings();
       const { startups } = await context.$startups();
       const { challenges } = await context.$challenges();
       const { testimonials } = await context.$testimonials();
       const { technologies } = await context.$technologies();
-      return { startups, challenges, testimonials, technologies };
+      return { startups, challenges, testimonials, technologies, settings };
     } catch (e) {
       console.log(e);
     }

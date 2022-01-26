@@ -12,6 +12,7 @@ import {
   userChallengesById,
   userChallengesByUserId,
 } from "./user-challenges";
+import { settings } from "./settings";
 import {
   addTechnologiesStartup,
   deleteDraft,
@@ -148,6 +149,7 @@ import {
 } from "~/plugins/services/criterions";
 
 const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
+  inject("settings", settings(ctx.$strapi));
   inject("badges", badges(ctx.$strapi));
   inject("directions", directions(ctx.$strapi));
   inject("estimations", estimations(ctx.$strapi));
