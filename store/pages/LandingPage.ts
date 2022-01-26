@@ -50,7 +50,7 @@ export default class LandingPage
 
   @MutationAction({ mutate: ["startups"] })
   async moveRightStartups() {
-    const { startups } = this.state;
+    const { startups } = await this.state;
     return {
       startups: [
         startups[startups.length - 1],
