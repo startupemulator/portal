@@ -1,7 +1,7 @@
 <template>
   <div class="profile-content my-profile profile-content-expert">
     <div v-if="!changePassword & !editProfile">
-      <u-back :link="'/'"></u-back>
+      <U-Back :link="'/'"></U-Back>
       <div class="my-profile__content">
         <div
           class="profile-header"
@@ -14,10 +14,10 @@
           <div v-if="isOwner" class="profile-header__menu">
             <ul>
               <li>
-                <button type="button" @click="toggleEditProfile">
-                  Edit Profile
+                <nuxt-link :to="'/profile/edit'">
+                  <span> Edit Profile</span>
                   <img src="~/assets/img/arrow.svg" alt="arrow" />
-                </button>
+                </nuxt-link>
               </li>
               <li>
                 <button type="button" @click="toggleChangePassword">
@@ -84,18 +84,7 @@
         ></Badge-Popup>
       </div>
     </div>
-    <Edit-Profile
-      v-if="editProfile"
-      :user-data="user"
-      :experiences="experiences"
-      :user-experience="profile.experience"
-      :technologies="publickTechnologies"
-      :my-technologies="profile.technologies"
-      @clickOnButton="toggleEditProfile"
-      @saveProfileUpdateData="saveProfileUpdateData"
-      @addTechnologies="addTechnologies"
-      @removeTechnology="removeTechnology"
-    ></Edit-Profile>
+
     <Change-Password
       v-if="changePassword"
       :user-id="user.id"
@@ -120,7 +109,6 @@ import { Profile } from "~/models/Profile";
 import { Feedbacks } from "~/models/Feedbacks";
 import ChangePassword from "~/components/organisms/profile/changePassword.vue";
 import { scrollToHeader } from "~/assets/jshelper/scrollToHeader";
-import EditProfile from "~/components/organisms/profile/editProfile.vue";
 import { Experience } from "~/models/Experience";
 import { Badges } from "~/models/Badges";
 import BadgePopup from "~/components/molecules/popupBadge.vue";
@@ -134,7 +122,6 @@ import BadgePopup from "~/components/molecules/popupBadge.vue";
     RegularUser,
     ExpertUser,
     ChangePassword,
-    EditProfile,
     BadgePopup,
   },
 })
@@ -217,7 +204,7 @@ export default class extends Vue {
       const result = await this.$updateProfile(
         this.profile.id,
         data.technologies,
-        data.experiences.id
+        data.experiences
       );
 
       const updateUserName = await this.$updateProfileName(

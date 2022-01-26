@@ -182,7 +182,13 @@ export default class extends Vue {
   @Prop() isEditTeam: boolean;
   @Prop() positionId: string;
   @Prop({ default: true }) isDropping: boolean;
-  @Prop({ default: [] }) allTechnologies: Technology[];
+  @Prop({
+    default() {
+      return [];
+    },
+  })
+  allTechnologies: Technology[];
+
   openSpeciality = false;
   chosenSpeciality = this.specialityFromParent[0]
     ? this.specialityFromParent[0]
@@ -317,13 +323,19 @@ export default class extends Vue {
   openPosition() {
     this.isOpenPosition = true;
     this.isStaffedPosition = false;
-    this.$emit("changeStatusPosition", this.positionId, "open");
+    this.$emit("changeStatusPosition", {
+      positionId: this.positionId,
+      status: "open",
+    });
   }
 
   staffedPosition() {
     this.isOpenPosition = false;
     this.isStaffedPosition = true;
-    this.$emit("changeStatusPosition", this.positionId, "staffed");
+    this.$emit("changeStatusPosition", {
+      positionId: this.positionId,
+      status: "staffed",
+    });
   }
 
   mounted() {
@@ -384,7 +396,7 @@ export default class extends Vue {
 
     span {
       padding: 10px;
-      border-radius: 12px;
+      border-radius: 10px;
       height: 16px;
       cursor: pointer;
       font-size: 14px;
@@ -392,7 +404,7 @@ export default class extends Vue {
       transition: 0.4s;
 
       &.active {
-        background: #2e384a;
+        background: #4b4ac8;
         transition: 0.4s;
       }
     }

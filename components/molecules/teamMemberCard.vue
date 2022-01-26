@@ -13,9 +13,9 @@
         class="team-member-card__menu-premission"
         :class="premissionMenu ? 'active' : ''"
       >
-        <div class="menu-premission__header" @click="togglePremissionMenu">
+        <div class="menu-premission__header" @click="togglePermissionMenu">
           <span>{{
-            choosenPremission === "accepted"
+            choosenPermission === "accepted"
               ? "Default access"
               : "Advanced access"
           }}</span>
@@ -35,10 +35,7 @@
         </ul>
       </div>
     </div>
-    <button
-      class="removeInvite"
-      @click="$emit('removeUserMember', applicationId)"
-    >
+    <button class="removeInvite" @click="removeUserMember">
       <img class="close" src="~/assets/img/close.svg" alt="close" />
     </button>
   </div>
@@ -52,30 +49,42 @@ export default class extends Vue {
   @Prop() userName: string;
   @Prop() specialisation: string;
   @Prop() premission!: string;
-  choosenPremission = this.premission;
+  @Prop() positionCount: string;
+  choosenPermission = this.premission;
 
   premissionMenu = false;
 
-  togglePremissionMenu() {
+  togglePermissionMenu() {
     this.premissionMenu = !this.premissionMenu;
   }
 
   defaultAccess($event) {
     this.premissionMenu = !this.premissionMenu;
-    this.choosenPremission = "accepted";
-    this.$emit("chagePremission", [
-      this.applicationId,
-      $event.target.textContent.trim(),
-    ]);
+    this.choosenPermission = "accepted";
+    this.$emit("changePermission", {
+      positionCount: this.positionCount,
+      applicationId: this.applicationId,
+      permission: $event.target.textContent.trim(),
+    });
   }
 
   advancedAccess($event) {
     this.premissionMenu = !this.premissionMenu;
-    this.choosenPremission = $event.target.textContent;
-    this.$emit("chagePremission", [
-      this.applicationId,
-      $event.target.textContent.trim(),
-    ]);
+    this.choosenPermission = $event.target.textContent;
+    this.$emit("changePermission", {
+      positionCount: this.positionCount,
+
+      applicationId: this.applicationId,
+      permission: $event.target.textContent.trim(),
+    });
+  }
+
+  removeUserMember() {
+    this.$emit("changePermission", {
+      positionCount: this.positionCount,
+      applicationId: this.applicationId,
+      permission: "Canceled",
+    });
   }
 }
 </script>

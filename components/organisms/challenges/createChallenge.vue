@@ -25,7 +25,6 @@
       Please enter a description name of at least 8 characters
     </p>
     <Difficulty-Level-Picker
-      :key="updateKey + 'difficultyLevel'"
       :checked-difficalty-level="difficultyLevel"
       @difficultyLevelId="difficultyLevelId"
     ></Difficulty-Level-Picker>
@@ -33,36 +32,38 @@
       Please choose difficulty level
     </p>
     <p>Pick specialization this task is for</p>
-
     <Specialization-Picker
       :specialisations="specialisations"
       :choosen-specialisation="
         challenge !== null ? challenge.specialisations : null
       "
-      @pickSpecialisation="pickedSpecialisation"
+      @pickSpecialisation="$emit('pickSpecialisation', $event)"
     ></Specialization-Picker>
     <p v-show="$v.specialisation.$error" class="errorInput">
       Please choose specialisations
     </p>
-    <div
-      :is="item.type"
-      v-for="(item, i) in existingSourseComponent"
-      :key="item.id"
-      :name="'Source Link ' + (i + 1)"
-      :link-name="item.title"
-      :link-href="item.link"
-      @removeExistingSources="removeExistingSources(item.id)"
-      @textInput="textInput($event, i, item.id)"
-    ></div>
 
+    <div v-for="(source, i) in sources" :key="source.id">
+      <Source-Link
+        :name="'Link ' + (i + 1)"
+        :link-name="source.title"
+        :link-href="source.link"
+        @removeSource="removeSource(i)"
+        @updateSource="updateSource($event, i)"
+      ></Source-Link>
+    </div>
     <U-Button
       :button-name="'Add Link'"
       :button-class="'u-button-blue add-link'"
-      @clickOnButton="addExistingSourse"
+      @clickOnButton="createSource"
     ></U-Button>
-    <p v-show="$v.existingSourseComponent.$error" class="errorInput mt">
+    <p v-show="$v.sources.$error" class="errorInput mt">
       Please add source link
     </p>
+    <p v-show="isEmptySource" class="errorInput mt">
+      Please fill in all the fields
+    </p>
+
     <div class="create-project__super-admin_button">
       <U-Button
         :button-name="'Publish'"
@@ -87,10 +88,11 @@ import UTitle from "~/components/atoms/uTitle.vue";
 import UButton from "~/components/atoms/uButton.vue";
 import UInput from "~/components/atoms/uInput.vue";
 import DifficultyLevelPicker from "~/components/atoms/difficultyLevelPicker.vue";
-import AddExistingSourse from "~/components/molecules/addExistingSource.vue";
+import SourceLink from "~/components/molecules/addExistingSource.vue";
 import { Specialisation } from "~/models/Specialisation";
 import { Challenge } from "~/models/Challenge";
 import SpecializationPicker from "~/components/molecules/specializationPicker.vue";
+import { Sources } from "~/models/Sources";
 
 @Component({
   components: {
@@ -98,7 +100,7 @@ import SpecializationPicker from "~/components/molecules/specializationPicker.vu
     UTitle,
     UBack,
     UInput,
-    AddExistingSourse,
+    SourceLink,
     DifficultyLevelPicker,
     SpecializationPicker,
   },
@@ -117,34 +119,33 @@ import SpecializationPicker from "~/components/molecules/specializationPicker.vu
     specialisation: {
       required,
     },
-    existingSourseComponent: {
+    sources: {
       required,
     },
   },
 })
 export default class extends Vue {
-  @Prop() specialisations: Array<Specialisation>;
-  @Prop({ default: null }) challenge: Array<Challenge>;
+  @Prop() specialisations: Specialisation[];
+  @Prop() sources: Sources[];
+  @Prop({ default: null }) challenge!: Array<Challenge>;
 
-  existingSourseComponent = [{ id: `1`, type: "add-existing-sourse" }];
+  challengeName = this.challenge === null ? "" : this.challenge.title;
+  challengeDescription =
+    this.challenge === null ? "" : this.challenge.description;
 
-  createdSources = [];
-  updateKey = 1;
-  challengeName = "";
-  challengeDescription = "";
-  difficultyLevel = " ";
+  difficultyLevel = this.challenge === null ? " " : this.challenge.difficulty;
   specialisation = [];
-  addExistingSourse() {
-    this.existingSourseComponent.push({
-      id: this.existingSourseComponent.length + 1,
-      type: "add-existing-sourse",
-    });
+  isEmptySource = false;
+  createSource() {
+    this.$emit("createSource");
   }
 
-  removeExistingSources(i) {
-    this.existingSourseComponent = this.existingSourseComponent.filter(
-      (item) => item.id !== i
-    );
+  removeSource(i) {
+    this.$emit("removeSource", i);
+  }
+
+  updateSource({ title, link }, i) {
+    this.$emit("updateSource", { title, link, positionLink: i });
   }
 
   inputedChallengeName(data) {
@@ -155,134 +156,34 @@ export default class extends Vue {
     this.difficultyLevel = data.toString();
   }
 
-  pickedSpecialisation(data) {
-    const specialisation = this.specialisation.includes(data.id);
-    if (specialisation) {
-      this.specialisation.splice(
-        this.specialisation.findIndex((el) => el === data.id),
-        1
-      );
-    } else {
-      this.specialisation.push(data.id);
-    }
-  }
-
-  textInput($event, i, id) {
-    switch ($event[1]) {
-      case "name":
-        this.existingSourseComponent[i].title = $event[0];
-        break;
-      case "url":
-        this.existingSourseComponent[i].link = $event[0];
-        break;
-      default:
-    }
-  }
-
-  async createSources() {
-    for (const item of this.existingSourseComponent) {
-      if (item.title !== undefined && item.link !== undefined) {
-        try {
-          const createdSource = await this.$createSourceForChallenge(
-            item.title,
-            item.link
-          );
-          if (createdSource !== null) {
-            this.createdSources.push(createdSource.id);
-          }
-        } catch (e) {
-          console.error(e);
-        }
-      }
-    }
-    this.createNewChallenge();
-  }
-
-  async createNewChallenge() {
-    this.$v.$touch();
-    if (!this.$v.$error) {
-      if (this.challenge !== null) {
-        try {
-          const updateChallenge = await this.$updateChallenge(
-            this.challenge.id,
-            this.challengeName,
-            this.challengeDescription,
-            this.difficultyLevel,
-            this.specialisation,
-            this.createdSources
-          );
-          if (updateChallenge !== null) {
-            this.$router.push("/challenge/" + updateChallenge.slug);
-          }
-        } catch (e) {
-          console.error(e);
-          Toast.show({
-            data: "Something wrong.",
-            duration: 3000,
-          });
-        }
+  publishChallenge(status = "new") {
+    this.sources.forEach((source) => {
+      if (source.title.length < 4 || source.link.length < 11) {
+        this.isEmptySource = true;
       } else {
-        try {
-          const newChallenge = await this.$createChallenge(
-            this.challengeName,
-            this.challengeDescription,
-            this.difficultyLevel,
-            this.specialisation,
-            this.createdSources
-          );
-          if (newChallenge !== null) {
-            this.$router.push("/challenge/" + newChallenge.slug);
-          }
-        } catch (e) {
-          console.error(e);
-          Toast.show({
-            data: "Something wrong.",
-            duration: 3000,
-          });
-        }
+        this.isEmptySource = false;
       }
-    }
-  }
-
-  async publishChallenge() {
+    });
+    this.specialisation = [];
+    this.specialisations.forEach((specialisation) => {
+      if (specialisation.checked) {
+        this.specialisation.push(specialisation.id);
+      }
+    });
     this.$v.$touch();
-    if (!this.$v.$error) {
-      this.loading = true;
-      try {
-        await this.createSources();
-        this.loading = false;
-      } catch (e) {
-        console.error(e);
-        this.loading = false;
-        Toast.show({
-          data: "Something wrong.",
-          duration: 3000,
-        });
-      }
+    if (!this.isEmptySource && !this.$v.$error) {
+      this.$emit("publishChallenge", {
+        challengeName: this.challengeName,
+        challengeDescription: this.challengeDescription,
+        difficultyLevel: this.difficultyLevel,
+        specialisation: this.specialisation,
+        status,
+      });
     }
   }
 
   saveDraft() {
-    console.log("do somthing");
-  }
-
-  mounted() {
-    if (this.challenge) {
-      this.difficultyLevel = this.challenge.difficulty.toString();
-      this.updateKey += 1;
-      this.challengeName = this.challenge.title;
-      this.challengeDescription = this.challenge.description;
-
-      this.existingSourseComponent = [];
-      this.challenge.sources.forEach((el) => {
-        this.existingSourseComponent.push({
-          id: el.id,
-          type: "add-existing-sourse",
-          link: el.link.trim(),
-          title: el.title,
-        });
-      });
-    }
+    this.publishChallenge("draft");
   }
 }
 </script>

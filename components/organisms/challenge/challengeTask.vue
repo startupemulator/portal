@@ -148,10 +148,12 @@
       ></Practicipants>
     </div>
     <Request-Feedback
-      v-show="requestFeedback"
+      v-if="requestFeedback"
       :profile="profile"
+      :user-technologies="userTechnologies"
       :challenge-id="challenge.id"
       @clikOnButton="toogleRequestFeedback"
+      @pickTechnology="pickTechnology"
       @submit="requestIsSend"
     ></Request-Feedback>
     <div v-show="cancelParticipationPopup" class="cancel-participation__popup">
@@ -184,7 +186,7 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
-import RequestFeedback from "./requestFeedback.vue";
+import RequestFeedback from "./requestChallengeFeedback.vue";
 import { Challenge } from "~/models/Challenge";
 
 import UBack from "~/components/atoms/uBack.vue";
@@ -202,6 +204,7 @@ import { userChallenges } from "~/models/UserChallenges";
 import { Profile } from "~/models/Profile";
 import { Feedbacks } from "~/models/Feedbacks";
 import { AskFeedbacks } from "~/models/AskFeedbacks";
+import { technologies } from "~/plugins/services/technologies";
 
 @Component({
   components: {
@@ -239,6 +242,7 @@ export default class extends Vue {
   addFeedback = false;
   showMoreTwoFeedbacks = 2;
   newFeedbacks = [];
+  userTechnologies = [];
   showMoreFeedbacks() {
     this.showMoreTwoFeedbacks += 2;
   }
@@ -274,6 +278,16 @@ export default class extends Vue {
     }
   }
 
+  pickTechnology({ item, id }) {
+    this.userTechnologies.forEach((technology) => {
+      if (item.checked && technology.id === id) {
+        technology.checked = true;
+      } else if (!item.cheked && technology.id === id) {
+        technology.checked = false;
+      }
+    });
+  }
+
   mounted() {
     if (this.askfeedbacks !== null) {
       this.newFeedbacks = this.askfeedbacks.filter(
@@ -281,6 +295,14 @@ export default class extends Vue {
           el.is_new &&
           +el.creator.id !== +this.userId &&
           !el.feedbacks.some((item) => +item.expert.id === +this.userId)
+      );
+    }
+    if (this.profile !== null) {
+      this.profile.technologies.forEach(
+        (technology) => (technology.checked = false)
+      );
+      this.userTechnologies = JSON.parse(
+        JSON.stringify(this.profile.technologies)
       );
     }
   }

@@ -19,7 +19,7 @@
 
     <div class="position-list__cards">
       <Position-Card
-        v-for="item in applications"
+        v-for="item in position.applications"
         v-show="opendPosition"
         :key="item.id"
         :name="item.user.profile.name"
@@ -36,7 +36,11 @@
             : false
         "
         :decline-reason="item.decline_reason"
-        :experience="item.user.profile.experience.title"
+        :experience="
+          item.user.profile.experience !== null
+            ? item.user.profile.experience.title
+            : null
+        "
         :technologies="item.user.profile.technologies"
         :position-id="item.id"
         @accept="accept"
@@ -54,38 +58,45 @@ import PositionCard from "./positionCard.vue";
   components: { PositionCard },
 })
 export default class extends Vue {
-  @Prop() title: String;
-  @Prop() id: Number;
-  @Prop() position!: Array<any>;
-  @Prop() updateKey: Number;
+  @Prop() title: string;
+  @Prop() id: number;
+  @Prop() position: Array<any>;
+  @Prop() positionCount: number;
   opendPosition = false;
-  newAplications: Number = 0;
+  newAplications: number = 0;
   applications = [];
   togglePosition() {
     this.opendPosition = !this.opendPosition;
   }
 
   accept(id) {
-    this.$emit("accept", id);
+    this.$emit("accept", {
+      id,
+      declineReason: null,
+      status: "Default access",
+      positionCount: this.positionCount,
+    });
   }
 
-  decline(id, declinetext) {
-    this.$emit("decline", id, declinetext);
+  decline(id, declineReason) {
+    this.$emit("decline", {
+      id,
+      declineReason,
+      status: "Decline",
+      positionCount: this.positionCount,
+    });
   }
 
   advancedAccess(id) {
-    this.$emit("advancedAccess", id);
+    this.$emit("advancedAccess", {
+      id,
+      declineReason: null,
+      status: "Advanced access",
+      positionCount: this.positionCount,
+    });
   }
 
   mounted() {
-    this.applications = this.position.applications;
-    this.newAplications = this.applications.filter(
-      (position) => position.status === "waiting"
-    ).length;
-  }
-
-  @Watch("updateKey")
-  update() {
     this.applications = this.position.applications;
     this.newAplications = this.applications.filter(
       (position) => position.status === "waiting"

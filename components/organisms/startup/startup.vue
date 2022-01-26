@@ -1,14 +1,5 @@
 <template>
   <div>
-    <Request-ToTeam
-      v-show="requestToTeam"
-      :update-key="updateKey"
-      :startup="updatableDataStartup"
-      @clikOnButton="toggleRequestToTeam"
-      @accept="accept"
-      @decline="decline"
-      @advancedAccess="advancedAccess"
-    ></Request-ToTeam>
     <New-FeedBack
       v-show="newFeedBack"
       :key="updateKey + 'new-feedback'"
@@ -24,7 +15,6 @@
     <Request-Feedback
       v-show="requestFeedBack"
       :key="updateKey"
-      :startup="updatableDataStartup"
       :user-id="userId"
       @clikOnButton="toggleRequestFeedBack"
       @createFedbackNotification="createFedbackNotification"
@@ -40,31 +30,18 @@
     <Edit-Team
       v-if="editTeam"
       :update-key="updateKey"
-      :staffed-position="staffedPosition"
-      :startup="updatableDataStartup"
-      :specialisations="specialisations"
-      :technologies="technologies"
-      :startup-id="moveAwayStartup"
-      :team-member="teamMember"
       @clikOnButton="toggleEditTeam"
-      @chagePremission="chagePremission"
-      @saveEditTeam="saveEditTeam"
       @cancelEditTeam="cancelEditTeam"
-      @changeTeam="changeTeam"
-      @removeUserMember="removeUserMember"
     ></Edit-Team>
     <Edit-Sources
       v-show="editSources"
       :sources="updatableDataStartup.sources"
-      :startup-id="moveAwayStartup"
       @clikOnButton="toggleEditSources"
       @saveSources="saveSources"
-      @cancelSources="cancelSources"
     ></Edit-Sources>
     <Edit-Guide
       v-show="editGuide"
       :secrets="updatableDataStartup.secrets"
-      :startup-id="moveAwayStartup"
       @clikOnButton="toggleEditGuide"
       @saveGuide="saveGuide"
     ></Edit-Guide>
@@ -73,13 +50,13 @@
       @clikOnButton="toggleFinishStartup"
       @finishStartup="finishThisStartup"
     ></Finish-Startup>
-    <Add-Relese-Links
+    <Add-Release-Links
       v-show="releaseLikns"
       :startup-id="startup.id"
       :releases="releases"
       @clikOnButton="toggleReleaseLikns"
       @saveReleaseLinks="saveReleaseLinks"
-    ></Add-Relese-Links>
+    ></Add-Release-Links>
     <Add-Team-FeedBack
       v-if="addTeamFeedBack"
       :key="updateKey + 'addFeedback'"
@@ -107,7 +84,6 @@
     ></Add-Team-Badge>
     <div
       v-show="
-        !requestToTeam &&
         !newFeedBack &&
         !requestFeedBack &&
         !editStartupInfo &&
@@ -155,7 +131,10 @@
             <p>{{ updatableDataStartup.duration }} days</p>
           </div>
         </div>
-        <div v-if="isDeveloper && !finished" class="applied-startup">
+        <div
+          v-if="isDeveloper && !isOwner && !finished"
+          class="applied-startup"
+        >
           <div v-if="!isStarted" class="applied-startup__not-started">
             <h4>
               You applied to this startup as a
@@ -307,13 +286,15 @@
               </button>
             </li>
             <li
-              v-for="link in releases"
+              v-for="link in (displayReleases = releases.filter(
+                (release) => release.title !== '' && release.url !== 'https://'
+              ))"
               :key="link.id + link.title"
               class="owner-menu__item"
             >
               <button type="button">
                 <a :href="link.url" target="_blank">
-                  <span>{{ link.title }} </span>
+                  <span>{{ link.title | truncate(20, "...") }} </span>
 
                   <img src="~/assets/img/arrow.svg" alt="arrow"
                 /></a>
@@ -463,7 +444,7 @@
     <Popup-Leave-Project
       v-if="popupLeaveProject"
       @closePopupLeaveproject="togglepopupLeaveProject"
-      @leveProject="leveProject"
+      @leveProject="$emit('cancelApplication')"
     ></Popup-Leave-Project>
   </div>
 </template>
@@ -473,13 +454,13 @@ import FeedBackCard from "../../molecules/feedbackCard.vue";
 import GuidePopup from "../../molecules/popupGuide.vue";
 import { Estimation } from "../../../models/Estimation";
 import Spinner from "../../../store/modules/Spinner";
-import RequestToTeam from "./requestsToTeam.vue";
+
 import NewFeedBack from "./newFeedBack.vue";
 import RequestFeedback from "./requestFeedback.vue";
 import EditStartupInfo from "./editStartupInfo.vue";
 import EditTeam from "./editTeam.vue";
 import EditSources from "./editSources.vue";
-import AddReleseLinks from "./addReleseLinks.vue";
+import AddReleaseLinks from "./addReleseLinks.vue";
 import EditGuide from "./editGuide.vue";
 import FinishStartup from "./finishStartup.vue";
 import AddTeamFeedBack from "./addTeamFeedback.vue";
@@ -514,14 +495,13 @@ import PopupLeaveProject from "~/components/molecules/popupLeaveProject.vue";
     ProjectParticipant,
     FeedBackCard,
     GuidePopup,
-    RequestToTeam,
     Sources,
     NewFeedBack,
     RequestFeedback,
     EditStartupInfo,
     EditTeam,
     EditSources,
-    AddReleseLinks,
+    AddReleaseLinks,
     EditGuide,
     FinishStartup,
     AddTeamFeedBack,
@@ -570,7 +550,7 @@ export default class extends Vue {
   popupGuide = false;
   finished = false;
   review = false;
-  requestToTeam = false;
+
   newFeedBack = false;
   requestFeedBack = false;
   editStartupInfo = false;
@@ -595,7 +575,6 @@ export default class extends Vue {
   saveReleaseLinks() {
     this.releaseLikns = !this.releaseLikns;
     scrollToHeader();
-    this.$emit("saveReleaseLinks");
   }
 
   togglepopupLeaveProject() {
@@ -622,10 +601,6 @@ export default class extends Vue {
   closeAddFeedBackBadge() {
     this.addFeedBackBadge = !this.addFeedBackBadge;
     this.updateFeedbacks();
-  }
-
-  toggleRequestToTeam() {
-    this.requestToTeam = !this.requestToTeam;
   }
 
   toggleFinishStartup() {
@@ -692,11 +667,6 @@ export default class extends Vue {
     scrollToHeader();
   }
 
-  leveProject() {
-    this.$emit("leaveProject");
-    this.$router.push("/startups");
-  }
-
   mounted() {
     if (this.startup.state === "in_progress") {
       this.isStarted = true;
@@ -730,10 +700,6 @@ export default class extends Vue {
     if (this.feedbacks !== null) {
       this.feedbackFilterByPublickFlag(this.feedbacks);
       this.feedbackFilterByPrivateFlag(this.feedbacks);
-    }
-
-    if (this.notification === "request") {
-      this.requestToTeam = !this.requestToTeam;
     }
   }
 
@@ -800,168 +766,11 @@ export default class extends Vue {
     try {
       const experts = await this.$expertProfiles();
       if (experts !== null) {
-        console.log(experts);
         this.createNotification(experts, "requestFeedback");
       }
     } catch (e) {
       console.error(e);
     }
-  }
-
-  chagePremission(premission) {
-    if (this.changedPremissionOnTeam.some((el) => el[0] === premission[0])) {
-      this.changedPremissionOnTeam.forEach((item) => {
-        if (item[0] === premission[0]) {
-          item[1] = premission[1];
-        }
-      });
-    } else {
-      this.changedPremissionOnTeam.push(premission);
-    }
-  }
-
-  async accept(id) {
-    Spinner.show();
-    try {
-      const accept = await this.$applicationAccept(id);
-      if (accept) {
-        const startup = await this.$startupById(this.startup.id);
-        const { applications } = await this.$applicationsByStartupId(
-          this.startup.id
-        );
-        if (startup !== null) {
-          this.updatableDataStartup = startup;
-          if (this.startup.state === "in_progress") {
-            return (this.isStarted = true);
-          } else if (this.startup.state === "finished") {
-            return (this.finished = true);
-          }
-          this.changeTeam(startup);
-
-          this.openPosition = this.startup.positions.filter(
-            (position) => position.status === "open"
-          );
-          this.updateKey = 1;
-          this.moveAwayStartup = this.startup.id;
-          this.moveAwayStartupName = this.startup.title;
-        }
-        if (applications !== null) {
-          this.updatableDataApplications = applications;
-          const recipients = this.updatableDataApplications.filter(
-            (el) => el.status === "accepted" || el.status === "advanced"
-          );
-
-          this.createNotification(recipients, "accept");
-        }
-        Spinner.hide();
-        this.updateKey += 1;
-      } else {
-        Toast.show({
-          data: "Something wrong!",
-          duration: 3000,
-        });
-        Spinner.hide();
-      }
-    } catch (e) {
-      console.error(e);
-      Toast.show({
-        data: e.message,
-        duration: 3000,
-      });
-      Spinner.hide();
-    }
-  }
-
-  async decline(id, declinetext) {
-    Spinner.show();
-    try {
-      const decline = await this.$applicationDecline(id, declinetext);
-      if (decline) {
-        const startup = await this.$startupById(this.startup.id);
-        const { applications } = await this.$applicationsByStartupId(
-          this.startup.id
-        );
-        if (startup !== null) {
-          this.updatableDataStartup = startup;
-          this.changeTeam(startup);
-        }
-        if (applications !== null) {
-          this.updatableDataApplications = applications;
-          const recipients = this.updatableDataApplications.filter(
-            (el) => el.status === "accepted" || el.status === "advanced"
-          );
-          this.createNotification(recipients, "decline");
-        }
-        Spinner.hide();
-        this.updateKey += 1;
-      } else {
-        Toast.show({
-          data: "Something wrong!",
-          duration: 3000,
-        });
-        Spinner.hide();
-      }
-    } catch (e) {
-      console.error(e);
-      Toast.show({
-        data: e.message,
-        duration: 3000,
-      });
-      Spinner.hide();
-    }
-  }
-
-  async advancedAccess(id) {
-    Spinner.show();
-    try {
-      const advancedAccess = await this.$applicationAdvancedAccess(id);
-      if (advancedAccess) {
-        const startup = await this.$startupById(this.startup.id);
-        const { applications } = await this.$applicationsByStartupId(
-          this.startup.id
-        );
-        if (startup !== null) {
-          this.updatableDataStartup = startup;
-          this.changeTeam(startup);
-        }
-        if (applications !== null) {
-          this.updatableDataApplications = applications;
-          const recipients = this.updatableDataApplications.filter(
-            (el) => el.status === "accepted" || el.status === "advanced"
-          );
-          this.createNotification(recipients, "advanced");
-        }
-
-        Spinner.hide();
-        this.updateKey += 1;
-      } else {
-        Toast.show({
-          data: "Something wrong!",
-          duration: 3000,
-        });
-        Spinner.hide();
-      }
-    } catch (e) {
-      console.error(e);
-      Toast.show({
-        data: e.message,
-        duration: 3000,
-      });
-      Spinner.hide();
-    }
-  }
-
-  changeTeam(id) {
-    this.teamMember.forEach((item) => {
-      item.applications = item.applications.filter((el) => el.id !== id);
-    });
-    this.updateKey += 1;
-  }
-
-  removeUserMember(id) {
-    this.deleteApplicationCash.push(id);
-
-    this.changeTeam(id);
   }
 
   async startStartup(state) {
@@ -1065,103 +874,12 @@ export default class extends Vue {
     scrollToHeader();
   }
 
-  async saveEditTeam(positions) {
-    try {
-      if (this.deleteApplicationCash.length !== 0) {
-        for (const applicationId of this.deleteApplicationCash) {
-          await this.$cancelApplication(applicationId);
-        }
-      }
-      if (this.changedPremissionOnTeam.length !== 0) {
-        for (const premission of this.changedPremissionOnTeam) {
-          if (premission[1] === "Advanced access") {
-            await this.$applicationAdvancedAccess(premission[0]);
-          } else {
-            await this.$applicationAccept(premission[0]);
-          }
-        }
-      }
-      if (positions.length !== 0) {
-        let i = 0;
-        for (const position of positions) {
-          if (
-            !!this.updatableDataStartup.positions[i] &&
-            +position.id === +this.updatableDataStartup.positions[i].id &&
-            position.status !== this.updatableDataStartup.positions[i].status
-          ) {
-            await this.$updateStatusPosition(position.id, position.status);
-          }
-          i++;
-        }
-      }
-
-      const startup = await this.$startupById(this.startup.id);
-      if (startup !== null) {
-        this.updatableDataStartup = startup;
-        this.openPosition = this.updatableDataStartup.positions.filter(
-          (position) => position.status === "open"
-        );
-        this.staffedPosition = this.updatableDataStartup.positions.filter(
-          (position) => position.status === "staffed"
-        );
-        this.teamMember = [];
-        startup.positions.forEach((item) => {
-          if (
-            item.applications.some(
-              (el) => el.status === "accepted" || el.status === "advanced"
-            )
-          ) {
-            this.teamMember.push(item);
-          }
-        });
-        this.toggleEditTeam();
-        scrollToHeader();
-      }
-    } catch (e) {
-      console.error(e);
-      this.toggleEditTeam();
-      scrollToHeader();
-    }
-  }
-
-  async cancelEditTeam() {
+  cancelEditTeam() {
     this.toggleEditTeam();
     scrollToHeader();
-    try {
-      const startup = await this.$startupById(this.startup.id);
-      if (startup !== null) {
-        this.teamMember = [];
-        startup.positions.forEach((item) => {
-          if (
-            item.applications.some(
-              (el) => el.status === "accepted" || el.status === "advanced"
-            )
-          ) {
-            this.teamMember.push(item);
-          }
-        });
-      }
-    } catch (e) {
-      console.error(e);
-    }
   }
 
-  async saveSources() {
-    try {
-      const startup = await this.$startupById(this.startup.id);
-      if (startup !== null) {
-        this.updatableDataStartup = startup;
-        this.toggleEditSources();
-        scrollToHeader();
-      }
-    } catch (e) {
-      console.error(e);
-      this.toggleEditSources();
-      scrollToHeader();
-    }
-  }
-
-  cancelSources() {
+  saveSources() {
     this.toggleEditSources();
     scrollToHeader();
   }

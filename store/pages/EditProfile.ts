@@ -17,7 +17,6 @@ export default class EditProfile
   technologies: Technology[] = [];
   personalAddedTechnologies: Technology[] = [];
   experiences: Experience[] = [];
-  userName = "this.userData.profile.name";
   profileUpdated = false;
 
   @MutationAction
@@ -65,7 +64,14 @@ export default class EditProfile
   @MutationAction
   changeTotalExperience(experience) {
     const { profile } = this.state as EditProfileState;
-    profile.experience.id = experience.id;
+
+    if (profile.experience === null) {
+      profile.experience = {};
+      profile.experience.id = experience.id;
+    } else {
+      profile.experience.id = experience.id;
+    }
+
     return {
       profile,
     };
@@ -147,6 +153,51 @@ export default class EditProfile
     }
     return {
       profileUpdated,
+    };
+  }
+
+  @MutationAction
+  async updateProfile({
+    context,
+    experience,
+    technologies,
+    personalTechnologies,
+  }) {
+    const { profile } = this.state as EditProfileState;
+    const { $updateProfile, $createTechnologies } = context;
+    try {
+      if (personalTechnologies.length !== 0) {
+        for (const technology of personalTechnologies) {
+          if (technology.id === null) {
+            const createTechnology = await $createTechnologies(
+              profile.user.id,
+              technology.title
+            );
+            if (createTechnology !== null) {
+              technologies.push(createTechnology);
+            }
+          }
+        }
+      }
+      personalTechnologies.forEach((el) => {
+        if (el.id !== null) {
+          technologies.push(el);
+        }
+      });
+      const technologyForUpdateProfile = [];
+      technologies.forEach((el) => {
+        technologyForUpdateProfile.push(el.id);
+      });
+      const updateProfileData = await $updateProfile(
+        profile.id,
+        technologyForUpdateProfile,
+        experience
+      );
+    } catch (e) {
+      console.error(e);
+    }
+    return {
+      profile,
     };
   }
 }

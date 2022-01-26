@@ -11,17 +11,17 @@
     </div>
     <div class="request-to-team__content">
       <Position-List
-        v-for="item in (positions = startup.positions.filter(
+        v-for="(item, i) in (positions = startup.positions.filter(
           (el) => el.specialisation !== null
         ))"
         :id="item.id"
         :key="item.id"
-        :update-key="updateKey"
         :title="item.specialisation.title"
         :position="item"
-        @accept="accept"
-        @decline="decline"
-        @advancedAccess="advancedAccess"
+        :position-count="i"
+        @accept="changePremission"
+        @decline="changePremission"
+        @advancedAccess="changePremission"
       ></Position-List>
     </div>
   </div>
@@ -39,18 +39,14 @@ import { Startup } from "~/models/Startup";
 })
 export default class extends Vue {
   @Prop() startup: Array<Startup>;
-  @Prop() updateKey: Number;
 
-  accept(id) {
-    this.$emit("accept", id);
-  }
-
-  decline(id, declinetext) {
-    this.$emit("decline", id, declinetext);
-  }
-
-  advancedAccess(id) {
-    this.$emit("advancedAccess", id);
+  changePremission({ id, declineReason, status, positionCount }) {
+    this.$emit("updateTeamRequest", {
+      id,
+      declineReason,
+      status,
+      positionCount,
+    });
   }
 }
 </script>

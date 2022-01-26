@@ -1,4 +1,9 @@
-import { Module, MutationAction, VuexModule } from "nuxt-property-decorator";
+import {
+  Module,
+  MutationAction,
+  VuexMutation,
+  VuexModule,
+} from "nuxt-property-decorator";
 import { NuxtContext } from "../../types/services";
 import { Startup } from "../../models/Startup";
 import { Feedbacks } from "../../models/Feedbacks";
@@ -11,11 +16,14 @@ import { Directions } from "../../models/Directions";
 import { Badges } from "../../models/Badges";
 import { Releases } from "../../models/Releases";
 import { Profile } from "../../models/Profile";
+import { Invites } from "../../models/Invites";
+import { Experience } from "../../models/Experience";
 
 export interface StartupPageState {
   startup: Startup[];
   feedbacks: Feedbacks[];
   applications: Applications[];
+  newApplication: Applications[];
   estimations: Estimation[];
   specialisations: Specialisation[];
   technologies: Technology[];
@@ -24,6 +32,9 @@ export interface StartupPageState {
   badges: Badges[];
   releases: Releases[];
   profile: Profile[];
+  invites: Invites[];
+  specialisationsForInvites: Specialisation[];
+  experience: Experience[];
 }
 @Module({ name: "StartupPage", namespaced: true })
 export default class StartupPage
@@ -33,6 +44,7 @@ export default class StartupPage
   startup: Startup[] = [];
   feedbacks: Feedbacks[] = [];
   applications: Applications[] = [];
+  newApplication: Applications[] = [];
   estimations: Estimation[] = [];
   specialisations: Specialisation[] = [];
   technologies: Technology[] = [];
@@ -45,6 +57,10 @@ export default class StartupPage
   isDeveloper: boolean = false;
   isExpert: boolean = false;
   developerPosition: string = "";
+  invites: Invites[] = [];
+  specialisationsForInvites: Specialisation[] = [];
+  experiences: Experience[] = [];
+
   @MutationAction
   async init(context: NuxtContext) {
     const { $strapi, route } = context;
@@ -57,6 +73,9 @@ export default class StartupPage
     let isDeveloper = false;
     let isExpert = false;
     let applicationId;
+    const invites = [];
+    const specialisationsForInvites = [];
+
     try {
       const startup = await context.$startup(route.params.slug);
       const feedbacks = await context.$feedbacksByStartupID(startup.id);
@@ -67,6 +86,7 @@ export default class StartupPage
       const { estimations } = await context.$estimations();
       const { specialisations } = await context.$specialisations();
       const { technologies } = await context.$technologies();
+      const { experiences } = await context.$experiences();
       if ($strapi.user) {
         profile = await context.$profile($strapi.user.id);
       }
@@ -109,6 +129,22 @@ export default class StartupPage
             }
           });
         }
+        if (startup.positions) {
+          startup.positions.forEach((el) => {
+            specialisationsForInvites.push(el.specialisation);
+          });
+        }
+        if (startup.owner.invites) {
+          startup.owner.invites.forEach((el) => {
+            if (
+              el.position &&
+              el.position.startup !== null &&
+              startup.id === el.position.startup.id
+            ) {
+              invites.push(el);
+            }
+          });
+        }
       }
       return {
         startup,
@@ -124,9 +160,464 @@ export default class StartupPage
         badges,
         isOwner,
         isExpert,
+        isDeveloper,
+        invites,
+        specialisationsForInvites,
+        experiences,
       };
     } catch (e) {
       console.error(e);
     }
+  }
+
+  @MutationAction
+  async createPosition(context: NuxtContext) {
+    const { startup } = this.state as StartupPageState;
+    const { $createPosition } = context;
+    try {
+      const newPosition = await $createPosition(startup.id);
+      if (newPosition !== null) {
+        startup.positions.push(newPosition);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return {
+      startup,
+    };
+  }
+
+  @MutationAction
+  async removePosition({ context, id }) {
+    const { startup } = this.state as StartupPageState;
+    let { specialisationsForInvites } = this.state as StartupPageState;
+
+    const { $deletePositions } = context;
+    try {
+      const removePosition = await $deletePositions(id);
+      if (removePosition !== null) {
+        startup.positions = startup.positions.filter(
+          (el) => el.id !== removePosition.id
+        );
+      }
+      specialisationsForInvites = [];
+      if (startup.positions) {
+        startup.positions.forEach((el) => {
+          specialisationsForInvites.push(el.specialisation);
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return {
+      startup,
+      specialisationsForInvites,
+    };
+  }
+
+  @MutationAction
+  async addSpecialityToPosition({ context, titleId, id }) {
+    const { startup } = this.state as StartupPageState;
+    let { specialisationsForInvites } = this.state as StartupPageState;
+    const { $updatePosition } = context;
+    try {
+      const updatePosition = await $updatePosition(id, ["0"], titleId);
+      if (updatePosition !== null) {
+        startup.positions.forEach((position) => {
+          if (position.id === updatePosition.id) {
+            position.specialisation = {
+              title: updatePosition.specialisation.title,
+              id: updatePosition.specialisation.id,
+            };
+            specialisationsForInvites = [];
+            if (startup.positions) {
+              startup.positions.forEach((el) => {
+                specialisationsForInvites.push(el.specialisation);
+              });
+            }
+          }
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return {
+      startup,
+      specialisationsForInvites,
+    };
+  }
+
+  @VuexMutation
+  addTechnologyToPosition({ positionId, technology }) {
+    this.startup.positions.forEach((position) => {
+      if (position.id === positionId && !technology.checked) {
+        technology.checked = true;
+        position.technologies.push(technology);
+      }
+    });
+  }
+
+  @VuexMutation
+  removeTechnologyToPosition({ positionId, technology }) {
+    this.startup.positions.forEach((position) => {
+      if (position.id === positionId && technology.checked) {
+        technology.checked = false;
+        position.technologies = position.technologies.filter(
+          (el) => el.id !== technology.id
+        );
+      }
+    });
+  }
+
+  @VuexMutation
+  removePersonalTechnology({ technologies, positionId }) {
+    this.startup.positions.forEach((position) => {
+      if (position.id === positionId) {
+        if (technologies[0] !== false) {
+          position.technologies = position.technologies
+            .filter((el) => el.is_public)
+            .concat(technologies);
+        } else {
+          position.technologies = position.technologies.filter(
+            (el) => el.is_public
+          );
+        }
+      }
+    });
+  }
+
+  @MutationAction
+  async createCustomTechnology({ context, technology, positionId }) {
+    const { startup } = this.state as StartupPageState;
+    const { $createTechnologies } = context;
+    let newTechnology = {};
+
+    try {
+      newTechnology = await $createTechnologies(startup.owner.id, technology);
+    } catch (e) {
+      console.error(e);
+    }
+    if (newTechnology !== null) {
+      startup.positions.forEach((position) => {
+        if (position.id === positionId) {
+          position.technologies.push(newTechnology);
+        }
+      });
+    }
+    return {
+      startup,
+    };
+  }
+
+  @MutationAction
+  async updatePosition({ context, positionId, technologies, specialisation }) {
+    const { startup } = this.state as StartupPageState;
+    const { $updatePosition } = context;
+    try {
+      await $updatePosition(positionId, technologies, specialisation);
+    } catch (e) {
+      console.error(e);
+    }
+    return { startup };
+  }
+
+  @VuexMutation
+  skipTechnologies({ positionId, chosenTechnologies }) {
+    this.startup.positions.forEach((position) => {
+      if (position.id === positionId) {
+        position.technologies = position.technologies.filter((el) =>
+          chosenTechnologies.includes(el.id)
+        );
+      }
+    });
+  }
+
+  @MutationAction
+  async requestToTeam({ context, userId, position, comment }) {
+    let { newApplication } = this.state as StartupPageState;
+    const { $createApplication } = context;
+    try {
+      const application = await context.$createApplication(
+        userId,
+        position,
+        comment
+      );
+      if (application !== null) {
+        newApplication = application;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { newApplication };
+  }
+
+  @MutationAction
+  async deleteStartup({ context, id, startupName }) {
+    const { startup } = this.state as StartupPageState;
+    const { $deleteDraft } = context;
+    try {
+      const deletedstartup = await context.$deleteDraft(id);
+      if (deletedstartup !== null) {
+        startup.state = deletedstartup.state;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { startup };
+  }
+
+  @MutationAction
+  async inviteCollegue({ context, data }) {
+    const { startup, invites } = this.state as CreateProjectState;
+    const { $createInvite } = context;
+    try {
+      const newInvite = await $createInvite(
+        data.email,
+        data.position_id,
+        startup.id,
+        startup.owner.id
+      );
+      if (newInvite !== null) {
+        invites.push(newInvite);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+
+    return { startup };
+  }
+
+  @MutationAction
+  async changePremission({
+    context,
+    permission,
+    applicationId,
+    positionCount,
+    declineReason,
+  }) {
+    const { startup } = this.state as CreateProjectState;
+    const {
+      $applicationAccept,
+      $applicationAdvancedAccess,
+      $applicationDecline,
+      $cancelApplication,
+    } = context;
+    let modificationApplication = [];
+    try {
+      if (permission === "Default access") {
+        modificationApplication = await $applicationAccept(applicationId);
+      } else if (permission === "Decline") {
+        modificationApplication = await $applicationDecline(
+          applicationId,
+          declineReason
+        );
+      } else if (permission === "Canceled") {
+        modificationApplication = await $cancelApplication(applicationId);
+      } else {
+        modificationApplication = await $applicationAdvancedAccess(
+          applicationId
+        );
+      }
+
+      if (typeof declineReason === "boolean") {
+        startup.positions[positionCount].applications.forEach((application) => {
+          if (application.id === applicationId) {
+            application.status = modificationApplication.status;
+          }
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { startup };
+  }
+
+  @MutationAction
+  async changePositionStatus({ context, positionId, status }) {
+    const { startup } = this.state as CreateProjectState;
+    const { $updateStatusPosition } = context;
+    let updatePosition;
+    try {
+      updatePosition = await $updateStatusPosition(positionId, status);
+    } catch (e) {
+      console.error(e);
+    }
+    startup.positions.forEach((position) => {
+      if (position.id === positionId) {
+        position.status = updatePosition.status;
+      }
+    });
+
+    return { startup };
+  }
+
+  @MutationAction
+  async createSource(context) {
+    const { startup } = this.state as CreateProjectState;
+    const { $createSource } = context;
+    try {
+      const source = await $createSource("", "https://", startup.id);
+      if (source !== null) {
+        startup.sources.push(source);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { startup };
+  }
+
+  @MutationAction
+  async deleteSources({ context, id }) {
+    const { startup } = this.state as CreateProjectState;
+    const { $deleteSource } = context;
+    try {
+      const source = await $deleteSource(id);
+      if (source !== null) {
+        startup.sources.forEach((source, i) => {
+          if (source.id === id) {
+            startup.sources.splice(i, 1);
+          }
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { startup };
+  }
+
+  @MutationAction
+  async updateSources({ context, link, title, id }) {
+    const { startup } = this.state as CreateProjectState;
+    const { $updateSource } = context;
+    try {
+      const updatedSource = await $updateSource(id, link, title);
+      if (updatedSource !== null) {
+        startup.sources.forEach((source, i) => {
+          if (source.id === updatedSource.id) {
+            startup.sources[i] = updatedSource;
+          }
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { startup };
+  }
+
+  @MutationAction
+  async createSecret(context) {
+    const { startup } = this.state as CreateProjectState;
+    const { $createSecret } = context;
+    try {
+      const source = await $createSecret("", "", startup.id);
+      if (source !== null) {
+        startup.secrets.push(source);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { startup };
+  }
+
+  @MutationAction
+  async deleteSecret({ context, id }) {
+    const { startup } = this.state as CreateProjectState;
+    const { $deleteSecret } = context;
+    try {
+      const secret = await $deleteSecret(id);
+      if (secret !== null) {
+        startup.secrets.forEach((secret, i) => {
+          if (secret.id === id) {
+            startup.secrets.splice(i, 1);
+          }
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { startup };
+  }
+
+  @MutationAction
+  async updateSecret({ context, title, description, id }) {
+    const { startup } = this.state as CreateProjectState;
+    const { $updateSecret } = context;
+    try {
+      const updatedSecret = await $updateSecret(id, title, description);
+      if (updatedSecret !== null) {
+        startup.secrets.forEach((secret, i) => {
+          if (secret.id === updatedSecret.id) {
+            startup.secrets[i] = updatedSecret;
+          }
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { startup };
+  }
+
+  @MutationAction
+  async cancelApplication(context) {
+    const { startup, applications, profile } = this.state as CreateProjectState;
+    const { $cancelApplication } = context;
+    try {
+      for (const application of applications) {
+        if (
+          application.user.id === profile.user.id &&
+          application.status !== "canceled"
+        ) {
+          await $cancelApplication(application.id);
+        }
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { startup };
+  }
+
+  @MutationAction
+  async createReleaseLink(context) {
+    const { startup, releases } = this.state as CreateProjectState;
+    const { $createRelease } = context;
+    try {
+      const newReleaseLink = await $createRelease("", "https://", startup.id);
+      if (newReleaseLink !== null) {
+        releases.push(newReleaseLink);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { releases };
+  }
+
+  @MutationAction
+  async deleteReleaseLink({ context, id, releasePosition }) {
+    const { startup, releases } = this.state as CreateProjectState;
+    const { $deleteRelease } = context;
+    try {
+      const deleteReleaseLink = await $deleteRelease(id);
+      if (deleteReleaseLink !== null) {
+        releases.splice(releasePosition, 1);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { releases };
+  }
+
+  @MutationAction
+  async updateRelease({ context, id, title, link, releasePosition }) {
+    const { startup, releases } = this.state as CreateProjectState;
+    const { $updateRelease } = context;
+    try {
+      const updateReleaseLink = await $updateRelease(id, title, link);
+      if (updateReleaseLink !== null) {
+        releases[releasePosition] = updateReleaseLink;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return { releases };
   }
 }

@@ -80,10 +80,6 @@ export default class extends Vue {
     this.choosenSpeciality = $event.target.textContent;
     this.menuList = !this.menuList;
   }
-
-  editTechnologies() {
-    console.log("you click on me");
-  }
 }
 </script>
 <style lang="scss">

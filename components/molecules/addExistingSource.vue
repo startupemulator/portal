@@ -11,7 +11,7 @@
           @textInput="inputlinkName($event)"
         ></U-Input>
         <p v-show="$v.title.$error" class="errorInput">
-          Please enter a link name of at least 8 characters
+          Please enter a link name of at least 4 characters
         </p>
         <U-Input
           :type="'text'"
@@ -25,7 +25,7 @@
       <button
         class="button-remove-link"
         type="button"
-        @click="$emit('removeExistingSources')"
+        @click="$emit('removeSource')"
       >
         <img src="~/assets/img/close.svg" alt="" />
       </button>
@@ -45,7 +45,7 @@ import UInput from "../atoms/uInput.vue";
     },
     title: {
       required,
-      minLength: minLength(8),
+      minLength: minLength(4),
     },
   },
 })
@@ -69,7 +69,7 @@ export default class extends Vue {
 
   emitSourses() {
     if (!this.$v.$error) {
-      this.$emit("updateSources", { title: this.title, link: this.link });
+      this.$emit("updateSource", { title: this.title, link: this.link });
     }
   }
 }

@@ -1,5 +1,23 @@
 <template>
   <div class="position-card">
+    <div v-show="declineReasonMessage" class="decline-reason">
+      <div class="decline-reason__content">
+        <div class="decline-reason__header">
+          <button
+            type="button"
+            @click="declineReasonMessage = !declineReasonMessage"
+          >
+            <img src="~/assets/img/close.svg" alt="Close" />
+          </button>
+          <U-Title :text="'Decline reason'"></U-Title>
+          <div class="decline-reason__description">
+            <p>
+              {{ declineReason }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
     <h5>
       <span class="position-card__user-name"> {{ name }}</span>
       <span v-show="uncheck || check || advanced">
@@ -104,24 +122,6 @@
           </div>
         </div>
       </div>
-      <div v-show="declineReasonMessage" class="decline-reason">
-        <div class="decline-reason__content">
-          <div class="decline-reason__header">
-            <button
-              type="button"
-              @click="declineReasonMessage = !declineReasonMessage"
-            >
-              <img src="~/assets/img/close.svg" alt="Close" />
-            </button>
-            <u-title :text="'Decline reason'"></u-title>
-            <div class="decline-reason__description">
-              <p>
-                {{ declineReason }}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -131,9 +131,10 @@ import { Component, Prop, Vue } from "nuxt-property-decorator";
 import UInput from "../atoms/uInput.vue";
 import UTags from "~/components/atoms/uTags.vue";
 import UButton from "~/components/atoms/uButton.vue";
+import UTitle from "~/components/atoms/uTitle.vue";
 
 @Component({
-  components: { UTags, UButton, UInput },
+  components: { UTags, UButton, UInput, UTitle },
 })
 export default class extends Vue {
   @Prop() name: String;
@@ -187,13 +188,13 @@ export default class extends Vue {
       this.accsessList = !this.accsessList;
     }
 
-    // const checkedAccses = $event.currentTarget.children[0].textContent;
-    // this.accsessButtonTitle = checkedAccses;
-    // this.accsessList = !this.accsessList;
+    const checkedAccses = $event.currentTarget.children[0].textContent;
+    this.accsessButtonTitle = checkedAccses;
   }
 
   decline() {
     this.$emit("decline", this.positionId, this.declinetext);
+    this.accsessButtonTitle = "Decline";
     this.declineCandidate = !this.declineCandidate;
   }
 
@@ -208,10 +209,6 @@ export default class extends Vue {
   }
 
   mounted() {
-    this.checkAccess();
-  }
-
-  beforeUpdate() {
     this.checkAccess();
   }
 }
@@ -486,6 +483,7 @@ export default class extends Vue {
     min-width: 318px;
     padding: 32px;
     margin-bottom: 8px;
+    position: relative;
 
     &:not(:nth-child(2n)) {
       margin-right: 24px;
@@ -600,14 +598,13 @@ export default class extends Vue {
       background: transparent;
       backdrop-filter: none;
       position: relative;
-      top: 0;
+      top: -20px;
       width: auto;
       height: auto;
 
       .decline-reason__content {
         position: absolute;
-        bottom: 250px;
-        right: -8px;
+        right: -25px;
         padding: 16px 16px 16px 16px;
         width: 468px;
         height: 204px;

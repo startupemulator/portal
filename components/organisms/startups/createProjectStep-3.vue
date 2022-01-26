@@ -11,7 +11,7 @@
       :name="'Link ' + (i + 1)"
       :link-name="sources.title"
       :link-href="sources.link"
-      @removeExistingSources="removeExistingSources(sources.id)"
+      @removeSource="removeSource(sources.id)"
       @updateSources="updateSources($event, sources.id)"
     ></Add-Existing-Source>
     <div class="existing-sources__add-link">
@@ -63,7 +63,7 @@ export default class extends Vue {
     Spinner.hide();
   }
 
-  async removeExistingSources(id) {
+  async removeSource(id) {
     Spinner.show();
     await CreateProjectPage.removeExistingSources({
       context: this,

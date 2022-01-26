@@ -1,4 +1,5 @@
 import { Strapi } from "@nuxtjs/strapi";
+import { data } from "autoprefixer";
 import { Startup } from "../../models/Startup";
 
 export interface StartupsServices {
@@ -403,7 +404,7 @@ export function myStartups($strapi: Strapi) {
 
 export function deleteDraft($strapi: Strapi) {
   return async (id: string) => {
-    await $strapi.graphql({
+    const data = await $strapi.graphql({
       query: `mutation {
         updateStartup (
           input: {
@@ -413,10 +414,12 @@ export function deleteDraft($strapi: Strapi) {
          ) {
           startup {
             id
+            state
           }
         }
       }`,
     });
+    return data.updateStartup ? data.updateStartup.startup : null;
   };
 }
 export function updateStateStartup($strapi: Strapi) {
@@ -429,12 +432,97 @@ export function updateStateStartup($strapi: Strapi) {
           data: {state: ${state}, start_date:"${date}"}
          }
          ) {
-          startup{
+          startup {
             id
-            start_date
+          title
+          slug
+          description
+          start_date
+          duration
+          state
+          positions {
+            id
+            sort
+            status
+            applications{
+              id
+              status
+              decline_reason
+              user {
+                id
+                email
+                profile{
+                  id
+                  name
+                  slug
+                  technologies{
+                    id
+                    title
+                  }
+                  experience{
+                    id
+                    title
+                  }
+                }
+              }
+
+            }
+            specialisation {
+              id
+              title
+            }
+            technologies{
+              id
+              title
+              is_public
             }
           }
-        }`,
+          owner {
+            id
+            profile{
+              name
+              slug
+            }
+            invites{
+              id
+              email
+              position{
+                id
+                startup{
+                  id
+                }
+                specialisation{
+                  id
+                  title
+                }
+              }
+
+            }
+          }
+          technologies {
+            id
+            title
+          }
+          sources{
+            id
+            title
+            link
+            startups{
+              id
+            }
+          }
+          secrets{
+            id
+            title
+            description
+            startup{
+              id
+            }
+          }
+
+        }
+      }
+      }`,
     });
     return data.updateStartup ? data.updateStartup.startup : null;
   };
@@ -534,10 +622,9 @@ export function updateStartupInfo($strapi: Strapi) {
           where: {id: "${id}" }
           data: {
             description: "${description}",
-             title: "${title}" ,
+             title: "${title}",
              duration: ${duration},
-             start_date: "${date}",
-            }
+             start_date: "${date}",}
          }
          ) {
           startup {
