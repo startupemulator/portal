@@ -21,6 +21,7 @@ export default class LandingPage
   extends VuexModule
   implements LandingPageState
 {
+  state: LandingPageState;
   passwordless = false;
   confirmedEmail = false;
   startups: Startup[] = [];
@@ -29,23 +30,27 @@ export default class LandingPage
   testimonials: Testimonial[] = [];
   settings: Settings = {};
 
-  @MutationAction
+  @MutationAction({
+    mutate: [
+      "settings",
+      "startups",
+      "challenges",
+      "testimonials",
+      "technologies",
+    ],
+  })
   async init(context: NuxtContext) {
-    try {
-      const settings = await context.$settings();
-      const { startups } = await context.$startups();
-      const { challenges } = await context.$challenges();
-      const { testimonials } = await context.$testimonials();
-      const { technologies } = await context.$technologies();
-      return { startups, challenges, testimonials, technologies, settings };
-    } catch (e) {
-      console.log(e);
-    }
+    const settings = await context.$settings();
+    const { startups } = await context.$startups();
+    const { challenges } = await context.$challenges();
+    const { testimonials } = await context.$testimonials();
+    const { technologies } = await context.$technologies();
+    return { startups, challenges, testimonials, technologies, settings };
   }
 
-  @MutationAction
-  moveRightStartups() {
-    const { startups } = this.state as LandingPageState;
+  @MutationAction({ mutate: ["startups"] })
+  async moveRightStartups() {
+    const { startups } = this.state;
     return {
       startups: [
         startups[startups.length - 1],
@@ -55,16 +60,16 @@ export default class LandingPage
   }
 
   @MutationAction
-  moveLeftStartups() {
-    const { startups } = this.state as LandingPageState;
+  async moveLeftStartups() {
+    const { startups } = await this.state;
     return {
       startups: [...startups.slice(1), startups[0]],
     };
   }
 
   @MutationAction
-  moveRightChallenges() {
-    const { challenges } = this.state as LandingPageState;
+  async moveRightChallenges() {
+    const { challenges } = await this.state;
     return {
       challenges: [
         challenges[challenges.length - 1],
@@ -74,16 +79,16 @@ export default class LandingPage
   }
 
   @MutationAction
-  moveLeftChallenges() {
-    const { challenges } = this.state as LandingPageState;
+  async moveLeftChallenges() {
+    const { challenges } = await this.state;
     return {
       challenges: [...challenges.slice(1), challenges[0]],
     };
   }
 
   @MutationAction
-  moveRightTestimonials() {
-    const { testimonials } = this.state as LandingPageState;
+  async moveRightTestimonials() {
+    const { testimonials } = await this.state;
     return {
       testimonials: [
         testimonials[testimonials.length - 1],
@@ -93,8 +98,8 @@ export default class LandingPage
   }
 
   @MutationAction
-  moveLeftTestimonials() {
-    const { testimonials } = this.state as LandingPageState;
+  async moveLeftTestimonials() {
+    const { testimonials } = await this.state;
     return {
       testimonials: [...testimonials.slice(1), testimonials[0]],
     };
