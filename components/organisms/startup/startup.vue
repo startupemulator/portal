@@ -312,9 +312,18 @@
           class="startup__open-position"
         >
           <h3>Open positions</h3>
+
           <Open-Position-Card
             v-for="item in (position = openPosition.filter(
-              (el) => el.specialisation !== null
+              (el) =>
+                el.specialisation !== null &&
+                !(
+                  el.status === 'open' &&
+                  el.applications.some(
+                    (item) =>
+                      item.status === 'declined' && item.user.id === userId
+                  )
+                )
             ))"
             :key="item.id + 'open-position'"
             :position="item"

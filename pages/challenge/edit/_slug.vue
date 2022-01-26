@@ -59,18 +59,19 @@ export default class extends Vue {
     challengeDescription,
     difficultyLevel,
     specialisation,
-    status,
   }) {
     Spinner.show();
-    await Challenge.createChallenge({
+
+    await Challenge.updateChallenge({
       context: this,
+      challengeId: Challenge.challenge.id,
       challengeName,
       challengeDescription,
       difficultyLevel,
       specialisation,
-      status,
     });
-    if (Challenge.challenge.length !== null) {
+
+    if (Challenge.challenge.length !== 0) {
       this.$router.push(`/challenge/${Challenge.challenge.slug}`);
     }
     Spinner.hide();
