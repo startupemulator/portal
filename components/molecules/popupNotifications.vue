@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isLogined" class="notification-popup">
+  <div v-if="!!$strapi.getToken()" class="notification-popup">
     <div class="notification-popup__header">
       <h3>Notifications</h3>
     </div>
@@ -164,7 +164,6 @@ export default class extends Vue {
   @Prop() notificationLoading: boolean;
 
   firstClickOnNotification = true;
-  isLogined = !!this.$strapi.user;
   lengthNewNotifications = 5;
   lengthEarlierNotifications = 5;
 

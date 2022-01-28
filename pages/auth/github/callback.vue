@@ -14,7 +14,7 @@ export default class GithubCallback extends Vue {
   async asyncData(context: Context) {
     const access_token = context.route.query.access_token as string;
     try {
-      await context.$strapi.logout();
+      await context.$strapi.clearToken();
       const { jwt, user } = await context.$strapi.$http.$get(
         "/auth/github/callback",
         {
