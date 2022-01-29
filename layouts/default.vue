@@ -13,6 +13,8 @@
       @filterNotificationByMyProjects="filterNotificationByMyProjects"
       @filterNotificationByFeedback="filterNotificationByFeedback"
     ></App-Header>
+    <div style="display: none; color: #3cc28d">{{ $strapi.getToken() }}</div>
+    <div style="display: none; color: #3cc28d">{{ !!$strapi.getToken() }}</div>
     <Nuxt />
     <App-Footer></App-Footer>
     <Toast />
