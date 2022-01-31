@@ -44,7 +44,7 @@
         </div>
       </div>
       <U-input
-        :placeholder="'Enter your email'"
+        :placeholder="'Enter colleagues email'"
         :type="'email'"
         :img="require('~/assets/img/email.svg')"
         :value="email"

@@ -1,5 +1,5 @@
 <template>
-  <div class="position-card">
+  <div v-if="!(+userId === +userApplication)" class="position-card">
     <div v-show="declineReasonMessage" class="decline-reason">
       <div class="decline-reason__content">
         <div class="decline-reason__header">
@@ -146,7 +146,8 @@ export default class extends Vue {
   @Prop() experience: string;
   @Prop() technologies: Array<string>;
   @Prop() positionId: string;
-
+  @Prop() userId: string;
+  @Prop() userApplication: string;
   declineReasonMessage = false;
   accsessList = false;
   declineCandidate = false;

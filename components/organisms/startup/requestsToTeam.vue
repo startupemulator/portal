@@ -19,6 +19,7 @@
         :title="item.specialisation.title"
         :position="item"
         :position-count="i"
+        :user-id="userId"
         @accept="changePremission"
         @decline="changePremission"
         @advancedAccess="changePremission"
@@ -39,7 +40,7 @@ import { Startup } from "~/models/Startup";
 })
 export default class extends Vue {
   @Prop() startup: Array<Startup>;
-
+  @Prop() userId: string;
   changePremission({ id, declineReason, status, positionCount }) {
     this.$emit("updateTeamRequest", {
       id,
