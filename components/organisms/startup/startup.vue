@@ -849,12 +849,14 @@ export default class extends Vue {
   async updateStartup(data) {
     Spinner.show();
     try {
+      const title = data.title.replace(/[^a-zA-Z ]/g, "");
+      const description = data.description.replace(/(\n)/gm, " \\n ");
       const updateStartup = await this.$updateStartupInfo(
         this.startup.id,
         data.date,
-        data.description,
+        description,
         data.duration,
-        data.title
+        title
       );
       if (+this.startup.id === +updateStartup.id) {
         Toast.show({

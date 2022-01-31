@@ -74,6 +74,8 @@ export default class CreateProject
   async updateDraftStartup({ context, data }) {
     let { draftStartup } = this.state as CreateProjectState;
     const { $updateStartupInfo } = context;
+    const title = data.title.replace(/[^a-zA-Z ]/g, "");
+    const description = data.description.replace(/(\n)/gm, " \\n ");
     draftStartup.title = data.title;
     draftStartup.description = data.description;
     draftStartup.start_date = data.start_date.toISOString();
@@ -83,9 +85,9 @@ export default class CreateProject
       const updateStartup = await $updateStartupInfo(
         draftStartup.id,
         data.start_date.toISOString(),
-        data.description,
+        description,
         data.duration,
-        data.title
+        title
       );
       if (updateStartup !== null) {
         draftStartup = updateStartup;
@@ -100,12 +102,14 @@ export default class CreateProject
   async createNewStartup(context: NuxtContext) {
     let { draftStartup } = this.state as CreateProjectState;
     const { $createStartup } = context;
+    const title = draftStartup.title.replace(/[^a-zA-Z ]/g, "");
+    const description = draftStartup.description.replace(/(\n)/gm, " \\n ");
     try {
       const newStartup = await $createStartup(
         draftStartup.start_date,
-        draftStartup.description,
+        description,
         draftStartup.duration,
-        draftStartup.title,
+        title,
         draftStartup.owner
       );
       if (newStartup !== null) {
@@ -124,13 +128,15 @@ export default class CreateProject
   async updateStartup(context: NuxtContext) {
     const { draftStartup } = this.state as CreateProjectState;
     const { $updateStartupInfo } = context;
+    const title = draftStartup.title.replace(/[^a-zA-Z ]/g, "");
+    const description = draftStartup.description.replace(/(\n)/gm, " \\n ");
     try {
       await $updateStartupInfo(
         draftStartup.id,
         draftStartup.start_date,
-        draftStartup.description,
+        description,
         draftStartup.duration,
-        draftStartup.title
+        title
       );
     } catch (e) {
       console.error(e);
