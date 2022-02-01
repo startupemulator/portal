@@ -75,13 +75,18 @@ export default class extends Vue {
     await LandingPage.init(context);
     await LandingPage.confirmEmail(context);
     await LandingPage.passwordlessLogin(context);
+    await LandingPage.authGithub(context);
   }
 
   mounted() {
     if (this.$router.currentRoute.fullPath === "/#pricing") {
       this.$refs.pricing?.$el?.scrollIntoView({ behavior: "smooth" });
     }
-    if (this.$route.query.confirmEmail || this.$route.query.loginToken) {
+    if (
+      this.$route.query.confirmEmail ||
+      this.$route.query.loginToken ||
+      this.$route.query.access_token
+    ) {
       this.$router.push({ path: "/" });
     }
   }

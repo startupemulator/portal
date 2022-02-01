@@ -1,17 +1,15 @@
 <template>
   <div class="createaccount-fullscreen">
     <Create-Account></Create-Account>
-    <toast></toast>
   </div>
 </template>
 
 <script>
 import CreateAccount from "~/components/organisms/user/createAccount.vue";
-import toast from "~/components/molecules/toast.vue";
+
 export default {
   components: {
     CreateAccount,
-    toast,
   },
   middleware: "deny-authenticated",
 };

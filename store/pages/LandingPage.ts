@@ -14,6 +14,7 @@ export interface LandingPageState {
   settings: Settings;
   confirmedEmail: boolean;
   passwordless: boolean;
+  githubLogin: boolean;
 }
 
 @Module({ name: "Landing", namespaced: true })
@@ -23,6 +24,7 @@ export default class LandingPage
 {
   state: LandingPageState;
   passwordless = false;
+  githubLogin = false;
   confirmedEmail = false;
   startups: Startup[] = [];
   challenges: Challenge[] = [];
@@ -142,6 +144,30 @@ export default class LandingPage
     }
     return {
       passwordless,
+    };
+  }
+
+  @MutationAction
+  async authGithub(context: NuxtContext) {
+    const githubLogin = false;
+    const { route, $strapi } = context;
+    if (route.query.access_token && route.query.access_token.length > 10) {
+      try {
+        await $strapi.clearToken();
+        const data: { jwt: string; user: any } = await $strapi.$http.$get(
+          "/auth/github/callback",
+          {
+            searchParams: { access_token: route.query.access_token } as any,
+          }
+        );
+        await $strapi.setUser(data.user);
+        await $strapi.setToken(data.jwt);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    return {
+      githubLogin,
     };
   }
 }
