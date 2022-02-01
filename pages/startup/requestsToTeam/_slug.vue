@@ -2,6 +2,7 @@
   <div class="startups-page">
     <Request-To-Team
       :startup="startup"
+      :user-id="userId"
       @updateTeamRequest="updateTeamRequest"
     ></Request-To-Team>
   </div>

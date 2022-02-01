@@ -23,6 +23,7 @@
         v-show="opendPosition"
         :key="item.id"
         :name="item.user.profile.name"
+        :user-application="item.user.id"
         :uncheck="item.status === 'declined'"
         :check="item.status === 'accepted'"
         :advanced="item.status === 'advanced'"
@@ -43,6 +44,7 @@
         "
         :technologies="item.user.profile.technologies"
         :position-id="item.id"
+        :user-id="userId"
         @accept="accept"
         @decline="decline"
         @advancedAccess="advancedAccess"
@@ -62,6 +64,7 @@ export default class extends Vue {
   @Prop() id: number;
   @Prop() position: Array<any>;
   @Prop() positionCount: number;
+  @Prop() userId: string;
   opendPosition = false;
   newAplications: number = 0;
   applications = [];

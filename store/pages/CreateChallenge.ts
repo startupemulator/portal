@@ -90,7 +90,7 @@ export default class CreateChallenge
     const { $createChallenge, $createSourceForChallenge } = context;
     const createdSource = [];
     challengeName = challengeName.replace(/[^a-zA-Z ]/g, "");
-    challengeDescription = challengeDescription.replace(/(\r\n|\n|\r)/gm, " ");
+    challengeDescription = challengeDescription.replace(/(\n)/gm, " \\n ");
     try {
       for (const source of sources) {
         const newSource = await $createSourceForChallenge(
@@ -134,8 +134,8 @@ export default class CreateChallenge
     await console.log(challengeName);
     challengeName = challengeName.replace(/[^a-zA-Z ]/g, "");
 
-    challengeDescription = challengeDescription.replace(/(\r\n|\n|\r)/gm, " ");
-    console.log(challengeDescription);
+    challengeDescription = challengeDescription.replace(/(\n)/gm, " \\n ");
+
     try {
       for (const source of sources) {
         if (source.isNew) {
