@@ -36,7 +36,7 @@ test.describe("landing page", () => {
     });
 
     test("navigation", async ({ page }) => {
-      const items = page.locator(".main-header nav ul>li a");
+      const items = page.locator(".main-header nav ul:visible>li a");
       await expect(items).toHaveText(["Startups", "Challenges", "Pricing"]);
     });
 
