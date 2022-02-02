@@ -89,6 +89,15 @@ jobs:
             cd /opt/startupemulator/
             ./deploy.sh
 
+      - name: Audit Stage URLs using Lighthouse
+        uses: treosh/lighthouse-ci-action@v8
+        if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
+        with:
+          urls: https://${{secrets.PLUM_HOST}}/
+          budgetPath: ./budget.json # test performance budgets
+          uploadArtifacts: true # save results as an action artifacts
+          temporaryPublicStorage: true # upload lighthouse report to the temporary storage
+
       - name: Deploy to Prod
         uses: appleboy/ssh-action@master
         if: ${{ github.event_name != 'pull_request' && github.ref_type == 'tag' }}
