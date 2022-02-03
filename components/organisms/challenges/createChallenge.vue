@@ -25,7 +25,7 @@
       Please enter a description name of at least 8 characters
     </p>
     <Difficulty-Level-Picker
-      :checked-difficalty-level="difficultyLevel"
+      :checked-difficulty-level="difficultyLevel"
       @difficultyLevelId="difficultyLevelId"
     ></Difficulty-Level-Picker>
     <p v-show="$v.difficultyLevel.$error" class="errorInput">

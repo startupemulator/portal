@@ -19,6 +19,7 @@
 import { Component, Vue } from "nuxt-property-decorator";
 import Spinner from "~/store/modules/Spinner";
 import Challenges from "~/components/organisms/challenges/challenges.vue";
+import { Challenge } from "~/models/Challenge";
 
 @Component({
   components: {
@@ -31,19 +32,23 @@ export default class extends Vue {
   userId = this.$strapi.user ? this.$strapi.user.id : "";
   difficultyLevel: Array<any> = [];
   pickedSpecialty: Array<any> = [];
+  challengesList: Array<Challenge>;
   async asyncData({
     $strapi,
     $profile,
     $askFeedbacksForChallenges,
     $userChallengesByUserId,
+    $challenges,
+    $specialisations,
   }) {
-    const challenges = await $strapi.find("challenges");
-    const specialisations = await $strapi.find("specialisations");
+    const { challenges } = await $challenges();
+    const { specialisations } = await $specialisations();
     const challengesList = await challenges;
     let profile = [];
     let feedBackForChallenges = [];
     let userChallenges = [];
     let isExpert = false;
+    specialisations.forEach((el) => (el.isChecked = false));
     if ($strapi.user) {
       profile = await $profile($strapi.user.id);
       if (profile !== null) {
@@ -64,22 +69,25 @@ export default class extends Vue {
   }
 
   async filterCards() {
-    Spinner.show();
-    const findCriterios = [];
-    this.difficultyLevel.forEach((el) => findCriterios.push(el));
-    this.pickedSpecialty.forEach((el) => findCriterios.push(el));
+    const filteredByDifficulty = [];
+    const filteredBySpecialisations = [];
 
-    const filterChallenges = await this.$strapi.find(
-      "challenges",
-      findCriterios
-    );
-    if (filterChallenges.length === 0) {
-      this.emptyState = true;
-    } else {
-      this.emptyState = false;
-    }
-    if (filterChallenges !== null) {
-      this.challengesList = filterChallenges;
+    try {
+      Spinner.show();
+      const filteredChallenges = await this.$challenges(
+        this.difficultyLevel,
+        this.pickedSpecialty
+      );
+
+      this.challengesList = filteredChallenges.challenges;
+      if (this.challengesList.length === 0) {
+        this.emptyState = true;
+      } else {
+        this.emptyState = false;
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
       Spinner.hide();
     }
   }
@@ -91,12 +99,14 @@ export default class extends Vue {
   }
 
   specialtyFilter(data) {
-    this.pickedSpecialty = data;
+    this.pickedSpecialty = [];
+    data.forEach((el) => this.pickedSpecialty.push(el.id));
     this.filterCards();
   }
 
   difficultyFilter(data) {
-    this.difficultyLevel = data;
+    this.difficultyLevel = [];
+    data.forEach((el) => this.difficultyLevel.push(el.id));
     this.filterCards();
   }
 }
