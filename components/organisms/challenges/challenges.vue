@@ -6,23 +6,21 @@
         <div class="challenges__header-speciality-filter">
           <p>Filter by Specialty</p>
           <ul
-            ref="specialityList"
             class="challenges__header-speciality-filter_list"
             :class="filterList ? 'opend-filter' : ''"
           >
             <li
               v-for="specialisation in specialisations"
               :key="specialisation.id"
-              ref="specialisations"
               class="challenges__header-speciality-filter_item"
             >
               <U-Tags
                 :id="specialisation.id"
                 :title="specialisation.title"
                 :name="specialisation.title"
+                :class="specialisation.isChecked ? 'checked' : ''"
                 :type="'checkbox'"
-                :checked-class="specialisation.checked ? 'checked' : ''"
-                @pick="specialty($event)"
+                @pick="specialty(specialisation)"
               ></U-Tags>
             </li>
           </ul>
@@ -39,27 +37,23 @@
         <div class="challenges__header-diffculty-filter">
           <p>Filter by Difficulty level</p>
 
-          <ul
-            ref="diffcultyList"
-            class="challenges__header-diffculty-filter-list"
-          >
-            <li
-              ref="difficulty"
-              class="challenges__header-diffculty-filter-item"
-            >
+          <ul class="challenges__header-diffculty-filter-list">
+            <li class="challenges__header-diffculty-filter-item">
               <U-Tags
-                v-for="(item, i) in 5"
+                v-for="(item, i) in difficultyLevel"
                 :id="i + 1 + '.difficulty'"
                 :key="i * 124"
                 :type="'checkbox'"
+                :class="item.isChecked ? 'checked' : ''"
                 :title="'Level ' + (i + 1)"
-                @pick="levelFilter"
+                @pick="levelFilter(item)"
               ></U-Tags>
             </li>
           </ul>
         </div>
       </div>
     </div>
+
     <div class="challenges__cards">
       <Challenge-Card
         v-for="card in $device.isMobile
@@ -124,6 +118,14 @@ export default class Challenges extends Vue {
   @Prop() autorizated: Boolean;
   @Prop() userId: string;
 
+  difficultyLevel: Array<{ id: number; isChecked: boolean }> = [
+    { id: 1, isChecked: false },
+    { id: 2, isChecked: false },
+    { id: 3, isChecked: false },
+    { id: 4, isChecked: false },
+    { id: 5, isChecked: false },
+  ];
+
   private filterList: boolean = false;
   difficultyFilter: Array<any> = [];
   specialityFilter: Array<any> = [];
@@ -138,43 +140,39 @@ export default class Challenges extends Vue {
   }
 
   cleanFilter() {
-    this.$refs.specialisations.forEach((el) => {
-      el.children[0].classList.remove("checked");
-    });
-    this.$refs.difficulty.children.forEach((el) => {
-      el.classList.remove("checked");
-    });
+    this.difficultyLevel.forEach((el) => (el.isChecked = false));
+    this.specialisations.forEach((el) => (el.isChecked = false));
+
     this.$emit("cleanFilter", []);
   }
 
-  levelFilter($event) {
-    if ($event.currentTarget.labels[0].classList.contains("checked")) {
-      $event.currentTarget.labels[0].classList.remove("checked");
-      this.difficultyFilter = this.difficultyFilter.filter(
-        (el) => el[1] !== $event.currentTarget.id.split(".")[0]
-      );
+  levelFilter(difficultyLevel) {
+    if (!difficultyLevel.isChecked) {
+      difficultyLevel.isChecked = true;
+      this.difficultyFilter.push({ id: difficultyLevel.id });
     } else {
-      $event.currentTarget.labels[0].classList.add("checked");
-      this.difficultyFilter.push([
-        "difficulty",
-        $event.currentTarget.id.split(".")[0],
-      ]);
+      difficultyLevel.isChecked = false;
+      this.difficultyFilter.forEach((level, i) => {
+        if (level.id === difficultyLevel.id) {
+          this.difficultyFilter.splice(i, 1);
+        }
+      });
     }
-
     this.$emit("difficultyFilter", this.difficultyFilter);
   }
 
-  specialty($event) {
-    if ($event.currentTarget.labels[0].classList.contains("checked")) {
-      $event.currentTarget.labels[0].classList.remove("checked");
-      this.specialityFilter = this.difficultyFilter.filter(
-        (el) => el[1] !== $event.currentTarget.id
-      );
+  specialty(specialisation) {
+    if (!specialisation.isChecked) {
+      specialisation.isChecked = true;
+      this.specialityFilter.push({ id: specialisation.id });
     } else {
-      $event.currentTarget.labels[0].classList.add("checked");
-      this.specialityFilter.push(["specialisations", $event.currentTarget.id]);
+      specialisation.isChecked = false;
+      this.specialityFilter.forEach((speciality, i) => {
+        if (speciality.id === specialisation.id) {
+          this.specialityFilter.splice(i, 1);
+        }
+      });
     }
-
     this.$emit("filterCards", this.specialityFilter);
   }
 }
