@@ -3,11 +3,11 @@
     <h5>Difficulty level</h5>
     <ul class="difficulty-level-list">
       <li
-        v-for="(item, i) in 5"
+        v-for="(item, i) in difficultyLevel"
         :key="i + 'difficulty'"
-        ref="difficultyLevelItem"
         class="difficulty-level-item"
-        @click="checkDifficultyLevel($event, i + 1)"
+        :class="item.isChecked ? 'checked' : ''"
+        @click="checkDifficultyLevel(item)"
       >
         {{ i + 1 }}
       </li>
@@ -19,23 +19,32 @@ import { Component, Vue, Prop } from "nuxt-property-decorator";
 
 @Component({})
 export default class extends Vue {
-  @Prop() checkedDifficaltyLevel: string;
-  checkDifficultyLevel($event, id) {
-    const obj = $event.target.classList;
-    this.$refs.difficultyLevelItem.forEach((element) => {
-      element.classList.remove("checked");
+  @Prop() checkedDifficultyLevel: string;
+  difficultyLevel: Array<{ id: number; isChecked: boolean }> = [
+    { id: 1, isChecked: false },
+    { id: 2, isChecked: false },
+    { id: 3, isChecked: false },
+    { id: 4, isChecked: false },
+    { id: 5, isChecked: false },
+  ];
+
+  checkDifficultyLevel(checkedDifficultyLevel) {
+    this.difficultyLevel.forEach((level) => {
+      level.isChecked = false;
+      if (level.id === checkedDifficultyLevel.id) {
+        checkedDifficultyLevel.isChecked = true;
+        this.$emit("difficultyLevelId", checkedDifficultyLevel.id);
+      }
     });
-    obj.contains("checked")
-      ? $event.target.classList.remove("checked")
-      : $event.target.classList.add("checked");
-    this.$emit("difficultyLevelId", id);
   }
 
   mounted() {
     if (this.checkedDifficaltyLevel !== " ") {
-      this.$refs.difficultyLevelItem[
-        +this.checkedDifficaltyLevel - 1
-      ].classList.add("checked");
+      this.difficultyLevel.forEach((level) => {
+        if (+level.id === +this.checkedDifficultyLevel) {
+          level.isChecked = true;
+        }
+      });
     }
   }
 }

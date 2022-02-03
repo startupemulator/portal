@@ -131,7 +131,7 @@ export default class CreateChallenge
     const { sources } = this.state as CreateProjectState;
     const { $updateChallenge, $createSourceForChallenge } = context;
     const sourcesForChallenge = [];
-    await console.log(challengeName);
+
     challengeName = challengeName.replace(/[^a-zA-Z ]/g, "");
 
     challengeDescription = challengeDescription.replace(/(\n)/gm, " \\n ");
