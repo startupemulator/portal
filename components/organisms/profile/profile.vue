@@ -65,7 +65,9 @@
       </Expert-User>
       <div class="profile-projects__experience">
         <h3>Experience</h3>
-        <div class="experience-work">{{ profile.experience.title }}</div>
+        <div v-if="profile.experience" class="experience-work">
+          {{ profile.experience.title }}
+        </div>
         <ul class="experience_list">
           <li v-for="item in technologies" :key="item.id">
             <U-Tags

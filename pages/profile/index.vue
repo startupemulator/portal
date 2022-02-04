@@ -7,7 +7,7 @@
       :technologies="allTechnologies"
       :publick-technologies="technologies"
       :my-technologies="myTechnologies"
-      :feedbacks="feedbacks"
+      :expert-feedbacks="expertFeedbacks"
       :user-data="profile"
       :is-expert="isExpert"
       :user-experience="profile.experience"
@@ -49,13 +49,16 @@ export default class extends Vue {
     $profile,
     $experiences,
     $feedbacks,
+    $expertFeedbacks,
   }) {
     const startups = await $myStartups($strapi.user.id);
     const { technologies } = await $technologies();
     const profile = await $profile($strapi.user.id);
     let isExpert = false;
+    let expertFeedbacks = [];
     if (profile !== null) {
       isExpert = profile.is_expert;
+      expertFeedbacks = await $expertFeedbacks(profile.user.id);
     }
     const { experiences } = await $experiences();
     let myTechnologies = [];
@@ -92,11 +95,11 @@ export default class extends Vue {
       myTechnologies,
       allTechnologies,
       technologies,
-      feedbacks,
       userHaveProfile,
       myStartupFeedbacks,
       myChallengeFeedbacks,
       isExpert,
+      expertFeedbacks,
     };
   }
 

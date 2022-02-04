@@ -51,7 +51,7 @@
           @togglePopup="togglePopup"
         ></My-Profile-Regular-User>
 
-        <Expert-User v-if="isExpert" :feedbacks="feedbacks"></Expert-User>
+        <Expert-User v-if="isExpert" :feedbacks="expertFeedbacks"></Expert-User>
 
         <div v-if="userExperience" class="profile-projects__experience">
           <h3>Experience</h3>
@@ -121,7 +121,7 @@ export default class extends Vue {
   @Prop() startups: Array<Startup>;
   @Prop() technologies: Array<Technology>;
   @Prop() publickTechnologies: Array<Technology>;
-  @Prop() feedbacks: Array<Feedbacks>;
+  @Prop() expertFeedbacks: Array<Feedbacks>;
   @Prop() myStartupFeedbacks: Array<Feedbacks>;
   @Prop() myChallengeFeedbacks: Array<Feedbacks>;
   @Prop() isExpert: boolean;

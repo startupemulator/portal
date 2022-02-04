@@ -82,6 +82,7 @@ import {
   publicFeedback,
   unPublicFeedback,
   updateFeedback,
+  expertFeedbacks,
 } from "~/plugins/services/feedbacks";
 import {
   createNotification,
@@ -267,6 +268,8 @@ const strapiServices: Plugin = (ctx: Context, inject: Inject): void => {
   inject("createTechnologies", createTechnologies(ctx.$strapi));
 
   inject("feedbacks", feedbacks(ctx.$strapi));
+  inject("expertFeedbacks", expertFeedbacks(ctx.$strapi));
+
   inject("askFeedbacksForStartup", askFeedbacksForStartup(ctx.$strapi));
   inject("askFeedbacksForChallenges", askFeedbacksForChallenges(ctx.$strapi));
 

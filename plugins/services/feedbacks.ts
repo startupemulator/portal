@@ -7,6 +7,7 @@ export interface FeedbacksServices {
   $newFeedbacksByStartupID(id: string): Promise<Partial<Feedbacks>[]>;
 
   $feedbacks(): Promise<Partial<Feedbacks>[]>;
+  $expertFeedbacks(expertId: string): Promise<Partial<Feedbacks>[]>;
 
   $feedbackById(id: string): Promise<Partial<Feedbacks>[]>;
 
@@ -109,6 +110,67 @@ export function feedbacks($strapi: Strapi) {
     const data = await $strapi.graphql({
       query: `query {
         feedbacks(sort: "published_at:desc") {
+    id
+    description
+    is_public
+    published_at
+    criterions{
+      id
+      mark
+      direction{
+        id
+        title
+      }
+    }
+    badges{
+      id
+      title
+      image{
+        url
+      }
+    }
+    is_public
+    likes{
+      id
+      user{
+        id
+      }
+    }
+    expert{
+      id
+      profile{
+        name
+        slug
+      }
+    }
+    request {
+      id
+      is_new
+      startup {
+        id
+      }
+      challenge {
+        id
+      }
+      creator{
+        id
+        profile{
+          name
+          slug
+        }
+      }
+    }
+  }
+}`,
+    });
+    return data.feedbacks ? data.feedbacks : null;
+  };
+}
+export function expertFeedbacks($strapi: Strapi) {
+  return async (expertId: string) => {
+    const data = await $strapi.graphql({
+      query: `query {
+        feedbacks(where: {expert:{id: "${expertId}"}}, sort: "published_at:desc") {
     id
     description
     is_public
