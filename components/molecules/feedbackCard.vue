@@ -75,15 +75,7 @@
             v-if="!expertFeedback"
             class="feed-back-card__main-content-feedback__header"
           >
-            <h4>Expert’s {{ feedback.request.creator.profile.name }}</h4>
-            <div class="feedback__header--delete">
-              <img src="~/assets/img/close.svg" alt="ok" />
-              <U-button
-                :button-name="'Delete Feedback'"
-                :button-class="'u-button-transpend'"
-                @clickOnButton="deleteFeedback(feedback.id)"
-              ></U-button>
-            </div>
+            <h4>Expert’s {{ feedback.expert.profile.name }}</h4>
           </div>
           <ul class="main-content-feedback__criterions">
             <li
