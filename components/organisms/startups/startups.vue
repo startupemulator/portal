@@ -9,7 +9,7 @@
             class="start-ups__header-filter_list"
             :class="filterList ? 'filter_list--opend' : ''"
           >
-            <li v-for="item in technologies" :key="item.id" ref="filter">
+            <li v-for="item in technologies" :key="item.id">
               <U-Tags
                 :id="item.id"
                 :title="item.title"
@@ -99,9 +99,6 @@ export default class extends Vue {
   }
 
   cleanFilter() {
-    this.$refs.filter.forEach((el) => {
-      el.children[0].classList.remove("checked");
-    });
     this.$emit("cleanFilter");
   }
 
