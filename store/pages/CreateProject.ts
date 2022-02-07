@@ -74,7 +74,7 @@ export default class CreateProject
   async updateDraftStartup({ context, data }) {
     let { draftStartup } = this.state as CreateProjectState;
     const { $updateStartupInfo } = context;
-    const title = data.title.replace(/[^a-zA-Z ]/g, "");
+    const title = data.title.replace(/[^a-zA-Z0-9А-Яа-я ]/g, "");
     const description = data.description.replace(/(\n)/gm, " \\n ");
     draftStartup.title = data.title;
     draftStartup.description = data.description;
@@ -102,7 +102,7 @@ export default class CreateProject
   async createNewStartup(context: NuxtContext) {
     let { draftStartup } = this.state as CreateProjectState;
     const { $createStartup } = context;
-    const title = draftStartup.title.replace(/[^a-zA-Z ]/g, "");
+    const title = draftStartup.title.replace(/[^a-zA-Z0-9А-Яа-я ]/g, "");
     const description = draftStartup.description.replace(/(\n)/gm, " \\n ");
     try {
       const newStartup = await $createStartup(
@@ -128,7 +128,7 @@ export default class CreateProject
   async updateStartup(context: NuxtContext) {
     const { draftStartup } = this.state as CreateProjectState;
     const { $updateStartupInfo } = context;
-    const title = draftStartup.title.replace(/[^a-zA-Z ]/g, "");
+    const title = draftStartup.title.replace(/[^a-zA-Z0-9А-Яа-я ]/g, "");
     const description = draftStartup.description.replace(/(\n)/gm, " \\n ");
     try {
       await $updateStartupInfo(
