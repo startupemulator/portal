@@ -24,9 +24,25 @@
           >
         </li>
         <li class="main-footer__item main-footer__item-c">
+          <a class="flat" href="https://airtable.com/shrUiyKlvVp9xRanB"
+            >Submit a bug</a
+          >
+        </li>
+        <li class="main-footer__item main-footer__item-c">
+          <a class="flat" href="https://www.linkedin.com/in/serhiirevva/"
+            >Design by Serhii Revva</a
+          >
+        </li>
+        <li class="main-footer__item main-footer__item-c">
           (c) 2020-2022 Startup Emulator
         </li>
       </ul>
     </div>
   </footer>
 </template>
+
+<style>
+a.flat {
+  font-weight: normal;
+}
+</style>
