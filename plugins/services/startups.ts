@@ -51,7 +51,7 @@ export function startups($strapi: Strapi) {
     return $strapi.graphql({
       query: `
         query {
-          startups (where: {state_in:[${states
+          startups (sort: "id:desc", where: {state_in:[${states
             .map((i) => `"${i}"`)
             .join(",")}]}){
               id
@@ -298,7 +298,7 @@ export function startupByAcceptedApplication($strapi: Strapi) {
   return async (id: string) => {
     const data = await $strapi.graphql({
       query: `query {
-        startups(where: {positions:{applications:{user: {id: "${id}"}}}}){
+        startups(sort: "id:desc", where: {positions:{applications:{user: {id: "${id}"}}}}){
           id
           title
           slug
@@ -353,7 +353,7 @@ export function myStartups($strapi: Strapi) {
   ) => {
     const data = await $strapi.graphql({
       query: `query {
-        startups(where: {owner:{id: "${owner}"}, state_ncontains: "removed"}){
+        startups(sort: "id:desc", where: {owner:{id: "${owner}"}, state_ncontains: "removed"}){
           id
           title
           slug
@@ -574,33 +574,97 @@ export function filterStartup($strapi: Strapi) {
   return async (technologies: Array<string>) => {
     const data = await $strapi.graphql({
       query: `query {
-        startups(where: {technologies: {id_contains: [${technologies}]}}){
+        startups(sort: "id:desc", where: {technologies: {id_contains: [${technologies}]}}){
           id
-            title
-            slug
-            description
-            start_date
-            duration
-            state
-            owner {
+          title
+          slug
+          description
+          start_date
+          duration
+          state
+          positions {
+            id
+            sort
+            status
+            applications{
               id
-              profile{
-                name
-                slug
+              status
+              decline_reason
+              user {
+                id
+                email
+                profile{
+                  id
+                  name
+                  slug
+                  technologies{
+                    id
+                    title
+                  }
+                  experience{
+                    id
+                    title
+                  }
+                }
               }
 
             }
-            technologies {
+            specialisation {
               id
               title
             }
-            positions{
+            technologies{
               id
-              status
+              title
+              is_public
+            }
+          }
+          owner {
+            id
+            profile{
+              name
+              slug
+            }
+            invites{
+              id
+              email
+              is_expert
+              position{
+                id
+                startup{
+                  id
+                }
+                specialisation{
+                  id
+                  title
+                }
+              }
 
             }
-
           }
+          technologies {
+            id
+            title
+          }
+          sources{
+            id
+            title
+            link
+            startups{
+              id
+            }
+          }
+          secrets{
+            id
+            title
+            description
+            startup{
+              id
+            }
+          }
+
+        }
+
       }`,
     });
     return data.startups;

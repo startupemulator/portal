@@ -91,7 +91,8 @@
             card.state === 'finished' ||
             allPositionsStaffed ||
             +card.owner.id === +userId ||
-            userAccepted
+            userAccepted ||
+            userStatus === 'Rejected'
               ? 'width:100%'
               : ''
           "
@@ -104,7 +105,8 @@
             !(+card.owner.id === +userId) &&
             !(card.state === 'finished') &&
             !userAccepted &&
-            !allPositionsStaffed
+            !allPositionsStaffed &&
+            !(userStatus === 'Rejected')
           "
           :href="'/startup/apply/' + card.slug"
           :button-name="'Apply'"

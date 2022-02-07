@@ -53,6 +53,7 @@ export default class extends Vue {
   }
 }
 
+.tags-item.checked,
 .tags-item .checked {
   background: rgba(89, 102, 126, 1);
 }

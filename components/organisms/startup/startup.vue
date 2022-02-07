@@ -307,10 +307,7 @@
         class="startup_block-2"
         :style="finished && isOwner ? 'order:3' : ''"
       >
-        <div
-          v-if="openPosition.length > 0 && !finished"
-          class="startup__open-position"
-        >
+        <div v-if="openPositionIsEmpty" class="startup__open-position">
           <h3>Open positions</h3>
 
           <Open-Position-Card
@@ -573,6 +570,7 @@ export default class extends Vue {
   addFeedBackBadge = false;
   loading = false;
   updateKey: Number = 0;
+  openPositionIsEmpty = false;
 
   deleteApplicationCash = [];
   changedPremissionOnTeam = [];
@@ -701,6 +699,21 @@ export default class extends Vue {
     this.staffedPosition = this.startup.positions.filter(
       (position) => position.status === "staffed"
     );
+
+    if (
+      this.openPosition.length > 0 &&
+      !this.finished &&
+      !this.openPosition.some(
+        (el) =>
+          el.status === "open" &&
+          el.applications.some(
+            (item) => item.status === "declined" && item.user.id === this.userId
+          )
+      )
+    ) {
+      this.openPositionIsEmpty = true;
+    }
+
     this.updateKey = 1;
 
     this.moveAwayStartup = this.startup.id;
@@ -716,9 +729,6 @@ export default class extends Vue {
     this.updatableFeedbacks = feedbacks.filter((el) => el.is_public);
   }
 
-  // feedbackFilterByPrivateFlag(feedbacks) {
-  //   this.newFeedbacksData = feedbacks.filter((el) => !el.is_public);
-  // }
   feedbackFilterByPrivateFlag(feedbacks) {
     this.feedbacksData = feedbacks;
   }

@@ -19,7 +19,9 @@
 
     <div class="position-list__cards">
       <Position-Card
-        v-for="item in position.applications"
+        v-for="item in (applications = position.applications.filter(
+          (el) => el.status !== 'canceled'
+        ))"
         v-show="opendPosition"
         :key="item.id"
         :name="item.user.profile.name"

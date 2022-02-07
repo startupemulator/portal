@@ -14,8 +14,10 @@
                 :id="item.id"
                 :title="item.title"
                 :name="item.title"
+                :class="item.isChecked ? 'checked' : ''"
+                :is-checked="item.isChecked"
                 :type="'checkbox'"
-                @pick="pickTechnologi($event.target)"
+                @pick="pickTechnology(item.id)"
               ></U-Tags>
             </li>
           </ul>
@@ -23,7 +25,7 @@
           <button
             type="button"
             class="start-ups__all-technologies"
-            @click="toggleFilserList"
+            @click="toggleFilterList"
           >
             <span v-show="!filterList">Show All Technologies</span>
             <span v-show="filterList">Show short list Technologies</span>
@@ -55,7 +57,7 @@
         :button-name="'Show More'"
       ></u-button>
       <Empty-State v-if="emptyState" @clickOnButton="cleanFilter"></Empty-State>
-      <App-Team-Develop v-if="!autorizated"></App-Team-Develop>
+      <App-Team-Develop v-if="!authorized"></App-Team-Develop>
     </div>
   </div>
 </template>
@@ -87,13 +89,12 @@ export default class extends Vue {
   @Prop() technologies: Array<Technology>;
   @Prop() emptyState: Boolean;
   @Prop() isExpert: Boolean;
-  @Prop() autorizated: Boolean;
+  @Prop() authorized: Boolean;
   @Prop() userId: string;
   @Prop() waitingFeedback: Array<AskFeedbacks>;
   private filterList: boolean = false;
-  pickedTechnologies: Array<string> = [];
 
-  toggleFilserList() {
+  toggleFilterList() {
     this.filterList = !this.filterList;
   }
 
@@ -104,18 +105,19 @@ export default class extends Vue {
     this.$emit("cleanFilter");
   }
 
-  pickTechnologi(event) {
-    const el = event;
-    if (el.checked & !el.parentElement.classList.contains("checked")) {
-      el.parentElement.classList.add("checked");
-      this.pickedTechnologies.push(["technologies.id", event.id]);
-    } else {
-      this.pickedTechnologies = this.pickedTechnologies.filter(
-        (el) => el[1] !== event.id
-      );
-      el.parentElement.classList.remove("checked");
-    }
-    this.$emit("pickedTechnologies", this.pickedTechnologies);
+  pickTechnology(technologyId) {
+    this.technologies.forEach((technology) => {
+      if (technology.id === technologyId && !technology.isChecked) {
+        technology.isChecked = true;
+      } else if (technology.id === technologyId && technology.isChecked) {
+        technology.isChecked = false;
+      }
+    });
+
+    this.$emit(
+      "pickedTechnologies",
+      this.technologies.filter((el) => el.isChecked)
+    );
   }
 }
 </script>
