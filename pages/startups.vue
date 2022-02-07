@@ -1,6 +1,7 @@
 <template>
   <div v-cloak class="startups-page">
     <Spinner :loading="loading"></Spinner>
+
     <Startups
       :key="updatableKey"
       :startups="startupsList"
@@ -8,7 +9,7 @@
       :empty-state="emptyState"
       :user-id="userId"
       :is-expert="isExpert"
-      :autorizated="autorizated"
+      :authorized="authorized"
       :waiting-feedback="waitingFeedback"
       @pickedTechnologies="filterStartupsList"
       @cleanFilter="cleanFilter"
@@ -33,7 +34,7 @@ export default class extends Vue {
   position = 0;
   isExpert = false;
   updatableKey = 1;
-  autorizated = !!this.$strapi.user;
+  authorized = !!this.$strapi.user;
   userId: Number = this.$strapi.user ? this.$strapi.user.id : null;
 
   async asyncData({
@@ -45,7 +46,9 @@ export default class extends Vue {
   }) {
     const { startups } = await $startups();
     const { technologies } = await $technologies();
-
+    if (technologies !== null) {
+      technologies.forEach((technology) => (technology.isChecked = false));
+    }
     const startupsList = await startups;
     const stateForFilterStartupsByPositions = await startups;
     let userProfile = [];
@@ -95,7 +98,7 @@ export default class extends Vue {
     this.startupsList = startupListFiltredByPosition.filter(
       (v, i, a) => a.findIndex((t) => t.id === v.id) === i
     );
-    // this.checkAskFeedBacks();
+
     if (this.startupsList.length === 0) {
       this.emptyState = true;
     } else {
@@ -117,7 +120,7 @@ export default class extends Vue {
     this.loading = true;
     const technologies = [];
 
-    data.forEach((el) => technologies.push(el[1]));
+    data.forEach((el) => technologies.push(el.id));
 
     if (technologies.length > 0) {
       const newData = await this.$filterStartup(technologies);
