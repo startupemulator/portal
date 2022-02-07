@@ -51,7 +51,7 @@ export function startups($strapi: Strapi) {
     return $strapi.graphql({
       query: `
         query {
-          startups (where: {state_in:[${states
+          startups (sort: "id:desc", where: {state_in:[${states
             .map((i) => `"${i}"`)
             .join(",")}]}){
               id
@@ -298,7 +298,7 @@ export function startupByAcceptedApplication($strapi: Strapi) {
   return async (id: string) => {
     const data = await $strapi.graphql({
       query: `query {
-        startups(where: {positions:{applications:{user: {id: "${id}"}}}}){
+        startups(sort: "id:desc", where: {positions:{applications:{user: {id: "${id}"}}}}){
           id
           title
           slug
@@ -353,7 +353,7 @@ export function myStartups($strapi: Strapi) {
   ) => {
     const data = await $strapi.graphql({
       query: `query {
-        startups(where: {owner:{id: "${owner}"}, state_ncontains: "removed"}){
+        startups(sort: "id:desc", where: {owner:{id: "${owner}"}, state_ncontains: "removed"}){
           id
           title
           slug
@@ -574,7 +574,7 @@ export function filterStartup($strapi: Strapi) {
   return async (technologies: Array<string>) => {
     const data = await $strapi.graphql({
       query: `query {
-        startups(where: {technologies: {id_contains: [${technologies}]}}){
+        startups(sort: "id:desc", where: {technologies: {id_contains: [${technologies}]}}){
           id
             title
             slug
