@@ -308,7 +308,18 @@
         :style="finished && isOwner ? 'order:3' : ''"
       >
         <div
-          v-if="openPosition.length > 0 && !finished"
+          v-if="
+            openPosition.length > 0 &&
+            !finished &&
+            !openPosition.some(
+              (el) =>
+                el.status === 'open' &&
+                el.applications.some(
+                  (item) =>
+                    item.status === 'declined' && item.user.id === userId
+                )
+            )
+          "
           class="startup__open-position"
         >
           <h3>Open positions</h3>
