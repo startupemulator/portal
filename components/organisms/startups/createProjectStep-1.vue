@@ -9,6 +9,7 @@
         :class="$v.title.$error ? ' error' : ''"
       />
     </div>
+    {{ title }}
     <p v-show="$v.title.$error" class="errorInput">
       Please enter a startup name of at least 8 characters
     </p>

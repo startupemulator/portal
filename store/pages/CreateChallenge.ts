@@ -89,7 +89,7 @@ export default class CreateChallenge
     const { sources } = this.state as CreateProjectState;
     const { $createChallenge, $createSourceForChallenge } = context;
     const createdSource = [];
-    challengeName = challengeName.replace(/[^a-zA-Z ]/g, "");
+    challengeName = challengeName.replace(/[^a-zA-Z0-9А-Яа-я ]/g, "");
     challengeDescription = challengeDescription.replace(/(\n)/gm, " \\n ");
     try {
       for (const source of sources) {
@@ -132,7 +132,7 @@ export default class CreateChallenge
     const { $updateChallenge, $createSourceForChallenge } = context;
     const sourcesForChallenge = [];
 
-    challengeName = challengeName.replace(/[^a-zA-Z ]/g, "");
+    challengeName = challengeName.replace(/[^a-zA-Z0-9А-Яа-я ]/g, "");
 
     challengeDescription = challengeDescription.replace(/(\n)/gm, " \\n ");
 

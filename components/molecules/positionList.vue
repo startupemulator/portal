@@ -19,9 +19,7 @@
 
     <div class="position-list__cards">
       <Position-Card
-        v-for="item in (applications = position.applications.filter(
-          (el) => el.status !== 'canceled'
-        ))"
+        v-for="item in applications"
         v-show="opendPosition"
         :key="item.id"
         :name="item.user.profile.name"
@@ -102,7 +100,9 @@ export default class extends Vue {
   }
 
   mounted() {
-    this.applications = this.position.applications;
+    this.applications = this.position.applications.filter(
+      (el) => el.status !== "canceled"
+    );
     this.newAplications = this.applications.filter(
       (position) => position.status === "waiting"
     ).length;

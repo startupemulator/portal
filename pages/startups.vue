@@ -110,7 +110,7 @@ export default class extends Vue {
 
   cleanFilter() {
     this.loading = true;
-
+    this.technologies.forEach((technology) => (technology.isChecked = false));
     this.stateForFilterStartupsByPositions = this.startups;
     this.filterByPosition(this.position);
     setTimeout(() => (this.loading = false), 300);
@@ -171,7 +171,6 @@ export default class extends Vue {
         }
       });
       this.waitingFeedback = stateWaitingForFeedback;
-      console.log(this.waitingFeedback);
     }
   }
 }
