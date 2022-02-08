@@ -62,4 +62,14 @@ export default class AppFooter extends Vue {
 a.flat {
   font-weight: normal;
 }
+
+button.flat {
+  background: transparent;
+  padding: 0;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 32px;
+  color: #8c97ac;
+  margin-bottom: 16px;
+}
 </style>
