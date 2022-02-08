@@ -124,7 +124,7 @@ export default class extends Vue {
 
     if (technologies.length > 0) {
       const newData = await this.$filterStartup(technologies);
-
+      console.log(newData);
       this.startupsList = newData.filter((el) => el.state !== "review");
       this.stateForFilterStartupsByPositions = newData.filter(
         (el) => el.state !== "review"
