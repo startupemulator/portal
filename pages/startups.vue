@@ -121,7 +121,7 @@ export default class extends Vue {
     const technologies = [];
 
     data.forEach((el) => technologies.push(el.id));
-    console.log(technologies);
+
     if (technologies.length > 0) {
       const newData = await this.$filterStartup(technologies);
       console.log(newData);
