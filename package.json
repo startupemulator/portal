@@ -36,6 +36,7 @@
     "autoprefixer": "^10.3.7",
     "axios": "^0.23.0",
     "core-js": "^3.18.3",
+    "gleap": "^6.7.5",
     "nuxt": "^2.15.8",
     "nuxt-device-detect": "^1.1.5",
     "nuxt-helmet": "^2.0.1",

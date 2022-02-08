@@ -21,6 +21,7 @@
 </template>
 <script lang="ts">
 import { Component, Watch, Vue } from "nuxt-property-decorator";
+import Gleap from "gleap";
 import { UserNotification } from "../models/UserNotifications";
 import Spinner from "../components/molecules/spinner.vue";
 import AppFooter from "~/components/molecules/appFooter.vue";
@@ -58,6 +59,10 @@ export default class extends Vue {
         console.error(e);
       }
     }
+  }
+
+  mounted() {
+    Gleap.initialize("2YSClmgIQqXRgFyp3v4bvJKnd2CJgbM9");
   }
 
   async markNotificationIsReaded(id) {
