@@ -28,18 +28,35 @@
             >Submit a bug</a
           >
         </li>
-        <li class="main-footer__item main-footer__item-c">
-          <a class="flat" href="https://www.linkedin.com/in/serhiirevva/"
-            >Design by Serhii Revva</a
-          >
+        <li class="main-footer__item main-footer__item-c design">
+          <button class="flat" @click="toggleDesignPopup">
+            Design by Serhii Revva
+          </button>
         </li>
         <li class="main-footer__item main-footer__item-c">
           (c) 2020-2022 Startup Emulator
         </li>
       </ul>
     </div>
+    <PopupDesign
+      v-show="designPopupIsOpen"
+      @closePopup="toggleDesignPopup"
+    ></PopupDesign>
   </footer>
 </template>
+<script lang="ts">
+import { Component, Vue } from "nuxt-property-decorator";
+import PopupDesign from "~/components/molecules/popupDesign.vue";
+@Component({
+  components: { PopupDesign },
+})
+export default class AppFooter extends Vue {
+  designPopupIsOpen = false;
+  toggleDesignPopup() {
+    this.designPopupIsOpen = !this.designPopupIsOpen;
+  }
+}
+</script>
 
 <style>
 a.flat {

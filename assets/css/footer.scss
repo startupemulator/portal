@@ -79,9 +79,21 @@
       .main-footer__item-c {
         order: 1;
         margin-right: auto;
+        margin-left: auto;
         font-weight: normal;
         font-size: 18px;
         line-height: 32px;
+      }
+    }
+
+    .main-footer__item-c.design {
+      button.flat {
+        order: 1;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 32px;
+        background-color: transparent;
+        color: #8c97ac;
       }
     }
   }
