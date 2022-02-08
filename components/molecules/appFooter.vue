@@ -23,7 +23,7 @@
             ></a
           >
         </li>
-        <li class="main-footer__item main-footer__item-c"></li>
+        <li class="main-footer__item main-footer__item-c">&nbsp;</li>
         <li class="main-footer__item main-footer__item-c design">
           <button class="flat" @click="toggleDesignPopup">
             Design by Serhii Revva
