@@ -297,7 +297,7 @@ export default class extends Vue {
           !el.feedbacks.some((item) => +item.expert.id === +this.userId)
       );
     }
-    if (this.profile !== null) {
+    if (this.profile !== null && this.profile.technologies) {
       this.profile.technologies.forEach(
         (technology) => (technology.checked = false)
       );

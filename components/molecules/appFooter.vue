@@ -3,33 +3,46 @@
     <div class="main-footer__content">
       <ul class="main-footer__list">
         <li class="main-footer__item">
-          <a href="#"
+          <a href="https://t.me/startupemulator"
             ><img src="~/assets/img/telegram.svg" alt="Telegram" /><span
               >Telegram</span
             ></a
           >
         </li>
         <li class="main-footer__item">
-          <a href="#"
+          <a href="https://www.facebook.com/StartupEmulator"
             ><img src="~/assets/img/facebook.svg" alt="Facebook" /><span
               >Facebook</span
             ></a
           >
         </li>
         <li class="main-footer__item">
-          <a href="#"
-            ><img src="~/assets/img/twitter.svg" alt="Twitter" /><span
-              >Twitter</span
+          <a href="https://github.com/startupemulator"
+            ><img width="24" src="~/assets/img/github.svg" alt="Github" /><span
+              >Github</span
             ></a
           >
         </li>
         <li class="main-footer__item main-footer__item-c">
-          (c) 2020 Startup Emulator
+          <a class="flat" href="https://airtable.com/shrUiyKlvVp9xRanB"
+            >Submit a bug</a
+          >
+        </li>
+        <li class="main-footer__item main-footer__item-c">
+          <a class="flat" href="https://www.linkedin.com/in/serhiirevva/"
+            >Design by Serhii Revva</a
+          >
+        </li>
+        <li class="main-footer__item main-footer__item-c">
+          (c) 2020-2022 Startup Emulator
         </li>
       </ul>
     </div>
   </footer>
 </template>
-<script>
-export default {};
-</script>
+
+<style>
+a.flat {
+  font-weight: normal;
+}
+</style>

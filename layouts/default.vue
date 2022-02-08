@@ -1,10 +1,9 @@
 <template>
   <div>
     <App-Header
-      :key="isLogined"
       :current-route="currentRoute"
-      :is-logined="isLogined"
-      :user="user"
+      :is-logined="!!$strapi.getToken()"
+      :user="$strapi.user"
       :notifications="notifications"
       :is-expert="isExpert"
       :new-notification-count="newNotificationCount"
@@ -37,7 +36,6 @@ import Toast from "~/components/molecules/toast.vue";
   },
 })
 export default class extends Vue {
-  isLogined = !!this.$strapi.user;
   user = this.$strapi.user ? this.$strapi.user.name : "";
   currentRoute = this.$router.currentRoute.name;
   notifications: Array<Partial<UserNotification>> = [];
@@ -111,10 +109,9 @@ export default class extends Vue {
 
   @Watch("$strapi", { immediate: true, deep: true })
   onLogin() {
-    this.isLogined = !!this.$strapi.user;
     this.user = this.$strapi.user ? this.$strapi.user.name : "";
 
-    if (this.isLogined) {
+    if (this.$strapi.getToken()) {
       this.downloadNotifications();
       this.checkNewNotifications();
     }

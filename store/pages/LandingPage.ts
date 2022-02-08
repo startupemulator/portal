@@ -3,6 +3,7 @@ import { Challenge } from "../../models/Challenge";
 import { Technology } from "../../models/Technology";
 import { Testimonial } from "../../models/Testimonial";
 import { NuxtContext } from "../../types/services";
+import { Settings } from "../../models/Settings";
 import { Startup } from "~/models/Startup";
 
 export interface LandingPageState {
@@ -10,8 +11,10 @@ export interface LandingPageState {
   challenges: Challenge[];
   technologies: Technology[];
   testimonials: Testimonial[];
+  settings: Settings;
   confirmedEmail: boolean;
   passwordless: boolean;
+  githubLogin: boolean;
 }
 
 @Module({ name: "Landing", namespaced: true })
@@ -19,29 +22,37 @@ export default class LandingPage
   extends VuexModule
   implements LandingPageState
 {
+  state: LandingPageState;
   passwordless = false;
+  githubLogin = false;
   confirmedEmail = false;
   startups: Startup[] = [];
   challenges: Challenge[] = [];
   technologies: Technology[] = [];
   testimonials: Testimonial[] = [];
+  settings: Settings = {};
 
-  @MutationAction
+  @MutationAction({
+    mutate: [
+      "settings",
+      "startups",
+      "challenges",
+      "testimonials",
+      "technologies",
+    ],
+  })
   async init(context: NuxtContext) {
-    try {
-      const { startups } = await context.$startups();
-      const { challenges } = await context.$challenges();
-      const { testimonials } = await context.$testimonials();
-      const { technologies } = await context.$technologies();
-      return { startups, challenges, testimonials, technologies };
-    } catch (e) {
-      console.log(e);
-    }
+    const settings = await context.$settings();
+    const { startups } = await context.$startups();
+    const { challenges } = await context.$challenges();
+    const { testimonials } = await context.$testimonials();
+    const { technologies } = await context.$technologies();
+    return { startups, challenges, testimonials, technologies, settings };
   }
 
-  @MutationAction
-  moveRightStartups() {
-    const { startups } = this.state as LandingPageState;
+  @MutationAction({ mutate: ["startups"] })
+  async moveRightStartups() {
+    const { startups } = await this.state;
     return {
       startups: [
         startups[startups.length - 1],
@@ -51,16 +62,16 @@ export default class LandingPage
   }
 
   @MutationAction
-  moveLeftStartups() {
-    const { startups } = this.state as LandingPageState;
+  async moveLeftStartups() {
+    const { startups } = await this.state;
     return {
       startups: [...startups.slice(1), startups[0]],
     };
   }
 
   @MutationAction
-  moveRightChallenges() {
-    const { challenges } = this.state as LandingPageState;
+  async moveRightChallenges() {
+    const { challenges } = await this.state;
     return {
       challenges: [
         challenges[challenges.length - 1],
@@ -70,16 +81,16 @@ export default class LandingPage
   }
 
   @MutationAction
-  moveLeftChallenges() {
-    const { challenges } = this.state as LandingPageState;
+  async moveLeftChallenges() {
+    const { challenges } = await this.state;
     return {
       challenges: [...challenges.slice(1), challenges[0]],
     };
   }
 
   @MutationAction
-  moveRightTestimonials() {
-    const { testimonials } = this.state as LandingPageState;
+  async moveRightTestimonials() {
+    const { testimonials } = await this.state;
     return {
       testimonials: [
         testimonials[testimonials.length - 1],
@@ -89,8 +100,8 @@ export default class LandingPage
   }
 
   @MutationAction
-  moveLeftTestimonials() {
-    const { testimonials } = this.state as LandingPageState;
+  async moveLeftTestimonials() {
+    const { testimonials } = await this.state;
     return {
       testimonials: [...testimonials.slice(1), testimonials[0]],
     };
@@ -133,6 +144,30 @@ export default class LandingPage
     }
     return {
       passwordless,
+    };
+  }
+
+  @MutationAction
+  async authGithub(context: NuxtContext) {
+    const githubLogin = false;
+    const { route, $strapi } = context;
+    if (route.query.access_token && route.query.access_token.length > 10) {
+      try {
+        await $strapi.clearToken();
+        const data: { jwt: string; user: any } = await $strapi.$http.$get(
+          "/auth/github/callback",
+          {
+            searchParams: { access_token: route.query.access_token } as any,
+          }
+        );
+        await $strapi.setUser(data.user);
+        await $strapi.setToken(data.jwt);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    return {
+      githubLogin,
     };
   }
 }

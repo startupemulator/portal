@@ -23,6 +23,7 @@ import { TestimonialsServices } from "~/plugins/services/testimonials";
 import { UserServices } from "~/plugins/services/user";
 import { UserChallengesServices } from "~/plugins/services/user-challenges";
 import { StartupsServices } from "~/plugins/services/startups";
+import { SettingsServices } from "~/plugins/services/settings";
 
 export interface Services
   extends ApplicationsServices,
@@ -43,6 +44,7 @@ export interface Services
     ProfileServices,
     ReleasesServices,
     SecretsServices,
+    SettingsServices,
     SolutionsServices,
     SourcesServices,
     StartupsServices,
