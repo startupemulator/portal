@@ -94,7 +94,7 @@ jobs:
         if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
         with:
           urls: https://${{secrets.PLUM_HOST}}/
-          budgetPath: ./budget.json # test performance budgets
+#          budgetPath: ./budget.json # test performance budgets
           uploadArtifacts: true # save results as an action artifacts
           temporaryPublicStorage: true # upload lighthouse report to the temporary storage
 
