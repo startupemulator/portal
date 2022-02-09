@@ -62,7 +62,24 @@ export default class extends Vue {
   }
 
   mounted() {
-    Gleap.initialize("2YSClmgIQqXRgFyp3v4bvJKnd2CJgbM9");
+    this.$strapi.hook("userUpdated", (user) => {
+      if (!user) {
+        Gleap.clearIdentity();
+      } else {
+        Gleap.identify(user.username, {
+          name: user.profile.name,
+          email: user.email,
+        });
+      }
+    });
+    if (this.$strapi.user) {
+      Gleap.identify(this.$strapi.user.username, {
+        name: this.$strapi.user.profile.name,
+        email: this.$strapi.user.email,
+      });
+    } else {
+      Gleap.clearIdentity();
+    }
   }
 
   async markNotificationIsReaded(id) {
