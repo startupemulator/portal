@@ -36,6 +36,7 @@ export default class extends Vue {
   align-items: center;
   border-color: #404c5f;
   background-color: $button-color-gray;
+  margin-bottom: 16px;
 
   &:hover {
     background-color: $button-color-gray-hover;
