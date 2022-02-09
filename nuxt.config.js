@@ -42,6 +42,7 @@ export default {
     "@nuxtjs/eslint-module",
     "@nuxt/typescript-build",
     "@nuxtjs/device",
+    "@nuxtjs/google-analytics"
     // "nuxt-purgecss",
   ],
   typescript: {
@@ -72,13 +73,8 @@ export default {
     position: "top-right",
     duration: 3000,
   },
-  proxy: {
-    "/api/v1": {
-      target: process.env.STRAPI_URL || "https://pear.startupemulator.com",
-      pathRewrite: {
-        "^/api/v1": "/",
-      },
-    },
+  googleAnalytics: {
+    id: 'UA-170803471-1'
   },
   env: {
     baseURL: process.env.BASE_URL,
