@@ -42,7 +42,7 @@ export default {
     "@nuxtjs/eslint-module",
     "@nuxt/typescript-build",
     "@nuxtjs/device",
-    "@nuxtjs/google-analytics"
+    "@nuxtjs/google-analytics",
     // "nuxt-purgecss",
   ],
   typescript: {
@@ -74,7 +74,7 @@ export default {
     duration: 3000,
   },
   googleAnalytics: {
-    id: 'UA-170803471-1'
+    id: "UA-170803471-1"
   },
   env: {
     baseURL: process.env.BASE_URL,
