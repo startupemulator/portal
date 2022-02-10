@@ -859,7 +859,8 @@ export default class extends Vue {
   async updateStartup(data) {
     Spinner.show();
     try {
-      const title = data.title.replace(/[^a-zA-Z0-9А-Яа-я ]/g, "");
+      // const title = data.title.replace(/[^a-zA-Z0-9А-Яа-я ]/g, "");
+      const title = data.title;
       const description = data.description.replace(/(\n)/gm, " \\n ");
       const updateStartup = await this.$updateStartupInfo(
         this.startup.id,

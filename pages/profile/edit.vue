@@ -24,7 +24,7 @@
         :title="'Total years of your experience'"
         :experiences="EditProfilePage.experiences"
         :duration="choosenExperiences"
-        @clickOnDuration="EditProfilePage.changeTotalExperience($event)"
+        @clickOnDuration="clickOnDuration"
       ></Duration-Experiense-Picker>
       <p v-show="$v.choosenExperiences.$error" class="errorInput">
         Please choose total years of your experience
@@ -95,6 +95,14 @@ export default class extends Vue {
 
   async asyncData(context) {
     await EditProfilePage.init(context);
+  }
+
+  clickOnDuration(experience) {
+    this.choosenExperiences = experience.id;
+    this.$v.$touch();
+    if (!this.$v.$error) {
+      EditProfilePage.changeTotalExperience(experience);
+    }
   }
 
   userName = EditProfilePage.profile?.name;
