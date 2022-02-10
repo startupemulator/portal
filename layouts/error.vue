@@ -17,7 +17,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator";
 import AppHeader from "~/components/molecules/appHeader";
 import AppFooter from "~/components/molecules/appFooter";
@@ -32,7 +32,7 @@ import Spinner from "~/components/molecules/spinner";
     Spinner,
   },
 })
-export default class extends Vue {
+export default class ErrorLayout extends Vue {
   @Prop() error;
   layout = "error";
   showDetails = false;

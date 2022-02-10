@@ -21,7 +21,7 @@ export default {
     base: "/",
   },
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ["@assets/css/main.scss"],
+  css: ["@assets/css/main.scss", "@node_modules/gleap/build/index.min.css"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -29,6 +29,7 @@ export default {
     { src: "~/plugins/filters.ts" },
     { src: "~/plugins/services/index.ts" },
     { src: "~plugins/vue-touch" },
+    { src: "~plugins/gleap", mode: "client" },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -41,6 +42,7 @@ export default {
     "@nuxtjs/eslint-module",
     "@nuxt/typescript-build",
     "@nuxtjs/device",
+    "@nuxtjs/google-analytics",
     // "nuxt-purgecss",
   ],
   typescript: {
@@ -71,13 +73,8 @@ export default {
     position: "top-right",
     duration: 3000,
   },
-  proxy: {
-    "/api/v1": {
-      target: process.env.STRAPI_URL || "https://pear.startupemulator.com",
-      pathRewrite: {
-        "^/api/v1": "/",
-      },
-    },
+  googleAnalytics: {
+    id: "UA-170803471-1",
   },
   env: {
     baseURL: process.env.BASE_URL,

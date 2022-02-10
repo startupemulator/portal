@@ -21,6 +21,7 @@
 </template>
 <script lang="ts">
 import { Component, Watch, Vue } from "nuxt-property-decorator";
+import Gleap from "gleap";
 import { UserNotification } from "../models/UserNotifications";
 import Spinner from "../components/molecules/spinner.vue";
 import AppFooter from "~/components/molecules/appFooter.vue";
@@ -57,6 +58,27 @@ export default class extends Vue {
       } catch (e) {
         console.error(e);
       }
+    }
+  }
+
+  mounted() {
+    this.$strapi.hook("userUpdated", (user) => {
+      if (!user) {
+        Gleap.clearIdentity();
+      } else {
+        Gleap.identify(user.username, {
+          name: user.profile.name,
+          email: user.email,
+        });
+      }
+    });
+    if (this.$strapi.user) {
+      Gleap.identify(this.$strapi.user.username, {
+        name: this.$strapi.user.profile.name,
+        email: this.$strapi.user.email,
+      });
+    } else {
+      Gleap.clearIdentity();
     }
   }
 
