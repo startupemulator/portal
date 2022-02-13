@@ -67,7 +67,7 @@ export default {
     "@nuxtjs/proxy",
     "@nuxtjs/toast",
     "nuxt-device-detect",
-    'nuxt-facebook-pixel-module',
+    "nuxt-facebook-pixel-module",
     // "nuxt-helmet",
   ],
   toast: {
@@ -75,9 +75,9 @@ export default {
     duration: 3000,
   },
   facebook: {
-    track: 'PageView',
-    pixelId: '1019374148647435',
-    autoPageView: true
+    track: "PageView",
+    pixelId: "1019374148647435",
+    autoPageView: true,
   },
   googleAnalytics: {
     id: "UA-170803471-1",
