@@ -7,6 +7,10 @@ export default {
       lang: "en",
     },
     meta: [
+      {
+        name: "facebook-domain-verification",
+        content: "sp2qb6zqlwb946mbvt1k7weioytdyc",
+      },
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { hid: "description", name: "description", content: "" },
