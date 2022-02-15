@@ -52,17 +52,24 @@ export default class extends Vue {
     const startupsList = await startups;
     const stateForFilterStartupsByPositions = await startups;
     let userProfile = [];
+    let isExpert = false;
     if ($strapi.user) {
       userProfile = await $profile($strapi.user.id);
+      isExpert = userProfile.is_expert;
     }
-    const waitingFeedbackState = await $askFeedbacksForStartup();
+    let waitingFeedbackState = [];
+    let waitingFeedback = [];
+    if (isExpert) {
+      waitingFeedbackState = await $askFeedbacksForStartup();
 
-    const waitingFeedback = waitingFeedbackState.filter(
-      (v, i, a) =>
-        a.findIndex(
-          (t) => t.startup.id === v.startup.id && t.startup.state !== "finished"
-        ) === i
-    );
+      waitingFeedback = waitingFeedbackState.filter(
+        (v, i, a) =>
+          a.findIndex(
+            (t) =>
+              t.startup.id === v.startup.id && t.startup.state !== "finished"
+          ) === i
+      );
+    }
     return {
       startupsList,
       technologies,
@@ -149,9 +156,6 @@ export default class extends Vue {
 
   mounted() {
     this.filterByPosition(this.position);
-    if (this.userProfile.is_expert !== undefined) {
-      this.isExpert = this.userProfile.is_expert;
-    }
 
     this.updatableKey += 1;
     this.checkAskFeedBacks();
