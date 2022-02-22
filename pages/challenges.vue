@@ -69,9 +69,6 @@ export default class extends Vue {
   }
 
   async filterCards() {
-    const filteredByDifficulty = [];
-    const filteredBySpecialisations = [];
-
     try {
       Spinner.show();
       const filteredChallenges = await this.$challenges(
@@ -80,11 +77,7 @@ export default class extends Vue {
       );
 
       this.challengesList = filteredChallenges.challenges;
-      if (this.challengesList.length === 0) {
-        this.emptyState = true;
-      } else {
-        this.emptyState = false;
-      }
+      this.emptyState = this.challengesList.length === 0;
     } catch (e) {
       console.error(e);
     } finally {

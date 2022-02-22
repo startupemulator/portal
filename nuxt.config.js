@@ -7,6 +7,10 @@ export default {
       lang: "en",
     },
     meta: [
+      {
+        name: "facebook-domain-verification",
+        content: "sp2qb6zqlwb946mbvt1k7weioytdyc",
+      },
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { hid: "description", name: "description", content: "" },
@@ -67,11 +71,17 @@ export default {
     "@nuxtjs/proxy",
     "@nuxtjs/toast",
     "nuxt-device-detect",
+    "nuxt-facebook-pixel-module",
     // "nuxt-helmet",
   ],
   toast: {
     position: "top-right",
     duration: 3000,
+  },
+  facebook: {
+    track: "PageView",
+    pixelId: "1019374148647435",
+    autoPageView: true,
   },
   googleAnalytics: {
     id: "UA-170803471-1",

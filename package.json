@@ -39,6 +39,7 @@
     "gleap": "^6.7.5",
     "nuxt": "^2.15.8",
     "nuxt-device-detect": "^1.1.5",
+    "nuxt-facebook-pixel-module": "^1.5.0",
     "nuxt-helmet": "^2.0.1",
     "nuxt-property-decorator": "^2.9.1",
     "ts-node": "^10.3.0",
