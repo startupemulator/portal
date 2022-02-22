@@ -353,7 +353,8 @@ export function myStartups($strapi: Strapi) {
   ) => {
     const data = await $strapi.graphql({
       query: `query {
-        startups(sort: "id:desc", where: {owner:{id: "${owner}"}, state_ncontains: "removed"}){
+        startups(sort: "id:desc",
+         where: {owner:{id: "${owner}"}, state_ncontains: "removed"}){
           id
           title
           slug
@@ -571,10 +572,16 @@ export function addTechnologiesStartup($strapi: Strapi) {
   };
 }
 export function filterStartup($strapi: Strapi) {
-  return async (technologies: Array<string>) => {
+  return async (
+    technologies: Array<string>,
+    states: string[] = ["in_progress", "not_started", "finished"]
+  ) => {
     const data = await $strapi.graphql({
       query: `query {
-        startups(sort: "id:desc", where: {technologies: {id_contains: [${technologies}]}}){
+        startups(sort: "id:desc",
+         where: {technologies: {id_eq: [${technologies}]}, state_in:[${states
+        .map((i) => `"${i}"`)
+        .join(",")}]}){
           id
           title
           slug
