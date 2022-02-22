@@ -86,6 +86,7 @@ import {
   disableScrolling,
   enableScrolling,
 } from "~/assets/jshelper/toggleScroll.js";
+import { Authenticated } from "~/store";
 
 @Component({
   validations: {
@@ -109,6 +110,12 @@ import {
   },
 })
 export default class extends Vue {
+  Authenticated;
+  constructor() {
+    super();
+    this.Authenticated = Authenticated;
+  }
+
   email: string = "";
   password: string = "";
   popupEmailLink: boolean = false;
@@ -122,6 +129,7 @@ export default class extends Vue {
           password: this.password,
         });
         if (userLogin) {
+          Authenticated.init(this);
           const user: Partial<User> = await this.$getUserByEmail(this.email);
           if (user.profile.name === null || user.profile.name === "") {
             this.$nuxt.$router.push("/profile/?editProfile");

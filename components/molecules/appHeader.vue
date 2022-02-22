@@ -288,7 +288,6 @@ import { Notification } from "~/models/Notification";
 export default class AppHeader extends Vue {
   @Prop() currentRoute: string;
   @Prop() isLogined: Boolean;
-  @Prop() user: string;
   @Prop() notifications: Array<Notification>;
   @Prop() isExpert: boolean;
   @Prop() newNotificationCount: number;

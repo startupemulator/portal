@@ -1,9 +1,8 @@
 <template>
   <div>
     <App-Header
-      :current-route="currentRoute"
-      :is-logined="!!$strapi.getToken()"
-      :user="$strapi.user"
+      :current-route="$router.currentRoute.fullPath"
+      :is-logined="Authenticated.isLogined"
       :notifications="notifications"
       :is-expert="isExpert"
       :new-notification-count="newNotificationCount"
@@ -20,13 +19,14 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Watch, Vue } from "nuxt-property-decorator";
+import { Component, Vue } from "nuxt-property-decorator";
 import Gleap from "gleap";
 import { UserNotification } from "../models/UserNotifications";
 import Spinner from "../components/molecules/spinner.vue";
 import AppFooter from "~/components/molecules/appFooter.vue";
 import AppHeader from "~/components/molecules/appHeader.vue";
 import Toast from "~/components/molecules/toast.vue";
+import { Authenticated } from "~/store";
 
 @Component({
   components: {
@@ -37,6 +37,12 @@ import Toast from "~/components/molecules/toast.vue";
   },
 })
 export default class extends Vue {
+  Authenticated;
+  constructor() {
+    super();
+    this.Authenticated = Authenticated;
+  }
+
   user = this.$strapi.user ? this.$strapi.user.name : "";
   currentRoute = this.$router.currentRoute.name;
   notifications: Array<Partial<UserNotification>> = [];
@@ -45,6 +51,7 @@ export default class extends Vue {
   newNotificationCount: number = 0;
   notificationByMyProjects = false;
   notificationByFeedback = false;
+
   async downloadNotifications() {
     if (this.$strapi.user && this.$strapi.user.id) {
       try {
@@ -80,6 +87,11 @@ export default class extends Vue {
     } else {
       Gleap.clearIdentity();
     }
+    if (this.$strapi.getToken()) {
+      this.downloadNotifications();
+      this.checkNewNotifications();
+    }
+    Authenticated.init(this);
   }
 
   async markNotificationIsReaded(id) {
@@ -122,21 +134,6 @@ export default class extends Vue {
     this.checkNotificationCount();
 
     this.notificationLoading = false;
-  }
-
-  @Watch("$route", { immediate: true, deep: true })
-  onUrlChange() {
-    this.currentRoute = this.$router.currentRoute.fullPath;
-  }
-
-  @Watch("$strapi", { immediate: true, deep: true })
-  onLogin() {
-    this.user = this.$strapi.user ? this.$strapi.user.name : "";
-
-    if (this.$strapi.getToken()) {
-      this.downloadNotifications();
-      this.checkNewNotifications();
-    }
   }
 
   get state() {
@@ -189,7 +186,6 @@ export default class extends Vue {
   async filterNotificationByMyProjects() {
     this.notificationByMyProjects = true;
     this.notificationByFeedback = false;
-    // flags for auto update
     this.notificationLoading = true;
     try {
       this.notifications = await this.$userNotifications(this.$strapi.user.id);
@@ -205,7 +201,6 @@ export default class extends Vue {
   async filterNotificationByFeedback() {
     this.notificationByMyProjects = false;
     this.notificationByFeedback = true;
-    // flags for auto update
     this.notificationLoading = true;
     try {
       this.notifications = await this.$userNotifications(this.$strapi.user.id);
