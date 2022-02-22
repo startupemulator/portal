@@ -39,7 +39,7 @@ import UTitle from "../atoms/uTitle.vue";
 })
 export default class extends Vue {}
 </script>
-<style scoped>
+<style>
 .leave-project .signing-up-link-sent .signing-up-link-sent__content {
   min-height: 112px;
   margin-top: 175px;
