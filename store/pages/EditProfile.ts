@@ -100,7 +100,7 @@ export default class EditProfile
 
   @MutationAction
   removePersonalAddedTechnologies(technologies) {
-    const personalAddedTechnologies = technologies;
+    const personalAddedTechnologies = JSON.parse(JSON.stringify(technologies));
     return {
       personalAddedTechnologies,
     };

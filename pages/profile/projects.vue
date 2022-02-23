@@ -1,4 +1,4 @@
-<template v-cloak>
+<template>
   <div class="projects" :class="myStartups.length === 0 ? 'full-screen' : ''">
     <My-Projects
       :key="updateFlag"
@@ -108,10 +108,6 @@ export default class extends Vue {
       });
       Spinner.hide();
     }
-  }
-
-  @Watch("myStartups")
-  startupUpdate() {
     this.updateFlag += 1;
   }
 }

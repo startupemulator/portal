@@ -877,7 +877,6 @@ export default class extends Vue {
         this.updatableDataStartup = updateStartup;
         Spinner.hide();
         this.$router.push(updateStartup.slug);
-        // this.toggleEditStartupInfo();
 
         scrollToHeader();
       }

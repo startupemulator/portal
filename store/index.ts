@@ -4,6 +4,7 @@ import { getModule } from "vuex-module-decorators";
 import Landing, { LandingPageState } from "./pages/LandingPage";
 import EditProfile, { EditProfileState } from "./pages/EditProfile";
 import CreateProject, { CreateProjectState } from "./pages/CreateProject";
+import LoginState, { LoginStateInterface } from "./LoginState";
 import StartupPage, { StartupPageState } from "./pages/Startup";
 import CreateChallenge, { CreateChallengeState } from "./pages/CreateChallenge";
 import { SpinnerState } from "./modules/Spinner";
@@ -17,6 +18,7 @@ interface RootState {
   CreateProject: CreateProjectState;
   StartupPage: StartupPageState;
   CreateChallenge: CreateChallengeState;
+  LoginState: LoginStateInterface;
 }
 
 Vue.use(Vuex);
@@ -28,6 +30,7 @@ export const store = new Store<RootState>({
     CreateProject,
     StartupPage,
     CreateChallenge,
+    LoginState,
   },
   actions: {
     nuxtServerInit: () => {},
@@ -42,3 +45,4 @@ export const EditProfilePage = getModule(EditProfile, store);
 export const CreateProjectPage = getModule(CreateProject, store);
 export const Startup = getModule(StartupPage, store);
 export const Challenge = getModule(CreateChallenge, store);
+export const Authenticated = getModule(LoginState, store);

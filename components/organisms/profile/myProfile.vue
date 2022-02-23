@@ -104,6 +104,7 @@ import { Feedbacks } from "~/models/Feedbacks";
 import { scrollToHeader } from "~/assets/jshelper/scrollToHeader";
 import { Badges } from "~/models/Badges";
 import Spinner from "~/store/modules/Spinner";
+import { Authenticated } from "~/store";
 
 @Component({
   components: {
@@ -118,6 +119,12 @@ import Spinner from "~/store/modules/Spinner";
   },
 })
 export default class extends Vue {
+  Authenticated;
+  constructor() {
+    super();
+    this.Authenticated = Authenticated;
+  }
+
   @Prop() startups: Array<Startup>;
   @Prop() technologies: Array<Technology>;
   @Prop() publickTechnologies: Array<Technology>;
@@ -139,6 +146,7 @@ export default class extends Vue {
 
   logOut() {
     this.$strapi.logout();
+    Authenticated.init(this);
     this.$nuxt.$router.push("/");
   }
 
