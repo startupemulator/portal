@@ -107,11 +107,6 @@ export default class extends Vue {
     this.profile = await this.$profile(this.$strapi.user.id);
     this.myTechnologies = this.profile.technologies;
   }
-
-  @Watch("profile")
-  updateComponetn() {
-    this.updatePageAfterSendNewDataInProfile += 1;
-  }
 }
 </script>
 <style lang="scss">
