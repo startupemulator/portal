@@ -99,6 +99,7 @@ export default class extends Vue {
 
   deleteStartup(startupName, startupId) {
     this.$emit("deleteDraft", startupId, startupName);
+    this.popupDeleteStartup = !this.popupDeleteStartup;
   }
 
   deleteDraft(id, title) {
