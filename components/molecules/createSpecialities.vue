@@ -77,7 +77,7 @@
             class="button_pick_technologyes"
             @click="openPopupPickTechnologies"
           >
-            Edit technologyes
+            Edit technologies
           </button>
         </ul>
         <button
@@ -95,7 +95,7 @@
           "
           @click="openPopupPickTechnologies"
         >
-          Pick technologyes for this speciality
+          Pick technologies for this speciality
         </button>
       </div>
     </div>
@@ -103,7 +103,7 @@
       <div class="technology-popup__pick-technology step-1">
         <div class="pick-technology__content">
           <h2>
-            Pick technologyes you need to use within
+            Pick technologies you need to use within
             <span>{{ chosenSpeciality }}</span> developer speciality
           </h2>
           <div class="step-1__experience">

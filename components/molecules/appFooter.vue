@@ -30,7 +30,8 @@
           </button>
         </li>
         <li class="main-footer__item main-footer__item-c">
-          (c) 2020-2022 Startup Emulator
+          © 2020-2022
+          <a href="http://github.com/kucherenko">Andrey Kucherenko</a>
         </li>
       </ul>
     </div>
