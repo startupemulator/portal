@@ -13,14 +13,12 @@
 
       <h3 v-if="$device.isMobile">
         {{
-          "There is a description of this projects, where a product owner should describe his idea, main there is a description of this projects, where a product owner should describe his idea."
+          "We will assemble a team of developers to implement your idea. In the final stage we will invite experts to evaluate the resulting application. Start the real development process on our platform!"
             | truncate(176, "...")
         }}
       </h3>
       <h3 v-else>
-        There is a description of this projects, where a product owner should
-        describe his idea, main there is a description of this projects, where a
-        product owner should describe his idea.
+        We will assemble a team of developers to implement your idea. In the final stage we will invite experts to evaluate the resulting application. Start the real development process on our platform!
       </h3>
 
       <U-Button
