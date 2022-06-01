@@ -13,12 +13,15 @@
 
       <h3 v-if="$device.isMobile">
         {{
-          "We will assemble a team of developers to implement your idea. In the final stage we will invite experts to evaluate the resulting application. Start the real development process on our platform!"
+          ("We will assemble a team of developers to implement your idea. In the final stage we " +
+            "will invite experts to evaluate the resulting application. Start the real development process on our platform!")
             | truncate(176, "...")
         }}
       </h3>
       <h3 v-else>
-        We will assemble a team of developers to implement your idea. In the final stage we will invite experts to evaluate the resulting application. Start the real development process on our platform!
+        We will assemble a team of developers to implement your idea. In the
+        final stage we will invite experts to evaluate the resulting
+        application. Start the real development process on our platform!
       </h3>
 
       <U-Button

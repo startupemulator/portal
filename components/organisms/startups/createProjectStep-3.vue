@@ -3,7 +3,8 @@
     <h2>Add existing sources</h2>
     <h3>
       Add links on design, userflows, repositories, etc., which will be used
-      during the project’s development. You can skip this step for now (only approved team members can see it).
+      during the project’s development. You can skip this step for now (only
+      approved team members can see it).
     </h3>
     <Add-Existing-Source
       v-for="(sources, i) in startupData.sources"
