@@ -35,6 +35,7 @@
       @slideRight="LandingPage.moveRightTestimonials()"
       @slideLeft="LandingPage.moveLeftTestimonials()"
     ></App-Testimonials>
+    <PopupClosed />
   </div>
 </template>
 
@@ -49,9 +50,11 @@ import AppTakePart from "~/components/organisms/landing/appTakePart.vue";
 import AppTopStartups from "~/components/organisms/landing/appTopStartups.vue";
 import AppTestimonials from "~/components/organisms/landing/appTestimonials.vue";
 import Pricing from "~/components/organisms/landing/pricing.vue";
+import PopupClosed from "~/components/molecules/popupClosed.vue";
 
 @Component({
   components: {
+    PopupClosed,
     AppGetExperience,
     AppStartupsBlock,
     AppChallengesBlock,
@@ -72,23 +75,23 @@ export default class extends Vue {
   }
 
   async asyncData(context) {
-    await LandingPage.init(context);
-    await LandingPage.confirmEmail(context);
-    await LandingPage.passwordlessLogin(context);
-    await LandingPage.authGithub(context);
+    //    await LandingPage.init(context);
+    //    await LandingPage.confirmEmail(context);
+    //    await LandingPage.passwordlessLogin(context);
+    //    await LandingPage.authGithub(context);
   }
 
   mounted() {
-    if (this.$router.currentRoute.fullPath === "/#pricing") {
-      this.$refs.pricing?.$el?.scrollIntoView({ behavior: "smooth" });
-    }
-    if (
-      this.$route.query.confirmEmail ||
-      this.$route.query.loginToken ||
-      this.$route.query.access_token
-    ) {
-      this.$router.push({ path: "/" });
-    }
+    //    if (this.$router.currentRoute.fullPath === "/#pricing") {
+    //      this.$refs.pricing?.$el?.scrollIntoView({ behavior: "smooth" });
+    //    }
+    //    if (
+    //      this.$route.query.confirmEmail ||
+    //      this.$route.query.loginToken ||
+    //      this.$route.query.access_token
+    //    ) {
+    //      this.$router.push({ path: "/" });
+    //    }
   }
 }
 </script>
