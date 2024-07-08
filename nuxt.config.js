@@ -33,7 +33,7 @@ export default {
     { src: "~/plugins/filters.ts" },
     { src: "~/plugins/services/index.ts" },
     { src: "~plugins/vue-touch" },
-    { src: "~plugins/gleap", mode: "client" },
+    //{ src: "~plugins/gleap", mode: "client" },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
